@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Please cite the repository and the relevant benchmark manuscript; distinguish simulated outcomes from human evidence."
+title: "RSOS Multimodal Cue Framework: Programmable Human–AI Adaptation and Evidence-Gated Compositional Transfer"
+type: software
+authors:
+  - name: "RSOS Research Framework contributors"
+repository-code: "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework"
+license: "Apache-2.0"
+keywords:
+  - multimodal cue systems
+  - personalized learning
+  - human-computer interaction
+  - mnemonic interfaces
+  - compositional adaptation
+  - EEG research

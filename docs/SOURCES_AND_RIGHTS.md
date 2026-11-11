@@ -1,23 +1,18 @@
 # Source provenance, copyright and disclosure status
 
+## Public implementation
+
+The newly published code and corresponding project documentation are released under the repository's [Apache License 2.0](../LICENSE), subject to any file-specific exception. This is an explicit code reuse license; a public GitHub repository alone would not have been sufficient.
+
 ## Historical estates
 
-The source families include original RSOS, RSIA, RSX, RSSO and RSSO PASS31B specifications. Original proprietary and copyright markings reflect their **historical** publication and authorship claims; they are not themselves independent evidence of scientific validity, patentability or a legally enforceable monopoly.
+RSOS, RSIA, RSX, RSSO and RSSO PASS31B archives are dated historical specifications. Their legacy proprietary/copyright markings remain historically relevant and do not constitute proof of novelty. The original archive texts are **not silently relicensed** by the new implementation license. Publication of an original estate requires an explicit disclosure note, attribution, and review of personal/third-party material.
 
-The current research code is distinct from the historical archives. Do not alter archival texts silently; release them as dated historical records with source hashes and a separate disclosure notice.
+## Data and evidence boundaries
 
-## Public release categories
+- Synthetic benchmark generators, software tests and public aggregate results are separate from human behavioral measurements.
+- Private conversation records, personal histories and identifiable physiology are not released through this repository by default.
+- Described EEG, VR, olfactory and gustatory channels are research interfaces, not validated clinical intervention devices.
+- Original model assertions about hidden weights, telemetry or symbolic authority are recorded historical claims, not verified internal model mechanisms.
 
-- Research-facing README, topic pages and paper drafts: readable public reference material.
-- Executable source: intended for open-source licensing, pending explicit license selection and rights confirmation.
-- Synthetic benchmark data: publish generators, seeds and summary tables; identify all synthetic outcomes.
-- Historical estates: publish reviewed documents with original headers and precise contemporary reuse terms.
-- Private conversations and identifiable third-party records: not public by default.
-
-**A public GitHub repository does not automatically grant permission to copy, adapt, or commercialize its contents.** Until a license is committed, do not represent the software as legally OSI-licensed open source.
-
-## Integrity and scientific conduct
-
-Measurements must distinguish original source assertions, tested code behavior, synthetic performance, observed human data and externally replicated claims. Keep negative results available. Do not misrepresent proposed interfaces as clinical devices.
-
-See [main README](../README.md) and [benchmark registry](BENCHMARKS.md).
+See [benchmark evidence](BENCHMARKS.md) and [repository overview](../README.md).

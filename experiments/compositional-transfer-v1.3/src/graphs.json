@@ -1,0 +1,110 @@
+[
+  {
+    "id": "interruption_resource_future",
+    "context": "user_marked_color",
+    "tier_start": 1,
+    "tier_end": 10,
+    "glyph_chain": [
+      "personal_interrupt",
+      "personal_resource"
+    ],
+    "ops": [
+      "interrupt",
+      "resource_recall",
+      "future_rehearsal",
+      "reflect"
+    ],
+    "channels": [
+      "visual",
+      "audio",
+      "kinesthetic"
+    ],
+    "goal": "user-declared calming rehearsal, no medical claim",
+    "entry": "interrupt",
+    "nodes": [
+      {
+        "node_id": "interrupt",
+        "operator": "interrupt",
+        "next": [
+          "resource",
+          "stop"
+        ]
+      },
+      {
+        "node_id": "resource",
+        "operator": "resource_recall",
+        "next": [
+          "future"
+        ]
+      },
+      {
+        "node_id": "future",
+        "operator": "future_rehearsal",
+        "next": []
+      },
+      {
+        "node_id": "stop",
+        "operator": "reflect",
+        "next": []
+      }
+    ]
+  },
+  {
+    "id": "context_memory_prompt",
+    "context": "social_conversation",
+    "tier_start": 8,
+    "tier_end": 20,
+    "glyph_chain": [
+      "private_context_icon",
+      "private_law_mnemonic"
+    ],
+    "ops": [
+      "mnemonic",
+      "reflect"
+    ],
+    "channels": [
+      "visual",
+      "audio"
+    ],
+    "goal": "user-requested private mnemonic; no bystander profiling",
+    "entry": "mnemonic",
+    "nodes": [
+      {
+        "node_id": "mnemonic",
+        "operator": "mnemonic",
+        "next": [
+          "reflect"
+        ]
+      },
+      {
+        "node_id": "reflect",
+        "operator": "reflect",
+        "next": []
+      }
+    ]
+  },
+  {
+    "id": "swish_voluntary",
+    "context": "self_practice",
+    "tier_start": null,
+    "tier_end": null,
+    "glyph_chain": [
+      "self_chosen_visual"
+    ],
+    "ops": [
+      "swish_visual"
+    ],
+    "channels": [
+      "visual"
+    ],
+    "goal": "voluntary visualization",
+    "entry": "swish",
+    "nodes": [
+      {
+        "node_id": "swish",
+        "operator": "swish_visual",
+        "next": []
+      }
+    ]
+  }
+]

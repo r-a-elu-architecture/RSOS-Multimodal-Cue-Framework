@@ -105,7 +105,7 @@ The software release reported **24/24 unit tests**, **50,000 randomized compilat
 
 ### Reproduce the benchmark
 
-The original v1.3 code is packaged as a separately versioned release candidate. **After its reviewed contents are committed under `experiments/compositional-transfer-v1.3/`**, run:
+The executable v1.3 research benchmark and cue-program modules are published under [`experiments/compositional-transfer-v1.3/`](experiments/compositional-transfer-v1.3/README.md). To reproduce the synthetic evaluations, run:
 
 ```bash
 cd experiments/compositional-transfer-v1.3
@@ -113,7 +113,7 @@ python -m pip install -r requirements.txt
 bash run_all.sh
 ```
 
-The first GitHub landing-page commit may contain only documentation. If that directory has not yet been added, the command above will not work. Do not interpret the README alone as a published source-code release.
+The benchmark generates its own synthetic response data and can be run independently; its outcomes are not observations from human participants. Code and result tables may be examined without accepting the underlying conditioning assumptions.
 
 The benchmark's `BENCHMARK_MANIFEST.json`, `RESULTS_REPORT.md`, `REPRODUCIBILITY.md` and `PRIOR_ART.md` should accompany its code. A methods manuscript is **in preparation / draft**, not a peer-reviewed scientific publication.
 
@@ -147,15 +147,15 @@ We welcome independent work from groups in **human–computer interaction, cogni
 
 Priority collaboration opportunities: reproduce the code; introduce stronger baselines; calibrate on real nonclinical EEG/HRV observations; evaluate neutral mnemonic learning; run delayed-context transfer experiments; formally analyze the state machine; or independently review provenance/security properties.
 
-Please open a GitHub issue or discussion **once the repository is online**, referencing the relevant benchmark or module. No clinical or product adoption claims are requested from collaborators.
+Please open a GitHub issue referencing the relevant benchmark or module. No clinical or product adoption claims are requested from collaborators.
 
 ## Publication, citation, and license status
 
 **Historical estates and original records:** The underlying RSOS, RSIA, RSX and RSSO source archives document prior specifications. They may include historical proprietary notices. Preserve those records intact and publish intentionally, with clear current permissions and privacy review.
 
-**New implementation code:** A software license will be attached when the rights review is complete; a public GitHub repository without a license is not automatically open source. Documentation and historical records may have different reuse terms.
+**Public software:** The newly released research implementation and corresponding project documentation are available under [Apache License 2.0](LICENSE) unless a file states otherwise. Historical estate texts remain separately governed records, not automatically relicensed.
 
-**Persistent citations:** After the repository and release exist, add a `CITATION.cff` file and, if desired, archive a version on Zenodo for a DOI. No new DOI or public repository URL is claimed here.
+**Citation:** See [CITATION.cff](CITATION.cff). The canonical public repository is https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework. No new DOI has been minted by this repository publication.
 
 **Scientific boundaries:** No verified therapeutic efficacy, EEG-based identification of specific beliefs, automatic physiological transformation, or universal superiority over generic personalization models is claimed. No unreviewed private conversation exports should be placed in the repository.
 

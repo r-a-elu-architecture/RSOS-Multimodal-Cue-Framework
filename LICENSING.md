@@ -1,9 +1,9 @@
-# Current licensing status
+# Licensing
 
-This public research repository is **readable and inspectable**, but its materials are **not automatically open-source licensed** merely because the repository is public.
+**Software and project documentation:** [Apache License, Version 2.0](LICENSE), except as noted in specific files.
 
-The project owner intends an open-source software release; a formal code license (for example Apache-2.0) must be selected and committed after confirming rights to the exact files. Historical proprietary/copyright estate records require a separate explicit disclosure and permissions statement. Third-party data retain their own licenses.
+**Original estate records:** RSOS, RSIA, RSX, RSSO and PASS31B historical proprietary/copyright documents are archival sources, not necessarily included within the new software license. Their original authorship and legal headers must be preserved where publicly disclosed, and a separate disclosure and permissions note must accompany them.
 
-Until then, please obtain permission before redistributing or incorporating unlicensed source into another product. This notice does not alter the original historical rights statements.
+**Third-party data and libraries:** remain subject to their own terms and licenses. This repository does not grant rights to raw personal conversations, clinical records or external datasets.
 
-See [source disclosure policy](docs/SOURCES_AND_RIGHTS.md).
+The source implementation is not a medical product and has not demonstrated clinical efficacy.

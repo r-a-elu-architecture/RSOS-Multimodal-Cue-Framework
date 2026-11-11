@@ -1,0 +1,114 @@
+[
+  {
+    "id": "contextual_mnemonic",
+    "context": "social_conversation",
+    "tier_start": 1,
+    "tier_end": 10,
+    "glyph_chain": [
+      "self_registered_context_symbol",
+      "self_registered_mnemonic_image"
+    ],
+    "ops": [
+      "mnemonic",
+      "reflect"
+    ],
+    "channels": [
+      "visual",
+      "audio"
+    ],
+    "goal": "user-defined context memory aid",
+    "duration_s": 20,
+    "goal_map": {
+      "environment": "voluntary social conversation",
+      "behavior": "recall user-chosen mnemonic",
+      "skills": "context recognition and recall",
+      "values": "user autonomy",
+      "mission": "self-chosen learning objective"
+    }
+  },
+  {
+    "id": "color_interrupt_resource",
+    "context": "user_marked_color",
+    "tier_start": 1,
+    "tier_end": 20,
+    "glyph_chain": [
+      "user_chosen_interrupt",
+      "user_chosen_resource"
+    ],
+    "ops": [
+      "interrupt",
+      "resource_recall",
+      "breath",
+      "future_rehearsal"
+    ],
+    "channels": [
+      "visual",
+      "audio",
+      "kinesthetic"
+    ],
+    "goal": "voluntary resource cue recall; no treatment claim",
+    "duration_s": 45,
+    "goal_map": {
+      "environment": "user-marked color context",
+      "behavior": "optional interruption and resource recall",
+      "beliefs": "user-written meaning, not installed by software",
+      "identity": "self-defined, never inferred"
+    }
+  },
+  {
+    "id": "swish_only",
+    "context": "voluntary_practice",
+    "tier_start": null,
+    "tier_end": null,
+    "glyph_chain": [
+      "user_defined_swap"
+    ],
+    "ops": [
+      "swish_visual"
+    ],
+    "channels": [
+      "visual"
+    ],
+    "goal": "user-initiated practice",
+    "duration_s": 20
+  },
+  {
+    "id": "nonclinical_dual_attention",
+    "context": "voluntary_practice",
+    "tier_start": 20,
+    "tier_end": 23,
+    "glyph_chain": [
+      "user_defined_neutral_focus"
+    ],
+    "ops": [
+      "dual_attention_prompt",
+      "reflect"
+    ],
+    "channels": [
+      "visual",
+      "audio"
+    ],
+    "goal": "nonclinical dual-attention prompt (not EMDR)",
+    "duration_s": 30
+  },
+  {
+    "id": "relaxation_audio",
+    "context": "self_report_rest",
+    "tier_start": 4,
+    "tier_end": 4,
+    "glyph_chain": [
+      "self_chosen_rest_image"
+    ],
+    "ops": [
+      "resource_recall",
+      "posture",
+      "breath"
+    ],
+    "channels": [
+      "visual",
+      "audio"
+    ],
+    "goal": "user-defined rest practice",
+    "duration_s": 45
+  }
+]

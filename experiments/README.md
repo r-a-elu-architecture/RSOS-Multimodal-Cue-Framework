@@ -1,9 +1,17 @@
-# Executable experiments
+# Executable research benchmarks
 
-The flagged **v1.3 compositional-transfer source** was prepared as a local release candidate with an independent-seed synthetic benchmark and 24 passing unit tests. The present publication must only claim reproducibility from GitHub when the complete source and executable assets have actually been committed and verified.
+## v1.3 compositional transfer and personalized cue programs
 
-See [the v1.3 draft](../research/compositional-transfer-v1.3/PREPRINT_DRAFT.md) and [result tables](../research/compositional-transfer-v1.3/RESULTS_REPORT.md).
+[**Run the flagship research source**](compositional-transfer-v1.3/README.md). This directory contains the actual synthetic benchmark generator, fixed and adaptive policies, direct negative controls, cue-program compiler, context/permission router and software tests.
 
-Expected primary source structure: `src/runtime.py`, `src/program_graph.py`, `src/transfer_benchmark.py`, tests, `run_all.sh`, `requirements.txt`, benchmark manifest, and aggregate result CSVs.
+The current experiment does **not** decode neural states or establish human conditioning. Its outcome is **synthetic selection regret**, whose causal effects are defined by code. An equally informed generic evidence-gated model matches the source-inspired controller.
 
-Do not substitute simulated "energy conversion" for measured physiological or clinical outcomes.
+```bash
+cd experiments/compositional-transfer-v1.3
+python -m pip install -r requirements.txt
+bash run_smoke.sh
+# For the original larger-sample studies:
+bash run_all.sh
+```
+
+Large per-trial CSV tables are generated locally and not stored in Git history. See [the paper](../research/compositional-transfer-v1.3/PREPRINT_DRAFT.md) and [result definitions](../docs/BENCHMARKS.md).

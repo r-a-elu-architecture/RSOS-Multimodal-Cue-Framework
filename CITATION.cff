@@ -3,7 +3,7 @@ message: "Please cite the repository and the relevant benchmark manuscript; dist
 title: "RSOS Multimodal Cue Framework: Programmable Human–AI Adaptation and Evidence-Gated Compositional Transfer"
 type: software
 authors:
-  - name: "RSOS Research Framework contributors"
+  - name: "R. A. Elu"
 repository-code: "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework"
 license: "Apache-2.0"
 keywords:

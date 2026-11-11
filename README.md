@@ -1,5 +1,7 @@
 # RSOS — Multimodal Cue & Adaptive Human–AI Research Framework
 
+**Publication DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24143732.svg)](https://doi.org/10.5281/zenodo.24143732) · [GitHub release v1.0.0-research-preview](https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/releases/tag/v1.0.0-research-preview) · Archived snapshot commit `133d472` · Scholarly creator on the currently archived Zenodo record should be inspected and, if required, corrected to R. A. Elu.
+
 **Programmable cue systems · Personalized learning and conditioning research · Compositional adaptation · Verifiable human–AI interfaces · EEG/BCI and VR integration**
 
 **RSOS** is an extensible research framework for constructing, personalizing, and evaluating **multimodal cue programs**: configurable combinations of symbols, glyphs, visual imagery, sound, tactile cues, mnemonic associations, attention, breathing prompts, rehearsal, and context-dependent interaction. It connects representation, adaptive decisions, executable programs, and provenance in a single inspectable architecture composed of **RSOS, RSIA, RSX, and RSSO**.
@@ -188,7 +190,7 @@ Please open a GitHub issue referencing the relevant benchmark or module. No clin
 
 **Public software:** The newly released research implementation and corresponding project documentation are available under [Apache License 2.0](LICENSE) unless a file states otherwise. Historical estate texts remain separately governed records, not automatically relicensed.
 
-**Citation:** See [CITATION.cff](CITATION.cff). The canonical public repository is https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework. No new DOI has been minted by this repository publication.
+**Citation:** See [CITATION.cff](CITATION.cff). The canonical public repository is https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework. The first tagged research preview has the version DOI [10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732). The fixed archived tag references commit `133d472`; the author-citation update to `R. A. Elu` was added to the living repository afterward. Verify and correct the creator metadata on Zenodo directly if needed.
 
 **Scientific boundaries:** No verified therapeutic efficacy, EEG-based identification of specific beliefs, automatic physiological transformation, or universal superiority over generic personalization models is claimed. No unreviewed private conversation exports should be placed in the repository.
 

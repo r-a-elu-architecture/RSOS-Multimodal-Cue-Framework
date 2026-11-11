@@ -2,6 +2,8 @@
 
 Repository: https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework
 
+> **Live publication status — 2026-11-11:** GitHub pre-release [v1.0.0-research-preview](https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/releases/tag/v1.0.0-research-preview) is published and Zenodo assigned [10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732). Steps 2 and 3 below are retained as a historical procedure for future releases; **do not repeat the first-release process**. GitHub Pages and topics still require account settings. Inspect and, if necessary, correct the creator name on the Zenodo record.
+
 ## 1. Repository topics
 
 Go to the repository homepage → **About** → gear icon → Topics. Paste up to 20 relevant topics (GitHub accepts individually entered topics):

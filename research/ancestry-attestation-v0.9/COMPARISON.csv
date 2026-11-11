@@ -1,0 +1,6 @@
+<PARSED TEXT FOR SHEET: 1 / 1 TABS
+TAB NAME: COMPARISON.csv>
+index,cohort,valid_pairs,invalid_pairs,invalid_rejected,v08_bytes,v09_bytes,bytes_ratio,v08_issue_us,v09_issue_us,issue_ratio,v08_verify_us,v09_verify_us,verify_slowdown,independent_audit_sec,metadata_disclosed_to_auditor_bytes
+0,A,900,1791,1791,7776.3211,996.0978,7.81,61.6935,2.4379,25.31,223.8012,384.6768,1.72,0.0554,2653185
+1,B,900,1793,1793,7758.86,995.7233,7.79,66.4067,3.4297,19.36,224.0671,384.8031,1.72,0.0534,2653180
+2,C,900,1789,1789,7611.1722,995.7844,7.64,65.5724,2.7703,23.67,227.0837,385.365,1.7,0.0567,2653191

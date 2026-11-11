@@ -1,0 +1,34 @@
+<PARSED TEXT FOR SHEET: 1 / 1 TABS
+TAB NAME: DISCOVERY_QUERY_TESTS.csv>
+index,cluster,sample_user_query,intended_page,public_URL,search_provider,checked_on,appeared,rank_or_position,citation_correct,notes
+0,brand,RSOS Multimodal Cue Framework,README.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+1,brand,RSOS RSIA RSX RSSO research framework,README.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+2,brand,RSOS evidence-gated compositional cue transfer,docs/BENCHMARKS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+3,brand,RSOS glyph tier and multimodal operator graph,docs/ARCHITECTURE.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+4,human_ai,open-source personalized multimodal cue framework,README.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+5,human_ai,context-aware human AI mnemonic prompts GitHub,docs/USE_CASES.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+6,human_ai,adaptive cue presentation system with consent and abstention,docs/ARCHITECTURE.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+7,human_ai,programmable visual glyph sound cue operator graph,docs/ARCHITECTURE.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+8,human_ai,personalized multimodal interface for cognitive task rehearsal,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+9,human_ai,configurable conditioning cue sequence software research,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+10,learning,personalized mnemonic glyph system for remembering rules,docs/USE_CASES.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+11,learning,adaptive associative memory cues for learning,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+12,learning,individualized cue calibration sample efficient learning,docs/BENCHMARKS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+13,learning,adaptive learning transfer to unseen cue context combinations,docs/BENCHMARKS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+14,learning,cue family relational transfer and evidence gating,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+15,learning,personalized visual auditory kinesthetic mnemonic programs,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+16,neuro,EEG based personalized visual cue prompts open source,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+17,neuro,neurofeedback interface uncertain EEG signal cue selection,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+18,neuro,brain computer interface consent gated user prompts,docs/USE_CASES.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+19,neuro,HRV EEG adaptive intervention signal dropout safety,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+20,neuro,VR adaptive mnemonic glyph overlay research software,docs/USE_CASES.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+21,neuro,recorded EEG features calibrated cue presentation framework,docs/FAQ.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+22,behavioral_research,counterconditioning multimodal cue operator research framework,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+23,behavioral_research,future pacing rehearsal and visual anchor programming research,docs/FAQ.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+24,behavioral_research,swish imagery symbolic cue framework computer interface,docs/FAQ.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+25,behavioral_research,personalized interrupt resource cue chain conditioning,docs/USE_CASES.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+26,behavioral_research,visual imagery sound tactile cues adaptive voluntary rehearsal,docs/ARCHITECTURE.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+27,verifiable_ai,proof carrying conversational cue lineage authorization,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+28,verifiable_ai,privacy preserving adaptive cue intervention provenance,docs/RESEARCH_TOPICS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+29,verifiable_ai,auditable consent scoped human AI prompt engine,docs/ARCHITECTURE.md,,,,not tested,,,Test only after public launch; ranking not guaranteed
+30,verifiable_ai,replay resistant cue program authorization history,docs/SOURCES_AND_RIGHTS.md,,,,not tested,,,Test only after public launch; ranking not guaranteed

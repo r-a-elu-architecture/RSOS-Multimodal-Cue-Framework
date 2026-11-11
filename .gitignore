@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+*.key
+*.pem
+.DS_Store
+*.egg-info/
+.pytest_cache/
+results/*/heldout_trials.csv
+*.raw
+*.edf
+*.bdf
+private/
+secrets/

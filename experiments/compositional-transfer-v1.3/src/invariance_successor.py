@@ -86,6 +86,21 @@ def run(seed,people=48,tests=16,calibration=24,weight=.5,threshold=.23,hard_ood=
                 u=np.exp(-(r-r.min())/temperature)
                 u=u/u.sum()
                 return sum(float(u[i])*fitted[k] for i,k in enumerate(STYLES))
+            # Include every original v1.3 arm, not only the strongest baselines.
+            fitted["generic_same_relations"] = fitted["relation"]
+            shuffled=b.FAMILY.copy()
+            np.random.default_rng(seed+41003*wi+pid).shuffle(shuffled)
+            for name, style, penalty, family_map in (
+                ("generic_additive","additive",2.5,None),
+                ("shuffled_relations","relation",2.5,shuffled)):
+                if family_map is None:
+                    x=b.matrix(actions,ctx,report,style=style)
+                    z=b.matrix(b.CAN_A,b.CAN_C,report,style=style)
+                else:
+                    x=b.matrix(actions,ctx,report,family_map)
+                    z=b.matrix(b.CAN_A,b.CAN_C,report,family_map)
+                fitted[name]=b.predict_dual(x,y,z,penalty).reshape(b.N_C,b.NA)
+            fitted["fixed_global"]=np.tile(np.eye(b.NA)[0],(b.N_C,1))
             fitted["blend_guard"]=blend(guard)
             fitted["blend_plain"]=blend(plain)
             choices={"invariance_guard":kind_guard,
@@ -99,7 +114,11 @@ def run(seed,people=48,tests=16,calibration=24,weight=.5,threshold=.23,hard_ood=
                      "generic_same_gate":kind_gate,
                      "flat_arm":"flat",
                      "generic_all_pairs":"all_pairs",
-                     "rsos_relational":"relation"}
+                     "rsos_relational":"relation",
+                     "generic_same_relations":"generic_same_relations",
+                     "generic_additive":"generic_additive",
+                     "shuffled_relations":"shuffled_relations",
+                     "fixed_global":"fixed_global"}
             # Test oracle is not used until model decisions have been computed.
             actual=b.actual(b.CAN_A,b.CAN_C,world).reshape(b.N_C,b.NA)
             for j,c in enumerate(target):

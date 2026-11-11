@@ -13,14 +13,16 @@ class InvarianceSuccessorTests(unittest.TestCase):
         cls.new=candidate.run(63011,people=3,tests=2)
         cls.old=original.run(63011,people=3,tests=2)
 
+    def test_all_original_policies_included(self):
+        self.assertEqual(self.new.model.nunique(), len(original.MODELS)+6)
+
     def test_identical_generic_controls(self):
         self.assertTrue(candidate.exact_tie(self.new,"invariance_guard","generic_same_invariance"))
         self.assertTrue(candidate.exact_tie(self.new,"invariance_blend","generic_same_blend"))
         self.assertTrue(candidate.exact_tie(self.new,"rsia_evidence_gate","generic_same_gate"))
 
     def test_original_v13_policy_parity(self):
-        for policy in ("generic_cv_selector","rsia_evidence_gate","generic_same_gate",
-                       "flat_arm","generic_all_pairs","rsos_relational","oracle"):
+        for policy in original.MODELS:
             a=self.new[self.new.model==policy].sort_values(["world","person","trial"])
             b=self.old[self.old.model==policy].sort_values(["world","person","trial"])
             np.testing.assert_array_equal(a.selected_program.to_numpy(),b.selected_program.to_numpy())

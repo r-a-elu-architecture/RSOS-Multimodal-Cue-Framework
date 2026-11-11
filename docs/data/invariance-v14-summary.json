@@ -20,7 +20,7 @@
     "candidate_actions": 180,
     "contexts": 4,
     "calibration_observations_per_person": 24,
-    "policies": 13,
+    "policies": 17,
     "weight": 0.5,
     "blend_temperature": 0.025,
     "anova_gate": 0.23,
@@ -45,8 +45,18 @@
         "generic_threeway_blend": 0.185792,
         "rsia_evidence_gate": 0.196271,
         "generic_all_pairs": 0.215956,
-        "flat_arm": 0.213774
-      }
+        "flat_arm": 0.213774,
+        "generic_same_invariance": 0.195983,
+        "generic_same_gate": 0.196271,
+        "generic_threeway_cv": 0.191449,
+        "rsos_relational": 0.208787,
+        "generic_same_relations": 0.208787,
+        "generic_additive": 0.225499,
+        "shuffled_relations": 0.23655,
+        "fixed_global": 0.529606,
+        "oracle": 0
+      },
+      "total_policy_rows": 78336
     },
     "holdout": {
       "seeds": [
@@ -69,7 +79,12 @@
         "generic_all_pairs": 0.211797,
         "flat_arm": 0.21671,
         "rsos_relational": 0.208676,
-        "oracle": 0
+        "oracle": 0,
+        "generic_same_invariance": 0.189162,
+        "generic_same_relations": 0.208676,
+        "generic_additive": 0.223137,
+        "shuffled_relations": 0.225131,
+        "fixed_global": 0.547956
       },
       "worlds": {
         "context_reversal": [
@@ -167,7 +182,8 @@
             0
           ]
         }
-      }
+      },
+      "total_policy_rows": 313344
     },
     "strict_ood": {
       "seeds": [
@@ -191,7 +207,12 @@
         "generic_all_pairs": 0.215516,
         "flat_arm": 0.218848,
         "rsos_relational": 0.213876,
-        "oracle": 0
+        "oracle": 0,
+        "generic_same_invariance": 0.195388,
+        "generic_same_relations": 0.213876,
+        "generic_additive": 0.232259,
+        "shuffled_relations": 0.235454,
+        "fixed_global": 0.541761
       },
       "worlds": {
         "context_reversal": [
@@ -289,7 +310,8 @@
             0
           ]
         }
-      }
+      },
+      "total_policy_rows": 313344
     }
   },
   "world_array_keys": [
@@ -304,7 +326,8 @@
   "controls": {
     "hard_invariance_equals_generic_same_invariance": true,
     "blend_equals_generic_same_blend": true,
-    "published_v13_baselines_match_on_paired_cases": true
+    "published_v13_baselines_match_on_paired_cases": true,
+    "all_11_original_v13_policies_recomputed_and_paired": true
   },
   "limitations": [
     "Not human outcomes",

@@ -31,11 +31,11 @@ The design was chosen after exploratory development checks, not pre-registered b
 
 | Cohort | Independent seeds | Simulated persons/world/seed | Evaluations/person | Evaluations/policy | Total policy rows |
 |---|---|---:|---:|---:|---:|
-| Development | 65011, 65012, 65013 | 24 | 8 | 4,608 | 59,904 |
-| Independent standard holdout | 66011, 66012, 66013 | 48 | 16 | 18,432 | 239,616 |
-| Strict novel-context holdout | 67011, 67012, 67013 | 48 | 16 | 18,432 | 239,616 |
+| Development | 65011, 65012, 65013 | 24 | 8 | 4,608 | 78,336 |
+| Independent standard holdout | 66011, 66012, 66013 | 48 | 16 | 18,432 | 313,344 |
+| Strict novel-context holdout | 67011, 67012, 67013 | 48 | 16 | 18,432 | 313,344 |
 
-The strict condition **only** changes the *novel_context_drift* world: context 3 has zero calibration observations and occurs in every other evaluation; the seven other worlds use the standard calibration procedure. Each cohort uses eight artificially generated worlds and **13 policies**, including a diagnostic oracle. Repeated decisions from one fictional person are not independent subjects.
+The strict condition **only** changes the *novel_context_drift* world: context 3 has zero calibration observations and occurs in every other evaluation; the seven other worlds use the standard calibration procedure. Each cohort uses eight artificially generated worlds and **17 policies**, including a diagnostic oracle. Repeated decisions from one fictional person are not independent subjects.
 
 ## Mean simulated regret (lower is better)
 
@@ -49,6 +49,9 @@ The strict condition **only** changes the *novel_context_drift* world: context 3
 | Original RSIA evidence gate | 0.196271 | 0.194588 | 0.197555 |
 | Generic same-RSIA gate | 0.196271 | 0.194588 | 0.197555 |
 | Generic all-pairs | 0.215956 | 0.211797 | 0.215516 |
+| Generic additive | 0.225499 | 0.223137 | 0.232259 |
+| Shuffled cue-family relations | 0.236550 | 0.225131 | 0.235454 |
+| Fixed global program | 0.529606 | 0.547956 | 0.541761 |
 | Flat per-person memory | 0.213774 | 0.216710 | 0.218848 |
 
 The development difference between the two best blended methods (generic 0.185792 vs invariance 0.186218) was very small. Holdout ranks change with independent seeds. The final policy was **not** selected using holdout scores.
@@ -87,6 +90,6 @@ python src/invariance_successor.py --seed 67011 67012 67013 --people 48 --tests 
 python -m unittest discover -s src/tests -p test_invariance_successor.py -v
 \`\`\`
 
-Each command regenerates full trial-level outputs and per-person blocks. For exact bootstrap intervals see the [reproducibility appendix](REPRODUCE.md). A native local validation of the original baseline policies showed identical chosen programs and regrets to v1.3, and the published successor file was checked for exact Git-blob content identity with the locally executed implementation. The v1.3 source remains unchanged in GitHub.
+Each command regenerates full trial-level outputs and per-person blocks. For exact bootstrap intervals see the [reproducibility appendix](REPRODUCE.md). A native local validation of **all eleven** original baseline policies showed identical chosen programs and regrets to v1.3, and the published successor file was checked for exact Git-blob content identity with the locally executed implementation. The v1.3 source remains unchanged in GitHub.
 
 **Source:** [invariance_successor.py](../../experiments/compositional-transfer-v1.3/src/invariance_successor.py) · [v1.3 source](../../experiments/compositional-transfer-v1.3/src/transfer_benchmark.py) · [test suite](../../experiments/compositional-transfer-v1.3/src/tests/test_invariance_successor.py) · [interactive results explorer](../../docs/invariance-v14.html).

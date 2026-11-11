@@ -10,7 +10,7 @@ The central research question is **when can a system reuse learned cue relations
 
 > **Evidence status:** Executable research prototypes and reproducible **synthetic** adaptive-control benchmarks exist. Historical conversation-provenance studies are also available. A unique RSOS-specific neurological mechanism, reliable decoding of specific emotions from EEG, and clinical efficacy **have not been established**. Research drafts are not peer-reviewed papers.
 
-## Reproduce the flagship benchmark now
+## Interactive demonstration\n\n**[Launch RSOS Cue Lab](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab.html)** — configure cue channels, inspect evidence-gated decisions, and run a seeded synthetic comparison against an always-transfer baseline. This is an illustrative browser demo, **not** the archived v1.3 benchmark or a human validation study. [Method and limits](docs/CUE_LAB.md).\n\n## Reproduce the flagship benchmark now
 
 **The executable research code is public**, together with exact confidence-interval tables from the frozen v1.3 synthetic experiments.
 

@@ -1,23 +1,30 @@
-# RSOS Architecture Benchmark Lab — evidence register
+# Architecture Benchmark Lab — design v2.0
 
-Public URL: https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/architecture-benchmark.html
+Site: https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/architecture-benchmark.html
 
-## Source basis
+## Purpose
 
-- Functional operator strict contextual holdout: [research/functional-operator-discovery-v1.0/RESEARCH_FINDINGS.md](../research/functional-operator-discovery-v1.0/RESEARCH_FINDINGS.md)
-- Operator map and negative cases: [OPERATOR_MECHANISM_MAP.md](../research/functional-operator-discovery-v1.0/OPERATOR_MECHANISM_MAP.md)
-- Ancestry attestation internal cohorts: [COMPARISON.csv](../research/ancestry-attestation-v0.9/COMPARISON.csv)
+A responsive, no-build, privacy-preserving research evidence interface. It highlights the strongest reported real historical conversation result (lexical operator prediction), shows honest internal proof-size tradeoffs, and includes a working local CSV evaluator.
 
-## What this actually does
+## Evidence references
 
-A static, accessible interactive report comparing recorded aggregate metrics, plus a client-side CSV evaluator for paired held-out binary predictions. The CSV evaluator computes pooled Brier (not macro AP); it accepts quoted CSV fields and validates probability bounds. It never uploads the file.
+- [Functional-operator v1.0 strict contextual holdout](../research/functional-operator-discovery-v1.0/RESEARCH_FINDINGS.md) — 25 held-out conversations; 259 response pairs; macro AP 0.480377→0.554699; Brier 0.163686→0.149174. Retrospective study on a selected corpus, **not a rerun**.
+- [Operator mechanism map](../research/functional-operator-discovery-v1.0/OPERATOR_MECHANISM_MAP.md) — noncausal feature interpretations, source inconsistencies and negative tests.
+- [Ancestry-attestation v0.9 internal comparison](../research/ancestry-attestation-v0.9/COMPARISON.csv) — 7.64–7.81× internal size ratio; 1.70–1.72× slower verification; not compared against optimized external baselines.
+- v1.3 Zenodo publication https://doi.org/10.5281/zenodo.24143732 covers a separate multimodal synthetic cue-transfer research track; the homepage and lab must not imply v2.0 design is part of the frozen DOI.
 
-**Not a new execution of the original model training.** The public repository contains aggregate research reports, not the complete source-era labeled examples and paired prediction files required for independent reproduction. The published operator experiment used 9,000 selected messages, 246 conversations, 1,571 linked assistant messages and a strict 25-conversation forward holdout with 259 response pairs. It was not a full-corpus or independent external replication.
+## Design decisions
 
-## Reproduction requirement
+Clean typography, high-contrast dark editorial hero, cobalt/mint accents, responsive signal-flow diagram, KPI grid, interactive metric switch, accessible labelled file controls, CSS-only proof-size charts, explicit scope callouts, mobile and reduced-motion treatments. No analytics, tracking, framework build step, or runtime CDN dependencies.
 
-To claim an independently reproduced benchmark, publish consent/privacy-reviewed held-out binary labels, paired prediction probabilities, conversation-level split manifest, model training scripts, exact dependency versions and cryptographic hashes. Then compare with optimized word+character contextual baselines, modern pretrained language models and matched provenance-feature ablations, with near-duplicate removal and conversation-cluster uncertainty.
+## Browser evaluator
 
-## Scientific boundary
+Upload a comma-separated file up to 25 MB with `conversation_id,label,baseline_probability,source_probability`. Each row has a binary observed label (0 or 1) and two probabilities in [0,1]. Multiple rows per conversation are allowed. The page calculates pooled paired binary Brier and the baseline-minus-source difference. It does *not* compute 13-label macro AP, validate that predictions were held out, train models, verify cryptographic provenance, or create statistical confidence intervals. Exports JSON marked `independent_replication:false`. Files stay in the browser.
 
-These tests predict next-assistant lexical operator language and measure internal proof-size tradeoffs. They do not validate RSOS clinical effects, model-weight modification, exclusive architectural novelty or market traction.
+## Reproducibility requirement
+
+Independent replication requires privacy-reviewed per-case predictions and labels, held-out split manifest, training scripts, versions/hashes, near-duplicate filters, a strong modern contextual baseline and cluster-aware uncertainty. Static aggregate plots alone do not meet this standard.
+
+## Accessibility checklist
+
+Skip navigation, semantic sections, visible focus, text descriptions, responsive panels, reduced-motion support, explicit metric direction, status via aria-live, no animation-only meaning.

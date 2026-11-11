@@ -1,0 +1,316 @@
+{
+  "research_type": "synthetic_compositional_transfer_only",
+  "version": "v1.4-exploratory-successor",
+  "author": "R. A. Elu",
+  "date": "2026-11-11",
+  "archived_v13_doi": "10.5281/zenodo.24143732",
+  "new_v14_doi": null,
+  "worlds": [
+    "context_reversal",
+    "family_program_synergy",
+    "family_transfer",
+    "idiosyncratic_glyphs",
+    "novel_context_drift",
+    "null_effect",
+    "sensor_report_noise",
+    "unstructured_actions"
+  ],
+  "protocol": {
+    "worlds": 8,
+    "candidate_actions": 180,
+    "contexts": 4,
+    "calibration_observations_per_person": 24,
+    "policies": 13,
+    "weight": 0.5,
+    "blend_temperature": 0.025,
+    "anova_gate": 0.23,
+    "bootstrap_reps": 2500,
+    "bootstrap_seed": 9018
+  },
+  "cohorts": {
+    "development": {
+      "seeds": [
+        65011,
+        65012,
+        65013
+      ],
+      "people_per_world_seed": 24,
+      "tests_per_person": 8,
+      "decisions_per_policy": 4608,
+      "means": {
+        "generic_cv_selector": 0.189851,
+        "invariance_guard": 0.195983,
+        "invariance_blend": 0.186218,
+        "generic_same_blend": 0.186218,
+        "generic_threeway_blend": 0.185792,
+        "rsia_evidence_gate": 0.196271,
+        "generic_all_pairs": 0.215956,
+        "flat_arm": 0.213774
+      }
+    },
+    "holdout": {
+      "seeds": [
+        66011,
+        66012,
+        66013
+      ],
+      "people_per_world_seed": 48,
+      "tests_per_person": 16,
+      "decisions_per_policy": 18432,
+      "means": {
+        "generic_cv_selector": 0.187238,
+        "invariance_guard": 0.189162,
+        "invariance_blend": 0.189179,
+        "generic_same_blend": 0.189179,
+        "generic_threeway_blend": 0.190627,
+        "generic_threeway_cv": 0.191573,
+        "rsia_evidence_gate": 0.194588,
+        "generic_same_gate": 0.194588,
+        "generic_all_pairs": 0.211797,
+        "flat_arm": 0.21671,
+        "rsos_relational": 0.208676,
+        "oracle": 0
+      },
+      "worlds": {
+        "context_reversal": [
+          0.203583,
+          0.206902,
+          0.213245,
+          0.208227,
+          0.220516,
+          0.208067,
+          0.248304
+        ],
+        "family_program_synergy": [
+          0.206449,
+          0.205726,
+          0.198828,
+          0.207695,
+          0.203175,
+          0.221851,
+          0.231825
+        ],
+        "family_transfer": [
+          0.173315,
+          0.179443,
+          0.174653,
+          0.179957,
+          0.180302,
+          0.192452,
+          0.211376
+        ],
+        "idiosyncratic_glyphs": [
+          0.165784,
+          0.191794,
+          0.170058,
+          0.195104,
+          0.188526,
+          0.181236,
+          0.22201
+        ],
+        "novel_context_drift": [
+          0.217974,
+          0.233455,
+          0.212523,
+          0.235911,
+          0.223402,
+          0.257372,
+          0.300336
+        ],
+        "null_effect": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sensor_report_noise": [
+          0.184766,
+          0.195846,
+          0.184859,
+          0.197625,
+          0.189521,
+          0.194852,
+          0.223104
+        ],
+        "unstructured_actions": [
+          0.361426,
+          0.300269,
+          0.343738,
+          0.300493,
+          0.351262,
+          0.438549,
+          0.296728
+        ]
+      },
+      "comparisons": {
+        "vs_cv": {
+          "effect": -0.001941,
+          "ci": [
+            -0.011735,
+            0.008957
+          ]
+        },
+        "vs_rsia": {
+          "effect": 0.005409,
+          "ci": [
+            -0.004429,
+            0.016217
+          ]
+        },
+        "vs_identical_generic": {
+          "effect": 0,
+          "ci": [
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "strict_ood": {
+      "seeds": [
+        67011,
+        67012,
+        67013
+      ],
+      "people_per_world_seed": 48,
+      "tests_per_person": 16,
+      "decisions_per_policy": 18432,
+      "strict_context_rule": "context 3 excluded from calibration only in novel_context_drift world",
+      "means": {
+        "generic_cv_selector": 0.192708,
+        "invariance_guard": 0.195388,
+        "invariance_blend": 0.197928,
+        "generic_same_blend": 0.197928,
+        "generic_threeway_blend": 0.198269,
+        "generic_threeway_cv": 0.196003,
+        "rsia_evidence_gate": 0.197555,
+        "generic_same_gate": 0.197555,
+        "generic_all_pairs": 0.215516,
+        "flat_arm": 0.218848,
+        "rsos_relational": 0.213876,
+        "oracle": 0
+      },
+      "worlds": {
+        "context_reversal": [
+          0.189728,
+          0.207766,
+          0.1958,
+          0.208764,
+          0.205289,
+          0.202176,
+          0.252498
+        ],
+        "family_program_synergy": [
+          0.185833,
+          0.192961,
+          0.183422,
+          0.194383,
+          0.197363,
+          0.209724,
+          0.228926
+        ],
+        "family_transfer": [
+          0.174296,
+          0.187568,
+          0.171243,
+          0.190866,
+          0.174782,
+          0.193018,
+          0.22414
+        ],
+        "idiosyncratic_glyphs": [
+          0.185259,
+          0.194862,
+          0.180137,
+          0.193125,
+          0.188812,
+          0.192431,
+          0.216136
+        ],
+        "novel_context_drift": [
+          0.262996,
+          0.270062,
+          0.244869,
+          0.26882,
+          0.251055,
+          0.289436,
+          0.294133
+        ],
+        "null_effect": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sensor_report_noise": [
+          0.172579,
+          0.185788,
+          0.180606,
+          0.19081,
+          0.190168,
+          0.185457,
+          0.217776
+        ],
+        "unstructured_actions": [
+          0.392411,
+          0.344418,
+          0.385588,
+          0.339384,
+          0.372972,
+          0.451884,
+          0.317173
+        ]
+      },
+      "comparisons": {
+        "vs_cv": {
+          "effect": -0.00522,
+          "ci": [
+            -0.016524,
+            0.009544
+          ]
+        },
+        "vs_rsia": {
+          "effect": -0.000373,
+          "ci": [
+            -0.010094,
+            0.009878
+          ]
+        },
+        "vs_identical_generic": {
+          "effect": 0,
+          "ci": [
+            0,
+            0
+          ]
+        }
+      }
+    }
+  },
+  "world_array_keys": [
+    "invariance_guard",
+    "invariance_blend",
+    "generic_cv_selector",
+    "generic_threeway_blend",
+    "rsia_evidence_gate",
+    "generic_all_pairs",
+    "flat_arm"
+  ],
+  "controls": {
+    "hard_invariance_equals_generic_same_invariance": true,
+    "blend_equals_generic_same_blend": true,
+    "published_v13_baselines_match_on_paired_cases": true
+  },
+  "limitations": [
+    "Not human outcomes",
+    "Eight artificial generators",
+    "No claim of exclusive superiority",
+    "World-specific comparisons exploratory",
+    "No new DOI assigned to these later results"
+  ]
+}

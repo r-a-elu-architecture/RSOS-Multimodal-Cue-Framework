@@ -10,6 +10,12 @@ The central research question is **when can a system reuse learned cue relations
 
 > **Evidence status:** Executable research prototypes and reproducible **synthetic** adaptive-control benchmarks exist. Historical conversation-provenance studies are also available. A unique RSOS-specific neurological mechanism, reliable decoding of specific emotions from EEG, and clinical efficacy **have not been established**. Research drafts are not peer-reviewed papers.
 
+## v1.4 context-invariance falsification experiment
+
+**[Explore the independent-seed successor results](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/invariance-v14.html)** · [Executable Python](experiments/compositional-transfer-v1.3/src/invariance_successor.py) · [Complete report](research/compositional-transfer-v1.4/REPORT.md).
+
+On a new synthetic holdout, the invariance-aware blend scored mean regret **0.189179**, vs original RSIA **0.194588** and generic cross-validation **0.187238**. It thus **did not** beat the strongest generic comparator; an equally informed generic twin tied exactly. Strict novel-context transfer also failed to show superiority. All outcomes are simulated, not human outcomes.
+
 ## Interactive demonstration\n\n**[Run the original v1.3 Python benchmark in your browser](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab-v13.html)** — 11 comparative policies, eight synthetic worlds, and mandated equally informed negative controls. [Methods](docs/CUE_LAB_V13.md).
 
 **[Launch RSOS Cue Lab](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab.html)** — configure cue channels, inspect evidence-gated decisions, and run a seeded synthetic comparison against an always-transfer baseline. This is an illustrative browser demo, **not** the archived v1.3 benchmark or a human validation study. [Method and limits](docs/CUE_LAB.md).\n\n## Reproduce the flagship benchmark now

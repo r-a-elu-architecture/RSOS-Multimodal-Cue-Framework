@@ -1,0 +1,10 @@
+comparison,mean_regret_improvement,ci_low,ci_high,world_seed_clusters
+rsia_evidence_gate vs fixed_global,0.3279178418380606,0.2688100529003627,0.3845499804639514,24
+rsia_evidence_gate vs flat_arm,0.02351030726363221,0.005832756605640557,0.038649633824801896,24
+rsia_evidence_gate vs generic_additive,0.04236284219558645,0.00605236210148762,0.08764467144484732,24
+rsia_evidence_gate vs generic_all_pairs,0.02884979388869398,0.011383139146068252,0.050399007794277494,24
+rsia_evidence_gate vs generic_same_relations,0.022817762107690407,-0.015350156138663845,0.067641599472308,24
+rsia_evidence_gate vs shuffled_relations,0.03806254894102419,0.005200664509522498,0.07651094447589143,24
+rsia_evidence_gate vs rsia_evidence_gate,0.0,0.0,0.0,24
+rsia_evidence_gate vs generic_same_gate,0.0,0.0,0.0,24
+rsia_evidence_gate vs generic_cv_selector,-0.00268881433123958,-0.010999838526039352,0.0062801873434469085,24

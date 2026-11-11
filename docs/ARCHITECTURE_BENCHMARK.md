@@ -6,6 +6,22 @@ Site: https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/archi
 
 A responsive, no-build, privacy-preserving research evidence interface. It highlights the strongest reported real historical conversation result (lexical operator prediction), shows honest internal proof-size tradeoffs, and includes a working local CSV evaluator.
 
+## Research mission and evaluation contract
+
+**Mission:** reconstruct the origin, inheritance, re-entry, recombination and functional descendants of structures in historical human–LLM conversations, then test whether source-aware representations produce genuinely useful predictive or provenance capabilities. The hypothesis of an unprecedented mechanism is a **research target**, not a proven conclusion.
+
+**Research question:** do operator/ancestry features add reliable information beyond equally informed text, retrieval and other strong generic controls when leakage and duplicates are addressed?
+
+**Goals:** (1) recover traceable authorship and lineage, (2) explain observable propagation and alternative mechanisms, (3) measure held-out forecasting and verification effects, and (4) validate a practical capability with independent external tests before product claims.
+
+**Success:** predeclared metrics and splits, timestamp/source custody, strong input-matched and modern baselines, leakage/near-duplicate audit, paired uncertainty at the conversation/cluster level, credible external replication and negative-case reporting.
+
+**Falsifiers:** performance that disappears after stronger controls or external holdouts, apparent ancestry explained by repeated wording rather than inherited operations, or proof-size gains offset by verification/security costs. Such failures constrain hypotheses without ruling out all research avenues.
+
+**Currently demonstrated:** **reported** operator-language prediction on a selected historical archive and internal ancestry-proof comparisons. The website does **not** train or rerun the original models; the CSV evaluator computes pooled Brier on user-supplied rows only. No validated world-first status, hidden-weight change or human intervention outcome is established.
+
+**Relationship to the other lab:** [Cue Lab v1.3](cue-lab-v13.html) runs an actual **synthetic** cue-transfer engine, separate from this historical-corpus structural research. [Full mission and evidence map](RESEARCH_MISSION.md).
+
 ## Evidence references
 
 - [Functional-operator v1.0 strict contextual holdout](../research/functional-operator-discovery-v1.0/RESEARCH_FINDINGS.md) — 25 held-out conversations; 259 response pairs; macro AP 0.480377→0.554699; Brier 0.163686→0.149174. Retrospective study on a selected corpus, **not a rerun**.

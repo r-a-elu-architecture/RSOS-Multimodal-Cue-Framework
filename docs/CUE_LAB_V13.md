@@ -2,6 +2,22 @@
 
 **Launch:** https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab-v13.html
 
+## Mission, goals and success criteria
+
+**Mission:** investigate whether cue relationships between visual glyphs, sounds, planned operators and contexts can be learned and transferred to new simulated situations without causing avoidable negative transfer. This is one experimental application within the wider RSOS research programme.
+
+**Research question:** when does a relational model deserve trust over personal memory, and can evidence-gated selection improve held-out synthetic regret against equally informed generic alternatives?
+
+**Goals:** (1) discover world types in which relationship transfer helps versus hurts; (2) quantify uncertainty and fallback behavior; (3) compare eleven original policies on equal observations and action options; (4) identify hypotheses for subsequent ethically reviewed, consenting-human research.
+
+**Success criterion:** reproducibly lower regret than the strongest *non-identical* matched generic policy across independently seeded worlds, with world/person-level uncertainty, negative transfer accounted for and no unreported tradeoff. A proposed real-world conditioning effect would require direct human outcomes and appropriate controls; synthetic scores cannot establish it.
+
+**Falsification already observed:** the generic controller with identical relation model and gate **ties exactly**; the three-fold generic CV selector is slightly better in the archived three-seed full holdout (0.195136 versus the RSIA gate's 0.197825 mean synthetic regret). This invalidates a claim of uniquely superior RSOS selection on this task.
+
+**What visitors can do:** run the original byte-for-byte archived v1.3 Python simulation in a browser, compare all policies, inspect failures across eight synthetic worlds, and export their chosen synthetic run. The fixed published full-holdout summary is not recomputed by a small browser sample.
+
+**Relationship to other research:** the [Architecture Benchmark Lab](architecture-benchmark.html) examines real *historical conversation* data and internal provenance engineering. Cue Lab does not validate ancestry-genealogy claims or physiological conditioning effects. [Full two-lab mission and evidence map](RESEARCH_MISSION.md).
+
 ## Original research executable, not a JavaScript approximation
 
 The browser worker imports an unmodified byte-for-byte copy of the Python file from the archived release:

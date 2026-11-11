@@ -6,24 +6,43 @@
 
 **RSOS** is an extensible research framework for constructing, personalizing, and evaluating **multimodal cue programs**: configurable combinations of symbols, glyphs, visual imagery, sound, tactile cues, mnemonic associations, attention, breathing prompts, rehearsal, and context-dependent interaction. It connects representation, adaptive decisions, executable programs, and provenance in a single inspectable architecture composed of **RSOS, RSIA, RSX, and RSSO**.
 
-The central research question is **when can a system reuse learned cue relationships in new contexts—and when must it abstain, recalibrate, or fall back to individual evidence?** The framework treats such questions as falsifiable software and human-learning hypotheses, not predetermined outcomes.
+**Programme mission:** investigate potentially exceptional, historically traceable mechanisms of structural evolution across human–LLM conversations—origin, inheritance, mutation, re-entry, recombination and functional descendants—and test whether reconstructing these structures creates measurable value for AI memory, provenance and human–AI interfaces. This is a **research hypothesis, not a verified unprecedented discovery**. The cue-transfer question below is one narrower application, not the whole mission.
 
 > **Evidence status:** Executable research prototypes and reproducible **synthetic** adaptive-control benchmarks exist. Historical conversation-provenance studies are also available. A unique RSOS-specific neurological mechanism, reliable decoding of specific emotions from EEG, and clinical efficacy **have not been established**. Research drafts are not peer-reviewed papers.
 
-## v1.4 context-invariance falsification experiment
+## Mission, scientific goals and research map
+
+**Why this exists:** Long-running human–AI collaborations generate instructions, knowledge, architectures and corrections whose ancestry and influence are difficult to reconstruct. RSOS investigates whether that structural history can be recovered, explained, verified, and eventually used to improve reliable AI systems. Discovery of potentially novel higher-order mechanisms is the research goal—not a result we claim has already been achieved.
+
+| Public research track | Mission and test | Current evidence status | What would constitute meaningful progress |
+|---|---|---|---|
+| **[Architecture Benchmark Lab](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/architecture-benchmark.html)** | Recover and evaluate provenance-aware functional structure in historical conversations. | **Reported real-corpus holdout**: source-aware lexical operator representation improved macro AP 0.480377 → 0.554699 and Brier 0.163686 → 0.149174 (25 conversations, 259 response pairs). Also internal proof-size comparisons. **Page displays aggregates; does not rerun model training.** | Leakage-audited, independently reproduced improvements over strong matched contextual and provenance competitors on untouched corpora; functional evidence of the claimed mechanism. |
+| **[Cue Lab v1.3](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab-v13.html)** | Test when compositional cue relationships transfer versus mislead, and when an evidence gate should abstain. | **Runnable original Python, synthetic outcomes only**: RSIA gate regret 0.197825; generic same-gate 0.197825; generic three-fold CV 0.195136. **No unique superiority or human learning established.** | Reproducible advantage over strongest *non-identical*, equally informed generic controllers, followed by real human outcome tests before any conditioning claims. |
+
+**Shared standards:** predeclared task and metrics; provenance and timestamp custody; the same inputs and budget for matched competitors; negative controls and failure cases; appropriately clustered uncertainty; external replication before broad claims. A model output claiming hidden weights, telemetry, identity activation or an internal architecture is a corpus statement to analyze, not evidence that the claimed capability exists.
+
+**Start here:** [Full mission, research goals, falsification criteria and evidence map](docs/RESEARCH_MISSION.md) · [Architecture methodology](docs/ARCHITECTURE_BENCHMARK.md) · [Cue Lab v1.3 methodology](docs/CUE_LAB_V13.md).
+
+**What the websites actually do:** Architecture Lab is a reported-evidence dashboard plus a local CSV-based Brier evaluator; Cue Lab runs the original synthetic v1.3 Python benchmark in a browser. Neither proves a world-first mechanism, independent generalization or clinical efficacy.
+
+## Secondary experiment: v1.4 context-invariance falsification
 
 **[Explore the independent-seed successor results](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/invariance-v14.html)** · [Executable Python](experiments/compositional-transfer-v1.3/src/invariance_successor.py) · [Complete report](research/compositional-transfer-v1.4/REPORT.md).
 
 On a new synthetic holdout, the invariance-aware blend scored mean regret **0.189179**, vs original RSIA **0.194588** and generic cross-validation **0.187238**. It thus **did not** beat the strongest generic comparator; an equally informed generic twin tied exactly. Strict novel-context transfer also failed to show superiority. All outcomes are simulated, not human outcomes.
 
-## Interactive demonstration\n\n**[Run the original v1.3 Python benchmark in your browser](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab-v13.html)** — 11 comparative policies, eight synthetic worlds, and mandated equally informed negative controls. [Methods](docs/CUE_LAB_V13.md).
+## Interactive demonstrations
 
-**[Launch RSOS Cue Lab](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab.html)** — configure cue channels, inspect evidence-gated decisions, and run a seeded synthetic comparison against an always-transfer baseline. This is an illustrative browser demo, **not** the archived v1.3 benchmark or a human validation study. [Method and limits](docs/CUE_LAB.md).\n\n## Reproduce the flagship benchmark now
+**[Run the original v1.3 Python benchmark in your browser](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab-v13.html)** — 11 comparative policies, eight synthetic worlds, and mandated equally informed negative controls. [Methods](docs/CUE_LAB_V13.md).
+
+**[Launch RSOS Cue Lab](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab.html)** — configure cue channels, inspect evidence-gated decisions, and run a seeded synthetic comparison against an always-transfer baseline. This is an illustrative browser demo, **not** the archived v1.3 benchmark or a human validation study. [Method and limits](docs/CUE_LAB.md).
+
+## Reproduce the synthetic cue-transfer benchmark
 
 **The executable research code is public**, together with exact confidence-interval tables from the frozen v1.3 synthetic experiments.
 
 - [Runnable Python source and tests](experiments/compositional-transfer-v1.3/src/)
-- [Flagship v1.3 experiment](experiments/compositional-transfer-v1.3/README.md)
+- [v1.3 synthetic experiment](experiments/compositional-transfer-v1.3/README.md)
 - [Independent holdout and unseen-context confidence intervals](experiments/compositional-transfer-v1.3/results/README.md)
 - [Manual verification workflow](.github/workflows/manual-reproduction.yml) (not automatically scheduled)
 - [Reproducibility instructions](experiments/compositional-transfer-v1.3/REPRODUCIBILITY.md)
@@ -50,6 +69,9 @@ The project is organized so each topic has a dedicated, source-linked explanatio
 | EEG/BCI or HRV inputs, uncertainty, confidence-gated cue selection | [BCI and physiological-interface research](docs/RESEARCH_TOPICS.md#eeg-bci-and-physiological-inputs) |
 | Cue-response conditioning, grounding, swish/override-inspired operator programs, future rehearsal | [Cue-response and behavioral-rehearsal research](docs/RESEARCH_TOPICS.md#cue-response-learning-counterconditioning-and-rehearsal) |
 | Consent, privacy-preserving ancestry, signed authorization and auditable execution | [Provenance, privacy, and safety-control research](docs/RESEARCH_TOPICS.md#provenance-authorization-and-auditability) |
+| The overarching scientific mission, each lab's pass/fail criteria and evidence scope | [Research mission and evidence map](docs/RESEARCH_MISSION.md) |
+| Recorded human–AI operator behavior and ancestry attestation | [Architecture Benchmark Lab](docs/architecture-benchmark.html) |
+| Original executable v1.3 synthetic policy comparison | [Cue Lab v1.3](docs/cue-lab-v13.html) |
 | What has actually been tested and how to reproduce it | [Benchmarks, baselines and limitations](docs/BENCHMARKS.md) |
 | Whether a given claim is implemented, simulated, proposed or clinically unverified | [Frequently asked research questions](docs/FAQ.md) |
 
@@ -113,7 +135,7 @@ The presentation of a cue is **not itself evidence of a conditioned response**. 
 
 Read [applications and implementation boundaries](docs/USE_CASES.md) and the [research-topic index](docs/RESEARCH_TOPICS.md) for the exact components each application requires.
 
-## Evidence: flagship compositional-transfer benchmark (v1.3)
+## Evidence: synthetic compositional-transfer benchmark (v1.3)
 
 The benchmark tests whether a relationship-aware model, with an **assumption watchdog**, can transfer cue-program information from limited individual calibration to new selections. Results arise from **simulated response-generating worlds**, not observed human conditioning.
 

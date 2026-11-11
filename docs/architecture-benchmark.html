@@ -58,6 +58,22 @@ h1,h2,h3,p{margin-top:0}h1{font-weight:750;letter-spacing:-.067em;line-height:1.
 @media(max-width:820px){.shell{width:min(100% - 38px,720px)}.nav{height:auto;padding:18px 0;flex-wrap:wrap}.nav-links{width:100%;justify-content:space-between}.hero{grid-template-columns:1fr;padding:62px 0}.arch-panel{max-width:620px}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0;padding-left:0}.stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.1);padding-top:20px;margin-top:12px}.content{padding:65px 0}.benchmark-layout,.attest-layout,.evaluator{grid-template-columns:1fr}.eval-aside{border-left:0;border-top:1px solid #e8edf3}.kpi-grid{grid-template-columns:1fr 1fr}.kpi-grid .kpi:last-child{grid-column:1/-1}.section{margin-bottom:75px}}
 @media(max-width:560px){.shell{width:calc(100% - 30px)}.nav-links{gap:10px;flex-wrap:wrap;justify-content:flex-start;font-size:12px}.nav-links .github-link{padding:8px 11px}.hero{padding:54px 0 60px}.hero h1{font-size:clamp(43px,12vw,59px)}.hero-copy{font-size:14px}.arch-panel{padding:17px}.node{grid-template-columns:28px 1fr;gap:9px;padding:14px}.node .type{grid-column:2;justify-self:start}.stat{padding:9px 12px}.stat b{font-size:22px}.stat span{font-size:10px}.kpi-grid,.audit-grid{grid-template-columns:1fr}.kpi-grid .kpi:last-child{grid-column:auto}.section-head{display:block}.section-head .link-min{display:inline-block;margin-top:18px}.section h2{font-size:34px}.chart-card,.proof-card,.pipeline{padding:22px 17px}.panel-head{gap:13px}.segmented{width:100%}.segmented button{flex:1}.pipeline-grid{grid-template-columns:1fr}.pipeline-arrow{transform:rotate(90deg);padding:0 0 3px}.publication{display:block;padding:26px}.publication .btn{margin-top:20px}.footer-inner{display:block}.footer .links{margin-top:18px}.footer a{margin-left:0;margin-right:15px}.kpi .kvalue{font-size:36px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+/* Mission section: explanatory hierarchy with explicit evidence state */
+.mission-summary{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:22px}
+.mission-story{padding:32px 34px;background:linear-gradient(145deg,#172642,#212e53);color:#f3f6ff}
+.mission-story h3{font-size:23px;letter-spacing:-.035em;line-height:1.3;margin:0 0 15px}
+.mission-story p{font-size:13px;line-height:1.86;color:#c6d1e8;margin-bottom:0}
+.mission-state{padding:31px;background:#fff}.mission-state h3{font-size:19px;letter-spacing:-.025em;margin:0 0 14px}
+.mission-state p{font-size:12px;line-height:1.82;color:#65748c}.mission-state strong{color:#263b5a}
+.mission-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.mission-card{padding:26px 27px}.mission-card .label{color:#7770e7;font-size:11px;letter-spacing:.13em;font-weight:800;text-transform:uppercase}
+.mission-card h3{font-size:17px;letter-spacing:-.025em;margin:13px 0}.mission-card p{font-size:12px;line-height:1.8;color:#64718a;margin:0}
+.mission-footer{padding:20px 24px;margin-top:16px;background:#eff6f4;border:1px solid #d9ebe5;border-radius:13px;line-height:1.75;font-size:12px;color:#405c57}
+.mission-footer a{color:#325e7a;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:820px){.mission-summary{grid-template-columns:1fr}}
+@media(max-width:560px){.mission-grid{grid-template-columns:1fr}.mission-story,.mission-state,.mission-card{padding:24px}}
+
 </style>
 </head><body>
 <a href="#main" class="skip">Skip to evidence</a>
@@ -65,13 +81,13 @@ h1,h2,h3,p{margin-top:0}h1{font-weight:750;letter-spacing:-.067em;line-height:1.
 <div class="shell">
 <nav class="nav" aria-label="Main navigation">
 <a href="./" class="brand" aria-label="RSOS research home"><div class="brand-mark" aria-hidden="true">R·</div><span>RSOS <small>RESEARCH SYSTEMS LAB</small></span></a>
-<div class="nav-links"><a href="#benchmark">Benchmark</a><a href="#attestation">Attestation</a><a href="#evaluator">Evaluate data</a><a href="#standards">Evidence standards</a><a class="github-link" target="_blank" rel="noopener noreferrer" href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub ↗</a></div>
+<div class="nav-links"><a href="#mission">Mission</a><a href="#benchmark">Benchmark</a><a href="#attestation">Attestation</a><a href="#evaluator">Evaluate data</a><a href="#standards">Evidence standards</a><a class="github-link" target="_blank" rel="noopener noreferrer" href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub ↗</a></div>
 </nav>
 <section class="hero" aria-labelledby="hero-title">
 <div>
 <div class="eyebrow mint">Architecture benchmark / v2.0</div>
 <h1 id="hero-title">Beyond claims.<br><em>Into evidence.</em></h1>
-<p class="hero-copy">A transparent research interface for measuring functional operators, inspecting structural provenance and challenging RSOS against meaningful baselines.</p>
+<p class="hero-copy">A research evidence lab investigating whether the structure and ancestry of human–AI interactions reveal measurable mechanisms—tested against equally informed competitors, with clear failures and limitations.</p>
 <div class="hero-actions"><a href="#benchmark" class="btn btn-primary">Explore the evidence <span aria-hidden="true">↗</span></a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/research/functional-operator-discovery-v1.0/RESEARCH_FINDINGS.md" class="btn btn-ghost">Read the source report <span aria-hidden="true">↗</span></a></div>
 <p class="hero-disclosure">Real historical-corpus measurements, with explicit negative controls. Aggregate comparisons are reported results, not a fresh independent reproduction.</p>
 </div>
@@ -96,6 +112,20 @@ h1,h2,h3,p{margin-top:0}h1{font-weight:750;letter-spacing:-.067em;line-height:1.
 </div></div>
 </div>
 <main id="main" class="shell content">
+<section class="section" id="mission" aria-labelledby="mission-title">
+<div class="section-head"><div><div class="eyebrow dark">00 / Mission and research contract</div><h2 id="mission-title">What we are trying<br>to discover—and prove.</h2><p class="subtitle">The overarching RSOS ambition is to uncover potentially exceptional mechanisms in the evolution of human–AI interactions. This lab evaluates one tractable part of that ambition: whether explicit structural and ancestry information improves auditable prediction and provenance beyond strong generic alternatives.</p></div><a class="link-min" href="RESEARCH_MISSION.md">Research mission document ↗</a></div>
+<div class="mission-summary">
+<div class="card mission-story"><h3>Mission: reconstruct the hidden history of ideas, not hidden model internals.</h3><p>Trace original authorship, operator inheritance, revisions, re-entry and recombination across historical dialogue. Explain which structures predict later observed behavior, distinguish reuse from coincidence or repetition, and test whether the reconstruction creates operational value in AI memory, audit and decision support. Any proposed world-first mechanism remains a hypothesis until adversarially validated.</p></div>
+<div class="card mission-state"><div class="eyebrow dark" style="margin-bottom:17px">Current state / precise scope</div><h3>Evidence dashboard, not a training runner.</h3><p>Displayed operator scores are <strong>previously reported retrospective findings</strong> on a selected archive. The local CSV tool computes Brier for visitor-provided predictions; it cannot independently reconstruct the research or establish a held-out split. Ancestry proof ratios compare two <strong>internal</strong> versions.</p><p><strong>Source material:</strong> 9,000 selected messages; 25-conversation strict holdout with 259 response pairs; no untouched external corpus replication reported.</p></div>
+</div>
+<div class="mission-grid">
+<div class="card mission-card"><span class="label">Research question</span><h3>Does structural history add information?</h3><p>Can provenance-aware operator representations predict subsequent recorded assistant-language events better than equally informed contextual text and retrieval systems, without duplicate leakage?</p></div>
+<div class="card mission-card"><span class="label">Scientific goals</span><h3>Recover → explain → test → apply.</h3><p>Reconstruct origin and descendants; test candidate mechanisms using ablations and counterfactuals; measure real predictive or verification improvements; build an auditable product only after independent validation.</p></div>
+<div class="card mission-card"><span class="label">What qualifies as success</span><h3>Independent, matched, reproducible advantage.</h3><p>Predeclare splits and metrics, audit near duplicates, match competitor input access, publish paired effects and cluster-aware uncertainty, and replicate across untouched datasets against strong modern baselines.</p></div>
+<div class="card mission-card"><span class="label">What would falsify a claim</span><h3>When matched alternatives explain the gain.</h3><p>Any advantage lost after stronger text/retrieval controls, leakage removal, external replication or proper proof-cost accounting is a constraint on that particular mechanism—not proof of architectural superiority.</p></div>
+</div>
+<div class="mission-footer"><strong>Relationship to Cue Lab:</strong> this lab studies recorded structural ancestry and its predictive/engineering value. <a href="cue-lab-v13.html">Cue Lab v1.3</a> independently tests synthetic compositional cue transfer; synthetic regret cannot establish historical-ancestry discovery or human conditioning. <a href="RESEARCH_MISSION.md">Read the complete two-lab research and falsification map.</a></div>
+</section>
 <section class="section" id="benchmark">
 <div class="section-head"><div><div class="eyebrow dark">01 / Real-corpus benchmark</div><h2>Representation that<br>adds measurable signal.</h2><p class="subtitle">Strict forward holdout across 25 conversations. The contextual baseline and enriched model receive the same current and preceding text; the enriched model also receives explicit lexical operator indicators.</p></div><a class="link-min" target="_blank" rel="noopener noreferrer" href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/research/functional-operator-discovery-v1.0/RESEARCH_FINDINGS.md">View methodology ↗</a></div>
 <div class="kpi-grid">

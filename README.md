@@ -1,6 +1,6 @@
 # RSOS — Multimodal Cue & Adaptive Human–AI Research Framework
 
-**Publication DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24143732.svg)](https://doi.org/10.5281/zenodo.24143732) · [GitHub release v1.0.0-research-preview](https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/releases/tag/v1.0.0-research-preview) · Archived snapshot commit `133d472` · Scholarly creator on the currently archived Zenodo record should be inspected and, if required, corrected to R. A. Elu.
+**Publication DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24143732.svg)](https://doi.org/10.5281/zenodo.24143732) · [GitHub release v1.0.0-research-preview](https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/releases/tag/v1.0.0-research-preview) · Archived snapshot commit `133d472` · Zenodo's published creator metadata identifies R. A. Elu.
 
 **Programmable cue systems · Personalized learning and conditioning research · Compositional adaptation · Verifiable human–AI interfaces · EEG/BCI and VR integration**
 
@@ -10,7 +10,9 @@ The central research question is **when can a system reuse learned cue relations
 
 > **Evidence status:** Executable research prototypes and reproducible **synthetic** adaptive-control benchmarks exist. Historical conversation-provenance studies are also available. A unique RSOS-specific neurological mechanism, reliable decoding of specific emotions from EEG, and clinical efficacy **have not been established**. Research drafts are not peer-reviewed papers.
 
-## Interactive demonstration\n\n**[Launch RSOS Cue Lab](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab.html)** — configure cue channels, inspect evidence-gated decisions, and run a seeded synthetic comparison against an always-transfer baseline. This is an illustrative browser demo, **not** the archived v1.3 benchmark or a human validation study. [Method and limits](docs/CUE_LAB.md).\n\n## Reproduce the flagship benchmark now
+## Interactive demonstration\n\n**[Run the original v1.3 Python benchmark in your browser](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab-v13.html)** — 11 comparative policies, eight synthetic worlds, and mandated equally informed negative controls. [Methods](docs/CUE_LAB_V13.md).
+
+**[Launch RSOS Cue Lab](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/cue-lab.html)** — configure cue channels, inspect evidence-gated decisions, and run a seeded synthetic comparison against an always-transfer baseline. This is an illustrative browser demo, **not** the archived v1.3 benchmark or a human validation study. [Method and limits](docs/CUE_LAB.md).\n\n## Reproduce the flagship benchmark now
 
 **The executable research code is public**, together with exact confidence-interval tables from the frozen v1.3 synthetic experiments.
 

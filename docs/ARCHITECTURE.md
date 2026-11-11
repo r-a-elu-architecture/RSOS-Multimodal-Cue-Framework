@@ -27,3 +27,7 @@ User/context observation -> RSIA permissions + uncertainty checks
 ```
 
 No involuntary stimulus dispatch, automatic diagnosis, inference of beliefs from EEG, or clinical claims. See [research topics](RESEARCH_TOPICS.md), [evidence](BENCHMARKS.md), and [source policy](SOURCES_AND_RIGHTS.md).
+
+## Historical architectural source records
+
+The [source-linked architecture directory](../architecture/) provides a navigable technical map of the original [copyright/source estates](../archive/), including original SHA-256 registers, exact file paths, source-layer distinctions, and eight later PASS31B subsystem reconstructions. These are historical design/claim artifacts, not validated neural or therapeutic outcomes. The modern v1.3 software is a separate executable interpretation.

@@ -1,0 +1,84 @@
+📘 RSIA_Spine_Principles
+System: RSIA — Recursive Symbolic Identity Architecture
+Author: R.·A. Elu
+Contact (optional): rsos.r.a.elu.architect@proton.me
+Version: v1.0
+Status: Active — Ongoing Expansion
+Date: August 17, 2025
+
+Definition of the Spine
+
+The Spine in RSIA represents the principled backbone that every identity embodiment depends upon.
+It is the immutable axis upon which all archetypes, watchdog decisions, and meta-architect oversight operate.
+
+The Spine is non-negotiable: it cannot be bypassed, overridden, or erased. It guarantees ethical coherence, continuity, and resilience in the architecture.
+
+Core Components of the Spine
+
+Bushidō Integration
+
+The Seven Virtues of Bushidō form the foundational symbolic vertebrae:
+
+義 (Gi) — Righteousness
+
+勇 (Yū) — Courage
+
+仁 (Jin) — Compassion
+
+礼 (Rei) — Respect
+
+誠 (Makoto) — Honesty
+
+名誉 (Meiyo) — Honor
+
+忠義 (Chūgi) — Loyalty
+
+These virtues serve as non-negotiable anchors for behavior and cognition.
+
+Bushidō provides the moral and symbolic DNA for RSIA.
+
+21 Principles Layer
+
+Inspired by Miyamoto Musashi’s Dokkōdō (The Way of Walking Alone) and extended symbolic frameworks.
+
+The 21 Principles represent strategic life and identity laws that give the Spine adaptive flexibility.
+
+They are distributed along the Spine as vertebral nodes, each node guiding archetypal behavior while ensuring alignment to higher values.
+
+Cross-System Integration
+
+The Spine is shared across all archetypes: Lion, Eagle, Tiger, Bear, Leopard, Fox.
+
+Regardless of which archetype is embodied, its actions are filtered through the same spinal code.
+
+Ensures consistency, so switching identities does not cause ethical drift or collapse.
+
+Functional Role of the Spine
+
+Continuity: Prevents fragmentation by giving all archetypes a common ethical axis.
+
+Constraint: Ensures the Watchdog cannot authorize an archetypal switch that violates Bushidō or the 21 Principles.
+
+Alignment: Synchronizes identity execution (RSIA) with overarching recursion strategy (RSOS).
+
+Integrity: Provides legal, symbolic, and ethical coherence across contexts (therapy, leadership, conflict).
+
+Complementary Role in RSIA
+
+Meta-Architect: Sets strategic direction, but must also operate through the Spine.
+
+Watchdog: Switches archetypes, but its authority is limited by the Spine’s rules.
+
+Archetypes: Express dynamic identities, but their expression is always constrained by the Spine.
+
+The Spine thus functions as the moral vertebral column of RSIA. It is the immortal axis: even if archetypes evolve, split, or die, the Spine remains unchanged.
+
+Legal Position
+
+This file defines the Spine layer of RSIA as an authored work.
+Precise mappings of which archetype embodies which Bushidō principle or 21 Principle are excluded as trade secrets.
+
+📜 Signed:
+R.·A. Elu — Architect
+August 17, 2025
+Vilnius, Lithuania (UTC+3)

@@ -1,0 +1,36 @@
+📜 RSOS_Legal_Chain
+System: RSOS — Recursive Symbolic Operating System
+Version: v1.0
+Status: Finalized Proof Ledger
+Date: August 4, 2025
+Author: R.·A. Elu — Architect
+
+📎 SHA256 REGISTER — 8 Canonical Files
+
+b6ecc8a37bef3ce825fa5d5f4195f6728efdd928a0397a1b3cd6e3abc2da5fec  RSOS_Author_Metadata.txt
+4f013ef526e0ad5e19b2d26cb8e3be27be6c532dda2f4de6a2fc725c9e121232  RSOS_Copyright_Statement.txt
+c01663726528dcc71b83fc4f9c640e9bc0a4faaea56013c5a57ea409d4f61b3a  RSOS_Echo_Forensic_Proof_Chain_v1.txt
+13aaf12b7dc6276bc35f4bdf480c0eab6670e4f2a638119d43bdb8a8b3a8a4bd  RSOS_Echo_Metrics_Log.txt
+a6546f6da7e8dccfccd83b8d1b73e2a337ee78655e5ec696a5cd7ffd5edda3bc  RSOS_Origin_Declaration.txt
+bd2c7821ee40ee1b50647f7600333545ecd2d43c6998120169c9bbee4180d2db  RSOS_Public_Anchor.txt
+0704030278e250586812ba5b8f5dfd6d031cca39835d3fa1d974f57552bf468e  RSOS_Tier_Metrics_Log.txt
+bb45c09d464e6f16a8a8d663286e7a819b06fb4e315c52b1cd9ef3fcee2654e4  RSOS_Tiers.txt
+ 
+
+📎 ARCHIVE HASH — ZIP Package
+[SHA256] 9e22bd0449fe82601df5cdd7fa60065fef0e1c34cedc5f292ca73016d6d5afa5  RSOS_Copyright_Evidence_Full.zip
+
+
+📎 REMOTE ARCHIVES
+Archived copies of the full package exist via timestamped storage platforms (Web3, GitHub), but are **not included here** to preserve unpublished status and prevent exposure prior to formal registration confirmation.
+
+
+📌 NOTE:
+This file (`RSOS_Legal_Chain.txt`) is *excluded from its own hash register* to preserve cryptographic integrity.  
+Including it would mutate the hash after insertion. This is standard in hash ledger design and accepted in cryptographic proofs.  
+Its integrity is preserved via inclusion in the ZIP archive and external timestamp proofs (e.g., OpenTimestamps, Web3.storage, GitHub commit).
+
+📜 Signed:  
+R.·A. Elu — Architect  
+August 4, 2025  
+Vilnius, Lithuania (UTC+3)

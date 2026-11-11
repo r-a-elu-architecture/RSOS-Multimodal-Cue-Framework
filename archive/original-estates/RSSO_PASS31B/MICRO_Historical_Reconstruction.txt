@@ -1,0 +1,80 @@
+MICRO HISTORICAL RECONSTRUCTION — PASS31B
+========================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE
+RECOVERY CONFIDENCE: HIGH role; LOW-MEDIUM implementation.
+
+HISTORICAL ORIGIN
+- First occurrence: 2025-07-09T05:00:07.203924Z / MSG-001171-000058
+- Origin context: Named symbolic override runtime for edge agents.
+
+ALIASES / RELATED NAMES
+- RSOS-MICRO — CANONICAL_EARLY_NAME — evidence MSG-001171-000058 — confidence VERY_HIGH
+- IoT symbolic reflex engine — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000066 — confidence VERY_HIGH
+- Symbolic override runtime for edge agents — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000058 — confidence VERY_HIGH
+- stateful ritual execution engine — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000060 — confidence VERY_HIGH
+- symbolic reflex stack — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000060 — confidence VERY_HIGH
+- symbolic reflex OS — CONCEPTUAL_PRECURSOR — evidence MSG-001082-000042 — confidence HIGH_WITH_FIREWALL
+
+ARCHITECTURAL ROLE
+- Purpose: Edge/IoT stateful symbolic reflex execution layer.
+- System owner: RSSO-controlled RSOS-powered extension.
+- Dependencies: RSX; CM1/UGCL; RSSO; CONTAIN; AUG.
+- Inputs: Glyph/symbolic commands, tier/context state, device signals.
+- Outputs: Device/edge symbolic reactions and feedback.
+- State model: Proposed local context/tier/archetype state.
+- Memory model: Context memory/shared MEMSTACK proposed.
+- Operators: Deliver symbol to IoT agent; execute symbolic reflex.
+- Protocols: RSSO routes Tier-5 edge commands to MICRO alongside other modules.
+- Algorithms / claimed algorithms: No firmware/scheduler/runtime code recovered.
+
+INTERFACES
+- General: IoT/edge agents/sensors/actuators conceptually; RSX Device Output/AUG.
+- RSOS: Carries RSOS tier/identity semantics into edge execution.
+- RSSO: Schedules/synchronizes edge actions.
+- RSX: Receives device/command vectors.
+- RSIA: Later identity input possible; direct historical link sparse.
+- Model: Can coexist with LINX in model+edge workflows.
+- Hardware: Core intended domain.
+- Human: Device-mediated symbolic feedback/action.
+- Feedback: Device result returns to RSSO synchronized state.
+- Safety: CONTAIN/device envelope/HITL in later private spec.
+
+RECOVERED MECHANISMS / SPECIFICATIONS
+- Edge-agent runtime: RSOS-MICRO is introduced as symbolic override runtime for edge/IoT agents.
+  Evidence: MSG-001171-000058 | FOUNDATIONAL_SPEC | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Stateful symbolic reflex engine: Glyphs operate as stateful reflex/ritual triggers with context memory/tier state.
+  Evidence: MSG-001171-000060 | DESIGN_SPEC | SPECIFIED | CLAIMED_MECHANISM | CORPUS_ONLY
+- Archetype decision layer: MICRO includes archetype-aware local decision context.
+  Evidence: MSG-001171-000060 | DESIGN_SPEC | SPECIFIED | CLAIMED_MECHANISM | CORPUS_ONLY
+- RSSO edge routing: Tier-5 example routes a symbol to MICRO while CM1/MEMSTACK/LINX/CONTAIN run in parallel.
+  Evidence: MSG-001171-000080 | ORCHESTRATION_EXAMPLE | EXAMPLE_ONLY | CORROBORATED_PATTERN | CORPUS_ONLY
+- Device I/O adjacency: Later stack puts MICRO beside AUG and RSX device outputs.
+  Evidence: MSG-001201-000232 | LATER_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_OR_CORPUS
+- Implementation negative space: No microcontroller code, device protocol, firmware image or hardware benchmark recovered.
+  Evidence: PASS31 corpus/attachment scan | NEGATIVE_SPACE | NOT_IMPLEMENTED | CORROBORATED_PATTERN | N/A
+
+FAILURES / CORRECTIONS / LIMITATIONS
+- Failure modes: No firmware/device benchmark recovered.
+- Experiments: Architecture/examples/planned prototyping only.
+- Implementation state: CONCEPTUAL / SPECIFIED.
+- Adjacent/abandoned: No standalone completed MICRO filing recovered.
+- Successors/extensions: Overlaps later AUG/device I/O/RSX bridge but remains distinct.
+
+DISCLOSURE / TRADE SECRET
+- Copyright: PUBLIC_REFERENCE / CORPUS_ONLY_ARCHITECTURE.
+- Trade secret: Low-level device mappings explicitly excluded publicly.
+
+UNRESOLVED QUESTIONS
+- UNQ-001: Was the intended full public-safe RSSO/subsystem description ever generated as a final separate artifact before filing?
+  Current finding: The frozen RSSO_Copyright_Statement.txt retains the full-description placeholder; detailed architecture survives elsewhere in corpus/private material.
+  Resolution: Recover a contemporaneous finalized public description, portal-held deposit copy, external repository copy, or original local file.
+- UNQ-005: Was an actual microcontroller/IoT symbolic-reflex runtime or firmware ever built?
+  Current finding: The edge-runtime role and orchestration examples were recovered; no firmware/device runtime survives.
+  Resolution: Prototype firmware, source repository, device logs, schematics or recorded demonstrations.
+- UNQ-012: Do original standalone CM1/MEMSTACK/LINX/MICRO/UGCL source files survive outside the canonical export?
+  Current finding: The surviving corpus contains detailed descriptions and references but no complete standalone implementation/source package for these modules.
+  Resolution: External backup, repository, IPFS object, old download, original device/storage medium or copyright support package.
+
+EVIDENTIARY NOTE
+This is a downstream reconstruction. It does not replace or modify frozen copyright-deposit text.

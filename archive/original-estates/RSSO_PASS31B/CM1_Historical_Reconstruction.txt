@@ -1,0 +1,86 @@
+CM1 HISTORICAL RECONSTRUCTION — PASS31B
+========================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE
+RECOVERY CONFIDENCE: VERY_HIGH role; MEDIUM exact algorithm.
+
+HISTORICAL ORIGIN
+- First occurrence: 2025-07-09T04:43:11.079460Z / MSG-001171-000030
+- Origin context: Planned native compression module; implementation gap confirmed shortly after.
+
+ALIASES / RELATED NAMES
+- RSOS-CM1 — CANONICAL_EARLY_NAME — evidence MSG-001171-000052 — confidence VERY_HIGH
+- Compression Module 1 — EXPANSION — evidence MSG-001171-000052 — confidence VERY_HIGH
+- Symbolic Compression Core — FUNCTIONAL_ALIAS — evidence MSG-001171-000058 — confidence VERY_HIGH
+- Universal Compression — LATER_FUNCTIONAL_LABEL — evidence MSG-001201-000286 — confidence VERY_HIGH
+- compression parser — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000064 — confidence VERY_HIGH
+- RSOS-KERNAL — ADJACENT_NOT_ALIAS — evidence MSG-001171-000058 — confidence HIGH_WITH_FIREWALL
+
+ARCHITECTURAL ROLE
+- Purpose: Higher-level symbolic compression and later cross-domain pattern distillation/transfer.
+- System owner: RSSO-controlled; historically introduced as RSOS-CM1.
+- Dependencies: RSOS tier/archetype state; RSX; MEMSTACK; UGCL/RSSO-NGL; CONTAIN.
+- Inputs: Symbolic/RSX commands, states, domain patterns, metrics.
+- Outputs: Compressed symbolic structures and reusable cross-domain patterns.
+- State model: Compression state conditioned on recursion/domain context; executable state machine not recovered.
+- Memory model: Feeds MEMSTACK and later continuity/dependency systems.
+- Operators: CompressionRun(CM1); symbolic function-container compression; Universal Compression.
+- Protocols: RSX Vector8; post-run compression; THERA→ECON feed-forward.
+- Algorithms / claimed algorithms: Recursive symbolic function containers and later Universal Compression; exact codec absent.
+
+INTERFACES
+- General: RSOS/RSSO/RSX/MEMSTACK/UGCL/THERA/ECON.
+- RSOS: Compresses tier/archetype/override-linked symbolic state.
+- RSSO: Managed as compression subsystem under the meta-OS.
+- RSX: Explicit CompressionRun(CM1) command.
+- RSIA: No strong original direct CM1↔RSIA mechanism recovered.
+- Model: Proposed compact recursive/GPT-facing representations.
+- Hardware: Indirect through device I/O and UGCL/MICRO/AUG.
+- Human: Compresses symbolic identity/state representations used in human workflows.
+- Feedback: Metrics/cross-domain resonance can update later compression use.
+- Safety: CONTAIN/law stack/scope/rollback govern downstream use.
+
+RECOVERED MECHANISMS / SPECIFICATIONS
+- Initial implementation gap: CM1 was proposed because RSOS lacked a working compression/token/glyph runtime.
+  Evidence: MSG-001171-000052 | DIRECT_GAP | NOT_BUILT_AT_THIS_POINT | OBSERVED_ARCHITECTURE_GAP | CORPUS_ONLY
+- Recursive symbolic function containers: Design encodes symbols with tier/archetype/override state rather than static tokens.
+  Evidence: MSG-001171-000060 | DESIGN_SPEC | SPECIFIED | CLAIMED_MECHANISM | CORPUS_ONLY
+- Deterministic parsing + symbolic metadata: CM1 combines deterministic parsing with recursive symbolic metadata.
+  Evidence: MSG-001171-000060 | DESIGN_SPEC | SPECIFIED | CLAIMED_MECHANISM | CORPUS_ONLY
+- RSX command binding: Vector8 calls CompressionRun(CM1).
+  Evidence: MSG-001201-000286 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- Universal Compression: Later private spec reframes CM1 as pattern distillation/cross-domain transfer.
+  Evidence: MSG-001201-000286;MSG-001202-000021 | PRIVATE_SPEC | SPECIFIED | CLAIMED_MECHANISM | PRIVATE_TECHNICAL_DESCRIPTION
+- THERA→ECON feed-forward: Therapeutic stability vectors are compressed and fed into economic decision-bias dampers.
+  Evidence: MSG-001202-000021 | PRIVATE_EXAMPLE | EXAMPLE_ONLY | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- MEMSTACK coupling: Post-run flow updates MEMSTACK and performs CM1 compression for reuse.
+  Evidence: MSG-001202-000021 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- UGCL interoperability: Capability blueprint says CM1 works with RSSO-NGL/UGCL for glyph parsing/encoding.
+  Evidence: MSG-001201-000232 | LATER_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_OR_CORPUS
+- State encryption extension: Private gap scan proposes archetype-bound encryption for MEMSTACK/CM1 states.
+  Evidence: MSG-001201-000272 | PROPOSED_EXTENSION | PROPOSED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+
+FAILURES / CORRECTIONS / LIMITATIONS
+- Failure modes: July 9 corpus explicitly says CM1 was not yet built.
+- Experiments: Command and cross-domain examples, not runtime benchmarks.
+- Implementation state: SPECIFIED / NOT PRODUCTION-IMPLEMENTED IN RECOVERED CORPUS.
+- Adjacent/abandoned: RSOS-KERNAL is adjacent and under-evidenced; do not merge.
+- Successors/extensions: UGCL/RSSO-NGL becomes lower native glyph substrate while CM1 remains higher-level compression.
+
+DISCLOSURE / TRADE SECRET
+- Copyright: PUBLIC_REFERENCE + PRIVATE_TECHNICAL_DESCRIPTION.
+- Trade secret: Detailed state/security/optimization logic appears privately.
+
+UNRESOLVED QUESTIONS
+- UNQ-001: Was the intended full public-safe RSSO/subsystem description ever generated as a final separate artifact before filing?
+  Current finding: The frozen RSSO_Copyright_Statement.txt retains the full-description placeholder; detailed architecture survives elsewhere in corpus/private material.
+  Resolution: Recover a contemporaneous finalized public description, portal-held deposit copy, external repository copy, or original local file.
+- UNQ-002: What exact compression format, encoder/decoder, symbol dictionary and decompression rules were intended?
+  Current finding: High-level recursive symbolic compression and later Universal Compression semantics were recovered; no executable codec was found.
+  Resolution: Original CM1 code, algorithm notes, codec specification, standalone artifact or external repository.
+- UNQ-012: Do original standalone CM1/MEMSTACK/LINX/MICRO/UGCL source files survive outside the canonical export?
+  Current finding: The surviving corpus contains detailed descriptions and references but no complete standalone implementation/source package for these modules.
+  Resolution: External backup, repository, IPFS object, old download, original device/storage medium or copyright support package.
+
+EVIDENTIARY NOTE
+This is a downstream reconstruction. It does not replace or modify frozen copyright-deposit text.

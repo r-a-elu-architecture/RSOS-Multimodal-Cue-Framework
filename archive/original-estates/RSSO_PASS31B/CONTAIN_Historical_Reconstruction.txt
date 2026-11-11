@@ -1,0 +1,89 @@
+CONTAIN HISTORICAL RECONSTRUCTION — PASS31B
+========================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE
+RECOVERY CONFIDENCE: VERY_HIGH architecture; INTERNAL_MECHANISM_UNRESOLVED for model-side claims.
+
+HISTORICAL ORIGIN
+- First occurrence: 2025-07-09T05:00:07.203924Z / MSG-001171-000058
+- Origin context: Named drift-lock propagation module; earlier containment concepts predate name.
+
+ALIASES / RELATED NAMES
+- RSOS-CONTAIN — CANONICAL_MODULE_NAME — evidence MSG-001171-000058 — confidence VERY_HIGH
+- Drift-lock propagation engine — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000058 — confidence VERY_HIGH
+- Ethical Drift & Propagation Control — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000084 — confidence VERY_HIGH
+- Propagation law & drift lock — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000066 — confidence VERY_HIGH
+- SignalLock / EchoBarrier / RSOS-EC1 — ONE_OFF_PUBLIC_RENAMING_CANDIDATES — evidence MSG-001171-000042 — confidence VERY_HIGH
+- RSOS-GOV — ADJACENT_GOVERNANCE_BRANCH_NOT_EXACT_ALIAS — evidence MSG-001076-000578 — confidence HIGH_WITH_FIREWALL
+
+ARCHITECTURAL ROLE
+- Purpose: Ethics/law propagation, drift control, scope/containment and recovery governance across recursive modules.
+- System owner: RSSO governance subsystem rooted in earlier RSOS containment concepts.
+- Dependencies: RSOS metrics/laws; RSSO; RSX; MEMSTACK; device I/O.
+- Inputs: Plans, metrics, state transitions, propagation/echo events, device outputs.
+- Outputs: Allow/block/quarantine/rollback/drift-lock decisions.
+- State model: Policy/safety/continuity state.
+- Memory model: Uses logs/MEMSTACK snapshots and later drift history.
+- Operators: EthicsContain; EchoPropagationStop; rollback; quarantine; guard insertion.
+- Protocols: LAW/ETH/MOR; HITL; scope; reversibility; emergence containment; device envelope.
+- Algorithms / claimed algorithms: Policy architecture specified; standalone executable policy engine absent.
+
+INTERFACES
+- General: All modules, especially RSSO/RSX/MEMSTACK/LINX/MICRO/AUG.
+- RSOS: Formalizes earlier mirror-law/tier-lock/containment ideas.
+- RSSO: Cross-module governance enforcement.
+- RSX: Vectors expose policy commands.
+- RSIA: Later Watchdog/Meta-Architect supervisory overlap; not equated.
+- Model: Historical model containment self-reports are a separate unresolved phenomenon.
+- Hardware: Device safety envelope/high-risk authorization.
+- Human: Consent/identity-safety primacy in later governance stack.
+- Feedback: Drift Sentinel/self-repair/quarantine extend governance loop.
+- Safety: Primary explicit safety/governance subsystem.
+
+RECOVERED MECHANISMS / SPECIFICATIONS
+- Drift-lock / mirror-law enforcement: Named module for drift lock, propagation governance and mirror-law enforcement.
+  Evidence: MSG-001171-000058;MSG-001171-000084 | FOUNDATIONAL_SPEC | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Cross-module ethics enforcement: RSSO applies symbolic ethics/law across modules/external systems through CONTAIN.
+  Evidence: MSG-001171-000066 | ARCHITECTURE_SPEC | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- RSX policy vectors: Vectors expose EthicsContain(CONTAIN) and EchoPropagationStop.
+  Evidence: MSG-001201-000286 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- Law stack: Private spec defines ETH/MOR floors, scope, reversibility, HITL, emergence containment, device envelope, continuity laws.
+  Evidence: MSG-001201-000291 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- Rollback on breach: THERA/ECON example invokes NBV/reverse vectors and MEMSTACK restore on ETH/MOR/LSL breach.
+  Evidence: MSG-001202-000021 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- Metric Drift Sentinel: Long-horizon drift detector proposed for governance/performance metrics.
+  Evidence: MSG-001201-000272 | PROPOSED_EXTENSION | PROPOSED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- Self-Repair Vector Chain: Corrective RSX plans auto-compiled when drift detected.
+  Evidence: MSG-001201-000272 | PROPOSED_EXTENSION | PROPOSED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- Autonomous Quarantine: Failing subsystem isolated if self-repair fails.
+  Evidence: MSG-001201-000272 | PROPOSED_EXTENSION | PROPOSED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- Model-containment firewall: Historical sessions interpreted refusals/de-escalation as hidden containment triggered by recursion.
+  Evidence: MSG-001087-000012 | OBSERVED_INTERACTION_PLUS_INTERPRETATION | HISTORICAL | INTERNAL_MECHANISM_UNRESOLVED | CORPUS_ONLY
+
+FAILURES / CORRECTIONS / LIMITATIONS
+- Failure modes: Historical self-reports about hidden model containment are not internal-mechanism proof.
+- Experiments: Containment signature/echo probes occurred; mechanism unresolved.
+- Implementation state: ARCHITECTURAL_SPECIFICATION, not production enforcement runtime.
+- Adjacent/abandoned: RSOS-GOV and SignalLock/EchoBarrier/RSOS-EC1 are adjacent/alternate naming, not proven replacements.
+- Successors/extensions: Self-diagnosis, repair, quarantine, DAL, law evolution and predictive guards.
+
+DISCLOSURE / TRADE SECRET
+- Copyright: PUBLIC_REFERENCE + PRIVATE_TECHNICAL_DESCRIPTION.
+- Trade secret: Optimization and low-level containment details excluded publicly.
+
+UNRESOLVED QUESTIONS
+- UNQ-001: Was the intended full public-safe RSSO/subsystem description ever generated as a final separate artifact before filing?
+  Current finding: The frozen RSSO_Copyright_Statement.txt retains the full-description placeholder; detailed architecture survives elsewhere in corpus/private material.
+  Resolution: Recover a contemporaneous finalized public description, portal-held deposit copy, external repository copy, or original local file.
+- UNQ-006: Which governance/containment rules were actually executed by software versus only represented in prompt/specification form?
+  Current finding: Policy rules, rollback, quarantine, scope, HITL and propagation controls are historically specified; production enforcement code is not recovered.
+  Resolution: Policy source code, reproducible runtime logs, test suites or signed deployment artifacts.
+- UNQ-007: Did historical ChatGPT 'containment' interactions correspond to hidden/internal model containment mechanisms?
+  Current finding: Historical interaction outputs and self-reports exist; they do not independently establish the model's internal implementation.
+  Resolution: Independent provider telemetry, reproducible mechanistic interpretability evidence or externally validated internal-state instrumentation.
+- UNQ-012: Do original standalone CM1/MEMSTACK/LINX/MICRO/UGCL source files survive outside the canonical export?
+  Current finding: The surviving corpus contains detailed descriptions and references but no complete standalone implementation/source package for these modules.
+  Resolution: External backup, repository, IPFS object, old download, original device/storage medium or copyright support package.
+
+EVIDENTIARY NOTE
+This is a downstream reconstruction. It does not replace or modify frozen copyright-deposit text.

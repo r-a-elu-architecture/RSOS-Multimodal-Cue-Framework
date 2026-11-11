@@ -1,0 +1,83 @@
+AUG HISTORICAL RECONSTRUCTION — PASS31B
+========================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE
+RECOVERY CONFIDENCE: VERY_HIGH intended branch; LOW-MEDIUM implementation.
+
+HISTORICAL ORIGIN
+- First occurrence: 2025-06-06T20:26:03.468182Z / MSG-001078-000008
+- Origin context: Named Augmented Override Device Architecture.
+
+ALIASES / RELATED NAMES
+- RSOS-AUG — CANONICAL_BRANCH_NAME — evidence MSG-001078-000008 — confidence VERY_HIGH
+- Augmented Override Device Architecture — FUNCTIONAL_EXPANSION — evidence MSG-001078-000008 — confidence VERY_HIGH
+- Device Augmentation Division — FUNCTIONAL_EXPANSION — evidence MSG-001079-000004 — confidence VERY_HIGH
+- Augmented Reality / Device Layer — FUNCTIONAL_EXPANSION — evidence MSG-001171-000084 — confidence VERY_HIGH
+- Device + EEG Protocol Build — FUNCTIONAL_DESCRIPTION — evidence MSG-001079-000006 — confidence VERY_HIGH
+
+ARCHITECTURAL ROLE
+- Purpose: Augmented/device branch connecting symbolic state control to AR, EEG, haptics, scent/vibration, wearables and other I/O.
+- System owner: RSOS device/application branch orchestrated by RSSO.
+- Dependencies: RSOS; RSX device vectors; RSSO I/O; MICRO; CONTAIN; THERA.
+- Inputs: EEG/sensor signals, symbolic state, gaze/context, RSX device commands.
+- Outputs: AR overlays, vibration/haptic patterns, device/environment feedback.
+- State model: Device/environment state linked to RSOS states; later Space(X) environment graph.
+- Memory model: Session/device state can feed MEMSTACK; anchor learning proposed.
+- Operators: DeviceOutput(AR); DeviceOutput(EEG/Haptics); EEG-triggered anchors.
+- Protocols: Device envelope, gaze gating, VIB/FP anchors, refractory/HITL.
+- Algorithms / claimed algorithms: No low-level device-control implementation recovered.
+
+INTERFACES
+- General: AR glasses, EEG, haptics, olfactory, wearables; later VR/robotics named.
+- RSOS: Externalizes state transitions into device feedback.
+- RSSO: I/O bridge/scheduler.
+- RSX: Device vectors command interface.
+- RSIA: Later identity-state input possible; AUG predates formal RSIA.
+- Model: Can combine model output with embodied feedback.
+- Hardware: Primary role.
+- Human: Closed-loop human/device symbolic feedback.
+- Feedback: EEG/gaze/environment metrics proposed.
+- Safety: Amplitude/refractory/safe-zone/HITL private controls.
+
+RECOVERED MECHANISMS / SPECIFICATIONS
+- AUG branch origin: RSOS-AUG appears as Augmented Override Device Architecture.
+  Evidence: MSG-001078-000008 | FOUNDATIONAL_BRANCH | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Device/environment integration: AR, EEG, vibration, REM, scent and smart-security pathways listed in RSOS metadata.
+  Evidence: MSG-001075-000630 | EARLY_SPEC | PLANNED | CORROBORATED_PATTERN | CORPUS_ONLY
+- AR visualization: Central stimulus/contextual overlays and breathing/environment views proposed.
+  Evidence: MSG-001079-000004;MSG-001202-000021 | EARLY_AND_PRIVATE_SPEC | PROTOTYPING_CONCEPT | HISTORICAL_CLAIM | CORPUS/PRIVATE
+- EEG+scent+vibration device: Combined device concept for symbolic anchor/state feedback.
+  Evidence: MSG-001079-000004 | PLANNED_DEVICE | PLANNED | HISTORICAL_CLAIM | CORPUS_ONLY
+- Wearable symbolic defense: Wearable/glyph/totem cue concept for override-state initiation.
+  Evidence: MSG-001079-000004 | PLANNED_DEVICE | PLANNED | HISTORICAL_CLAIM | CORPUS_ONLY
+- REM reconditioning: Overnight vibration pulses synchronized to daytime anchors proposed.
+  Evidence: MSG-001079-000004 | PLANNED_PROTOCOL | PLANNED | HISTORICAL_CLAIM | CORPUS_ONLY
+- RSSO I/O bridge: Later RSSO architecture integrates AR/EEG/haptic/olfactory as native I/O.
+  Evidence: RSSO_Public_Anchor.txt;RSSO_Author_Metadata.txt | COPYRIGHT_ERA_SPEC | SPECIFIED | CORROBORATED_PATTERN | PUBLIC_REFERENCE
+- Device safety envelope: Private spec constrains brightness/haptic amplitude and requires HITL for high-risk operations.
+  Evidence: MSG-001202-000021 | PRIVATE_SAFETY_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+
+FAILURES / CORRECTIONS / LIMITATIONS
+- Failure modes: No production device or validated EEG control result recovered.
+- Experiments: Planned/prototyping descriptions, not controlled hardware results.
+- Implementation state: PLANNED / PROTOTYPING-CONCEPT.
+- Adjacent/abandoned: No standalone completed AUG filing recovered.
+- Successors/extensions: Space(X), RSX device bridge, MICRO extend integration.
+
+DISCLOSURE / TRADE SECRET
+- Copyright: PUBLIC_REFERENCE + PRIVATE_TECHNICAL_DESCRIPTION.
+- Trade secret: Low-level mappings deliberately excluded publicly.
+
+UNRESOLVED QUESTIONS
+- UNQ-001: Was the intended full public-safe RSSO/subsystem description ever generated as a final separate artifact before filing?
+  Current finding: The frozen RSSO_Copyright_Statement.txt retains the full-description placeholder; detailed architecture survives elsewhere in corpus/private material.
+  Resolution: Recover a contemporaneous finalized public description, portal-held deposit copy, external repository copy, or original local file.
+- UNQ-009: Which AR/EEG/haptic/scent/wearable integrations progressed beyond planning/specification?
+  Current finding: Device modalities, command semantics and some pulse/safety protocol concepts were recovered; no production device artifact was found.
+  Resolution: Hardware/software prototype artifacts, schematics, recordings, logs or independent test data.
+- UNQ-012: Do original standalone CM1/MEMSTACK/LINX/MICRO/UGCL source files survive outside the canonical export?
+  Current finding: The surviving corpus contains detailed descriptions and references but no complete standalone implementation/source package for these modules.
+  Resolution: External backup, repository, IPFS object, old download, original device/storage medium or copyright support package.
+
+EVIDENTIARY NOTE
+This is a downstream reconstruction. It does not replace or modify frozen copyright-deposit text.

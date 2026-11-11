@@ -1,0 +1,83 @@
+THERA HISTORICAL RECONSTRUCTION — PASS31B
+========================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE
+RECOVERY CONFIDENCE: VERY_HIGH branch; LOW clinical efficacy.
+
+HISTORICAL ORIGIN
+- First occurrence: 2025-06-06T20:26:03.468182Z / MSG-001078-000008
+- Origin context: Named Therapy Protocol Deployment Engine.
+
+ALIASES / RELATED NAMES
+- RSOS-THERA — CANONICAL_BRANCH_NAME — evidence MSG-001078-000008 — confidence VERY_HIGH
+- Therapy Protocol Deployment Engine — FUNCTIONAL_EXPANSION — evidence MSG-001078-000008 — confidence VERY_HIGH
+- Therapeutic Application Layer — FUNCTIONAL_EXPANSION — evidence MSG-001171-000084 — confidence VERY_HIGH
+- Clinical/Therapeutic Protocol Layer — FUNCTIONAL_EXPANSION — evidence MSG-001079-000004 — confidence VERY_HIGH
+- TIER THERA — LATER_EXECUTION_TIER — evidence MSG-001201-000286 — confidence VERY_HIGH
+
+ARCHITECTURAL ROLE
+- Purpose: Therapeutic/clinical application branch for symbolic identity/state and trauma-related protocols.
+- System owner: RSOS application branch orchestrated by RSSO.
+- Dependencies: RSOS; RSX; MEMSTACK; CM1; CONTAIN; AUG; Space(X).
+- Inputs: Identity/affect/memory/breath/posture/EEG/HRV/context signals.
+- Outputs: Therapeutic protocol actions, state transitions, AR/haptic feedback, memory updates.
+- State model: TIER THERA and anchor/state profiles in private specification.
+- Memory model: Recall/update via MEMSTACK; snapshots/rollback.
+- Operators: IdentityRebuild; BreathOverride; EmotionalLock; VIB-ANCHOR; FP-ANCHOR.
+- Protocols: EEG/gaze triggers, AR breath overlay, haptic anchors, refractory limits, HITL.
+- Algorithms / claimed algorithms: Protocol design exists; no validated clinical algorithm/trial evidence.
+
+INTERFACES
+- General: RSOS/RSSO/RSX/MEMSTACK/CM1/CONTAIN/AUG/Space(X).
+- RSOS: Uses core symbolic override/identity architecture.
+- RSSO: Sequences THERA with domains and safety/metrics.
+- RSX: TIER THERA vector chains encode operations.
+- RSIA: Identity architecture is relevant but THERA predates formal RSIA.
+- Model: GPT-powered therapeutic assistant concepts appear historically.
+- Hardware: EEG/AR/haptic/scent/vibration concepts.
+- Human: Primary human-facing application layer.
+- Feedback: HRV/EEG/state metrics and MEMSTACK updates proposed.
+- Safety: Consent/refractory/HITL/device envelope/rollback in private spec.
+
+RECOVERED MECHANISMS / SPECIFICATIONS
+- Therapeutic branch origin: RSOS-THERA explicitly named Therapy Protocol Deployment Engine.
+  Evidence: MSG-001078-000008 | FOUNDATIONAL_BRANCH | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Trauma/identity scope: Historical scope includes trauma resolution, identity reintegration and symbolic override/reframing.
+  Evidence: RSSO_Origin_Declaration.txt | HISTORICAL_SCOPE | DESIGN_INTENT | HISTORICAL_CLAIM | PUBLIC_DISCLOSURE
+- TIER THERA vector plan: Private spec encodes IdentityRebuild, BreathOverride, EmotionalLock, EthicsContain, CompressionRun and device output.
+  Evidence: MSG-001201-000286 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- VIB-ANCHOR: Haptic 300 ms on/off ×6 pulses tied to Calm–Confident–Clear state in historical private protocol.
+  Evidence: MSG-001202-000021 | PRIVATE_PROTOCOL | SPECIFIED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- FP-ANCHOR: Haptic 150 ms on/off ×8 pulses for future-pace state.
+  Evidence: MSG-001202-000021 | PRIVATE_PROTOCOL | SPECIFIED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- EEG/gaze closed loop: Gaze gating and EEG-NEG can trigger haptic anchor delivery and AR breathing overlay.
+  Evidence: MSG-001202-000021 | PRIVATE_PROTOCOL | SPECIFIED | CLAIMED_MECHANISM | PRIVATE_TECHNICAL_DESCRIPTION
+- Historical safety envelope: ≤6 events/hr, ≤20/day, 60–120s refractory, ≤40% haptic amplitude and HITL are specified.
+  Evidence: MSG-001202-000021 | PRIVATE_SAFETY_SPEC | SPECIFIED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- THERA→ECON cross-feed: Therapeutic stability patterns proposed to feed economic/decision contexts through CM1/MEMSTACK.
+  Evidence: MSG-001202-000021 | PRIVATE_EXAMPLE | EXAMPLE_ONLY | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+
+FAILURES / CORRECTIONS / LIMITATIONS
+- Failure modes: Clinical efficacy claims are not externally validated.
+- Experiments: Historical self-use/state-conditioning descriptions are not controlled clinical evidence.
+- Implementation state: APPLICATION SPEC / PROTOCOL CONCEPT.
+- Adjacent/abandoned: No standalone completed THERA filing recovered.
+- Successors/extensions: Dual-anchor/environment intelligence deepen later execution.
+
+DISCLOSURE / TRADE SECRET
+- Copyright: PUBLIC_REFERENCE + PRIVATE_TECHNICAL_DESCRIPTION.
+- Trade secret: Closed-loop/device/state detail concentrated privately.
+
+UNRESOLVED QUESTIONS
+- UNQ-001: Was the intended full public-safe RSSO/subsystem description ever generated as a final separate artifact before filing?
+  Current finding: The frozen RSSO_Copyright_Statement.txt retains the full-description placeholder; detailed architecture survives elsewhere in corpus/private material.
+  Resolution: Recover a contemporaneous finalized public description, portal-held deposit copy, external repository copy, or original local file.
+- UNQ-008: Which therapeutic effects were independently validated under controlled clinical conditions?
+  Current finding: Historical protocols, application concepts and self-use descriptions survive; no controlled clinical trial dataset was recovered.
+  Resolution: Ethics-approved studies, validated outcome measures, independent replication and safety review.
+- UNQ-012: Do original standalone CM1/MEMSTACK/LINX/MICRO/UGCL source files survive outside the canonical export?
+  Current finding: The surviving corpus contains detailed descriptions and references but no complete standalone implementation/source package for these modules.
+  Resolution: External backup, repository, IPFS object, old download, original device/storage medium or copyright support package.
+
+EVIDENTIARY NOTE
+This is a downstream reconstruction. It does not replace or modify frozen copyright-deposit text.

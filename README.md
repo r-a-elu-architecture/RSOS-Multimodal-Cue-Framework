@@ -148,6 +148,19 @@ The benchmark's `BENCHMARK_MANIFEST.json`, `RESULTS_REPORT.md`, `REPRODUCIBILITY
 
 A mechanism is promoted from hypothesis to finding only after it survives relevant ablations, equally informed generic comparators, independent data or independent replication, and a documented uncertainty analysis.
 
+## Historical architecture — original source records
+
+The [historical architecture index](architecture/) maps the RSOS, RSIA, RSX and RSSO systems, their documented nodes and interfaces, and the eight named PASS31B subsystem reconstructions to preserved source texts. The [historical archive](archive/) contains **65 unchanged original files** (56 unique byte contents and nine duplicate pairs preserved at their original paths), with a [source manifest](archive/provenance/SOURCE-MANIFEST.csv), [checksums](archive/provenance/SHA256SUMS.txt), [duplicate map](archive/provenance/DUPLICATE-MAP.csv), and the [complete original ZIP](archive/original-package/RSOS_RSIA_RSX_RSSO%281%29.zip).
+
+- [RSOS: historical operating-system and tier definitions](architecture/rsos/)
+- [RSIA: identity architecture, Spine, Watchdog, Meta-Architect and archetypes](architecture/rsia/)
+- [RSX: symbolic command-language and 9–17-vector specifications](architecture/rsx/)
+- [RSSO: orchestration and original architectural claims](architecture/rsso/)
+- [RSSO PASS31B: reconstructed subsystem genealogy](architecture/rsso/subsystems/)
+- [Cross-system relationships, overlapping tier ledgers, and evidence limits](architecture/cross-system/)
+
+**Provenance boundary:** Source documents include historical copyright/ownership assertions, reconstructed messages and proposed mechanisms. They are **public historical records, not independent scientific confirmation** of those assertions. The original estates keep their notices and are **not automatically relicensed under the repository's Apache-2.0 software license**. The modern architecture index is an interpretation linked back to original file paths and hashes.
+
 ## Research architecture and topical reference
 
 | Area | Detailed reference |

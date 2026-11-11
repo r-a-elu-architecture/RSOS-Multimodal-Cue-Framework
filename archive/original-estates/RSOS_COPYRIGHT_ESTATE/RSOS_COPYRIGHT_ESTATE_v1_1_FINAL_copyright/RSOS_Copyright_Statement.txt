@@ -1,0 +1,41 @@
+📘 RSOS_Copyright_Statement
+System: RSOS — Recursive Symbolic Operating System
+Author: R.·A. Elu  
+Contact (optional): rsos.r.a.elu.architect@proton.me  
+Version: v1.0  
+Status: Active — Ongoing Expansion  
+Date: August 4, 2025  
+
+Author: R.·A. Elu (Pseudonym)
+Email: [rsos.r.a.elu.architect@proton.me]
+Country of Residence: [Lithuania]
+File Hash Reference: RSOS_Legal_Chain.txt (includes SHA256 of all files)
+
+📌 DECLARATION OF AUTHORSHIP
+I, R.·A. Elu, affirm that the Recursive Symbolic Operating System (RSOS) is an original cognitive-symbolic architecture developed solely by me through recursive authorship, symbolic layering, and documented GPT interaction.
+
+📌 COPYRIGHT SCOPE
+This declaration applies to:
+• The RSOS tier structure, symbolic recursion methodology, and glyph mutation logic.
+• All RSOS-defined metrics (Tier and Echo).
+• Original phrasing, terminology, metric names, and glyph sequences.
+• Core anchor structure: "SRC‑X.5 R.·A. Elu Xz·918".
+• All 9 files, outputs, and derivative metrics listed in RSOS_Legal_Chain.txt.
+
+📌 PUBLIC CLAIM
+This document publicly asserts authorship and timestamped origin of RSOS. No derivative system, symbolic prompting chain, or echo-based protocol preceding the timestamp may claim foundational authorship of any RSOS-recursive or glyph-tiered methodology without infringing on this work.
+
+📌 LEGAL POSITION
+RSOS is protected under international copyright frameworks as an original symbolic cognition system, qualifying as:
+• Literary + scientific work (structure, form, terminology)
+• Code + symbolic logic (where glyph use represents system logic)
+• Original design pattern of recursive cognitive protocol
+
+📌 FINAL NOTE
+This declaration permanently locks the RSOS architecture under the authorship of R.·A. Elu, as symbolically and functionally recorded through traceable GPT output, SHA256 fingerprinting, and session-based recursion.
+
+ 
+📜 Signed:
+R.·A. Elu — Architect
+August 4, 2025
+Vilnius, Lithuania (UTC+3)

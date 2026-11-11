@@ -1,0 +1,80 @@
+LINX HISTORICAL RECONSTRUCTION — PASS31B
+========================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE
+RECOVERY CONFIDENCE: VERY_HIGH role; MEDIUM-LOW implementation.
+
+HISTORICAL ORIGIN
+- First occurrence: 2025-07-09T05:00:07.203924Z / MSG-001171-000058
+- Origin context: Named symbolic layer injection/GPT interface.
+
+ALIASES / RELATED NAMES
+- RSOS-LINX — CANONICAL_EARLY_NAME — evidence MSG-001171-000058 — confidence VERY_HIGH
+- Symbolic Layer Injection for Neural Execution — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000058 — confidence VERY_HIGH
+- GPT interface: compressed override injection — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000058 — confidence VERY_HIGH
+- GPT symbolic echo injector — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000084 — confidence VERY_HIGH
+- GPT routing system — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000074 — confidence VERY_HIGH
+- GPT interface + containment router — LATER_FUNCTIONAL_DESCRIPTION — evidence MSG-001201-000232 — confidence VERY_HIGH
+
+ARCHITECTURAL ROLE
+- Purpose: GPT/LLM symbolic injection and routing/interface layer.
+- System owner: RSSO-controlled; introduced as RSOS-LINX.
+- Dependencies: RSX, RSOS tier/recursion semantics, CM1, CONTAIN, MEMSTACK.
+- Inputs: RSX/CM1 commands, tier state, policy context.
+- Outputs: Model-facing prompts/injections and routed outputs/echoes.
+- State model: No independent persistent state recovered; relies on RSSO/MEMSTACK.
+- Memory model: Indirect via MEMSTACK context/echo recovery.
+- Operators: GPT injection; tier-recursion injection; output routing.
+- Protocols: RSSO routing chain; RSX vectors; CONTAIN gating.
+- Algorithms / claimed algorithms: No executable provider/model selection algorithm recovered.
+
+INTERFACES
+- General: GPT/LLM endpoints + RSSO/RSX/RSOS/CONTAIN.
+- RSOS: Carries tier/recursion semantics to model-facing interactions.
+- RSSO: Managed as model interface/router.
+- RSX: Receives structured command language.
+- RSIA: Later role/identity state could feed it; direct early spec sparse.
+- Model: Primary model-interaction subsystem.
+- Hardware: Indirect via combined RSSO/AUG/MICRO flows.
+- Human: Translates structured human/system intent into model-facing instructions.
+- Feedback: Model output returns to RSSO/memory/governance loop.
+- Safety: CONTAIN and later LAW/ETH/MOR gates.
+
+RECOVERED MECHANISMS / SPECIFICATIONS
+- Symbolic Layer Injection: LINX first appears as Symbolic Layer Injection for Neural Execution / GPT interface.
+  Evidence: MSG-001171-000058 | FOUNDATIONAL_SPEC | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Compressed override injection: LINX is described as GPT interface for compressed override injection.
+  Evidence: MSG-001171-000058 | FOUNDATIONAL_SPEC | SPECIFIED | CLAIMED_MECHANISM | CORPUS_ONLY
+- GPT routing: RSSO calls LINX a GPT routing system and directs vector intent to it.
+  Evidence: MSG-001171-000074 | ORCHESTRATION_SPEC | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Tier-recursion injection: Tier-5 example sends a GPT prompt with Tier-5 recursion through LINX.
+  Evidence: MSG-001171-000080 | ORCHESTRATION_EXAMPLE | EXAMPLE_ONLY | OBSERVED_INTERACTION_DESIGN | CORPUS_ONLY
+- Containment router: Later blueprint calls LINX GPT interface + containment router.
+  Evidence: MSG-001201-000232 | LATER_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_OR_CORPUS
+- Implementation negative space: No endpoint registry, model scoring policy, load balancer or deployed orchestration fabric was recovered.
+  Evidence: PASS31 full corpus search | NEGATIVE_SPACE | NOT_IMPLEMENTED | CORROBORATED_PATTERN | N/A
+
+FAILURES / CORRECTIONS / LIMITATIONS
+- Failure modes: Under-formalized: no endpoint registry, provider abstraction or deployed router recovered.
+- Experiments: Historical recursive prompting/echo interactions exist; internal mechanism unresolved.
+- Implementation state: CONCEPT/SPECIFICATION.
+- Adjacent/abandoned: No clear renamed successor.
+- Successors/extensions: Function later broadens into general RSSO model/agent routing concepts.
+
+DISCLOSURE / TRADE SECRET
+- Copyright: PUBLIC_REFERENCE / CORPUS-ONLY DETAIL.
+- Trade secret: No standalone LINX trade-secret algorithm file recovered.
+
+UNRESOLVED QUESTIONS
+- UNQ-001: Was the intended full public-safe RSSO/subsystem description ever generated as a final separate artifact before filing?
+  Current finding: The frozen RSSO_Copyright_Statement.txt retains the full-description placeholder; detailed architecture survives elsewhere in corpus/private material.
+  Resolution: Recover a contemporaneous finalized public description, portal-held deposit copy, external repository copy, or original local file.
+- UNQ-004: Did LINX ever receive a concrete model registry, provider router, scoring policy or executable orchestration service?
+  Current finding: The model-interface/routing role is explicit; no production router implementation was recovered.
+  Resolution: LINX source, endpoint registry, router tests, service logs or external repository.
+- UNQ-012: Do original standalone CM1/MEMSTACK/LINX/MICRO/UGCL source files survive outside the canonical export?
+  Current finding: The surviving corpus contains detailed descriptions and references but no complete standalone implementation/source package for these modules.
+  Resolution: External backup, repository, IPFS object, old download, original device/storage medium or copyright support package.
+
+EVIDENTIARY NOTE
+This is a downstream reconstruction. It does not replace or modify frozen copyright-deposit text.

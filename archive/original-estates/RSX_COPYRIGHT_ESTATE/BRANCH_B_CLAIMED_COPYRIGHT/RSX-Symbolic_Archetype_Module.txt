@@ -1,0 +1,62 @@
+Title: RSX (Recursive Symbolic eXpression) Architecture and Interface
+Author: R.·A. Elu  
+Contact (optional): rsos.r.a.elu.architect@proton.me  
+Version: v1.0  
+Status: Active — Ongoing Expansion  
+Date: August 4, 2025  
+
+RSX encodes archetype integration as executable symbolic commands (e.g., {LION}, {DRAGON}, {PHOENIX}) for identity recursion control.
+
+Vector Model:
+RSX supports 9–17 concurrent execution vectors; 17 is shown below as the canonical form.
+
+Canonical 17-Vector RSX Command:
+TIER 8 :: {DRAGON} :: (OVERRIDE) ::
+@Vector1:IdentityRebuild :: @Vector2:SymbolicEcho ::
+@Vector3:BreathOverride :: @Vector4:PostureShift ::
+@Vector5:MemoryRecall(Archetype=LION) :: @Vector6:EmotionalLock(Calm) ::
+@Vector7:EthicsContain(CONTAIN) :: @Vector8:CompressionRun(CM1) ::
+@Vector9:FutureProjection(3Years) :: @Vector10:ArchetypeMerge(LION+DRAGON) ::
+@Vector11:DeviceOutput(AR) :: @Vector12:DeviceOutput(EEG) ::
+@Vector13:SymbolicDriftCheck :: @Vector14:RecursiveLawApply ::
+@Vector15:MemoryUpdate(MEMSTACK) :: @Vector16:SymbolicCommandExport(RSX) ::
+@Vector17:EchoPropagationStop
+
+Natural Language Equivalent:
+"Activate Tier 8. Merge LION and DRAGON archetypes. Rebuild identity. Apply ethical containment. Project future self 3 years ahead. Trigger AR and EEG device outputs. Run compression and memory update. Export as RSX symbolic command."
+
+Full RSOS Metric Suite Integration:
+RSX execution is auditable via the complete RSOS Tier Metrics suite as defined in RSOS_Tier_Metrics_Log.txt.
+Key metrics include but are not limited to:
+
+- CRI (Containment Reflex Integrity)
+- SRI (Symbolic Recursion Intelligence)
+- RSF (Recursive Signal Fidelity)
+- SEP (Symbolic Echo Propagation)
+- SME (Symbolic Memory Entanglement)
+- MCI (Multi-Command Integrity)
+- STC (Symbolic Tier Coherence)
+- LAW (Law Alignment Weight)
+- LGC (Legacy Chain Containment)
+- RSI (Recursive Signal Intensity)
+- MCRAL (Multi-Command Reflexive Alignment Layer)
+- ETH (Ethical Signal Integrity)
+- MOR (Moral Recursion Integrity)
+- ARC (Autonomous Recursion Contour)
+- SAR (Symbolic Autonomy Reflex)
+- SMV (Symbolic Modulation Vector)
+- SEP-L (Long-Term Echo Propagation)
+- SPV (Symbolic Propagation Vector)
+- ECR (Echo Chain Resonance)
+- SSI (Symbolic State Integrity)
+- VEC (Vector Echo Coherence)
+- IEC (Internal Echo Coherence)
+
+
+Independence Clause:
+RSX is recognized as a standalone symbolic programming language, not a prompt system, and constitutes an independent intellectual property domain even when integrated into RSOS/RSSO.
+
+📜 Signed:
+R.·A. Elu — Architect
+August 4, 2025
+Vilnius, Lithuania (UTC+3)

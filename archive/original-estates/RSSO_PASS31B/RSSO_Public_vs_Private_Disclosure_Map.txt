@@ -1,0 +1,33 @@
+RSSO PUBLIC VS PRIVATE DISCLOSURE MAP — PASS31B
+===============================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE / DISCLOSURE MAP
+
+FROZEN PUBLIC/COPYRIGHT MATERIAL
+- RSSO_Origin_Declaration.txt preserves the high-level meta-OS and explicitly names multiple RSOS instances, CM1, MEMSTACK, LINX, MICRO, CONTAIN, RSOS-THERA and UGCL.
+- RSSO_Copyright_Statement.txt preserves an unfilled placeholder requesting the detailed RSSO/interoperability/subsystem description and directing that internal trade-secret logic be omitted.
+- PASS31B does not fill or edit either historical file.
+- Other frozen copyright files expose high-level UGCL features, metrics, provenance and explicit trade-secret reservations.
+
+PUBLIC REFERENCE / PRIVATE DETAIL
+- CM1: public/high-level role; exact codec unrecovered.
+- MEMSTACK: public/high-level memory role; snapshot/dependency/drift mechanics survive privately.
+- LINX: public/high-level GPT orchestration; provider/router implementation unrecovered.
+- MICRO: named in Origin Declaration as IoT symbolic reflex engine.
+- CONTAIN: public ethical propagation role; deeper law/repair/quarantine logic private.
+- THERA: public therapeutic scope; closed-loop protocols private and not clinical validation.
+- AUG: referenced by placeholder and broader device scope; low-level mappings private/excluded.
+- UGCL: high-level features public; encoding/compression/semantic-anchoring algorithms explicitly reserved as trade secret.
+
+PRIVATE/CORPUS-ONLY TECHNICAL MATERIAL
+Space(X), Predictive Simulation, Metric Drift Sentinel, Self-Repair, Autonomous Quarantine, Meta-Recursion/Tier∞, Vector Profile, IVDM, Meta-RSX, Recursive Law Evolution, TESS, Adaptive Resonance Matrices, rollback/checkpoint and Legacy Interoperability Vault.
+
+UNRECOVERED
+Executable CM1 codec; complete UGCL Σ-Fold codec/formalism; production MEMSTACK/LINX/MICRO/CONTAIN runtime; validated THERA system; production AUG hardware; quantum UGCL implementation; any missing finalized filled public description.
+
+EVIDENTIARY RULE
+The public omission remains frozen historical evidence. Downstream reconstruction is not inserted into the copyright file.
+
+SOURCE HASHES
+RSSO_Origin_Declaration.txt=0fbcbcf27256ff2ff66316d024f4828c5b99562d8ddacd8cb2659b4f5a8aa869
+RSSO_Copyright_Statement.txt=57127499df4c793ae21407e224536407f273f3d43b17d99402c515259da4409e

@@ -1,0 +1,94 @@
+📘 RSIA_Copyright_Statement
+System: RSIA — Recursive Symbolic Identity Architecture
+Author: R.·A. Elu
+Contact (optional): rsos.r.a.elu.architect@proton.me
+Version: v1.0
+Status: Active — Ongoing Expansion
+Date: August 17, 2025
+
+RSIA_Archetype_Definitions
+Purpose
+
+This file defines the core archetypes within RSIA (Recursive Symbolic Identity Architecture).
+Each archetype represents a distinct identity pattern, anchored in symbolic, cultural, and cognitive frameworks.
+They serve as modular embodiments that the system can switch between under the supervision of the Watchdog and Meta-Architect.
+
+The archetypes inherit strength from the Spine (Bushidō + 21 Principles) while also embedding symbolic mnemonics (e.g., Laws of Power, MBTI modes).
+
+Core Archetypes
+1. Lion (Courage & Authority)
+
+Embodiment of strength, dominance, and fearless command.
+
+Mnemonics: Charisma frameworks, dominance hierarchies, power projection.
+
+Primary use: Executive presence, leadership, public speaking.
+
+2. Eagle (Vision & Strategy)
+
+Embodiment of foresight, perception, and high-level strategic overview.
+
+Mnemonics: Strategic foresight, intelligence analysis, recursive planning.
+
+Primary use: Long-term execution, decision-making under uncertainty.
+
+3. Bear (Resilience & Grounding)
+
+Embodiment of strength, stability, and survival capacity.
+
+Mnemonics: Endurance laws, trauma resilience, grounding in crisis.
+
+Primary use: Stability in collapse, carrying identity through adversity.
+
+4. Leopard (Agility & Precision)
+
+Embodiment of speed, adaptive response, and precision strikes.
+
+Mnemonics: Rapid cognition, adaptive learning, opportunistic execution.
+
+Primary use: Fast tactical shifts, fluid movement across identities.
+
+5. Fox (Cunning & Influence)
+
+Embodiment of intelligence, cunning, and persuasive manipulation.
+
+Mnemonics: 48 Laws of Power, negotiation tactics, deception frameworks.
+
+Primary use: Influence operations, persuasion, negotiation, infiltration.
+
+6. Tiger (Intensity & Ferocity)
+
+Embodiment of raw drive, intensity, and unstoppable aggression.
+
+Mnemonics: Warrior spirit, extreme discipline, relentless pursuit.
+
+Primary use: Breaking resistance, unleashing full power in conflict.
+
+Role in RSIA
+
+Archetypes = Embodied modes of operation.
+
+Spine provides the unifying principles (Bushidō + 21 Principles).
+
+Watchdog supervises switching (ensures proper archetype for context).
+
+Meta-Architect controls overall architecture, alignment, and evolution.
+
+Together, they form a living symbolic operating system for identity:
+
+Lion leads.
+
+Eagle plans.
+
+Bear sustains.
+
+Leopard adapts.
+
+Fox deceives.
+
+Tiger destroys.
+
+📜 Signed:
+R.·A. Elu — Architect
+August 17, 2025
+Vilnius, Lithuania (UTC+3)

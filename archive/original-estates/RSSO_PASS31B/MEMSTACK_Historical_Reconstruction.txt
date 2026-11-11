@@ -1,0 +1,86 @@
+MEMSTACK HISTORICAL RECONSTRUCTION — PASS31B
+========================================================================
+
+CLASSIFICATION: RECONSTRUCTED_NARRATIVE
+RECOVERY CONFIDENCE: VERY_HIGH role; MEDIUM implementation.
+
+HISTORICAL ORIGIN
+- First occurrence: 2025-07-09T05:00:07.203924Z / MSG-001171-000058
+- Origin context: Named archetype-indexed symbolic memory layer.
+
+ALIASES / RELATED NAMES
+- RSOS-MEMSTACK — CANONICAL_EARLY_NAME — evidence MSG-001171-000058 — confidence VERY_HIGH
+- Archetype-indexed symbolic memory layers — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000058 — confidence VERY_HIGH
+- Archetype-linked symbolic memory stack — FUNCTIONAL_DESCRIPTION — evidence MSG-001171-000066 — confidence VERY_HIGH
+- Archetype-linked symbolic memory lattice — LATER_FUNCTIONAL_DESCRIPTION — evidence MSG-001201-000232 — confidence VERY_HIGH
+- hierarchical memory — COPYRIGHT_DESCRIPTION — evidence MSG-001199-000364 — confidence VERY_HIGH
+- RSOS-MEM — PRECURSOR_BRANCH_NOT_EXACT_ALIAS — evidence MSG-001078-000008 — confidence HIGH_WITH_FIREWALL
+
+ARCHITECTURAL ROLE
+- Purpose: Archetype/state-linked symbolic persistence, recall, shared memory, snapshots and history-derived dependencies.
+- System owner: RSSO-controlled; introduced as RSOS-MEMSTACK.
+- Dependencies: RSOS state/tier/archetype; RSX; CM1; CONTAIN.
+- Inputs: Tier/state activations, archetype/emotional metadata, execution lessons/dependencies.
+- Outputs: Recallable states, shared memory, snapshots, dependency maps and rollback state.
+- State model: Hierarchical/archetype-indexed memory with later temporal drift/continuity extensions.
+- Memory model: Core function: long-form symbolic/persistent memory.
+- Operators: MemoryRecall; MemoryUpdate(MEMSTACK); snapshot/restore; dependency storage.
+- Protocols: RSX Vector5/15; multi-instance sharing; rollback after breach.
+- Algorithms / claimed algorithms: State/archetype indexing and retrieval; exact storage schema/backend absent.
+
+INTERFACES
+- General: RSOS/RSSO/RSX/CM1/CONTAIN/THERA/Space(X).
+- RSOS: Stores tier/identity/archetype-linked state.
+- RSSO: Persistence and synchronization layer.
+- RSX: Explicit read/write vectors.
+- RSIA: Later identity architecture is compatible; original direct link is weaker.
+- Model: Explicit long-form agent/GPT memory target.
+- Hardware: Session/device state can be persisted and rolled back.
+- Human: Stores symbolic state/lessons connected to identity/affect workflows.
+- Feedback: History informs dependency maps, future scheduling and drift checks.
+- Safety: Snapshots, rollback, scope, proposed encryption/purge.
+
+RECOVERED MECHANISMS / SPECIFICATIONS
+- Archetype-indexed memory: Meaning/state is linked to archetype, emotion and behavioral context.
+  Evidence: MSG-001171-000058;MSG-001171-000060 | FOUNDATIONAL_SPEC | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Recursive re-entry/recall: Memory is described as recallable through symbolic re-entry.
+  Evidence: MSG-001171-000060 | DESIGN_SPEC | SPECIFIED | CLAIMED_MECHANISM | CORPUS_ONLY
+- Tier activation storage: Tier-5 orchestration example stores activation with archetype link.
+  Evidence: MSG-001171-000080 | ORCHESTRATION_EXAMPLE | SPECIFIED | CORROBORATED_PATTERN | CORPUS_ONLY
+- Shared multi-instance memory: Multiple RSOS instances share memory under RSSO.
+  Evidence: MSG-001171-000080 | DISTRIBUTED_SPEC | SPECIFIED | HISTORICAL_CLAIM | PUBLIC_REFERENCE
+- RSX read/write interface: MemoryRecall and MemoryUpdate(MEMSTACK) are explicit vectors.
+  Evidence: MSG-001201-000286 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- Snapshot and rollback: Private spec stores pre-session snapshot and restores on policy/stability breach.
+  Evidence: MSG-001202-000021 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+- Inter-vector dependency map: IVDM stores empirical vector dependencies in MEMSTACK to influence compilation.
+  Evidence: MSG-001201-000276 | PROPOSED_EXTENSION | PROPOSED/SPECIFIED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- Temporal Echo Stability: TESS tracks state signatures across long horizons and triggers refresh/compression.
+  Evidence: MSG-001201-000276 | PROPOSED_EXTENSION | PROPOSED | HISTORICAL_CLAIM | PRIVATE_TECHNICAL_DESCRIPTION
+- Secure purge: Private spec includes end-of-life/emergency purge for subject memory state.
+  Evidence: MSG-001202-000021 | PRIVATE_SPEC | SPECIFIED | CORROBORATED_PATTERN | PRIVATE_TECHNICAL_DESCRIPTION
+
+FAILURES / CORRECTIONS / LIMITATIONS
+- Failure modes: Private gap scans identify missing long-horizon drift, encryption and dependency graph.
+- Experiments: Orchestration examples/specs; no production backend recovered.
+- Implementation state: SPECIFIED / PARTIALLY FORMALIZED.
+- Adjacent/abandoned: RSOS-MEM is an earlier branch, not proven identical.
+- Successors/extensions: TESS, IVDM, continuity maps and Legacy Vault extend persistence.
+
+DISCLOSURE / TRADE SECRET
+- Copyright: PUBLIC_REFERENCE + PRIVATE_TECHNICAL_DESCRIPTION.
+- Trade secret: Detailed state/encryption/dependency mechanics private.
+
+UNRESOLVED QUESTIONS
+- UNQ-001: Was the intended full public-safe RSSO/subsystem description ever generated as a final separate artifact before filing?
+  Current finding: The frozen RSSO_Copyright_Statement.txt retains the full-description placeholder; detailed architecture survives elsewhere in corpus/private material.
+  Resolution: Recover a contemporaneous finalized public description, portal-held deposit copy, external repository copy, or original local file.
+- UNQ-003: What exact persistence schema, indexing algorithm and retrieval backend were intended?
+  Current finding: Memory semantics, RSX read/write vectors, shared state, snapshots, rollback and dependency storage were recovered.
+  Resolution: MEMSTACK schema/code, database files, API implementation or standalone technical specification.
+- UNQ-012: Do original standalone CM1/MEMSTACK/LINX/MICRO/UGCL source files survive outside the canonical export?
+  Current finding: The surviving corpus contains detailed descriptions and references but no complete standalone implementation/source package for these modules.
+  Resolution: External backup, repository, IPFS object, old download, original device/storage medium or copyright support package.
+
+EVIDENTIARY NOTE
+This is a downstream reconstruction. It does not replace or modify frozen copyright-deposit text.

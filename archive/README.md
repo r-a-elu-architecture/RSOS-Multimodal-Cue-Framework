@@ -1,9 +1,22 @@
-# Original RSOS, RSIA, RSX and RSSO research estates
+# RSOS / RSIA / RSX / RSSO — historical source archive
 
-This directory is the index for the dated historical source specifications. The archives were originally labeled as proprietary/copyright materials and include tier/glyph, RSIA watchdog/archetype, RSX operator, and RSSO module records.
+This directory preserves the **original dated source records** supplied for public disclosure. These are primary historical documents: descriptions and original claims **are not proof** that an underlying model, physiological effect, neural state, or claimed intellectual-property entitlement was independently established.
 
-**This repository has not silently relicensed these historical estates.** Original documents must remain intact when published, with clear disclosure date, copyright notices, hashes, and explicit re-use terms. A historical label does not prove technical uniqueness.
+## Navigating the archive
 
-The initial public launch indexes and cites the estates but does not indiscriminately publish full raw personal histories or confidential third-party material. Researchers seeking source verification should consult the [source rights policy](../docs/SOURCES_AND_RIGHTS.md).
+- [`original-package/`](original-package/) — intact, unmodified source ZIP.
+- [`original-estates/`](original-estates/) — all 65 original UTF-8 files extracted without changes, including the nine duplicated contents occurring at distinct historical paths.
+- [`provenance/SOURCE-MANIFEST.csv`](provenance/SOURCE-MANIFEST.csv) — hashes, original paths, byte counts, source categories.
+- [`provenance/DUPLICATE-MAP.csv`](provenance/DUPLICATE-MAP.csv) — nine exact duplicate file-content groups, **not** deletion instructions.
+- [`provenance/SHA256SUMS.txt`](provenance/SHA256SUMS.txt) — independently checkable SHA-256s for ZIP and all files.
+- [`../architecture/`](../architecture/) — modern, source-linked navigation and interpretations, separate from immutable originals.
 
-Sources are historical architectural descriptions; assistant assertions about hidden model telemetry, weights or control are not validated technical evidence.
+## Archive integrity and interpretation
+
+Files have not been edited, sanitized, rewritten or deduplicated. All 65 original internal paths are preserved within `original-estates/`; the source ZIP retains its original internal directory layout. Texts labeled `PASS31B` include later historical reconstructions and evidence excerpts; do not assign their assertions the same provenance as original specifications. Some original texts contain proprietary declarations, author contact details, psychological terminology and historical assistant claims. These reflect their authorship and source context, not verified extraordinary model capabilities.
+
+## License boundary
+
+The repository's Apache-2.0 software license **does not automatically grant an Apache-2.0 license to these separately identified original estate records**. They are publicly disclosed as historical archival sources, with their original notices preserved and copyright retained as stated in those records. For downstream reuse beyond rights granted by applicable law, check the applicable historical notice or seek permission. The present disclosure of trade-secret-labeled material does not preserve secrecy as a matter of law.
+
+To cite an individual source, use its exact path and SHA-256 from the manifest, not an undated paraphrase.

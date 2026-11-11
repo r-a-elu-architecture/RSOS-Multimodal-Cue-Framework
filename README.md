@@ -8,6 +8,26 @@ The central research question is **when can a system reuse learned cue relations
 
 > **Evidence status:** Executable research prototypes and reproducible **synthetic** adaptive-control benchmarks exist. Historical conversation-provenance studies are also available. A unique RSOS-specific neurological mechanism, reliable decoding of specific emotions from EEG, and clinical efficacy **have not been established**. Research drafts are not peer-reviewed papers.
 
+## Reproduce the flagship benchmark now
+
+**The executable research code is public**, together with exact confidence-interval tables from the frozen v1.3 synthetic experiments.
+
+- [Runnable Python source and tests](experiments/compositional-transfer-v1.3/src/)
+- [Flagship v1.3 experiment](experiments/compositional-transfer-v1.3/README.md)
+- [Independent holdout and unseen-context confidence intervals](experiments/compositional-transfer-v1.3/results/README.md)
+- [Manual verification workflow](.github/workflows/manual-reproduction.yml) (not automatically scheduled)
+- [Reproducibility instructions](experiments/compositional-transfer-v1.3/REPRODUCIBILITY.md)
+
+```bash
+git clone https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework.git
+cd RSOS-Multimodal-Cue-Framework/experiments/compositional-transfer-v1.3
+python -m pip install -r requirements.txt
+PYTHONPATH=src python -m unittest discover -s src/tests -v
+bash run_all.sh
+```
+
+The Python tests and a small benchmark reproduction have been run locally. **GitHub Actions execution has not yet been triggered or independently verified.** All published reward/regret outcomes in these experiments are **synthetic**, not measured responses to a conditioning treatment.
+
 ## Explore the project by research question
 
 The project is organized so each topic has a dedicated, source-linked explanation rather than being buried in one monolithic description.

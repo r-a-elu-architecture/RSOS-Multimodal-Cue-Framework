@@ -31,7 +31,7 @@ The protocol combines established principles. It does not depend on any of them 
 | **Paced breathing** | Every phase is tied to an inhale or exhale | Slow-breathing autonomic regulation |
 | **Future template / future pacing** | Phase 5: the new state is rehearsed in three concrete future contexts | EMDR future template and Resource Development & Installation (Korn & Leeds, 2002); NLP future pacing |
 | **Stimulus generalisation / context conditioning** | Phase 5: people, objects and places in the futures are linked to the agency state by golden light, so they become cues for it | Context-dependent learning; generalisation gradients in conditioning |
-| **Embodiment** | Movement, straight spine and raised head; warmth in the body | Embodied-emotion and posture research |
+| **Embodiment** | Movement, straight spine and raised head; warmth in the body; the smile held through the futures | Embodied-emotion and posture research |
 | **Closure / installation** | Phase 8: a fixed closing phrase marks the end and seals the sequence | EMDR installation phase; ritual closure |
 
 ## 4. Structure
@@ -46,7 +46,7 @@ Then one interrupt and five full breaths. Default breath: 4 s inhale, 6 s exhale
 | 2 | **Ignite** | Inhale | Breathe golden lion light into the belly: courage and agency | Warm tone; lion-light visual |
 | 3 | **Radiate** | Exhale | The light expands inside, filling the blood flow, the lymph, every part of the body and every cell | Expanding light |
 | 4 | **Anchor** | Inhale | At the top of the inhale, touch middle finger to thumb | Short haptic pulse |
-| 5 | **Three futures** | Exhale (one exhale for all three) | Associated as your future self in three desired situations, acting as you want to. Everything there is connected by golden light, as beams or flows, to you and to each other: the people, the objects, the place. You see it and feel it inside you | Haptic FP-ANCHOR (150 ms on/off × 8) |
+| 5 | **Three futures** | Exhale (one exhale for all three) | Associated as your future self in three desired situations, acting as you want to. Everything there is connected by golden light, as beams or flows, to you and to each other: the people, the objects, the place. You see it and feel it inside you. A gentle smile is held through the whole exhale | Haptic FP-ANCHOR (150 ms on/off × 8) |
 | 6 | **Hologram** | Inhale | At the top of the inhale, a golden hologram finger appears in front of the eyes, pointing upward | — |
 | 7 | **Extend** | Exhale | Golden light flows from the finger up, around, above, below, to the sides and into the sky, filling the people, objects and places associated with agency and power | Rising tone |
 | 8 | **Return** | Inhale | The golden light comes back into the belly, now carrying their resources: every source of agency and power | Light contracting into the body |

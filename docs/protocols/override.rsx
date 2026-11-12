@@ -48,8 +48,10 @@ PHASE anchor breath=inhale {
 # 5. One exhale through all three futures. Associated, as your future self: everything is connected
 #    by golden light (beams, flows) to you and to each other; you see it and feel it inside you.
 #    Over many runs the people, objects and places in these futures come to carry power and agency.
+#    A gentle smile is held through the whole exhale.
 PHASE futures breath=exhale {
   FEEL "You, the people, objects and places: all connected by golden beams and flows. See it and feel it inside you"
+  GESTURE "Hold a gentle smile"
   HAPTIC on=150ms off=150ms x=8 amp=0.3    # FP-ANCHOR
   FOR FUTURE {
     SEE "$future"

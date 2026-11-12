@@ -4,7 +4,7 @@
 
 **Status:** **Complete in simulation** — built and tested end to end with virtual and simulated hardware; awaiting a check on real devices
 
-**Now:** Built: the runtime that plays RSX timelines on any set of devices; the portable C++ device core and an ESP32 wristband sketch (`firmware/`); the installable offline player app; the conformance suite, which the firmware core passes 13/13 in the host simulator. Awaiting: flashing and checking on a real board.
+**Now:** Built: the runtime that plays RSX timelines on any set of devices; the portable C++ device core and an ESP32 wristband sketch (`firmware/`); the installable offline player app; the conformance suite, which the firmware core passes 15/15 in the host simulator. Awaiting: flashing and checking on a real board.
 
 ## Sources in the archive
 

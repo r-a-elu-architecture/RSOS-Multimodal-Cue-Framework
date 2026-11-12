@@ -114,7 +114,7 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html" aria-current="page">Nodes</a><a href="contribute.html">Contribute</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html" aria-current="page">Nodes</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <section class="hero">
@@ -210,9 +210,10 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
   </div>
 </main>
 <footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it does not diagnose.</footer>
-<script src="js/ugcl.js?v=1.12.0"></script>
-<script src="js/nodes.js?v=1.12.0"></script>
-<script src="js/linx.js?v=1.12.0"></script>
+<script src="js/ugcl.js?v=1.13.0"></script>
+<script src="js/nodes.js?v=1.13.0"></script>
+<script src="js/linx.js?v=1.13.0"></script>
+<script src="js/contain.js?v=1.13.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -384,12 +385,20 @@ $("save").addEventListener("click", () => {
   const p = current.plan;
   if (!$("ledBox").hidden) {
     const screen = (document.querySelector('input[name="screen"]:checked') || {}).value;
+    if (screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: screen }); store.set("rsos.screens", sc.slice(-50)); }
     if (screen === "yes") return say("Please do not start this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist.");
     if (screen !== "no") return say("Answer the screening question first.");
     if (p.therapist_led && !$("therapistHere").checked) return say("Observer work with trauma memories is therapist-led: save this plan in a session with your therapist present.");
   }
   if (!$("consent").checked) return say("A plan is saved only with consent: tick the box once you have read every node.");
-  store.set("rsos.plan", Object.assign({}, p, { approved: true, approved_at: new Date().toISOString(), intake: current.intake }));
+  // CONTAIN: while practice is paused, a new plan needs a therapist present (rsso/rsso/contain.py decide)
+  const [cst] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
+  const verdict = RSOSContain.decide({ kind: "plan", therapist_led: p.therapist_led, therapist_present: $("therapistHere").checked }, cst, null, Date.now() / 1000);
+  const clog = store.get("rsos.contain.log", []); clog.push({ at: Date.now(), action: "plan approval", decision: verdict.decision, reasons: verdict.reasons }); store.set("rsos.contain.log", clog.slice(-200));
+  if (verdict.decision !== "allow") return say("CONTAIN held this plan: " + verdict.reasons.join("; ") + ". See the safety page.");
+  const approvedPlan = Object.assign({}, p, { approved: true, approved_at: new Date().toISOString(), intake: current.intake });
+  store.set("rsos.plan", approvedPlan);
+  const hist = store.get("rsos.plan.history", []); hist.push(approvedPlan); store.set("rsos.plan.history", hist.slice(-6));
   say("Saved. Opening the player with your first node…", true);
   setTimeout(() => { location.href = "player.html?program=plan:0"; }, 700);
 });
@@ -455,7 +464,7 @@ for (const k of [...Object.keys(N.ARCHETYPES), ""]) {
 }
 $("screenQ").textContent = SCREEN;
 $("intake").addEventListener("input", update);
-fetch("ugcl/originals.json?v=1.12.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => { ORIG = d.glyphs; })).catch(() => {}).finally(() => {
+fetch("ugcl/originals.json?v=1.13.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => { ORIG = d.glyphs; })).catch(() => {}).finally(() => {
   const saved = store.get("rsos.plan", null);
   if (saved && saved.intake) {
     const it = saved.intake; $("symptoms").value = it.symptoms || ""; $("triggers").value = (it.triggers || []).join("\n"); $("author").value = it.author || "self";

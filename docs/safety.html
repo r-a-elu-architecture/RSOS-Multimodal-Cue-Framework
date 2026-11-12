@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Safety — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="CONTAIN, the safety layer of RSOS: the device safety envelope, programs paused when they stop helping, practice paused when it needs a therapist, and every decision with its reason.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 20px}
+@media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:54px 0 6px}
+.lede{color:var(--muted);max-width:64ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:68ch}
+.gate{list-style:none;margin:28px 0 0;padding:0;counter-reset:g;max-width:820px}
+.gate li{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:start;padding:16px 0;border-top:1px solid var(--line)}
+.gate li::before{counter-increment:g;content:counter(g);font-family:var(--serif);color:var(--gold);font-size:1.3rem;line-height:1.3}
+.gate b{display:block;font-family:var(--serif);font-weight:500;font-size:1.12rem}
+.gate span.d{color:var(--muted);font-size:.92rem}
+.lamp{display:inline-flex;align-items:center;gap:8px;font-size:.86rem;white-space:nowrap;color:var(--muted)}
+.lamp::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--ok)}
+.lamp.warn::before{background:var(--warn)} .lamp.stop::before{background:var(--stop)}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-top:16px}
+.panel h3{font-family:var(--serif);font-weight:500;font-size:1.2rem;margin:0 0 8px}
+.status{font-size:1.05rem}
+.status.stop{color:var(--stop)} .status.warn{color:var(--warn)} .status.ok{color:var(--ok)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.85rem}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer;margin:6px 8px 0 0}
+.btn:hover{border-color:var(--gold)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+.log{max-height:300px;overflow:auto}
+.allow{color:var(--ok)} .block{color:var(--stop)} .other{color:var(--warn)}
+.crisis{border-left:3px solid var(--stop);padding:8px 14px;margin-top:20px;max-width:70ch}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+@media (max-width:760px){.two{grid-template-columns:1fr}.gate li{grid-template-columns:32px 1fr}.gate .lamp{grid-column:2}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="contribute.html">Contribute</a><a href="safety.html" aria-current="page">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>Nothing in RSOS starts unchecked</h1>
+  <p class="lede">CONTAIN is the safety layer every part of RSOS asks before it acts: the player before a run, the heart-rate trigger before an offer, LINX before an AI proposal changes a plan, the node studio before a plan is approved. It can allow, block or pause, and it always says why. It also watches every program and node over time, and pauses one that stops helping.</p>
+  <p class="lede">What it checks, in the order it checks it, and how things stand in this browser right now:</p>
+  <ol class="gate" id="gate"></ol>
+
+  <h2>Right now</h2>
+  <div class="panel"><p class="status" id="status"></p><div id="paused"></div></div>
+  <div class="two">
+    <div class="panel">
+      <h3>Report something that felt wrong</h3>
+      <p class="hint">A report linked to a program pauses it until it is looked at. Reports stay in this browser; they are part of a research contribution only if you choose.</p>
+      <div class="two"><div><label for="sev">How strong</label><select id="sev"><option value="mild">Mild: passed quickly</option><option value="moderate">Moderate: it stayed with me</option><option value="serious">Serious: I needed help</option></select></div>
+        <div><label for="rel">Related to the practice?</label><select id="rel"><option value="possible">Possibly</option><option value="likely">Likely</option><option value="unlikely">Unlikely</option><option value="unrelated">Not related</option></select></div></div>
+      <label for="prog">Which program</label><select id="prog"></select>
+      <label for="txt">What happened (optional)</label><input type="text" id="txt">
+      <button class="btn" type="button" id="report">Report</button>
+    </div>
+    <div class="panel">
+      <h3>Your node plan</h3>
+      <p class="hint" id="planNote"></p>
+      <button class="btn" type="button" id="rollback" hidden>Go back to the previous plan</button>
+    </div>
+  </div>
+  <div class="crisis"><b>If you are in crisis or at risk of harm</b>, contact local emergency services or a crisis line now. RSOS is not a treatment and does not replace care.</div>
+
+  <h2>The device safety envelope</h2>
+  <p class="hint">Limits no program can exceed, whoever wrote it: the planner, a therapist, LINX or you. A program may set stricter limits for itself, never looser ones. A program outside the envelope does not start (conformance check C14).</p>
+  <table id="env"><thead><tr><th>What</th><th>Limit</th><th>Why</th></tr></thead><tbody></tbody></table>
+
+  <h2>What CONTAIN watches over time</h2>
+  <table>
+    <thead><tr><th>Signal</th><th>When</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td>Worse after</td><td>Distress after a run is on average 0.5 or more higher than before, over the last 4 to 5 rated runs</td><td>The program or node is paused</td></tr>
+      <tr><td>Agency falls</td><td>Agency drops by 1 or more on average over the last 4 to 5 runs</td><td>Paused</td></tr>
+      <tr><td>Rising distress</td><td>Distress after runs is 1.5 or more higher than in the 5 runs before</td><td>Watched; paused together with any other signal</td></tr>
+      <tr><td>Stopped often</td><td>Stopped 4 of the last 6 times</td><td>Watched; paused together with any other signal</td></tr>
+      <tr><td>Adverse event</td><td>A moderate or serious event possibly or likely related to a program</td><td>That program is paused until the therapist restores it</td></tr>
+      <tr><td>Practice paused</td><td>A serious adverse event in 30 days; two moderate related events in 14 days; the screening question answered yes in 7 days; distress at 8 or more after 3 of the last 5 runs in a week</td><td>Device offers and therapist-led work stop; a new plan needs a therapist present; the person is pointed to their therapist or to crisis help</td></tr>
+    </tbody>
+  </table>
+  <p class="hint">A paused program is restored by the person, or by the therapist when an adverse event was involved or practice is paused (conformance check C15). After a restore, only new runs count.</p>
+
+  <h2>Every decision</h2>
+  <p class="hint">The last decisions in this browser, newest first.</p>
+  <div class="panel log"><table id="log"><thead><tr><th>When</th><th>What</th><th>Decision</th><th>Why</th></tr></thead><tbody></tbody></table></div>
+</main>
+<footer>CONTAIN is <code>rsso/rsso/contain.py</code>, identically <code>docs/js/contain.js</code> (tested); the runtime refuses what it blocks, and the conformance suite checks it (C14, C15). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CONTAIN.md">spec/CONTAIN.md</a>.</footer>
+<script src="js/contain.js?v=1.13.0"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id), K = RSOSContain;
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+const now = () => Date.now() / 1000;
+function state() {
+  const [st] = K.review(store.get("rsos.contain", K.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), now());
+  store.set("rsos.contain", st); return st;
+}
+function log(action, decision, reasons) { const l = store.get("rsos.contain.log", []); l.push({ at: Date.now(), action, decision, reasons }); store.set("rsos.contain.log", l.slice(-200)); }
+const ENV = [["Vibration strength", "haptic_amp_max", v => Math.round(v * 100) + "% of the motor", "Strong vibration is unpleasant and can numb the skin"],
+  ["One vibration pulse", "haptic_pulse_ms_max", v => v / 1000 + " s", "Short pulses are felt and recognised; long ones blur"],
+  ["One vibration pattern", "haptic_burst_ms_max", v => v / 1000 + " s", "A cue, not a buzz that goes on"],
+  ["All vibration in one run", "haptic_on_ms_per_run", v => v / 1000 + " s", "Keeps the skin sensitive to the cue"],
+  ["Tone pitch", "tone_hz_min", (v, e) => v + "–" + e.tone_hz_max + " Hz", "Within comfortable hearing"],
+  ["One tone", "tone_ms_max", v => v / 1000 + " s", ""],
+  ["All tones in one run", "tone_ms_per_run", v => v / 1000 + " s", ""],
+  ["Scent bursts", "scent_per_run", (v, e) => v + " a run, " + e.scent_gap_ms / 1000 + " s apart", "Scent lingers and saturates; allergies are confirmed before any scent is used"],
+  ["Taste cues", "taste_per_run", v => v + " a run", "Taste cues are brought by the person; allergies confirmed first"],
+  ["Run length", "run_ms_max", v => v / 60000 + " minutes", "A cue routine, not a session"],
+  ["Device-offered runs", "max_per_hour", (v, e) => v + " an hour, " + e.max_per_day + " a day, " + e.refractory_ms_min / 1000 + " s apart", "Offers stay rare; the person starts every run"]];
+for (const [what, k, f, why] of ENV) { const tr = el("tr"); tr.append(el("td", "", what), el("td", "num", f(K.ENVELOPE[k], K.ENVELOPE)), el("td", "", why)); $("env").tBodies[0].appendChild(tr); }
+
+function draw() {
+  const st = state(), paused = Object.entries(st.quarantine), runs = store.get("rsos.runs", []);
+  const G = $("gate"); G.innerHTML = "";
+  const step = (title, d, lamp, lampText) => { const li = el("li"); const t = el("div"); t.append(el("b", "", title), el("span", "d", d)); li.append(t, el("span", "lamp " + lamp, lampText)); G.appendChild(li); };
+  step("The device safety envelope", "Every program is checked against limits for vibration, tone, scent, taste and length before anything reaches a device.", "", "every built-in program inside");
+  step("Paused programs", "A program or node that stopped helping, or that an adverse event was linked to, does not start until it is restored.", paused.length ? "warn" : "", paused.length ? paused.length + " paused" : "none paused");
+  step("Paused practice", "Device offers and therapist-led work stop when practice needs a therapist's eyes.", st.escalation.active ? "stop" : "", st.escalation.active ? "paused" : "not paused");
+  step("Consent", "Programmed cues need a consent record naming their content; therapist-led tiers need a therapist present and the screening passed.", "", "checked at every start");
+  step("Run limits", "Device-offered runs: at most 6 an hour and 20 a day, 90 s apart, only after the person opts in. Self-started runs are always the person's choice.", "", "checked at every offer");
+  step("The person starts", "Nothing starts by itself. LINX and the heart-rate trigger only offer; Stop works at any moment, within 100 ms on the device.", "", "always");
+  const s = $("status");
+  if (st.escalation.active) { s.className = "status stop"; s.textContent = "Device offers and therapist-led work are paused: " + st.escalation.reasons.join("; ") + ". Please talk with your therapist."; }
+  else if (paused.length) { s.className = "status warn"; s.textContent = paused.length + (paused.length === 1 ? " program is paused." : " programs are paused."); }
+  else { s.className = "status ok"; s.textContent = runs.length ? "All clear: " + runs.length + " runs checked, nothing paused." : "All clear. Nothing has been practised in this browser yet."; }
+  const P = $("paused"); P.innerHTML = "";
+  for (const [p, q] of paused) {
+    const box = el("div"); box.style.marginTop = "12px";
+    box.append(el("b", "", p), el("p", "hint", "Paused because " + q.reason + "." + (q.therapist || st.escalation.active ? " Restored together with your therapist." : "")));
+    const by = q.therapist || st.escalation.active ? "therapist" : "person";
+    const b = el("button", "btn", by === "therapist" ? "Restore, my therapist is with me" : "Restore it"); b.type = "button";
+    b.addEventListener("click", () => {
+      const [ns, msg] = K.release(state(), p, by, now()); store.set("rsos.contain", ns); log("restore " + p, msg === "restored" ? "allow" : "block", [msg + " (by the " + by + ")"]); draw();
+    });
+    box.appendChild(b); P.appendChild(box);
+  }
+  const progs = [...new Set(runs.map(r => r.protocol).filter(Boolean))];
+  $("prog").innerHTML = ""; $("prog").appendChild(new Option("Not linked to a program", ""));
+  for (const p of progs.reverse()) $("prog").appendChild(new Option(p, p));
+  const hist = store.get("rsos.plan.history", []), prev = K.rollback(hist);
+  $("planNote").textContent = hist.length ? hist.filter(h => h.approved).length + " approved versions saved in this browser." + (prev ? " If the newest plan does not suit you, go back to the one before." : "") : "No approved node plan yet. Plans are saved from the node studio.";
+  $("rollback").hidden = !prev;
+  const L = $("log").tBodies[0]; L.innerHTML = "";
+  for (const x of store.get("rsos.contain.log", []).slice().reverse().slice(0, 40)) {
+    const tr = el("tr");
+    tr.append(el("td", "num", new Date(x.at).toLocaleString()), el("td", "", x.action), el("td", x.decision === "allow" ? "allow" : x.decision === "block" ? "block" : "other", x.decision), el("td", "", (x.reasons || []).join("; ") || "—"));
+    L.appendChild(tr);
+  }
+  if (!L.children.length) { const tr = el("tr"); const td = el("td", "", "No decisions yet. They appear as you use the player and the node studio."); td.colSpan = 4; tr.appendChild(td); L.appendChild(tr); }
+}
+$("report").addEventListener("click", () => {
+  const adv = store.get("rsos.adverse", []);
+  adv.push({ ts: Date.now(), severity: $("sev").value, related: $("rel").value, resolved: false, text: $("txt").value.trim(), protocol: $("prog").value });
+  store.set("rsos.adverse", adv); $("txt").value = ""; log("report " + ($("prog").value || "event"), "reported", [$("sev").value + ", " + $("rel").value + " related"]); draw();
+});
+$("rollback").addEventListener("click", () => {
+  const hist = store.get("rsos.plan.history", []), prev = K.rollback(hist); if (!prev) return;
+  store.set("rsos.plan", prev); hist.push(Object.assign({}, prev, { approved_at: new Date().toISOString(), rolled_back: true })); store.set("rsos.plan.history", hist.slice(-6));
+  log("rollback node plan", "allow", ["back to the plan approved " + (prev.approved_at || "before")]); draw();
+});
+draw();
+</script>
+</body>
+</html>

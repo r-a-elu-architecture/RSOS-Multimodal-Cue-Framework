@@ -17,13 +17,14 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/nodes.py` | Node planner ([spec](../spec/NODES.md)): from symptoms, triggers and desired states, nodes — a state held as one unit with cues on every sense, a vibration code, a glyph, a mode (associated or observer) and the mental frame — with a frame check, an RSX program per node, ledger tiers, metrics, dose and safety; per-sense opening from the run log. Identical to `docs/js/nodes.js`; the node studio is `docs/nodes.html`. |
 | `rsso/contribution.py` | Research data contribution ([spec](../spec/DATA_CONTRIBUTION.md)): one de-identified, checksummed file per person, clinician or lab, filtered by consent scopes; `check` and `pool` from the command line; contributions back to run-log rows; BIDS events for any RSX program. Identical to `docs/js/contribution.js`; the page is `docs/contribute.html`. |
 | `rsso/linx.py` | LINX, the AI layer ([spec](../spec/LINX.md)): plain language and conversation to the node intake, frame suggestions, the prompt for any language model, the containment router for model proposals, and node offers when the body, the brain or a context signals a negative state. Identical to `docs/js/linx.js`. |
+| `rsso/contain.py` | CONTAIN, the safety layer ([spec](../spec/CONTAIN.md)): the device safety envelope, drift detection and quarantine, escalation, the decide() gate every module asks, restore and rollback; `play(..., contain=state)` refuses what it blocks. Identical to `docs/js/contain.js`; the page is `docs/safety.html`. |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
 | `rsso/analysis.py` | Pre-specified analyses for H1, H2 and H5. The same code runs on synthetic and on real data. |
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 75 tests
+python -m unittest discover -s tests                     # 82 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study
@@ -35,7 +36,7 @@ Requires Python 3.10+, NumPy, SciPy and pandas, and the `rsx` package in this re
 
 ## Conformance
 
-**13/13 checks pass** on the virtual rig ([report](results/conformance_virtual_rig.md)) and on the C++ firmware core running in the host simulator ([report](results/conformance_firmware.md)).
+**15/15 checks pass** on the virtual rig ([report](results/conformance_virtual_rig.md)) and on the C++ firmware core running in the host simulator ([report](results/conformance_firmware.md)).
 
 | Check | Requirement |
 |---|---|
@@ -52,6 +53,8 @@ Requires Python 3.10+, NumPy, SciPy and pandas, and the `rsx` package in this re
 | C11 | A run that is not stopped completes |
 | C12 | No programmed cue runs without a consent record naming its content; therapist-led tiers also need a therapist present and the screening passed |
 | C13 | The person can list every programmed cue and revoke any of them; a revoked cue never runs |
+| C14 | A program outside the device safety envelope never starts; programs inside it run (CONTAIN) |
+| C15 | A program that makes distress worse is paused and never starts until the person (or their therapist) restores it (CONTAIN) |
 
 The suite is tested against deliberately faulty devices (one that keeps vibrating after Stop, one that over-drives the motor) to make sure the checks catch them. On the development machine, the real-time clock dispatched a full Override Protocol run with 0 ms maximum lateness and stopped in 0 ms.
 

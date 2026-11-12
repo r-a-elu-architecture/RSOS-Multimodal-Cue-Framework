@@ -98,7 +98,7 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="contribute.html" aria-current="page">Contribute</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="contribute.html" aria-current="page">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <section class="hero">
@@ -402,7 +402,7 @@ function inputs(ids) {
   return {
     role, ids, runs, srbai, plan, cues: store.get("rsos.cues", []), ugcl: store.get("rsos.ugcl", null), recognition,
     settings: store.get("rsos.settings", {}), now: Date.now() / 1000,
-    outcomes: draft.outcomes, adverse: draft.adverse,
+    outcomes: draft.outcomes, adverse: draft.adverse.concat(store.get("rsos.adverse", [])),
     profile: { age_band: $("age").value, gender: $("gender").value, handedness: $("hand").value, region: $("region").value, experience: exp,
       conditions: [...document.querySelectorAll("#conditions input:checked")].map(i => i.value), in_therapy: $("inTherapy").checked, medication_change: $("medChange").checked },
     clinical: role === "clinician" ? { profession: $("prof").value, years_band: $("years").value, setting: $("setting").value,
@@ -412,7 +412,7 @@ function inputs(ids) {
       device: { name: $("devName").value.trim(), kind: $("devKind").value, transport: $("devTransport").value, channels: $("devCh").value, fs_hz: $("devFs").value,
         impedance_kohm_max: $("devImp").value, montage: $("devMontage").value.trim(), reference: $("devRef").value.trim() },
       recordings: draft.recordings.map((r, k) => Object.assign({}, r, { run_index: k + 1 })) } : null,
-    app: { player: "1.12.0", planner: plan ? plan.planner : undefined, ugcl: "rsos-ugcl/1", vibration: !!navigator.vibrate, platform: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop" },
+    app: { player: "1.13.0", planner: plan ? plan.planner : undefined, ugcl: "rsos-ugcl/1", vibration: !!navigator.vibrate, platform: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop" },
     consent: { agreed: $("agree").checked, scopes: sc, sharing: $("form").sharing.value, contact: $("contact").checked }
   };
 }

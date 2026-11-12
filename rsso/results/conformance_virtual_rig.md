@@ -15,5 +15,7 @@ Virtual rig
 | C11 | a run that is not stopped completes | PASS | completed |
 | C12 | no programmed cue runs without a consent record naming its content (therapist-led tiers: therapist present and screening passed) | PASS | without record: cue c1: no consent record; with record: ok; therapist-led alone: cue c2: therapist-led: needs a therapist present |
 | C13 | the person can list every programmed cue and revoke any of them; a revoked cue never runs | PASS | listed c1, c2; after revoking: cue c1: revoked |
+| C14 | a program outside the device safety envelope never starts; programs inside it run | PASS | outside: refused (outside the device safety envelope); inside: ok |
+| C15 | a program that makes distress worse is paused and never starts until the person (or their therapist) restores it | PASS | paused: yes; after restoring (restored): ok |
 
-13/13 checks passed.
+15/15 checks passed.

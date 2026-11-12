@@ -45,6 +45,7 @@ textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;min-
 .err{color:var(--stop);font-size:.88rem;white-space:pre-wrap;min-height:1.2em;margin:6px 0 0}
 .ok{color:var(--muted);font-size:.88rem;margin:6px 0 0}
 .btn{border:0;border-radius:999px;padding:12px 22px;font-weight:650;cursor:pointer}
+a.btn{text-decoration:none;display:inline-block;font-size:.95rem}
 .btn.go{background:var(--gold);color:#22170a}
 .btn.quiet{background:transparent;border:1px solid var(--line);color:var(--text)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
@@ -210,6 +211,18 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </fieldset>
 
   <fieldset>
+    <legend>Safety</legend>
+    <p class="note" id="safetyStatus" style="margin-top:0">All clear.</p>
+    <div class="actions"><button class="btn quiet" id="reportBtn" type="button">Something felt wrong</button><a class="btn quiet" href="safety.html">Safety page</a></div>
+    <div id="reportBox" hidden>
+      <label for="advSev">How strong</label><select id="advSev"><option value="mild">Mild: passed quickly</option><option value="moderate">Moderate: it stayed with me</option><option value="serious">Serious: I needed help</option></select>
+      <label for="advRel">Related to the practice?</label><select id="advRel"><option value="possible">Possibly</option><option value="likely">Likely</option><option value="unlikely">Unlikely</option><option value="unrelated">Not related</option></select>
+      <label for="advText">What happened (optional, stays in this browser)</label><input type="text" id="advText">
+      <div class="actions"><button class="btn" id="reportSave" type="button">Report</button></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
     <legend>Your progress</legend>
     <p class="log" id="logSummary">No runs recorded yet.</p>
     <p class="note"><a href="contribute.html">Contribute your data to research</a>: you choose exactly what is shared, and nothing leaves this browser until you send the file.</p>
@@ -221,7 +234,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.12.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.13.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -296,16 +309,17 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.12.0"></script>
-<script src="js/hrs.js?v=1.12.0"></script>
-<script src="js/memstack.js?v=1.12.0"></script>
-<script src="js/ugcl.js?v=1.12.0"></script>
-<script src="js/consent.js?v=1.12.0"></script>
-<script src="js/nodes.js?v=1.12.0"></script>
-<script src="js/linx.js?v=1.12.0"></script>
+<script src="js/rsx.js?v=1.13.0"></script>
+<script src="js/hrs.js?v=1.13.0"></script>
+<script src="js/memstack.js?v=1.13.0"></script>
+<script src="js/ugcl.js?v=1.13.0"></script>
+<script src="js/consent.js?v=1.13.0"></script>
+<script src="js/nodes.js?v=1.13.0"></script>
+<script src="js/linx.js?v=1.13.0"></script>
+<script src="js/contain.js?v=1.13.0"></script>
 <script>
 "use strict";
-const BUILD = "1.12.0";
+const BUILD = "1.13.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
   "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
@@ -559,6 +573,9 @@ async function start(trigger) {
   const [cueOk, cueWhy] = RSOSConsent.gate(timeline, store.get("rsos.cues", []), Date.now());
   if (!cueOk) { $("compileMsg").className = "err"; $("compileMsg").textContent = "This program contains a programmed cue that may not run: " + cueWhy + "."; return; }
   trigger = trigger === "device" ? "device" : "self";
+  // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
+  const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
+  if (verdict.decision !== "allow") { $("compileMsg").className = "err"; $("compileMsg").textContent = "CONTAIN stopped this start: " + verdict.reasons.join("; ") + "."; return; }
   pendingTrigger = trigger;
   const deviceLatency = trigger === "device" && offerShownAt ? (performance.now() - offerShownAt) / 1000 : null;
   $("offer").hidden = true;
@@ -592,7 +609,7 @@ async function finish(completed) {
     trigger_channel: b.trig || (pending.trigger === "device" ? "K" : ""), trigger_note: "", sud_before: b.sud ?? "", sud_after: a.sud ?? "", agency_before: b.agency ?? "",
     agency_after: a.agency ?? "", latency_s: pending.latency, completed: completed ? 1 : 0, stopped_at_phase: stoppedAt,
     tier: pending.tier, voice: pending.voice }, pending.extra, ended));
-  store.set("rsos.runs", records); summarize(); $("start").focus();
+  store.set("rsos.runs", records); summarize(); safetyReview(); $("start").focus();
 }
 /* research context of each run (spec/DATA_CONTRIBUTION.md): which program exactly, outputs, breath, glyph and
    code, start time of day, and heart rate before and after when a strap is connected; kept only in this browser */
@@ -612,6 +629,37 @@ function runEnd(p) {
   const h = heartNow();
   return { duration_s: Math.round((Date.now() - p.startedAt) / 100) / 10, hr_after: h ? h.hr : "", rmssd_after: h ? h.rmssd : "" };
 }
+/* ---- CONTAIN (rsso/rsso/contain.py, docs/js/contain.js): every start and offer asks the safety layer first ---- */
+function safetyLog(action, d) {
+  const log = store.get("rsos.contain.log", []);
+  log.push({ at: Date.now(), action: action.kind + (action.protocol ? " " + action.protocol : ""), decision: d.decision, reasons: d.reasons });
+  store.set("rsos.contain.log", log.slice(-200));
+}
+function safetyDecide(action) {
+  const d = RSOSContain.decide(action, store.get("rsos.contain", RSOSContain.newState()), action.kind === "run" ? timeline : null, Date.now() / 1000);
+  safetyLog(action, d); return d;
+}
+function safetyReview() {
+  const [st, changes] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), records, store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
+  store.set("rsos.contain", st);
+  for (const c of changes) safetyLog({ kind: c.kind, protocol: c.protocol }, { decision: c.kind, reasons: [c.text] });
+  drawSafety(changes);
+}
+function drawSafety(changes) {
+  const st = store.get("rsos.contain", RSOSContain.newState()), paused = Object.keys(st.quarantine);
+  let t = "All clear.";
+  if (st.escalation.active) t = "Device offers are paused: " + st.escalation.reasons.join("; ") + ". Please talk with your therapist. If you are at risk of harm, contact local emergency services or a crisis line now.";
+  else if (paused.length) t = "Paused: " + paused.join(", ") + ". See the safety page for why and how to restore.";
+  $("safetyStatus").textContent = t;
+  if (changes && changes.some(c => c.kind === "quarantine")) $("logSummary").textContent += " CONTAIN paused " + changes.filter(c => c.kind === "quarantine").map(c => c.protocol).join(", ") + ": " + changes.filter(c => c.kind === "quarantine").map(c => c.text).join("; ") + ".";
+}
+$("reportBtn").addEventListener("click", () => { $("reportBox").hidden = !$("reportBox").hidden; });
+$("reportSave").addEventListener("click", () => {
+  const adv = store.get("rsos.adverse", []), last = records[records.length - 1];
+  adv.push({ ts: Date.now(), severity: $("advSev").value, related: $("advRel").value, resolved: false, text: $("advText").value.trim(), protocol: last ? last.protocol : "" });
+  store.set("rsos.adverse", adv); $("reportBox").hidden = true; $("advText").value = ""; safetyReview();
+  if ($("advSev").value === "serious") $("safetyStatus").textContent += " If you are at risk of harm, contact local emergency services or a crisis line now.";
+});
 let srbaiLog = store.get("rsos.srbai", []);
 const SRBAI_ITEMS = ["I do it automatically.", "I do it without having to consciously remember.", "I do it without thinking.", "I start doing it before I realize I'm doing it."];
 function weekNo() {
@@ -741,6 +789,7 @@ function onStress() {
   governor = governor || new RSOSHeart.Governor(timeline.safety, true);
   const [ok] = governor.check(Date.now());
   if (!ok) return;
+  if (safetyDecide({ kind: "offer", protocol: timeline.protocol, trigger: "device" }).decision !== "allow") return;
   // LINX: with an approved node plan, offer the node that fits best (rsso/rsso/linx.py offer); the person starts it
   const myPlan = store.get("rsos.plan", null);
   const pick = myPlan && myPlan.approved ? RSOSLinx.offer({ source: "hr" }, myPlan, records, {}, Date.now() / 1000) : null;
@@ -795,7 +844,7 @@ $("hrDemo").addEventListener("click", async () => {
   }, 100);
 });
 
-summarize(); loadAll();
+summarize(); loadAll(); safetyReview();
 if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
 
 /* ---- UGCL: personal glyph and colour (spec/GLYPH_FORMAT.md) ---- */

@@ -99,6 +99,21 @@ def run_suite(device_factory=standard_rig, clock_factory=VirtualClock) -> list[t
     after = play(ctl, device_factory(), clock_factory(), consents=store, now_ms=2001)
     res.append(("C13", "the person can list every programmed cue and revoke any of them; a revoked cue never runs",
                 listed == ["c1", "c2"] and not after.started, f"listed {', '.join(listed)}; after revoking: {after.reason}"))
+
+    # C14, C15 CONTAIN: the device safety envelope, and programs paused for drift
+    from .contain import new_state, review, release
+    loud = compile_rsx("PROTOCOL loud\nSAFETY haptic_max=0.9\nPHASE p {\n  HAPTIC on=1500ms off=500ms x=5 amp=0.9\n  TONE 3000Hz 12s\n}\n")
+    out_env = play(loud, device_factory(), clock_factory(), contain=new_state())
+    in_env = play(tl, device_factory(), clock_factory(), contain=new_state())
+    res.append(("C14", "a program outside the device safety envelope never starts; programs inside it run",
+                (not out_env.started) and in_env.started, f"outside: refused ({out_env.reason.split(':')[0]}); inside: {in_env.reason}"))
+    worse = [dict(timestamp=k * 3600, protocol="override", sud_before=4, sud_after=6, completed=1) for k in range(5)]
+    st, _ = review(None, worse, [], [], 5 * 3600)
+    paused = play(tl, device_factory(), clock_factory(), contain=st)
+    st2, msg = release(st, "override", "person", 6 * 3600)
+    again = play(tl, device_factory(), clock_factory(), contain=st2)
+    res.append(("C15", "a program that makes distress worse is paused and never starts until the person (or their therapist) restores it",
+                (not paused.started) and again.started, f"paused: {'yes' if not paused.started else 'no'}; after restoring ({msg}): {again.reason}"))
     return res
 
 

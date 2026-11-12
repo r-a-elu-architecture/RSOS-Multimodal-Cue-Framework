@@ -214,6 +214,7 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
 <script src="js/nodes.js?v=1.13.0"></script>
 <script src="js/linx.js?v=1.13.0"></script>
 <script src="js/contain.js?v=1.13.0"></script>
+<script src="js/cm1.js?v=1.14.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -328,6 +329,13 @@ function update() {
   $("ledBox").hidden = !(p.therapist_led || it.concerns.includes("ptsd") || it.concerns.includes("depression"));
   if (!p.nodes.length) { $("pSummary").textContent = "Add a node to begin: choose a symbol on the left."; return; }
   $("pSummary").textContent = p.nodes.length + (p.nodes.length === 1 ? " node" : " nodes") + (p.concerns.length ? " for " + p.concerns.join(", ").toLowerCase() : "") + ".";
+  if (CM1DATA) {   // CM1: where people with practice like yours start best (docs/js/cm1.js)
+    const runs = store.get("rsos.runs", []);
+    if (runs.filter(r => r.sud_before !== "" && r.sud_before !== undefined && r.sud_after !== "").length >= 3) {
+      const sg = RSOSCM1.suggest(RSOSCM1.signature(runs), CM1DATA.profiles);
+      $("pSummary").append(" CM1, from your practice: " + sg.recommendations.join(" "));
+    }
+  }
   for (const n of p.nodes) {
     const row = el("div", "pnode"); const s = svgEl("svg", { role: "img", "aria-label": n.name + " node" }); s.style.width = "160px"; nodeSphere(s, n);
     const info = el("div"); info.appendChild(el("h4", "", n.name)); info.appendChild(el("p", "", (n.mode === "observer" ? "Observer" : "Associated") + (n.meaning ? ": " + n.meaning : "") + ". Vibration code " + n.tacton + "."));
@@ -404,7 +412,8 @@ $("save").addEventListener("click", () => {
 });
 
 /* LINX conversation (rsso/rsso/linx.py converse): reads plain language, asks for what is missing, fills the form */
-let talk = null, pristine = true;
+let talk = null, pristine = true, CM1DATA = null;
+fetch("data/cm1.json").then(r => r.json()).then(d => { CM1DATA = d; update(); }).catch(() => {});
 function bubble(who, text) {
   const p = el("p", who);
   if (who === "linx") p.appendChild(el("b", "", "LINX"));

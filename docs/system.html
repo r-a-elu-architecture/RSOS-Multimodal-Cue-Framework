@@ -126,9 +126,9 @@ const NODES = {
   memory: { x: 740, y: 140, w: 140, h: 84, t: "Memory", s: "MEMSTACK", status: "built", layer: "MEMSTACK",
     does: "Records every run and weekly automaticity check, models how strong each tier's bundle has become, fits the habit curve, estimates the triggers left to a reflex, and checks the reflex criterion. Checksummed snapshots move memory between devices.", files: ["rsso/rsso/memstack.py", "docs/js/memstack.js"],
     parts: ["Reflex: automaticity ≥ 4 for two weeks and a start within 3 s", "Your metrics on the metrics page"] },
-  compress: { x: 740, y: 300, w: 140, h: 84, t: "Compression", s: "CM1", status: "partial", layer: "CM1",
-    does: "Compresses many people's histories into a few response modes, so the cue engine can suggest the program, tier and voice most likely to work for someone new.", files: ["toolkit/rsos_cue/"],
-    parts: ["Cue engine on run logs: 60–78% lower regret than the best fixed setting (synthetic)", "Cross-domain compression specified"] },
+  compress: { x: 740, y: 300, w: 140, h: 84, t: "Compression", s: "CM1", status: "built", layer: "CM1",
+    does: "Compresses each person's practice into a short signature and many people into a few response profiles, finds the patterns that repeat across everyone, and tells a new person where to start: which kind of node, which sense should carry the strongest cue. Also packs a person's nodes, codes, glyphs, dose and safety state into a few dozen bytes for a device.", files: ["rsso/rsso/cm1.py", "docs/js/cm1.js", "docs/data/cm1.json", "spec/CM1.md", "toolkit/rsos_cue/"],
+    parts: ["Right profile from 10 runs: 100% (clear), 96% (hard), synthetic with known answers", "Patterns with 95% intervals (metrics page)", "Device bundle: about 40 bytes with a checksum", "Python and browser identical (tested)", "Cue engine on run logs: 60–78% lower regret than the best fixed setting (synthetic)"] },
 };
 const EDGES = [["senses", "gate"], ["body", "gate"], ["eeg", "gate"], ["ai", "gate"], ["gate", "program"], ["gate", "devices"], ["program", "devices"], ["glyph", "devices"],
   ["devices", "memory"], ["program", "memory"], ["memory", "compress"], ["compress", "ai", true], ["memory", "glyph", true], ["memory", "program", true]];

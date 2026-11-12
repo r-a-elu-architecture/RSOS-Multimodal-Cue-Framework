@@ -1,0 +1,350 @@
+{
+ "format": "rsos-cm1/1",
+ "source": "synthetic population with known profiles (rsso/rsso/cm1.py synthetic_population); refit on pooled contributions",
+ "labels": [
+  "help:associated",
+  "help:observer",
+  "help:override",
+  "help:breathing",
+  "help:other",
+  "speed:V",
+  "speed:A",
+  "speed:K",
+  "speed:O",
+  "speed:G",
+  "speed:thought",
+  "speed:memory",
+  "completion"
+ ],
+ "families": [
+  "associated",
+  "observer",
+  "override",
+  "breathing",
+  "other"
+ ],
+ "channels": [
+  "V",
+  "A",
+  "K",
+  "O",
+  "G",
+  "thought",
+  "memory"
+ ],
+ "profiles": [
+  {
+   "id": "P1",
+   "centroid": [
+    1.681,
+    0.342,
+    1.231,
+    0.64,
+    0.0,
+    0.05,
+    0.831,
+    0.112,
+    0.04,
+    0.054,
+    0.046,
+    0.046,
+    0.935
+   ],
+   "scale": [
+    0.705,
+    0.706,
+    0.53,
+    0.308,
+    1.0,
+    0.081,
+    0.354,
+    0.344,
+    0.354,
+    0.091,
+    0.078,
+    0.348,
+    0.151
+   ],
+   "people": 20,
+   "text": "helped most by an associated node (in the body); a sound starts the state fastest"
+  },
+  {
+   "id": "P2",
+   "centroid": [
+    0.534,
+    1.847,
+    0.462,
+    0.77,
+    0.0,
+    0.052,
+    0.024,
+    0.055,
+    0.053,
+    0.055,
+    0.029,
+    0.832,
+    0.889
+   ],
+   "scale": [
+    0.705,
+    0.706,
+    0.53,
+    0.308,
+    1.0,
+    0.081,
+    0.354,
+    0.344,
+    0.354,
+    0.091,
+    0.078,
+    0.348,
+    0.151
+   ],
+   "people": 20,
+   "text": "helped most by the observer (nothing binds); a memory starts the state fastest"
+  },
+  {
+   "id": "P3",
+   "centroid": [
+    1.561,
+    0.399,
+    0.991,
+    0.732,
+    0.0,
+    0.042,
+    0.03,
+    0.054,
+    0.841,
+    0.027,
+    0.042,
+    0.062,
+    0.909
+   ],
+   "scale": [
+    0.705,
+    0.706,
+    0.53,
+    0.308,
+    1.0,
+    0.081,
+    0.354,
+    0.344,
+    0.354,
+    0.091,
+    0.078,
+    0.348,
+    0.151
+   ],
+   "people": 20,
+   "text": "helped most by an associated node (in the body); a scent starts the state fastest"
+  },
+  {
+   "id": "P4",
+   "centroid": [
+    0.229,
+    0.24,
+    0.12,
+    0.426,
+    0.0,
+    0.037,
+    0.026,
+    0.842,
+    0.024,
+    0.052,
+    0.037,
+    0.035,
+    0.586
+   ],
+   "scale": [
+    0.705,
+    0.706,
+    0.53,
+    0.308,
+    1.0,
+    0.081,
+    0.354,
+    0.344,
+    0.354,
+    0.091,
+    0.078,
+    0.348,
+    0.151
+   ],
+   "people": 20,
+   "text": "little change from any program yet; a feeling in the body starts the state fastest; often stops runs early: worth a session with a therapist"
+  }
+ ],
+ "patterns": [
+  {
+   "feature": "sense",
+   "value": "K",
+   "n": 948,
+   "mean_drop": 0.676,
+   "low": 0.596,
+   "high": 0.757,
+   "vs_all": -0.433
+  },
+  {
+   "feature": "code",
+   "value": "..-",
+   "n": 1153,
+   "mean_drop": 1.48,
+   "low": 1.398,
+   "high": 1.563,
+   "vs_all": 0.372
+  },
+  {
+   "feature": "glyph",
+   "value": "🦁",
+   "n": 1153,
+   "mean_drop": 1.48,
+   "low": 1.398,
+   "high": 1.563,
+   "vs_all": 0.372
+  },
+  {
+   "feature": "kind",
+   "value": "associated",
+   "n": 1153,
+   "mean_drop": 1.48,
+   "low": 1.398,
+   "high": 1.563,
+   "vs_all": 0.372
+  },
+  {
+   "feature": "sense",
+   "value": "A",
+   "n": 919,
+   "mean_drop": 1.312,
+   "low": 1.222,
+   "high": 1.403,
+   "vs_all": 0.203
+  },
+  {
+   "feature": "kind",
+   "value": "breathing",
+   "n": 1229,
+   "mean_drop": 0.94,
+   "low": 0.874,
+   "high": 1.005,
+   "vs_all": -0.169
+  },
+  {
+   "feature": "sense",
+   "value": "memory",
+   "n": 850,
+   "mean_drop": 1.248,
+   "low": 1.158,
+   "high": 1.339,
+   "vs_all": 0.139
+  },
+  {
+   "feature": "sense",
+   "value": "O",
+   "n": 965,
+   "mean_drop": 1.229,
+   "low": 1.147,
+   "high": 1.311,
+   "vs_all": 0.12
+  },
+  {
+   "feature": "kind",
+   "value": "override",
+   "n": 1223,
+   "mean_drop": 1.017,
+   "low": 0.945,
+   "high": 1.09,
+   "vs_all": -0.092
+  },
+  {
+   "feature": "code",
+   "value": "-",
+   "n": 1195,
+   "mean_drop": 1.018,
+   "low": 0.937,
+   "high": 1.1,
+   "vs_all": -0.091
+  },
+  {
+   "feature": "glyph",
+   "value": "∅",
+   "n": 1195,
+   "mean_drop": 1.018,
+   "low": 0.937,
+   "high": 1.1,
+   "vs_all": -0.091
+  },
+  {
+   "feature": "kind",
+   "value": "observer",
+   "n": 1195,
+   "mean_drop": 1.018,
+   "low": 0.937,
+   "high": 1.1,
+   "vs_all": -0.091
+  },
+  {
+   "feature": "time",
+   "value": "afternoon",
+   "n": 1231,
+   "mean_drop": 1.049,
+   "low": 0.973,
+   "high": 1.124,
+   "vs_all": -0.06
+  },
+  {
+   "feature": "sense",
+   "value": "V",
+   "n": 374,
+   "mean_drop": 1.051,
+   "low": 0.914,
+   "high": 1.188,
+   "vs_all": -0.058
+  },
+  {
+   "feature": "time",
+   "value": "morning",
+   "n": 1231,
+   "mean_drop": 1.132,
+   "low": 1.054,
+   "high": 1.209,
+   "vs_all": 0.023
+  },
+  {
+   "feature": "time",
+   "value": "evening",
+   "n": 2338,
+   "mean_drop": 1.129,
+   "low": 1.075,
+   "high": 1.183,
+   "vs_all": 0.02
+  },
+  {
+   "feature": "sense",
+   "value": "thought",
+   "n": 364,
+   "mean_drop": 1.126,
+   "low": 0.988,
+   "high": 1.264,
+   "vs_all": 0.017
+  },
+  {
+   "feature": "sense",
+   "value": "G",
+   "n": 380,
+   "mean_drop": 1.121,
+   "low": 0.984,
+   "high": 1.258,
+   "vs_all": 0.012
+  },
+  {
+   "feature": "outputs",
+   "value": "voice+tone+vibration",
+   "n": 4800,
+   "mean_drop": 1.109,
+   "low": 1.071,
+   "high": 1.147,
+   "vs_all": 0.0
+  }
+ ]
+}

@@ -43,6 +43,18 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:46px 0 6px}
 .btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;text-decoration:none;margin:10px 8px 0 0}
 .btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
 .note{color:var(--muted);font-size:.88rem}
+.cm{margin-top:10px}
+.cmgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.cmgrid .you{margin:0}
+.prof{padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.prof b{font-weight:650;margin-right:6px}
+.prof.me{color:var(--glow)}
+.pat{display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr) 4.5rem;gap:12px;align-items:center;padding:4px 0;font-size:.88rem}
+.pat svg{width:100%;height:18px;display:block}
+.pat .v{text-align:right;font-variant-numeric:tabular-nums}
+.recs{margin:8px 0 0;padding-left:20px}
+.mono{font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;word-break:break-all;color:var(--muted)}
+@media (max-width:820px){.cmgrid{grid-template-columns:1fr}}
 .key{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin:10px 0 0}
 .key i{display:inline-block;width:3px;height:12px;margin-right:6px;vertical-align:-1px;border-radius:1px}
 .fam{border-top:1px solid var(--line);margin-top:14px}
@@ -88,12 +100,26 @@ footer{max-width:1180px;margin:60px auto 60px;padding:0 24px;color:var(--muted);
     <div id="youActions"></div>
   </section>
 
+  <section class="cm" aria-labelledby="cmTitle">
+    <h2 id="cmTitle">Patterns</h2>
+    <p class="lede">CM1, the compression layer, condenses many people's practice into a few response profiles and the patterns that repeat across everyone, then tells you where to start. For now the profiles and patterns come from a synthetic population with known answers, so the method can be checked; they are refitted as research contributions arrive.</p>
+    <div class="cmgrid">
+      <div class="you"><h2>Your profile</h2><div id="mine"><p class="note">Loading…</p></div></div>
+      <div class="you"><h2>Profiles</h2><div id="profiles"></div></div>
+    </div>
+    <div class="you" style="margin-top:16px"><h2>What helps, across everyone</h2>
+      <p class="note">Mean drop in distress (before − after) with its 95% interval, for the values furthest from the overall mean. Synthetic data.</p>
+      <div id="pats"></div></div>
+    <div class="you" style="margin-top:16px"><h2>Your plan for a device</h2><div id="bundle"></div></div>
+  </section>
+
   <div class="key" aria-label="How recorded values are drawn"><span><i style="background:var(--num)"></i>Recorded as a number</span><span><i style="background:var(--inf)"></i>Recorded as infinite (∞)</span><span><i style="background:#56608a"></i>Recorded as a word or state</span><span>Each line is one recorded value, in ledger order from Tier 001 to 605.</span></div>
   <div id="families"><p class="note">Loading…</p></div>
 </main>
 <footer>Sources: the RSOS and RSSO metric logs and the tier ledger, unchanged in the archive. Registry built by <code>rsso/rsso/metrics.py</code>; your numbers by <code>docs/js/metrics.js</code>, which gives the same results as the Python version (tested). Recorded values and today's values share a code so the lineage stays visible; they are never put on one scale. Data: <a href="data/metrics.json">metrics.json</a>.</footer>
 <script src="js/memstack.js?v=1.6.0"></script>
 <script src="js/metrics.js?v=1.6.0"></script>
+<script src="js/cm1.js?v=1.14.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -212,6 +238,39 @@ Promise.all([fetch("data/metrics.json").then(r => r.json()), fetch("data/ledger.
     act.append(a, b);
   }
 }).catch(() => { $("families").innerHTML = ""; $("families").appendChild(el("p", "note", "The metric data could not be loaded. Open this page from the published site or a local web server.")); });
+/* CM1 (rsso/rsso/cm1.py, docs/js/cm1.js): your profile, the profiles, the patterns, and your plan as a device bundle */
+Promise.all([fetch("data/cm1.json").then(r => r.json()), fetch("ugcl/originals.json").then(r => r.json()).catch(() => ({ glyphs: [] }))]).then(([D, O]) => {
+  const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x !== undefined) e.textContent = x; return e; };
+  let runs = []; try { runs = JSON.parse(localStorage.getItem("rsos.runs") || "[]"); } catch (e) {}
+  const mine = $("mine"); mine.innerHTML = ""; let myId = null;
+  const rated = runs.filter(r => r.sud_before !== "" && r.sud_after !== "" && r.sud_before !== undefined).length;
+  if (rated >= 3) {
+    const sg = RSOSCM1.suggest(RSOSCM1.signature(runs), D.profiles); myId = sg.assign.profile;
+    mine.append(el("p", "", "Closest profile " + sg.assign.profile + ": " + sg.assign.text + "."),
+      el("p", "note", "Confidence " + Math.round(sg.assign.confidence * 100) + "%, from " + sg.assign.runs + " rated runs; it grows as you practise."));
+    const ul = el("ul", "recs"); sg.recommendations.forEach(t => ul.appendChild(el("li", "", t))); mine.appendChild(ul);
+  } else mine.appendChild(el("p", "note", "Practise at least 3 rated runs in the player and your profile appears here, with where to start. " + (rated ? "You have " + rated + "." : "")));
+  for (const p of D.profiles) { const d = el("div", "prof" + (p.id === myId ? " me" : "")); d.append(el("b", "", p.id), p.text + "."); $("profiles").appendChild(d); }
+  const pats = D.patterns.slice(0, 12), lo = Math.max(0, Math.min(...pats.map(p => p.low)) - 0.2), hi = Math.max(...pats.map(p => p.high)) + 0.2;
+  const all = pats.length ? pats[0].mean_drop - pats[0].vs_all : 0, X = v => 4 + 292 * (v - lo) / (hi - lo);
+  const NAMES = { kind: "Program", sense: "Sense", glyph: "Glyph", code: "Code", outputs: "Outputs", time: "Time of day" };
+  for (const p of pats) {
+    const row = el("div", "pat"); row.appendChild(el("span", "", NAMES[p.feature] + ": " + p.value));
+    row.insertAdjacentHTML("beforeend", '<svg viewBox="0 0 300 18" role="img" aria-label="' + p.mean_drop + ' (' + p.low + ' to ' + p.high + ')">' +
+      '<line x1="' + X(all) + '" x2="' + X(all) + '" y1="0" y2="18" stroke="#56608a" stroke-dasharray="2 3"/>' +
+      '<line x1="' + X(p.low) + '" x2="' + X(p.high) + '" y1="9" y2="9" stroke="#e8b04a" stroke-width="2"/>' +
+      '<circle cx="' + X(p.mean_drop) + '" cy="9" r="4.5" fill="#e8b04a" stroke="#151b2f" stroke-width="2"/><title>' + p.n + ' runs</title></svg>');
+    row.appendChild(el("span", "v", p.mean_drop.toFixed(2))); $("pats").appendChild(row);
+  }
+  $("pats").appendChild(el("p", "note", "Dashed line: the mean across all runs (" + all.toFixed(2) + "). Each line spans the 95% interval."));
+  let plan = null, cst = null; try { plan = JSON.parse(localStorage.getItem("rsos.plan") || "null"); cst = JSON.parse(localStorage.getItem("rsos.contain") || "null"); } catch (e) {}
+  const B = $("bundle");
+  if (plan && plan.nodes && plan.nodes.length) {
+    const chars = O.glyphs.map(g => g.char), b64 = RSOSCM1.pack(plan, chars, cst), u = RSOSCM1.unpack(b64, chars);
+    B.append(el("p", "", "Your " + u.nodes.length + (u.nodes.length === 1 ? " node" : " nodes") + ", their vibration codes, glyphs, dose and safety limits fit in " + u.bytes + " bytes, ready for a wristband."), el("p", "mono", b64));
+    const c = el("button", "btn", "Copy the bundle"); c.type = "button"; c.addEventListener("click", () => navigator.clipboard && navigator.clipboard.writeText(b64)); B.appendChild(c);
+  } else B.appendChild(el("p", "note", "Approve a node plan in the node studio and it appears here as a compact bundle for a device."));
+}).catch(() => { $("mine").innerHTML = '<p class="note">The pattern data could not be loaded.</p>'; });
 </script>
 </body>
 </html>

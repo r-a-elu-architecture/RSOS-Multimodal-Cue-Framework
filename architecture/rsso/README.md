@@ -11,7 +11,7 @@
 | [MICRO](subsystems/MICRO/) | Edge runtime | **Complete in simulation** |
 | [CONTAIN](subsystems/CONTAIN/) | Safety and governance | **Built** |
 | [MEMSTACK](subsystems/MEMSTACK/) | Memory layer | **Built** |
-| [CM1](subsystems/CM1/) | Compression layer | **Partly built** |
+| [CM1](subsystems/CM1/) | Compression layer | **Built** |
 | [LINX](subsystems/LINX/) | AI interface and injection layer | **Built** |
 | [UGCL](subsystems/UGCL/) | Glyph layer | **Built** |
 

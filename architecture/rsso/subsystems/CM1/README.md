@@ -2,9 +2,9 @@
 
 **Function:** Compresses symbolic states and finds reusable patterns across domains.
 
-**Status:** **Partly built** — some functions implemented, others still specified only
+**Status:** **Built** — working, tested code in this repository
 
-**Now:** The cue engine's `ArchetypeBank` compresses many people's histories into a few response modes. Cross-domain compression is specified.
+**Now:** Built (`spec/CM1.md`, `rsso/rsso/cm1.py`, identically `docs/js/cm1.js`, profiles and patterns `docs/data/cm1.json`, Patterns on the metrics page): one person's practice compressed into a 13-number signature (how much each kind of program helps, how fast each sense starts the state, completion); response profiles fitted across people (k-means in units of each number's spread, best of ten restarts), each described in plain words; assignment of a new person from a few runs, with a confidence that grows with practice, and where to start (kind of node, which sense carries the strongest cue), used by the node studio; patterns that repeat across everyone (program kind, sense, glyph, vibration code, outputs, time of day) with 95% intervals; and the device bundle, a person's nodes, codes, glyphs, dose and safety state in about 40 bytes with a checksum (the archive's UGCL coupling). Checked on a synthetic population with known profiles: the right profile from the first 10 runs for 100% (clear profiles) and 96% (hard setting) of held-out people (`rsso/results/cm1.md`). Also: the cue engine's `ArchetypeBank`. Profiles are refitted when real contributions arrive.
 
 ## Sources in the archive
 

@@ -4,7 +4,7 @@
 
 **Status:** **Partly built** — some functions implemented, others still specified only
 
-**Now:** Phone vibration and audio in the player; RSX `HAPTIC`, `TONE` and `DeviceOutput` events. Wearable, scent and EEG drivers are specified.
+**Now:** Built: one device interface with virtual vibration, audio, display and scent devices; a virtual heart-rate strap and a stress detector that can trigger the override (`rsso/`); phone vibration in the player. Next: drivers for real straps, watches, scent hardware and EEG.
 
 ## Sources in the archive
 

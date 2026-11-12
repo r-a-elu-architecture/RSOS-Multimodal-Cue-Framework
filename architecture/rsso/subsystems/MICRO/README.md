@@ -2,9 +2,9 @@
 
 **Function:** Runs symbolic reflexes on edge devices (watches, wearables, IoT): receives RSX commands and context, executes them locally.
 
-**Status:** **Specified** — described in the archive and this map; not yet implemented
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-**Now:** Next step: a runtime that plays RSX timelines on a watch or microcontroller.
+**Now:** Built: the runtime that plays RSX timelines on any set of devices, with a real-time clock for hardware, and the conformance suite that every device must pass (`rsso/`). Next: ports to a watch and a microcontroller.
 
 ## Sources in the archive
 

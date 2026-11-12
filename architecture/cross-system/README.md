@@ -10,8 +10,10 @@
 | Step | Built now |
 |---|---|
 | Trigger, self-initiated | Player |
-| Safety check | `rsx/rsx/runtime.py` (`SafetyGovernor`); RSX compile-time limits |
+| Trigger, device-detected | Virtual heart-rate strap and stress detector (`rsso/rsso/sensors.py`) |
+| Safety check | `rsx/rsx/runtime.py` (`SafetyGovernor`); RSX compile-time limits; conformance suite (`rsso/rsso/conformance.py`) |
 | Program | [rsx/protocols/](../../rsx/protocols) |
-| Execution | [docs/player.html](../../docs/player.html) |
+| Execution | [docs/player.html](../../docs/player.html); device runtime `rsso/rsso/runtime.py` |
 | Memory | Run log (`RunRecord`, player CSV export) |
 | Learning | [toolkit/](../../toolkit) and [learning model](../../rsx/model/PREDICTIONS.md) |
+| Studies | Virtual participants, synthetic studies and analysis kit: [rsso/](../../rsso) |

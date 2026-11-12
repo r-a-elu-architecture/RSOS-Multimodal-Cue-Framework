@@ -4,7 +4,7 @@
 
 **Status:** **Partly built** — some functions implemented, others still specified only
 
-**Now:** Compile-time haptic limit in RSX; run limits, refractory period and opt-in in `SafetyGovernor`; the CONTAIN twins in the cue engine guard against misleading self-reports.
+**Now:** Compile-time haptic limit in RSX; run limits, refractory period and opt-in in `SafetyGovernor`; runtime intensity clamp and Stop in every phase, verified by the conformance suite; the CONTAIN twins in the cue engine guard against misleading self-reports.
 
 ## Sources in the archive
 

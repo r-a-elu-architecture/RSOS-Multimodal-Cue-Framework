@@ -1,0 +1,4 @@
+               sensitivity  median_latency_s  false_alarms_per_hour
+motion_gating                                                      
+False                 0.85            38.522                  1.738
+True                  0.80            34.741                  0.100

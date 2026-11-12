@@ -82,6 +82,7 @@ RSOS is built from four systems. This map explains what each one and each subsys
 | Protocol player | {link('', 'docs/player.html', 'docs/player.html')} |
 | Learning model | {link('', 'rsx/model/PREDICTIONS.md', 'rsx/model/')} |
 | Personalised cue engine | {link('', 'toolkit/', 'toolkit/')} |
+| RSSO runtime: devices, sensors, conformance, virtual studies | {link('', 'rsso/', 'rsso/')} |
 | RSIA framework edition | {link('', 'framework/', 'framework/')} |
 
 Run `python architecture/build.py` to regenerate these pages from the manifest.
@@ -179,13 +180,13 @@ SUBS = [
      "The Override Protocol, its VIB-ANCHOR and FP-ANCHOR, and the refractory and run limits are built (spec, RSX, `SafetyGovernor`). EEG- and gaze-triggered starts are specified."),
     ("AUG", "Device and augmentation layer", "partial",
      "Connects state control to devices: AR overlays, EEG, haptics, scent and vibration, wearables; EEG-triggered anchors.",
-     "Phone vibration and audio in the player; RSX `HAPTIC`, `TONE` and `DeviceOutput` events. Wearable, scent and EEG drivers are specified."),
-    ("MICRO", "Edge runtime", "specified",
+     "Built: one device interface with virtual vibration, audio, display and scent devices; a virtual heart-rate strap and a stress detector that can trigger the override (`rsso/`); phone vibration in the player. Next: drivers for real straps, watches, scent hardware and EEG."),
+    ("MICRO", "Edge runtime", "partial",
      "Runs symbolic reflexes on edge devices (watches, wearables, IoT): receives RSX commands and context, executes them locally.",
-     "Next step: a runtime that plays RSX timelines on a watch or microcontroller."),
+     "Built: the runtime that plays RSX timelines on any set of devices, with a real-time clock for hardware, and the conformance suite that every device must pass (`rsso/`). Next: ports to a watch and a microcontroller."),
     ("CONTAIN", "Safety and governance", "partial",
      "Governs every module: allow, block, roll back or quarantine actions; drift control; human in the loop; device safety envelope.",
-     "Compile-time haptic limit in RSX; run limits, refractory period and opt-in in `SafetyGovernor`; the CONTAIN twins in the cue engine guard against misleading self-reports."),
+     "Compile-time haptic limit in RSX; run limits, refractory period and opt-in in `SafetyGovernor`; runtime intensity clamp and Stop in every phase, verified by the conformance suite; the CONTAIN twins in the cue engine guard against misleading self-reports."),
     ("MEMSTACK", "Memory layer", "partial",
      "Archetype- and state-indexed memory: stores and recalls tier activations, snapshots and history.",
      "The run log (one row per run, shared format) and the cue engine's per-person history. Tier-indexed memory is specified."),
@@ -250,11 +251,13 @@ page("cross-system", "How the systems work together", f"""
 | Step | Built now |
 |---|---|
 | Trigger, self-initiated | Player |
-| Safety check | `rsx/rsx/runtime.py` (`SafetyGovernor`); RSX compile-time limits |
+| Trigger, device-detected | Virtual heart-rate strap and stress detector (`rsso/rsso/sensors.py`) |
+| Safety check | `rsx/rsx/runtime.py` (`SafetyGovernor`); RSX compile-time limits; conformance suite (`rsso/rsso/conformance.py`) |
 | Program | {link('cross-system', 'rsx/protocols/', 'rsx/protocols/')} |
-| Execution | {link('cross-system', 'docs/player.html', 'docs/player.html')} |
+| Execution | {link('cross-system', 'docs/player.html', 'docs/player.html')}; device runtime `rsso/rsso/runtime.py` |
 | Memory | Run log (`RunRecord`, player CSV export) |
 | Learning | {link('cross-system', 'toolkit/', 'toolkit/')} and {link('cross-system', 'rsx/model/PREDICTIONS.md', 'learning model')} |
+| Studies | Virtual participants, synthetic studies and analysis kit: {link('cross-system', 'rsso/', 'rsso/')} |
 """)
 
 # ------------------------------------------------------------------ provenance

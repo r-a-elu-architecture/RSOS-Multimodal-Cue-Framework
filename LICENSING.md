@@ -1,6 +1,6 @@
 # Licensing
 
-**Software** (`rsx/`, `toolkit/`, `docs/js/`, `docs/*.html`): [Apache License, Version 2.0](LICENSE).
+**Software** (`rsx/`, `rsso/`, `toolkit/`, `architecture/build.py`, `docs/js/`, `docs/*.html`): [Apache License, Version 2.0](LICENSE).
 
 **Specifications and framework texts** (`spec/`, `framework/`, `rsx/protocols/`): Creative Commons Attribution 4.0 International (CC BY 4.0). You may use, adapt and share them, including commercially, with attribution to R. A. Elu.
 

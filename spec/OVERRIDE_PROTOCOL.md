@@ -38,7 +38,7 @@ The protocol combines established principles. It does not depend on any of them 
 
 **Start:** the moment a negative state appears, whatever its source: a sound, a smell, something seen (an object that recalls the old state), a body sensation or a memory.
 
-Then one interrupt and five full breaths. Default breath: 4 s inhale, 6 s exhale. Total default duration ≈ 54 s.
+Then one interrupt and five full breaths. Default breath: 4 s inhale, 6 s exhale. Total default duration ≈ 52 s.
 
 | # | Phase | Breath | What you do | Default device cue |
 |---|---|---|---|---|

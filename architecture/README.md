@@ -25,6 +25,7 @@ RSOS is built from four systems. This map explains what each one and each subsys
 | Protocol player | [docs/player.html](../docs/player.html) |
 | Learning model | [rsx/model/](../rsx/model/PREDICTIONS.md) |
 | Personalised cue engine | [toolkit/](../toolkit) |
+| RSSO runtime: devices, sensors, conformance, virtual studies | [rsso/](../rsso) |
 | RSIA framework edition | [framework/](../framework) |
 
 Run `python architecture/build.py` to regenerate these pages from the manifest.

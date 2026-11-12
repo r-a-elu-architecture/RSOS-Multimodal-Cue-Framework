@@ -30,7 +30,7 @@
 ```bash
 git clone https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework
 cd RSOS-Multimodal-Cue-Framework/rsx
-python -m unittest discover -s tests           # 32 tests (Python/JS conformance needs Node)
+python -m unittest discover -s tests           # 33 tests (Python/JS conformance needs Node)
 python -m rsx compile protocols/override.rsx   # the protocol as a JSON timeline
 python model/predictions.py                    # regenerate the model predictions
 
@@ -81,6 +81,6 @@ RSOS combines parts that exist separately (scent conditioning, wearable cue deli
 ## Licence and citation
 
 - Software: Apache 2.0. Specifications and framework texts: CC BY 4.0. Archive records keep their original notices. Details in [LICENSING.md](LICENSING.md).
-- Cite: [CITATION.cff](CITATION.cff). The earlier v1.0.0 research preview is archived at [doi:10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732); its benchmark code remains at the `v1.0.0-research-preview` tag.
+- Cite: [CITATION.cff](CITATION.cff). The earlier v1.0.0 research preview (superseded by v2.0.0) is archived at [doi:10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732); its benchmark code remains at the `v1.0.0-research-preview` tag.
 
 Author: R. A. Elu.

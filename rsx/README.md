@@ -8,7 +8,7 @@ RSX (Recursive Symbolic eXpression) is the language RSOS programs are written in
 
 ```bash
 cd rsx
-python -m unittest discover -s tests          # 32 tests, incl. Python/JS conformance (needs Node)
+python -m unittest discover -s tests          # 33 tests, incl. Python/JS conformance (needs Node)
 python -m rsx check protocols/*.rsx
 python -m rsx compile protocols/override.rsx -o override.json
 python model/predictions.py                   # regenerates model/PREDICTIONS.md

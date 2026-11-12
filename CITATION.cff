@@ -1,11 +1,13 @@
 cff-version: 1.2.0
-message: "Please cite the repository. The DOI identifies the earlier v1.0.0 research-preview archive."
+message: "Please cite this software using the metadata below. Zenodo assigns a DOI to each GitHub release."
 title: "RSOS — Recursive Symbolic Operating System: Override Protocol, RSX language and multimodal cue engine"
 type: software
-version: "v1.0.0-research-preview"
-date-released: 2026-11-11
-doi: "10.5281/zenodo.24143732"
-url: "https://doi.org/10.5281/zenodo.24143732"
+version: "v2.0.0"
+date-released: 2026-11-12
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24143732"
+    description: "Earlier version v1.0.0-research-preview (superseded)"
 authors:
   - name: "R. A. Elu"
 repository-code: "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework"

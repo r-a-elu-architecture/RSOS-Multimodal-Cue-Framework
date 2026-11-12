@@ -25,7 +25,9 @@ a{color:var(--glow)}
 header.top,main{max-width:1280px;margin:0 auto;padding:0 24px}
 header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
 .mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
-nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.95rem}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 20px}
+@media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
 nav a:hover,nav a[aria-current=page]{color:var(--text)}
 h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.6vw,3rem);line-height:1.1;margin:44px 0 12px;max-width:22ch}
 .lede{color:var(--muted);max-width:66ch;margin:0 0 8px}
@@ -45,7 +47,7 @@ h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.6vw,3rem);lin
 .count{color:var(--muted);font-size:.88rem;margin-left:auto}
 .layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:18px;align-items:start}
 .list{list-style:none;margin:0;padding:0}
-.row{display:grid;grid-template-columns:4.2rem 2.6rem 1fr;gap:10px;align-items:baseline;padding:10px 8px;border-bottom:1px solid var(--line);cursor:pointer;border-left:3px solid transparent}
+.row{display:grid;grid-template-columns:4.2rem 2.6rem minmax(0,1fr);gap:10px;align-items:baseline;padding:10px 8px;border-bottom:1px solid var(--line);cursor:pointer;border-left:3px solid transparent}
 .row:hover{background:var(--ink-2)}
 .row[aria-current=true]{background:var(--ink-2);border-left-color:var(--gold)}
 .row .n{font-family:var(--serif);font-size:1.15rem;color:var(--text)}
@@ -76,13 +78,13 @@ pre.raw{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace
 .note{color:var(--muted);font-size:.86rem}
 .empty{color:var(--muted);padding:30px 8px}
 footer{max-width:1280px;margin:50px auto 60px;padding:0 24px;color:var(--muted);font-size:.88rem}
-@media (max-width:900px){.layout{grid-template-columns:1fr}.detail{position:static;max-height:none}.filters{position:static}}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.detail{position:static;max-height:none}.filters{position:static}}
 </style>
 </head>
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="contribute.html">Contribute</a><a href="tiers.html" aria-current="page">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="contribute.html">Contribute</a><a href="tiers.html" aria-current="page">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Every tier, as it was recorded</h1>

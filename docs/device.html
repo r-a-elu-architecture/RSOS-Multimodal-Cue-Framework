@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wristband — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="Connect an RSOS wristband over USB or Bluetooth, check it against the device protocol, feel your nodes' vibration codes and play programs on it.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 20px}
+@media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:16ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin:0 0 6px}
+.lede{color:var(--muted);max-width:64ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:66ch;margin:6px 0 0}
+.conn{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:26px 0 8px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--line);box-shadow:0 0 0 4px rgba(46,56,88,.5)}
+.dot.on{background:var(--ok);box-shadow:0 0 0 4px rgba(143,209,158,.2)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 16px;color:var(--text);font:inherit;font-size:.92rem;cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--gold)}
+.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.btn.stop{background:var(--stop);color:#2a0b0b;border-color:var(--stop);font-weight:700}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.panel .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin-top:10px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.84rem}
+.pass{color:var(--ok);font-weight:650} .fail{color:var(--stop);font-weight:650}
+.log{font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:10px;height:220px;overflow:auto;white-space:pre-wrap;color:var(--muted)}
+.log b{color:var(--glow);font-weight:400}
+.codes{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.codes button{background:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--text);font:inherit;font-size:.86rem;cursor:pointer;display:flex;gap:8px;align-items:center}
+.codes button:hover{border-color:var(--gold)}
+.codes svg{height:8px;width:auto}
+.msg{font-size:.9rem;margin:10px 0 0;min-height:1.2em}
+.msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="therapist.html">Therapist</a><a href="device.html" aria-current="page">Wristband</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>Your wristband</h1>
+  <p class="lede">Connect an RSOS wristband, check that it behaves as the device protocol requires, feel your nodes' vibration codes on your wrist and play programs on it. The band plays every program on its own clock and stops at once when you press Stop. Works in Chrome or Edge on a computer (USB), and in Chrome on Android (Bluetooth).</p>
+  <p class="hint">No band yet? The <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/firmware/BOARD_KIT.md">board kit</a> lists the parts (an ESP32 board, a coin vibration motor, a transistor, a battery), the wiring and how to flash it.</p>
+
+  <div class="conn">
+    <span class="dot" id="dot" aria-hidden="true"></span>
+    <span id="status">Not connected.</span>
+    <button class="btn go" id="usb" type="button">Connect by USB</button>
+    <button class="btn" id="ble" type="button">Connect by Bluetooth</button>
+    <button class="btn stop" id="stop" type="button" disabled>Stop</button>
+  </div>
+  <p class="msg" id="msg" aria-live="polite"></p>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Check the band</h2>
+      <p class="hint">Seven checks on the band itself, about 15 seconds; the band vibrates during them. The same checks run from a computer with <code>python -m rsso.board --port …</code>.</p>
+      <div class="row"><button class="btn go" id="check" type="button" disabled>Run the check</button></div>
+      <table id="results" hidden><thead><tr><th>Check</th><th>What it requires</th><th>Result</th></tr></thead><tbody></tbody></table>
+    </section>
+    <section class="panel">
+      <h2>Feel a code</h2>
+      <p class="hint">Your nodes' vibration codes, and any glyph's code. Strength stays under the safety envelope.</p>
+      <div class="codes" id="codes"></div>
+      <label for="code">Or type a code (. short, - long, a space joins codes)</label>
+      <div class="row" style="margin-top:0"><input type="text" id="code" value="..-" style="max-width:180px"><button class="btn" id="play" type="button" disabled>Play</button></div>
+    </section>
+    <section class="panel">
+      <h2>Play a program</h2>
+      <p class="hint">The program's vibration (and scent or taste, with consent) plays on the band. Voice and light stay in the player.</p>
+      <label for="prog">Program</label><select id="prog"></select>
+      <div class="row"><button class="btn" id="run" type="button" disabled>Play on the band</button></div>
+    </section>
+  </div>
+  <section class="panel" style="margin-top:16px">
+    <h2>What the band says</h2>
+    <div class="log" id="log" aria-live="off"></div>
+  </section>
+</main>
+<footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent.</footer>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/rsx.js?v=1.14.0"></script>
+<script src="js/contain.js?v=1.14.0"></script>
+<script src="js/rdp.js?v=1.14.0"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id), R = RSOSRdp;
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } } };
+let tx = null;
+const PROGS = [["override", "Override Protocol"], ["interrupt_only", "Interrupt only"], ["paced_breathing", "Paced breathing"], ["node_lion", "Lion node"], ["node_observer", "Observer node"],
+  ["tier014_seal", "Tier 014: Lion Seal"], ["tier579_glyph", "Tier 579: Glyph from stillness"]];
+for (const [v, t] of PROGS) $("prog").appendChild(new Option(t, v));
+function say(t, ok) { $("msg").className = "msg " + (ok ? "ok" : "err"); $("msg").textContent = t; }
+function log(line, mine) { const L = $("log"); const s = document.createElement(mine ? "b" : "span"); s.textContent = (mine ? "→ " : "") + line + "\n"; L.appendChild(s); while (L.childNodes.length > 400) L.removeChild(L.firstChild); L.scrollTop = L.scrollHeight; }
+function wrap(t) { const send = t.send; t.send = line => { log(line, true); return send(line); }; return t; }
+async function connect(kind) {
+  try {
+    if (kind === "usb" && !navigator.serial) return say("This browser cannot reach USB devices. Use Chrome or Edge on a computer.");
+    if (kind === "ble" && !navigator.bluetooth) return say("This browser cannot reach Bluetooth devices. Use Chrome on Android or a computer.");
+    if (tx) await tx.close();
+    tx = wrap(kind === "usb" ? await R.connectSerial(l => log(l)) : await R.connectBle(l => log(l)));
+    await tx.send("HELLO");
+    const hello = (await R.readFor(tx, 600)).find(x => x.startsWith("HELLO")) || "";
+    if (!hello.startsWith("HELLO RDP/1")) { say("Connected, but the device did not answer as an RSOS band (RDP/1). Is the RSOS firmware flashed?"); }
+    $("dot").classList.add("on"); $("status").textContent = "Connected by " + tx.kind + (tx.name ? " to " + tx.name : "") + (hello ? ": " + hello.replace("HELLO ", "") : "") + ".";
+    for (const id of ["stop", "check", "play", "run"]) $(id).disabled = false;
+    if (hello) say("Ready.", true);
+  } catch (e) { if (e && e.name !== "NotFoundError") say("Could not connect: " + (e.message || e)); }
+}
+$("usb").addEventListener("click", () => connect("usb"));
+$("ble").addEventListener("click", () => connect("ble"));
+$("stop").addEventListener("click", () => { if (tx) tx.send("STOP"); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && tx) tx.send("STOP"); });
+$("check").addEventListener("click", async () => {
+  $("check").disabled = true; say("Checking… the band vibrates during the check.", true);
+  const res = await R.quickCheck(tx), T = $("results"), B = T.tBodies[0]; B.innerHTML = ""; T.hidden = false;
+  for (const [id, req, ok, m] of res) { const tr = document.createElement("tr"); tr.innerHTML = "<td>" + id + "</td><td></td><td></td>"; tr.children[1].textContent = req; const r = document.createElement("span"); r.className = ok ? "pass" : "fail"; r.textContent = ok ? "Pass" : "Fail"; tr.children[2].append(r, " " + m); B.appendChild(tr); }
+  const n = res.filter(r => r[2]).length; say(n + " of " + res.length + " checks passed." + (n < res.length ? " See firmware/BOARD_KIT.md, troubleshooting." : ""), n === res.length);
+  $("check").disabled = false;
+});
+async function playCode(code) {
+  if (!tx) return say("Connect the band first.");
+  if (!UGCL.TACTON_RE.test(code)) return say("A code is 1 to 6 dots and dashes, up to three joined by spaces.");
+  await tx.send("STOP"); for (const l of R.codeEvents(UGCL.tactonPulses(code), 0.4)) await tx.send(l); await tx.send("START");
+}
+$("play").addEventListener("click", () => playCode($("code").value.trim()));
+function drawCodes() {
+  const plan = store.get("rsos.plan", null), box = $("codes"); box.innerHTML = "";
+  const items = (plan && plan.nodes ? plan.nodes.map(n => [n.name, n.tacton]) : []).concat([["Lion", "..-"], ["Dragon", "---"], ["Observer", "-"], ["Lion + Dragon", "..- ---"]]);
+  const seen = new Set();
+  for (const [name, code] of items) { if (seen.has(name + code)) continue; seen.add(name + code);
+    const b = document.createElement("button"); b.type = "button"; b.innerHTML = UGCL.codeSVG(code, "#f7d995", 8); b.append(name); b.addEventListener("click", () => playCode(code)); box.appendChild(b); }
+}
+drawCodes();
+$("run").addEventListener("click", async () => {
+  const p = $("prog").value;
+  try {
+    const tl = RSX.compile(await (await fetch("protocols/" + p + ".rsx")).text());
+    const st = store.get("rsos.contain", RSOSContain.newState()), d = RSOSContain.decide({ kind: "run", protocol: tl.protocol, trigger: "self" }, st, tl, Date.now() / 1000);
+    if (d.decision !== "allow") return say("CONTAIN: " + d.reasons.join("; ") + ".");
+    await tx.send("STOP"); await tx.send("CONSENT 0"); for (const l of R.encode(tl)) await tx.send(l); await tx.send("START");
+    say("Playing " + $("prog").selectedOptions[0].textContent + " (" + Math.round(tl.duration_ms / 1000) + " s). Stop at any time.", true);
+  } catch (e) { say("Could not play it: " + e.message); }
+});
+</script>
+</body>
+</html>

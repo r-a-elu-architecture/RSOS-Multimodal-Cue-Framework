@@ -70,10 +70,11 @@ class SketchInSync(unittest.TestCase):
     @unittest.skipUnless(shutil.which("g++"), "no g++")
     def test_esp32_sketch_compiles_against_stubs(self):
         st = REPO / "firmware/esp32/stubs"
-        r = subprocess.run(["g++", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-Wno-unused-parameter", f"-I{st}",
-                            f"-I{REPO / 'firmware/esp32/rsos_esp32'}", "-fsyntax-only", "-x", "c++", str(st / "check.cpp")],
-                           capture_output=True, text=True)
-        self.assertEqual(r.returncode, 0, r.stderr)
+        for major in ("2", "3"):     # both Arduino-ESP32 APIs (2.x: PlatformIO's default; 3.x: Arduino IDE)
+            r = subprocess.run(["g++", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-Wno-unused-parameter", f"-DESP_ARDUINO_VERSION_MAJOR={major}", f"-I{st}",
+                                f"-I{REPO / 'firmware/esp32/rsos_esp32'}", "-fsyntax-only", "-x", "c++", str(st / "check.cpp")],
+                               capture_output=True, text=True)
+            self.assertEqual(r.returncode, 0, major + ": " + r.stderr)
 
 
 if __name__ == "__main__":

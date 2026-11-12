@@ -20,13 +20,14 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/contain.py` | CONTAIN, the safety layer ([spec](../spec/CONTAIN.md)): the device safety envelope, drift detection and quarantine, escalation, the decide() gate every module asks, restore and rollback; `play(..., contain=state)` refuses what it blocks. Identical to `docs/js/contain.js`; the page is `docs/safety.html`. |
 | `rsso/thera.py` | THERA, therapist mode ([spec](../spec/THERA.md)): five measured session protocols as data (`python -m rsso.thera` writes `docs/data/thera.json`), sessions filled with the client's own nodes, stop rules, summary with fidelity and clinician ratings, the session as a research record, and practice between sessions. Identical to `docs/js/thera.js`; the page is `docs/therapist.html`. |
 | `rsso/cm1.py` | CM1, the compression layer ([spec](../spec/CM1.md)): practice signatures, response profiles, assignment and where to start, patterns across everyone, and a compact device bundle; checked on a synthetic population with known profiles (`python -m rsso.cm1` writes `docs/data/cm1.json` and [results](results/cm1.md)). Identical to `docs/js/cm1.js`. |
+| `rsso/board.py` | Board kit check ([kit](../firmware/BOARD_KIT.md)): B1–B7 on a real wristband over USB serial (`python -m rsso.board --port …`), the whole conformance suite in real time (`--full`), or the firmware core in real time without a board (`--sim`). The browser version is `docs/js/rdp.js` on the Wristband page (tested to match). |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
 | `rsso/analysis.py` | Pre-specified analyses for H1, H2 and H5. The same code runs on synthetic and on real data. |
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 93 tests
+python -m unittest discover -s tests                     # 96 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

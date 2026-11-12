@@ -25,5 +25,10 @@ inline uint32_t millis() { return 0; }
 inline void delay(int) {}
 inline void pinMode(int, int) {}
 inline void digitalWrite(int, int) {}
+#ifndef ESP_ARDUINO_VERSION_MAJOR
+#define ESP_ARDUINO_VERSION_MAJOR 3
+#endif
 inline bool ledcAttach(int, int, int) { return true; }
+inline double ledcSetup(int, int, int) { return 0; }
+inline void ledcAttachPin(int, int) {}
 inline void ledcWrite(int, int) {}

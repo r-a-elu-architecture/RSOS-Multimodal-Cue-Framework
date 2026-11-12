@@ -5,7 +5,8 @@
 //
 // rsos_core.cpp / rsos_core.h are copies of firmware/rsos_core/ (tested on the host with host_sim);
 // keep them identical (rsx/tests/test_repository.py checks this).
-// STATUS: written for the ESP32 Arduino core; not yet compiled or run on a board in this repository.
+// STATUS: compile-checked on a PC against stubs for both Arduino-ESP32 2.x and 3.x; not yet run on a board.
+// Flash and check it with firmware/BOARD_KIT.md (python -m rsso.board --port ..., or docs/device.html).
 
 #include <Arduino.h>
 #include <BLEDevice.h>
@@ -13,8 +14,21 @@
 #include <BLE2902.h>
 #include "rsos_core.h"
 
-const int MOTOR_PIN = 25, SCENT_PIN = 26, TASTE_PIN = 27;
-const int PWM_FREQ = 20000, PWM_BITS = 8;
+// Pins: override with build flags, e.g. -DRSOS_MOTOR_PIN=5 (firmware/esp32/platformio.ini sets them per board)
+#ifndef RSOS_MOTOR_PIN
+#define RSOS_MOTOR_PIN 25
+#endif
+#ifndef RSOS_SCENT_PIN
+#define RSOS_SCENT_PIN 26
+#endif
+#ifndef RSOS_TASTE_PIN
+#define RSOS_TASTE_PIN 27
+#endif
+const int MOTOR_PIN = RSOS_MOTOR_PIN, SCENT_PIN = RSOS_SCENT_PIN, TASTE_PIN = RSOS_TASTE_PIN;
+const int PWM_FREQ = 20000, PWM_BITS = 8, PWM_CHANNEL = 0;
+#ifndef ESP_ARDUINO_VERSION_MAJOR
+#define ESP_ARDUINO_VERSION_MAJOR 2
+#endif
 #define NUS_SERVICE "6E400001-B5A3-F393-E0A9-E50E24DCCA9E"
 #define NUS_RX      "6E400002-B5A3-F393-E0A9-E50E24DCCA9E"
 #define NUS_TX      "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
@@ -26,7 +40,14 @@ volatile bool bleLineReady = false;
 
 class Hardware : public rsos::Output {
  public:
-  void motor(float amp) override { ledcWrite(MOTOR_PIN, (int)(amp * ((1 << PWM_BITS) - 1))); }
+  void motor(float amp) override {
+    int duty = (int)(amp * ((1 << PWM_BITS) - 1));
+#if ESP_ARDUINO_VERSION_MAJOR >= 3
+    ledcWrite(MOTOR_PIN, duty);          // Arduino-ESP32 3.x: by pin
+#else
+    ledcWrite(PWM_CHANNEL, duty);        // Arduino-ESP32 2.x: by channel
+#endif
+  }
   void valve(char ch, bool open) override { digitalWrite(ch == 'O' ? SCENT_PIN : TASTE_PIN, open ? HIGH : LOW); }
   void send(const char* line) override {
     Serial.println(line);
@@ -35,7 +56,7 @@ class Hardware : public rsos::Output {
 };
 
 Hardware hw;
-rsos::Core core(hw, "haptic,olfactory,gustatory", 1.0f);
+rsos::Core core(hw, "haptic,olfactory,gustatory", 0.6f);   // hardware cap = the device safety envelope (spec/CONTAIN.md), whatever a host asks
 
 class ServerCB : public BLEServerCallbacks {
   void onConnect(BLEServer*) override { bleConnected = true; }
@@ -53,7 +74,12 @@ class RxCB : public BLECharacteristicCallbacks {
 
 void setup() {
   Serial.begin(115200);
-  ledcAttach(MOTOR_PIN, PWM_FREQ, PWM_BITS);          // Arduino-ESP32 3.x API; on 2.x use ledcSetup + ledcAttachPin
+#if ESP_ARDUINO_VERSION_MAJOR >= 3
+  ledcAttach(MOTOR_PIN, PWM_FREQ, PWM_BITS);          // Arduino-ESP32 3.x
+#else
+  ledcSetup(PWM_CHANNEL, PWM_FREQ, PWM_BITS);         // Arduino-ESP32 2.x (PlatformIO's default)
+  ledcAttachPin(MOTOR_PIN, PWM_CHANNEL);
+#endif
   pinMode(SCENT_PIN, OUTPUT); pinMode(TASTE_PIN, OUTPUT);
   digitalWrite(SCENT_PIN, LOW); digitalWrite(TASTE_PIN, LOW);
   hw.motor(0);

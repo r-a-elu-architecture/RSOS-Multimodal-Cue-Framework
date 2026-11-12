@@ -11,6 +11,10 @@ RSOS is open software and an open specification, not a regulated medical product
 - **Scent and taste.** Programs with olfactory or gustatory cues must ask the person to confirm they have no allergy or aversion before use.
 - **Shared programs.** RSX programs from other people are code that controls breath, imagery and devices. Read them before running them, and never run one that removes safety limits.
 
+## Known open issues
+
+See [REVIEW.md §5](REVIEW.md): the wristband's Bluetooth link is not yet paired or bonded (anyone in range can connect; the firmware's hard limits still apply: motor at most 0.6, releases at most 3 s, no scent without consent, Stop always works), and data in the browser is not encrypted at rest.
+
 ## Privacy
 
 - The protocol player keeps run logs and voice recordings only in the browser on the device; it sends nothing to a server.

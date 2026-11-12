@@ -10,6 +10,7 @@
 """
 from __future__ import annotations
 
+import math
 import pathlib
 import subprocess
 
@@ -23,12 +24,18 @@ def encode(timeline: dict, capabilities=("haptic", "olfactory", "gustatory")) ->
     ev = []
     for e in timeline["events"]:
         if e["channel"] == "haptic" and "haptic" in capabilities:
-            ev.append(f"H {e['t']} {e['on']} {e['off']} {e['count']} {e['amp']:.2f}")
+            ev.append(f"H {e['t']} {e['on']} {e['off']} {e['count']} {_a2(e['amp'])}")
         elif e["channel"] in ("olfactory", "gustatory") and e["channel"] in capabilities:
             ev.append(f"S {e['t']} {e['dur']} {'O' if e['channel'] == 'olfactory' else 'G'}")
     if len(ev) > 64:
         raise ValueError("RDP/1 devices hold at least 64 events; this program needs more")
-    return [f"LOAD {len(ev)} {timeline['safety']['haptic_max']:.2f}"] + ev
+    return [f"LOAD {len(ev)} {_a2(timeline['safety']['haptic_max'])}"] + ev
+
+
+def _a2(x: float) -> str:
+    """Two decimals, rounded half up (identical in docs/js/rdp.js)."""
+    k = math.floor(float(x) * 100 + 0.5)
+    return f"{k // 100}.{k % 100:02d}"
 
 
 def build_host_sim() -> pathlib.Path:

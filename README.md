@@ -72,7 +72,7 @@ The learning model makes the protocol's claims precise enough to fail. Across ev
 
 ## Test it
 
-The specification lists five hypotheses with minimal study designs (§10) and a shared run-log format, so results from different groups can be pooled. [`toolkit/study_kit/`](toolkit/study_kit/) has a replication protocol and power analysis for the cue engine. If you run a study, please open an issue so it can be listed here.
+The specification lists six hypotheses with minimal study designs (§10) and a shared run-log format, so results from different groups can be pooled. [`toolkit/study_kit/`](toolkit/study_kit/) has a replication protocol and power analysis for the cue engine. If you run a study, please open an issue so it can be listed here.
 
 ## Related work
 

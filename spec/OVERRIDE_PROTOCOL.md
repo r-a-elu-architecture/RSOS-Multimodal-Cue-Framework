@@ -30,6 +30,7 @@ The protocol combines established principles. It does not depend on any of them 
 | **Multisensory binding** | Each tier bundles visual, auditory, kinesthetic, olfactory and gustatory components | Compound-cue conditioning (Rescorla & Wagner, 1972); see [§6](#6-tiers-multichannel-bundles) |
 | **Paced breathing** | Every phase is tied to an inhale or exhale | Slow-breathing autonomic regulation |
 | **Future template / future pacing** | Phase 5: the new state is rehearsed in three concrete future contexts | EMDR future template and Resource Development & Installation (Korn & Leeds, 2002); NLP future pacing |
+| **Stimulus generalisation / context conditioning** | Phase 5: people, objects and places in the futures are linked to the agency state by golden light, so they become cues for it | Context-dependent learning; generalisation gradients in conditioning |
 | **Embodiment** | Movement, straight spine and raised head; warmth in the body | Embodied-emotion and posture research |
 | **Closure / installation** | Phase 8: a fixed closing phrase marks the end and seals the sequence | EMDR installation phase; ritual closure |
 
@@ -45,15 +46,17 @@ Then one interrupt and five full breaths. Default breath: 4 s inhale, 6 s exhale
 | 2 | **Ignite** | Inhale | Breathe golden lion light into the belly: courage and agency | Warm tone; lion-light visual |
 | 3 | **Radiate** | Exhale | The light expands inside, filling the blood flow, the lymph, every part of the body and every cell | Expanding light |
 | 4 | **Anchor** | Inhale | At the top of the inhale, touch middle finger to thumb | Short haptic pulse |
-| 5 | **Three futures** | Exhale (one exhale for all three) | Fully associated, see yourself in three desired future situations, acting as you want to, with golden light present in each environment | Haptic FP-ANCHOR (150 ms on/off × 8) |
+| 5 | **Three futures** | Exhale (one exhale for all three) | Associated as your future self in three desired situations, acting as you want to. Everything there is connected by golden light, as beams or flows, to you and to each other: the people, the objects, the place. You see it and feel it inside you | Haptic FP-ANCHOR (150 ms on/off × 8) |
 | 6 | **Hologram** | Inhale | At the top of the inhale, a golden hologram finger appears in front of the eyes, pointing upward | — |
 | 7 | **Extend** | Exhale | Golden light flows from the finger up, around, above, below, to the sides and into the sky, filling the people, objects and places associated with agency and power | Rising tone |
 | 8 | **Return** | Inhale | The golden light comes back into the belly, now carrying their resources: every source of agency and power | Light contracting into the body |
 | 9 | **Fill** | Exhale | It fills the lymph, the blood flow, every part of the body and every cell with golden light of power and agency | Expanding light |
-| 10 | **Gather** | Inhale | One more full inhale | — |
+| 10 | **Gather** | Inhale | A simple inhale, nothing else | — |
 | 11 | **Install** | Exhale | While exhaling, say **"I own"**: the technique is sealed and confirmed | Closing tone |
 
 **Default futures (phase 5):** (1) driving the car, (2) at work, (3) achieving your goal. Futures must be concrete, first-person, desired, and imagined *associated* (seen through your own eyes, not watching yourself).
+
+**Why the futures are connected by light:** the people, objects and environments in the futures are rehearsed together with the agency state. Over many runs they are meant to become cues for it themselves, so that when the real situation arrives (the car, the workplace, the people involved), its elements already carry power and agency. This is stimulus generalisation and context conditioning applied on purpose, and it is tested by H6 below.
 
 **Phase 6 hologram:** the finger is imagined, not physically raised. It points to whatever the practitioner holds as a higher power or highest value; the protocol takes no position on what that is.
 
@@ -140,6 +143,7 @@ If distress rises during or after a run, stop, ground (feet on the floor, name f
 | H3 | Multichannel tiers (V+A+K+O) condition faster than single-channel (V only) | Between-person, matched practice dose |
 | H4 | Future pacing improves later behaviour in the paced contexts | Ecological momentary assessment, paced vs unpaced contexts |
 | H5 | Device-triggered runs (HRV/EEG) reduce latency more than self-initiated runs | Micro-randomised trial |
+| H6 | People, objects and places rehearsed in the futures later evoke more agency on real encounters than matched, unrehearsed ones | Within-person: list rehearsed and comparable unrehearsed elements in advance; rate agency (0–10) on each real encounter by ecological momentary assessment |
 
 H3 has a formal model prediction in [`rsx/rsx/conditioning.py`](../rsx/rsx/conditioning.py). These hypotheses are untested in humans.
 

@@ -45,9 +45,11 @@ PHASE anchor breath=inhale {
   HAPTIC on=150ms off=150ms x=2 amp=0.3
 }
 
-# 5. One exhale through all three futures, golden light present in each.
+# 5. One exhale through all three futures. Associated, as your future self: everything is connected
+#    by golden light (beams, flows) to you and to each other; you see it and feel it inside you.
+#    Over many runs the people, objects and places in these futures come to carry power and agency.
 PHASE futures breath=exhale {
-  FEEL "Fully there, golden light all around you, acting as you want to"
+  FEEL "You, the people, objects and places: all connected by golden beams and flows. See it and feel it inside you"
   HAPTIC on=150ms off=150ms x=8 amp=0.3    # FP-ANCHOR
   FOR FUTURE {
     SEE "$future"
@@ -81,9 +83,9 @@ PHASE fill breath=exhale {
   FEEL "Golden light of power and agency"
 }
 
-# 10. Inhale once more.
+# 10. A simple inhale.
 PHASE gather breath=inhale {
-  FEEL "Breathe in fully"
+  FEEL "Breathe in"
 }
 
 # 11. Exhale while saying "I own": the override is sealed and confirmed.

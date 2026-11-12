@@ -23,6 +23,9 @@ CASES = [p.read_text(encoding="utf-8") for p in sorted((ROOT / "protocols").glob
     'PROTOCOL p\nBREATH inhale=5s exhale=7.5s\nFUTURES "a" | "b"\nFOR FUTURE {\nPHASE f breath=exhale {\nSEE "go: $future"\nWAIT 1s\nSAY "ok"\n}\n}',
     'PROTOCOL p\nTIER 3 :: {EAGLE} :: @Vector1:MemoryRecall(Archetype=EAGLE) :: @Vector2:Unknown(x)',
     'PROTOCOL p "quoted \\"title\\""; PHASE a { ; MARK "x" ; }',
+    'PROTOCOL p\nFUTURES "a" | "b" | "c"\nPHASE x breath=exhale {\nFEEL "k"\nFOR FUTURE {\nSEE "$future"\nWAIT 1500ms\n}\nSAY "end"\n}',
+    'PROTOCOL p\nFUTURES "a"\nPHASE x {\nFOR FUTURE {\nFOR FUTURE {\n}\n}\n}',
+    'PROTOCOL p\nPHASE x {\nFOR FUTURE {\n}\n}',
 ]
 
 

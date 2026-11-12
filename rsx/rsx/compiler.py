@@ -310,13 +310,7 @@ def _phase(prog, state, ln, toks, body, ctx):
     if breath != "none":
         bd = prog["breath"][breath]
         end = max(end, _emit(prog, state, start, bd, "breath", breath, name, **extra))
-    cursor = start
-    for b in body:
-        bt = tokenize(b.text)
-        end = max(end, _step(prog, state, b, bt, name, cursor, dict(ctx, _line=b.no), extra))
-        if bt[0] == "WAIT":
-            cursor += parse_duration(bt[1], b.no)
-            end = max(end, cursor)
+    end = max(end, _steps(prog, state, body, name, start, ctx, extra)[0])
     end = max(end, start + min_dur)
     if end == start:
         end = start + CUE_MS
@@ -324,6 +318,32 @@ def _phase(prog, state, ln, toks, body, ctx):
     rec.update(extra)
     prog["phases"].append(rec)
     state["t"] = end
+
+
+def _steps(prog, state, body, phase, cursor, ctx, extra):
+    """Run the steps of a phase body. Returns (latest end time, cursor)."""
+    end, j = cursor, 0
+    while j < len(body):
+        b = body[j]
+        bt = tokenize(b.text)
+        if bt[0] == "FOR" and bt[-1] == "{":
+            if bt[1:] != ["FUTURE", "{"]:
+                raise RSXError(b.no, "loop syntax: FOR FUTURE {")
+            if not prog["futures"]:
+                raise RSXError(b.no, "FOR FUTURE used before FUTURES")
+            if "future" in ctx:
+                raise RSXError(b.no, "FOR FUTURE cannot be nested")
+            inner, j = parse_block(body, j + 1, b)
+            for k, f in enumerate(prog["futures"]):
+                e, cursor = _steps(prog, state, inner, phase, cursor, dict(ctx, future=f, future_index=k), extra)
+                end = max(end, e)
+            continue
+        end = max(end, _step(prog, state, b, bt, phase, cursor, dict(ctx, _line=b.no), extra))
+        if bt[0] == "WAIT":
+            cursor += parse_duration(bt[1], b.no)
+            end = max(end, cursor)
+        j += 1
+    return end, cursor
 
 
 def _step(prog, state, b, bt, phase, t, ctx, extra):

@@ -1,8 +1,9 @@
-# RSOS Override Protocol (ROP) v1.0 — reference program.
+# RSOS Override Protocol (ROP) v1.1 — reference program.
 # Specification: spec/OVERRIDE_PROTOCOL.md. Every word, image and gesture is a default you may replace.
+# Start it the moment a negative state appears: a sound, a smell, something seen, a memory.
 
 PROTOCOL override "RSOS Override Protocol"
-VERSION 1.0
+VERSION 1.1
 SAFETY max_per_hour=6 max_per_day=20 refractory=90s haptic_max=0.4
 BREATH inhale=4s exhale=6s
 
@@ -14,59 +15,81 @@ TIER 1 LION {
   WORD "Courage"
 }
 
-FUTURES "Talking with people" | "Walking with confidence" | "Working at the computer"
+FUTURES "Driving the car" | "At work" | "Achieving your goal"
 
+# 1. Interrupt: move, straighten, clench the fist and speak, all at the same moment.
 PHASE interrupt {
   SAY "I move, I act"
-  GESTURE "Clench your fist"
+  GESTURE "Move: spine straight, head up, clench your fist"
   HAPTIC on=300ms off=300ms x=6 amp=0.4      # VIB-ANCHOR
   MARK "interrupt"
 }
 
+# 2. Inhale the lion light into the belly.
 PHASE ignite breath=inhale {
   ACTIVATE LION
   SEE "Breathe golden lion light into your belly"
-  FEEL "Courage and agency gathering"
   TONE 220Hz 4s
 }
 
+# 3. Exhale: the light expands inside.
 PHASE radiate breath=exhale {
-  SEE "The light fills your whole body: cells, blood flow, lymph"
-  FEEL "Let a smile come"
-  GESTURE "Release the fist"
+  SEE "The light expands inside you: blood flow, lymph, every part and every cell"
 }
 
+# 4. At the top of the inhale, touch middle finger to thumb.
 PHASE anchor breath=inhale {
-  GESTURE "Touch middle finger to thumb"
+  FEEL "Breathe in"
+  WAIT 2s
+  GESTURE "At the top: touch middle finger to thumb"
   HAPTIC on=150ms off=150ms x=2 amp=0.3
-  FEEL "The whole state gathers into the anchor"
 }
 
-FOR FUTURE {
-  PHASE future breath=exhale {
+# 5. One exhale through all three futures, golden light present in each.
+PHASE futures breath=exhale {
+  FEEL "Fully there, golden light all around you, acting as you want to"
+  HAPTIC on=150ms off=150ms x=8 amp=0.3    # FP-ANCHOR
+  FOR FUTURE {
     SEE "$future"
-    FEEL "Fully there, with a gentle smile"
-    HAPTIC on=150ms off=150ms x=8 amp=0.3    # FP-ANCHOR
+    WAIT 2s
   }
 }
 
-PHASE extend breath=inhale {
-  GESTURE "Raise one finger: your higher power or highest value"
-  SEE "Send golden light to the people, objects and nodes that hold power and agency"
-  TONE 330Hz 4s
+# 6. At the top of the inhale, a golden hologram finger appears in front of the eyes, pointing up.
+PHASE hologram breath=inhale {
+  FEEL "Breathe in"
+  WAIT 2s
+  SEE "A golden hologram finger in front of your eyes, pointing upward"
 }
 
-PHASE fill breath=exhale {
-  SEE "The light fills them completely"
+# 7. Exhale: light flows from the finger in every direction and fills what holds agency and power.
+PHASE extend breath=exhale {
+  SEE "Golden light flows from the finger: up, around, above, below, to the sides, into the sky"
+  TONE 330Hz 6s
+  WAIT 3s
+  SEE "It fills the people, objects and places that hold agency and power"
 }
 
+# 8. Inhale: the light returns into the belly, carrying their resources.
 PHASE return breath=inhale {
-  SEE "The light returns into your body as new power and agency"
-  FEEL "Agency settling in your body"
+  SEE "The golden light returns into your belly, carrying every source of agency and power"
 }
 
+# 9. Exhale: it fills the body with golden light of power and agency.
+PHASE fill breath=exhale {
+  SEE "It fills your lymph, blood flow, every part of your body and every cell"
+  FEEL "Golden light of power and agency"
+}
+
+# 10. Inhale once more.
+PHASE gather breath=inhale {
+  FEEL "Breathe in fully"
+}
+
+# 11. Exhale while saying "I own": the override is sealed and confirmed.
 PHASE install breath=exhale {
   SAY "I own"
-  TONE 440Hz 1.5s
+  FEEL "Sealed and confirmed"
+  TONE 440Hz 2s
   MARK "installed"
 }

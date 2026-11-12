@@ -1,6 +1,6 @@
 # RSOS Override Protocol (ROP) — Specification v1.0
 
-**Status:** open specification, CC BY 4.0. Author: R. A. Elu. Machine-readable form: [`rsx/protocols/override.rsx`](../rsx/protocols/override.rsx).
+**Status:** open specification, version 1.1, CC BY 4.0. Author: R. A. Elu. Machine-readable form: [`rsx/protocols/override.rsx`](../rsx/protocols/override.rsx).
 
 **What it is:** a short, scripted state-change routine. It interrupts a negative state and redirects it into a resourceful state through a fixed sequence of breath, words, gestures, imagery and (optionally) sensory cues. It is practised until it runs automatically. Every other part of RSOS exists to deliver, personalise, measure or extend this routine.
 
@@ -26,31 +26,38 @@ The protocol combines established principles. It does not depend on any of them 
 |---|---|---|
 | **Pattern interruption** | Phase 1: an immediate, physical, verbal break in the negative state | Behavioural interruption; NLP "break state" |
 | **Counterconditioning** | The trigger is repeatedly followed by a positive, high-agency state | Aversive-to-appetitive counterconditioning (e.g. *eLife* reviewed preprint 101518) |
-| **Anchoring / conditioned cues** | Fist, middle-finger-to-thumb and raised-finger gestures; the words; the lion-light image | Classical conditioning (Pavlov); NLP anchoring |
+| **Anchoring / conditioned cues** | The fist, the middle-finger-to-thumb touch and the hologram finger; the words; the lion-light image | Classical conditioning (Pavlov); NLP anchoring |
 | **Multisensory binding** | Each tier bundles visual, auditory, kinesthetic, olfactory and gustatory components | Compound-cue conditioning (Rescorla & Wagner, 1972); see [§6](#6-tiers-multichannel-bundles) |
 | **Paced breathing** | Every phase is tied to an inhale or exhale | Slow-breathing autonomic regulation |
 | **Future template / future pacing** | Phase 5: the new state is rehearsed in three concrete future contexts | EMDR future template and Resource Development & Installation (Korn & Leeds, 2002); NLP future pacing |
-| **Embodiment** | Smile, posture, warmth in the body | Embodied-emotion research |
+| **Embodiment** | Movement, straight spine and raised head; warmth in the body | Embodied-emotion and posture research |
 | **Closure / installation** | Phase 8: a fixed closing phrase marks the end and seals the sequence | EMDR installation phase; ritual closure |
 
 ## 4. Structure
 
-Eight phases, one breath each (two in Phase 6). Default breath: 4 s inhale, 6 s exhale. Total default duration ≈ 50 s.
+**Start:** the moment a negative state appears, whatever its source: a sound, a smell, something seen (an object that recalls the old state), a body sensation or a memory.
 
-| # | Phase | Breath | Word | Gesture | Image / feeling | Default device cue |
-|---|---|---|---|---|---|---|
-| 1 | **Interrupt** | — (immediate) | "I move, I act" | Fist clenched | — | Haptic VIB-ANCHOR (300 ms on/off × 6) |
-| 2 | **Ignite** | Inhale | — | Fist held | Golden lion light drawn into the belly: courage, agency | Warm tone; lion-light visual |
-| 3 | **Radiate** | Exhale | — | Release fist | Lion light fills the whole body: cells, blood flow, lymph; a smile | Expanding light visual |
-| 4 | **Anchor** | Inhale | — | Middle finger touches thumb | The full state is gathered into the anchor | Short haptic pulse |
-| 5 | **Future ×3** | Exhale (one per future) | — | Anchor held | Fully associated into each of three future contexts, gentle smile | Haptic FP-ANCHOR (150 ms on/off × 8) per future |
-| 6 | **Extend** | Inhale, then exhale | — | One finger raised (higher-power / values anchor) | Golden light sent to the people, objects and nodes that hold power and agency, filling them | Rising tone |
-| 7 | **Return** | Inhale | — | — | The light returns into the body as new power and agency | Light contracting into the body |
-| 8 | **Install** | Exhale | "I own" | — | The override is complete and sealed | Closing chime |
+Then one interrupt and five full breaths. Default breath: 4 s inhale, 6 s exhale. Total default duration ≈ 54 s.
 
-**Default futures (Phase 5):** (1) talking with people, (2) walking with confidence, (3) working at the computer. Futures must be concrete, first-person, near-term and pleasant to imagine.
+| # | Phase | Breath | What you do | Default device cue |
+|---|---|---|---|---|
+| 1 | **Interrupt** | — (instantly) | Move, even slightly; straighten the spine and lift the head; clench the fist and say **"I move, I act"** at the same moment the fist closes | Haptic VIB-ANCHOR (300 ms on/off × 6) |
+| 2 | **Ignite** | Inhale | Breathe golden lion light into the belly: courage and agency | Warm tone; lion-light visual |
+| 3 | **Radiate** | Exhale | The light expands inside, filling the blood flow, the lymph, every part of the body and every cell | Expanding light |
+| 4 | **Anchor** | Inhale | At the top of the inhale, touch middle finger to thumb | Short haptic pulse |
+| 5 | **Three futures** | Exhale (one exhale for all three) | Fully associated, see yourself in three desired future situations, acting as you want to, with golden light present in each environment | Haptic FP-ANCHOR (150 ms on/off × 8) |
+| 6 | **Hologram** | Inhale | At the top of the inhale, a golden hologram finger appears in front of the eyes, pointing upward | — |
+| 7 | **Extend** | Exhale | Golden light flows from the finger up, around, above, below, to the sides and into the sky, filling the people, objects and places associated with agency and power | Rising tone |
+| 8 | **Return** | Inhale | The golden light comes back into the belly, now carrying their resources: every source of agency and power | Light contracting into the body |
+| 9 | **Fill** | Exhale | It fills the lymph, the blood flow, every part of the body and every cell with golden light of power and agency | Expanding light |
+| 10 | **Gather** | Inhale | One more full inhale | — |
+| 11 | **Install** | Exhale | While exhaling, say **"I own"**: the technique is sealed and confirmed | Closing tone |
 
-**Phase 6 anchor:** the raised finger points to whatever the practitioner holds as a higher power or highest value. The protocol takes no position on what it is.
+**Default futures (phase 5):** (1) driving the car, (2) at work, (3) achieving your goal. Futures must be concrete, first-person, desired, and imagined *associated* (seen through your own eyes, not watching yourself).
+
+**Phase 6 hologram:** the finger is imagined, not physically raised. It points to whatever the practitioner holds as a higher power or highest value; the protocol takes no position on what that is.
+
+**Shape of the routine:** the light goes in (2), out through the body (3), out into the futures (5) and the world (7), and back in carrying resources (8–9). The two finger cues (4 and 6) come at the top of an inhale, just before the light moves outward.
 
 ## 5. Practice schedule
 
@@ -141,7 +148,7 @@ H3 has a formal model prediction in [`rsx/rsx/conditioning.py`](../rsx/rsx/condi
 | Architecture | Role in the protocol |
 |---|---|
 | **RSOS** | Tiers, glyphs, metaphor words: the cue bundles themselves |
-| **RSIA** | The archetype that colours the state (Lion by default); the Spine as the values the Phase 6 anchor points to |
+| **RSIA** | The archetype that colours the state (Lion by default); the Spine as the values the phase 6 hologram points to |
 | **RSX** | The language the protocol is written and executed in |
 | **RSSO** | Runtime orchestration: scheduling, triggers, safety limits, logging |
 | **THERA** (RSSO subsystem) | Historical source of VIB-ANCHOR, FP-ANCHOR and the safety envelope |

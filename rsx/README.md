@@ -8,7 +8,7 @@ RSX (Recursive Symbolic eXpression) is the language RSOS programs are written in
 
 ```bash
 cd rsx
-python -m unittest discover -s tests          # 27 tests, incl. Python/JS conformance (needs Node)
+python -m unittest discover -s tests          # 32 tests, incl. Python/JS conformance (needs Node)
 python -m rsx check protocols/*.rsx
 python -m rsx compile protocols/override.rsx -o override.json
 python model/predictions.py                   # regenerates model/PREDICTIONS.md
@@ -29,7 +29,7 @@ TIER 1 LION {
   WORD "Courage"
 }
 
-FUTURES "Talking with people" | "Walking with confidence" | "Working at the computer"
+FUTURES "Driving the car" | "At work" | "Achieving your goal"
 
 PHASE interrupt {
   SAY "I move, I act"
@@ -39,10 +39,11 @@ PHASE interrupt {
 PHASE ignite breath=inhale {
   ACTIVATE LION
 }
-FOR FUTURE {
-  PHASE future breath=exhale {
+PHASE futures breath=exhale {             # one exhale through all three futures
+  HAPTIC on=150ms off=150ms x=8 amp=0.3
+  FOR FUTURE {
     SEE "$future"
-    HAPTIC on=150ms off=150ms x=8 amp=0.3
+    WAIT 2s
   }
 }
 ```
@@ -64,7 +65,7 @@ One statement per line; `;` separates statements on one line; `#` starts a comme
 | `TIER <n> <NAME> { … }` | A multichannel bundle. Fields `V`, `A`, `K` (required), `O`, `G`, `GLYPH`, `WORD`, each with one quoted value. |
 | `FUTURES "a" \| "b" \| "c"` | Future contexts for `FOR FUTURE`. |
 | `PHASE <name> [breath=inhale\|exhale\|hold\|none] [dur=…] { … }` | A time slot. All steps start together at the phase start, except after `WAIT`. The phase lasts as long as its breath, its `dur` or its longest step, whichever is longest. |
-| `FOR FUTURE { PHASE … }` | Repeats the enclosed phases once per future; `$future` is replaced by the context text. |
+| `FOR FUTURE { PHASE … }` | Repeats the enclosed phases once per future; `$future` is replaced by the context text. Also allowed *inside* a phase to repeat steps (e.g. all futures within one exhale). |
 | `REPEAT <n> { PHASE … }` | Repeats the enclosed phases `n` times (1–100). |
 | `TIER <n> :: {ARCH} :: (MODE) :: @VectorK:Op(args) :: …` | RSX v1 vector command (up to 17 vectors). |
 

@@ -64,6 +64,10 @@ dialog::backdrop{background:rgba(9,12,24,.7)}
 dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .log{font-size:.85rem;color:var(--muted)}
+.rec{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
+.rec span{flex:1 1 100%;font-family:var(--serif);font-size:1.05rem}
+.rec .btn{padding:7px 14px;font-size:.9rem}
+.rec .btn.live{background:var(--stop);color:#2a0b0b;border-color:var(--stop)}
 @media (max-width:820px){
   .app{grid-template-columns:1fr}
   aside{max-height:none;border-right:0;border-bottom:1px solid var(--line);order:2}
@@ -83,7 +87,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <legend>Program</legend>
     <label for="program">Choose a program</label>
     <select id="program">
-      <option value="override">Override Protocol (≈ 56 s)</option>
+      <option value="override">Override Protocol (≈ 54 s)</option>
       <option value="interrupt_only">Interrupt only (≈ 10 s)</option>
       <option value="swish">Swish (≈ 23 s)</option>
       <option value="legacy_vector">RSX v1 command, tier 8</option>
@@ -101,8 +105,18 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   <fieldset>
     <legend>Output</legend>
     <label class="check"><input type="checkbox" id="optVoice" checked> Speak the words</label>
+    <label for="voice">Voice</label>
+    <select id="voice"><option value="">Loading voices…</option></select>
+    <div class="actions" style="margin-top:8px"><button class="btn quiet" id="testVoice" type="button">Hear the voice</button></div>
     <label class="check"><input type="checkbox" id="optTone" checked> Play tones</label>
     <label class="check"><input type="checkbox" id="optVib" checked> Vibrate (phones that support it)</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Your own voice</legend>
+    <p class="note" style="margin-top:0">Record the words in your own voice. Your recordings play instead of the computer voice, so the cue becomes yours. They are kept only in this browser.</p>
+    <div id="recList"></div>
+    <p class="err" id="recMsg" aria-live="polite"></p>
   </fieldset>
 
   <fieldset>
@@ -226,11 +240,12 @@ function recompile() {
     $("compileMsg").textContent = e instanceof RSX.RSXError ? "Can't run this program: " + e.message : String(e);
     $("start").disabled = true;
   }
-  drawTrack();
+  drawTrack(); drawRecordings();
 }
 function saveSettings() {
   const s = {}; for (const k of ["f0", "f1", "f2", "inhale", "exhale"]) s[k] = $(k).value;
   for (const k of ["optVoice", "optTone", "optVib"]) s[k] = $(k).checked;
+  if ($("voice").value) s.voice = $("voice").value;
   store.set("rsos.settings", s);
 }
 function drawTrack() {
@@ -250,9 +265,82 @@ function tone(hz, ms) {
   o.connect(g).connect(audio.destination); o.start(t); o.stop(t + d + 0.05);
   run && run.nodes.push(o);
 }
+// Voices: always an English voice (the system default may be another language's voice).
+const MALE = /\b(male|daniel|arthur|guy|davis|andrew|brian|christopher|eric|roger|ryan|thomas|alex|fred|aaron|george|oliver|james|william|liam|tony|mark|david)\b/i;
+const FEMALE = /\b(female|samantha|victoria|karen|moira|tessa|serena|kate|susan|zira|aria|jenny|libby|sonia|emma|ava|allison|fiona|hazel|sara|michelle)\b/i;
+let voices = [];
+function voiceScore(v) {
+  let s = 0;
+  if (/^en[-_](GB|US)/i.test(v.lang)) s += 2; else if (/^en/i.test(v.lang)) s += 1;
+  if (/natural|neural|online|premium|enhanced/i.test(v.name)) s += 3;
+  if (MALE.test(v.name)) s += 2;           // default: a calm, low male voice
+  if (v.localService) s += 0.5;
+  return s;
+}
+function loadVoices() {
+  if (!("speechSynthesis" in window)) { $("voice").innerHTML = "<option value=''>Not available in this browser</option>"; return; }
+  voices = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang)).sort((a, b) => voiceScore(b) - voiceScore(a));
+  const sel = $("voice"); sel.innerHTML = "";
+  if (!voices.length) { sel.innerHTML = "<option value=''>No English voice installed</option>"; return; }
+  for (const v of voices) {
+    const o = document.createElement("option"); o.value = v.name;
+    const g = MALE.test(v.name) ? "male" : FEMALE.test(v.name) ? "female" : "";
+    o.textContent = v.name.replace(/^(Microsoft|Google)\s+/, "") + " (" + v.lang + (g ? ", " + g : "") + ")";
+    sel.appendChild(o);
+  }
+  const saved = store.get("rsos.settings", {}).voice;
+  sel.value = saved && voices.some(v => v.name === saved) ? saved : voices[0].name;
+}
+function currentVoice() { return voices.find(v => v.name === $("voice").value) || voices[0] || null; }
+const recKey = t => "rsos.voice." + t;
 function speak(text) {
-  if (!$("optVoice").checked || !("speechSynthesis" in window)) return;
-  const u = new SpeechSynthesisUtterance(text); u.rate = 0.92; u.pitch = 0.95; speechSynthesis.speak(u);
+  if (!$("optVoice").checked) return;
+  const rec = store.get(recKey(text), null);
+  if (rec) { try { const a = new Audio(rec); a.play(); run && run.nodes.push({ stop: () => a.pause() }); return; } catch (e) {} }
+  if (!("speechSynthesis" in window)) return;
+  const u = new SpeechSynthesisUtterance(text), v = currentVoice();
+  if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-US";
+  u.rate = 0.88; u.pitch = 0.9; speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+// Own-voice recordings, one per spoken phrase in the current program.
+let recorder = null;
+function sayTexts() { return timeline ? [...new Set(timeline.events.filter(e => e.kind === "say").map(e => e.text))] : []; }
+function drawRecordings() {
+  const box = $("recList"); box.innerHTML = "";
+  const texts = sayTexts();
+  if (!texts.length) { box.innerHTML = "<p class='note'>This program has no spoken words.</p>"; return; }
+  for (const t of texts) {
+    const row = document.createElement("div"); row.className = "rec";
+    const has = !!store.get(recKey(t), null);
+    const label = document.createElement("span"); label.textContent = "\u201c" + t + "\u201d"; row.appendChild(label);
+    const rb = document.createElement("button"); rb.type = "button"; rb.className = "btn quiet"; rb.textContent = has ? "Record again" : "Record";
+    rb.addEventListener("click", () => toggleRecord(t, rb)); row.appendChild(rb);
+    if (has) {
+      const pb = document.createElement("button"); pb.type = "button"; pb.className = "btn quiet"; pb.textContent = "Play";
+      pb.addEventListener("click", () => new Audio(store.get(recKey(t), "")).play()); row.appendChild(pb);
+      const db = document.createElement("button"); db.type = "button"; db.className = "btn quiet"; db.textContent = "Delete";
+      db.addEventListener("click", () => { try { localStorage.removeItem(recKey(t)); } catch (e) {} drawRecordings(); }); row.appendChild(db);
+    }
+    box.appendChild(row);
+  }
+}
+async function toggleRecord(text, btn) {
+  $("recMsg").textContent = "";
+  if (recorder) { recorder.stop(); return; }
+  if (!navigator.mediaDevices || !window.MediaRecorder) { $("recMsg").textContent = "Recording isn't supported in this browser."; return; }
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+  catch (e) { $("recMsg").textContent = "Microphone access was blocked. Allow it in the browser's site settings to record."; return; }
+  const chunks = []; recorder = new MediaRecorder(stream);
+  recorder.ondataavailable = e => chunks.push(e.data);
+  recorder.onstop = () => {
+    stream.getTracks().forEach(t => t.stop()); recorder = null;
+    const fr = new FileReader();
+    fr.onload = () => { try { localStorage.setItem(recKey(text), JSON.stringify(fr.result)); } catch (e) { $("recMsg").textContent = "Not enough browser storage to keep this recording."; } drawRecordings(); };
+    fr.readAsDataURL(new Blob(chunks, { type: chunks[0] ? chunks[0].type : "audio/webm" }));
+  };
+  recorder.start(); btn.textContent = "Stop recording"; btn.classList.add("live");
+  setTimeout(() => { if (recorder && recorder.state === "recording") recorder.stop(); }, 6000);
 }
 function vibrate(ev) {
   if (!$("optVib").checked || !navigator.vibrate) return;
@@ -366,6 +454,9 @@ $("stop").addEventListener("click", () => finish(false));
 document.addEventListener("keydown", e => { if (e.key === "Escape" && run) { e.preventDefault(); finish(false); } });
 $("exportLog").addEventListener("click", exportLog);
 $("clearLog").addEventListener("click", () => { if (records.length) { records = []; store.set("rsos.runs", records); summarize(); } });
+$("voice").addEventListener("change", saveSettings);
+$("testVoice").addEventListener("click", () => { const t = sayTexts()[0] || "I move, I act"; const was = $("optVoice").checked; $("optVoice").checked = true; speak(t); $("optVoice").checked = was; });
+if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; } else loadVoices();
 summarize(); loadAll();
 </script>
 </body>

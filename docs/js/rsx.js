@@ -213,16 +213,32 @@
     if ("future_index" in ctx) extra.future_index = ctx.future_index;
     let end = start;
     if (breath !== "none") end = Math.max(end, emit(prog, start, prog.breath[breath], "breath", breath, name, extra));
-    let cursor = start;
-    for (const b of body) {
-      const bt = tokenize(b.text);
-      end = Math.max(end, step(prog, b, bt, name, cursor, Object.assign({}, ctx, { _line: b.no }), extra));
-      if (bt[0] === "WAIT") { cursor += parseDuration(bt[1], b.no); end = Math.max(end, cursor); }
-    }
+    end = Math.max(end, steps(prog, body, name, start, ctx, extra)[0]);
     end = Math.max(end, start + minDur);
     if (end === start) end = start + CUE_MS;
     prog.phases.push(Object.assign({ name, t: start, dur: end - start, breath, index }, extra));
     state.t = end;
+  }
+  function steps(prog, body, ph, cursor, ctx, extra) {
+    let end = cursor, j = 0;
+    while (j < body.length) {
+      const b = body[j], bt = tokenize(b.text);
+      if (bt[0] === "FOR" && bt[bt.length - 1] === "{") {
+        if (!(bt.length === 3 && bt[1] === "FUTURE")) throw new RSXError(b.no, "loop syntax: FOR FUTURE {");
+        if (!prog.futures.length) throw new RSXError(b.no, "FOR FUTURE used before FUTURES");
+        if ("future" in ctx) throw new RSXError(b.no, "FOR FUTURE cannot be nested");
+        const [inner, k] = parseBlock(body, j + 1, b); j = k;
+        prog.futures.forEach((f, n) => {
+          const r = steps(prog, inner, ph, cursor, Object.assign({}, ctx, { future: f, future_index: n }), extra);
+          end = Math.max(end, r[0]); cursor = r[1];
+        });
+        continue;
+      }
+      end = Math.max(end, step(prog, b, bt, ph, cursor, Object.assign({}, ctx, { _line: b.no }), extra));
+      if (bt[0] === "WAIT") { cursor += parseDuration(bt[1], b.no); end = Math.max(end, cursor); }
+      j++;
+    }
+    return [end, cursor];
   }
   const SIMPLE = { SAY: ["A", "say"], SEE: ["V", "see"], FEEL: ["K", "feel"], GESTURE: ["K", "gesture"], SMELL: ["O", "smell"], TASTE: ["G", "taste"] };
   function step(prog, b, bt, ph, t, ctx, extra) {

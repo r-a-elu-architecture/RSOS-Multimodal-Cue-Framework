@@ -15,28 +15,42 @@ class OverrideProtocol(unittest.TestCase):
 
     def test_phase_order_matches_spec(self):
         names = [p["name"] for p in self.t["phases"]]
-        self.assertEqual(names, ["interrupt", "ignite", "radiate", "anchor", "future", "future", "future",
-                                 "extend", "fill", "return", "install"])
+        self.assertEqual(names, ["interrupt", "ignite", "radiate", "anchor", "futures", "hologram",
+                                 "extend", "return", "fill", "gather", "install"])
 
     def test_breath_alternates_after_interrupt(self):
         breaths = [p["breath"] for p in self.t["phases"][1:]]
-        self.assertEqual(breaths, ["inhale", "exhale", "inhale", "exhale", "exhale", "exhale",
-                                   "inhale", "exhale", "inhale", "exhale"])
+        self.assertEqual(breaths, ["inhale", "exhale"] * 5)
+
+    def test_breath_phases_match_breath_length(self):
+        for p in self.t["phases"][1:]:
+            self.assertEqual(p["dur"], self.t["breath"][p["breath"]], p["name"])
 
     def test_three_futures_in_order(self):
-        sees = [e["text"] for e in self.t["events"] if e["phase"] == "future" and e["kind"] == "see"]
-        self.assertEqual(sees, ["Talking with people", "Walking with confidence", "Working at the computer"])
+        ev = [e for e in self.t["events"] if e["phase"] == "futures" and e["kind"] == "see"]
+        self.assertEqual([e["text"] for e in ev], ["Driving the car", "At work", "Achieving your goal"])
+        self.assertEqual([e["t"] - ev[0]["t"] for e in ev], [0, 2000, 4000])   # all inside one exhale
 
     def test_first_and_last_words(self):
         says = [e["text"] for e in self.t["events"] if e["kind"] == "say"]
         self.assertEqual(says, ["I move, I act", "I own"])
 
+    def test_interrupt_is_simultaneous(self):
+        ev = [e for e in self.t["events"] if e["phase"] == "interrupt" and e["channel"] != "marker"]
+        self.assertEqual({e["t"] for e in ev}, {0})
+        self.assertIn("clench your fist", [e["text"] for e in ev if e["kind"] == "gesture"][0])
+
+    def test_finger_cues_at_top_of_inhale(self):
+        for ph, kind in (("anchor", "gesture"), ("hologram", "see")):
+            p = next(x for x in self.t["phases"] if x["name"] == ph)
+            e = next(x for x in self.t["events"] if x["phase"] == ph and x["kind"] == kind)
+            self.assertEqual(e["t"] - p["t"], 2000)
+
     def test_vib_and_fp_anchors(self):
         h = [e for e in self.t["events"] if e["channel"] == "haptic"]
         self.assertEqual((h[0]["on"], h[0]["off"], h[0]["count"]), (300, 300, 6))
-        fp = [e for e in h if e["phase"] == "future"]
-        self.assertEqual(len(fp), 3)
-        self.assertTrue(all((e["on"], e["count"]) == (150, 8) for e in fp))
+        fp = [e for e in h if e["phase"] == "futures"]
+        self.assertEqual([(e["on"], e["count"]) for e in fp], [(150, 8)])
         self.assertTrue(all(e["amp"] <= self.t["safety"]["haptic_max"] for e in h))
 
     def test_lion_tier_fires_all_channels_together(self):
@@ -83,6 +97,11 @@ class LanguageRules(unittest.TestCase):
     def test_wait_offsets_later_steps(self):
         t = compile_rsx('PROTOCOL p\nPHASE a {\nSEE "x"\nWAIT 600ms\nSEE "y"\n}')
         self.assertEqual([e["t"] for e in t["events"]], [0, 600])
+
+    def test_for_future_inside_phase(self):
+        t = compile_rsx('PROTOCOL p\nFUTURES "a" | "b"\nPHASE x breath=exhale {\nFOR FUTURE {\nSEE "$future"\nWAIT 1s\n}\n}')
+        self.assertEqual([(e["t"], e.get("text")) for e in t["events"] if e["kind"] == "see"], [(0, "a"), (1000, "b")])
+        self.assertIn("cannot be nested", self.err('PROTOCOL p\nFUTURES "a"\nPHASE x {\nFOR FUTURE {\nFOR FUTURE {\n}\n}\n}'))
 
     def test_repeat(self):
         t = compile_rsx('PROTOCOL p\nREPEAT 3 {\nPHASE a dur=1s {\nMARK "m"\n}\n}')

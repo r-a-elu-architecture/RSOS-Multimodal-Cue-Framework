@@ -1,6 +1,6 @@
 # RSOS — Recursive Symbolic Operating System
 
-**An open operating system for changing state on purpose.** RSOS turns a negative state (a body sensation, an image, a sound, a smell, a taste, a memory) into the signal that starts a scripted override: breath, words, gestures, imagery and sensory cues that redirect it into agency, followed by rehearsal in three future situations. Practised often enough, the override is meant to become a reflex.
+**An open operating system for changing state on purpose.** RSOS turns a negative state (a sound, a smell, something seen, a body sensation, a memory) into the signal that starts a scripted override: movement, words, a fist, breath and golden-light imagery that redirect it into agency, rehearse it in three future situations and seal it with "I own". Practised often enough, the override is meant to become a reflex.
 
 **[Run the Override Protocol in your browser →](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/player.html)**
 
@@ -10,7 +10,7 @@
 
 | Part | What it is | Where |
 |---|---|---|
-| **Override Protocol** | The core routine: interrupt → ignite → radiate → anchor → three futures → extend → return → install. Phases, channels, practice schedule, measures, safety, testable hypotheses. | [`spec/OVERRIDE_PROTOCOL.md`](spec/OVERRIDE_PROTOCOL.md) |
+| **Override Protocol** | The core routine: interrupt, then five breaths: lion light in, through the body, three futures, out to the world, back in, sealed with "I own". Phases, channels, practice schedule, measures, safety, testable hypotheses. | [`spec/OVERRIDE_PROTOCOL.md`](spec/OVERRIDE_PROTOCOL.md) |
 | **RSX** | The executable language RSOS programs are written in. Compiles a program to a timeline of breath, word, image, gesture, haptic, tone, scent and taste events. Python and JavaScript implementations, checked against each other. | [`rsx/`](rsx/) |
 | **Protocol player** | Runs any RSX program with breath pacing, spoken words, tones and phone vibration; check-in before and after; exports a run log. Includes a live RSX editor. | [`docs/player.html`](docs/player.html) |
 | **Learning model** | A formal model (Rescorla–Wagner + habit curve) of how a cue bundle becomes a reflex, with predictions swept across parameters. | [`rsx/model/PREDICTIONS.md`](rsx/model/PREDICTIONS.md) |
@@ -30,7 +30,7 @@
 ```bash
 git clone https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework
 cd RSOS-Multimodal-Cue-Framework/rsx
-python -m unittest discover -s tests           # 27 tests (Python/JS conformance needs Node)
+python -m unittest discover -s tests           # 32 tests (Python/JS conformance needs Node)
 python -m rsx compile protocols/override.rsx   # the protocol as a JSON timeline
 python model/predictions.py                    # regenerate the model predictions
 
@@ -50,7 +50,7 @@ TIER 1 LION {
   K "Warmth and strength in the belly"
   GLYPH "◈"
 }
-FUTURES "Talking with people" | "Walking with confidence" | "Working at the computer"
+FUTURES "Driving the car" | "At work" | "Achieving your goal"
 
 PHASE interrupt {
   SAY "I move, I act"
@@ -58,8 +58,9 @@ PHASE interrupt {
   HAPTIC on=300ms off=300ms x=6 amp=0.4
 }
 PHASE ignite breath=inhale { ACTIVATE LION }
-FOR FUTURE {
-  PHASE future breath=exhale { SEE "$future"; HAPTIC on=150ms off=150ms x=8 amp=0.3 }
+PHASE futures breath=exhale {
+  HAPTIC on=150ms off=150ms x=8 amp=0.3
+  FOR FUTURE { SEE "$future"; WAIT 2s }      # all three futures in one exhale
 }
 ```
 

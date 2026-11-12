@@ -7,6 +7,24 @@ is how it gets onto real hardware and how you prove it behaves the same there.
 Status: the sketch is compile-checked for Arduino-ESP32 2.x and 3.x. It has not yet been run on a board in this
 repository. The first board you build is that test, so please record the result (§6).
 
+## Which wristbands work
+
+RSOS needs a band whose software you can replace, so that it can play RSOS vibration codes on its own clock and
+stop on command. **Most brand watches do not allow that.**
+
+| Device | Works | How |
+|---|---|---|
+| A band built from this kit (ESP32 and a coin motor) | Yes | Flash the RSOS firmware and run the board check |
+| ESP32 wearables you can flash: LilyGO T-Watch, M5StickC and M5Stack, Watchy | Yes | The same firmware; set `RSOS_MOTOR_PIN` for the device |
+| Any device that implements RDP/1 (spec/DEVICE_PROTOCOL.md) | Yes | The board check shows whether it complies |
+| Android phones | Vibration only | The player vibrates the phone |
+| Standard Bluetooth heart-rate straps and watches (Polar H10, Garmin HRM…) | As the stress trigger | They measure; they do not play RSOS codes |
+| Open watches: PineTime, Bangle.js | Not yet | Open software: a port is possible and planned |
+| Wear OS watches (Samsung Galaxy Watch, Pixel Watch, TicWatch) | Not yet | Needs an RSOS app on the watch, published on Google Play |
+| Apple Watch | Not yet | Needs an RSOS app on the watch, published on the App Store |
+| Fitbit, Garmin, Xiaomi Mi Band, Huawei, Whoop and other closed bands | No | The software cannot be replaced and there is no way to play custom patterns |
+| iPhone | No vibration from the web | iPhone browsers do not let web pages vibrate |
+
 ## 1. Parts
 
 | Part | Example | Notes |

@@ -88,6 +88,7 @@ them.
 | F7 | LINX | Plain-language understanding is rule-based and English-only, so it misses unusual phrasing. The form always lets the person correct it. | Low | Known |
 | F8 | Accessibility | Keyboard focus, contrast and reduced motion are handled, but there has been no WCAG audit and no screen-reader test. | Medium | Open |
 | F9 | Glyphs | About 10 Unicode 15 alchemical symbols may lack a font on some devices; they fall back to a stored image. | Low | Known |
+| F11 | Hardware reach | RSOS runs only on bands whose software can be replaced (self-built ESP32 bands, flashable ESP32 wearables, RDP/1 devices) and on the vibration of Android phones. Closed brand watches (Apple Watch, Fitbit, Garmin, Mi Band) and Wear OS watches need RSOS watch apps that do not exist yet. | Medium for adoption | Open: Wear OS and watchOS apps; PineTime and Bangle.js ports |
 | F10 | Process | One maintainer; no outside code review yet. | Medium | This package |
 
 ## 6. What to look at, by area

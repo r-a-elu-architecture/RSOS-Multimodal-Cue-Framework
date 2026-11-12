@@ -1,11 +1,11 @@
 /* RSOS player service worker: works offline, never serves a stale version when online.
  * Network first for everything; the cache is only a fallback when there is no connection. */
-const CACHE = "rsos-player-v8";
+const CACHE = "rsos-player-v9";
 const SHELL = ["player.html", "js/rsx.js", "js/hrs.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png",
   "protocols/override.rsx", "protocols/interrupt_only.rsx", "protocols/swish.rsx", "protocols/legacy_vector.rsx",
   "protocols/paced_breathing.rsx", "data/demo_rr.json", "js/memstack.js",
   "js/ugcl.js", "ugcl/library.json", "ugcl/originals.json", "glyphs.html",
-  "js/metrics.js", "js/consent.js", "tiers.html", "metrics.html", "system.html", "data/tier_map.json", "nodes.html", "js/nodes.js", "protocols/node_lion.rsx", "protocols/node_observer.rsx",
+  "js/metrics.js", "js/consent.js", "tiers.html", "metrics.html", "system.html", "data/tier_map.json", "nodes.html", "contribute.html", "js/contribution.js", "js/nodes.js", "protocols/node_lion.rsx", "protocols/node_observer.rsx",
   "protocols/tier003_command_stack.rsx", "protocols/tier012_breath_anchor.rsx", "protocols/tier014_seal.rsx",
   "protocols/tier016_stillness.rsx", "protocols/tier406_release.rsx", "protocols/tier579_glyph.rsx"];
 

@@ -106,7 +106,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <div class="app" id="app">
 <aside aria-label="Settings">
   <div class="top"><a class="home" href="./">RSOS</a>
-  <nav class="site" aria-label="Site"><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav></div>
+  <nav class="site" aria-label="Site"><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="contribute.html">Contribute</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav></div>
   <h1>Protocol player</h1>
   <p class="lede">Runs an RSX program step by step: breath, words, imagery, tone and vibration. Everything stays in this browser.</p>
 
@@ -212,6 +212,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   <fieldset>
     <legend>Your progress</legend>
     <p class="log" id="logSummary">No runs recorded yet.</p>
+    <p class="note"><a href="contribute.html">Contribute your data to research</a>: you choose exactly what is shared, and nothing leaves this browser until you send the file.</p>
     <div id="progress"></div>
     <p class="note" id="weeklyHint"></p>
     <div class="actions"><button class="btn quiet" id="weeklyBtn" type="button">Weekly automaticity check</button></div>
@@ -220,7 +221,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.10.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.11.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -295,14 +296,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.10.0"></script>
-<script src="js/hrs.js?v=1.10.0"></script>
-<script src="js/memstack.js?v=1.10.0"></script>
-<script src="js/ugcl.js?v=1.10.0"></script>
-<script src="js/consent.js?v=1.10.0"></script>
+<script src="js/rsx.js?v=1.11.0"></script>
+<script src="js/hrs.js?v=1.11.0"></script>
+<script src="js/memstack.js?v=1.11.0"></script>
+<script src="js/ugcl.js?v=1.11.0"></script>
+<script src="js/consent.js?v=1.11.0"></script>
 <script>
 "use strict";
-const BUILD = "1.10.0";
+const BUILD = "1.11.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
   "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
@@ -565,7 +566,7 @@ async function start(trigger) {
   const says = sayTexts();
   const voice = !$("optVoice").checked || !says.length ? "none" : says.some(t => store.get(recKey(t), null)) ? "own" : "computer";
   const latency = deviceLatency !== null ? Math.round(deviceLatency * 10) / 10 : (before && before.trig && before.lat ? +before.lat : "");
-  pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice, trigger, latency };
+  pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice, trigger, latency, extra: runContext(firstTier) };
   $("main").classList.add("running"); $("start").disabled = true;
   run = { t0: performance.now(), next: 0, phase: null, scale: 0.55, from: 0.55, scaleFor: null, nodes: [], seen: "", felt: "", spoken: {} };
   setCue("", ""); run.raf = requestAnimationFrame(frame);
@@ -575,6 +576,7 @@ async function finish(completed) {
   if (!run) return;
   cancelAnimationFrame(run.raf);
   const stoppedAt = completed ? "" : (run.phase ? run.phase.name : "");
+  const ended = runEnd(pending);
   run.nodes.forEach(n => { try { n.stop(); } catch (e) {} });
   if ("speechSynthesis" in window) speechSynthesis.cancel();
   if (navigator.vibrate) navigator.vibrate(0);
@@ -584,11 +586,29 @@ async function finish(completed) {
   setCue(completed ? "Notice how you feel now." : "You stopped. That is always fine.", "");
   const after = await askCheckin(true);
   const b = pending.before || {}, a = after || {};
-  records.push({ timestamp: (pending.startedAt / 1000).toFixed(0), participant: "self", protocol: pending.protocol, trigger: pending.trigger,
+  records.push(Object.assign({ timestamp: (pending.startedAt / 1000).toFixed(0), participant: "self", protocol: pending.protocol, trigger: pending.trigger,
     trigger_channel: b.trig || (pending.trigger === "device" ? "K" : ""), trigger_note: "", sud_before: b.sud ?? "", sud_after: a.sud ?? "", agency_before: b.agency ?? "",
     agency_after: a.agency ?? "", latency_s: pending.latency, completed: completed ? 1 : 0, stopped_at_phase: stoppedAt,
-    tier: pending.tier, voice: pending.voice });
+    tier: pending.tier, voice: pending.voice }, pending.extra, ended));
   store.set("rsos.runs", records); summarize(); $("start").focus();
+}
+/* research context of each run (spec/DATA_CONTRIBUTION.md): which program exactly, outputs, breath, glyph and
+   code, start time of day, and heart rate before and after when a strap is connected; kept only in this browser */
+function fnv1a(text) { let h = 0x811c9dc5; for (const b of new TextEncoder().encode(text)) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0; } return h.toString(16).padStart(8, "0"); }
+function heartNow() { const st = detector && detector.state; return st && isFinite(st.hr) ? { hr: Math.round(st.hr * 10) / 10, rmssd: isFinite(st.rmssd) ? Math.round(st.rmssd * 10) / 10 : "" } : null; }
+function runContext(firstTier) {
+  const v = $("program").value, src = $("source").value, d = new Date();
+  const kind = v.startsWith("plan:") ? "plan" : v.startsWith("node_") ? "node" : v.startsWith("tier") ? "tier" : "builtin";
+  const h = heartNow();
+  return { program_kind: sources[v] !== undefined && sources[v] !== src ? "edited" : kind, program_hash: fnv1a(src),
+    outputs: [["optVoice", "voice"], ["optTone", "tone"], ["optVib", "vibration"]].filter(([id]) => $(id).checked).map(([, n]) => n).join("+") || "none",
+    inhale_s: +$("inhale").value || "", exhale_s: +$("exhale").value || "", glyph: firstTier && firstTier.glyph || "", tacton: firstTier && firstTier.tacton || "",
+    node_mode: firstTier && firstTier.mode || "", planned_s: Math.round(timeline.duration_ms / 100) / 10, local_hour: d.getHours(), weekday: (d.getDay() + 6) % 7,
+    hr_before: h ? h.hr : "", rmssd_before: h ? h.rmssd : "", hr_source: h ? (demoTimer ? "simulated" : "strap") : "" };
+}
+function runEnd(p) {
+  const h = heartNow();
+  return { duration_s: Math.round((Date.now() - p.startedAt) / 100) / 10, hr_after: h ? h.hr : "", rmssd_after: h ? h.rmssd : "" };
 }
 let srbaiLog = store.get("rsos.srbai", []);
 const SRBAI_ITEMS = ["I do it automatically.", "I do it without having to consciously remember.", "I do it without thinking.", "I start doing it before I realize I'm doing it."];
@@ -666,7 +686,8 @@ function summarize() {
     txt += Math.abs(d) < 0.05 ? " No average change in distress over " + both.length + " checked-in runs." : " Average change in distress: " + (d > 0 ? "−" : "+") + Math.abs(d).toFixed(1) + " points over " + both.length + " checked-in runs."; }
   $("logSummary").textContent = txt;
 }
-const FIELDS = ["timestamp","participant","protocol","trigger","trigger_channel","trigger_note","sud_before","sud_after","agency_before","agency_after","latency_s","completed","stopped_at_phase","tier","voice"];
+const FIELDS = ["timestamp","participant","protocol","trigger","trigger_channel","trigger_note","sud_before","sud_after","agency_before","agency_after","latency_s","completed","stopped_at_phase","tier","voice",
+  "program_kind","program_hash","outputs","inhale_s","exhale_s","glyph","tacton","node_mode","planned_s","duration_s","local_hour","weekday","hr_before","hr_after","rmssd_before","rmssd_after","hr_source"];
 function exportLog() {
   const esc = v => /[",\n]/.test(String(v)) ? '"' + String(v).replace(/"/g, '""') + '"' : String(v);
   const csv = [FIELDS.join(",")].concat(records.map(r => FIELDS.map(k => esc(r[k] ?? "")).join(","))).join("\n") + "\n";

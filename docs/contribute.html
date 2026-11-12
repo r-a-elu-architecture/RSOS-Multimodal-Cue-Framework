@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contribute your data — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="Contribute de-identified RSOS data to research: practice runs, heart rate, node plans, questionnaires, clinician sessions, EEG and BCI recordings. You choose every part; nothing leaves your browser until you send the file.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --warn:#f0a35a; --ok:#8fd19e;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.55 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1180px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:4px 20px}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:start;margin:40px 0 8px}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.6vw,3.2rem);line-height:1.08;margin:0 0 14px;max-width:15ch;text-wrap:balance}
+.lede{color:var(--muted);max-width:60ch;margin:0 0 10px}
+.device{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.device h2{font-family:var(--serif);font-weight:500;font-size:1.2rem;margin:0 0 10px}
+.device dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:.92rem}
+.device dt{color:var(--muted)} .device dd{margin:0}
+.device .hint{margin-top:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:36px;align-items:start;margin-top:20px}
+.step{border-top:1px solid var(--line);padding:24px 0 10px}
+.step[hidden]{display:none}
+.step h2{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:0 0 4px;display:flex;gap:12px;align-items:baseline}
+.step h2 .n{color:var(--gold);font-size:1rem;min-width:1.2em}
+.ask{color:var(--muted);margin:0 0 16px;max-width:64ch}
+label{display:block;font-size:.88rem;color:var(--muted);margin:12px 0 5px}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;background:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:9px 11px;color:var(--text);font:inherit;font-size:.95rem}
+textarea{min-height:64px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px} .three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.role{display:block;margin:0;border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;color:var(--text)}
+.role input{position:absolute;opacity:0}
+.role b{display:block;font-family:var(--serif);font-weight:500;font-size:1.08rem;margin-bottom:4px}
+.role span{color:var(--muted);font-size:.86rem}
+.role:has(input:checked){border-color:var(--gold);background:var(--ink-3)}
+.role:has(input:focus-visible){outline:3px solid var(--glow);outline-offset:2px}
+.scope{display:grid;grid-template-columns:24px 1fr;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line);margin:0;color:var(--text);cursor:pointer}
+.scope input{margin-top:4px;accent-color:var(--gold);width:16px;height:16px}
+.scope b{font-weight:600}
+.scope .what{color:var(--text);font-size:.92rem}
+.scope .why{grid-column:2;color:var(--muted);font-size:.84rem}
+.scope.sensitive b::after{content:"  sensitive";color:var(--warn);font-weight:400;font-size:.82rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{display:inline-flex;align-items:center;gap:7px;margin:0;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--text);font-size:.88rem;cursor:pointer}
+.chips input{accent-color:var(--gold)}
+.chips label:has(input:checked){border-color:var(--gold);background:var(--ink-3)}
+table.rows{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+table.rows th{color:var(--muted);font-weight:600;text-align:left;padding:4px 6px;font-size:.82rem}
+table.rows td{padding:4px 6px;border-top:1px solid var(--line);vertical-align:top}
+table.rows td input,table.rows td select{padding:6px 8px;font-size:.88rem}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font:inherit;font-size:.85rem}
+.x:hover{color:var(--text)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;margin:10px 8px 0 0}
+.btn:hover{border-color:var(--gold)}
+.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.hint{color:var(--muted);font-size:.84rem;margin:6px 0 0;max-width:64ch}
+.check{display:flex;gap:10px;align-items:flex-start;color:var(--text);font-size:.92rem;margin:12px 0}
+.check input{margin-top:4px;accent-color:var(--gold)}
+.msg{font-size:.92rem;margin:12px 0 0;min-height:1.2em}
+.msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
+.rec{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.rec .opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.rec .opts button{background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:12px;cursor:pointer;display:flex;justify-content:center;align-items:center;min-height:44px}
+.rec .opts button:hover{border-color:var(--gold)}
+.rec .opts button.right{border-color:var(--ok)} .rec .opts button.wrong{border-color:var(--warn)}
+.rec .opts svg{height:12px;width:auto}
+.tcode .tm{transition:fill .05s} .tcode .tm.on{fill:#fff6dc}
+aside.sum{position:sticky;top:16px;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+aside.sum h2{font-family:var(--serif);font-weight:500;font-size:1.35rem;margin:0 0 6px}
+aside.sum ul{list-style:none;margin:10px 0 0;padding:0}
+aside.sum li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+aside.sum li span:last-child{color:var(--muted);text-align:right}
+aside.sum li.off{opacity:.5}
+pre.file{white-space:pre-wrap;font:12px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:12px;max-height:340px;overflow:auto}
+.idbox{background:var(--ink);border:1px solid var(--gold);border-radius:8px;padding:12px 14px;margin-top:12px;font-size:.92rem}
+.idbox code{color:var(--glow);font-size:1rem}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+@media (max-width:980px){.hero,.layout{grid-template-columns:1fr}aside.sum{position:static}.roles{grid-template-columns:1fr}.three{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="contribute.html" aria-current="page">Contribute</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav>
+</header>
+<main>
+  <section class="hero">
+    <div>
+      <h1>Help RSOS learn what works, for whom</h1>
+      <p class="lede">Every run you practise, every heart beat a strap measured, every session a clinician held and every EEG recording a lab made can show which programs, cues, glyphs and nodes change a state, how fast they become a reflex, and for whom. One person's data is a story; many people's data is evidence.</p>
+      <p class="lede">This page builds one file from what you choose to share. Names and dates are removed, your own words stay out unless you include them, and nothing leaves this browser until you send the file yourself.</p>
+    </div>
+    <div class="device" aria-live="polite">
+      <h2>On this device</h2>
+      <dl id="onDevice"></dl>
+      <p class="hint">A clinician or lab can add a client's data from the memory file the player saves (“Save memory”).</p>
+      <button class="btn" type="button" id="loadMemBtn">Add runs from a memory file</button><input type="file" id="loadMem" accept="application/json,.json" hidden>
+    </div>
+  </section>
+
+  <div class="layout">
+    <form id="form" onsubmit="return false" autocomplete="off">
+      <section class="step">
+        <h2><span class="n">1</span>Who is contributing</h2>
+        <p class="ask">The questions that follow depend on who you are.</p>
+        <div class="roles">
+          <label class="role"><input type="radio" name="role" value="person" checked><b>I use RSOS myself</b><span>With the player, a phone or a wearable.</span></label>
+          <label class="role"><input type="radio" name="role" value="clinician"><b>A clinician, with my client</b><span>Sessions, ratings and outcomes, with the client's consent.</span></label>
+          <label class="role"><input type="radio" name="role" value="lab"><b>A research lab</b><span>EEG, BCI or wearable recordings under an ethics approval.</span></label>
+        </div>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">2</span>What you share</h2>
+        <p class="ask">Each part says what it contains and what it helps the project learn. Practice runs are the core of every contribution; everything else is your choice.</p>
+        <div id="scopes"></div>
+      </section>
+
+      <section class="step" id="stepProfile" hidden>
+        <h2><span class="n">3</span>About you</h2>
+        <p class="ask">Broad bands only, so no one can be recognised. Skip anything you prefer not to answer.</p>
+        <div class="three">
+          <div><label for="age">Age</label><select id="age"></select></div>
+          <div><label for="gender">Gender</label><select id="gender"></select></div>
+          <div><label for="hand">Handedness</label><select id="hand"></select></div>
+        </div>
+        <label for="region">World region</label><select id="region"></select>
+        <label>Prior practice</label>
+        <table class="rows" id="practice"></table>
+        <div id="healthBox" hidden>
+          <label>Conditions you have been told you have, or are working on</label>
+          <div class="chips" id="conditions"></div>
+          <div class="two">
+            <label class="check"><input type="checkbox" id="inTherapy"> I am in therapy while practising</label>
+            <label class="check"><input type="checkbox" id="medChange"> My medication changed during this time</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="step" id="stepOutcomes" hidden>
+        <h2><span class="n">4</span>Questionnaires and how it went</h2>
+        <p class="ask">Totals of standard questionnaires, each with the date it was filled in. Repeating one every two weeks shows change over time far better than a single score.</p>
+        <table class="rows" id="outTable"><thead><tr><th>Questionnaire</th><th>Total</th><th>Date</th><th>Filled in by</th><th></th></tr></thead><tbody></tbody></table>
+        <button class="btn" type="button" id="addOut">Add a questionnaire total</button>
+        <div id="advBox">
+          <label>Anything unpleasant during or after practice</label>
+          <table class="rows" id="advTable"><thead><tr><th>Date</th><th>How strong</th><th>Related to practice</th><th>Resolved</th><th>What happened (only with your words)</th><th></th></tr></thead><tbody></tbody></table>
+          <button class="btn" type="button" id="addAdv">Add an event</button>
+        </div>
+      </section>
+
+      <section class="step" id="stepClinical" hidden>
+        <h2><span class="n">5</span>Clinician</h2>
+        <p class="ask">What you did with RSOS in sessions, and how you rated the client. This is what tells RSOS how it works in therapy, not only alone.</p>
+        <div class="three">
+          <div><label for="prof">Profession</label><select id="prof"><option value="">Choose</option><option>psychologist</option><option>psychotherapist</option><option>psychiatrist</option><option>counsellor</option><option>coach</option><option>hypnotherapist</option><option>other</option></select></div>
+          <div><label for="years">Years in practice</label><select id="years"><option value="">Choose</option><option>0-4</option><option>5-9</option><option>10-19</option><option>20+</option></select></div>
+          <div><label for="setting">Setting</label><select id="setting"><option value="">Choose</option><option>private practice</option><option>clinic</option><option>hospital</option><option>online</option><option>research</option></select></div>
+        </div>
+        <label>Approaches you combine with RSOS</label>
+        <div class="chips" id="modalities"></div>
+        <label>Sessions</label>
+        <table class="rows" id="sessTable"><thead><tr><th>Date</th><th>Minutes</th><th>Nodes used</th><th>Fidelity 0–10</th><th>Engagement 0–10</th><th>CGI severity 1–7</th><th>CGI improvement 1–7</th><th>Therapist-led</th><th></th></tr></thead><tbody></tbody></table>
+        <button class="btn" type="button" id="addSess">Add a session</button>
+        <p class="hint">Fidelity: how closely the session followed the plan. CGI: Clinical Global Impression, severity now (1 normal – 7 extremely ill) and improvement since the start (1 very much improved – 7 very much worse).</p>
+        <div id="dxBox" hidden><label for="dx">Diagnosis categories, ICD-11 codes (for example 6B40)</label><input type="text" id="dx" placeholder="6B40, 6A70"></div>
+        <label class="check"><input type="checkbox" id="clientConsent"> My client has given informed consent to share this de-identified data for research</label>
+      </section>
+
+      <section class="step" id="stepLab" hidden>
+        <h2><span class="n">5</span>Lab and recordings</h2>
+        <p class="ask">Describe the device and each recording. Files are fingerprinted here (SHA-256) so the data you hold can later be matched with this contribution; they are not uploaded.</p>
+        <div class="three">
+          <div><label for="site">Site code</label><input type="text" id="site" placeholder="L01"></div>
+          <div><label for="ethics">Ethics approval reference</label><input type="text" id="ethics" placeholder="IRB-2026-14"></div>
+          <div><label for="protRef">Study protocol reference</label><input type="text" id="protRef" placeholder="OSF or registry id"></div>
+        </div>
+        <div class="three">
+          <div><label for="devName">Device</label><input type="text" id="devName" placeholder="OpenBCI Cyton, Muse S, Polar H10"></div>
+          <div><label for="devKind">Kind</label><select id="devKind"><option value="eeg">EEG</option><option value="bci">BCI</option><option value="hr">Heart rate</option><option value="other">Other</option></select></div>
+          <div><label for="devTransport">Connection</label><select id="devTransport"><option value="lsl">Lab Streaming Layer</option><option value="ble">Bluetooth</option><option value="usb">USB or wired</option><option value="file">Files only</option></select></div>
+        </div>
+        <div class="three">
+          <div><label for="devCh">Channels</label><input type="number" id="devCh" min="1" placeholder="8"></div>
+          <div><label for="devFs">Sampling rate (Hz)</label><input type="number" id="devFs" min="1" placeholder="250"></div>
+          <div><label for="devImp">Highest impedance (kΩ)</label><input type="number" id="devImp" min="0" placeholder="10"></div>
+        </div>
+        <div class="two">
+          <div><label for="devMontage">Montage</label><input type="text" id="devMontage" placeholder="10-20, Fp1 Fp2 C3 C4 P3 P4 O1 O2"></div>
+          <div><label for="devRef">Reference and ground</label><input type="text" id="devRef" placeholder="linked mastoids; ground AFz"></div>
+        </div>
+        <label>Recordings</label>
+        <table class="rows" id="recTable"><thead><tr><th>File</th><th>Program</th><th>Seconds</th><th>Clock offset (ms)</th><th>Artifact %</th><th></th></tr></thead><tbody></tbody></table>
+        <button class="btn" type="button" id="addRec">Add a recording</button><input type="file" id="recFile" multiple hidden>
+        <p class="hint">Clock offset: the RSX timeline's start minus the recording's, so every cue lines up with the signal. Align recordings with the cues using the events file of the program:</p>
+        <div class="two"><div><label for="bidsProg">Program</label><select id="bidsProg"></select></div><div><label>&nbsp;</label><button class="btn" type="button" id="bids" style="margin:0">Download BIDS events.tsv</button></div></div>
+      </section>
+
+      <section class="step" id="stepRec" hidden>
+        <h2><span class="n">6</span>Vibration-code check</h2>
+        <p class="ask">About a minute. You will hear (and on a phone, feel) a vibration code; choose the pattern you sensed. It shows how quickly people learn the RSOS vibration alphabet, which decides how many codes a wrist can carry.</p>
+        <div class="rec">
+          <button class="btn go" type="button" id="recPlay" style="margin:0">Play a code</button>
+          <div><div class="opts" id="recOpts"></div><p class="hint" id="recState">8 codes. Your answers appear in the summary.</p></div>
+        </div>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">7</span>Consent and the file</h2>
+        <p class="ask">Choose who may use the data, then create the file and send it to the study team or clinician you work with.</p>
+        <div class="chips" style="margin-bottom:8px">
+          <label><input type="radio" name="sharing" value="research" checked> Research only: the RSOS research team and its partner studies</label>
+          <label><input type="radio" name="sharing" value="open"> Open data: a public de-identified dataset anyone can use</label>
+        </div>
+        <label class="check"><input type="checkbox" id="contact"> You may contact me through the study about follow-up questions</label>
+        <label class="check"><input type="checkbox" id="agree"> I have chosen what is shared above. I agree that this de-identified data is used for research into RSOS. I can withdraw it at any time by quoting the contribution code. It is not medical advice and does not replace care.</label>
+        <div><button class="btn go" type="button" id="make">Create the contribution file</button><button class="btn" type="button" id="peek">Show the file</button></div>
+        <p class="msg" id="msg" aria-live="polite"></p>
+        <div class="idbox" id="idbox" hidden></div>
+        <pre class="file" id="file" hidden></pre>
+      </section>
+    </form>
+
+    <aside class="sum" aria-live="polite">
+      <h2>Your contribution</h2>
+      <p class="hint" id="sumLead"></p>
+      <ul id="sum"></ul>
+    </aside>
+  </div>
+</main>
+<footer>The file format is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DATA_CONTRIBUTION.md">rsos-contribution/1</a>; <code>rsso/rsso/contribution.py</code> and <code>docs/js/contribution.js</code> build identical files (tested), and <code>python -m rsso.contribution check|pool</code> verifies contributions and pools their runs for the analysis kit. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now.</footer>
+<script src="js/rsx.js?v=1.11.0"></script>
+<script src="js/memstack.js?v=1.11.0"></script>
+<script src="js/metrics.js?v=1.11.0"></script>
+<script src="js/ugcl.js?v=1.11.0"></script>
+<script src="js/contribution.js?v=1.11.0"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id), C = RSOSContribution;
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+const opt = (sel, values, blank) => { sel.innerHTML = ""; if (blank) sel.appendChild(new Option(blank, "")); for (const v of values) sel.appendChild(new Option(v.charAt(0).toUpperCase() + v.slice(1), v)); };
+
+let runs = store.get("rsos.runs", []), srbai = store.get("rsos.srbai", []);
+const draft = Object.assign({ outcomes: [], adverse: [], sessions: [], recordings: [] }, store.get("rsos.contribute", {}));
+let recognition = [];
+const saveDraft = () => store.set("rsos.contribute", draft);
+
+const WHY = {
+  runs: "The core: which program, tier and glyph change a state, how fast a start becomes automatic (the reflex curve), at what time of day.",
+  physiology: "Shows the body's change, not only the felt one; trains the stress detector on real people.",
+  plan: "Which nodes, modes and senses people build, and which frames work, so the planner learns.",
+  texts: "The words that work. Frames and cues in your own language are the richest material, and the most personal.",
+  calibration: "Which glyphs and colours people feel as courage, across cultures, so glyphs are designed from evidence.",
+  recognition: "How learnable the vibration alphabet is.",
+  outcomes: "Whether practice changes depression, anxiety, trauma symptoms, stress and wellbeing over weeks.",
+  safety: "Every unpleasant event is how the safety limits are set right. Please include this.",
+  profile: "Whether results hold across ages, genders, regions and prior practice.",
+  health: "What RSOS is used for and for whom it helps most. Sensitive: share only if you are comfortable.",
+  clinical: "How RSOS works inside therapy: sessions, fidelity, clinician ratings.",
+  lab: "Brain and body signals aligned with every cue: what happens before a state is noticed."
+};
+const DEFAULT_ON = ["runs", "physiology", "plan", "calibration", "recognition", "outcomes", "safety"];
+const SENSITIVE = ["texts", "health"];
+const LABEL = { runs: "Practice runs", physiology: "Heart rate", plan: "Node plans and cues", texts: "Your own words", calibration: "Glyph and colour choices",
+  recognition: "Vibration-code check", outcomes: "Questionnaires", safety: "Safety", profile: "About you", health: "Health information", clinical: "Clinician sessions", lab: "Lab and recordings" };
+for (const [k, what] of Object.entries(C.SCOPES)) {
+  if (k === "clinical" || k === "lab") continue;
+  const l = el("label", "scope" + (SENSITIVE.includes(k) ? " sensitive" : "")); const i = el("input"); i.type = "checkbox"; i.value = k; i.checked = DEFAULT_ON.includes(k);
+  if (k === "runs") i.disabled = true;
+  const t = el("div"); t.appendChild(el("b", "", LABEL[k])); t.appendChild(el("div", "what", what + "."));
+  l.append(i, t, el("div", "why", WHY[k])); $("scopes").appendChild(l);
+}
+opt($("age"), C.AGE_BANDS, "Prefer not to say"); opt($("gender"), C.GENDERS.filter(g => g !== "prefer not to say"), "Prefer not to say");
+opt($("hand"), C.HANDS, "Prefer not to say"); opt($("region"), C.REGIONS, "Prefer not to say");
+$("practice").innerHTML = "<tr><th></th>" + C.LEVELS.map(l => "<th>" + l.charAt(0).toUpperCase() + l.slice(1) + "</th>").join("") + "</tr>";
+for (const p of C.PRACTICES) { const tr = el("tr"); tr.appendChild(el("td", "", p === "nlp" ? "NLP" : p.charAt(0).toUpperCase() + p.slice(1)));
+  for (const lv of C.LEVELS) { const td = el("td"); const r = el("input"); r.type = "radio"; r.name = "pr-" + p; r.value = lv; r.setAttribute("aria-label", p + ": " + lv); td.appendChild(r); tr.appendChild(td); } $("practice").appendChild(tr); }
+const COND = { ptsd: "PTSD or trauma", depression: "Depression", anxiety: "Anxiety", chronic_stress: "Chronic stress", adhd: "ADHD", insomnia: "Insomnia", chronic_pain: "Chronic pain", addiction: "Addiction", other: "Other" };
+for (const c of C.CONDITIONS) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = c; l.append(i, COND[c]); $("conditions").appendChild(l); }
+for (const m of ["CBT", "EMDR", "hypnotherapy", "NLP", "ACT", "DBT", "somatic", "psychodynamic", "mindfulness-based", "neurofeedback", "coaching"]) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = m; l.append(i, m); $("modalities").appendChild(l); }
+
+/* editable row tables, kept as a draft in this browser */
+const SCALE_NAMES = { PHQ9: "PHQ-9 depression (0–27)", GAD7: "GAD-7 anxiety (0–21)", PCL5: "PCL-5 trauma (0–80)", PSS10: "PSS-10 stress (0–40)", WEMWBS: "WEMWBS wellbeing (14–70)", PGIC: "Global change (1–7)", SUDS: "Distress now (0–10)" };
+const dateOf = ms => ms ? new Date(ms).toISOString().slice(0, 10) : "";
+const msOf = v => v ? Date.parse(v + "T12:00:00") : null;
+function table(id, list, cols) {
+  const tb = $(id).tBodies[0] || $(id); tb.innerHTML = "";
+  list.forEach((row, k) => {
+    const tr = el("tr");
+    for (const [key, kind, extra] of cols) {
+      const td = el("td"); let i;
+      if (kind === "select") { i = el("select"); for (const [v, t] of extra) i.appendChild(new Option(t, v)); i.value = row[key] || extra[0][0]; row[key] = i.value; }
+      else if (kind === "check") { i = el("input"); i.type = "checkbox"; i.checked = !!row[key]; }
+      else if (kind === "date") { i = el("input"); i.type = "date"; i.value = dateOf(row[key]); }
+      else { i = el("input"); i.type = kind; i.value = row[key] ?? ""; if (extra) Object.assign(i, extra); }
+      i.setAttribute("aria-label", key);
+      i.addEventListener("input", () => { row[key] = kind === "check" ? i.checked : kind === "date" ? msOf(i.value) : kind === "number" ? (i.value === "" ? "" : +i.value) : i.value; saveDraft(); update(); });
+      i.addEventListener("change", () => i.dispatchEvent(new Event("input")));
+      td.appendChild(i); tr.appendChild(td);
+    }
+    const td = el("td"); const x = el("button", "x", "Remove"); x.type = "button"; x.addEventListener("click", () => { list.splice(k, 1); saveDraft(); drawTables(); update(); }); td.appendChild(x); tr.appendChild(td);
+    tb.appendChild(tr);
+  });
+}
+const OUT_COLS = [["scale", "select", Object.entries(SCALE_NAMES)], ["total", "number", { min: 0, max: 80 }], ["ts", "date"], ["rater", "select", [["self", "Me"], ["clinician", "A clinician"]]]];
+const ADV_COLS = [["ts", "date"], ["severity", "select", C.SEVERITY.map(s => [s, s])], ["related", "select", C.RELATED.map(s => [s, s])], ["resolved", "check"], ["text", "text", { placeholder: "Optional" }]];
+const SESS_COLS = [["ts", "date"], ["minutes", "number", { min: 1, max: 600 }], ["nodes_used", "number", { min: 0, max: 20 }], ["fidelity", "number", { min: 0, max: 10 }],
+  ["engagement", "number", { min: 0, max: 10 }], ["cgi_s", "number", { min: 1, max: 7 }], ["cgi_i", "number", { min: 1, max: 7 }], ["therapist_led", "check"]];
+function drawTables() {
+  table("outTable", draft.outcomes, OUT_COLS); table("advTable", draft.adverse, ADV_COLS); table("sessTable", draft.sessions, SESS_COLS);
+  const tb = $("recTable").tBodies[0]; tb.innerHTML = "";
+  draft.recordings.forEach((r, k) => {
+    const tr = el("tr"); const f = el("td"); f.appendChild(el("div", "", r.name)); f.appendChild(el("div", "hint", r.file_sha256.slice(0, 16) + "…")); tr.appendChild(f);
+    for (const [key, type] of [["program", "select"], ["duration_s", "number"], ["clock_offset_ms", "number"], ["artifact_pct", "number"]]) {
+      const td = el("td"); let i;
+      if (type === "select") { i = el("select"); for (const p of C.KNOWN_PROTOCOLS) i.appendChild(new Option(p, p)); i.value = r.program || "override"; r.program = i.value; }
+      else { i = el("input"); i.type = "number"; i.value = r[key] ?? ""; }
+      i.setAttribute("aria-label", key); i.addEventListener("input", () => { r[key] = type === "number" ? (i.value === "" ? "" : +i.value) : i.value; saveDraft(); update(); });
+      i.addEventListener("change", () => i.dispatchEvent(new Event("input"))); td.appendChild(i); tr.appendChild(td);
+    }
+    const td = el("td"); const x = el("button", "x", "Remove"); x.type = "button"; x.addEventListener("click", () => { draft.recordings.splice(k, 1); saveDraft(); drawTables(); update(); }); td.appendChild(x); tr.appendChild(td);
+    tb.appendChild(tr);
+  });
+}
+$("addOut").addEventListener("click", () => { draft.outcomes.push({ scale: "PHQ9", total: "", ts: Date.now(), rater: $("form").role.value === "clinician" ? "clinician" : "self" }); saveDraft(); drawTables(); update(); });
+$("addAdv").addEventListener("click", () => { draft.adverse.push({ ts: Date.now(), severity: "mild", related: "possible", resolved: false, text: "" }); saveDraft(); drawTables(); update(); });
+$("addSess").addEventListener("click", () => { draft.sessions.push({ ts: Date.now(), minutes: 50, nodes_used: 1, therapist_led: false }); saveDraft(); drawTables(); update(); });
+$("addRec").addEventListener("click", () => $("recFile").click());
+$("recFile").addEventListener("change", async e => {
+  for (const f of e.target.files) {
+    const buf = await f.arrayBuffer(), h = await crypto.subtle.digest("SHA-256", buf);
+    const hex = Array.from(new Uint8Array(h)).map(b => b.toString(16).padStart(2, "0")).join("");
+    draft.recordings.push({ name: f.name, file_sha256: hex, bids_path: f.name, program: "override", duration_s: "", clock_offset_ms: "", artifact_pct: "" });
+  }
+  e.target.value = ""; saveDraft(); drawTables(); update();
+});
+for (const p of C.KNOWN_PROTOCOLS) $("bidsProg").appendChild(new Option(p, p));
+const FILE = { legacy_tier8: "legacy_vector" };
+$("bids").addEventListener("click", async () => {
+  const p = $("bidsProg").value;
+  try {
+    const src = await (await fetch("protocols/" + (FILE[p] || p) + ".rsx")).text();
+    const tsv = C.bidsEvents(RSX.compile(src));
+    download(new Blob([tsv], { type: "text/tab-separated-values" }), "task-" + p.replace(/_/g, "") + "_events.tsv");
+  } catch (e) { say("Couldn't build the events file: " + e.message); }
+});
+
+/* vibration-code check: 8 codes among the archetype codes */
+const POOL = [["..-", "Lion"], [".-.", "Raven"], ["-..", "Eagle"], ["...", "Leopard"], ["-.-", "Tiger"], ["---", "Dragon"]];
+let trial = null;
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+$("recPlay").addEventListener("click", () => {
+  if (recognition.length >= 8) { recognition = []; }
+  const target = POOL[Math.floor(Math.random() * POOL.length)][0];
+  const options = shuffle([target].concat(shuffle(POOL.map(p => p[0]).filter(c => c !== target)).slice(0, 3)));
+  const box = $("recOpts"); box.innerHTML = "";
+  const ms = UGCL.feel(target, {}); const ready = performance.now() + ms;
+  trial = { target, options, ready };
+  for (const c of options) {
+    const b = el("button"); b.type = "button"; b.innerHTML = UGCL.codeSVG(c, "#f7d995", 12); b.setAttribute("aria-label", "Pattern " + c);
+    b.addEventListener("click", () => {
+      if (!trial) return;
+      const ok = c === trial.target;
+      recognition.push({ code: trial.target, chosen: c, correct: ok, rt_ms: Math.max(0, Math.round(performance.now() - trial.ready)), options: trial.options, modality: navigator.vibrate ? "vibration+sound" : "sound" });
+      b.classList.add(ok ? "right" : "wrong");
+      if (!ok) [...box.children].forEach((x, k) => { if (trial.options[k] === trial.target) x.classList.add("right"); });
+      trial = null;
+      const right = recognition.filter(r => r.correct).length;
+      $("recState").textContent = recognition.length >= 8 ? "Done: " + right + " of 8 right. Play again to repeat the check." : recognition.length + " of 8: " + right + " right so far. Play the next code.";
+      update();
+    });
+    box.appendChild(b);
+  }
+  $("recState").textContent = "Which pattern did you sense?";
+});
+
+/* gather everything into the builder's input */
+const pid = (() => { let p = store.get("rsos.pid", ""); if (!p) { p = C.randomId("p-", 8); store.set("rsos.pid", p); } return p; })();
+const scopes = () => [...document.querySelectorAll("#scopes input:checked")].map(i => i.value);
+function inputs(ids) {
+  const sc = scopes(), role = $("form").role.value;
+  const exp = {}; for (const p of C.PRACTICES) { const r = document.querySelector('input[name="pr-' + p + '"]:checked'); if (r) exp[p] = r.value; }
+  const plan = store.get("rsos.plan", null);
+  return {
+    role, ids, runs, srbai, plan, cues: store.get("rsos.cues", []), ugcl: store.get("rsos.ugcl", null), recognition,
+    settings: store.get("rsos.settings", {}), now: Date.now() / 1000,
+    outcomes: draft.outcomes, adverse: draft.adverse,
+    profile: { age_band: $("age").value, gender: $("gender").value, handedness: $("hand").value, region: $("region").value, experience: exp,
+      conditions: [...document.querySelectorAll("#conditions input:checked")].map(i => i.value), in_therapy: $("inTherapy").checked, medication_change: $("medChange").checked },
+    clinical: role === "clinician" ? { profession: $("prof").value, years_band: $("years").value, setting: $("setting").value,
+      modalities: [...document.querySelectorAll("#modalities input:checked")].map(i => i.value), client_consent: $("clientConsent").checked,
+      sessions: draft.sessions, diagnoses: $("dx").value.split(/[,\s]+/).filter(Boolean) } : null,
+    lab: role === "lab" ? { site_code: $("site").value.trim(), ethics_ref: $("ethics").value.trim(), protocol_ref: $("protRef").value.trim(),
+      device: { name: $("devName").value.trim(), kind: $("devKind").value, transport: $("devTransport").value, channels: $("devCh").value, fs_hz: $("devFs").value,
+        impedance_kohm_max: $("devImp").value, montage: $("devMontage").value.trim(), reference: $("devRef").value.trim() },
+      recordings: draft.recordings.map((r, k) => Object.assign({}, r, { run_index: k + 1 })) } : null,
+    app: { player: "1.11.0", planner: plan ? plan.planner : undefined, ugcl: "rsos-ugcl/1", vibration: !!navigator.vibrate, platform: /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop" },
+    consent: { agreed: $("agree").checked, scopes: sc, sharing: $("form").sharing.value, contact: $("contact").checked }
+  };
+}
+function onDevice() {
+  const t0 = Math.min(...runs.map(r => +r.timestamp || Infinity)), days = new Set(runs.map(r => Math.floor(((+r.timestamp || 0) - t0) / 86400))).size;
+  const plan = store.get("rsos.plan", null), ug = store.get("rsos.ugcl", null), cues = store.get("rsos.cues", []);
+  const rows = [["Practice runs", runs.length ? runs.length + " on " + days + (days === 1 ? " day" : " days") : "none yet"],
+    ["With heart rate", String(runs.filter(r => r.hr_before !== undefined && r.hr_before !== "").length)], ["Weekly checks", String(srbai.length)],
+    ["Node plan", plan && plan.nodes ? plan.nodes.length + (plan.nodes.length === 1 ? " node" : " nodes") : "none"],
+    ["Glyph calibration", ug && ug.tiers && Object.keys(ug.tiers).length ? "done" : "not yet"], ["Programmed cues", String(cues.length)]];
+  $("onDevice").innerHTML = ""; for (const [a, b] of rows) { $("onDevice").append(el("dt", "", a), el("dd", "", b)); }
+}
+$("loadMemBtn").addEventListener("click", () => $("loadMem").click());
+$("loadMem").addEventListener("change", async e => {
+  try { const [r, s] = await RSOSMemstack.restore(JSON.parse(await e.target.files[0].text())); runs = RSOSMemstack.merge(runs, r); srbai = srbai.concat(s.filter(x => !srbai.some(y => y.week === x.week)));
+    onDevice(); update(); say("Runs added from the memory file. They are used for this contribution only.", true); }
+  catch (err) { say("Couldn't read that file: " + err.message); }
+  e.target.value = "";
+});
+function say(t, ok) { $("msg").className = "msg " + (ok ? "ok" : "err"); $("msg").textContent = t; }
+function download(blob, name) { const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
+
+function preview() {
+  // what the file will contain, before consent is given (consent is checked when the file is created)
+  try { const i = inputs({ contribution_id: "preview", participant: pid }); i.consent.agreed = true;
+    if (i.clinical) i.clinical.client_consent = true; if (i.lab && !i.lab.ethics_ref) i.lab.ethics_ref = "-"; return C.build(i); } catch (e) { return null; }
+}
+function update() {
+  const sc = scopes(), role = $("form").role.value;
+  $("stepProfile").hidden = !(sc.includes("profile") || sc.includes("health"));
+  $("healthBox").hidden = !sc.includes("health"); $("dxBox").hidden = !sc.includes("health");
+  $("stepOutcomes").hidden = !(sc.includes("outcomes") || sc.includes("safety"));
+  $("advBox").hidden = !sc.includes("safety");
+  $("stepClinical").hidden = role !== "clinician"; $("stepLab").hidden = role !== "lab";
+  $("stepRec").hidden = !sc.includes("recognition");
+  let n = 3; for (const id of ["stepProfile", "stepOutcomes", "stepClinical", "stepLab", "stepRec"]) if (!$(id).hidden) $(id).querySelector(".n").textContent = n++;
+  document.querySelector(".step:last-of-type .n").textContent = n;
+  const b = preview();
+  const S = $("sum"); S.innerHTML = "";
+  const item = (name, val, on) => { const li = el("li", on ? "" : "off"); li.append(el("span", "", name), el("span", "", on ? val : "not shared")); S.appendChild(li); };
+  if (!b) { $("sumLead").textContent = ""; return; }
+  $("sumLead").textContent = "What the file will contain. Participant code " + pid + " (random, the same on this device, so later contributions can be linked).";
+  item("Practice runs", b.runs.length + " runs, " + b.quality.days_active + " days, " + Math.round(b.quality.rated_share * 100) + "% rated", true);
+  item("Heart rate", b.quality.with_physiology + " runs", sc.includes("physiology"));
+  item("Weekly checks", String(b.weekly.length), true);
+  item("Node plan", b.plan ? b.plan.nodes.length + " nodes" : "none", sc.includes("plan"));
+  item("Glyph and colour", b.calibration && Object.keys(b.calibration.tiers).length ? "calibrated" : "none", sc.includes("calibration"));
+  item("Code check", recognition.length ? recognition.filter(r => r.correct).length + " of " + recognition.length + " right" : "not done", sc.includes("recognition"));
+  const pl = (k, one, many) => k + " " + (k === 1 ? one : many);
+  item("Questionnaires", pl(b.outcomes ? b.outcomes.length : 0, "total", "totals"), sc.includes("outcomes"));
+  item("Safety events", b.safety ? pl(b.safety.adverse.length, "event", "events") + ", " + pl(b.safety.stopped_runs, "stopped run", "stopped runs") : "", sc.includes("safety"));
+  item("About you", b.profile ? Object.keys(b.profile).length + " answers" : "none", sc.includes("profile"));
+  item("Your own words", "included", sc.includes("texts"));
+  item("Health information", "included", sc.includes("health"));
+  if (role === "clinician") item("Sessions", pl(b.clinical.sessions.length, "session", "sessions"), true);
+  if (role === "lab") item("Recordings", pl(b.lab.recordings.length, "recording", "recordings"), true);
+}
+let last = null;
+$("make").addEventListener("click", async () => {
+  const ids = { contribution_id: C.randomId("c-", 8), participant: pid };
+  let body;
+  try { body = C.build(inputs(ids)); } catch (e) { return say(e.message.charAt(0).toUpperCase() + e.message.slice(1) + "."); }
+  if (!body.runs.length && !(body.outcomes || []).length && !(body.lab || {}).recordings?.length && !(body.clinical || {}).sessions?.length) return say("There is nothing to contribute yet: practise in the player, or add questionnaires, sessions or recordings.");
+  last = await C.seal(body);
+  download(new Blob([JSON.stringify(last, null, 1)], { type: "application/json" }), "rsos-contribution-" + ids.contribution_id + ".json");
+  const hist = store.get("rsos.contributions", []); hist.push({ id: ids.contribution_id, at: new Date().toISOString(), sharing: last.consent.sharing, runs: last.runs.length }); store.set("rsos.contributions", hist);
+  $("idbox").hidden = false; $("idbox").innerHTML = "";
+  $("idbox").append("Your contribution code is ", el("code", "", ids.contribution_id), ". Keep it: quote it to the study to withdraw this data at any time. Checksum " + last.sha256.slice(0, 12) + "….");
+  say("Created. Send the file to the study team or clinician you work with.", true);
+  if (!$("file").hidden) $("file").textContent = JSON.stringify(last, null, 1);
+});
+$("peek").addEventListener("click", () => {
+  const f = $("file"); f.hidden = !f.hidden; $("peek").textContent = f.hidden ? "Show the file" : "Hide the file";
+  if (!f.hidden) f.textContent = JSON.stringify(last || preview(), null, 1);
+});
+$("form").addEventListener("input", update); $("form").addEventListener("change", update);
+drawTables(); onDevice(); update();
+</script>
+</body>
+</html>

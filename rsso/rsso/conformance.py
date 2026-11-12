@@ -57,7 +57,7 @@ def run_suite(device_factory=standard_rig, clock_factory=VirtualClock) -> list[t
         if e["channel"] == "haptic":
             e["amp"] = 0.95
     devs = device_factory(); tr = play(bad, devs, clock_factory())
-    peak = max((a.detail["amp"] for d in devs for a in d.actions if a.kind == "pattern"), default=0)
+    peak = max((a.detail["amp"] for d in devs for a in d.actions if "amp" in a.detail), default=0)
     res.append(("C4", "haptic intensity never exceeds the program's haptic_max", peak <= tl["safety"]["haptic_max"] + 1e-12, f"peak {peak} (limit {tl['safety']['haptic_max']})"))
 
     # C5, C6 triggering rules
@@ -91,7 +91,15 @@ def report(results) -> str:
     return "\n".join(lines) + f"\n\n{n}/{len(results)} checks passed."
 
 
+def firmware_rig(consent: bool = False):
+    """The real firmware core (firmware/rsos_core) in the host simulator, plus virtual audio and display."""
+    from .devices import VirtualAudio, VirtualDisplay
+    from .protocol import ProtocolDevice
+    return [ProtocolDevice(consent=consent), VirtualAudio(), VirtualDisplay()]
+
+
 if __name__ == "__main__":
-    r = run_suite()
-    print(report(r))
+    use_fw = "--firmware" in sys.argv
+    r = run_suite(firmware_rig if use_fw else standard_rig)
+    print(("Firmware core (RDP/1, host simulator) + virtual audio and display\n\n" if use_fw else "Virtual rig\n\n") + report(r))
     sys.exit(0 if all(x[2] for x in r) else 1)

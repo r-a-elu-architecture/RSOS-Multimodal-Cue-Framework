@@ -81,6 +81,8 @@ def play(timeline: dict, devices: list[Device], clock=None, stop_at_ms: int | No
     clock = clock or VirtualClock()
     t0 = clock.now()
     for d in devices:
+        if hasattr(d, "load"):          # devices that play the whole timeline on their own clock (RDP/1)
+            d.load(timeline)
         d.arm(t0)
     hmax = timeline["safety"]["haptic_max"]
     for ev in timeline["events"]:

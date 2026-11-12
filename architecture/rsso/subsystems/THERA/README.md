@@ -1,12 +1,14 @@
-# THERA — Proposed therapeutic research application
+# THERA — Therapeutic protocol layer
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Deploys state-change protocols: identity rebuild, breath override, emotional lock, the VIB-ANCHOR and FP-ANCHOR haptic anchors, refractory limits and a human in the loop.
 
-## Historical primary material represented in this archive
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-- [THERA_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/THERA_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [THERA_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/THERA_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** The Override Protocol, its VIB-ANCHOR and FP-ANCHOR, and the refractory and run limits are built (spec, RSX, `SafetyGovernor`). EEG- and gaze-triggered starts are specified.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [THERA_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/THERA_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `7ad06dd2e30b97e7` |
+| [THERA_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/THERA_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `3725589d794f0235` |

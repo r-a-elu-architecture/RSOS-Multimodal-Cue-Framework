@@ -1,7 +1,10 @@
-RSOS Multimodal Cue Framework — Research Preview (2026)
+RSOS — Recursive Symbolic Operating System (v2.0.0)
 
-Copyright (c) 2026 RSOS Framework contributors.
+Copyright (c) 2025–2026 R. A. Elu.
 
-The Apache License, Version 2.0 applies to the public software and accompanying documentation in this repository unless a file explicitly states different licensing. Historical RSOS, RSIA, RSX, and RSSO copyright-estate records (if subsequently published) are separate historical documents and are not automatically licensed by this notice; the original rights and disclosure statement must accompany them.
+Software in this repository is licensed under the Apache License, Version 2.0.
+Specifications and framework texts (spec/, framework/, rsx/protocols/) are licensed under CC BY 4.0.
+The historical RSOS, RSIA, RSX and RSSO records in archive/ keep their original notices and are not
+relicensed by either licence. See LICENSING.md.
 
-Scientific claims in original estate documents and research manuscripts are hypotheses/source records, not empirical proof of neural or clinical effects.
+RSOS is not a medical device. No clinical efficacy has been established.

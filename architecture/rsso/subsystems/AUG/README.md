@@ -1,12 +1,14 @@
-# AUG — Wearable/augmentation proposal
+# AUG — Device and augmentation layer
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Connects state control to devices: AR overlays, EEG, haptics, scent and vibration, wearables; EEG-triggered anchors.
 
-## Historical primary material represented in this archive
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-- [AUG_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/AUG_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [AUG_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/AUG_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** Phone vibration and audio in the player; RSX `HAPTIC`, `TONE` and `DeviceOutput` events. Wearable, scent and EEG drivers are specified.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [AUG_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/AUG_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `06d83d85073b2a5e` |
+| [AUG_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/AUG_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `6ee179b8c7ee24ff` |

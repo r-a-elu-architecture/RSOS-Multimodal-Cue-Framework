@@ -1,12 +1,14 @@
-# CM1 — Compression and cross-domain abstraction
+# CM1 — Compression layer
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Compresses symbolic states and finds reusable patterns across domains.
 
-## Historical primary material represented in this archive
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-- [CM1_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/CM1_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [CM1_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/CM1_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** The cue engine's `ArchetypeBank` compresses many people's histories into a few response modes. Cross-domain compression is specified.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [CM1_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/CM1_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `f51ddcf3887e2e87` |
+| [CM1_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/CM1_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `56d947c6ac8ce227` |

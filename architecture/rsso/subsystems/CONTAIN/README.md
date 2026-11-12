@@ -1,12 +1,14 @@
-# CONTAIN — Governance, drift and containment
+# CONTAIN — Safety and governance
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Governs every module: allow, block, roll back or quarantine actions; drift control; human in the loop; device safety envelope.
 
-## Historical primary material represented in this archive
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-- [CONTAIN_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/CONTAIN_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [CONTAIN_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/CONTAIN_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** Compile-time haptic limit in RSX; run limits, refractory period and opt-in in `SafetyGovernor`; the CONTAIN twins in the cue engine guard against misleading self-reports.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [CONTAIN_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/CONTAIN_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `feb39e13bb8612ff` |
+| [CONTAIN_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/CONTAIN_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `e0f84521711dbec7` |

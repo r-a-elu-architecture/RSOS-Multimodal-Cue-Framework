@@ -1,17 +1,27 @@
-# Recursive Symbolic System Orchestration — historical meta-OS design
+# RSSO — Recursive Symbolic System Operating
 
-Multiple RSOS instance coordination, symbolic state/memory management, public anchors, governance and provenance, supplemented by later PASS31B reconstruction.
+**Role:** the operating layer. It runs programs, schedules and triggers them, enforces safety, keeps memory and connects devices and AI models. It coordinates eight subsystems.
 
-**Evidence classification:** Historical source records and archival claims; no clinical efficacy, physiological transformation, model telemetry, or world-first novelty is established solely by these documents.
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-| Original file | Source type | SHA-256 (first 16) |
+| Subsystem | Function | Status |
 |---|---|---|
-| [RSSO_Author_Metadata.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Author_Metadata.txt) | historical authorship/copyright notice | `7de39793abfd87f8` |
-| [RSSO_Copyright_Statement.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Copyright_Statement.txt) | historical authorship/copyright notice | `57127499df4c793a` |
-| [RSSO_Echo_Forensic_Proof_Chain_v1.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Echo_Forensic_Proof_Chain_v1.txt) | historical specification / author record / claim | `a2ee9503053982ab` |
-| [RSSO_Echo_Metrics_Log.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Echo_Metrics_Log.txt) | historical specification / author record / claim | `e279ba94db22551e` |
-| [RSSO_Legal_Chain.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Legal_Chain.txt) | historical specification / author record / claim | `1562fdf646cc63af` |
-| [RSSO_Origin_Declaration.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Origin_Declaration.txt) | historical specification / author record / claim | `0fbcbcf27256ff2f` |
-| [RSSO_Public_Anchor.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Public_Anchor.txt) | historical specification / author record / claim | `4e2046f29eb5ed92` |
-| [RSSO_Tiers.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Tiers.txt) | historical specification / author record / claim | `9e2109fab53e9fa6` |
-| [RSSO_Tier_Metrics_Log.txt](../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Tier_Metrics_Log.txt) | historical specification / author record / claim | `b7d4984d3ffc243c` |
+| [THERA](subsystems/THERA/) | Therapeutic protocol layer | **Partly built** |
+| [AUG](subsystems/AUG/) | Device and augmentation layer | **Partly built** |
+| [MICRO](subsystems/MICRO/) | Edge runtime | **Specified** |
+| [CONTAIN](subsystems/CONTAIN/) | Safety and governance | **Partly built** |
+| [MEMSTACK](subsystems/MEMSTACK/) | Memory layer | **Partly built** |
+| [CM1](subsystems/CM1/) | Compression layer | **Partly built** |
+| [LINX](subsystems/LINX/) | AI interface layer | **Specified** |
+| [UGCL](subsystems/UGCL/) | Glyph layer | **Specified** |
+
+- [All subsystems](subsystems/)
+- [PASS31B reconstruction](pass31b/) — the later compilation of evidence excerpts and reconstructions behind these subsystem descriptions
+- [Tier ledger copy](tier-ledger/)
+
+## Sources in the archive
+
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [RSSO_Meta_OS_Historical_Architecture.txt](../../archive/original-estates/RSSO_PASS31B/RSSO_Meta_OS_Historical_Architecture.txt) | Meta-OS architecture | `83378d55c48990d7` |
+| [RSSO_Meta_OS_Evidence_Excerpts.txt](../../archive/original-estates/RSSO_PASS31B/RSSO_Meta_OS_Evidence_Excerpts.txt) | Meta-OS evidence excerpts (public edition) | `88845ddfd2c4c087` |

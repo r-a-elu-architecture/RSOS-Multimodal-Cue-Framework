@@ -1,12 +1,14 @@
-# MICRO — Edge and device execution
+# MICRO — Edge runtime
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Runs symbolic reflexes on edge devices (watches, wearables, IoT): receives RSX commands and context, executes them locally.
 
-## Historical primary material represented in this archive
+**Status:** **Specified** — described in the archive and this map; not yet implemented
 
-- [MICRO_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/MICRO_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [MICRO_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/MICRO_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** Next step: a runtime that plays RSX timelines on a watch or microcontroller.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [MICRO_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/MICRO_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `99291f25925d31b4` |
+| [MICRO_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/MICRO_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `c22c20d2341b9abc` |

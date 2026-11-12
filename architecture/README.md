@@ -1,24 +1,30 @@
-# Architecture — source-linked navigation
+# Architecture — map of the RSOS operating system
 
-**Research edition:** This index is a *modern map* of historical copyrighted specifications, current software modules, and testable hypotheses. It is **not** an original 2025 specification. Original records remain unmodified in [`archive/`](../archive/).
+RSOS is built from four systems. This map explains what each one and each subsystem **does**, how far it is built in this repository, and which archive records it comes from. The archive files stay at their original paths; this map only groups and explains them.
 
-## Four historical architectural systems
-
-- [RSOS](rsos/) — symbolic operating-system and tier/metric/forensic record.
-- [RSIA](rsia/) — Recursive Symbolic Identity Architecture: archetypes, Spine, Meta-Architect, Watchdog.
-- [RSX](rsx/) — 9–17 vector symbolic expression syntax, command and device-bridge proposals.
-- [RSSO](rsso/) — orchestration/meta-OS and provenance records.
-- [RSSO / PASS31B reconstructions](rsso/pass31b/) — source-excerpt compilations and later subsystem mappings.
-- [RSSO subsystem index](rsso/subsystems/) — CM1, MEMSTACK, LINX, MICRO, CONTAIN, THERA, AUG, UGCL.
-- [Cross-system source relationships](cross-system/) — technical interpretation and evidence boundaries.
-
-## One record, three views
-
-| Layer | What it means | Evidentiary treatment |
+| System | Role in the operating system | Status |
 |---|---|---|
-| `archive/original-package` | exact historical source ZIP | immutable source bytes |
-| `archive/original-estates` | exact text contents at original paths | source texts, may include unverified assertions |
-| `architecture/` | modern organized conceptual index | derived interpretation with links |
-| `rsx/`, `spec/`, `toolkit/` | current open implementation | software behaviour, tested; not clinical evidence |
+| [RSOS](rsos/) — Recursive Symbolic Operating System | The cue bundles: tiers that bind glyph, word, feeling, scent and taste into one conditioned unit | Partly built |
+| [RSIA](rsia/) — Recursive Symbolic Identity Architecture | The identity layer: which inner mode colours a state, and the values it serves | Partly built |
+| [RSX](rsx/) — Recursive Symbolic eXpression | The language programs are written and executed in | Built |
+| [RSSO](rsso/) — Recursive Symbolic System Operating | The operating layer: runtime, safety, memory, devices, and eight subsystems | Partly built |
 
-Read historical claims as *claims*. A high tier, glyph, vector, or internal model telemetry assertion does not prove a neural state, exclusive software capability, prior-art priority, or clinical effect.
+**How they work together:** an RSX program (RSX) activates tiers (RSOS) in the mode of an archetype (RSIA); the RSSO runtime plays it on a device within safety limits, records the run, and the cue engine learns what works for that person. See [cross-system](cross-system/) for the full flow.
+
+## Two layers of the archive
+
+1. **Operating-system sources** — the specifications of the four systems and their subsystems, linked from the pages above.
+2. **[Provenance & rights](provenance/)** — authorship and legal chain, historical IP-strategy labels, and records of the AI interactions through which the system was developed. Preserved unchanged and kept apart from the functional map.
+
+## Built in this repository
+
+| Part | Where |
+|---|---|
+| Override Protocol (the reference program) | [spec/OVERRIDE_PROTOCOL.md](../spec/OVERRIDE_PROTOCOL.md) |
+| RSX v2 language, compiler and runtime safety | [rsx/](../rsx) |
+| Protocol player | [docs/player.html](../docs/player.html) |
+| Learning model | [rsx/model/](../rsx/model/PREDICTIONS.md) |
+| Personalised cue engine | [toolkit/](../toolkit) |
+| RSIA framework edition | [framework/](../framework) |
+
+Run `python architecture/build.py` to regenerate these pages from the manifest.

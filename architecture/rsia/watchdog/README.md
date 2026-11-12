@@ -1,5 +1,9 @@
-# Historical supervisory Watchdog definition (do not conflate with validated RSIA evidence gate in v1.3 software)
+# RSIA Watchdog
 
-Source: [`RSIA_Watchdog_Overview.txt`](../../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Watchdog_Overview.txt).
+The observer layer: it notices which mode is active, flags drift away from the Spine and calls for correction. Its first implementation is the cue engine's `watchdog()`, which estimates which response mode a person is in from their results.
 
-This is a historically proposed architectural role. Its real-world action, physiological implications and operational equivalence to new software are not independently established by the source document.
+## Sources in the archive
+
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [RSIA_Watchdog_Overview.txt](../../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Watchdog_Overview.txt) | RSIA Watchdog | `4ac1c98606b8ccec` |

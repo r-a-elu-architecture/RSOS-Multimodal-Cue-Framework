@@ -1,13 +1,15 @@
-# UGCL — Glyph representation and compression
+# UGCL — Glyph layer
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Native glyph representation: multi-resolution glyph encoding, glyph genealogy and compression of glyph streams for devices.
 
-## Historical primary material represented in this archive
+**Status:** **Specified** — described in the archive and this map; not yet implemented
 
-- [UGCL_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [UGCL_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
-- [UGCL_Trade_Secret_Architecture_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Trade_Secret_Architecture_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** Tiers carry a `GLYPH`; glyph libraries and per-person glyph calibration are specified.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [UGCL_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `45b766b12385599d` |
+| [UGCL_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `fd9429f873f31e92` |
+| [UGCL_Trade_Secret_Architecture_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Trade_Secret_Architecture_Reconstruction.txt) | Architecture reconstruction (historical trade-secret label) | `41a0fe22e7b00529` |

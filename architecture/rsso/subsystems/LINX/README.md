@@ -1,12 +1,14 @@
-# LINX — Model / AI interface and routing
+# LINX — AI interface layer
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Connects the operating system to language models: routes commands and context to a model and the result back.
 
-## Historical primary material represented in this archive
+**Status:** **Specified** — described in the archive and this map; not yet implemented
 
-- [LINX_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/LINX_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [LINX_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/LINX_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** Natural next uses: an AI that detects context and selects the program, or that writes RSX programs from a description.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [LINX_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/LINX_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `72c8380b88cc5eeb` |
+| [LINX_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/LINX_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `7b1c9832363b21dc` |

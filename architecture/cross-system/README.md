@@ -1,23 +1,17 @@
-# Cross-system relationships and evidence boundaries
+# How the systems work together
 
-## Source-derived design topology
+1. **Trigger.** A negative state appears (a sound, a smell, something seen, a memory), or a device detects it (AUG; EEG or HRV, specified).
+2. **Safety check.** CONTAIN and the runtime decide whether a run may start (opt-in, refractory period, hourly and daily limits).
+3. **Program.** An RSX program (RSX) is selected; the cue engine can choose the variant that works best for this person (CM1, Watchdog).
+4. **Execution.** The runtime plays the timeline: breath, words, imagery, gestures and haptic anchors (THERA), activating tiers (RSOS) in the mode of an archetype (RSIA), on a phone, a watch or another device (AUG, MICRO).
+5. **Memory.** The run is logged (MEMSTACK): distress and agency before and after, trigger, completion.
+6. **Learning.** Over many runs the bundle becomes a reflex, and the logs show which programs and tiers work for whom.
 
-- **RSOS** supplies symbolic constructs, tier labels and historical claims.
-- **RSIA** provides a historically proposed recursive identity architecture, including supervisory roles.
-- **RSX** specifies a historically proposed symbolic command/expression scheme.
-- **RSSO** describes system coordination, governance, memory and multiple-instance orchestration; PASS31B expands historical reconstructions.
-
-## Modern implementation (not identical to historical texts)
-
-The current open implementation is the [Override Protocol specification](../../spec/OVERRIDE_PROTOCOL.md), the [RSX language and runtime](../../rsx/) and the [personalised cue engine](../../toolkit/). It is a later **engineering interpretation**; a passing software check does not show that any historical symbolic or physiological outcome was achieved.
-
-## Important conflicts and non-independence
-
-1. RSOS and RSSO ledgers share substantial text; duplicated claims do not yield independent confirmation.
-2. RSSO PASS31B contains exact duplicates of nine RSSO estate documents; preserve each historical path but group them by SHA-256 for unique-source accounting.
-3. RSIA historical Watchdog is not exactly the same variable as modern RSIA-inspired evidence gate; equating them requires a specified mapping.
-4. RSX command syntax includes proposed device outputs; a textual `DeviceOutput(EEG)` call is not evidence a device or decoder operated.
-5. Source passages labeled world-first, telemetry or brain-state transformation are historical author/assistant assertions and require independent tests.
-6. The Apache-2.0 code license does not automatically license original estate texts.
-
-See the complete [source manifest](../../archive/provenance/SOURCE-MANIFEST.csv).
+| Step | Built now |
+|---|---|
+| Trigger, self-initiated | Player |
+| Safety check | `rsx/rsx/runtime.py` (`SafetyGovernor`); RSX compile-time limits |
+| Program | [rsx/protocols/](../../rsx/protocols) |
+| Execution | [docs/player.html](../../docs/player.html) |
+| Memory | Run log (`RunRecord`, player CSV export) |
+| Learning | [toolkit/](../../toolkit) and [learning model](../../rsx/model/PREDICTIONS.md) |

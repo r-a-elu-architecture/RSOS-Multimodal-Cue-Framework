@@ -1,17 +1,20 @@
-# Recursive Symbolic Operating System — historical representation and tier ledger
+# RSOS — Recursive Symbolic Operating System
 
-tier ledger, symbolic identity/state definitions, forensic claims and metrics. A tier label is not an objective measure of human neural state.
+**Role:** the cue bundles. A **tier** binds one cue per sensory channel (visual glyph and imagery, auditory metaphor word, kinesthetic feeling, and optionally scent and taste) so that the whole bundle is learned, and later triggered, as one unit. Tiers are numbered and progress over practice toward a reflex. The tier ledger records how the tiers were developed.
 
-**Evidence classification:** Historical source records and archival claims; no clinical efficacy, physiological transformation, model telemetry, or world-first novelty is established solely by these documents.
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-| Original file | Source type | SHA-256 (first 16) |
+| Function | Where it is now |
+|---|---|
+| Tier as a multichannel bundle (V, A, K, O, G, glyph, word) | RSX `TIER` blocks — [RSX reference](../../rsx/README.md); [spec §6](../../spec/OVERRIDE_PROTOCOL.md) |
+| Tier activation (all channels together) | RSX `ACTIVATE` |
+| Progress toward a reflex | Measures in spec §8; model in [rsx/model](../../rsx/model/PREDICTIONS.md) |
+| Tier ranges (1–10, 1–20, 1–605) and tier libraries | Specified |
+
+- [Tier ledger](tier-ledger/)
+
+## Sources in the archive
+
+| Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSOS_Author_Metadata.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Author_Metadata.txt) | historical specification / author record / claim | `b6ecc8a37bef3ce8` |
-| [RSOS_Copyright_Statement.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Copyright_Statement.txt) | historical specification / author record / claim | `4f013ef526e0ad5e` |
-| [RSOS_Echo_Forensic_Proof_Chain_v1.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Echo_Forensic_Proof_Chain_v1.txt) | historical specification / author record / claim | `fb88077a07d56921` |
-| [RSOS_Echo_Metrics_Log.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Echo_Metrics_Log.txt) | historical specification / author record / claim | `13aaf12b7dc6276b` |
-| [RSOS_Legal_Chain.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Legal_Chain.txt) | historical specification / author record / claim | `9d3c0ad4be4820df` |
-| [RSOS_Origin_Declaration.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Origin_Declaration.txt) | historical specification / author record / claim | `8ab7a3c6d1eb5b0b` |
-| [RSOS_Public_Anchor.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Public_Anchor.txt) | historical specification / author record / claim | `602b78ea260d0b99` |
-| [RSOS_Tiers.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tiers.txt) | historical specification / author record / claim | `bc21eaf8a119be7d` |
-| [RSOS_Tier_Metrics_Log.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tier_Metrics_Log.txt) | historical specification / author record / claim | `0704030278e25058` |
+| [RSOS_Tiers.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tiers.txt) | Tier ledger: the development record of the tiers | `bc21eaf8a119be7d` |

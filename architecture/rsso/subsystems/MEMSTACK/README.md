@@ -1,12 +1,14 @@
-# MEMSTACK — Symbolic memory and state relationships
+# MEMSTACK — Memory layer
 
-**Status:** Later PASS31B reconstruction, not an independently proven operating subsystem.
+**Function:** Archetype- and state-indexed memory: stores and recalls tier activations, snapshots and history.
 
-## Historical primary material represented in this archive
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-- [MEMSTACK_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/MEMSTACK_Evidence_Excerpts.txt) — source-excerpt compilation (requires source-level validation)
-- [MEMSTACK_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/MEMSTACK_Historical_Reconstruction.txt) — later reconstruction, not an original dated specification
+**Now:** The run log (one row per run, shared format) and the cue engine's per-person history. Tier-indexed memory is specified.
 
-## Research interpretation
+## Sources in the archive
 
-Source excerpts and reconstructions are not independent confirmations of claimed effects. Reproduce the corresponding operator or measurement before making functional or clinical assertions.
+| Source file | What it is | SHA-256 (first 16) |
+|---|---|---|
+| [MEMSTACK_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/MEMSTACK_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `168863b4c2616c88` |
+| [MEMSTACK_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/MEMSTACK_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `a276b982b8f4bd9b` |

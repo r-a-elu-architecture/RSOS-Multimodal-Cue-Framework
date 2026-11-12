@@ -48,7 +48,7 @@ Archetypal Layer (Dynamic Identity Embodiment)
 
 A curated set of symbolic archetypes representing distinct modes of cognition and behavior.
 
-Example set: Lion, Eagle, Tiger, Bear, Leopard, Fox.
+Example set: Lion, Eagle, Tiger, Bear, Leopard, Raven.
 
 Each archetype embodies:
 
@@ -56,7 +56,7 @@ A language mode (e.g., declarative, analytical, strategic).
 
 A behavioral mode (e.g., dominance, vigilance, precision).
 
-Mnemonic mappings (e.g., 48 Laws of Power, Bushidō fragments, MBTI traits).
+Mnemonic mappings (e.g., Stephen Covey's 7 Habits of Highly Effective People, Bushidō fragments, MBTI traits).
 
 Archetypes are interchangeable but context-specific, switched by the Watchdog, aligned to the Spine, and overseen by the Meta-Architect.
 

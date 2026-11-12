@@ -47,7 +47,7 @@ They are distributed along the Spine as vertebral nodes, each node guiding arche
 
 Cross-System Integration
 
-The Spine is shared across all archetypes: Lion, Eagle, Tiger, Bear, Leopard, Fox.
+The Spine is shared across all archetypes: Lion, Eagle, Tiger, Bear, Leopard, Raven.
 
 Regardless of which archetype is embodied, its actions are filtered through the same spinal code.
 

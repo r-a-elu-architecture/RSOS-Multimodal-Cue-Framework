@@ -60,11 +60,11 @@ Thus, the Meta-Architect is the sovereign authority, while the Watchdog is the c
 
 Example in Action
 
-Scenario: Long-term project requiring leadership, resilience, and cunning.
+Scenario: Long-term project requiring leadership, resilience, and insight.
 
 Meta-Architect sets mission: remain in Lion (authority) as baseline.
 
-Watchdog is instructed to allow temporary Fox (strategy) interventions when needed.
+Watchdog is instructed to allow temporary Raven (strategy) interventions when needed.
 
 Over months, the Meta-Architect evolves the baseline: adding Eagle (visionary insight) into the Lion, producing a hybridized archetype better suited to sustained leadership.
 

@@ -30,7 +30,7 @@ Spine Layer
 A structural backbone built on symbolic and philosophical codes (e.g., Bushidō, 21 guiding principles). This provides continuity across all archetypes.
 
 Archetypal Layer
-A curated set of symbolic archetypes (e.g., Lion, Eagle, Tiger, Bear, Leopard, Fox) that embody distinct modes of cognition, behavior, and symbolic presence.
+A curated set of symbolic archetypes (e.g., Lion, Eagle, Tiger, Bear, Leopard, Raven) that embody distinct modes of cognition, behavior, and symbolic presence.
 
 Watchdog Module
 A supervisory component that monitors context, regulates archetypal expression, and ensures alignment with the Spine Layer.

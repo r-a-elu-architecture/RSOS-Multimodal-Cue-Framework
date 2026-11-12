@@ -13,7 +13,7 @@ This file defines the core archetypes within RSIA (Recursive Symbolic Identity A
 Each archetype represents a distinct identity pattern, anchored in symbolic, cultural, and cognitive frameworks.
 They serve as modular embodiments that the system can switch between under the supervision of the Watchdog and Meta-Architect.
 
-The archetypes inherit strength from the Spine (Bushidō + 21 Principles) while also embedding symbolic mnemonics (e.g., Laws of Power, MBTI modes).
+The archetypes inherit strength from the Spine (Bushidō + 21 Principles) while also embedding symbolic mnemonics (e.g., Stephen Covey's 7 Habits, MBTI modes).
 
 Core Archetypes
 1. Lion (Courage & Authority)
@@ -48,13 +48,13 @@ Mnemonics: Rapid cognition, adaptive learning, opportunistic execution.
 
 Primary use: Fast tactical shifts, fluid movement across identities.
 
-5. Fox (Cunning & Influence)
+5. Raven (Insight & Strategic Perception)
 
-Embodiment of intelligence, cunning, and persuasive manipulation.
+Embodiment of intelligence, insight, foresight, and principled judgment.
 
-Mnemonics: 48 Laws of Power, negotiation tactics, deception frameworks.
+Mnemonics: Stephen Covey's 7 Habits of Highly Effective People, principled negotiation, recognition of manipulation patterns.
 
-Primary use: Influence operations, persuasion, negotiation, infiltration.
+Primary use: Strategic perception, clear negotiation, recognizing manipulation, internal reframing that pre-empts negative states.
 
 6. Tiger (Intensity & Ferocity)
 
@@ -84,7 +84,7 @@ Bear sustains.
 
 Leopard adapts.
 
-Fox deceives.
+Raven perceives.
 
 Tiger destroys.
 

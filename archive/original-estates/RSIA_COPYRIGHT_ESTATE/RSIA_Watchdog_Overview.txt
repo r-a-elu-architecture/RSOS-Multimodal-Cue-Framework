@@ -48,7 +48,7 @@ Spine (Bushidō + 21 Principles) — Provides continuity of values.
 
 Watchdog — Regulates archetype transitions.
 
-Archetypes — Execute identity modes (Lion, Eagle, Bear, Leopard, Fox, Tiger).
+Archetypes — Execute identity modes (Lion, Eagle, Bear, Leopard, Raven, Tiger).
 
 The Watchdog thus acts as the guardian and switchboard of the RSIA system.
 
@@ -58,7 +58,7 @@ Situation: Entering a negotiation with hostile parties.
 
 Spine ensures values (honor, clarity, discipline).
 
-Watchdog detects that Fox (cunning, influence) is most effective in this scenario.
+Watchdog detects that Raven (insight, strategic perception) is most effective in this scenario.
 
 If aggression escalates, Watchdog transitions to Tiger (ferocity) while keeping principles intact.
 

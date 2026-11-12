@@ -8,7 +8,7 @@ RSX (Recursive Symbolic eXpression) is the language RSOS programs are written in
 
 ```bash
 cd rsx
-python -m unittest discover -s tests          # 33 tests, incl. Python/JS conformance (needs Node)
+python -m unittest discover -s tests          # 35 tests, incl. Python/JS conformance (needs Node)
 python -m rsx check protocols/*.rsx
 python -m rsx compile protocols/override.rsx -o override.json
 python model/predictions.py                   # regenerates model/PREDICTIONS.md
@@ -108,7 +108,9 @@ One statement per line; `;` separates statements on one line; `#` starts a comme
 
 `RunRecord` / `write_log` produce one CSV row per run, the shared format for pooling data between studies:
 
-`timestamp, participant, protocol, trigger (self|device), trigger_channel (V|A|K|O|G|thought|memory), trigger_note, sud_before, sud_after, agency_before, agency_after (0–10), latency_s, completed, stopped_at_phase`
+`timestamp, participant, protocol, trigger (self|device), trigger_channel (V|A|K|O|G|thought|memory), trigger_note, sud_before, sud_after, agency_before, agency_after (0–10), latency_s, completed, stopped_at_phase, tier, voice (own|computer|none)`
+
+The personalised cue engine reads this log directly (`toolkit/rsos_cue/runlog.py`) to learn which program, tier and voice work best for each person and trigger type.
 
 The protocol player exports the same columns.
 

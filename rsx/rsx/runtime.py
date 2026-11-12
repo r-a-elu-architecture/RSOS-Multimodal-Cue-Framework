@@ -54,7 +54,7 @@ class SafetyGovernor:
 
 LOG_FIELDS = ["timestamp", "participant", "protocol", "trigger", "trigger_channel", "trigger_note",
               "sud_before", "sud_after", "agency_before", "agency_after", "latency_s",
-              "completed", "stopped_at_phase"]
+              "completed", "stopped_at_phase", "tier", "voice"]
 
 
 @dataclass
@@ -71,6 +71,8 @@ class RunRecord:
     latency_s: float | None = None
     completed: bool = True
     stopped_at_phase: str = ""
+    tier: str = ""
+    voice: str = ""
     timestamp: float = field(default_factory=time.time)
 
     def validate(self) -> None:
@@ -80,6 +82,8 @@ class RunRecord:
                 raise ValueError(f"{name} must be 0..10")
         if self.trigger not in ("self", "device"):
             raise ValueError("trigger must be 'self' or 'device'")
+        if self.voice not in ("", "own", "computer", "none"):
+            raise ValueError("voice must be own, computer or none")
         if self.trigger_channel and self.trigger_channel not in ("V", "A", "K", "O", "G", "thought", "memory"):
             raise ValueError("trigger_channel must be V, A, K, O, G, thought or memory")
 

@@ -1,0 +1,10 @@
+budget,method,mean,sem
+5,"engine, own probes",0.844,0.043
+5,"engine, random runs",0.758,0.044
+5,population best (fixed),1.102,0.039
+10,"engine, own probes",0.444,0.029
+10,"engine, random runs",0.571,0.037
+10,population best (fixed),1.102,0.039
+20,"engine, own probes",0.241,0.022
+20,"engine, random runs",0.324,0.028
+20,population best (fixed),1.102,0.039

@@ -1,31 +1,42 @@
-"""Simulation-based sample-size planning for a within-person human study.
+"""Sample-size planning for the Override Protocol hypotheses (spec/OVERRIDE_PROTOCOL.md section 10).
 
-Each participant: 24 calibration trials, then n_test trials under each arm (personalized, comparator).
-Per-participant true benefit is resampled from simulated people; human effects are assumed to be a
-fraction `scale` of the simulated ones; each test trial adds outcome noise `trial_sd`.
-Approximation: scaling is applied to the benefit, not re-learned under smaller effects (optimistic for small scale).
+H1 (within-person, one run vs paced-breathing control) and H6 (rehearsed vs unrehearsed elements)
+are paired comparisons: the planning quantity is the standardised mean of each person's difference, d_z.
+H3 (multichannel vs single-channel tiers) is between-person: Cohen's d.
+Effect sizes are unknown; the table spans small to large. Run a pilot and re-plan with its estimate.
 
-Usage: python power.py per_person_benefits.csv  (columns: person, benefit_vs_<arm>...)
+Usage: python power.py   (writes power_table.txt)
 """
-import sys, numpy as np, pandas as pd
+import pathlib
+
+import numpy as np
 from scipy import stats
 
-def power(benefit, n, scale, n_test, trial_sd=.2, alpha=.05, reps=4000, seed=0):
-    rng = np.random.default_rng(seed); b = np.asarray(benefit) * scale; hits = 0
-    for _ in range(reps):
-        d = rng.choice(b, n) + rng.normal(0, trial_sd * np.sqrt(2 / n_test), n)
-        hits += stats.ttest_1samp(d, 0).pvalue < alpha and d.mean() > 0
-    return hits / reps
 
-def table(benefits: pd.DataFrame, Ns=(10, 20, 40, 80, 160), scales=(1, .5, .25), n_tests=(16, 48)):
-    rows = []
-    for col in [c for c in benefits if c.startswith('benefit_vs_')]:
-        for sc in scales:
-            for nt in n_tests:
-                rows.append(dict(comparator=col[11:], effect_scale=sc, test_trials_per_arm=nt,
-                                 mean_benefit=round(benefits[col].mean() * sc, 4),
-                                 **{f'N={n}': power(benefits[col].dropna(), n, sc, nt) for n in Ns}))
-    return pd.DataFrame(rows)
+def n_paired(d, power=0.8, alpha=0.05):
+    for n in range(3, 5000):
+        df = n - 1; nc = d * np.sqrt(n); t = stats.t.ppf(1 - alpha / 2, df)
+        if 1 - stats.nct.cdf(t, df, nc) + stats.nct.cdf(-t, df, nc) >= power:
+            return n
+    return None
 
-if __name__ == '__main__':
-    print(table(pd.read_csv(sys.argv[1])).to_string(index=False))
+
+def n_two_groups(d, power=0.8, alpha=0.05):
+    for n in range(3, 5000):
+        df = 2 * n - 2; nc = d * np.sqrt(n / 2); t = stats.t.ppf(1 - alpha / 2, df)
+        if 1 - stats.nct.cdf(t, df, nc) + stats.nct.cdf(-t, df, nc) >= power:
+            return n
+    return None
+
+
+if __name__ == "__main__":
+    lines = ["Participants needed for 80% power, two-sided alpha 0.05", "",
+             "effect size | H1/H6 paired (people) | H3 two groups (people per group)",
+             "---|---|---"]
+    for d in (0.2, 0.3, 0.5, 0.8):
+        lines.append(f"{d} | {n_paired(d)} | {n_two_groups(d)}")
+    lines += ["", "Paired effect d_z = mean of per-person differences / their SD.",
+              "Averaging several runs per person and condition raises d_z; plan on the pilot's per-person means."]
+    text = "\n".join(lines) + "\n"
+    (pathlib.Path(__file__).resolve().parent / "power_table.txt").write_text(text)
+    print(text)

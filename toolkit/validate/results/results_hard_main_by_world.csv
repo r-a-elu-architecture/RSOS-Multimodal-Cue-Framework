@@ -1,9 +1,0 @@
-split,world,lib_generic,lib_generic_active,lib_rsos,lib_rsos_active,lib_rsos_base,v13_flat_arm,v13_rsia_evidence_gate,v13_rsos_relational
-mixture,heavy_tail_noise,0.2307,0.1291,0.2187,0.1155,0.2132,0.3102,0.2801,0.265
-mixture,linear_base,0.1388,0.0963,0.115,0.085,0.1121,0.2252,0.1976,0.1732
-mixture,misleading_reports,0.2208,0.2444,0.2392,0.2573,0.2636,0.2469,0.2291,0.1765
-mixture,null_effect,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-mixture,saturating,0.0439,0.0384,0.0431,0.0258,0.0402,0.1386,0.073,0.0492
-mixture,sparse_jackpot,0.4807,0.4753,0.4748,0.4751,0.4771,0.4904,0.4959,0.5071
-mixture,triple_interaction,0.3168,0.2444,0.3127,0.2261,0.31,0.3883,0.3852,0.3592
-mixture,within_session_drift,0.3719,0.3486,0.375,0.3514,0.3777,0.3652,0.3519,0.3298

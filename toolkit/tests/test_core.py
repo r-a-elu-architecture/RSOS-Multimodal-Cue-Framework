@@ -51,3 +51,32 @@ class T(unittest.TestCase):
     def test_generic_space(self):
         sp = ProgramSpace(4, 2, 2, 3); self.assertNotIn('fam', sp.blocks); self.assertEqual(sp.Xcand.shape[0], 4 * 2 * 2 * 3)
 if __name__ == '__main__': unittest.main()
+
+
+class RunLog(unittest.TestCase):
+    def test_runlog_roundtrip_and_learning(self):
+        import pathlib, sys
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "examples"))
+        import simulate_runlog as sim
+        from rsos_cue import space_from_runlog, histories_from_runlog, describe
+        log = sim.simulate(n_people=30, seed=3)
+        space, cb = space_from_runlog(log)
+        self.assertEqual((space.n_glyph, space.n_sound, space.n_plan, space.n_context), (3, 2, 3, 4))
+        hist = histories_from_runlog(log, cb)
+        self.assertEqual(len(hist), 30)
+        self.assertEqual(sum(len(h["outcomes"]) for h in hist), len(log))
+        names = describe(cb, (0, 0, 0), 0)
+        self.assertEqual(set(names), {"tier", "voice", "protocol", "trigger_channel"})
+
+    def test_runlog_skips_incomplete_and_unrated(self):
+        import pandas as pd
+        from rsos_cue import space_from_runlog, histories_from_runlog
+        log = pd.DataFrame([
+            dict(participant="a", protocol="override", trigger_channel="V", sud_before=7, sud_after=3, agency_before=3, agency_after=7, completed=1, tier="LION", voice="own"),
+            dict(participant="a", protocol="override", trigger_channel="V", sud_before=7, sud_after="", agency_before=3, agency_after=7, completed=1, tier="LION", voice="own"),
+            dict(participant="a", protocol="override", trigger_channel="", sud_before=6, sud_after=4, agency_before=3, agency_after=5, completed=0, tier="", voice=""),
+        ])
+        space, cb = space_from_runlog(log)
+        h = histories_from_runlog(log, cb)
+        self.assertEqual(len(h[0]["outcomes"]), 1)
+        self.assertEqual(h[0]["outcomes"][0], 8.0)

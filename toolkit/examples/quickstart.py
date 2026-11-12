@@ -1,25 +1,45 @@
-"""Quickstart: fit a bank from pooled studies, then personalize for a new person."""
-import pathlib, sys
-import numpy as np, pandas as pd
+"""Quickstart: learn from pooled run logs, then personalise for a new person.
+
+1. Pool the run logs (CSV from the protocol player, or rsx RunRecord) of earlier participants.
+2. Fit a bank of response modes.
+3. For a new person, let the engine choose which program, tier and voice to try next,
+   then recommend the best combination for each trigger type.
+
+Without real logs it uses synthetic ones (examples/simulate_runlog.py) and says so.
+"""
+import pathlib
+import sys
+
+import numpy as np
+import pandas as pd
+
 HERE = pathlib.Path(__file__).resolve().parent
-sys.path.insert(0, str(HERE.parent))
-from rsos_cue import ProgramSpace, ArchetypeBank, CueSession, load_trials, load_reports, histories_from_frames
+sys.path.insert(0, str(HERE.parent)); sys.path.insert(0, str(HERE))
+from rsos_cue import ArchetypeBank, CueSession, space_from_runlog, histories_from_runlog, describe  # noqa: E402
+import simulate_runlog as sim  # noqa: E402
 
-space = ProgramSpace(n_glyph=12, n_sound=5, n_plan=3, n_context=4, families=[0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3])
+real = HERE / "runs.csv"
+if real.exists():
+    log = pd.read_csv(real); print(f"Using {real.name}: {len(log)} runs")
+else:
+    log = sim.simulate(); print(f"No runs.csv found: using {len(log)} SYNTHETIC runs from {log.participant.nunique()} invented people")
 
-# 1. Population: pooled trials.csv / reports.csv from previous participants (schema in rsos_cue/data.py)
-try:
-    hist = histories_from_frames(space, load_trials('trials.csv'), load_reports('reports.csv'))
-    bank = ArchetypeBank(space).fit(hist, K=8)
-except FileNotFoundError:
-    bank = ArchetypeBank.load(HERE / 'bank_v13sim.json')   # bank fitted on the v1.3 simulator (synthetic)
+space, codebook = space_from_runlog(log)
+bank = ArchetypeBank(space).fit(histories_from_runlog(log, codebook), K=3, iters=8)
 
-# 2. A new person: prior ratings of 12 glyphs + 5 sounds (standardized), then trials
-s = CueSession(bank, reports=np.zeros(17))
-for _ in range(24):
-    q = s.next_probe()                       # which (glyph, sound, plan, context) to try next
-    outcome = np.random.normal(.5, .2)       # <- replace with the measured outcome
-    s.add(q['glyph'], q['sound'], q['plan'], q['context'], outcome)
+# A new person of hidden type 0 (synthetic). Replace `measure` with real runs.
+rng = np.random.default_rng(1); t = sim.TYPES[0]
+def measure(q):
+    names = describe(codebook, (q["glyph"], q["sound"], q["plan"]), q["context"])
+    return sim.benefit(t, names["protocol"], names["tier"], names["voice"], names["trigger_channel"]) + rng.normal(0, 1.0)
 
-print('best programs in context 0:', s.recommend(0, k=3))
-H, w = s.watchdog(); print('archetype posterior:', np.round(w, 2))
+s = CueSession(bank, seed=0)
+for _ in range(15):
+    q = s.next_probe()
+    s.add(q["glyph"], q["sound"], q["plan"], q["context"], measure(q))
+
+print("\nBest settings for this person, by trigger type:")
+for c, trig in enumerate(codebook["context"]):
+    best = s.recommend(c, k=1)[0]
+    print(f"  {trig:8s} -> {describe(codebook, best['program'])}  (predicted gain {best['predicted']:+.1f})")
+H, w = s.watchdog(); print("\nResponse-mode posterior (Watchdog):", np.round(w, 2))

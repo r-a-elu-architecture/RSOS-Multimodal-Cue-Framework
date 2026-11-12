@@ -6,7 +6,7 @@ from __future__ import annotations
 import pathlib as _pl
 _HERE = _pl.Path(__file__).resolve().parent
 import sys, time, warnings, numpy as np, pandas as pd
-sys.path[:0] = [str(_HERE.parent)]
+sys.path[:0] = [str(_HERE.parents[1])]
 from rsos_cue import ProgramSpace, ArchetypeBank, CueSession
 from multiprocessing import Pool
 warnings.filterwarnings('ignore')

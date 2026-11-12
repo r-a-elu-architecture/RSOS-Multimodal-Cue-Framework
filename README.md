@@ -14,7 +14,7 @@
 | **RSX** | The executable language RSOS programs are written in. Compiles a program to a timeline of breath, word, image, gesture, haptic, tone, scent and taste events. Python and JavaScript implementations, checked against each other. | [`rsx/`](rsx/) |
 | **Protocol player** | Runs any RSX program with breath pacing, spoken words, tones and phone vibration; check-in before and after; exports a run log. Includes a live RSX editor. | [`docs/player.html`](docs/player.html) |
 | **Learning model** | A formal model (Rescorla–Wagner + habit curve) of how a cue bundle becomes a reflex, with predictions swept across parameters. | [`rsx/model/PREDICTIONS.md`](rsx/model/PREDICTIONS.md) |
-| **Personalised cue engine** | `rsos_cue`: chooses the glyph, sound and plan that work best for one person from a few trials, borrowing strength from earlier participants. | [`toolkit/`](toolkit/) |
+| **Personalised cue engine** | `rsos_cue`: reads the run log and learns which program, tier and voice work best for each person and trigger type, borrowing strength from earlier participants. | [`toolkit/`](toolkit/) |
 | **RSIA framework** | The identity layer: six archetypes (Lion, Eagle, Bear, Leopard, Raven, Tiger), the Spine, Watchdog and Meta-Architect; mnemonic sets. | [`framework/`](framework/) |
 | **Archive** | The dated source records of RSOS, RSIA, RSX and RSSO (public edition), with hashes. | [`archive/`](archive/), [`architecture/`](architecture/) |
 
@@ -30,12 +30,12 @@
 ```bash
 git clone https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework
 cd RSOS-Multimodal-Cue-Framework/rsx
-python -m unittest discover -s tests           # 33 tests (Python/JS conformance needs Node)
+python -m unittest discover -s tests           # 35 tests (Python/JS conformance needs Node)
 python -m rsx compile protocols/override.rsx   # the protocol as a JSON timeline
 python model/predictions.py                    # regenerate the model predictions
 
 cd ../toolkit
-python -m unittest discover -s tests           # 8 tests
+python -m unittest discover -s tests           # 10 tests
 python examples/quickstart.py
 ```
 
@@ -72,7 +72,7 @@ The learning model makes the protocol's claims precise enough to fail. Across ev
 
 ## Test it
 
-The specification lists six hypotheses with minimal study designs (§10) and a shared run-log format, so results from different groups can be pooled. [`toolkit/study_kit/`](toolkit/study_kit/) has a replication protocol and power analysis for the cue engine. If you run a study, please open an issue so it can be listed here.
+The specification lists six hypotheses with minimal study designs (§10) and a shared run-log format, so results from different groups can be pooled. [`toolkit/study_kit/`](toolkit/study_kit/) has a study procedure and sample sizes for the first hypotheses. If you run a study, please open an issue so it can be listed here.
 
 ## Related work
 

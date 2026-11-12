@@ -71,7 +71,21 @@ def _transform(s, ang, mir):
     raise ValueError(f"unknown stroke kind {k}")
 
 
+def _svg_original(g: dict, size: int, color: str, background: str | None) -> str:
+    """An original ledger glyph: its stored image; monochrome glyphs are drawn in `color` through the image as a mask."""
+    bg = f'<rect width="64" height="64" fill="{background}"/>' if background else ""
+    if g.get("colour"):
+        body = f'<image href="{g["png"]}" width="64" height="64"/>'
+    else:
+        body = (f'<defs><mask id="m-{g["id"]}"><image href="{g["png"]}" width="64" height="64"/></mask></defs>'
+                f'<rect width="64" height="64" fill="{color}" mask="url(#m-{g["id"]})"/>')
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 64 64" role="img" '
+            f'aria-label="{g["id"]}">{bg}{body}</svg>')
+
+
 def svg(g: dict, size: int = 120, color: str = "#e8b04a", background: str | None = None) -> str:
+    if g.get("kind") == "original":
+        return _svg_original(g, size, color, background)
     parts = []
     for s in expand(g):
         k, p = s["k"], s["p"]
@@ -106,7 +120,9 @@ def stroke_length(s: dict) -> float:
 
 def haptic_signature(g: dict) -> list[list[int]]:
     """Pulse rhythm [[on_ms, off_ms], ...], at most 2 s. One pulse per base stroke (length sets duration),
-    repeated min(sym, 3) times; a final short pulse if the glyph is mirrored."""
+    repeated min(sym, 3) times; a final short pulse if the glyph is mirrored. Original glyphs carry their own."""
+    if g.get("kind") == "original":
+        return [list(x) for x in g["haptic"]]
     base = []
     for s in g["strokes"]:
         on = 50 if s["k"] == "D" else min(220, max(60, rint(60 + 60 * stroke_length(s))))
@@ -128,7 +144,9 @@ def haptic_signature(g: dict) -> list[list[int]]:
 
 def tone_motif(g: dict) -> list[list[float]]:
     """[[hz, ms], ...]: one pentatonic note per base stroke, chosen by the stroke's direction from the
-    centre; rotational symmetry above 1 adds the glyph's first note an octave up."""
+    centre; rotational symmetry above 1 adds the glyph's first note an octave up. Original glyphs carry their own."""
+    if g.get("kind") == "original":
+        return [list(x) for x in g["tone"]]
     notes = []
     for s in g["strokes"]:
         p = s["p"]
@@ -157,6 +175,12 @@ def decode(code: str, gid: str = "glyph") -> dict:
 def validate(g: dict) -> None:
     if not isinstance(g.get("id"), str) or not g["id"]:
         raise ValueError("glyph needs an id")
+    if g.get("kind") == "original":
+        if not g.get("char") or not str(g.get("png", "")).startswith("data:image/png;base64,"):
+            raise ValueError("an original glyph needs its symbol and image")
+        if not g.get("haptic") or not g.get("tone"):
+            raise ValueError("an original glyph needs its rhythm and melody")
+        return
     if not 1 <= int(g.get("sym", 1)) <= 8:
         raise ValueError("sym must be 1..8")
     if not 1 <= len(g.get("strokes", [])) <= 4:

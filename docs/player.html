@@ -145,7 +145,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note" style="margin-top:0">Choose between pairs of symbols to find the one that feels most like courage and the power to act. It appears on the light when the tier is activated. About 16 quick choices.</p>
     <div class="mine"><span id="myGlyph" aria-label="Your glyph"></span><span class="dot" id="myColour" aria-label="Your colour"></span><span class="note" id="myGlyphNote">Using the program's default.</span></div>
     <div class="actions" style="margin-top:8px"><button class="btn quiet" id="calGlyph" type="button">Find your glyph</button><button class="btn quiet" id="calColour" type="button">Choose your colour</button></div>
-    <p class="note"><a href="glyphs.html">See, feel and hear all 48 glyphs</a>.</p>
+    <p class="note"><a href="glyphs.html">See, feel and hear all the glyphs of the ledger</a>.</p>
   </fieldset>
 
   <fieldset>
@@ -206,7 +206,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.7.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.8.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -281,14 +281,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.7.0"></script>
-<script src="js/hrs.js?v=1.7.0"></script>
-<script src="js/memstack.js?v=1.7.0"></script>
-<script src="js/ugcl.js?v=1.7.0"></script>
-<script src="js/consent.js?v=1.7.0"></script>
+<script src="js/rsx.js?v=1.8.0"></script>
+<script src="js/hrs.js?v=1.8.0"></script>
+<script src="js/memstack.js?v=1.8.0"></script>
+<script src="js/ugcl.js?v=1.8.0"></script>
+<script src="js/consent.js?v=1.8.0"></script>
 <script>
 "use strict";
-const BUILD = "1.7.0";
+const BUILD = "1.8.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
   "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph"];
@@ -752,7 +752,11 @@ const PALETTE = [["Lion gold", "#e8b04a"], ["Sun yellow", "#f5d04a"], ["Amber", 
 let library = null;
 async function loadLibrary() {
   if (library) return library;
-  try { library = await (await fetch("ugcl/library.json?v=" + BUILD)).json(); } catch (e) { library = { glyphs: [], archetype_defaults: {} }; }
+  let lib = { glyphs: [] }, orig = { glyphs: [], archetype_defaults: {} };
+  try { orig = await (await fetch("ugcl/originals.json?v=" + BUILD)).json(); } catch (e) {}
+  try { lib = await (await fetch("ugcl/library.json?v=" + BUILD)).json(); } catch (e) {}
+  // the original ledger glyphs come first; the generated library is an optional extra set
+  library = { glyphs: orig.glyphs.concat(lib.glyphs), originals: orig.glyphs, archetype_defaults: orig.archetype_defaults || {} };
   return library;
 }
 const ugclState = () => store.get("rsos.ugcl", { tiers: {}, colour: "" });
@@ -770,6 +774,7 @@ function showGlyph(ev) {
   const mine = ugclState().tiers[ev.tier];
   let g = mine ? glyphById(mine.glyph) : null;
   if (!g && ev.glyph && ev.glyph.indexOf("ugcl:") === 0) g = glyphById(ev.glyph.slice(5));
+  if (!g && ev.glyph && library) g = library.originals.find(o => o.char === ev.glyph) || null;
   if (g) $("glyph").innerHTML = UGCL.svg(g, 110, "#2b1d07");
   else if (ev.glyph) $("glyph").textContent = ev.glyph;
   else return;
@@ -778,14 +783,15 @@ function showGlyph(ev) {
 function drawMine() {
   const tier = "LION", mine = ugclState().tiers[tier], g = mine && glyphById(mine.glyph);
   $("myGlyph").innerHTML = g ? UGCL.svg(g, 44) : "";
-  $("myGlyphNote").textContent = g ? "Your glyph " + g.id + " for the Lion tier." : "Using the program's default.";
+  $("myGlyphNote").textContent = g ? "Your glyph for the Lion tier: " + (g.char || g.id) + (g.tiers ? " (first recorded in Tier " + g.tiers[0].number + ")." : ".") : "Using the program's glyph: 🦁, the Lion of Tier 001.";
   applyColour();
 }
 let cal = null;
 function candidates(tier) {
-  const lib = library.glyphs, first = library.archetype_defaults[tier], out = [];
+  // the archetype's own ledger glyph, then the original glyphs of Epoch I (the era of the first override)
+  const first = library.archetype_defaults[tier], out = [];
   if (first) out.push(first);
-  for (const g of lib) { if (out.length >= 8) break; if (out.indexOf(g.id) < 0) out.push(g.id); }
+  for (const g of library.originals) { if (out.length >= 8) break; if (out.indexOf(g.id) < 0) out.push(g.id); }
   return out;
 }
 function nextCalPair() {
@@ -813,7 +819,7 @@ function finishCal(save) {
   cal = null; if (dlg.open) dlg.close(); drawMine();
 }
 $("calGlyph").addEventListener("click", async () => {
-  await loadLibrary(); if (!library.glyphs.length) { $("myGlyphNote").textContent = "The glyph library could not be loaded."; return; }
+  await loadLibrary(); if (!library.originals.length) { $("myGlyphNote").textContent = "The glyph library could not be loaded."; return; }
   const ids = candidates("LION"); cal = { tier: "LION", ids, comps: [], scores: new Array(ids.length).fill(0) };
   $("glyphCal").showModal(); nextCalPair();
 });

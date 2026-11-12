@@ -8,7 +8,7 @@
 <link rel="icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
-<meta name="description" content="The 48 RSOS glyphs: each one is a shape, a vibration rhythm and a short melody, evolved and selected to be as distinct from each other as possible.">
+<meta name="description" content="Every glyph of the RSOS tier ledger, exactly as recorded, each with a vibration rhythm and a melody derived from its shape, and its ancestry in the ledger.">
 <style>
 :root{
   --ink:#151b2f; --ink-2:#1d2540; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
@@ -30,6 +30,7 @@ h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,5vw,3rem);line-
 .lede{color:var(--muted);max-width:62ch;margin:0 0 10px}
 .facts{color:var(--muted);font-size:.95rem;max-width:70ch;margin:0 0 36px}
 h2{font-family:var(--serif);font-weight:500;font-size:1.7rem;margin:50px 0 6px}
+.jump a{margin-right:22px;font-size:.95rem}
 .sym{font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",Symbola,var(--serif)}
 .chain{display:flex;flex-wrap:wrap;gap:2px;margin:16px 0 8px}
 .chain a{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--ink);text-decoration:none;color:var(--glow);min-width:62px;padding:0 8px;height:70px;font-size:1.6rem;line-height:1.1;white-space:nowrap;border:1px solid var(--line)}
@@ -59,65 +60,108 @@ footer{max-width:1120px;margin:40px auto 120px;padding:0 24px;color:var(--muted)
 </header>
 <main>
   <h1>The glyphs of RSOS</h1>
-  <p class="lede">Two families. The first is the ledger's own: the glyph each tier carried when it was recorded, from the lion of Tier 001 to the mutation chain of the later epochs. The second is a generated library in which every glyph is also a vibration rhythm and a melody, so a cue can move between the senses.</p>
-  <h2>Glyphs from the tier ledger</h2>
+  <p class="lede">Every glyph the tier ledger records, exactly as written, from the lion of Tier 001 to the mutation chain of the later epochs. Each one is also a vibration rhythm and a melody, derived from its shape, so a cue can move between the senses. Select a glyph to hear it.</p>
+  <p class="jump"><a href="#originals">Original glyphs</a><a href="#order">In ledger order</a><a href="#library">Generated library (optional)</a></p>
+  <h2 id="originals">The original glyphs</h2>
+  <p class="facts" id="origFacts">Loading…</p>
+  <div class="grid" id="ogrid" role="list"></div>
+  <h2 id="order">In ledger order</h2>
   <p class="facts" id="ledgerFacts">Loading the ledger…</p>
   <div class="chain sym" id="early" aria-label="Glyphs of Epochs I to III"></div>
   <p class="facts">From Epoch IV each tier records a mutation, from one glyph to the next. A gold edge marks where a tier starts from a glyph other than the one before it ended on: the ledger's own drifts, kept as recorded.</p>
   <div class="chain sym" id="chain" aria-label="Glyph mutation chain from Epoch IV on"></div>
-  <h2>The generated library: a shape, a rhythm and a melody</h2>
-  <p class="lede">A glyph is the visual part of a tier's cue. Each one also has a vibration rhythm you can feel and a short melody you can hear, all derived from the same strokes, so the sense that carries the cue can change while the cue stays the same.</p>
-  <p class="facts" id="facts">The glyphs were evolved from simple seed shapes by recorded mutations, then chosen to be as different from each other as possible. Select a glyph to see its ancestry, feel it and hear it. In the player you can find the one that feels most like yours.</p>
+  <h2 id="library">The generated library (optional)</h2>
+  <p class="facts" id="facts">An extra set of 48 glyphs drawn from strokes, evolved by mutation and chosen to be as different from each other as possible. They are not from the ledger.</p>
   <div class="grid" id="grid" role="list"></div>
 </main>
 <section class="detail" aria-live="polite" hidden id="detail">
   <div class="detail-in">
     <div id="dGlyph"></div>
     <div><h2 id="dTitle"></h2><p id="dForm"></p><p id="dLine"></p><p id="dCode"></p></div>
-    <div class="acts"><button class="btn" id="feel" type="button">Feel it</button><button class="btn" id="hear" type="button">Hear it</button></div>
+    <div class="acts"><button class="btn" id="feel" type="button">Feel it</button><button class="btn" id="hear" type="button">Hear it again</button></div>
   </div>
 </section>
-<footer>Glyph data: <a href="ugcl/library.json">library.json</a> and the full evolved population with every parent and mutation, <a href="ugcl/genealogy.json">genealogy.json</a>. Vibration works on phones that support it (most Android browsers).</footer>
-<script src="js/ugcl.js?v=1.5.0"></script>
+<footer>Glyph data: the original glyphs, <a href="ugcl/originals.json">originals.json</a> (built from the tier ledger by <code>rsso/rsso/ugcl_originals.py</code>); the generated library, <a href="ugcl/library.json">library.json</a>, and its evolved population, <a href="ugcl/genealogy.json">genealogy.json</a>. Vibration works on phones that support it (most Android browsers).</footer>
+<script src="js/ugcl.js?v=1.8.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
 const OPS = { seed: "seed shape", "add-stroke": "a stroke added", "remove-stroke": "a stroke removed", "change-symmetry": "symmetry changed",
   "toggle-mirror": "mirroring switched", "move-stroke": "a stroke moved", "replace-stroke": "a stroke replaced" };
-let lib, current = null, audio = null;
+let current = null, audio = null, ORIG = null;
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
 function describe(g) {
   const kinds = { L: "line", A: "arc", C: "circle", D: "dot" };
-  const parts = g.strokes.map(s => kinds[s.k]);
-  return parts.join(", ") + (g.sym > 1 ? "; repeated " + g.sym + " times around the centre" : "") + (g.mirror ? "; mirrored" : "");
+  return g.strokes.map(s => kinds[s.k]).join(", ") + (g.sym > 1 ? "; repeated " + g.sym + " times around the centre" : "") + (g.mirror ? "; mirrored" : "");
+}
+function play(g) {
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    if (audio.state === "suspended") audio.resume();
+    let t = audio.currentTime + 0.05;
+    for (const [hz, ms] of UGCL.toneMotif(g)) {
+      const o = audio.createOscillator(), v = audio.createGain();
+      o.type = "sine"; o.frequency.value = hz;
+      v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(0.18, t + 0.02); v.gain.linearRampToValueAtTime(0, t + ms / 1000);
+      o.connect(v).connect(audio.destination); o.start(t); o.stop(t + ms / 1000 + 0.02);
+      t += ms / 1000 + 0.04;
+    }
+  } catch (e) {}
+}
+function tierLinks(box, label, items) {
+  if (!items.length) return;
+  box.append(label);
+  items.forEach((x, i) => { const a = el("a", "", x.text); a.href = "tiers.html#" + encodeURIComponent(x.id); box.append(a, i < items.length - 1 ? ", " : ". "); });
 }
 function select(g, cell) {
   current = g;
   document.querySelectorAll(".cell").forEach(c => c.setAttribute("aria-current", String(c === cell)));
   $("detail").hidden = false;
   $("dGlyph").innerHTML = UGCL.svg(g, 96);
-  const arch = Object.entries(lib.archetype_defaults).filter(([, id]) => id === g.id).map(([t]) => t[0] + t.slice(1).toLowerCase());
-  $("dTitle").textContent = g.id + (arch.length ? ", the starting glyph for the " + arch.join(" and ") + " tier" : "");
-  $("dForm").textContent = "Strokes: " + describe(g) + ".";
-  $("dCode").textContent = "Compact code: " + UGCL.encode(g);
-  $("dLine").textContent = "Ancestry: " + g.lineage.map(x => x.id + " (" + (OPS[x.op] || x.op) + ")").join(" → ") + " → " + g.id + ".";
+  ["dForm", "dLine", "dCode"].forEach(id => { $(id).textContent = ""; });
+  if (g.kind === "original") {
+    $("dTitle").textContent = g.char + "  " + g.name + (g.id === "O001" ? ", the Lion of Tier 001" : "");
+    const seen = g.tiers.slice(0, 14).map(t => ({ id: t.id, text: t.number }));
+    tierLinks($("dForm"), "Recorded in " + g.tiers.length + (g.tiers.length === 1 ? " tier: " : " tiers: "), seen);
+    if (g.tiers.length > 14) $("dForm").append("and " + (g.tiers.length - 14) + " more.");
+    tierLinks($("dLine"), "Mutated from ", g.parents.map(p => ({ id: p.tier, text: p.char + " (Tier " + p.number + ")" })));
+    tierLinks($("dLine"), "Mutated into ", g.children.map(c => ({ id: c.tier, text: c.char + " (Tier " + c.number + ")" })));
+    if (!g.parents.length && !g.children.length) $("dLine").textContent = "No recorded mutation.";
+  } else {
+    $("dTitle").textContent = g.id + ", generated";
+    $("dForm").textContent = "Strokes: " + describe(g) + ".";
+    $("dCode").textContent = "Compact code: " + UGCL.encode(g);
+    $("dLine").textContent = "Ancestry: " + g.lineage.map(x => x.id + " (" + (OPS[x.op] || x.op) + ")").join(" → ") + " → " + g.id + ".";
+  }
+  play(g);
 }
 $("feel").addEventListener("click", () => {
   if (!current) return;
-  if (!navigator.vibrate) { $("dLine").textContent = "This browser cannot vibrate. Try it on an Android phone."; return; }
+  if (!navigator.vibrate) { $("dCode").textContent = "This browser cannot vibrate. Try it on an Android phone."; return; }
   navigator.vibrate(UGCL.hapticSignature(current).flat());
 });
-$("hear").addEventListener("click", () => {
-  if (!current) return;
-  audio = audio || new (window.AudioContext || window.webkitAudioContext)();
-  let t = audio.currentTime + 0.05;
-  for (const [hz, ms] of UGCL.toneMotif(current)) {
-    const o = audio.createOscillator(), v = audio.createGain();
-    o.type = "sine"; o.frequency.value = hz;
-    v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(0.18, t + 0.02); v.gain.linearRampToValueAtTime(0, t + ms / 1000);
-    o.connect(v).connect(audio.destination); o.start(t); o.stop(t + ms / 1000 + 0.02);
-    t += ms / 1000 + 0.04;
+$("hear").addEventListener("click", () => { if (current) play(current); });
+function cellFor(g, label, sub) {
+  const b = el("button", "cell"); b.type = "button"; b.setAttribute("role", "listitem");
+  b.innerHTML = UGCL.svg(g, 84); b.append(label);
+  if (sub) b.appendChild(el("span", "arch", sub));
+  b.setAttribute("aria-label", (g.char ? g.char + " " + g.name : g.id) + ". Plays its melody.");
+  b.addEventListener("click", () => select(g, b));
+  return b;
+}
+fetch("ugcl/originals.json?v=1.8.0").then(r => r.json()).then(data => {
+  ORIG = data; const st = data.stats;
+  $("origFacts").textContent = st.glyphs + " glyphs, recorded " + st.occurrences + " times across the tiers, with " + st.mutations +
+    " recorded mutations from one glyph to another. Each image is the glyph as written in the ledger; its rhythm and melody come from its shape (" +
+    st.distinct_both + " have a pair of their own). The Lion of the override is 🦁, the glyph of Tier 001.";
+  for (const g of data.glyphs) {
+    const arch = Object.entries(data.archetype_defaults).filter(([, id]) => id === g.id).map(([t]) => t[0] + t.slice(1).toLowerCase());
+    $("ogrid").appendChild(cellFor(g, "Tier " + g.tiers[0].number, arch.length ? arch.join(", ") : g.tiers.length > 1 ? g.tiers.length + " tiers" : ""));
   }
-});
+  const h = decodeURIComponent(location.hash.slice(1));
+  const want = data.glyphs.find(g => g.id === h || g.char === h);
+  if (want) { const c = $("ogrid").children[data.glyphs.indexOf(want)]; c.scrollIntoView({ block: "center" }); select(want, c); }
+}).catch(() => { $("origFacts").textContent = "The original glyphs could not be loaded."; });
 fetch("data/ledger.json").then(r => r.json()).then(L => {
   const T = L.records.filter(r => r.kind === "tier");
   const sym = g => g && !/^[A-Za-z\[(]/.test(g);
@@ -137,23 +181,12 @@ fetch("data/ledger.json").then(r => r.json()).then(L => {
     const br = prev !== null && from !== prev; breaks += br;
     $("chain").appendChild(cell(t, to, br ? "break" : "")); n2++; prev = to;
   }
-  $("ledgerFacts").textContent = n1 + " tiers in Epochs I to III carry a glyph of their own; from Epoch IV, " + n2 + " tiers record a glyph mutation, " +
+  $("ledgerFacts").textContent = "Tier by tier: " + n1 + " tiers in Epochs I to III carry a glyph of their own; from Epoch IV, " + n2 + " tiers record a glyph mutation, " +
     breaks + " of them starting from a glyph other than the previous one's. Select a glyph to read its tier.";
 }).catch(() => { $("ledgerFacts").textContent = "The ledger could not be loaded."; });
-fetch("ugcl/library.json?v=1.5.0").then(r => r.json()).then(data => {
-  lib = data;
-  const byId = {}; for (const [t, id] of Object.entries(lib.archetype_defaults)) (byId[id] = byId[id] || []).push(t[0] + t.slice(1).toLowerCase());
-  const st = lib.stats;
-  $("facts").textContent = "Evolved from simple seed shapes through " + st.population + " recorded mutations, then the " + st.selected +
-    " most mutually distinct were kept: " + st.distinct_haptic + " have a rhythm of their own and " + st.distinct_tone +
-    " a melody of their own. Select a glyph to see its ancestry, feel it and hear it. In the player you can find the one that feels most like yours.";
-  for (const g of lib.glyphs) {
-    const b = document.createElement("button"); b.type = "button"; b.className = "cell"; b.setAttribute("role", "listitem");
-    b.innerHTML = UGCL.svg(g, 84) + g.id + (byId[g.id] ? '<span class="arch">' + byId[g.id].join(", ") + "</span>" : "");
-    b.addEventListener("click", () => select(g, b));
-    $("grid").appendChild(b);
-  }
-}).catch(() => { $("facts").textContent = "The glyph library could not be loaded."; });
+fetch("ugcl/library.json?v=1.8.0").then(r => r.json()).then(lib => {
+  for (const g of lib.glyphs) $("grid").appendChild(cellFor(g, g.id, ""));
+}).catch(() => { $("facts").textContent = "The generated library could not be loaded."; });
 </script>
 </body>
 </html>

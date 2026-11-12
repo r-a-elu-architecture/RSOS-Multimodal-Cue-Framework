@@ -25,7 +25,7 @@ TIER 1 LION {
   V "Golden lion light"
   A "I move, I act"
   K "Warmth and strength in the belly"
-  GLYPH "◈"
+  GLYPH "🦁"
   WORD "Courage"
 }
 

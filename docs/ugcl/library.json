@@ -2342,14 +2342,7 @@
    ]
   }
  ],
- "archetype_defaults": {
-  "LION": "G01",
-  "EAGLE": "G06",
-  "BEAR": "G03",
-  "LEOPARD": "G18",
-  "RAVEN": "G02",
-  "TIGER": "G09"
- },
+ "archetype_defaults": {},
  "stats": {
   "population": 600,
   "selected": 48,

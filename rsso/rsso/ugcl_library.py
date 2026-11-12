@@ -197,7 +197,8 @@ def build(population=600, select=48, seed=7):
 
 
 def archetype_defaults(lib) -> dict:
-    """Starting glyph per archetype, by shape character (each person can recalibrate):
+    """Not used for the published library: archetype glyphs come from the tier ledger. Kept for reference.
+    Starting glyph per archetype, by shape character (each person can recalibrate):
     Lion radiant (high symmetry), Eagle winged (mirrored, low symmetry), Bear solid (4-fold),
     Leopard agile (3-fold), Raven pointed (mirrored with a dot), Tiger striped (2-fold, lines)."""
     used, out = set(), {}
@@ -217,7 +218,7 @@ def archetype_defaults(lib) -> dict:
 
 def main():
     lib, pop, stats = build()
-    defaults = archetype_defaults(lib)
+    defaults = {}   # archetype glyphs come from the tier ledger (docs/ugcl/originals.json); this set is optional
     out = ROOT / "docs" / "ugcl"; out.mkdir(parents=True, exist_ok=True)
     (out / "library.json").write_text(json.dumps({"format": FORMAT, "glyphs": lib, "archetype_defaults": defaults,
                                                   "stats": stats}, indent=1) + "\n", encoding="utf-8")
@@ -231,7 +232,7 @@ def main():
         f"- Smallest visual distance between any two selected glyphs: {stats['min_visual_distance_selected']:.4f} "
         f"(a random set of the same size: {stats['min_visual_distance_random_set']:.4f}).",
         f"- Distinct haptic rhythms among the selected: {stats['distinct_haptic']} of {stats['selected']}; distinct tone motifs: {stats['distinct_tone']} of {stats['selected']}.",
-        f"- Starting glyph per archetype: " + ", ".join(f"{k} {v}" for k, v in defaults.items()) + ".",
+        "- Archetype glyphs come from the tier ledger (the original glyphs, `docs/ugcl/originals.json`); this generated set is an optional extra.",
         "", "Visual distance is the symmetric chamfer distance between 64×64 renderings, as a fraction of the image width."]) + "\n",
         encoding="utf-8")
     print(rep.read_text())

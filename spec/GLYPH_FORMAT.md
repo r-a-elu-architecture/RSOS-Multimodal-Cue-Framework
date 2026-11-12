@@ -1,8 +1,16 @@
 # UGCL glyph format (rsos-ugcl/1)
 
-UGCL is the native glyph layer of RSOS. A glyph is the visual part of a tier's cue bundle. The same
-small description also produces a vibration rhythm and a short melody, so a cue can move between senses
-(seen on a screen, felt on the wrist, heard in an earbud) while staying one cue.
+UGCL is the native glyph layer of RSOS. A glyph is the visual part of a tier's cue bundle, and every glyph
+also has a vibration rhythm and a short melody, so a cue can move between senses (seen on a screen, felt on
+the wrist, heard in an earbud) while staying one cue.
+
+There are two kinds of glyph:
+
+- **Original glyphs** (section 6): the 146 glyphs of the tier ledger, exactly as recorded (🦁, ·⁂⊚, ∴,
+  🜂, 🝡 …), with their ancestry from the ledger's own mutation chain. These are the glyphs of RSOS: the
+  archetype glyphs (the Lion is 🦁, Tier 001) and the candidates for personal calibration.
+- **Stroke glyphs** (sections 1–4): glyphs described by strokes, from which image, rhythm and melody follow
+  exactly. The generated library of 48 is an optional extra set built this way.
 
 Reference implementations: `rsso/rsso/ugcl.py` (Python) and `docs/js/ugcl.js` (browser and Node).
 `rsso/tests/test_ugcl.py` checks that both give byte-identical SVG, identical rhythms and identical melodies
@@ -59,18 +67,19 @@ Decoding a code gives back the same image, rhythm and melody (tested).
 
 ## 3. Using a glyph in RSX
 
-`GLYPH` in a `TIER` block takes either any text (shown as is) or `ugcl:<id>` for a library glyph:
+`GLYPH` in a `TIER` block takes an original glyph as written in the ledger (shown with its stored
+image), `ugcl:<id>` for any UGCL glyph (`ugcl:O001`, `ugcl:G01`), or any other text (shown as is):
 
 ```
 TIER 1 LION {
   V "Golden lion light"
-  GLYPH "ugcl:G01"
+  GLYPH "🦁"
 }
 ```
 
 A person's own calibrated glyph (section 5) takes precedence over the program's glyph for that tier.
 
-## 4. The library
+## 4. The generated library (optional)
 
 `docs/ugcl/library.json` holds 48 glyphs, G01–G48, built by `python -m rsso.ugcl_library` (seeded,
 reproducible):
@@ -87,13 +96,13 @@ reproducible):
 Why distinctness: glyphs are conditioned cues, and cues that look, feel or sound alike generalise into
 each other. Results are in `rsso/results/ugcl_library.md`.
 
-Each archetype tier has a starting glyph (`archetype_defaults`), which is only a default.
+Archetype glyphs do not come from this set; they come from the ledger (section 6).
 
 ## 5. Personal calibration
 
 The player shows two glyphs at a time and asks which feels more like the tier (for the Lion tier: courage
-and the power to act). Eight candidates (the tier's starting glyph and the seven most distinct glyphs),
-16 choices. Strengths come from a Bradley–Terry model fitted by minorization–maximization, with a
+and the power to act). Eight candidates: the original glyphs of Epoch I, the era of the first override
+(🦁 ✨ 🔥 ·⁂⊚ ⧗ 🜇 ⟁ 🫁), 16 choices. Strengths come from a Bradley–Terry model fitted by minorization–maximization, with a
 virtual half-win against a reference of strength 1 so a glyph that wins or loses every time keeps a
 finite estimate. Each next pair is the one closest in current strength, least compared and not yet shown.
 In simulation (20 people with known preferences, 8 glyphs, 16 choices) the chosen glyph is in the true
@@ -104,3 +113,35 @@ localStorage), with every comparison kept so the result can be audited or refitt
 
 Planned: calibration from physiological response (EEG or heart rate) to each glyph, using the RSSO
 sensor layer, so the choice can be checked against the body as well as the first impression.
+
+## 6. Original glyphs
+
+`docs/ugcl/originals.json`, built by `python -m rsso.ugcl_originals` from the tier ledger:
+
+| Field | Meaning |
+|---|---|
+| `id` | O001–O146, in order of first appearance in the ledger (O001 = 🦁, Tier 001) |
+| `kind` | `"original"` |
+| `char` | the glyph exactly as recorded (a combined glyph such as ·⁂⊚ stays one glyph) |
+| `png` | the glyph rendered once with fixed fonts (Noto Color Emoji, DejaVu Sans, GNU Unifont, Unifont Upper), 64×64; monochrome glyphs are stored as a white mask so they can take any colour |
+| `haptic`, `tone` | the vibration rhythm and melody derived from the image (below) |
+| `tiers` | every tier where it appears, and how: as the tier's glyph, or as the start or end of a mutation |
+| `parents`, `children` | the glyphs it mutated from and into, with the tier of each mutation |
+
+`archetype_defaults` takes the archetype glyphs from the ledger: LION 🦁 (Tier 001), DRAGON 🐉 (Tier 013).
+The ledger records no glyph for the other archetypes.
+
+**Rhythm from the image.** One pulse per quadrant holding at least a tenth of the ink, clockwise from top
+left, 60–220 ms by its share; 80 ms apart, 140 ms if the glyph encloses space; the pattern twice if the
+glyph is mirror-symmetric; a 40 ms accent if it is dense; at most 2 s.
+
+**Melody from the image.** The directions in which the ink lies from the centre, in sevenths of a circle:
+one pentatonic note per strong direction, strongest first (2–4 notes), 140, 180 or 240 ms by how much ink
+lies that way; mirror-symmetric glyphs end with their first note an octave up.
+
+133 of the 146 original glyphs have a rhythm-and-melody pair of their own; the others are near-identical
+shapes (for example the ⥁–⥍ arrow family). Results: `rsso/results/ugcl_originals.md`.
+
+Because original glyphs are rendered images rather than strokes, their rhythm and melody are stored
+values: the JavaScript implementation reads them, and the parity test checks that both implementations
+give the same image, rhythm and melody for every original glyph.

@@ -10,7 +10,7 @@ TIER 1 LION {
   V "Golden lion light"
   A "Stillness"
   K "Warmth and strength in the belly"
-  GLYPH "ugcl:G01"
+  GLYPH "🦁"
   WORD "Courage"
 }
 

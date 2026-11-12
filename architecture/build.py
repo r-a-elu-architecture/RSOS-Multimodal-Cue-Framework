@@ -200,7 +200,7 @@ SUBS = [
      "Specified. Next uses: an AI that detects a negative state (from context, EEG or HRV) and injects the matching override or tier, and an AI that writes RSX programs from a description."),
     ("UGCL", "Glyph layer", "built",
      "Native glyph representation: multi-resolution glyph encoding, glyph genealogy and compression of glyph streams for devices.",
-     "Built: a glyph format in which one description gives an image at any size, a vibration rhythm and a melody; a compact one-line code for devices; a library of 48 glyphs evolved by recorded mutation (full genealogy) and selected to be as distinct as possible; personal glyph and colour calibration in the player from pairwise choices; Python and JavaScript identical (`spec/GLYPH_FORMAT.md`, `rsso/rsso/ugcl.py`, `docs/glyphs.html`). Next: calibration from the body's response (EEG, heart rate)."),
+     "Built: the 146 original glyphs of the tier ledger, exactly as recorded, each with a stored image, a vibration rhythm and a melody derived from its shape, and its ancestry from the ledger's mutation chain (the Lion is 🦁, Tier 001); a stroke format in which one description gives an image at any size, a rhythm, a melody and a compact code for devices, with an optional generated library of 48; personal glyph and colour calibration in the player among the original glyphs of Epoch I; Python and JavaScript identical (`spec/GLYPH_FORMAT.md`, `rsso/rsso/ugcl.py`, `rsso/rsso/ugcl_originals.py`, `docs/glyphs.html`). Next: calibration from the body's response (EEG, heart rate)."),
 ]
 rows = "\n".join(f"| [{n}](subsystems/{n}/) | {t} | {STATUS[s].split(' — ')[0]} |" for n, t, s, _, _ in SUBS)
 page("rsso", "RSSO — Recursive Symbolic System Operating", f"""

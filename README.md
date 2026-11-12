@@ -12,11 +12,11 @@
 |---|---|---|
 | **Override Protocol** | The core routine: interrupt, then five breaths: lion light in, through the body, three futures, out to the world, back in, sealed with "I own". Phases, channels, practice schedule, measures, safety, testable hypotheses. | [`spec/OVERRIDE_PROTOCOL.md`](spec/OVERRIDE_PROTOCOL.md) |
 | **RSX** | The executable language RSOS programs are written in. Compiles a program to a timeline of breath, word, image, gesture, haptic, tone, scent and taste events. Python and JavaScript implementations, checked against each other. | [`rsx/`](rsx/) |
-| **Protocol player** | Runs any RSX program with breath pacing, spoken words, tones and phone vibration; check-in before and after; a heart-rate trigger; progress toward a reflex for each tier, with weekly automaticity checks; your own glyph and colour, found by pairwise choices; run log and memory export; live RSX editor. Installable as an offline app. | [`docs/player.html`](docs/player.html) |
+| **Protocol player** | Runs any RSX program with breath pacing, spoken words, tones and phone vibration; check-in before and after; a heart-rate trigger; progress toward a reflex for each tier, with weekly automaticity checks; your own glyph among the original glyphs and your colour, found by pairwise choices; run log and memory export; live RSX editor. Installable as an offline app. | [`docs/player.html`](docs/player.html) |
 | **Learning model** | A formal model (Rescorla–Wagner + habit curve) of how a cue bundle becomes a reflex, with predictions swept across parameters. | [`rsx/model/PREDICTIONS.md`](rsx/model/PREDICTIONS.md) |
 | **RSSO runtime** | One interface for all devices; a Bluetooth heart-rate driver and stress detector; EEG input; a conformance suite every device must pass; virtual participants, synthetic studies and the analysis kit for real ones. | [`rsso/`](rsso/) |
 | **Device protocol and firmware** | The RSOS Device Protocol for wristbands and scent modules, a tested C++ device core and an ESP32 wristband sketch. | [`spec/DEVICE_PROTOCOL.md`](spec/DEVICE_PROTOCOL.md), [`firmware/`](firmware/) |
-| **Glyph layer (UGCL)** | 48 glyphs, each an image, a vibration rhythm and a melody from one description, evolved with full genealogy and selected to be as distinct as possible; compact code for devices. [See, feel and hear them](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/glyphs.html). | [`spec/GLYPH_FORMAT.md`](spec/GLYPH_FORMAT.md), [`docs/glyphs.html`](docs/glyphs.html) |
+| **Glyph layer (UGCL)** | The 146 original glyphs of the tier ledger, exactly as recorded (the Lion is 🦁), each also a vibration rhythm and a melody derived from its shape, with its ancestry from the ledger's mutation chain; a stroke format with a compact code for devices, and an optional generated library of 48. [See, feel and hear them](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/glyphs.html). | [`spec/GLYPH_FORMAT.md`](spec/GLYPH_FORMAT.md), [`docs/glyphs.html`](docs/glyphs.html) |
 | **Tier ledger, metrics and system map** | Every tier of the ledger as recorded, with where it lives in the architecture and the system behaviour it defines; every metric code with its recorded values and what it measures today, including your own numbers; one map of how the parts connect. [Ledger](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/tiers.html), [metrics](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/metrics.html), [system](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/system.html). | [`spec/TIER_LEDGER.md`](spec/TIER_LEDGER.md) |
 | **Personalised cue engine** | `rsos_cue`: reads the run log and learns which program, tier and voice work best for each person and trigger type, borrowing strength from earlier participants. | [`toolkit/`](toolkit/) |
 | **RSIA framework** | The identity layer: six archetypes (Lion, Eagle, Bear, Leopard, Raven, Tiger), the Spine, Watchdog and Meta-Architect; mnemonic sets. | [`framework/`](framework/) |
@@ -56,7 +56,7 @@ TIER 1 LION {
   V "Golden lion light"
   A "I move, I act"
   K "Warmth and strength in the belly"
-  GLYPH "◈"
+  GLYPH "🦁"
 }
 FUTURES "Driving the car" | "At work" | "Achieving your goal"
 

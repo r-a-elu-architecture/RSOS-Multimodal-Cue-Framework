@@ -11,7 +11,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/protocol.py` | Host side of the [RSOS Device Protocol](../spec/DEVICE_PROTOCOL.md): drives any RDP/1 wristband or scent module; with `SimTransport` it runs the real firmware core ([`firmware/`](../firmware/)) in simulation. |
 | `rsso/hrs.py` | Bluetooth Heart Rate Service driver (the standard every chest strap and most watches use): parses Heart Rate Measurement packets into beat-to-beat intervals. The player has the same driver in JavaScript (`docs/js/hrs.js`). |
 | `rsso/memstack.py` | MEMSTACK: per-tier memory from the run log and weekly automaticity checks: runs, effect over time, bundle strength (model estimate), fitted habit curve, estimated triggers until a 3-second start, and the reflex criterion; checksummed snapshots with restore and merge. The player shows the same summary (`docs/js/memstack.js`), computed identically. |
-| `rsso/ugcl.py`, `rsso/ugcl_library.py`, `rsso/calibration.py` | UGCL glyph layer ([format](../spec/GLYPH_FORMAT.md)): image, vibration rhythm, melody and compact code from one glyph description; the evolved library of 48 maximally distinct glyphs with full genealogy (`python -m rsso.ugcl_library`); Bradley–Terry personal calibration from pairwise choices. Identical to `docs/js/ugcl.js`. |
+| `rsso/ugcl.py`, `rsso/ugcl_originals.py`, `rsso/ugcl_library.py`, `rsso/calibration.py` | UGCL glyph layer ([format](../spec/GLYPH_FORMAT.md)): the 146 original glyphs of the tier ledger with image, rhythm, melody and ancestry (`python -m rsso.ugcl_originals`); stroke glyphs with image, rhythm, melody and compact code from one description, and an optional generated library of 48 (`python -m rsso.ugcl_library`); Bradley–Terry personal calibration from pairwise choices. Identical to `docs/js/ugcl.js`. |
 | `rsso/ledger.py`, `rsso/ledger_map.py`, `rsso/metrics.py` | The tier ledger as lossless structured data; where every tier lives in the architecture; the metric registry and the operational metrics computed from the run log (identical to `docs/js/metrics.js`). See [the tier ledger in the architecture](../spec/TIER_LEDGER.md). |
 | `rsso/consent.py` | Consented programming: cues a person or their therapist chooses to install, each with a consent record; programs with a cue are refused without valid consent; every cue can be listed and revoked. Identical to `docs/js/consent.js`. |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
@@ -20,7 +20,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 50 tests
+python -m unittest discover -s tests                     # 54 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

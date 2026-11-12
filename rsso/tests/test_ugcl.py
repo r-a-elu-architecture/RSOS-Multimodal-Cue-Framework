@@ -13,6 +13,7 @@ from rsso import calibration as cal, ugcl  # noqa: E402
 
 ROOT = HERE.parents[1]
 LIB = json.loads((ROOT / "docs" / "ugcl" / "library.json").read_text())
+ORIG = json.loads((ROOT / "docs" / "ugcl" / "originals.json").read_text(encoding="utf-8"))
 NODE = shutil.which("node")
 
 
@@ -33,8 +34,7 @@ class Format(unittest.TestCase):
         for g in LIB["glyphs"]:
             ugcl.validate(g)
             self.assertTrue(g["lineage"] and g["lineage"][0]["op"] == "seed")
-        for tier, gid in LIB["archetype_defaults"].items():
-            self.assertIn(gid, ids, tier)
+        self.assertEqual(LIB["archetype_defaults"], {})   # archetype glyphs come from the ledger
 
     def test_haptic_and_tone_limits(self):
         for g in LIB["glyphs"]:
@@ -70,6 +70,43 @@ class Format(unittest.TestCase):
         self.assertTrue(ugcl.svg(g).startswith("<svg"))
 
 
+class Originals(unittest.TestCase):
+    def test_every_ledger_glyph_is_an_original(self):
+        from rsso import ugcl_originals as uo
+        from rsso.ledger import build
+        chars = {g["char"] for g in ORIG["glyphs"]}
+        for r in build()["records"]:
+            if r["kind"] == "tier":
+                for t in uo.tokens(r["fields"].get("glyph", "")) + [x for g in r["glyph_chain"] for x in uo.tokens(g)[:1]]:
+                    self.assertIn(t, chars, r["id"])
+        self.assertEqual(len(chars), len(ORIG["glyphs"]))
+        self.assertEqual(ORIG["glyphs"][0]["char"], "🦁")
+        self.assertEqual(ORIG["glyphs"][0]["tiers"][0]["number"], "001")
+        self.assertEqual(ORIG["archetype_defaults"]["LION"], "O001")
+
+    def test_valid_with_rhythm_melody_and_ancestry(self):
+        for g in ORIG["glyphs"]:
+            ugcl.validate(g)
+            h = ugcl.haptic_signature(g)
+            self.assertLessEqual(sum(on + off for on, off in h), 2000)
+            self.assertEqual(h[-1][1], 0)
+            self.assertTrue(2 <= len(ugcl.tone_motif(g)) <= 5)
+        pairs = {json.dumps([g["haptic"], g["tone"]]) for g in ORIG["glyphs"]}
+        self.assertGreaterEqual(len(pairs), 130)
+        fire = next(g for g in ORIG["glyphs"] if g["char"] == "🜑")
+        self.assertIn("🜒", [c["char"] for c in fire["children"]])     # Tier 406: 🜑 → 🜒
+
+    def test_programs_use_the_original_lion(self):
+        for f in ("override.rsx", "tier003_command_stack.rsx", "tier014_seal.rsx", "tier579_glyph.rsx"):
+            self.assertIn('GLYPH "🦁"', (ROOT / "rsx" / "protocols" / f).read_text(encoding="utf-8"), f)
+
+    def test_build_is_reproducible(self):
+        from rsso import ugcl_originals as uo
+        again = uo.build_originals()
+        self.assertEqual([(g["char"], g["haptic"], g["tone"]) for g in again["glyphs"]],
+                         [(g["char"], g["haptic"], g["tone"]) for g in ORIG["glyphs"]])
+
+
 class Calibration(unittest.TestCase):
     def test_recovers_true_ranking(self):
         """Simulated people with known preferences: after 2n adaptive choices the top glyph is usually found."""
@@ -94,15 +131,17 @@ class Calibration(unittest.TestCase):
 class Parity(unittest.TestCase):
     def test_python_and_js_identical(self):
         cases = bt_cases()
-        out = json.loads(subprocess.run([NODE, str(HERE / "js_ugcl.js")], input=json.dumps(dict(glyphs=LIB["glyphs"], bt=cases)),
+        glyphs = LIB["glyphs"] + ORIG["glyphs"]
+        out = json.loads(subprocess.run([NODE, str(HERE / "js_ugcl.js")], input=json.dumps(dict(glyphs=glyphs, bt=cases)),
                                         capture_output=True, text=True, check=True).stdout)
-        for g, j in zip(LIB["glyphs"], out["glyphs"]):
+        for g, j in zip(glyphs, out["glyphs"]):
             self.assertEqual(ugcl.svg(g, 96), j["svg"], g["id"])
             self.assertEqual(ugcl.svg(g, 40, "#fff", "#000"), j["svg_bg"], g["id"])
             self.assertEqual(ugcl.haptic_signature(g), j["haptic"], g["id"])
             self.assertEqual(ugcl.tone_motif(g), j["tone"], g["id"])
-            self.assertEqual(ugcl.encode(g), j["code"], g["id"])
-            self.assertEqual(ugcl.svg(g, 96), j["back"], g["id"])
+            if g.get("kind") != "original":
+                self.assertEqual(ugcl.encode(g), j["code"], g["id"])
+                self.assertEqual(ugcl.svg(g, 96), j["back"], g["id"])
         for c, j in zip(cases, out["bt"]):
             for a, b in zip(cal.bt_fit(c["n"], c["comps"], iters=60), j["scores"]):
                 self.assertTrue(math.isclose(a, b, abs_tol=1e-9))

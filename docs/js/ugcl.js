@@ -36,8 +36,15 @@
     }
     return out;
   }
+  function svgOriginal(g, size, color, background) {
+    const bg = background ? '<rect width="64" height="64" fill="' + background + '"/>' : "";
+    const body = g.colour ? '<image href="' + g.png + '" width="64" height="64"/>' :
+      '<defs><mask id="m-' + g.id + '"><image href="' + g.png + '" width="64" height="64"/></mask></defs><rect width="64" height="64" fill="' + color + '" mask="url(#m-' + g.id + ')"/>';
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 64 64" role="img" aria-label="' + g.id + '">' + bg + body + "</svg>";
+  }
   function svg(g, size, color, background) {
     size = size || 120; color = color || "#e8b04a";
+    if (g.kind === "original") return svgOriginal(g, size, color, background);
     const parts = [];
     for (const s of expand(g)) {
       const p = s.p;
@@ -63,6 +70,7 @@
     return 0;
   }
   function hapticSignature(g) {
+    if (g.kind === "original") return g.haptic.map(x => x.slice());
     const base = g.strokes.map(s => [s.k === "D" ? 50 : Math.min(220, Math.max(60, rint(60 + 60 * strokeLength(s)))), 80]);
     let seq = [];
     for (let r = 0; r < Math.min(Math.trunc(g.sym || 1), 3); r++) { seq = seq.concat(base.map(x => x.slice())); seq[seq.length - 1][1] = 160; }
@@ -73,6 +81,7 @@
     return out;
   }
   function toneMotif(g) {
+    if (g.kind === "original") return g.tone.map(x => x.slice());
     const notes = [];
     for (const s of g.strokes) {
       const p = s.p;

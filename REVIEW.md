@@ -29,7 +29,7 @@ by tier, in `spec/TIER_LEDGER.md`.
 | Using it | [Player](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/player.html), [Node studio](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/nodes.html), [Therapist mode](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/therapist.html) |
 | Safety | [Safety page](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/safety.html), [`spec/CONTAIN.md`](spec/CONTAIN.md) |
 | Data | [Contribute](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/contribute.html), [`spec/DATA_CONTRIBUTION.md`](spec/DATA_CONTRIBUTION.md) |
-| Hardware | [Wristband page](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/device.html), [`firmware/BOARD_KIT.md`](firmware/BOARD_KIT.md), [`spec/DEVICE_PROTOCOL.md`](spec/DEVICE_PROTOCOL.md) |
+| Hardware | [Phones and wristbands](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/device.html), [`firmware/BOARD_KIT.md`](firmware/BOARD_KIT.md), [`spec/DEVICE_PROTOCOL.md`](spec/DEVICE_PROTOCOL.md) |
 
 ## 3. Reproduce everything
 

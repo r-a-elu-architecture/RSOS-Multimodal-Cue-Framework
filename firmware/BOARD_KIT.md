@@ -107,7 +107,7 @@ The band also advertises over Bluetooth LE as `RSOS-band`, using the Nordic UART
 
 You can check the band in three ways.
 
-- **From the browser.** Open the [Wristband page](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/device.html) in Chrome or Edge, choose "Connect by USB" (or "Bluetooth" on Android), then "Run the check".
+- **From the browser.** Open the [Phones and wristbands page](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/device.html) in Chrome or Edge, choose "Connect by USB" (or "Bluetooth" on Android), then "Run the check".
 - **From a computer:**
 
   ```bash

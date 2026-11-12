@@ -2,9 +2,9 @@
 
 **Function:** Symbolic layer injection: connects the operating system to AI models in both directions. Commands, tier state and context go to the model; the model injects back, as RSX programs and cues delivered through the device and brain-computer-interface loop, the resourceful state the moment calls for.
 
-**Status:** **Specified** — described in the archive and this map; not yet implemented
+**Status:** **Partly built** — some functions implemented, others still specified only
 
-**Now:** Specified. Next uses: an AI that detects a negative state (from context, EEG or HRV) and injects the matching override or tier, and an AI that writes RSX programs from a description.
+**Now:** Built: the node planner (`spec/NODES.md`, `rsso/rsso/nodes.py`, identically `docs/js/nodes.js`, node studio `docs/nodes.html`). From symptoms, triggers, body parameters and desired states it builds nodes — a state held as one unit, with cues on every sense (V, A, K, O, G), a vibration code, an original glyph, a mode (associated, or observer: nothing binds) and the mental frame said in that state — with a frame check, an RSX program per node, the ledger tiers, metrics, dose (50 a day for 4 days, then spaced), devices and safety; the plan runs in the player only after consent. The compiler emits each node's vibration code. Specified: the AI conversation that fills the intake and suggests frames, and an AI that detects a negative state (from context, EEG or HRV) and offers the matching node.
 
 ## Sources in the archive
 

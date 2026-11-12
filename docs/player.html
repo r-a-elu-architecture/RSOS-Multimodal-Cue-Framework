@@ -118,7 +118,13 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
         <option value="tier406_release">Tier 406: Release what was never yours</option>
         <option value="tier579_glyph">Tier 579: Glyph from stillness</option>
       </optgroup>
+      <optgroup label="Nodes">
+        <option value="node_lion">Lion node (associated)</option>
+        <option value="node_observer">Observer node (no ego)</option>
+      </optgroup>
+      <optgroup label="Your node plan" id="planGroup" hidden></optgroup>
     </select>
+    <p class="note"><a href="nodes.html">Design your own nodes in the node studio</a>.</p>
     <p class="note" id="tierNote" hidden></p>
     <div id="futuresBox">
       <label for="f0">Your three futures</label>
@@ -206,7 +212,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.8.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.9.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -281,17 +287,17 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.8.0"></script>
-<script src="js/hrs.js?v=1.8.0"></script>
-<script src="js/memstack.js?v=1.8.0"></script>
-<script src="js/ugcl.js?v=1.8.0"></script>
-<script src="js/consent.js?v=1.8.0"></script>
+<script src="js/rsx.js?v=1.9.0"></script>
+<script src="js/hrs.js?v=1.9.0"></script>
+<script src="js/memstack.js?v=1.9.0"></script>
+<script src="js/ugcl.js?v=1.9.0"></script>
+<script src="js/consent.js?v=1.9.0"></script>
 <script>
 "use strict";
-const BUILD = "1.8.0";
+const BUILD = "1.9.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
-  "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph"];
+  "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
 const sources = {};
 let timeline = null, run = null, audio = null;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -314,8 +320,14 @@ async function loadAll() {
   if (saved) { for (const k of ["inhale", "exhale"]) if (saved[k] != null) $(k).value = saved[k];
     if (saved.futuresEdited) for (const k of ["f0", "f1", "f2"]) if (saved[k] != null) $(k).value = saved[k];
     for (const k of ["optVoice", "optTone", "optVib"]) if (saved[k] != null) $(k).checked = saved[k]; }
+  // the person's own node plan, designed on the node studio page (nodes.html)
+  const myPlan = store.get("rsos.plan", null);
+  if (myPlan && myPlan.approved && myPlan.nodes && myPlan.nodes.length) {   // only a plan the person approved
+    const g = $("planGroup"); g.hidden = false;
+    myPlan.nodes.forEach((n, i) => { sources["plan:" + i] = n.program; g.appendChild(new Option(n.name + " (" + (n.mode === "observer" ? "observer" : "associated") + ")", "plan:" + i)); });
+  }
   const asked = new URLSearchParams(location.search).get("program");
-  if (asked && PROTOCOLS.includes(asked)) $("program").value = asked;
+  if (asked && (PROTOCOLS.includes(asked) || asked in sources)) $("program").value = asked;
   selectProgram();
 }
 function futuresOf(src) {
@@ -333,7 +345,8 @@ function selectProgram() {
     a.textContent = "Read " + tm[1].trim() + " in the ledger"; $("tierNote").appendChild(a); }
   const f = futuresOf(src);
   $("futuresBox").hidden = !f;
-  if (f) { const saved = store.get("rsos.settings", {}); if (!saved.futuresEdited) f.forEach((x, i) => { $("f" + i).value = x; }); }
+  const own = p.startsWith("node_") || p.startsWith("plan:");   // a node's contexts belong to that node
+  if (f) { const saved = store.get("rsos.settings", {}); if (own || !saved.futuresEdited) { ["f0", "f1", "f2"].forEach((id, i) => { $(id).value = f[i] || ""; }); } }
   recompile();
 }
 function q(s) { return '"' + String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"'; }

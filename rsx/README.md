@@ -62,7 +62,7 @@ One statement per line; `;` separates statements on one line; `#` starts a comme
 | `VERSION <v>` | Program version. |
 | `SAFETY max_per_hour=6 max_per_day=20 refractory=90s haptic_max=0.4` | Limits (defaults shown). |
 | `BREATH inhale=4s exhale=6s hold=0s` | Breath lengths used by `breath=` phases. |
-| `TIER <n> <NAME> { … }` | A multichannel bundle. Fields `V`, `A`, `K` (required), `O`, `G`, `GLYPH`, `WORD`, each with one quoted value. |
+| `TIER <n> <NAME> { … }` | A multichannel bundle. Fields `V`, `A`, `K` (required), `O`, `G`, `GLYPH`, `WORD`, each with one quoted value. Node fields ([spec/NODES.md](../spec/NODES.md)): `FRAME` (up to 5, the sentences said in the state), `MODE "associated"` or `"observer"`, `TACTON "..-"` (the node's vibration code, `.` 100 ms and `-` 300 ms pulses, played when the tier is activated). |
 | `FUTURES "a" \| "b" \| "c"` | Future contexts for `FOR FUTURE`. |
 | `PHASE <name> [breath=inhale\|exhale\|hold\|none] [dur=…] { … }` | A time slot. All steps start together at the phase start, except after `WAIT`. The phase lasts as long as its breath, its `dur` or its longest step, whichever is longest. |
 | `FOR FUTURE { PHASE … }` | Repeats the enclosed phases once per future; `$future` is replaced by the context text. Also allowed *inside* a phase to repeat steps (e.g. all futures within one exhale). |

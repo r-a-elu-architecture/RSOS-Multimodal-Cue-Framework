@@ -14,6 +14,7 @@ LANGUAGE_VERSION = "2.0"
 CHANNELS = ("V", "A", "K", "O", "G")
 CHANNEL_NAMES = {"V": "visual", "A": "auditory", "K": "kinesthetic", "O": "olfactory", "G": "gustatory"}
 
+TACTON_SHORT, TACTON_LONG, TACTON_GAP = 100, 300, 100
 DEFAULT_SAFETY = {"max_per_hour": 6, "max_per_day": 20, "refractory_ms": 90000, "haptic_max": 0.4}
 DEFAULT_BREATH = {"inhale": 4000, "exhale": 6000, "hold": 0}
 SAY_MS = 1500          # how long a spoken / shown word is presented
@@ -231,6 +232,18 @@ def _tier(prog, ln, toks, body):
             tier["glyph"] = val
         elif key == "WORD":
             tier["word"] = val
+        elif key == "FRAME":          # node: the mental frame held in this state (spec/NODES.md)
+            tier.setdefault("frames", []).append(val)
+            if len(tier["frames"]) > 5:
+                raise RSXError(b.no, "a tier holds at most 5 frames")
+        elif key == "MODE":
+            if val not in ("associated", "observer"):
+                raise RSXError(b.no, 'MODE is "associated" or "observer"')
+            tier["mode"] = val
+        elif key == "TACTON":         # node rhythm code: . short (100 ms), - long (300 ms)
+            if not re.fullmatch(r"[.\-]{1,6}", val):
+                raise RSXError(b.no, 'TACTON is 1 to 6 dots and dashes, e.g. "..-"')
+            tier["tacton"] = val
         else:
             raise RSXError(b.no, f"unknown tier field {key}")
     missing = [c for c in ("V", "A", "K") if c not in tier["channels"]]
@@ -405,12 +418,19 @@ def _find_tier(prog, ref, line):
 
 
 def _activate(prog, state, tier, phase, t, extra):
+    node = {k: tier[k] for k in ("frames", "mode", "tacton") if k in tier}
     end = _emit(prog, state, t, 0, "marker", "tier", phase, tier=tier["name"], number=tier["number"],
-                glyph=tier["glyph"], word=tier["word"], **extra)
+                glyph=tier["glyph"], word=tier["word"], **node, **extra)
     for ch in CHANNELS:
         if ch in tier["channels"]:
             end = max(end, _emit(prog, state, t, CUE_MS, CHANNEL_NAMES[ch], "cue", phase,
                                  text=tier["channels"][ch], tier=tier["name"], **extra))
+    off = 0
+    for sym in tier.get("tacton", ""):
+        on = TACTON_SHORT if sym == "." else TACTON_LONG
+        end = max(end, _emit(prog, state, t + off, on + TACTON_GAP, "haptic", "pulse", phase, on=on, off=TACTON_GAP,
+                             count=1, amp=prog["safety"]["haptic_max"], tacton=tier["tacton"], **extra))
+        off += on + TACTON_GAP
     return end
 
 

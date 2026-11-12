@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Node studio — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="Design personal nodes: a state held as one unit, with cues on every sense, a vibration code, a glyph and the mental frame of that state. From symptoms and desired states to a practice plan the player runs.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --obs:#9fb6d9; --warn:#f0a35a;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sym:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",Symbola,var(--serif);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.55 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main{max-width:1320px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:4px 20px}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;align-items:center;margin:34px 0 10px}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.3rem);line-height:1.08;margin:0 0 14px;max-width:16ch}
+.lede{color:var(--muted);max-width:60ch;margin:0 0 10px}
+.hero svg{width:100%;max-width:420px;justify-self:center}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px;margin-top:26px;align-items:start}
+.step{border-top:1px solid var(--line);padding:22px 0 8px}
+.step h2{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:0 0 4px;display:flex;gap:12px;align-items:baseline}
+.step h2 .n{color:var(--gold);font-size:1rem;min-width:1.2em}
+.ask{color:var(--muted);margin:0 0 14px;max-width:60ch}
+label{display:block;font-size:.88rem;color:var(--muted);margin:12px 0 5px}
+input[type=text],input[type=number],textarea,select{width:100%;background:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:9px 11px;color:var(--text);font:inherit;font-size:.95rem}
+textarea{min-height:68px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.five{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{display:inline-flex;align-items:center;gap:7px;margin:0;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--text);font-size:.9rem;cursor:pointer}
+.chips input{accent-color:var(--gold)}
+.chips label:has(input:checked){border-color:var(--gold);background:var(--ink-3)}
+.picks{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.pick{background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 14px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer}
+.pick:hover{border-color:var(--gold)}
+.nodecard{background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:12px 0}
+.nodecard header{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.nodecard h3{font-family:var(--serif);font-weight:500;font-size:1.25rem;margin:0}
+.x{background:none;border:0;color:var(--muted);cursor:pointer;font:inherit;font-size:.88rem}
+.x:hover{color:var(--text)}
+.hint{color:var(--muted);font-size:.82rem;margin:4px 0 0}
+.range{display:flex;align-items:center;gap:10px}
+.range input{flex:1;accent-color:var(--gold)}
+.preview{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.preview h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:0 0 4px}
+.preview h3{font-size:.9rem;color:var(--muted);font-weight:600;margin:22px 0 8px}
+.pnode{display:grid;grid-template-columns:160px 1fr;gap:16px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.pnode h4{font-family:var(--serif);font-weight:500;font-size:1.2rem;margin:0}
+.pnode p{margin:3px 0;font-size:.9rem}
+.frame{font-family:var(--serif);font-size:1.02rem;margin:6px 0 2px}
+.fc{font-size:.82rem;color:var(--muted)}
+.fc b{color:var(--text);font-weight:600}
+.fc .tip{color:var(--warn)}
+.mini{display:flex;gap:6px;margin-top:6px}
+.mini button{background:transparent;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--text);font:inherit;font-size:.8rem;cursor:pointer}
+ul.plain{list-style:none;margin:0;padding:0}
+ul.plain li{padding:5px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.sched{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sched div{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.sched b{display:block;font-family:var(--serif);font-weight:500;font-size:1.05rem}
+.sched span{color:var(--muted);font-size:.82rem}
+.safety li{color:var(--text)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:10px 18px;color:var(--text);font:inherit;font-size:.92rem;cursor:pointer;text-decoration:none;margin:8px 8px 0 0}
+.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.msg{font-size:.9rem;margin:10px 0 0;min-height:1.2em}
+.msg.err{color:var(--warn)} .msg.ok{color:#8fd19e}
+.check{display:flex;gap:9px;align-items:flex-start;color:var(--text);font-size:.92rem;margin:10px 0}
+.check input{margin-top:4px;accent-color:var(--gold)}
+pre.prog{white-space:pre-wrap;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:12px;max-height:260px;overflow:auto}
+table.open{border-collapse:collapse;width:100%;font-size:.88rem}
+table.open td,table.open th{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left}
+table.open th{color:var(--muted);font-weight:600}
+footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-size:.88rem}
+@media (max-width:1000px){.layout,.hero{grid-template-columns:1fr}.preview{position:static;max-height:none}.five{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="player.html">Player</a><a href="nodes.html" aria-current="page">Nodes</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav>
+</header>
+<main>
+  <section class="hero">
+    <div>
+      <h1>Design the states you want to live in</h1>
+      <p class="lede">A node is a state held as one unit: a sphere of light, the sound, the feeling, the scent, the taste, a vibration on the wrist, and the words you say in that state. Practised together, any one of them opens the whole state, including the way you see.</p>
+      <p class="lede">Describe what is happening and the states you want. The studio builds the plan: nodes, cues, codes, glyphs, frames, the ledger tiers and metrics to use, and how often to practise. You, or you with your therapist, approve it; the player runs it.</p>
+    </div>
+    <svg id="heroNode" viewBox="0 0 260 260" role="img" aria-label="A node: a sphere of golden light with five senses around it and its vibration code below"></svg>
+  </section>
+
+  <div class="layout">
+    <form id="intake" autocomplete="off" onsubmit="return false">
+      <section class="step">
+        <h2><span class="n">1</span>What is happening</h2>
+        <p class="ask">What do you, or the person you work with, want to change? Choose what applies and describe it in your own words.</p>
+        <div class="chips" id="concerns"></div>
+        <label for="symptoms">Symptoms and what they feel like</label>
+        <textarea id="symptoms" placeholder="For example: tension in the chest, racing thoughts at night, flashbacks when voices are raised"></textarea>
+        <label for="triggers">Triggers, one per line</label>
+        <textarea id="triggers" placeholder="Raised voices&#10;Opening social media instead of working"></textarea>
+        <div class="two">
+          <div><label for="author">Who is writing this plan</label><select id="author"><option value="self">I am, for myself</option><option value="therapist">A therapist, with the client</option></select></div>
+          <div><label for="person">For (optional)</label><input type="text" id="person" placeholder="me"></div>
+        </div>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">2</span>The body and the devices</h2>
+        <p class="ask">Resting heart rate and variability let the heart-rate trigger learn your baseline. Leave them empty if you don't know them.</p>
+        <div class="two">
+          <div><label for="hr">Resting heart rate (bpm)</label><input type="number" id="hr" min="30" max="140" placeholder="72"></div>
+          <div><label for="rmssd">Heart-rate variability, RMSSD (ms)</label><input type="number" id="rmssd" min="5" max="200" placeholder="35"></div>
+        </div>
+        <label>Devices you have</label>
+        <div class="chips" id="devices"></div>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">3</span>Your nodes</h2>
+        <p class="ask">Which states do you want, and which symbol holds each one: a lion for courage and boundaries, a raven for the wide view, the observer for no ego, where nothing binds? Start from a symbol or make your own.</p>
+        <div class="picks" id="picks"></div>
+        <div id="nodes"></div>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">4</span>How much practice</h2>
+        <p class="ask">A node becomes a reflex through repetition. The original override was practised by interrupting 50 negative states a day; a shorter, spaced plan works too.</p>
+        <div class="two">
+          <div><label for="perDay">Runs per day, first phase</label><input type="number" id="perDay" min="1" max="100" value="50"></div>
+          <div><label for="days">Days</label><input type="number" id="days" min="1" max="60" value="4"></div>
+        </div>
+      </section>
+
+      <section class="step">
+        <h2><span class="n">5</span>Approve</h2>
+        <p class="ask">Read every node on the right. A plan runs only with the consent of the person it is for.</p>
+        <div id="ledBox" hidden>
+          <label class="check"><input type="checkbox" id="therapistHere"> A therapist is present for this session</label>
+          <p class="hint" id="screenQ"></p>
+          <div class="chips"><label><input type="radio" name="screen" value="no"> No</label><label><input type="radio" name="screen" value="yes"> Yes</label></div>
+        </div>
+        <label class="check"><input type="checkbox" id="consent"> I have read every node, frame and cue in this plan, and I agree that it runs for me</label>
+        <div>
+          <button class="btn go" type="button" id="save">Save the plan and open the player</button>
+          <button class="btn" type="button" id="copyAI">Copy for an AI assistant</button>
+          <button class="btn" type="button" id="download">Download the plan</button>
+        </div>
+        <p class="msg" id="msg" aria-live="polite"></p>
+      </section>
+    </form>
+
+    <aside class="preview" aria-live="polite">
+      <h2>Your plan</h2>
+      <p class="hint" id="pSummary">Add a node to begin.</p>
+      <div id="pNodes"></div>
+      <div id="pRest"></div>
+    </aside>
+  </div>
+</main>
+<footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it does not diagnose.</footer>
+<script src="js/ugcl.js?v=1.9.0"></script>
+<script src="js/nodes.js?v=1.9.0"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const N = RSOSNodes;
+const SCREEN = "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?";
+const DEVICES = [["V", "Screen or VR"], ["A", "Earbuds"], ["K", "Vibrating wristband"], ["O", "Scent module"], ["G", "Taste cue"], ["hr", "Heart-rate strap or watch"], ["eeg", "EEG headset"]];
+const CH = [["V", "Visual", "What you see: the sphere, its colour, the image"], ["A", "Auditory", "The sound, melody or song"], ["K", "Kinesthetic", "The feeling and posture"],
+  ["O", "Olfactory", "The scent"], ["G", "Gustatory", "The taste"]];
+let ORIG = [], counter = 0, audio = null;
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+const ns = "http://www.w3.org/2000/svg";
+function svgEl(tag, attrs) { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+/* The node sphere: the state as a ball of light (observer: a clear ring), its glyph at the centre, the five senses
+   around it (filled when the node has a cue on that sense), its vibration code below. */
+function nodeSphere(svg, n, size) {
+  svg.innerHTML = ""; const W = 260, cx = 130, cy = 116, obs = n.mode === "observer";
+  svg.setAttribute("viewBox", "0 0 " + W + " " + W);
+  const id = "g" + (counter++);
+  const defs = svgEl("defs", {});
+  defs.innerHTML = '<radialGradient id="' + id + '"><stop offset="0" stop-color="#fff6dc"/><stop offset=".32" stop-color="#f7d995"/><stop offset=".62" stop-color="#e8b04a" stop-opacity=".85"/><stop offset="1" stop-color="#e8b04a" stop-opacity="0"/></radialGradient>';
+  svg.appendChild(defs);
+  if (obs) { svg.appendChild(svgEl("circle", { cx, cy, r: 62, fill: "none", stroke: "#9fb6d9", "stroke-width": 1.5, "stroke-dasharray": "2 6" }));
+    svg.appendChild(svgEl("circle", { cx, cy, r: 44, fill: "none", stroke: "#9fb6d9", "stroke-opacity": .5 })); }
+  else svg.appendChild(svgEl("circle", { cx, cy, r: 78, fill: "url(#" + id + ")" }));
+  const g = ORIG.find(o => o.char === n.glyph);
+  if (g) { const holder = svgEl("g", { transform: "translate(" + (cx - 26) + "," + (cy - 26) + ")" }); holder.innerHTML = UGCL.svg(g, 52, obs ? "#cfdcf0" : "#2b1d07").replace(/^<svg /, "<svg x=\"0\" y=\"0\" "); svg.appendChild(holder); }
+  else if (n.glyph) { const t = svgEl("text", { x: cx, y: cy + 14, "text-anchor": "middle", "font-size": 38, fill: obs ? "#cfdcf0" : "#2b1d07", style: "font-family:var(--sym)" }); t.textContent = n.glyph; svg.appendChild(t); }
+  else if (n.name) { const t = svgEl("text", { x: cx, y: cy + 15, "text-anchor": "middle", "font-size": 44, fill: obs ? "#cfdcf0" : "#2b1d07", style: "font-family:var(--serif)" }); t.textContent = n.name.charAt(0).toUpperCase(); svg.appendChild(t); }
+  CH.forEach(([k, name, hint], i) => {
+    const a = (-90 + i * 72) * Math.PI / 180, R = 104, x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
+    const on = !!(n.channels && n.channels[k]);
+    svg.appendChild(svgEl("line", { x1: cx + 70 * Math.cos(a), y1: cy + 70 * Math.sin(a), x2: x - 14 * Math.cos(a), y2: y - 14 * Math.sin(a), stroke: "#2e3858" }));
+    const c = svgEl("circle", { cx: x, cy: y, r: 14, fill: on ? (obs ? "#9fb6d9" : "#e8b04a") : "#151b2f", stroke: on ? "none" : "#56608a" });
+    const ti = svgEl("title", {}); ti.textContent = name + ": " + (on ? n.channels[k] : "no cue yet"); c.appendChild(ti); svg.appendChild(c);
+    const t = svgEl("text", { x, y: y + 4.5, "text-anchor": "middle", "font-size": 12, "font-weight": 700, fill: on ? "#151b2f" : "#a3abc6", "pointer-events": "none" }); t.textContent = k; svg.appendChild(t);
+  });
+  let x = cx - N.tactonPulses(n.tacton).reduce((s, [on]) => s + (on === 100 ? 10 : 26) + 8, -8) / 2;
+  for (const [on] of N.tactonPulses(n.tacton)) {
+    if (on === 100) svg.appendChild(svgEl("circle", { cx: x + 5, cy: 246, r: 5, fill: obs ? "#9fb6d9" : "#e8b04a" }));
+    else svg.appendChild(svgEl("rect", { x, y: 242, width: 26, height: 8, rx: 4, fill: obs ? "#9fb6d9" : "#e8b04a" }));
+    x += (on === 100 ? 10 : 26) + 8;
+  }
+}
+function feel(code) { if (navigator.vibrate) navigator.vibrate(N.tactonPulses(code).flat()); else { $("msg").className = "msg err"; $("msg").textContent = "This browser cannot vibrate; try “Hear it”, or open the page on an Android phone."; } }
+function hear(code) {
+  try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); let t = audio.currentTime + 0.05;
+    for (const [on, off] of N.tactonPulses(code)) { const o = audio.createOscillator(), v = audio.createGain(); o.frequency.value = 440;
+      v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(.16, t + .01); v.gain.setValueAtTime(.16, t + on / 1000 - .01); v.gain.linearRampToValueAtTime(0, t + on / 1000);
+      o.connect(v).connect(audio.destination); o.start(t); o.stop(t + on / 1000 + .02); t += (on + (off || 100)) / 1000; } } catch (e) {}
+}
+
+function nodeCard(arch, preset) {
+  const A = N.ARCHETYPES[arch] || null, box = el("div", "nodecard"); box.dataset.archetype = A ? arch : "";
+  const head = el("header"); const h = el("h3", "", A ? arch.charAt(0) + arch.slice(1).toLowerCase() : "Your own node");
+  const rm = el("button", "x", "Remove"); rm.type = "button"; rm.addEventListener("click", () => { box.remove(); update(); }); head.append(h, rm); box.appendChild(head);
+  const field = (label, key, value, hint, type) => { const l = el("label", "", label); const inp = type === "area" ? el("textarea") : el("input"); if (type !== "area") inp.type = "text";
+    inp.dataset.k = key; inp.value = value || ""; if (hint) inp.placeholder = hint; l.htmlFor = inp.id = "n" + (counter++) + key; box.append(l, inp); return inp; };
+  const two = el("div", "two"); box.appendChild(two);
+  const nm = el("div"); const nl = el("label", "", "Name"); const ni = el("input"); ni.type = "text"; ni.dataset.k = "name"; ni.value = (preset && preset.name) || (A ? arch.charAt(0) + arch.slice(1).toLowerCase() : "");
+  ni.addEventListener("input", () => { h.textContent = ni.value || "Your own node"; }); nl.htmlFor = ni.id = "n" + (counter++); nm.append(nl, ni);
+  const md = el("div"); const ml = el("label", "", "Mode"); const ms = el("select"); ms.dataset.k = "mode"; ms.id = ml.htmlFor = "n" + (counter++);
+  ms.append(new Option("Associated: in the body", "associated"), new Option("Observer: nothing binds, only observed", "observer")); ms.value = (A && A.mode) || "associated"; md.append(ml, ms);
+  two.append(nm, md);
+  field("The state it holds", "state", A ? A.meaning : "", "For example: calm confidence, boundaries");
+  field("How it looks to you", "representation", "", "A sphere of golden light (default)");
+  box.appendChild(el("label", "", "Cues on each sense: what you see, hear, feel, smell and taste in this state"));
+  const five = el("div", "five"); box.appendChild(five);
+  for (const [k, name, hint] of CH) { const w = el("div"); const l = el("label", "", name); l.style.marginTop = "0"; const i = el("input"); i.type = "text"; i.dataset.k = k; i.placeholder = hint; l.htmlFor = i.id = "n" + (counter++) + k; w.append(l, i); five.appendChild(w); }
+  const fr = field("What you say in this state: the mental frame, one per line", "frames", A ? A.frame : "", "I am intelligent and I see broadly, from above", "area");
+  box.appendChild(el("p", "hint", "The frame sets how widely you perceive. “I am intelligent and see broadly” opens a wider frame than “I am good at seeing things”."));
+  const rl = el("label", "", "How believable is the first frame for you today?"); const rr = el("div", "range"); const rg = el("input"); rg.type = "range"; rg.min = 0; rg.max = 10; rg.value = 8; rg.dataset.k = "believability";
+  const rv = el("output", "", "8 of 10"); rg.addEventListener("input", () => { rv.textContent = rg.value + " of 10"; }); rl.htmlFor = rg.id = "n" + (counter++); rr.append(rg, rv); box.append(rl, rr);
+  field("Where you will use it, one per line (up to 3)", "contexts", "", "Saying no to scrolling and moving to the task\nAt work", "area");
+  field("Its rules, one per line (optional)", "rules", A && A.mode === "observer" ? "Nothing binds\nNothing holds\nOnly observed" : "", "Used where boundaries are needed", "area");
+  const two2 = el("div", "two"); box.appendChild(two2);
+  const gw = el("div"); const gl = el("label", "", "Glyph"); const gs = el("select"); gs.dataset.k = "glyph"; gl.htmlFor = gs.id = "n" + (counter++);
+  gs.appendChild(new Option("None", "")); for (const o of ORIG) gs.appendChild(new Option(o.char + "  Tier " + o.tiers[0].number, o.char));
+  gs.value = A ? A.glyph : ""; gw.append(gl, gs);
+  const tw = el("div"); const tl = el("label", "", "Vibration code (. short, - long)"); const ti = el("input"); ti.type = "text"; ti.dataset.k = "tacton"; ti.placeholder = A ? A.tacton + " (automatic)" : "automatic";
+  tl.htmlFor = ti.id = "n" + (counter++); tw.append(tl, ti); two2.append(gw, tw);
+  box.addEventListener("input", update);
+  $("nodes").appendChild(box);
+  if (preset) for (const [k, v] of Object.entries(preset)) { const i = box.querySelector('[data-k="' + k + '"]'); if (i) i.value = Array.isArray(v) ? v.join("\n") : v; }
+  update();
+  return box;
+}
+
+function intake() {
+  const lines = v => v.split("\n").map(x => x.trim()).filter(Boolean);
+  const nodes = [...document.querySelectorAll(".nodecard")].map(c => {
+    const g = k => { const i = c.querySelector('[data-k="' + k + '"]'); return i ? i.value : ""; };
+    const n = { archetype: c.dataset.archetype, name: g("name").trim(), mode: g("mode"), state: g("state").trim(), representation: g("representation").trim(),
+      frames: lines(g("frames")), contexts: lines(g("contexts")), rules: lines(g("rules")), glyph: g("glyph"), believability: +g("believability") };
+    for (const k of ["V", "A", "K", "O", "G"]) n[k] = g(k).trim();
+    const t = g("tacton").trim(); if (/^[.\-]{1,6}$/.test(t)) n.tacton = t;
+    return n;
+  });
+  const devices = {}; for (const [k] of DEVICES) devices[k] = !!($("dev-" + k) && $("dev-" + k).checked);
+  const phys = {}; if (+$("hr").value) phys.resting_hr = +$("hr").value; if (+$("rmssd").value) phys.rmssd = +$("rmssd").value;
+  return { person: $("person").value.trim() || "me", author: $("author").value, concerns: [...document.querySelectorAll("#concerns input:checked")].map(i => i.value),
+    symptoms: $("symptoms").value.trim(), triggers: lines($("triggers").value), physiology: phys, devices, nodes,
+    dose: { per_day: Math.max(1, +$("perDay").value || 1), days: Math.max(1, +$("days").value || 1) } };
+}
+
+let current = null;
+function update() {
+  const it = intake(), p = N.plan(it); current = { intake: it, plan: p };
+  const box = $("pNodes"), rest = $("pRest"); box.innerHTML = ""; rest.innerHTML = "";
+  $("ledBox").hidden = !(p.therapist_led || it.concerns.includes("ptsd") || it.concerns.includes("depression"));
+  if (!p.nodes.length) { $("pSummary").textContent = "Add a node to begin: choose a symbol on the left."; return; }
+  $("pSummary").textContent = p.nodes.length + (p.nodes.length === 1 ? " node" : " nodes") + (p.concerns.length ? " for " + p.concerns.join(", ").toLowerCase() : "") + ".";
+  for (const n of p.nodes) {
+    const row = el("div", "pnode"); const s = svgEl("svg", { role: "img", "aria-label": n.name + " node" }); s.style.width = "160px"; nodeSphere(s, n);
+    const info = el("div"); info.appendChild(el("h4", "", n.name)); info.appendChild(el("p", "", (n.mode === "observer" ? "Observer" : "Associated") + (n.meaning ? ": " + n.meaning : "") + ". Vibration code " + n.tacton + "."));
+    for (const fc of n.frame_checks) {
+      info.appendChild(el("p", "frame", "“" + fc.text + "”"));
+      const d = el("div", "fc"); const b = el("b", "", "Frame " + fc.score + " of 100."); d.append(b, " A " + fc.scope + " frame, " + fc.kind + ".");
+      for (const t of fc.tips) { const tp = el("div", "tip", t); d.appendChild(tp); }
+      info.appendChild(d);
+    }
+    const mini = el("div", "mini"); const f1 = el("button", "", "Feel the code"); f1.type = "button"; f1.addEventListener("click", () => feel(n.tacton));
+    const f2 = el("button", "", "Hear the code"); f2.type = "button"; f2.addEventListener("click", () => hear(n.tacton));
+    const f3 = el("button", "", "Show the program"); f3.type = "button"; const pre = el("pre", "prog", n.program); pre.hidden = true;
+    f3.addEventListener("click", () => { pre.hidden = !pre.hidden; f3.textContent = pre.hidden ? "Show the program" : "Hide the program"; });
+    mini.append(f1, f2, f3); info.append(mini, pre); row.append(s, info); box.appendChild(row);
+  }
+  const sec = (title, node) => { rest.appendChild(el("h3", "", title)); rest.appendChild(node); };
+  const sch = el("div", "sched"); for (const x of p.schedule) { const d = el("div"); d.appendChild(el("b", "", x.phase)); d.appendChild(el("span", "", x.per_day ? x.per_day + " a day for " + x.days + " days. " + x.note : x.note)); sch.appendChild(d); }
+  sec("Practice", sch);
+  const tl = el("ul", "plain"); p.tiers.forEach(t => { const li = el("li"); const a = el("a", "", "Tier " + t.slice(1)); a.href = "tiers.html#" + t; li.appendChild(a); tl.appendChild(li); });
+  const tw = el("p", "hint"); p.tiers.forEach((t, i) => { const a = el("a", "", t.slice(1)); a.href = "tiers.html#" + t; tw.append(a, i < p.tiers.length - 1 ? ", " : "."); });
+  sec("Ledger tiers it draws on", tw);
+  const mw = el("p", "hint"); p.metrics.forEach((m, i) => { const a = el("a", "", m); a.href = "metrics.html#" + m; mw.append(a, i < p.metrics.length - 1 ? ", " : "."); });
+  sec("Metrics to follow", mw);
+  if (p.devices.length) { const ul = el("ul", "plain"); p.devices.forEach(d => ul.appendChild(el("li", "", d))); sec("Devices", ul); }
+  if (p.detector) sec("Heart-rate trigger", el("p", "hint", "Resting " + p.detector.resting_hr + " bpm" + (p.detector.rmssd ? ", RMSSD " + p.detector.rmssd + " ms" : "") + ". " + p.detector.note));
+  const sl = el("ul", "plain safety"); p.safety.forEach(s => sl.appendChild(el("li", "", s))); sec("Safety", sl);
+  const runs = store.get("rsos.runs", []); const op = N.channelOpening(runs);
+  if (Object.keys(op).length) {
+    const t = el("table", "open"); const hr = el("tr"); ["Trigger", "Runs", "Median start", "Within 3 s"].forEach(x => hr.appendChild(el("th", "", x))); t.appendChild(hr);
+    const NAMES = { V: "Seen", A: "Heard", K: "Felt in the body", O: "Smell", G: "Taste", thought: "Thought", memory: "Memory" };
+    for (const [k, v] of Object.entries(op)) { const tr = el("tr"); tr.append(el("td", "", NAMES[k] || k), el("td", "", String(v.runs)), el("td", "", v.median_latency === null ? "—" : v.median_latency.toFixed(1) + " s"), el("td", "", v.within_3s === null ? "—" : v.within_3s + "%")); t.appendChild(tr); }
+    sec("How each sense already opens your practice", t);
+  }
+}
+
+function aiPrompt() {
+  const { intake: it, plan: p } = current;
+  return ["You are helping design RSOS nodes (https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/nodes.html).",
+    "A node is a state held as one unit: cues on every sense (V A K O G), a vibration code, a glyph, a mode (associated: in the body; observer: nothing binds, only observed) and the mental frame said in that state.",
+    "Please (1) suggest frames that are broad, present-tense, process-based and believable for this person; (2) suggest cues for any empty sense; (3) point out anything a therapist should review. Do not diagnose. Keep every suggestion something the person agrees to.",
+    "", "Intake:", JSON.stringify(it, null, 2), "", "Current plan (nodes without programs):",
+    JSON.stringify(p.nodes.map(n => ({ name: n.name, mode: n.mode, state: n.meaning, channels: n.channels, frames: n.frames, frame_checks: n.frame_checks.map(f => ({ text: f.text, scope: f.scope, kind: f.kind, flags: f.flags })), tacton: n.tacton, glyph: n.glyph, contexts: n.contexts })), null, 2)].join("\n");
+}
+function say(text, ok) { $("msg").className = "msg " + (ok ? "ok" : "err"); $("msg").textContent = text; }
+$("copyAI").addEventListener("click", async () => {
+  if (!current || !current.plan.nodes.length) return say("Add a node first.");
+  try { await navigator.clipboard.writeText(aiPrompt()); say("Copied. Paste it into your AI assistant; bring its suggestions back here.", true); }
+  catch (e) { say("The browser blocked the clipboard. Use “Download the plan” instead."); }
+});
+$("download").addEventListener("click", () => {
+  if (!current || !current.plan.nodes.length) return say("Add a node first.");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(current, null, 2)], { type: "application/json" }));
+  a.download = "rsos-node-plan.json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+});
+$("save").addEventListener("click", () => {
+  if (!current || !current.plan.nodes.length) return say("Add a node first.");
+  const p = current.plan;
+  if (!$("ledBox").hidden) {
+    const screen = (document.querySelector('input[name="screen"]:checked') || {}).value;
+    if (screen === "yes") return say("Please do not start this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist.");
+    if (screen !== "no") return say("Answer the screening question first.");
+    if (p.therapist_led && !$("therapistHere").checked) return say("Observer work with trauma memories is therapist-led: save this plan in a session with your therapist present.");
+  }
+  if (!$("consent").checked) return say("A plan is saved only with consent: tick the box once you have read every node.");
+  store.set("rsos.plan", Object.assign({}, p, { approved: true, approved_at: new Date().toISOString(), intake: current.intake }));
+  say("Saved. Opening the player with your first node…", true);
+  setTimeout(() => { location.href = "player.html?program=plan:0"; }, 700);
+});
+
+// build the form
+for (const [k, v] of Object.entries(N.CONCERNS)) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = k; l.append(i, v); $("concerns").appendChild(l); }
+for (const [k, v] of DEVICES) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.id = "dev-" + k; i.checked = ["V", "A", "K"].includes(k); l.append(i, v); $("devices").appendChild(l); }
+for (const k of [...Object.keys(N.ARCHETYPES), ""]) {
+  const b = el("button", "pick", k ? (N.ARCHETYPES[k].glyph ? N.ARCHETYPES[k].glyph + " " : "") + k.charAt(0) + k.slice(1).toLowerCase() + (k === "OBSERVER" ? " (no ego)" : "") : "Your own node");
+  b.type = "button"; b.addEventListener("click", () => { const c = nodeCard(k); c.scrollIntoView({ behavior: "smooth", block: "start" }); }); $("picks").appendChild(b);
+}
+$("screenQ").textContent = SCREEN;
+$("intake").addEventListener("input", update);
+fetch("ugcl/originals.json?v=1.9.0").then(r => r.json()).then(d => { ORIG = d.glyphs; }).catch(() => {}).finally(() => {
+  const saved = store.get("rsos.plan", null);
+  if (saved && saved.intake) {
+    const it = saved.intake; $("symptoms").value = it.symptoms || ""; $("triggers").value = (it.triggers || []).join("\n"); $("author").value = it.author || "self";
+    (it.concerns || []).forEach(c => { const i = document.querySelector('#concerns input[value="' + c + '"]'); if (i) i.checked = true; });
+    for (const n of it.nodes) nodeCard(n.archetype || "", n);
+  } else nodeCard("LION");
+  nodeSphere($("heroNode"), Object.assign({}, N.plan({ nodes: [{ archetype: "LION", O: "Cedar", G: "Mint" }] }).nodes[0]));
+  update();
+});
+</script>
+</body>
+</html>

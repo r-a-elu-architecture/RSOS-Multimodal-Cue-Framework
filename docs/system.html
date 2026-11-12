@@ -108,9 +108,9 @@ const NODES = {
   eeg: { x: 20, y: 250, w: 190, h: 64, t: "EEG and BCI", s: "pre-attentive detection", status: "sim", layer: "AUG",
     does: "An EEG stream (replay, synthetic, or a headset through Lab Streaming Layer) gives band powers and an arousal detector: detection before the state is noticed, as Tiers 589–590 describe.", files: ["rsso/rsso/eeg.py"],
     parts: ["Muse, OpenBCI, Emotiv via LSL", "Synthetic test: 2 of 2 events found, none false"] },
-  ai: { x: 20, y: 340, w: 190, h: 64, t: "AI layer and nodes", s: "LINX", status: "partial", layer: "LINX",
-    does: "The AI interface and injection layer, in both directions: context, tier state and sensor events go to the model; the model sends back the program, tier or glyph the moment calls for, through the device and BCI loop. It may only offer; the person starts. Its first built part is the node planner: from symptoms, triggers and desired states it builds nodes (a state held as one unit, with cues on every sense, a vibration code, a glyph, a mode and the mental frame), the program for each, the ledger tiers, metrics, dose and safety.", files: ["rsso/rsso/nodes.py", "docs/js/nodes.js", "docs/nodes.html", "spec/NODES.md", "architecture/rsso/subsystems/LINX/"],
-    parts: ["Built: node planner, Python and browser identical (rsos-planner/1)", "Built: frame check (scope, process, negation, believability)", "Built: vibration codes per node, emitted by the compiler", "Specified: AI conversation that fills the intake and suggests frames", "Specified: AI that detects a negative state and offers the matching node"] },
+  ai: { x: 20, y: 340, w: 190, h: 64, t: "AI layer and nodes", s: "LINX", status: "built", layer: "LINX",
+    does: "The interface between RSOS and language models, with the three operators the archive names. It reads plain language and turns it into a node plan, asking one question at a time; it injects the person's system state into a prompt for any model; its containment router checks everything a model proposes and applies only what passes; and when heart rate, EEG or a context signals a negative state it picks the node to offer. It only proposes: the person starts every run.", files: ["rsso/rsso/linx.py", "docs/js/linx.js", "spec/LINX.md", "rsso/rsso/nodes.py", "docs/nodes.html"],
+    parts: ["Conversation that fills the node plan (node studio)", "Prompt for any AI model, with the reply schema", "Containment router: nothing may start a run; frames must pass the frame check; unsafe wording held back", "Node offers when the body signals stress, within the safety limits (player)", "Frame suggestions that score higher", "Python and browser identical (tested)"] },
   gate: { x: 270, y: 200, w: 180, h: 76, t: "Safety", s: "CONTAIN", status: "partial", layer: "CONTAIN",
     does: "Decides whether anything may start: opt-in for device-triggered runs, a refractory period, hourly and daily limits, an intensity cap, allergy confirmation before scent or taste, and Stop at any moment.", files: ["rsx/rsx/runtime.py", "rsso/rsso/conformance.py", "spec/OVERRIDE_PROTOCOL.md"],
     parts: ["SafetyGovernor: 90 s refractory, 6 per hour, 20 per day", "Device Stop within 100 ms (RDP/1)", "Human in the loop: offers, never automatic starts"] },
@@ -139,7 +139,7 @@ const CH = [["V", "Visual", "Something seen", "Screen, AR: light imagery, the gl
   ["G", "Gustatory", "A taste", "Taste cue, after allergy confirmation", "TASTE"],
   ["BREATH", "Breath", "—", "Breath pacing: the light grows on the inhale and settles on the exhale", "BREATH, PHASE breath="],
   ["EEG/BCI", "EEG / BCI", "Arousal detected before it is noticed", "Planned: BCI feedback", "trigger channel"],
-  ["AI", "AI", "Context from the AI layer and the node intake", "Node programs from the planner (built); programs the AI writes (specified)", "LINX"]];
+  ["AI", "AI", "Context from the AI layer and the node intake", "Node plans from the conversation and planner; model proposals through the containment router", "LINX"]];
 let MAP, sel = null;
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
 function draw() {

@@ -83,6 +83,23 @@ ul.plain li{padding:5px 0;border-bottom:1px solid var(--line);font-size:.9rem}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .msg{font-size:.9rem;margin:10px 0 0;min-height:1.2em}
 .msg.err{color:var(--warn)} .msg.ok{color:#8fd19e}
+.talk{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:8px}
+.talk h2{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:0 0 4px}
+.log{display:flex;flex-direction:column;gap:10px;max-height:340px;overflow:auto;margin:6px 0 12px}
+.log p{margin:0;max-width:92%;font-size:.95rem;line-height:1.5}
+.log .linx{border-left:2px solid var(--gold);padding:2px 0 2px 12px}
+.log .linx b{display:block;color:var(--gold);font-size:.78rem;font-weight:600;margin-bottom:2px}
+.log .you{align-self:flex-end;background:var(--ink-3);border-radius:10px;padding:8px 12px;color:var(--text)}
+.talkin{display:flex;gap:10px;align-items:flex-end}
+.talkin textarea{min-height:52px}
+.talkin .btn{margin:0;white-space:nowrap}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0}
+.try{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+.try button{background:transparent;border:1px dashed var(--gold);border-radius:999px;padding:4px 10px;color:var(--glow);font:inherit;font-size:.8rem;cursor:pointer;text-align:left}
+.try button:hover{background:var(--ink-3)}
+#aiBox textarea{min-height:110px;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+#aiResult{font-size:.86rem;color:var(--muted)}
+#aiResult li{margin:2px 0}
 .check{display:flex;gap:9px;align-items:flex-start;color:var(--text);font-size:.92rem;margin:10px 0}
 .check input{margin-top:4px;accent-color:var(--gold)}
 pre.prog{white-space:pre-wrap;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:12px;max-height:260px;overflow:auto}
@@ -111,6 +128,13 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
 
   <div class="layout">
     <form id="intake" autocomplete="off" onsubmit="return false">
+      <section class="talk" aria-labelledby="talkTitle">
+        <h2 id="talkTitle">Describe it in your own words</h2>
+        <p class="ask">LINX, the AI layer of RSOS, reads what you write, asks one question at a time for what is missing, and fills in the plan below. You can still change everything by hand. It runs in this browser; nothing is sent anywhere.</p>
+        <div class="log" id="log" aria-live="polite"></div>
+        <div class="talkin"><label class="sr" for="talkIn">Your message</label><textarea id="talkIn" rows="2" placeholder="For example: stress at work when my boss shouts. I want calm confidence, like a lion, with the smell of cedar."></textarea><button class="btn go" id="talkSend" type="button">Send</button></div>
+        <button class="x" type="button" id="talkReset">Start the conversation again</button>
+      </section>
       <section class="step">
         <h2><span class="n">1</span>What is happening</h2>
         <p class="ask">What do you, or the person you work with, want to change? Choose what applies and describe it in your own words.</p>
@@ -163,10 +187,17 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
         <label class="check"><input type="checkbox" id="consent"> I have read every node, frame and cue in this plan, and I agree that it runs for me</label>
         <div>
           <button class="btn go" type="button" id="save">Save the plan and open the player</button>
-          <button class="btn" type="button" id="copyAI">Copy for an AI assistant</button>
+          <button class="btn" type="button" id="copyAI">Copy the prompt for an AI model</button>
+          <button class="btn" type="button" id="pasteAI">Paste the AI's reply</button>
           <button class="btn" type="button" id="download">Download the plan</button>
         </div>
         <p class="msg" id="msg" aria-live="polite"></p>
+        <div id="aiBox" hidden>
+          <label for="aiReply">The AI model's reply. LINX checks every field before anything changes: frames must pass the frame check, nothing may start a run, and unsafe wording is held back.</label>
+          <textarea id="aiReply" placeholder='{"schema": "rsos-linx-proposal/1", "nodes": [ … ]}'></textarea>
+          <button class="btn" type="button" id="aiApply">Check and apply</button>
+          <div id="aiResult"></div>
+        </div>
       </section>
     </form>
 
@@ -179,8 +210,9 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
   </div>
 </main>
 <footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it does not diagnose.</footer>
-<script src="js/ugcl.js?v=1.10.0"></script>
-<script src="js/nodes.js?v=1.10.0"></script>
+<script src="js/ugcl.js?v=1.12.0"></script>
+<script src="js/nodes.js?v=1.12.0"></script>
+<script src="js/linx.js?v=1.12.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -303,6 +335,12 @@ function update() {
       const d = el("div", "fc"); const b = el("b", "", "Frame " + fc.score + " of 100."); d.append(b, " A " + fc.scope + " frame, " + fc.kind + ".");
       for (const t of fc.tips) { const tp = el("div", "tip", t); d.appendChild(tp); }
       info.appendChild(d);
+      const sug = RSOSLinx.suggestFrames(fc.text, n.mode);
+      if (sug.length) {
+        const tr = el("div", "try"); const ni = p.nodes.indexOf(n), fi = n.frame_checks.indexOf(fc);
+        for (const x of sug) { const b = el("button", "", "Try “" + x.text + "” (" + x.score + ")"); b.type = "button"; b.title = "Use this frame"; b.addEventListener("click", () => replaceFrame(ni, fi, x.text)); tr.appendChild(b); }
+        info.appendChild(tr);
+      }
     }
     const mini = el("div", "mini"); const f1 = el("button", "", "Feel the code"); f1.type = "button"; f1.addEventListener("click", () => feel(n.tacton, s));
     const f3 = el("button", "", "Show the program"); f3.type = "button"; const pre = el("pre", "prog", n.program); pre.hidden = true;
@@ -329,18 +367,11 @@ function update() {
   }
 }
 
-function aiPrompt() {
-  const { intake: it, plan: p } = current;
-  return ["You are helping design RSOS nodes (https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/nodes.html).",
-    "A node is a state held as one unit: cues on every sense (V A K O G), a vibration code, a glyph, a mode (associated: in the body; observer: nothing binds, only observed) and the mental frame said in that state.",
-    "Please (1) suggest frames that are broad, present-tense, process-based and believable for this person; (2) suggest cues for any empty sense; (3) point out anything a therapist should review. Do not diagnose. Keep every suggestion something the person agrees to.",
-    "", "Intake:", JSON.stringify(it, null, 2), "", "Current plan (nodes without programs):",
-    JSON.stringify(p.nodes.map(n => ({ name: n.name, mode: n.mode, state: n.meaning, channels: n.channels, frames: n.frames, frame_checks: n.frame_checks.map(f => ({ text: f.text, scope: f.scope, kind: f.kind, flags: f.flags })), tacton: n.tacton, glyph: n.glyph, contexts: n.contexts })), null, 2)].join("\n");
-}
+function aiPrompt() { return RSOSLinx.modelPrompt({ intake: current.intake, plan: current.plan, runs: store.get("rsos.runs", []) }); }
 function say(text, ok) { $("msg").className = "msg " + (ok ? "ok" : "err"); $("msg").textContent = text; }
 $("copyAI").addEventListener("click", async () => {
   if (!current || !current.plan.nodes.length) return say("Add a node first.");
-  try { await navigator.clipboard.writeText(aiPrompt()); say("Copied. Paste it into your AI assistant; bring its suggestions back here.", true); }
+  try { await navigator.clipboard.writeText(aiPrompt()); say("Copied. Paste it into any AI model; then use “Paste the AI's reply” to bring its proposal back. LINX checks it first.", true); }
   catch (e) { say("The browser blocked the clipboard. Use “Download the plan” instead."); }
 });
 $("download").addEventListener("click", () => {
@@ -363,6 +394,58 @@ $("save").addEventListener("click", () => {
   setTimeout(() => { location.href = "player.html?program=plan:0"; }, 700);
 });
 
+/* LINX conversation (rsso/rsso/linx.py converse): reads plain language, asks for what is missing, fills the form */
+let talk = null, pristine = true;
+function bubble(who, text) {
+  const p = el("p", who);
+  if (who === "linx") p.appendChild(el("b", "", "LINX"));
+  p.append(text); $("log").appendChild(p); $("log").scrollTop = $("log").scrollHeight;
+}
+function applyIntake(it) {
+  document.querySelectorAll("#concerns input").forEach(i => { i.checked = (it.concerns || []).includes(i.value); });
+  $("symptoms").value = it.symptoms || ""; $("triggers").value = (it.triggers || []).join("\n");
+  if (it.author) $("author").value = it.author;
+  const ph = it.physiology || {}; if (ph.resting_hr) $("hr").value = ph.resting_hr; if (ph.rmssd) $("rmssd").value = ph.rmssd;
+  const d = it.dose || {}; if (d.per_day) $("perDay").value = d.per_day; if (d.days) $("days").value = d.days;
+  $("nodes").innerHTML = "";
+  for (const n of it.nodes || []) nodeCard(n.archetype || "", Object.assign({ frames: [], contexts: [], rules: [] }, n));
+  pristine = false; update();
+}
+function sendTalk() {
+  const text = $("talkIn").value.trim(); if (!text) return;
+  bubble("you", text); $("talkIn").value = "";
+  const st = talk || { intake: {}, asked: [], pending: null };
+  const form = intake(); if (pristine) form.nodes = [];
+  st.intake = Object.assign({}, form, { symptoms: $("symptoms").value.trim() });
+  const r = RSOSLinx.converse(st, text);
+  talk = r.state; applyIntake(r.state.intake); bubble("linx", r.reply);
+}
+$("talkSend").addEventListener("click", sendTalk);
+$("talkIn").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendTalk(); } });
+$("talkReset").addEventListener("click", () => { talk = null; $("log").innerHTML = ""; bubble("linx", "Tell me what is happening and the state you want, in your own words. I will ask about anything that is missing."); });
+$("nodes").addEventListener("input", e => { if (e.isTrusted) pristine = false; });
+function replaceFrame(i, j, text) {
+  const card = document.querySelectorAll(".nodecard")[i]; if (!card) return;
+  const ta = card.querySelector('[data-k="frames"]');
+  const lines = ta.value.split("\n").map(x => x.trim()).filter(Boolean);
+  if (j < lines.length) lines[j] = text; else lines.push(text);
+  ta.value = lines.join("\n"); pristine = false; update();
+}
+$("pasteAI").addEventListener("click", () => { $("aiBox").hidden = !$("aiBox").hidden; if (!$("aiBox").hidden) $("aiReply").focus(); });
+$("aiApply").addEventListener("click", () => {
+  const raw = $("aiReply").value, a = raw.indexOf("{"), b = raw.lastIndexOf("}");
+  let obj = null; try { obj = JSON.parse(raw.slice(a, b + 1)); } catch (e) { return say("That is not JSON. Ask the model to reply with JSON only, in the form the prompt shows."); }
+  const form = intake(); if (pristine) form.nodes = [];
+  const r = RSOSLinx.route(obj, Object.assign(form, { symptoms: $("symptoms").value.trim() }));
+  if (r.applied.length) applyIntake(r.intake);
+  const box = $("aiResult"); box.innerHTML = "";
+  const list = (title, items) => { if (!items.length) return; box.appendChild(el("p", "", title)); const ul = el("ul"); items.forEach(x => ul.appendChild(el("li", "", x))); box.appendChild(ul); };
+  list("Applied:", r.applied);
+  list("Held back:", r.rejected.map(x => (x.path || "reply") + ": " + x.reason));
+  list("Notes for the therapist:", r.intake.notes_for_therapist || []);
+  say(r.applied.length ? "The proposal is applied. Read every node before you approve the plan." : "Nothing was applied.", r.applied.length > 0);
+});
+
 // build the form
 for (const [k, v] of Object.entries(N.CONCERNS)) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = k; l.append(i, v); $("concerns").appendChild(l); }
 for (const [k, v] of DEVICES) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.id = "dev-" + k; i.checked = ["V", "A", "K"].includes(k); l.append(i, v); $("devices").appendChild(l); }
@@ -372,13 +455,15 @@ for (const k of [...Object.keys(N.ARCHETYPES), ""]) {
 }
 $("screenQ").textContent = SCREEN;
 $("intake").addEventListener("input", update);
-fetch("ugcl/originals.json?v=1.10.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => { ORIG = d.glyphs; })).catch(() => {}).finally(() => {
+fetch("ugcl/originals.json?v=1.12.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => { ORIG = d.glyphs; })).catch(() => {}).finally(() => {
   const saved = store.get("rsos.plan", null);
   if (saved && saved.intake) {
     const it = saved.intake; $("symptoms").value = it.symptoms || ""; $("triggers").value = (it.triggers || []).join("\n"); $("author").value = it.author || "self";
     (it.concerns || []).forEach(c => { const i = document.querySelector('#concerns input[value="' + c + '"]'); if (i) i.checked = true; });
     for (const n of it.nodes) nodeCard(n.archetype || "", n);
+    pristine = false;
   } else nodeCard("LION");
+  bubble("linx", "Tell me what is happening and the state you want, in your own words. I will ask about anything that is missing.");
   const hero = N.plan({ nodes: [{ archetype: "LION", O: "Cedar", G: "Mint" }] }).nodes[0]; nodeSphere($("heroNode"), hero);
   $("heroNode").style.cursor = "pointer"; $("heroNode").addEventListener("click", () => feel(hero.tacton, $("heroNode")));
   update();

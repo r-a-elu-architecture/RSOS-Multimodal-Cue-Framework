@@ -221,7 +221,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.11.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.12.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -296,14 +296,16 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.11.0"></script>
-<script src="js/hrs.js?v=1.11.0"></script>
-<script src="js/memstack.js?v=1.11.0"></script>
-<script src="js/ugcl.js?v=1.11.0"></script>
-<script src="js/consent.js?v=1.11.0"></script>
+<script src="js/rsx.js?v=1.12.0"></script>
+<script src="js/hrs.js?v=1.12.0"></script>
+<script src="js/memstack.js?v=1.12.0"></script>
+<script src="js/ugcl.js?v=1.12.0"></script>
+<script src="js/consent.js?v=1.12.0"></script>
+<script src="js/nodes.js?v=1.12.0"></script>
+<script src="js/linx.js?v=1.12.0"></script>
 <script>
 "use strict";
-const BUILD = "1.11.0";
+const BUILD = "1.12.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
   "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
@@ -739,6 +741,14 @@ function onStress() {
   governor = governor || new RSOSHeart.Governor(timeline.safety, true);
   const [ok] = governor.check(Date.now());
   if (!ok) return;
+  // LINX: with an approved node plan, offer the node that fits best (rsso/rsso/linx.py offer); the person starts it
+  const myPlan = store.get("rsos.plan", null);
+  const pick = myPlan && myPlan.approved ? RSOSLinx.offer({ source: "hr" }, myPlan, records, {}, Date.now() / 1000) : null;
+  if (pick && pick.node !== null && ("plan:" + pick.node) in sources) {
+    if ($("program").value !== "plan:" + pick.node) { $("program").value = "plan:" + pick.node; selectProgram(); }
+    $("offerText").textContent = "Your heart rate suggests a stress response. Start your " + pick.name + " node? (" + pick.reason + ")";
+    $("offerStart").textContent = "Start the " + pick.name.toLowerCase();
+  } else { $("offerText").textContent = "Your heart rate suggests a stress response. Start the override?"; $("offerStart").textContent = "Start the override"; }
   $("offer").hidden = false; offerShownAt = performance.now();
   if (navigator.vibrate && $("optVib").checked) navigator.vibrate([200, 100, 200]);
   $("offerStart").focus();

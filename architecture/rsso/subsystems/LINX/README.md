@@ -2,9 +2,9 @@
 
 **Function:** Symbolic layer injection: connects the operating system to AI models in both directions. Commands, tier state and context go to the model; the model injects back, as RSX programs and cues delivered through the device and brain-computer-interface loop, the resourceful state the moment calls for.
 
-**Status:** **Partly built** — some functions implemented, others still specified only
+**Status:** **Built** — working, tested code in this repository
 
-**Now:** Built: the node planner (`spec/NODES.md`, `rsso/rsso/nodes.py`, identically `docs/js/nodes.js`, node studio `docs/nodes.html`). From symptoms, triggers, body parameters and desired states it builds nodes — a state held as one unit, with cues on every sense (V, A, K, O, G), a vibration code, an original glyph, a mode (associated, or observer: nothing binds) and the mental frame said in that state — with a frame check, an RSX program per node, the ledger tiers, metrics, dose (50 a day for 4 days, then spaced), devices and safety; the plan runs in the player only after consent. The compiler emits each node's vibration code. Specified: the AI conversation that fills the intake and suggests frames, and an AI that detects a negative state (from context, EEG or HRV) and offers the matching node.
+**Now:** Built (`spec/LINX.md`, `rsso/rsso/linx.py`, identically `docs/js/linx.js`): the three recovered operators. Plain language to the planner's intake, with a conversation that asks one question at a time (node studio); tier-state injection, a prompt for any language model with the person's nodes, practice summary and a reply schema; the containment router, which checks a model's proposal field by field (no field may start a run, frames must pass the frame check, unsafe wording is held back) and applies only what passes; and compressed override injection, which picks the node to offer when heart rate, EEG or a context signals a negative state, within the safety limits (player). Frame suggestions that score higher on the frame check. Also the node planner (`spec/NODES.md`). No model provider is built in: any model works through the same prompt and router.
 
 ## Sources in the archive
 

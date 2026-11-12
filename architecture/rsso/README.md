@@ -12,7 +12,7 @@
 | [CONTAIN](subsystems/CONTAIN/) | Safety and governance | **Partly built** |
 | [MEMSTACK](subsystems/MEMSTACK/) | Memory layer | **Built** |
 | [CM1](subsystems/CM1/) | Compression layer | **Partly built** |
-| [LINX](subsystems/LINX/) | AI interface and injection layer | **Partly built** |
+| [LINX](subsystems/LINX/) | AI interface and injection layer | **Built** |
 | [UGCL](subsystems/UGCL/) | Glyph layer | **Built** |
 
 - [All subsystems](subsystems/)

@@ -16,13 +16,14 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/consent.py` | Consented programming: cues a person or their therapist chooses to install, each with a consent record; programs with a cue are refused without valid consent; every cue can be listed and revoked. Identical to `docs/js/consent.js`. |
 | `rsso/nodes.py` | Node planner ([spec](../spec/NODES.md)): from symptoms, triggers and desired states, nodes — a state held as one unit with cues on every sense, a vibration code, a glyph, a mode (associated or observer) and the mental frame — with a frame check, an RSX program per node, ledger tiers, metrics, dose and safety; per-sense opening from the run log. Identical to `docs/js/nodes.js`; the node studio is `docs/nodes.html`. |
 | `rsso/contribution.py` | Research data contribution ([spec](../spec/DATA_CONTRIBUTION.md)): one de-identified, checksummed file per person, clinician or lab, filtered by consent scopes; `check` and `pool` from the command line; contributions back to run-log rows; BIDS events for any RSX program. Identical to `docs/js/contribution.js`; the page is `docs/contribute.html`. |
+| `rsso/linx.py` | LINX, the AI layer ([spec](../spec/LINX.md)): plain language and conversation to the node intake, frame suggestions, the prompt for any language model, the containment router for model proposals, and node offers when the body, the brain or a context signals a negative state. Identical to `docs/js/linx.js`. |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
 | `rsso/analysis.py` | Pre-specified analyses for H1, H2 and H5. The same code runs on synthetic and on real data. |
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 68 tests
+python -m unittest discover -s tests                     # 75 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

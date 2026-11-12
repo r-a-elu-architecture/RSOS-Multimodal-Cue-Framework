@@ -6,6 +6,7 @@ RSOS is open software and an open specification, not a regulated medical product
 
 - **Stopping.** A person must always be able to stop a run at once (Stop button, Esc key, device button). Any change that delays or hides stopping is a safety bug.
 - **No silent triggering.** Device-triggered runs require the person's prior opt-in and respect the refractory period and hourly and daily limits (`rsx/rsx/runtime.py`).
+- **Firmware.** Devices implementing the RSOS Device Protocol must stop on link loss and refuse scent or taste without consent (`spec/DEVICE_PROTOCOL.md` §4); run `python -m rsso.conformance` against them before use.
 - **Intensity limits.** Haptic intensity above a program's `SAFETY haptic_max` must fail to compile, in both the Python and the JavaScript compiler.
 - **Scent and taste.** Programs with olfactory or gustatory cues must ask the person to confirm they have no allergy or aversion before use.
 - **Shared programs.** RSX programs from other people are code that controls breath, imagery and devices. Read them before running them, and never run one that removes safety limits.

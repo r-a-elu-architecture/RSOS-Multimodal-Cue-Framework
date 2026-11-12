@@ -7,8 +7,8 @@
 | Subsystem | Function | Status |
 |---|---|---|
 | [THERA](subsystems/THERA/) | Therapeutic protocol layer | **Partly built** |
-| [AUG](subsystems/AUG/) | Device and augmentation layer | **Partly built** |
-| [MICRO](subsystems/MICRO/) | Edge runtime | **Partly built** |
+| [AUG](subsystems/AUG/) | Device and augmentation layer | **Complete in simulation** |
+| [MICRO](subsystems/MICRO/) | Edge runtime | **Complete in simulation** |
 | [CONTAIN](subsystems/CONTAIN/) | Safety and governance | **Partly built** |
 | [MEMSTACK](subsystems/MEMSTACK/) | Memory layer | **Partly built** |
 | [CM1](subsystems/CM1/) | Compression layer | **Partly built** |

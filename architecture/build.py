@@ -22,6 +22,7 @@ STATUS = {
     "built": "**Built** — working, tested code in this repository",
     "partial": "**Partly built** — some functions implemented, others still specified only",
     "specified": "**Specified** — described in the archive and this map; not yet implemented",
+    "sim": "**Complete in simulation** — built and tested end to end with virtual and simulated hardware; awaiting a check on real devices",
 }
 
 
@@ -83,6 +84,7 @@ RSOS is built from four systems. This map explains what each one and each subsys
 | Learning model | {link('', 'rsx/model/PREDICTIONS.md', 'rsx/model/')} |
 | Personalised cue engine | {link('', 'toolkit/', 'toolkit/')} |
 | RSSO runtime: devices, sensors, conformance, virtual studies | {link('', 'rsso/', 'rsso/')} |
+| RSOS Device Protocol and firmware | {link('', 'spec/DEVICE_PROTOCOL.md', 'spec/DEVICE_PROTOCOL.md')}, {link('', 'firmware/', 'firmware/')} |
 | RSIA framework edition | {link('', 'framework/', 'framework/')} |
 
 Run `python architecture/build.py` to regenerate these pages from the manifest.
@@ -178,12 +180,12 @@ SUBS = [
     ("THERA", "Therapeutic protocol layer", "partial",
      "Deploys state-change protocols: identity rebuild, breath override, emotional lock, the VIB-ANCHOR and FP-ANCHOR haptic anchors, refractory limits and a human in the loop.",
      "The Override Protocol, its VIB-ANCHOR and FP-ANCHOR, and the refractory and run limits are built (spec, RSX, `SafetyGovernor`). EEG- and gaze-triggered starts are specified."),
-    ("AUG", "Device and augmentation layer", "partial",
+    ("AUG", "Device and augmentation layer", "sim",
      "Connects state control to devices: AR overlays, EEG, haptics, scent and vibration, wearables; EEG-triggered anchors.",
-     "Built: one device interface with virtual vibration, audio, display and scent devices; a virtual heart-rate strap and a stress detector that can trigger the override (`rsso/`); phone vibration in the player. Next: drivers for real straps, watches, scent hardware and EEG."),
-    ("MICRO", "Edge runtime", "partial",
+     "Built: one device interface with virtual vibration, audio, display and scent devices; the RSOS Device Protocol for wristbands and scent modules; a Bluetooth heart-rate driver (standard Heart Rate Service) with a stress detector in Python and in the player, identical in both; an EEG stream interface (replay, synthetic, Lab Streaming Layer) with an arousal detector (`rsso/`, `docs/player.html`, `spec/DEVICE_PROTOCOL.md`). Awaiting: a check with real straps, scent hardware and EEG headsets."),
+    ("MICRO", "Edge runtime", "sim",
      "Runs symbolic reflexes on edge devices (watches, wearables, IoT): receives RSX commands and context, executes them locally.",
-     "Built: the runtime that plays RSX timelines on any set of devices, with a real-time clock for hardware, and the conformance suite that every device must pass (`rsso/`). Next: ports to a watch and a microcontroller."),
+     "Built: the runtime that plays RSX timelines on any set of devices; the portable C++ device core and an ESP32 wristband sketch (`firmware/`); the installable offline player app; the conformance suite, which the firmware core passes 11/11 in the host simulator. Awaiting: flashing and checking on a real board."),
     ("CONTAIN", "Safety and governance", "partial",
      "Governs every module: allow, block, roll back or quarantine actions; drift control; human in the loop; device safety envelope.",
      "Compile-time haptic limit in RSX; run limits, refractory period and opt-in in `SafetyGovernor`; runtime intensity clamp and Stop in every phase, verified by the conformance suite; the CONTAIN twins in the cue engine guard against misleading self-reports."),

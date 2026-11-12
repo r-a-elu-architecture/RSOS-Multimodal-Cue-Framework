@@ -12,6 +12,10 @@ Collected here until the next release, planned once all RSSO subsystems are comp
 
 - **RSSO runtime** (`rsso/`): device interface with virtual vibration, audio, display and scent devices; timeline runtime with virtual and real-time clocks; virtual heart-rate strap and stress detector; conformance suite (11 checks, tested against faulty devices); virtual participants, synthetic studies (H1, 4-week, H1 power) and an analysis kit that runs unchanged on real data.
 - `paced_breathing.rsx`: the control program for H1.
+- **RSOS Device Protocol** (`spec/DEVICE_PROTOCOL.md`) and **firmware** (`firmware/`): portable C++ device core passing the conformance suite in the host simulator; ESP32 wristband sketch (compile-checked, not yet run on a board).
+- **Heart-rate trigger**: Bluetooth Heart Rate Service driver and stress detector in Python and in the player (identical results), opt-in offer with run limits, simulated strap.
+- **EEG input** (`rsso/eeg.py`): stream interface (replay, synthetic, Lab Streaming Layer), band powers, arousal detector.
+- **Installable player**: web app manifest and offline support (network first, so updates are never held back).
 
 ## Changed
 - NOTICE, SECURITY and the documentation rewritten for v2.

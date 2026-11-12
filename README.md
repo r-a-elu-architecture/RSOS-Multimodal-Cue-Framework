@@ -12,9 +12,10 @@
 |---|---|---|
 | **Override Protocol** | The core routine: interrupt, then five breaths: lion light in, through the body, three futures, out to the world, back in, sealed with "I own". Phases, channels, practice schedule, measures, safety, testable hypotheses. | [`spec/OVERRIDE_PROTOCOL.md`](spec/OVERRIDE_PROTOCOL.md) |
 | **RSX** | The executable language RSOS programs are written in. Compiles a program to a timeline of breath, word, image, gesture, haptic, tone, scent and taste events. Python and JavaScript implementations, checked against each other. | [`rsx/`](rsx/) |
-| **Protocol player** | Runs any RSX program with breath pacing, spoken words, tones and phone vibration; check-in before and after; exports a run log. Includes a live RSX editor. | [`docs/player.html`](docs/player.html) |
+| **Protocol player** | Runs any RSX program with breath pacing, spoken words, tones and phone vibration; check-in before and after; a heart-rate trigger; exports a run log; live RSX editor. Installable as an offline app. | [`docs/player.html`](docs/player.html) |
 | **Learning model** | A formal model (Rescorla–Wagner + habit curve) of how a cue bundle becomes a reflex, with predictions swept across parameters. | [`rsx/model/PREDICTIONS.md`](rsx/model/PREDICTIONS.md) |
-| **RSSO runtime** | One interface for all devices with virtual vibration, audio, display and scent devices; a virtual heart-rate strap and stress detector; a conformance suite every device must pass; virtual participants, synthetic studies and the analysis kit for real ones. | [`rsso/`](rsso/) |
+| **RSSO runtime** | One interface for all devices; a Bluetooth heart-rate driver and stress detector; EEG input; a conformance suite every device must pass; virtual participants, synthetic studies and the analysis kit for real ones. | [`rsso/`](rsso/) |
+| **Device protocol and firmware** | The RSOS Device Protocol for wristbands and scent modules, a tested C++ device core and an ESP32 wristband sketch. | [`spec/DEVICE_PROTOCOL.md`](spec/DEVICE_PROTOCOL.md), [`firmware/`](firmware/) |
 | **Personalised cue engine** | `rsos_cue`: reads the run log and learns which program, tier and voice work best for each person and trigger type, borrowing strength from earlier participants. | [`toolkit/`](toolkit/) |
 | **RSIA framework** | The identity layer: six archetypes (Lion, Eagle, Bear, Leopard, Raven, Tiger), the Spine, Watchdog and Meta-Architect; mnemonic sets. | [`framework/`](framework/) |
 | **Archive** | The dated source records of RSOS, RSIA, RSX and RSSO (public edition), with hashes. | [`archive/`](archive/), [`architecture/`](architecture/) |
@@ -36,8 +37,8 @@ python -m rsx compile protocols/override.rsx   # the protocol as a JSON timeline
 python model/predictions.py                    # regenerate the model predictions
 
 cd ../rsso
-python -m unittest discover -s tests           # 10 tests
-python -m rsso.conformance                     # device conformance report
+python -m unittest discover -s tests           # 24 tests (firmware tests need a C++ compiler)
+python -m rsso.conformance --firmware          # device conformance on the C++ firmware core
 
 cd ../toolkit
 python -m unittest discover -s tests           # 10 tests

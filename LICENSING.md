@@ -1,8 +1,8 @@
 # Licensing
 
-**Software** (`rsx/`, `rsso/`, `toolkit/`, `architecture/build.py`, `docs/js/`, `docs/*.html`): [Apache License, Version 2.0](LICENSE).
+**Software** (`rsx/`, `rsso/`, `firmware/`, `toolkit/`, `architecture/build.py`, `docs/js/`, `docs/*.html`): [Apache License, Version 2.0](LICENSE).
 
-**Specifications and framework texts** (`spec/`, `framework/`, `rsx/protocols/`): Creative Commons Attribution 4.0 International (CC BY 4.0). You may use, adapt and share them, including commercially, with attribution to R. A. Elu.
+**Specifications and framework texts** (`spec/` including the Device Protocol, `framework/`, `rsx/protocols/`): Creative Commons Attribution 4.0 International (CC BY 4.0). You may use, adapt and share them, including commercially, with attribution to R. A. Elu.
 
 **Other project documentation:** Apache License, Version 2.0, except as noted in specific files.
 

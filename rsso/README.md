@@ -8,13 +8,17 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/runtime.py` | Plays a compiled RSX timeline on a set of devices, with Stop at any moment, the safety governor and a defence-in-depth intensity clamp. Virtual clock for tests, real-time clock for hardware. |
 | `rsso/sensors.py` | A virtual heart-rate strap (beat-to-beat RR intervals, stress responses, activity, slow-breathing effects) and a stress detector (heart rate up + RMSSD down, sustained, motion-gated). |
 | `rsso/conformance.py` | The conformance suite: what any runtime and device set must do to be RSOS-compatible. |
+| `rsso/protocol.py` | Host side of the [RSOS Device Protocol](../spec/DEVICE_PROTOCOL.md): drives any RDP/1 wristband or scent module; with `SimTransport` it runs the real firmware core ([`firmware/`](../firmware/)) in simulation. |
+| `rsso/hrs.py` | Bluetooth Heart Rate Service driver (the standard every chest strap and most watches use): parses Heart Rate Measurement packets into beat-to-beat intervals. The player has the same driver in JavaScript (`docs/js/hrs.js`). |
+| `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
 | `rsso/analysis.py` | Pre-specified analyses for H1, H2 and H5. The same code runs on synthetic and on real data. |
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 10 tests
+python -m unittest discover -s tests                     # 24 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
+python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study
 python -m rsso.analysis out/long/runs.csv --triggers out/long/triggers.csv --srbai out/long/srbai.csv
 python -m rsso.study power --out out                     # H1 power by simulation
@@ -24,7 +28,7 @@ Requires Python 3.10+, NumPy, SciPy and pandas, and the `rsx` package in this re
 
 ## Conformance
 
-Run against the virtual rig: **11/11 checks pass** ([report](results/conformance_virtual_rig.md)).
+**11/11 checks pass** on the virtual rig ([report](results/conformance_virtual_rig.md)) and on the C++ firmware core running in the host simulator ([report](results/conformance_firmware.md)).
 
 | Check | Requirement |
 |---|---|
@@ -43,6 +47,10 @@ Run against the virtual rig: **11/11 checks pass** ([report](results/conformance
 The suite is tested against deliberately faulty devices (one that keeps vibrating after Stop, one that over-drives the motor) to make sure the checks catch them. On the development machine, the real-time clock dispatched a full Override Protocol run with 0 ms maximum lateness and stopped in 0 ms.
 
 **To certify your own hardware:** write a factory that returns your devices and run `conformance.run_suite(factory, clock_factory=RealTimeClock)`.
+
+## Heart-rate trigger
+
+The player connects to any Bluetooth heart-rate strap or watch that broadcasts the standard Heart Rate Service (Chrome or Edge; Android, Windows, macOS, Linux), runs the stress detector on the beat-to-beat intervals, and, if the person has opted in, offers the override within the run limits. A simulated strap is built in for trying it without hardware. The Python and JavaScript parsers give identical results on the same packets, and the two detectors give identical detection times on the same recording.
 
 ## Virtual heart-rate strap and detector
 
@@ -68,6 +76,10 @@ All effect sizes are **assumptions** set in `StudyConfig` (for example, one over
 | 0.25 points | 13% | 28% | 46% | 79% |
 | 0.5 points | 53% | 77% | 99% | 100% |
 | 1.0 point | 95% | 100% | 100% | 100% |
+
+## EEG
+
+`SyntheticEEG` events suppress alpha and raise beta; the arousal detector, which compares the beta/alpha ratio with the person's own recent baseline, found both events in a 15-minute synthetic recording about 8 s after onset and none in a recording without events. Real EEG changes with arousal differ a lot between people and headsets, so the detector must be calibrated per person.
 
 ## Using it with real people and devices
 

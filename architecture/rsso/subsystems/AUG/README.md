@@ -2,9 +2,9 @@
 
 **Function:** Connects state control to devices: AR overlays, EEG, haptics, scent and vibration, wearables; EEG-triggered anchors.
 
-**Status:** **Partly built** — some functions implemented, others still specified only
+**Status:** **Complete in simulation** — built and tested end to end with virtual and simulated hardware; awaiting a check on real devices
 
-**Now:** Built: one device interface with virtual vibration, audio, display and scent devices; a virtual heart-rate strap and a stress detector that can trigger the override (`rsso/`); phone vibration in the player. Next: drivers for real straps, watches, scent hardware and EEG.
+**Now:** Built: one device interface with virtual vibration, audio, display and scent devices; the RSOS Device Protocol for wristbands and scent modules; a Bluetooth heart-rate driver (standard Heart Rate Service) with a stress detector in Python and in the player, identical in both; an EEG stream interface (replay, synthetic, Lab Streaming Layer) with an arousal detector (`rsso/`, `docs/player.html`, `spec/DEVICE_PROTOCOL.md`). Awaiting: a check with real straps, scent hardware and EEG headsets.
 
 ## Sources in the archive
 

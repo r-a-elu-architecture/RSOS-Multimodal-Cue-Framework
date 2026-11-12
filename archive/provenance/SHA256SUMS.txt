@@ -1,4 +1,4 @@
-a2bcf26390bded5eafe0d0ad47900f31fa3f557fcba38164c778a8b2612c735e  ../original-package/RSOS_RSIA_RSX_RSSO(1).zip
+f16dd33c70f0a3adf61f0569b3f9fdae485220a694bbe07c3d198ca8f10f6291  ../original-package/RSOS_RSIA_RSX_RSSO(1).zip
 ab6ac35ca1275cbae6823758f2beaef9b03fd8a77265adad1f4fc0fbe9825633  ../original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Applied_Use_Cases_Public.txt
 086d5049db84b1688c98d44a038e96764426cd0d3e73b825f79a940605a33d6e  ../original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Archetype_Definitions.txt
 7d6412e3282b0335b8864066ee7fe420f7b9cbde6ed024115ba1544122d14c7b  ../original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Author_Metadata.txt

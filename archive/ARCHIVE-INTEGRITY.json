@@ -1,12 +1,13 @@
 {
   "archive_filename": "RSOS_RSIA_RSX_RSSO(1).zip",
-  "original_zip_sha256": "a2bcf26390bded5eafe0d0ad47900f31fa3f557fcba38164c778a8b2612c735e",
+  "original_zip_sha256": "f16dd33c70f0a3adf61f0569b3f9fdae485220a694bbe07c3d198ca8f10f6291",
+  "superseded_original_zip_sha256": "a2bcf26390bded5eafe0d0ad47900f31fa3f557fcba38164c778a8b2612c735e",
   "original_files": 65,
   "unique_sha256_contents": 56,
   "duplicated_source_groups": 9,
-  "original_zip_bytes": 521852,
-  "extracted_uncompressed_bytes": 1663033,
-  "archive_preservation": "original ZIP kept as an exact copy; extracted paths preserved; 15 extracted files are a public edition with targeted edits listed in provenance/PUBLIC-EDITION-EDITS.csv",
+  "original_zip_bytes": 519699,
+  "extracted_uncompressed_bytes": 1652480,
+  "archive_preservation": "public-edition ZIP (files under RSOS_RSIA_RSX_RSSO/); its 65 files are byte-identical to original-estates/; 15 files carry targeted edits listed in provenance/PUBLIC-EDITION-EDITS.csv",
   "historical_claims": "not independently verified",
   "licensing": "historical estate documents separated from Apache-2.0 software code"
 }

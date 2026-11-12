@@ -1,4 +1,6 @@
-# RSOS v2.1.0 — architecture map, provenance layer, cue engine on the run log
+# Next release (unreleased) — running changelog
+
+Collected here until the next release, planned once all RSSO subsystems are complete.
 
 ## New
 - **Architecture map** (`architecture/`): what RSOS, RSIA, RSX, RSSO and each RSSO subsystem (THERA, AUG, MICRO, CONTAIN, MEMSTACK, CM1, LINX, UGCL) does, how far it is built, and which archive records it comes from. Generated from the archive manifest by `architecture/build.py`, so file hashes stay correct.

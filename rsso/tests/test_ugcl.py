@@ -74,12 +74,12 @@ class Originals(unittest.TestCase):
     def test_every_ledger_glyph_is_an_original(self):
         from rsso import ugcl_originals as uo
         from rsso.ledger import build
-        chars = {g["char"] for g in ORIG["glyphs"]}
+        chars = {g["char"] for g in ORIG["glyphs"] if not g.get("composite")}
         for r in build()["records"]:
             if r["kind"] == "tier":
                 for t in uo.tokens(r["fields"].get("glyph", "")) + [x for g in r["glyph_chain"] for x in uo.tokens(g)[:1]]:
                     self.assertIn(t, chars, r["id"])
-        self.assertEqual(len(chars), len(ORIG["glyphs"]))
+        self.assertEqual(len(chars), ORIG["stats"]["glyphs"])
         self.assertEqual(ORIG["glyphs"][0]["char"], "🦁")
         self.assertEqual(ORIG["glyphs"][0]["tiers"][0]["number"], "001")
         self.assertEqual(ORIG["archetype_defaults"]["LION"], "O001")
@@ -88,13 +88,35 @@ class Originals(unittest.TestCase):
         for g in ORIG["glyphs"]:
             ugcl.validate(g)
             h = ugcl.haptic_signature(g)
-            self.assertLessEqual(sum(on + off for on, off in h), 2000)
+            self.assertLessEqual(sum(on + off for on, off in h), 3000)
+            self.assertEqual(h, ugcl.tacton_pulses(g["tacton"]))
             self.assertEqual(h[-1][1], 0)
             self.assertTrue(2 <= len(ugcl.tone_motif(g)) <= 5)
-        pairs = {json.dumps([g["haptic"], g["tone"]]) for g in ORIG["glyphs"]}
+        pairs = {json.dumps([g["haptic"], g["tone"]]) for g in ORIG["glyphs"] if not g.get("composite")}
         self.assertGreaterEqual(len(pairs), 130)
         fire = next(g for g in ORIG["glyphs"] if g["char"] == "🜑")
         self.assertIn("🜒", [c["char"] for c in fire["children"]])     # Tier 406: 🜑 → 🜒
+
+    def test_every_glyph_has_its_own_vibration_code(self):
+        codes = [g["tacton"] for g in ORIG["glyphs"]]
+        self.assertEqual(len(set(codes)), len(codes))
+        by = {g["char"]: g for g in ORIG["glyphs"]}
+        self.assertEqual(by["🦁"]["tacton"], "..-")          # the Lion node's code
+        self.assertEqual(by["🐉"]["tacton"], "---")
+        self.assertEqual(by["∅"]["tacton"], "-")             # the observer
+        comp = next(g for g in ORIG["glyphs"] if g.get("composite"))   # Tier 013, as recorded: 🦁 + 🐉
+        self.assertEqual(comp["text"], "🦁 + 🐉")
+        self.assertEqual(comp["tiers"][0]["id"], "T013")
+        self.assertEqual(comp["tacton"], "..- ---")          # the recombination of its parts' codes
+        ids = [g["id"] for g in ORIG["glyphs"]]
+        self.assertEqual(ids.index(comp["id"]) + 1, ids.index(by["🐉"]["id"]))
+
+    def test_original_svg_is_text(self):
+        lion = ORIG["glyphs"][0]
+        s = ugcl.svg(lion, 96)
+        self.assertIn(">🦁</text>", s)
+        self.assertNotIn("<image", s)
+        self.assertEqual(ugcl.tacton_pulses("..- -"), [[100, 100], [100, 100], [300, 400], [300, 0]])
 
     def test_programs_use_the_original_lion(self):
         for f in ("override.rsx", "tier003_command_stack.rsx", "tier014_seal.rsx", "tier579_glyph.rsx"):

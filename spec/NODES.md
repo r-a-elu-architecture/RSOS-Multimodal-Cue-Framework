@@ -33,7 +33,7 @@ In observer mode, "only" and "nothing" are the content of the frame ("Only obser
 
 ## 3. Vibration codes (tactons)
 
-Alphabet: `.` short pulse (100 ms), `-` long pulse (300 ms), 100 ms between pulses, 1–6 symbols. Archetype codes:
+Alphabet: `.` short pulse (100 ms), `-` long pulse (300 ms), 100 ms between pulses, 1–6 symbols; a space joins codes with a 400 ms pause. Archetype codes:
 
 | Archetype | Code | Glyph | Mode |
 |---|---|---|---|
@@ -46,7 +46,7 @@ Alphabet: `.` short pulse (100 ms), `-` long pulse (300 ms), 100 ms between puls
 | Dragon | `---` | 🐉 | associated |
 | Observer | `-` | ∅ | observer |
 
-Custom nodes take the next free code from a pool that avoids the archetype codes; a person may set their own. Within one plan every code is unique.
+A node of your own takes the code of its glyph (every original glyph has one, spec/GLYPH_FORMAT.md §7), otherwise the next free code from a pool that avoids the archetype codes; a person may set their own. Codes can be recombined: two or three codes joined by a 400 ms pause, written with a space (`..- ---`). Within one plan every code is unique.
 
 ## 4. RSX fields
 
@@ -66,7 +66,7 @@ TIER 1 LION {
 }
 ```
 
-`FRAME` (up to 5) and `MODE` (`associated` | `observer`) are written onto the tier marker event; `TACTON` (regex `[.\-]{1,6}`) is also emitted as one haptic `pulse` event per symbol at the tier's activation (on 100/300 ms, off 100 ms, amplitude = the program's haptic limit). Python compiler and `docs/js/rsx.js` give identical timelines (tested over every program in `rsx/protocols`).
+`FRAME` (up to 5) and `MODE` (`associated` | `observer`) are written onto the tier marker event; `TACTON` (regex `[.\-]{1,6}( [.\-]{1,6}){0,2}`) is also emitted as one haptic `pulse` event per symbol at the tier's activation (on 100/300 ms, off 100 ms, amplitude = the program's haptic limit). Python compiler and `docs/js/rsx.js` give identical timelines (tested over every program in `rsx/protocols`).
 
 ## 5. Node programs
 

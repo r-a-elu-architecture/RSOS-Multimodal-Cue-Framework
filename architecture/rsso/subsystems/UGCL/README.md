@@ -4,7 +4,7 @@
 
 **Status:** **Built** — working, tested code in this repository
 
-**Now:** Built: the 146 original glyphs of the tier ledger, exactly as recorded, each with a stored image, a vibration rhythm and a melody derived from its shape, and its ancestry from the ledger's mutation chain (the Lion is 🦁, Tier 001); a stroke format in which one description gives an image at any size, a rhythm, a melody and a compact code for devices, with an optional generated library of 48; personal glyph and colour calibration in the player among the original glyphs of Epoch I; Python and JavaScript identical (`spec/GLYPH_FORMAT.md`, `rsso/rsso/ugcl.py`, `rsso/rsso/ugcl_originals.py`, `docs/glyphs.html`). Next: calibration from the body's response (EEG, heart rate).
+**Now:** Built: the 146 original glyphs of the tier ledger, exactly as recorded, drawn as written in the ledger's fonts, each with its own vibration code (Morse-like, recombined when the single codes run out; the Lion is `..-`), a melody derived from its shape and its ancestry from the ledger's mutation chain (the Lion is 🦁, Tier 001; Tier 013 keeps 🦁 + 🐉 as recorded); a stroke format in which one description gives an image at any size, a rhythm, a melody and a compact code for devices, with an optional generated library of 48; personal glyph and colour calibration in the player among the original glyphs of Epoch I; Python and JavaScript identical (`spec/GLYPH_FORMAT.md`, `rsso/rsso/ugcl.py`, `rsso/rsso/ugcl_originals.py`, `docs/glyphs.html`). Next: calibration from the body's response (EEG, heart rate).
 
 ## Sources in the archive
 

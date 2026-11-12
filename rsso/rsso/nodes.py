@@ -71,7 +71,13 @@ ABSOLUTE = {"always", "never", "exceptional", "perfect", "perfectly", "best", "u
 
 def tacton_pulses(code: str) -> list[list[int]]:
     """[[on_ms, off_ms], ...] for a code; the last off is 0."""
-    out = [[SHORT if c == "." else LONG, GAP] for c in code]
+    out = []
+    for c in code:
+        if c == " ":          # a space joins two codes with a 400 ms pause
+            if out:
+                out[-1][1] = 400
+            continue
+        out.append([SHORT if c == "." else LONG, GAP])
     if out:
         out[-1][1] = 0
     return out

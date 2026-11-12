@@ -120,13 +120,23 @@ sensor layer, so the choice can be checked against the body as well as the first
 
 | Field | Meaning |
 |---|---|
-| `id` | O001–O146, in order of first appearance in the ledger (O001 = 🦁, Tier 001) |
+| `id` | O001–O146, in order of first appearance in the ledger (O001 = 🦁, Tier 001); C001 for a glyph the ledger records as a joined pair |
 | `kind` | `"original"` |
 | `char` | the glyph exactly as recorded (a combined glyph such as ·⁂⊚ stays one glyph) |
-| `png` | the glyph rendered once with fixed fonts (Noto Color Emoji, DejaVu Sans, GNU Unifont, Unifont Upper), 64×64; monochrome glyphs are stored as a white mask so they can take any colour |
-| `haptic`, `tone` | the vibration rhythm and melody derived from the image (below) |
+| `png` | the glyph rendered once with fixed fonts (Noto Color Emoji, DejaVu Sans, GNU Unifont, Unifont Upper), 64×64: the reference the shape rhythm and melody are derived from, and the fallback image on a device that has no font for the glyph |
+| `tacton` | the glyph's own vibration code (§7) |
+| `haptic`, `tone` | the shape rhythm and melody derived from the image (below) |
+| `composite`, `text` | for a joined pair only: the ids of its parts, and the pair as written ("🦁 + 🐉") |
 | `tiers` | every tier where it appears, and how: as the tier's glyph, or as the start or end of a mutation |
 | `parents`, `children` | the glyphs it mutated from and into, with the tier of each mutation |
+
+**How a glyph is drawn.** Every page draws an original glyph as text, exactly as on the ledger pages: the
+symbol fonts first (Noto Sans Symbols, Noto Sans Symbols 2, Noto Sans Math), then the colour emoji fonts, so
+it is sharp at any size, from a watch face to the light of the player. Only a glyph the device has no font
+for is drawn from its stored image.
+
+**Joined pairs.** Tier 013 records its glyph as 🦁 + 🐉, the Lion and the Dragon joined. It is kept as written,
+as its own glyph (C001) placed just before 🐉 in ledger order; 🐉 itself (O009) is also a glyph of its own.
 
 `archetype_defaults` takes the archetype glyphs from the ledger: LION 🦁 (Tier 001), DRAGON 🐉 (Tier 013).
 The ledger records no glyph for the other archetypes.
@@ -145,3 +155,20 @@ shapes (for example the ⥁–⥍ arrow family). Results: `rsso/results/ugcl_ori
 Because original glyphs are rendered images rather than strokes, their rhythm and melody are stored
 values: the JavaScript implementation reads them, and the parity test checks that both implementations
 give the same image, rhythm and melody for every original glyph.
+
+## 7. Vibration codes
+
+Every original glyph has a vibration code of its own, so it can be recognised on the wrist without looking,
+in the way of Morse code: `.` a short pulse (100 ms), `-` a long pulse (300 ms), 100 ms between pulses.
+
+- The archetype codes belong to their glyphs and nodes: Lion 🦁 `..-`, Dragon 🐉 `---`, the observer ∅ `-`;
+  Raven `.-.`, Eagle `-..`, Leopard `...`, Tiger `-.-` and Bear `--` are kept free for their nodes.
+- The other glyphs take the single codes of 1–4 pulses in ledger order, shortest first.
+- When those are used up, two codes are recombined, joined by a 400 ms pause (written with a space:
+  `. -.`), shortest first. Up to three codes can be joined, so the alphabet has no practical limit.
+- A joined pair is the recombination of its parts: 🦁 + 🐉 is `..- ---`.
+
+147 glyphs, 147 codes, none repeated (tested). A glyph's code is its haptic signature, and the same code is
+the `TACTON` of a node (spec/NODES.md). On the glyph page and in the node studio, "Feel it" plays the
+code on the wrist where the device can vibrate, and as the sound of a vibration motor (a low buzz in the same
+rhythm) everywhere else, while the code's dots and dashes light up in time.

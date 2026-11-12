@@ -14,7 +14,7 @@ LANGUAGE_VERSION = "2.0"
 CHANNELS = ("V", "A", "K", "O", "G")
 CHANNEL_NAMES = {"V": "visual", "A": "auditory", "K": "kinesthetic", "O": "olfactory", "G": "gustatory"}
 
-TACTON_SHORT, TACTON_LONG, TACTON_GAP = 100, 300, 100
+TACTON_SHORT, TACTON_LONG, TACTON_GAP, TACTON_WORD = 100, 300, 100, 400
 DEFAULT_SAFETY = {"max_per_hour": 6, "max_per_day": 20, "refractory_ms": 90000, "haptic_max": 0.4}
 DEFAULT_BREATH = {"inhale": 4000, "exhale": 6000, "hold": 0}
 SAY_MS = 1500          # how long a spoken / shown word is presented
@@ -240,9 +240,9 @@ def _tier(prog, ln, toks, body):
             if val not in ("associated", "observer"):
                 raise RSXError(b.no, 'MODE is "associated" or "observer"')
             tier["mode"] = val
-        elif key == "TACTON":         # node rhythm code: . short (100 ms), - long (300 ms)
-            if not re.fullmatch(r"[.\-]{1,6}", val):
-                raise RSXError(b.no, 'TACTON is 1 to 6 dots and dashes, e.g. "..-"')
+        elif key == "TACTON":         # vibration code: . short (100 ms), - long (300 ms); a space joins codes (400 ms pause)
+            if not re.fullmatch(r"[.\-]{1,6}( [.\-]{1,6}){0,2}", val):
+                raise RSXError(b.no, 'TACTON is 1 to 6 dots and dashes, up to three joined by spaces, e.g. "..-" or "..- ---"')
             tier["tacton"] = val
         else:
             raise RSXError(b.no, f"unknown tier field {key}")
@@ -427,6 +427,9 @@ def _activate(prog, state, tier, phase, t, extra):
                                  text=tier["channels"][ch], tier=tier["name"], **extra))
     off = 0
     for sym in tier.get("tacton", ""):
+        if sym == " ":
+            off += TACTON_WORD - TACTON_GAP
+            continue
         on = TACTON_SHORT if sym == "." else TACTON_LONG
         end = max(end, _emit(prog, state, t + off, on + TACTON_GAP, "haptic", "pulse", phase, on=on, off=TACTON_GAP,
                              count=1, amp=prog["safety"]["haptic_max"], tacton=tier["tacton"], **extra))

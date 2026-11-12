@@ -29,7 +29,11 @@
   const NEGATION = new Set(["not", "no", "never", "don't", "dont", "won't", "can't", "cannot", "stop", "without"]);
   const ABSOLUTE = new Set(["always", "never", "exceptional", "perfect", "perfectly", "best", "unlimited", "infinite", "flawless"]);
 
-  function tactonPulses(code) { const out = [...code].map(c => [c === "." ? SHORT : LONG, GAP]); if (out.length) out[out.length - 1][1] = 0; return out; }
+  function tactonPulses(code) {
+    const out = [];
+    for (const c of code || "") { if (c === " ") { if (out.length) out[out.length - 1][1] = 400; continue; } out.push([c === "." ? SHORT : LONG, GAP]); }
+    if (out.length) out[out.length - 1][1] = 0; return out;
+  }
   const words = t => (String(t).toLowerCase().match(/[a-z']+/g) || []);
   const has = (t, p) => (" " + words(t).join(" ") + " ").indexOf(" " + p + " ") >= 0;
 

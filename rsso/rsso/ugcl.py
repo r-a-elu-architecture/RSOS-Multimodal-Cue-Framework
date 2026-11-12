@@ -19,6 +19,45 @@ FORMAT = "rsos-ugcl/1"
 STROKE_W = 0.09
 PENTATONIC = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33]
 
+# Vibration codes (tactons): . short 100 ms, - long 300 ms, 100 ms between pulses; a space joins two codes
+# (a recombination) with a 400 ms pause. Every original glyph has its own code (spec/GLYPH_FORMAT.md §7).
+TACTON_SHORT, TACTON_LONG, TACTON_GAP, TACTON_WORD = 100, 300, 100, 400
+TACTON_RE = r"[.\-]{1,6}( [.\-]{1,6}){0,2}"
+# glyph text, as on the ledger pages: symbol fonts first, then colour emoji
+EMOJI_FONTS = "'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif"
+SYMBOL_FONTS = "'Noto Sans Symbols','Noto Sans Symbols 2','Noto Sans Math','Segoe UI Symbol','Apple Symbols',Symbola"
+GLYPH_FONTS = SYMBOL_FONTS + "," + EMOJI_FONTS
+JOINERS = ("\ufe0f", "\ufe0e", "\u200d")
+
+
+def tacton_pulses(code: str) -> list[list[int]]:
+    """[[on_ms, off_ms], ...] for a vibration code; the last off is 0."""
+    out: list[list[int]] = []
+    for c in code:
+        if c == " ":
+            if out:
+                out[-1][1] = TACTON_WORD
+            continue
+        out.append([TACTON_SHORT if c == "." else TACTON_LONG, TACTON_GAP])
+    if out:
+        out[-1][1] = 0
+    return out
+
+
+def glyph_font_size(char: str) -> int:
+    """Font size in a 64-unit box by how many symbols the glyph has (identical in JavaScript)."""
+    n = len([c for c in char if c not in JOINERS])
+    return 44 if n <= 1 else 32 if n == 2 else 24 if n == 3 else rint(76 / n)
+
+
+def _joined(t: str, color: str) -> str:
+    """A recorded pair ("🦁+🐉") keeps its plus sign, drawn in the glyph colour."""
+    return t.replace("+", f'<tspan fill="{color}" font-family="sans-serif" dx="1">+</tspan>')
+
+
+def _xml(t: str) -> str:
+    return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
 
 def rint(x: float) -> int:
     """Round half up (identical in JavaScript: Math.floor(x + 0.5))."""
@@ -72,15 +111,13 @@ def _transform(s, ang, mir):
 
 
 def _svg_original(g: dict, size: int, color: str, background: str | None) -> str:
-    """An original ledger glyph: its stored image; monochrome glyphs are drawn in `color` through the image as a mask."""
+    """An original ledger glyph as text, exactly as recorded and drawn as on the ledger pages: the symbol fonts
+    first, then the emoji fonts, in `color` (emoji keep their own colours); crisp at any size. The stored image is
+    kept as the reference the rhythm and melody were derived from."""
     bg = f'<rect width="64" height="64" fill="{background}"/>' if background else ""
-    if g.get("colour"):
-        body = f'<image href="{g["png"]}" width="64" height="64"/>'
-    else:
-        body = (f'<defs><mask id="m-{g["id"]}"><image href="{g["png"]}" width="64" height="64"/></mask></defs>'
-                f'<rect width="64" height="64" fill="{color}" mask="url(#m-{g["id"]})"/>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" viewBox="0 0 64 64" role="img" '
-            f'aria-label="{g["id"]}">{bg}{body}</svg>')
+            f'aria-label="{_xml(g["char"])}">{bg}<text x="32" y="33" text-anchor="middle" dominant-baseline="central" '
+            f'font-size="{glyph_font_size(g["char"])}" font-family="{GLYPH_FONTS}" fill="{color}">{_joined(_xml(g["char"]), color)}</text></svg>')
 
 
 def svg(g: dict, size: int = 120, color: str = "#e8b04a", background: str | None = None) -> str:
@@ -122,7 +159,7 @@ def haptic_signature(g: dict) -> list[list[int]]:
     """Pulse rhythm [[on_ms, off_ms], ...], at most 2 s. One pulse per base stroke (length sets duration),
     repeated min(sym, 3) times; a final short pulse if the glyph is mirrored. Original glyphs carry their own."""
     if g.get("kind") == "original":
-        return [list(x) for x in g["haptic"]]
+        return tacton_pulses(g["tacton"]) if g.get("tacton") else [list(x) for x in g["haptic"]]
     base = []
     for s in g["strokes"]:
         on = 50 if s["k"] == "D" else min(220, max(60, rint(60 + 60 * stroke_length(s))))
@@ -180,6 +217,8 @@ def validate(g: dict) -> None:
             raise ValueError("an original glyph needs its symbol and image")
         if not g.get("haptic") or not g.get("tone"):
             raise ValueError("an original glyph needs its rhythm and melody")
+        if "tacton" in g and not __import__("re").fullmatch(TACTON_RE, g["tacton"]):
+            raise ValueError("a vibration code is 1 to 6 dots and dashes, up to three joined by spaces")
         return
     if not 1 <= int(g.get("sym", 1)) <= 8:
         raise ValueError("sym must be 1..8")

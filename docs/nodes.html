@@ -8,14 +8,14 @@
 <link rel="icon" href="icons/icon-192.png">
 <meta name="description" content="Design personal nodes: a state held as one unit, with cues on every sense, a vibration code, a glyph and the mental frame of that state. From symptoms and desired states to a practice plan the player runs.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
 <style>
 :root{
   --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
   --gold:#e8b04a; --glow:#f7d995; --obs:#9fb6d9; --warn:#f0a35a;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --sym:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",Symbola,var(--serif);
+  --sym:"Noto Sans Symbols","Noto Sans Symbols 2","Noto Sans Math","Segoe UI Symbol","Apple Symbols",Symbola,"Noto Color Emoji","Segoe UI Emoji","Apple Color Emoji",var(--serif);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ink);color:var(--text);font:16px/1.55 var(--sans)}
@@ -28,7 +28,7 @@ nav{display:flex;flex-wrap:wrap;gap:4px 20px}
 nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
 nav a:hover,nav a[aria-current=page]{color:var(--text)}
 .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;align-items:center;margin:34px 0 10px}
-h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.3rem);line-height:1.08;margin:0 0 14px;max-width:16ch}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.3rem);line-height:1.08;margin:0 0 14px;max-width:16ch;text-wrap:balance}
 .lede{color:var(--muted);max-width:60ch;margin:0 0 10px}
 .hero svg{width:100%;max-width:420px;justify-self:center}
 .layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px;margin-top:26px;align-items:start}
@@ -67,6 +67,8 @@ textarea{min-height:68px;resize:vertical}
 .fc b{color:var(--text);font-weight:600}
 .fc .tip{color:var(--warn)}
 .mini{display:flex;gap:6px;margin-top:6px}
+.tcode .tm{transition:fill .05s}
+.tcode .tm.on{fill:#fff6dc;filter:drop-shadow(0 0 5px #f7d995)}
 .mini button{background:transparent;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--text);font:inherit;font-size:.8rem;cursor:pointer}
 ul.plain{list-style:none;margin:0;padding:0}
 ul.plain li{padding:5px 0;border-bottom:1px solid var(--line);font-size:.9rem}
@@ -103,7 +105,7 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
       <p class="lede">A node is a state held as one unit: a sphere of light, the sound, the feeling, the scent, the taste, a vibration on the wrist, and the words you say in that state. Practised together, any one of them opens the whole state, including the way you see.</p>
       <p class="lede">Describe what is happening and the states you want. The studio builds the plan: nodes, cues, codes, glyphs, frames, the ledger tiers and metrics to use, and how often to practise. You, or you with your therapist, approve it; the player runs it.</p>
     </div>
-    <svg id="heroNode" viewBox="0 0 260 260" role="img" aria-label="A node: a sphere of golden light with five senses around it and its vibration code below"></svg>
+    <svg id="heroNode" viewBox="0 0 260 260" role="img" aria-label="A node: a sphere of golden light with five senses around it and its vibration code below. Select it to feel the code."></svg>
   </section>
 
   <div class="layout">
@@ -176,8 +178,8 @@ footer{max-width:1320px;margin:60px auto;padding:0 24px;color:var(--muted);font-
   </div>
 </main>
 <footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it does not diagnose.</footer>
-<script src="js/ugcl.js?v=1.9.0"></script>
-<script src="js/nodes.js?v=1.9.0"></script>
+<script src="js/ugcl.js?v=1.10.0"></script>
+<script src="js/nodes.js?v=1.10.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -205,7 +207,7 @@ function nodeSphere(svg, n, size) {
     svg.appendChild(svgEl("circle", { cx, cy, r: 44, fill: "none", stroke: "#9fb6d9", "stroke-opacity": .5 })); }
   else svg.appendChild(svgEl("circle", { cx, cy, r: 78, fill: "url(#" + id + ")" }));
   const g = ORIG.find(o => o.char === n.glyph);
-  if (g) { const holder = svgEl("g", { transform: "translate(" + (cx - 26) + "," + (cy - 26) + ")" }); holder.innerHTML = UGCL.svg(g, 52, obs ? "#cfdcf0" : "#2b1d07").replace(/^<svg /, "<svg x=\"0\" y=\"0\" "); svg.appendChild(holder); }
+  if (g) { const holder = svgEl("g", { transform: "translate(" + (cx - 34) + "," + (cy - 34) + ")" }); holder.innerHTML = UGCL.svg(g, 68, obs ? "#cfdcf0" : "#2b1d07").replace(/^<svg /, "<svg x=\"0\" y=\"0\" "); svg.appendChild(holder); }
   else if (n.glyph) { const t = svgEl("text", { x: cx, y: cy + 14, "text-anchor": "middle", "font-size": 38, fill: obs ? "#cfdcf0" : "#2b1d07", style: "font-family:var(--sym)" }); t.textContent = n.glyph; svg.appendChild(t); }
   else if (n.name) { const t = svgEl("text", { x: cx, y: cy + 15, "text-anchor": "middle", "font-size": 44, fill: obs ? "#cfdcf0" : "#2b1d07", style: "font-family:var(--serif)" }); t.textContent = n.name.charAt(0).toUpperCase(); svg.appendChild(t); }
   CH.forEach(([k, name, hint], i) => {
@@ -216,19 +218,19 @@ function nodeSphere(svg, n, size) {
     const ti = svgEl("title", {}); ti.textContent = name + ": " + (on ? n.channels[k] : "no cue yet"); c.appendChild(ti); svg.appendChild(c);
     const t = svgEl("text", { x, y: y + 4.5, "text-anchor": "middle", "font-size": 12, "font-weight": 700, fill: on ? "#151b2f" : "#a3abc6", "pointer-events": "none" }); t.textContent = k; svg.appendChild(t);
   });
-  let x = cx - N.tactonPulses(n.tacton).reduce((s, [on]) => s + (on === 100 ? 10 : 26) + 8, -8) / 2;
-  for (const [on] of N.tactonPulses(n.tacton)) {
-    if (on === 100) svg.appendChild(svgEl("circle", { cx: x + 5, cy: 246, r: 5, fill: obs ? "#9fb6d9" : "#e8b04a" }));
-    else svg.appendChild(svgEl("rect", { x, y: 242, width: 26, height: 8, rx: 4, fill: obs ? "#9fb6d9" : "#e8b04a" }));
-    x += (on === 100 ? 10 : 26) + 8;
+  const P = N.tactonPulses(n.tacton), wOf = on => on === 100 ? 10 : 26, gapOf = off => off === 400 ? 18 : 8;
+  let x = cx - P.reduce((w, [on, off], i) => w + wOf(on) + (i < P.length - 1 ? gapOf(off) : 0), 0) / 2;
+  const tc = obs ? "#9fb6d9" : "#e8b04a", marks = svgEl("g", { class: "tcode" }); svg.appendChild(marks);
+  for (const [on, off] of P) {
+    if (on === 100) marks.appendChild(svgEl("circle", { class: "tm", cx: x + 5, cy: 246, r: 5, fill: tc }));
+    else marks.appendChild(svgEl("rect", { class: "tm", x, y: 242, width: 26, height: 8, rx: 4, fill: tc }));
+    x += wOf(on) + gapOf(off);
   }
 }
-function feel(code) { if (navigator.vibrate) navigator.vibrate(N.tactonPulses(code).flat()); else { $("msg").className = "msg err"; $("msg").textContent = "This browser cannot vibrate; try “Hear it”, or open the page on an Android phone."; } }
-function hear(code) {
-  try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); let t = audio.currentTime + 0.05;
-    for (const [on, off] of N.tactonPulses(code)) { const o = audio.createOscillator(), v = audio.createGain(); o.frequency.value = 440;
-      v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(.16, t + .01); v.gain.setValueAtTime(.16, t + on / 1000 - .01); v.gain.linearRampToValueAtTime(0, t + on / 1000);
-      o.connect(v).connect(audio.destination); o.start(t); o.stop(t + on / 1000 + .02); t += (on + (off || 100)) / 1000; } } catch (e) {}
+function feel(code, marks) {
+  // the node's vibration code: on the wrist where the device can vibrate, and as the sound of a vibration
+  UGCL.feel(code, { marks });
+  if (!navigator.vibrate) { $("msg").className = "msg"; $("msg").textContent = "You hear the code as the sound of a vibration; on an Android phone you also feel it."; }
 }
 
 function nodeCard(arch, preset) {
@@ -256,7 +258,7 @@ function nodeCard(arch, preset) {
   field("Its rules, one per line (optional)", "rules", A && A.mode === "observer" ? "Nothing binds\nNothing holds\nOnly observed" : "", "Used where boundaries are needed", "area");
   const two2 = el("div", "two"); box.appendChild(two2);
   const gw = el("div"); const gl = el("label", "", "Glyph"); const gs = el("select"); gs.dataset.k = "glyph"; gl.htmlFor = gs.id = "n" + (counter++);
-  gs.appendChild(new Option("None", "")); for (const o of ORIG) gs.appendChild(new Option(o.char + "  Tier " + o.tiers[0].number, o.char));
+  gs.appendChild(new Option("None", "")); for (const o of ORIG) gs.appendChild(new Option((o.text || o.char) + "   Tier " + o.tiers[0].number + "   " + o.tacton, o.char));
   gs.value = A ? A.glyph : ""; gw.append(gl, gs);
   const tw = el("div"); const tl = el("label", "", "Vibration code (. short, - long)"); const ti = el("input"); ti.type = "text"; ti.dataset.k = "tacton"; ti.placeholder = A ? A.tacton + " (automatic)" : "automatic";
   tl.htmlFor = ti.id = "n" + (counter++); tw.append(tl, ti); two2.append(gw, tw);
@@ -274,7 +276,8 @@ function intake() {
     const n = { archetype: c.dataset.archetype, name: g("name").trim(), mode: g("mode"), state: g("state").trim(), representation: g("representation").trim(),
       frames: lines(g("frames")), contexts: lines(g("contexts")), rules: lines(g("rules")), glyph: g("glyph"), believability: +g("believability") };
     for (const k of ["V", "A", "K", "O", "G"]) n[k] = g(k).trim();
-    const t = g("tacton").trim(); if (/^[.\-]{1,6}$/.test(t)) n.tacton = t;
+    const t = g("tacton").trim(); if (UGCL.TACTON_RE.test(t)) n.tacton = t;
+    else if (!c.dataset.archetype && n.glyph) { const o = ORIG.find(x => x.char === n.glyph); if (o && o.tacton) n.tacton = o.tacton; }   // a node of your own takes its glyph's code
     return n;
   });
   const devices = {}; for (const [k] of DEVICES) devices[k] = !!($("dev-" + k) && $("dev-" + k).checked);
@@ -300,11 +303,10 @@ function update() {
       for (const t of fc.tips) { const tp = el("div", "tip", t); d.appendChild(tp); }
       info.appendChild(d);
     }
-    const mini = el("div", "mini"); const f1 = el("button", "", "Feel the code"); f1.type = "button"; f1.addEventListener("click", () => feel(n.tacton));
-    const f2 = el("button", "", "Hear the code"); f2.type = "button"; f2.addEventListener("click", () => hear(n.tacton));
+    const mini = el("div", "mini"); const f1 = el("button", "", "Feel the code"); f1.type = "button"; f1.addEventListener("click", () => feel(n.tacton, s));
     const f3 = el("button", "", "Show the program"); f3.type = "button"; const pre = el("pre", "prog", n.program); pre.hidden = true;
     f3.addEventListener("click", () => { pre.hidden = !pre.hidden; f3.textContent = pre.hidden ? "Show the program" : "Hide the program"; });
-    mini.append(f1, f2, f3); info.append(mini, pre); row.append(s, info); box.appendChild(row);
+    mini.append(f1, f3); info.append(mini, pre); row.append(s, info); box.appendChild(row);
   }
   const sec = (title, node) => { rest.appendChild(el("h3", "", title)); rest.appendChild(node); };
   const sch = el("div", "sched"); for (const x of p.schedule) { const d = el("div"); d.appendChild(el("b", "", x.phase)); d.appendChild(el("span", "", x.per_day ? x.per_day + " a day for " + x.days + " days. " + x.note : x.note)); sch.appendChild(d); }
@@ -369,14 +371,15 @@ for (const k of [...Object.keys(N.ARCHETYPES), ""]) {
 }
 $("screenQ").textContent = SCREEN;
 $("intake").addEventListener("input", update);
-fetch("ugcl/originals.json?v=1.9.0").then(r => r.json()).then(d => { ORIG = d.glyphs; }).catch(() => {}).finally(() => {
+fetch("ugcl/originals.json?v=1.10.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => { ORIG = d.glyphs; })).catch(() => {}).finally(() => {
   const saved = store.get("rsos.plan", null);
   if (saved && saved.intake) {
     const it = saved.intake; $("symptoms").value = it.symptoms || ""; $("triggers").value = (it.triggers || []).join("\n"); $("author").value = it.author || "self";
     (it.concerns || []).forEach(c => { const i = document.querySelector('#concerns input[value="' + c + '"]'); if (i) i.checked = true; });
     for (const n of it.nodes) nodeCard(n.archetype || "", n);
   } else nodeCard("LION");
-  nodeSphere($("heroNode"), Object.assign({}, N.plan({ nodes: [{ archetype: "LION", O: "Cedar", G: "Mint" }] }).nodes[0]));
+  const hero = N.plan({ nodes: [{ archetype: "LION", O: "Cedar", G: "Mint" }] }).nodes[0]; nodeSphere($("heroNode"), hero);
+  $("heroNode").style.cursor = "pointer"; $("heroNode").addEventListener("click", () => feel(hero.tacton, $("heroNode")));
   update();
 });
 </script>

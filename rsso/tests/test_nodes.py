@@ -80,3 +80,12 @@ class Parity(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class RecombinedCodes(unittest.TestCase):
+    def test_recombined_code_compiles_with_a_pause(self):
+        src = 'PROTOCOL t\nTIER 1 LION {\n  V "a"\n  A "b"\n  K "c"\n  TACTON "..- ---"\n}\nPHASE p {\n  ACTIVATE LION\n}\n'
+        ev = [e for e in compile_rsx(src)["events"] if e.get("kind") == "pulse"]
+        starts = [e["t"] for e in ev]
+        self.assertEqual(starts, [0, 200, 400, 1100, 1500, 1900])
+        self.assertEqual(nodes.tacton_pulses("..- ---")[2], [300, 400])

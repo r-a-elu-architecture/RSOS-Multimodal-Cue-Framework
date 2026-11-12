@@ -157,7 +157,7 @@
       else if (key === "WORD") t.word = val;
       else if (key === "FRAME") { (t.frames = t.frames || []).push(val); if (t.frames.length > 5) throw new RSXError(b.no, "a tier holds at most 5 frames"); }
       else if (key === "MODE") { if (val !== "associated" && val !== "observer") throw new RSXError(b.no, 'MODE is "associated" or "observer"'); t.mode = val; }
-      else if (key === "TACTON") { if (!/^[.\-]{1,6}$/.test(val)) throw new RSXError(b.no, 'TACTON is 1 to 6 dots and dashes, e.g. "..-"'); t.tacton = val; }
+      else if (key === "TACTON") { if (!/^[.\-]{1,6}( [.\-]{1,6}){0,2}$/.test(val)) throw new RSXError(b.no, 'TACTON is 1 to 6 dots and dashes, up to three joined by spaces, e.g. "..-" or "..- ---"'); t.tacton = val; }
       else throw new RSXError(b.no, "unknown tier field " + key);
     }
     const missing = ["V", "A", "K"].filter(c => !(c in t.channels));
@@ -296,6 +296,7 @@
       end = Math.max(end, emit(prog, t, CUE_MS, CHANNEL_NAMES[ch], "cue", ph, Object.assign({ text: t0.channels[ch], tier: t0.name }, extra)));
     let off = 0;
     for (const sym of (t0.tacton || "")) {
+      if (sym === " ") { off += 300; continue; }
       const on = sym === "." ? 100 : 300;
       end = Math.max(end, emit(prog, t + off, on + 100, "haptic", "pulse", ph, Object.assign({ on, off: 100, count: 1, amp: prog.safety.haptic_max, tacton: t0.tacton }, extra)));
       off += on + 100;

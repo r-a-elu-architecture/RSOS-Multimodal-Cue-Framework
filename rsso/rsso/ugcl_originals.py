@@ -36,7 +36,7 @@ from PIL import Image, ImageDraw, ImageFont
 from scipy.ndimage import binary_dilation, label
 
 from .ledger import ROOT, build
-from .ugcl import PENTATONIC
+from .ugcl import PENTATONIC, TACTON_RE
 
 FORMAT = "rsos-ugcl/1"
 FONTS = [("emoji", "/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf", 109),
@@ -189,6 +189,46 @@ def tone_from(f: dict) -> list[list[float]]:
     return notes
 
 
+# The vibration alphabet (spec/GLYPH_FORMAT.md §7). Single codes of 1–4 dots and dashes, shortest first; the
+# archetype codes are reserved for their glyphs (and for nodes); when the single codes are used up, two codes
+# are recombined, joined by a pause ("." + "-." -> ". -."), shortest first. A recorded composite (Tier 013,
+# 🦁 + 🐉) is the recombination of its parts' codes. Every glyph gets a code of its own.
+ARCHETYPE_CODES = {"LION": "..-", "RAVEN": ".-.", "EAGLE": "-..", "LEOPARD": "...", "TIGER": "-.-", "BEAR": "--",
+                   "DRAGON": "---", "OBSERVER": "-"}
+ARCHETYPE_GLYPHS = {"🦁": "..-", "🐉": "---", "∅": "-"}
+
+
+def single_codes() -> list[str]:
+    out = [""]
+    codes = []
+    for _ in range(4):
+        out = [c + s for c in out for s in ".-"]
+        codes += out
+    return codes
+
+
+def assign_tactons(chars: list[str], composites: dict[str, list[str]]) -> dict[str, str]:
+    """{glyph char: code}, in ledger order; composites (char -> part chars) join their parts' codes."""
+    singles = single_codes()
+    reserved = set(ARCHETYPE_CODES.values())
+    code = {c: ARCHETYPE_GLYPHS[c] for c in chars if c in ARCHETYPE_GLYPHS}
+    free = [x for x in singles if x not in reserved]
+    pairs = sorted(((a, b) for a in singles for b in singles), key=lambda ab: (len(ab[0]) + len(ab[1]), singles.index(ab[0]), singles.index(ab[1])))
+    pool = free + [a + " " + b for a, b in pairs]
+    taken_by_composites = set()
+    atoms = [c for c in chars if c not in composites]
+    for c in atoms:
+        if c in code:
+            continue
+        nxt = next(x for x in pool if x not in code.values() and x not in taken_by_composites)
+        code[c] = nxt
+    for c, parts in composites.items():
+        code[c] = " ".join(code[p] for p in parts)
+    assert len(set(code.values())) == len(code), "vibration codes must be unique"
+    assert all(re.fullmatch(TACTON_RE, v) for v in code.values())
+    return code
+
+
 def png_data(img: Image.Image, colour: bool) -> str:
     if not colour:   # monochrome glyphs are stored as a white mask so pages can colour them
         a = img.getchannel("A")
@@ -198,25 +238,72 @@ def png_data(img: Image.Image, colour: bool) -> str:
     return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
+def composites(ledger: dict | None = None) -> list[dict]:
+    """Glyphs the ledger records as a joined pair ("🦁 + 🐉", Tier 013): kept as recorded, as their own glyph."""
+    led = ledger or build()
+    out = []
+    for r in led["records"]:
+        if r["kind"] != "tier":
+            continue
+        field = r["fields"].get("glyph", "")
+        if "+" in field and "→" not in field:
+            parts = tokens(field)
+            if len(parts) >= 2:
+                out.append(dict(char="+".join(parts), text=" + ".join(parts), parts=parts, tier=dict(id=r["id"], number=r["number"], how="glyph")))
+    return out
+
+
 def build_originals() -> dict:
     cmaps = _cmaps()
-    glyphs = []
-    for i, g in enumerate(collect(), start=1):
-        mask, img, colour = render(g["char"], cmaps)
+    led = build()
+    atoms = collect(led)
+    comps = composites(led)
+    first = {}
+    for g in atoms:
+        first.setdefault(g["tiers"][0]["id"], g["char"])
+    order = []   # ledger order: a composite stands just before the first glyph that first appears in its tier
+    for g in atoms:
+        for c in comps:
+            if c["parts"][-1] == g["char"] and c["tier"]["id"] == g["tiers"][0]["id"]:
+                order.append(("c", c))
+        order.append(("a", g))
+    codes = assign_tactons([x["char"] for k, x in order if k == "a"] + [c["char"] for c in comps], {c["char"]: c["parts"] for c in comps})
+    glyphs, ids, n, m = [], {}, 0, 0
+    for k, g in order:
+        if k == "a":
+            n += 1
+            gid = f"O{n:03d}"
+        else:
+            m += 1
+            gid = f"C{m:03d}"
+        mask, img, colour = render(g["char"].replace("+", ""), cmaps)
         f = features(mask)
-        glyphs.append(dict(id=f"O{i:03d}", kind="original", char=g["char"], name=" ".join(unicodedata.name(c, "?").title() for c in g["char"] if c not in JOINERS),
-                           colour=colour, png=png_data(img, colour), haptic=haptic_from(f), tone=tone_from(f),
-                           features=dict(parts=f["parts"], symmetry=f["symmetry"], density=f["density"]),
-                           tiers=g["tiers"], parents=g["parents"], children=g["children"]))
+        if k == "a":
+            name = " ".join(unicodedata.name(c, "?").title() for c in g["char"] if c not in JOINERS)
+            rec = dict(id=gid, kind="original", char=g["char"], name=name, colour=colour, png=png_data(img, colour), tacton=codes[g["char"]],
+                       haptic=haptic_from(f), tone=tone_from(f), features=dict(parts=f["parts"], symmetry=f["symmetry"], density=f["density"]),
+                       tiers=g["tiers"], parents=g["parents"], children=g["children"])
+        else:
+            rec = dict(id=gid, kind="original", char=g["char"], text=g["text"], name=" + ".join(unicodedata.name(p[0], "?").title() for p in g["parts"]),
+                       colour=colour, png=png_data(img, colour), tacton=codes[g["char"]], haptic=haptic_from(f), tone=tone_from(f),
+                       features=dict(parts=f["parts"], symmetry=f["symmetry"], density=f["density"]),
+                       composite=g["parts"], tiers=[g["tier"]], parents=[], children=[])
+        ids[g["char"]] = gid
+        glyphs.append(rec)
+    for g in glyphs:
+        if "composite" in g:
+            g["composite"] = [ids[p] for p in g["composite"]]
     by = {g["char"]: g["id"] for g in glyphs}
     defaults = {"LION": by.get("🦁"), "DRAGON": by.get("🐉")}
-    hap = {json.dumps(g["haptic"]) for g in glyphs}
-    ton = {json.dumps(g["tone"]) for g in glyphs}
+    atoms_only = [g for g in glyphs if "composite" not in g]
+    hap = {json.dumps(g["haptic"]) for g in atoms_only}
+    ton = {json.dumps(g["tone"]) for g in atoms_only}
     return dict(format=FORMAT, source="Tier ledger (spec/TIER_LEDGER.md)", glyphs=glyphs,
                 archetype_defaults={k: v for k, v in defaults.items() if v},
-                stats=dict(glyphs=len(glyphs), occurrences=sum(len(g["tiers"]) for g in glyphs),
-                           mutations=sum(len(g["children"]) for g in glyphs), distinct_haptic=len(hap), distinct_tone=len(ton),
-                           distinct_both=len({json.dumps([g["haptic"], g["tone"]]) for g in glyphs})))
+                stats=dict(glyphs=len(atoms_only), composites=len(glyphs) - len(atoms_only), occurrences=sum(len(g["tiers"]) for g in atoms_only),
+                           mutations=sum(len(g["children"]) for g in atoms_only), distinct_haptic=len(hap), distinct_tone=len(ton),
+                           distinct_both=len({json.dumps([g["haptic"], g["tone"]]) for g in atoms_only}),
+                           distinct_tacton=len({g["tacton"] for g in glyphs})))
 
 
 def main():
@@ -225,11 +312,12 @@ def main():
     s = data["stats"]
     lines = ["# UGCL original glyphs (from the tier ledger)", "",
              f"- Glyphs: {s['glyphs']} distinct glyphs recorded in tier glyph fields and glyph mutations, {s['occurrences']} tier occurrences, {s['mutations']} recorded mutations between different glyphs.",
-             f"- Distinct vibration rhythms: {s['distinct_haptic']}; distinct melodies: {s['distinct_tone']}; distinct rhythm-and-melody pairs: {s['distinct_both']}.",
+             f"- Recorded composites (kept as their own glyph): {s['composites']}. Vibration codes: {s['distinct_tacton']} distinct, one per glyph.",
+             f"- Distinct shape rhythms: {s['distinct_haptic']}; distinct melodies: {s['distinct_tone']}; distinct rhythm-and-melody pairs: {s['distinct_both']}.",
              f"- Archetype glyphs taken from the ledger: " + ", ".join(f"{k} {next(g['char'] for g in data['glyphs'] if g['id'] == v)} ({v})" for k, v in data["archetype_defaults"].items()) + ".",
-             "", "| Id | Glyph | Tiers | First tier | Mutated from | Mutated into |", "|---|---|---|---|---|---|"]
+             "", "| Id | Glyph | Vibration code | Tiers | First tier | Mutated from | Mutated into |", "|---|---|---|---|---|---|---|"]
     for g in data["glyphs"]:
-        lines.append(f"| {g['id']} | {g['char']} | {len(g['tiers'])} | {g['tiers'][0]['number']} | {' '.join(sorted({p['char'] for p in g['parents']}))} | {' '.join(sorted({c['char'] for c in g['children']}))} |")
+        lines.append(f"| {g['id']} | {g.get('text', g['char'])} | `{g['tacton']}` | {len(g['tiers'])} | {g['tiers'][0]['number']} | {' '.join(sorted({p['char'] for p in g['parents']}))} | {' '.join(sorted({c['char'] for c in g['children']}))} |")
     (ROOT / "rsso" / "results" / "ugcl_originals.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines[:5]))
 

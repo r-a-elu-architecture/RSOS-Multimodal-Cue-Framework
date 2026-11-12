@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
 <meta name="description" content="Every glyph of the RSOS tier ledger, exactly as recorded, each with a vibration rhythm and a melody derived from its shape, and its ancestry in the ledger.">
 <style>
 :root{
@@ -31,9 +31,11 @@ h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,5vw,3rem);line-
 .facts{color:var(--muted);font-size:.95rem;max-width:70ch;margin:0 0 36px}
 h2{font-family:var(--serif);font-weight:500;font-size:1.7rem;margin:50px 0 6px}
 .jump a{margin-right:22px;font-size:.95rem}
-.sym{font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",Symbola,var(--serif)}
+.sym{font-family:"Noto Sans Symbols","Noto Sans Symbols 2","Noto Sans Math","Segoe UI Symbol","Apple Symbols",Symbola,"Noto Color Emoji","Segoe UI Emoji","Apple Color Emoji",var(--serif)}
 .chain{display:flex;flex-wrap:wrap;gap:2px;margin:16px 0 8px}
 .chain a{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--ink);text-decoration:none;color:var(--glow);min-width:62px;padding:0 8px;height:70px;font-size:1.6rem;line-height:1.1;white-space:nowrap;border:1px solid var(--line)}
+.chain a .gl{display:flex;gap:.18em;align-items:center}
+.chain a .gl .plus{font:1rem var(--sans);color:var(--glow)}
 .chain a small{font:.7rem var(--sans);color:var(--muted);margin-top:4px}
 .chain a:hover{background:var(--ink-2)}
 .chain a.break{box-shadow:inset 3px 0 0 var(--gold)}
@@ -43,8 +45,16 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.7rem;margin:50px 0 6px}
 .cell svg{display:block;margin:0 auto 8px;width:84px;height:84px}
 .cell:hover,.cell[aria-current=true]{background:var(--ink-2);color:var(--text)}
 .cell .arch{display:block;color:var(--gold)}
+.cell .tcode{display:block;margin:7px auto 0;height:6px;width:auto;opacity:.75}
+.cell:hover .tcode,.cell[aria-current=true] .tcode{opacity:1}
+.code{display:flex;align-items:center;gap:14px;margin-top:8px}
+.code .tcode{height:14px;width:auto}
+.code code{color:var(--muted);font-size:.85rem;letter-spacing:.08em}
+.tcode .tm{transition:fill .05s,filter .05s}
+.tcode .tm.on{fill:#fff6dc;filter:drop-shadow(0 0 4px #f7d995)}
+#dGlyph svg{width:110px;height:110px;filter:drop-shadow(0 0 14px rgba(247,217,149,.25))}
 .detail{position:sticky;bottom:0;background:var(--ink-2);border-top:1px solid var(--line);margin-top:28px}
-.detail-in{max-width:1120px;margin:0 auto;padding:18px 24px;display:grid;grid-template-columns:120px 1fr auto;gap:22px;align-items:center}
+.detail-in{max-width:1120px;margin:0 auto;padding:18px 24px;display:grid;grid-template-columns:124px 1fr auto;gap:22px;align-items:center}
 .detail h2{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin:0}
 .detail p{margin:4px 0;color:var(--muted);font-size:.92rem}
 .btn{border:1px solid var(--line);background:transparent;border-radius:999px;padding:10px 18px;cursor:pointer;color:var(--text);font:inherit;font-size:.95rem;margin-left:8px}
@@ -60,7 +70,7 @@ footer{max-width:1120px;margin:40px auto 120px;padding:0 24px;color:var(--muted)
 </header>
 <main>
   <h1>The glyphs of RSOS</h1>
-  <p class="lede">Every glyph the tier ledger records, exactly as written, from the lion of Tier 001 to the mutation chain of the later epochs. Each one is also a vibration rhythm and a melody, derived from its shape, so a cue can move between the senses. Select a glyph to hear it.</p>
+  <p class="lede">Every glyph the tier ledger records, exactly as written, from the lion of Tier 001 to the mutation chain of the later epochs. Each one also has a vibration code of its own, in short and long pulses, and a melody derived from its shape, so a cue can move between the senses. Select a glyph to hear it; “Feel it” plays its code on the wrist and as the sound of a vibration.</p>
   <p class="jump"><a href="#originals">Original glyphs</a><a href="#order">In ledger order</a><a href="#library">Generated library (optional)</a></p>
   <h2 id="originals">The original glyphs</h2>
   <p class="facts" id="origFacts">Loading…</p>
@@ -77,12 +87,12 @@ footer{max-width:1120px;margin:40px auto 120px;padding:0 24px;color:var(--muted)
 <section class="detail" aria-live="polite" hidden id="detail">
   <div class="detail-in">
     <div id="dGlyph"></div>
-    <div><h2 id="dTitle"></h2><p id="dForm"></p><p id="dLine"></p><p id="dCode"></p></div>
+    <div><h2 id="dTitle"></h2><p id="dForm"></p><p id="dLine"></p><div class="code" id="dTacton"></div><p id="dCode"></p></div>
     <div class="acts"><button class="btn" id="feel" type="button">Feel it</button><button class="btn" id="hear" type="button">Hear it again</button></div>
   </div>
 </section>
 <footer>Glyph data: the original glyphs, <a href="ugcl/originals.json">originals.json</a> (built from the tier ledger by <code>rsso/rsso/ugcl_originals.py</code>); the generated library, <a href="ugcl/library.json">library.json</a>, and its evolved population, <a href="ugcl/genealogy.json">genealogy.json</a>. Vibration works on phones that support it (most Android browsers).</footer>
-<script src="js/ugcl.js?v=1.8.0"></script>
+<script src="js/ugcl.js?v=1.10.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -117,9 +127,15 @@ function select(g, cell) {
   current = g;
   document.querySelectorAll(".cell").forEach(c => c.setAttribute("aria-current", String(c === cell)));
   $("detail").hidden = false;
-  $("dGlyph").innerHTML = UGCL.svg(g, 96);
-  ["dForm", "dLine", "dCode"].forEach(id => { $(id).textContent = ""; });
-  if (g.kind === "original") {
+  $("dGlyph").innerHTML = UGCL.svg(g, 110, GOLD);
+  ["dForm", "dLine", "dCode", "dTacton"].forEach(id => { $(id).textContent = ""; });
+  if (g.tacton) { $("dTacton").innerHTML = UGCL.codeSVG(g.tacton, GOLD, 14); $("dTacton").appendChild(el("code", "", g.tacton)); }
+  if (g.composite) {
+    const parts = g.composite.map(id => ORIG.glyphs.find(x => x.id === id));
+    $("dTitle").textContent = g.text + "  " + parts.map(p => p.name).join(" + ") + ", the glyph of Tier " + g.tiers[0].number;
+    tierLinks($("dForm"), "Recorded as one glyph in ", [{ id: g.tiers[0].id, text: "Tier " + g.tiers[0].number }]);
+    $("dLine").textContent = "The Lion and the Dragon joined, as the ledger writes it. Its vibration code joins theirs: " + parts.map(p => p.char + " " + p.tacton).join(" and ") + ".";
+  } else if (g.kind === "original") {
     $("dTitle").textContent = g.char + "  " + g.name + (g.id === "O001" ? ", the Lion of Tier 001" : "");
     const seen = g.tiers.slice(0, 14).map(t => ({ id: t.id, text: t.number }));
     tierLinks($("dForm"), "Recorded in " + g.tiers.length + (g.tiers.length === 1 ? " tier: " : " tiers: "), seen);
@@ -137,26 +153,30 @@ function select(g, cell) {
 }
 $("feel").addEventListener("click", () => {
   if (!current) return;
-  if (!navigator.vibrate) { $("dCode").textContent = "This browser cannot vibrate. Try it on an Android phone."; return; }
-  navigator.vibrate(UGCL.hapticSignature(current).flat());
+  if (current.tacton) UGCL.feel(current.tacton, { marks: $("dTacton") });
+  else if (navigator.vibrate) navigator.vibrate(UGCL.hapticSignature(current).flat());
+  if (!navigator.vibrate) $("dCode").textContent = "This device cannot vibrate, so you hear the code as the sound of a vibration. On an Android phone you also feel it.";
 });
 $("hear").addEventListener("click", () => { if (current) play(current); });
+const GOLD = "#f7d995";
 function cellFor(g, label, sub) {
-  const b = el("button", "cell"); b.type = "button"; b.setAttribute("role", "listitem");
-  b.innerHTML = UGCL.svg(g, 84); b.append(label);
+  const b = el("button", g.composite ? "cell comp" : "cell"); b.type = "button"; b.setAttribute("role", "listitem");
+  b.innerHTML = UGCL.svg(g, 84, GOLD); b.append(label);
   if (sub) b.appendChild(el("span", "arch", sub));
-  b.setAttribute("aria-label", (g.char ? g.char + " " + g.name : g.id) + ". Plays its melody.");
+  if (g.tacton) b.insertAdjacentHTML("beforeend", UGCL.codeSVG(g.tacton, GOLD, 6));
+  b.setAttribute("aria-label", (g.char ? (g.text || g.char) + " " + g.name : g.id) + (g.tacton ? ". Vibration code " + g.tacton : "") + ". Plays its melody.");
   b.addEventListener("click", () => select(g, b));
   return b;
 }
-fetch("ugcl/originals.json?v=1.8.0").then(r => r.json()).then(data => {
+fetch("ugcl/originals.json?v=1.10.0").then(r => r.json()).then(data => UGCL.prepare(data.glyphs).then(() => data)).then(data => {
   ORIG = data; const st = data.stats;
   $("origFacts").textContent = st.glyphs + " glyphs, recorded " + st.occurrences + " times across the tiers, with " + st.mutations +
-    " recorded mutations from one glyph to another. Each image is the glyph as written in the ledger; its rhythm and melody come from its shape (" +
-    st.distinct_both + " have a pair of their own). The Lion of the override is 🦁, the glyph of Tier 001.";
+    " recorded mutations from one glyph to another, and one glyph the ledger writes as a pair: 🦁 + 🐉, Tier 013. Every glyph has its own vibration code (" +
+    st.distinct_tacton + " codes): short and long pulses, shortest first, and when those run out two codes joined by a pause. The Lion is ..-, the Dragon ---, the observer ∅ is -, and the Lion and Dragon of Tier 013 is their two codes joined.";
   for (const g of data.glyphs) {
     const arch = Object.entries(data.archetype_defaults).filter(([, id]) => id === g.id).map(([t]) => t[0] + t.slice(1).toLowerCase());
-    $("ogrid").appendChild(cellFor(g, "Tier " + g.tiers[0].number, arch.length ? arch.join(", ") : g.tiers.length > 1 ? g.tiers.length + " tiers" : ""));
+    const sub = g.composite ? "Lion + Dragon" : arch.length ? arch.join(", ") : g.tiers.length > 1 ? g.tiers.length + " tiers" : "";
+    $("ogrid").appendChild(cellFor(g, "Tier " + g.tiers[0].number, sub));
   }
   const h = decodeURIComponent(location.hash.slice(1));
   const want = data.glyphs.find(g => g.id === h || g.char === h);
@@ -164,13 +184,17 @@ fetch("ugcl/originals.json?v=1.8.0").then(r => r.json()).then(data => {
 }).catch(() => { $("origFacts").textContent = "The original glyphs could not be loaded."; });
 fetch("data/ledger.json").then(r => r.json()).then(L => {
   const T = L.records.filter(r => r.kind === "tier");
-  const sym = g => g && !/^[A-Za-z\[(]/.test(g);
+  // every glyph the tier records, as written: "🦁 + 🐉" stays joined; names, notes and arrows are left out
+  const glyphText = f => { const x = f.replace(/\([^)]*\)|\[[^\]]*\]/g, " "); if (/→/.test(x)) return "";
+    const toks = x.split(/[\s,|]+/).filter(k => k && !/[A-Za-z0-9]/.test(k));
+    return toks.filter(k => k !== "+").length ? toks.join(" ").replace(/ \+ /g, " + ") : ""; };
   const cell = (t, g, cls) => { const a = document.createElement("a"); a.href = "tiers.html#" + t.id; if (cls) a.className = cls;
-    a.title = "Tier " + t.number + " — " + t.title; a.append(g); const sm = document.createElement("small"); sm.textContent = t.number; a.appendChild(sm); return a; };
+    a.title = "Tier " + t.number + " — " + t.title;
+    const row = document.createElement("span"); row.className = "gl"; g.split(" ").forEach(k => { const x = document.createElement("span"); x.textContent = k; if (k === "+") x.className = "plus"; row.appendChild(x); }); a.appendChild(row); const sm = document.createElement("small"); sm.textContent = t.number; a.appendChild(sm); return a; };
   const ep = (box, txt) => { const s = document.createElement("span"); s.className = "ep"; s.textContent = txt; box.appendChild(s); };
   let lastEp = null, n1 = 0, n2 = 0, breaks = 0;
   for (const t of T.filter(t => !t.glyph_chain.length)) {
-    const g = (t.fields.glyph || "").split(/\s+\(|\s\|/)[0].trim(); if (!sym(g) || g.length > 12) continue;
+    const g = glyphText(t.fields.glyph || ""); if (!g || g.length > 24) continue;
     if (t.epoch !== lastEp) { lastEp = t.epoch; ep($("early"), "Epoch " + t.epoch); }
     $("early").appendChild(cell(t, g)); n1++;
   }

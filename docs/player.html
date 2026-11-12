@@ -8,6 +8,8 @@
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
 <meta name="description" content="Run the RSOS Override Protocol or any RSX program: breath pacing, words, imagery, tone and vibration, with a before-and-after check-in. Runs locally in your browser.">
 <style>
 :root{
@@ -25,6 +27,10 @@ button,select,input,textarea{font:inherit;color:inherit}
 .app{display:grid;grid-template-columns:minmax(300px,380px) 1fr;min-height:100vh}
 aside{background:var(--ink-2);border-right:1px solid var(--line);padding:24px 22px 40px;overflow:auto;max-height:100vh}
 .home{font-family:var(--serif);font-size:1.15rem;text-decoration:none;color:var(--text)}
+.top{display:flex;flex-direction:column;gap:10px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+nav.site{display:flex;flex-wrap:wrap;gap:4px 16px}
+nav.site a{color:var(--muted);text-decoration:none;font-size:.9rem;white-space:nowrap}
+nav.site a:hover,nav.site a[aria-current=page]{color:var(--text)}
 h1{font-family:var(--serif);font-weight:500;font-size:1.9rem;line-height:1.15;margin:18px 0 6px}
 .lede{color:var(--muted);margin:0 0 22px}
 fieldset{border:0;border-top:1px solid var(--line);margin:0;padding:18px 0 6px}
@@ -48,6 +54,7 @@ main{position:relative;display:flex;flex-direction:column;align-items:center;jus
 .orb{position:absolute;inset:0;border-radius:50%;
   background:radial-gradient(circle at 50% 50%,var(--glow) 0%,var(--gold) 28%,rgba(232,176,74,.35) 52%,rgba(232,176,74,0) 70%);
   transform:scale(.55);opacity:.55;will-change:transform,opacity}
+.glyph svg{display:block}
 .glyph{position:absolute;top:21%;filter:drop-shadow(0 0 5px rgba(255,243,214,.95)) drop-shadow(0 0 12px rgba(255,243,214,.6));font-family:var(--serif);font-size:2.2rem;color:#2b1d07;opacity:0;transition:opacity .6s;line-height:0}
 .glyph svg{width:min(11vmin,96px);height:auto}
 .pair{display:flex;gap:14px;justify-content:center;margin:14px 0}
@@ -98,7 +105,8 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <body>
 <div class="app" id="app">
 <aside aria-label="Settings">
-  <a class="home" href="./">RSOS</a>
+  <div class="top"><a class="home" href="./">RSOS</a>
+  <nav class="site" aria-label="Site"><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav></div>
   <h1>Protocol player</h1>
   <p class="lede">Runs an RSX program step by step: breath, words, imagery, tone and vibration. Everything stays in this browser.</p>
 
@@ -212,7 +220,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.9.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.10.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -287,14 +295,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.9.0"></script>
-<script src="js/hrs.js?v=1.9.0"></script>
-<script src="js/memstack.js?v=1.9.0"></script>
-<script src="js/ugcl.js?v=1.9.0"></script>
-<script src="js/consent.js?v=1.9.0"></script>
+<script src="js/rsx.js?v=1.10.0"></script>
+<script src="js/hrs.js?v=1.10.0"></script>
+<script src="js/memstack.js?v=1.10.0"></script>
+<script src="js/ugcl.js?v=1.10.0"></script>
+<script src="js/consent.js?v=1.10.0"></script>
 <script>
 "use strict";
-const BUILD = "1.9.0";
+const BUILD = "1.10.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
   "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
@@ -769,6 +777,7 @@ async function loadLibrary() {
   try { orig = await (await fetch("ugcl/originals.json?v=" + BUILD)).json(); } catch (e) {}
   try { lib = await (await fetch("ugcl/library.json?v=" + BUILD)).json(); } catch (e) {}
   // the original ledger glyphs come first; the generated library is an optional extra set
+  try { await UGCL.prepare(orig.glyphs); } catch (e) {}
   library = { glyphs: orig.glyphs.concat(lib.glyphs), originals: orig.glyphs, archetype_defaults: orig.archetype_defaults || {} };
   return library;
 }

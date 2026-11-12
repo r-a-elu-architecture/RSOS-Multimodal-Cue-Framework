@@ -1,6 +1,6 @@
 /* RSOS player service worker: works offline, never serves a stale version when online.
  * Network first for everything; the cache is only a fallback when there is no connection. */
-const CACHE = "rsos-player-v12";
+const CACHE = "rsos-player-v13";
 const SHELL = ["player.html", "js/rsx.js", "js/hrs.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png",
   "protocols/override.rsx", "protocols/interrupt_only.rsx", "protocols/swish.rsx", "protocols/legacy_vector.rsx",
   "protocols/paced_breathing.rsx", "data/demo_rr.json", "js/memstack.js",
@@ -19,8 +19,17 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
-  e.respondWith(fetch(req).then(res => {
-    if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req.url.split("?")[0], copy)); }
-    return res;
-  }).catch(() => caches.match(req.url.split("?")[0]).then(r => r || caches.match(req))));
+  e.respondWith((async () => {
+    try {
+      const res = await fetch(req);
+      // keep a copy for offline use (whole, same-origin responses only; never a redirect)
+      if (res.ok && res.type === "basic" && !res.redirected) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req.url.split("?")[0], copy)).catch(() => null); }
+      return res;
+    } catch (err) {
+      const hit = (await caches.match(req.url.split("?")[0])) || (await caches.match(req));
+      if (hit) return hit;
+      if (req.mode === "navigate") return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Offline — RSOS</title><body style="background:#151b2f;color:#e7e9f2;font:17px/1.6 system-ui;padding:40px"><h1 style="font-weight:500">This page is not available offline yet</h1><p>Connect to the internet and reload. Pages you have opened once work offline after that.</p><p><a style="color:#f7d995" href="./player.html">Open the player</a></p></body>', { status: 503, headers: { "Content-Type": "text/html; charset=utf-8" } });
+      return new Response("", { status: 504 });
+    }
+  })());
 });

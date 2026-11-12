@@ -2,9 +2,9 @@
 
 **Function:** Native glyph representation: multi-resolution glyph encoding, glyph genealogy and compression of glyph streams for devices.
 
-**Status:** **Specified** — described in the archive and this map; not yet implemented
+**Status:** **Built** — working, tested code in this repository
 
-**Now:** Tiers carry a `GLYPH`; glyph libraries and per-person glyph calibration are specified.
+**Now:** Built: a glyph format in which one description gives an image at any size, a vibration rhythm and a melody; a compact one-line code for devices; a library of 48 glyphs evolved by recorded mutation (full genealogy) and selected to be as distinct as possible; personal glyph and colour calibration in the player from pairwise choices; Python and JavaScript identical (`spec/GLYPH_FORMAT.md`, `rsso/rsso/ugcl.py`, `docs/glyphs.html`). Next: calibration from the body's response (EEG, heart rate).
 
 ## Sources in the archive
 

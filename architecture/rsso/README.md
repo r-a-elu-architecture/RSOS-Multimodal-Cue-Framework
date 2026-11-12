@@ -13,7 +13,7 @@
 | [MEMSTACK](subsystems/MEMSTACK/) | Memory layer | **Built** |
 | [CM1](subsystems/CM1/) | Compression layer | **Partly built** |
 | [LINX](subsystems/LINX/) | AI interface and injection layer | **Specified** |
-| [UGCL](subsystems/UGCL/) | Glyph layer | **Specified** |
+| [UGCL](subsystems/UGCL/) | Glyph layer | **Built** |
 
 - [All subsystems](subsystems/)
 - [PASS31B reconstruction](pass31b/) — the later compilation of evidence excerpts and reconstructions behind these subsystem descriptions

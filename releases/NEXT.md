@@ -16,6 +16,7 @@ Collected here until the next release, planned once all RSSO subsystems are comp
 - **Heart-rate trigger**: Bluetooth Heart Rate Service driver and stress detector in Python and in the player (identical results), opt-in offer with run limits, simulated strap.
 - **EEG input** (`rsso/eeg.py`): stream interface (replay, synthetic, Lab Streaming Layer), band powers, arousal detector.
 - **MEMSTACK** (`rsso/rsso/memstack.py`, `docs/js/memstack.js`): tier memory, habit-curve fit, estimated triggers to a reflex, reflex criterion, checksummed memory snapshots with merge; player progress view, latency question and weekly automaticity check (player 1.4.0).
+- **UGCL glyph layer** (`spec/GLYPH_FORMAT.md`, `rsso/rsso/ugcl.py`, `docs/js/ugcl.js`): one glyph description gives an image at any size, a vibration rhythm and a melody, plus a compact one-line code for devices; a library of 48 glyphs evolved by recorded mutation and selected for distinctness (`rsso/rsso/ugcl_library.py`, `docs/ugcl/`); glyph gallery to see, feel and hear each glyph (`docs/glyphs.html`); personal glyph and colour calibration in the player from pairwise choices (Bradley–Terry, `rsso/rsso/calibration.py`), player 1.5.0. Python and JavaScript identical (tested).
 - **Installable player**: web app manifest and offline support (network first, so updates are never held back).
 
 ## Changed
@@ -30,7 +31,7 @@ Collected here until the next release, planned once all RSSO subsystems are comp
 ## Verify
 ```bash
 cd rsx && python -m unittest discover -s tests          # 35 tests
-cd ../rsso && python -m unittest discover -s tests      # 10 tests
+cd ../rsso && python -m unittest discover -s tests      # 38 tests
 python -m rsso.conformance
 cd ../toolkit && python -m unittest discover -s tests   # 10 tests
 ```

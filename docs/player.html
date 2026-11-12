@@ -48,7 +48,16 @@ main{position:relative;display:flex;flex-direction:column;align-items:center;jus
 .orb{position:absolute;inset:0;border-radius:50%;
   background:radial-gradient(circle at 50% 50%,var(--glow) 0%,var(--gold) 28%,rgba(232,176,74,.35) 52%,rgba(232,176,74,0) 70%);
   transform:scale(.55);opacity:.55;will-change:transform,opacity}
-.glyph{position:absolute;top:17%;font-family:var(--serif);font-size:2.2rem;color:#2b1d07;opacity:0;transition:opacity .6s}
+.glyph{position:absolute;top:21%;filter:drop-shadow(0 0 5px rgba(255,243,214,.95)) drop-shadow(0 0 12px rgba(255,243,214,.6));font-family:var(--serif);font-size:2.2rem;color:#2b1d07;opacity:0;transition:opacity .6s;line-height:0}
+.glyph svg{width:min(11vmin,96px);height:auto}
+.pair{display:flex;gap:14px;justify-content:center;margin:14px 0}
+.pair button{background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer;line-height:0}
+.pair button:hover{border-color:var(--gold)}
+.swatches{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.swatches button{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
+.swatches button[aria-pressed=true]{border-color:var(--text);box-shadow:0 0 0 3px var(--ink-2),0 0 0 5px var(--text)}
+.mine{display:flex;gap:14px;align-items:center;margin-top:8px}
+.mine .dot{width:40px;height:40px;border-radius:50%}
 .say{position:relative;font-family:var(--serif);font-size:clamp(1.6rem,4.6vmin,2.6rem);color:#24180a;text-align:center;max-width:70%;line-height:1.2;min-height:1.2em}
 .phase{font-family:var(--serif);font-size:1.25rem;color:var(--glow);margin:26px 0 4px;min-height:1.5em;text-transform:capitalize}
 .cue{max-width:46ch;text-align:center;font-size:1.1rem;min-height:3.2em;margin:0}
@@ -123,6 +132,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </fieldset>
 
   <fieldset>
+    <legend>Your glyph and colour</legend>
+    <p class="note" style="margin-top:0">Choose between pairs of symbols to find the one that feels most like courage and the power to act. It appears on the light when the tier is activated. About 16 quick choices.</p>
+    <div class="mine"><span id="myGlyph" aria-label="Your glyph"></span><span class="dot" id="myColour" aria-label="Your colour"></span><span class="note" id="myGlyphNote">Using the program's default.</span></div>
+    <div class="actions" style="margin-top:8px"><button class="btn quiet" id="calGlyph" type="button">Find your glyph</button><button class="btn quiet" id="calColour" type="button">Choose your colour</button></div>
+    <p class="note"><a href="glyphs.html">See, feel and hear all 48 glyphs</a>.</p>
+  </fieldset>
+
+  <fieldset>
     <legend>Heart-rate trigger</legend>
     <p class="note" style="margin-top:0">Connect a Bluetooth heart-rate strap or watch that broadcasts heart rate. When your heart rate rises and its variability drops for several seconds, the player offers the override. Works in Chrome or Edge on Android, Windows, macOS and Linux.</p>
     <div class="actions" style="margin-top:6px"><button class="btn quiet" id="hrConnect" type="button">Connect heart-rate strap</button><button class="btn quiet" id="hrDemo" type="button">Try a simulated strap</button></div>
@@ -155,7 +172,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.4.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.5.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -206,6 +223,21 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
+<dialog id="glyphCal" aria-labelledby="glyphCalTitle">
+  <h2 id="glyphCalTitle">Find your glyph</h2>
+  <p class="note" id="glyphCalQ">Which one feels more like courage and the power to act? Go with your first impression.</p>
+  <div class="pair" id="glyphPair"></div>
+  <p class="note" id="glyphCalCount" aria-live="polite"></p>
+  <div class="actions"><button class="btn quiet" id="glyphCalDone" type="button">Finish now</button><button class="btn quiet" id="glyphCalCancel" type="button">Cancel</button></div>
+</dialog>
+
+<dialog id="colourCal" aria-labelledby="colourCalTitle">
+  <h2 id="colourCalTitle">Choose your colour</h2>
+  <p class="note">Which colour of light feels most like power and agency to you?</p>
+  <div class="swatches" id="swatches" role="group" aria-label="Colours"></div>
+  <div class="actions"><button class="btn go" id="colourSave" type="button">Use this colour</button><button class="btn quiet" id="colourCancel" type="button">Cancel</button></div>
+</dialog>
+
 <dialog id="weekly" aria-labelledby="weeklyTitle">
   <form method="dialog">
     <h2 id="weeklyTitle">Weekly automaticity check</h2>
@@ -215,12 +247,13 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.4.0"></script>
-<script src="js/hrs.js?v=1.4.0"></script>
-<script src="js/memstack.js?v=1.4.0"></script>
+<script src="js/rsx.js?v=1.5.0"></script>
+<script src="js/hrs.js?v=1.5.0"></script>
+<script src="js/memstack.js?v=1.5.0"></script>
+<script src="js/ugcl.js?v=1.5.0"></script>
 <script>
 "use strict";
-const BUILD = "1.4.0";
+const BUILD = "1.5.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector"];
 const sources = {};
@@ -412,7 +445,7 @@ function fire(ev) {
       break;   // a tier's auditory component (kind "cue") is part of the bundle, not spoken again
     case "olfactory": case "gustatory": run.felt = ev.text; setCue(run.seen, run.felt); break;
     case "haptic": vibrate(ev); break;
-    case "marker": if (ev.kind === "tier" && ev.glyph) { $("glyph").textContent = ev.glyph; $("glyph").style.opacity = 0.85; } break;
+    case "marker": if (ev.kind === "tier") showGlyph(ev); break;
   }
 }
 function phaseAt(t) { const ps = timeline.phases; for (let i = ps.length - 1; i >= 0; i--) if (t >= ps[i].t) return ps[i]; return ps[0]; }
@@ -668,6 +701,95 @@ $("hrDemo").addEventListener("click", async () => {
 
 summarize(); loadAll();
 if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+
+/* ---- UGCL: personal glyph and colour (spec/GLYPH_FORMAT.md) ---- */
+const PALETTE = [["Lion gold", "#e8b04a"], ["Sun yellow", "#f5d04a"], ["Amber", "#f09a3a"], ["Fire red", "#e5533d"],
+  ["Royal violet", "#9b6cf0"], ["Sky blue", "#5aa8f0"], ["Emerald", "#3fc58a"], ["White light", "#f4f1ff"]];
+let library = null;
+async function loadLibrary() {
+  if (library) return library;
+  try { library = await (await fetch("ugcl/library.json?v=" + BUILD)).json(); } catch (e) { library = { glyphs: [], archetype_defaults: {} }; }
+  return library;
+}
+const ugclState = () => store.get("rsos.ugcl", { tiers: {}, colour: "" });
+function glyphById(id) { return library && library.glyphs.find(g => g.id === id); }
+function mix(hex, w) { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  return "rgb(" + [r, g, b].map(c => Math.round(c + (255 - c) * w)).join(",") + ")"; }
+function applyColour() {
+  const c = ugclState().colour; const orb = $("orb");
+  if (!c) { orb.style.background = ""; $("myColour").style.background = "var(--gold)"; return; }
+  const n = parseInt(c.slice(1), 16), rgb = [n >> 16, (n >> 8) & 255, n & 255].join(",");
+  orb.style.background = "radial-gradient(circle at 50% 50%," + mix(c, 0.55) + " 0%," + c + " 28%,rgba(" + rgb + ",.35) 52%,rgba(" + rgb + ",0) 70%)";
+  $("myColour").style.background = c;
+}
+function showGlyph(ev) {
+  const mine = ugclState().tiers[ev.tier];
+  let g = mine ? glyphById(mine.glyph) : null;
+  if (!g && ev.glyph && ev.glyph.indexOf("ugcl:") === 0) g = glyphById(ev.glyph.slice(5));
+  if (g) $("glyph").innerHTML = UGCL.svg(g, 110, "#2b1d07");
+  else if (ev.glyph) $("glyph").textContent = ev.glyph;
+  else return;
+  $("glyph").style.opacity = 0.85;
+}
+function drawMine() {
+  const tier = "LION", mine = ugclState().tiers[tier], g = mine && glyphById(mine.glyph);
+  $("myGlyph").innerHTML = g ? UGCL.svg(g, 44) : "";
+  $("myGlyphNote").textContent = g ? "Your glyph " + g.id + " for the Lion tier." : "Using the program's default.";
+  applyColour();
+}
+let cal = null;
+function candidates(tier) {
+  const lib = library.glyphs, first = library.archetype_defaults[tier], out = [];
+  if (first) out.push(first);
+  for (const g of lib) { if (out.length >= 8) break; if (out.indexOf(g.id) < 0) out.push(g.id); }
+  return out;
+}
+function nextCalPair() {
+  const n = cal.ids.length, total = 2 * n;
+  if (cal.comps.length >= total) return finishCal(true);
+  const [i, j] = UGCL.nextPair(n, cal.comps, cal.scores);
+  const order = Math.random() < 0.5 ? [i, j] : [j, i];
+  const box = $("glyphPair"); box.innerHTML = "";
+  order.forEach((k, pos) => {
+    const b = document.createElement("button"); b.type = "button"; b.innerHTML = UGCL.svg(glyphById(cal.ids[k]), 120);
+    b.setAttribute("aria-label", "Glyph " + cal.ids[k] + (pos ? " (right)" : " (left)"));
+    b.addEventListener("click", () => { cal.comps.push([k, order[1 - pos]]); cal.scores = UGCL.btFit(n, cal.comps, 60); nextCalPair(); });
+    box.appendChild(b);
+  });
+  $("glyphCalCount").textContent = "Choice " + (cal.comps.length + 1) + " of " + total;
+}
+function finishCal(save) {
+  const dlg = $("glyphCal");
+  if (save && cal.comps.length >= 4) {
+    const best = cal.scores.indexOf(Math.max.apply(null, cal.scores));
+    const st = ugclState();
+    st.tiers[cal.tier] = { glyph: cal.ids[best], candidates: cal.ids, comparisons: cal.comps, scores: cal.scores.map(x => +x.toFixed(4)), at: new Date().toISOString() };
+    store.set("rsos.ugcl", st);
+  }
+  cal = null; if (dlg.open) dlg.close(); drawMine();
+}
+$("calGlyph").addEventListener("click", async () => {
+  await loadLibrary(); if (!library.glyphs.length) { $("myGlyphNote").textContent = "The glyph library could not be loaded."; return; }
+  const ids = candidates("LION"); cal = { tier: "LION", ids, comps: [], scores: new Array(ids.length).fill(0) };
+  $("glyphCal").showModal(); nextCalPair();
+});
+$("glyphCalDone").addEventListener("click", () => finishCal(true));
+$("glyphCalCancel").addEventListener("click", () => finishCal(false));
+let pickedColour = "";
+$("calColour").addEventListener("click", () => {
+  pickedColour = ugclState().colour || PALETTE[0][1];
+  const box = $("swatches"); box.innerHTML = "";
+  for (const [name, hex] of PALETTE) {
+    const b = document.createElement("button"); b.type = "button"; b.style.background = hex; b.setAttribute("aria-label", name);
+    b.setAttribute("aria-pressed", String(hex === pickedColour));
+    b.addEventListener("click", () => { pickedColour = hex; [...box.children].forEach(x => x.setAttribute("aria-pressed", String(x === b))); });
+    box.appendChild(b);
+  }
+  $("colourCal").showModal();
+});
+$("colourSave").addEventListener("click", () => { const st = ugclState(); st.colour = pickedColour; store.set("rsos.ugcl", st); $("colourCal").close(); applyColour(); });
+$("colourCancel").addEventListener("click", () => $("colourCal").close());
+loadLibrary().then(drawMine);
 </script>
 </body>
 </html>

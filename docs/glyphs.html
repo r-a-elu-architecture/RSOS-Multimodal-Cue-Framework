@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glyph library — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="The 48 RSOS glyphs: each one is a shape, a vibration rhythm and a short melody, evolved and selected to be as distinct from each other as possible.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:17px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+header,main{max-width:1120px;margin:0 auto;padding:0 24px}
+header{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:22px;font-size:.95rem}
+nav a:hover{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:48px 0 12px;max-width:20ch}
+.lede{color:var(--muted);max-width:62ch;margin:0 0 10px}
+.facts{color:var(--muted);font-size:.95rem;max-width:70ch;margin:0 0 36px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(124px,1fr));gap:2px;background:var(--line);border:1px solid var(--line)}
+.cell{background:var(--ink);border:0;padding:16px 8px 10px;cursor:pointer;color:var(--muted);font:inherit;font-size:.82rem;line-height:1.3;text-align:center}
+.cell svg{display:block;margin:0 auto 8px;width:84px;height:84px}
+.cell:hover,.cell[aria-current=true]{background:var(--ink-2);color:var(--text)}
+.cell .arch{display:block;color:var(--gold)}
+.detail{position:sticky;bottom:0;background:var(--ink-2);border-top:1px solid var(--line);margin-top:28px}
+.detail-in{max-width:1120px;margin:0 auto;padding:18px 24px;display:grid;grid-template-columns:120px 1fr auto;gap:22px;align-items:center}
+.detail h2{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin:0}
+.detail p{margin:4px 0;color:var(--muted);font-size:.92rem}
+.btn{border:1px solid var(--line);background:transparent;border-radius:999px;padding:10px 18px;cursor:pointer;color:var(--text);font:inherit;font-size:.95rem;margin-left:8px}
+.btn:hover{border-color:var(--gold)}
+footer{max-width:1120px;margin:40px auto 120px;padding:0 24px;color:var(--muted);font-size:.9rem}
+@media (max-width:640px){.detail-in{grid-template-columns:80px 1fr}.detail-in .acts{grid-column:1/-1}.btn{margin:0 8px 0 0}}
+</style>
+</head>
+<body>
+<header>
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="player.html">Player</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/GLYPH_FORMAT.md">Glyph format</a></nav>
+</header>
+<main>
+  <h1>Forty-eight glyphs, each one a shape, a rhythm and a melody</h1>
+  <p class="lede">A glyph is the visual part of a tier's cue. Each one also has a vibration rhythm you can feel and a short melody you can hear, all derived from the same strokes, so the sense that carries the cue can change while the cue stays the same.</p>
+  <p class="facts" id="facts">The glyphs were evolved from simple seed shapes by recorded mutations, then chosen to be as different from each other as possible. Select a glyph to see its ancestry, feel it and hear it. In the player you can find the one that feels most like yours.</p>
+  <div class="grid" id="grid" role="list"></div>
+</main>
+<section class="detail" aria-live="polite" hidden id="detail">
+  <div class="detail-in">
+    <div id="dGlyph"></div>
+    <div><h2 id="dTitle"></h2><p id="dForm"></p><p id="dLine"></p><p id="dCode"></p></div>
+    <div class="acts"><button class="btn" id="feel" type="button">Feel it</button><button class="btn" id="hear" type="button">Hear it</button></div>
+  </div>
+</section>
+<footer>Glyph data: <a href="ugcl/library.json">library.json</a> and the full evolved population with every parent and mutation, <a href="ugcl/genealogy.json">genealogy.json</a>. Vibration works on phones that support it (most Android browsers).</footer>
+<script src="js/ugcl.js?v=1.5.0"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const OPS = { seed: "seed shape", "add-stroke": "a stroke added", "remove-stroke": "a stroke removed", "change-symmetry": "symmetry changed",
+  "toggle-mirror": "mirroring switched", "move-stroke": "a stroke moved", "replace-stroke": "a stroke replaced" };
+let lib, current = null, audio = null;
+function describe(g) {
+  const kinds = { L: "line", A: "arc", C: "circle", D: "dot" };
+  const parts = g.strokes.map(s => kinds[s.k]);
+  return parts.join(", ") + (g.sym > 1 ? "; repeated " + g.sym + " times around the centre" : "") + (g.mirror ? "; mirrored" : "");
+}
+function select(g, cell) {
+  current = g;
+  document.querySelectorAll(".cell").forEach(c => c.setAttribute("aria-current", String(c === cell)));
+  $("detail").hidden = false;
+  $("dGlyph").innerHTML = UGCL.svg(g, 96);
+  const arch = Object.entries(lib.archetype_defaults).filter(([, id]) => id === g.id).map(([t]) => t[0] + t.slice(1).toLowerCase());
+  $("dTitle").textContent = g.id + (arch.length ? ", the starting glyph for the " + arch.join(" and ") + " tier" : "");
+  $("dForm").textContent = "Strokes: " + describe(g) + ".";
+  $("dCode").textContent = "Compact code: " + UGCL.encode(g);
+  $("dLine").textContent = "Ancestry: " + g.lineage.map(x => x.id + " (" + (OPS[x.op] || x.op) + ")").join(" → ") + " → " + g.id + ".";
+}
+$("feel").addEventListener("click", () => {
+  if (!current) return;
+  if (!navigator.vibrate) { $("dLine").textContent = "This browser cannot vibrate. Try it on an Android phone."; return; }
+  navigator.vibrate(UGCL.hapticSignature(current).flat());
+});
+$("hear").addEventListener("click", () => {
+  if (!current) return;
+  audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+  let t = audio.currentTime + 0.05;
+  for (const [hz, ms] of UGCL.toneMotif(current)) {
+    const o = audio.createOscillator(), v = audio.createGain();
+    o.type = "sine"; o.frequency.value = hz;
+    v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(0.18, t + 0.02); v.gain.linearRampToValueAtTime(0, t + ms / 1000);
+    o.connect(v).connect(audio.destination); o.start(t); o.stop(t + ms / 1000 + 0.02);
+    t += ms / 1000 + 0.04;
+  }
+});
+fetch("ugcl/library.json?v=1.5.0").then(r => r.json()).then(data => {
+  lib = data;
+  const byId = {}; for (const [t, id] of Object.entries(lib.archetype_defaults)) (byId[id] = byId[id] || []).push(t[0] + t.slice(1).toLowerCase());
+  const st = lib.stats;
+  $("facts").textContent = "Evolved from simple seed shapes through " + st.population + " recorded mutations, then the " + st.selected +
+    " most mutually distinct were kept: " + st.distinct_haptic + " have a rhythm of their own and " + st.distinct_tone +
+    " a melody of their own. Select a glyph to see its ancestry, feel it and hear it. In the player you can find the one that feels most like yours.";
+  for (const g of lib.glyphs) {
+    const b = document.createElement("button"); b.type = "button"; b.className = "cell"; b.setAttribute("role", "listitem");
+    b.innerHTML = UGCL.svg(g, 84) + g.id + (byId[g.id] ? '<span class="arch">' + byId[g.id].join(", ") + "</span>" : "");
+    b.addEventListener("click", () => select(g, b));
+    $("grid").appendChild(b);
+  }
+}).catch(() => { $("facts").textContent = "The glyph library could not be loaded."; });
+</script>
+</body>
+</html>

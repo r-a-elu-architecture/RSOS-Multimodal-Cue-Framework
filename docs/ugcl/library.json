@@ -1,0 +1,2361 @@
+{
+ "format": "rsos-ugcl/1",
+ "glyphs": [
+  {
+   "sym": 5,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      1.0,
+      0.75,
+      0.25
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      0.5,
+      0.25,
+      0.5,
+      45,
+      135
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      0.25,
+      -0.5,
+      0.75,
+      0.5
+     ]
+    }
+   ],
+   "source_id": "s005",
+   "id": "G01",
+   "lineage": [
+    {
+     "id": "s005",
+     "op": "seed"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -1.0,
+      1.0,
+      0.0,
+      1.0
+     ]
+    }
+   ],
+   "source_id": "m00739",
+   "id": "G02",
+   "lineage": [
+    {
+     "id": "s038",
+     "op": "seed"
+    },
+    {
+     "id": "m00142",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00629",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00739",
+     "op": "move-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 4,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.25,
+      -0.5,
+      -0.25,
+      0.25
+     ]
+    }
+   ],
+   "source_id": "m00627",
+   "id": "G03",
+   "lineage": [
+    {
+     "id": "s031",
+     "op": "seed"
+    },
+    {
+     "id": "m00010",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00209",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00627",
+     "op": "toggle-mirror"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.75,
+      1.0,
+      -1.0,
+      -1.0
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      0.75,
+      1.0,
+      -0.25
+     ]
+    }
+   ],
+   "source_id": "m00253",
+   "id": "G04",
+   "lineage": [
+    {
+     "id": "s040",
+     "op": "seed"
+    },
+    {
+     "id": "m00015",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00065",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00253",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      1.0,
+      -0.75,
+      -0.75
+     ]
+    },
+    {
+     "k": "D",
+     "p": [
+      0.75,
+      -0.5,
+      0.1
+     ]
+    },
+    {
+     "k": "D",
+     "p": [
+      -0.75,
+      -0.75,
+      0.1
+     ]
+    }
+   ],
+   "source_id": "m00006",
+   "id": "G05",
+   "lineage": [
+    {
+     "id": "s027",
+     "op": "seed"
+    },
+    {
+     "id": "m00006",
+     "op": "change-symmetry"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      -0.25,
+      0.5,
+      0.75,
+      135,
+      360
+     ]
+    }
+   ],
+   "source_id": "m00295",
+   "id": "G06",
+   "lineage": [
+    {
+     "id": "s040",
+     "op": "seed"
+    },
+    {
+     "id": "m00295",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      0.25,
+      -0.25,
+      0.75,
+      270,
+      450
+     ]
+    }
+   ],
+   "source_id": "m00900",
+   "id": "G07",
+   "lineage": [
+    {
+     "id": "s038",
+     "op": "seed"
+    },
+    {
+     "id": "m00212",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00243",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00434",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00900",
+     "op": "toggle-mirror"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      1.0,
+      -1.0,
+      -1.0
+     ]
+    }
+   ],
+   "source_id": "m00386",
+   "id": "G08",
+   "lineage": [
+    {
+     "id": "s040",
+     "op": "seed"
+    },
+    {
+     "id": "m00015",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00065",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00206",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00297",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00386",
+     "op": "move-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.25,
+      -0.75,
+      -0.75,
+      0.5
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      -0.5,
+      0.5,
+      -0.25
+     ]
+    }
+   ],
+   "source_id": "m00013",
+   "id": "G09",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00013",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 4,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -1.0,
+      0.0,
+      -1.0,
+      -1.0
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      1.0,
+      -0.25,
+      1.0
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      -0.25,
+      0.25,
+      0.25,
+      225,
+      315
+     ]
+    }
+   ],
+   "source_id": "m00087",
+   "id": "G10",
+   "lineage": [
+    {
+     "id": "s031",
+     "op": "seed"
+    },
+    {
+     "id": "m00021",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00087",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      0.5,
+      0.25,
+      -0.75
+     ]
+    }
+   ],
+   "source_id": "m00489",
+   "id": "G11",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00003",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00368",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00489",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      -0.5,
+      0.0,
+      0.75,
+      225,
+      450
+     ]
+    }
+   ],
+   "source_id": "m00430",
+   "id": "G12",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00103",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00420",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00430",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      0.0,
+      -0.5,
+      0.5,
+      180,
+      450
+     ]
+    }
+   ],
+   "source_id": "m00788",
+   "id": "G13",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00122",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00685",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00788",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      0.75,
+      0.75,
+      -0.75
+     ]
+    },
+    {
+     "k": "C",
+     "p": [
+      -0.5,
+      -0.25,
+      0.5
+     ]
+    }
+   ],
+   "source_id": "m00793",
+   "id": "G14",
+   "lineage": [
+    {
+     "id": "s006",
+     "op": "seed"
+    },
+    {
+     "id": "m00468",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00793",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      0.5,
+      0.25,
+      0.25,
+      315,
+      540
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.75,
+      1.0,
+      -0.5,
+      -1.0
+     ]
+    }
+   ],
+   "source_id": "m00790",
+   "id": "G15",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00003",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00014",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00018",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00044",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00351",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00518",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00530",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00790",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      1.0,
+      -0.75,
+      -0.75
+     ]
+    },
+    {
+     "k": "D",
+     "p": [
+      -0.5,
+      -0.75,
+      0.1
+     ]
+    },
+    {
+     "k": "C",
+     "p": [
+      0.25,
+      0.5,
+      0.5
+     ]
+    }
+   ],
+   "source_id": "m00528",
+   "id": "G16",
+   "lineage": [
+    {
+     "id": "s027",
+     "op": "seed"
+    },
+    {
+     "id": "m00006",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00007",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00040",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00528",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -1.0,
+      0.75,
+      -0.75,
+      -0.75
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      -0.25,
+      0.0,
+      0.5,
+      90,
+      225
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      0.25,
+      1.0,
+      -0.5
+     ]
+    }
+   ],
+   "source_id": "m00332",
+   "id": "G17",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00013",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00043",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00076",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00099",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00325",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00332",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 3,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      -0.25,
+      0.25,
+      0.25,
+      180,
+      450
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.75,
+      0.5,
+      0.75,
+      0.25
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      0.5,
+      -0.75,
+      -0.25
+     ]
+    }
+   ],
+   "source_id": "s024",
+   "id": "G18",
+   "lineage": [
+    {
+     "id": "s024",
+     "op": "seed"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      -0.75,
+      0.5,
+      -0.25
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      -0.25,
+      0.25,
+      0.5,
+      90,
+      225
+     ]
+    }
+   ],
+   "source_id": "m00891",
+   "id": "G19",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00013",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00043",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00064",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00301",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00891",
+     "op": "move-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      0.25,
+      0.0,
+      0.75,
+      270,
+      450
+     ]
+    }
+   ],
+   "source_id": "m00742",
+   "id": "G20",
+   "lineage": [
+    {
+     "id": "s038",
+     "op": "seed"
+    },
+    {
+     "id": "m00212",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00243",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00434",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00742",
+     "op": "move-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.25,
+      -0.75,
+      -0.75,
+      0.5
+     ]
+    },
+    {
+     "k": "C",
+     "p": [
+      0.75,
+      0.25,
+      0.25
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.75,
+      -0.75,
+      -0.25,
+      0.5
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      -0.5,
+      0.25,
+      0.25,
+      45,
+      270
+     ]
+    }
+   ],
+   "source_id": "m00835",
+   "id": "G21",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00013",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00043",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00051",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00175",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00196",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00204",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00278",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00361",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00370",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00382",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00835",
+     "op": "change-symmetry"
+    }
+   ]
+  },
+  {
+   "sym": 4,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.5,
+      0.5,
+      -0.75,
+      -0.75
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      0.5,
+      -1.0,
+      -0.25,
+      -0.25
+     ]
+    }
+   ],
+   "source_id": "m00808",
+   "id": "G22",
+   "lineage": [
+    {
+     "id": "s027",
+     "op": "seed"
+    },
+    {
+     "id": "m00006",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00047",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00105",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00269",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00588",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00710",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00808",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 3,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      0.0,
+      0.5,
+      -0.75
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      0.25,
+      0.5,
+      0.5
+     ]
+    }
+   ],
+   "source_id": "m00249",
+   "id": "G23",
+   "lineage": [
+    {
+     "id": "s024",
+     "op": "seed"
+    },
+    {
+     "id": "m00009",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00034",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00068",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00162",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00173",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00181",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00249",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.75,
+      0.25,
+      0.0,
+      0.5
+     ]
+    },
+    {
+     "k": "D",
+     "p": [
+      -0.25,
+      0.25,
+      0.1
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.5,
+      0.25,
+      0.5,
+      -0.25
+     ]
+    }
+   ],
+   "source_id": "m00600",
+   "id": "G24",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00003",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00014",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00041",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00072",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00091",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00106",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00156",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00353",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00600",
+     "op": "toggle-mirror"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      0.5,
+      0.0,
+      0.5
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      0.75,
+      0.25,
+      -0.75
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.5,
+      0.5,
+      0.25,
+      0.5
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -1.0,
+      -1.0,
+      -0.75,
+      -0.25
+     ]
+    }
+   ],
+   "source_id": "m00232",
+   "id": "G25",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00003",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00014",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00018",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00186",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00232",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.5,
+      1.0,
+      0.75,
+      -0.75
+     ]
+    }
+   ],
+   "source_id": "m00670",
+   "id": "G26",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00122",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00159",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00639",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00670",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      1.0,
+      0.75,
+      0.25
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      0.5,
+      0.25,
+      0.5,
+      45,
+      135
+     ]
+    }
+   ],
+   "source_id": "m00841",
+   "id": "G27",
+   "lineage": [
+    {
+     "id": "s005",
+     "op": "seed"
+    },
+    {
+     "id": "m00033",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00416",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00446",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00841",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.25,
+      0.75,
+      0.75,
+      -0.75
+     ]
+    }
+   ],
+   "source_id": "m00463",
+   "id": "G28",
+   "lineage": [
+    {
+     "id": "s006",
+     "op": "seed"
+    },
+    {
+     "id": "m00045",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00463",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      0.0,
+      -0.5,
+      0.5,
+      315,
+      495
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      0.75,
+      -0.25,
+      0.25
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      -0.5,
+      -0.75,
+      0.5
+     ]
+    }
+   ],
+   "source_id": "m00821",
+   "id": "G29",
+   "lineage": [
+    {
+     "id": "s016",
+     "op": "seed"
+    },
+    {
+     "id": "m00145",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00680",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00821",
+     "op": "change-symmetry"
+    }
+   ]
+  },
+  {
+   "sym": 6,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.5,
+      0.0,
+      0.75,
+      0.75
+     ]
+    }
+   ],
+   "source_id": "m00316",
+   "id": "G30",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00103",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00213",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00250",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00316",
+     "op": "toggle-mirror"
+    }
+   ]
+  },
+  {
+   "sym": 3,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      0.0,
+      1.0,
+      -0.25
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      0.25,
+      -0.25,
+      0.5,
+      180,
+      450
+     ]
+    }
+   ],
+   "source_id": "s020",
+   "id": "G31",
+   "lineage": [
+    {
+     "id": "s020",
+     "op": "seed"
+    }
+   ]
+  },
+  {
+   "sym": 6,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      -1.0,
+      -0.75,
+      0.0
+     ]
+    }
+   ],
+   "source_id": "m00704",
+   "id": "G32",
+   "lineage": [
+    {
+     "id": "s024",
+     "op": "seed"
+    },
+    {
+     "id": "m00009",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00034",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00057",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00066",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00160",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00163",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00472",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00704",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      0.75,
+      0.75,
+      -0.75
+     ]
+    },
+    {
+     "k": "C",
+     "p": [
+      0.0,
+      0.25,
+      0.75
+     ]
+    }
+   ],
+   "source_id": "m00468",
+   "id": "G33",
+   "lineage": [
+    {
+     "id": "s006",
+     "op": "seed"
+    },
+    {
+     "id": "m00468",
+     "op": "move-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 4,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      1.0,
+      -0.75,
+      -0.75
+     ]
+    },
+    {
+     "k": "D",
+     "p": [
+      0.75,
+      -0.5,
+      0.1
+     ]
+    },
+    {
+     "k": "D",
+     "p": [
+      -0.75,
+      -0.75,
+      0.1
+     ]
+    }
+   ],
+   "source_id": "m00047",
+   "id": "G34",
+   "lineage": [
+    {
+     "id": "s027",
+     "op": "seed"
+    },
+    {
+     "id": "m00006",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00047",
+     "op": "change-symmetry"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.25,
+      1.0,
+      -1.0,
+      -0.75
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      -0.75,
+      0.0,
+      0.75
+     ]
+    }
+   ],
+   "source_id": "m00873",
+   "id": "G35",
+   "lineage": [
+    {
+     "id": "s038",
+     "op": "seed"
+    },
+    {
+     "id": "m00142",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00536",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00592",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00758",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00873",
+     "op": "change-symmetry"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.75,
+      1.0,
+      -1.0,
+      -1.0
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      0.0,
+      -0.25,
+      0.75,
+      45,
+      315
+     ]
+    }
+   ],
+   "source_id": "m00319",
+   "id": "G36",
+   "lineage": [
+    {
+     "id": "s040",
+     "op": "seed"
+    },
+    {
+     "id": "m00319",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 4,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.5,
+      1.0,
+      -0.75,
+      -0.75
+     ]
+    }
+   ],
+   "source_id": "m00348",
+   "id": "G37",
+   "lineage": [
+    {
+     "id": "s027",
+     "op": "seed"
+    },
+    {
+     "id": "m00006",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00047",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00105",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00126",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00246",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00348",
+     "op": "move-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.5,
+      -1.0,
+      1.0,
+      0.5
+     ]
+    }
+   ],
+   "source_id": "m00142",
+   "id": "G38",
+   "lineage": [
+    {
+     "id": "s038",
+     "op": "seed"
+    },
+    {
+     "id": "m00142",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      1.0,
+      1.0,
+      -0.25
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      0.75,
+      0.25,
+      -0.75
+     ]
+    }
+   ],
+   "source_id": "m00352",
+   "id": "G39",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00003",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00352",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 4,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      1.0,
+      -0.25,
+      1.0
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      0.75,
+      0.5,
+      0.25
+     ]
+    }
+   ],
+   "source_id": "m00167",
+   "id": "G40",
+   "lineage": [
+    {
+     "id": "s031",
+     "op": "seed"
+    },
+    {
+     "id": "m00010",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00167",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 4,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      -0.25,
+      0.0,
+      -0.75
+     ]
+    }
+   ],
+   "source_id": "m00310",
+   "id": "G41",
+   "lineage": [
+    {
+     "id": "s027",
+     "op": "seed"
+    },
+    {
+     "id": "m00006",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00047",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00105",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00126",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00165",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00202",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00263",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00293",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00310",
+     "op": "replace-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 1,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.75,
+      1.0,
+      -1.0,
+      -1.0
+     ]
+    },
+    {
+     "k": "C",
+     "p": [
+      -0.25,
+      -0.5,
+      0.25
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      0.75,
+      1.0,
+      -0.75,
+      0.75
+     ]
+    }
+   ],
+   "source_id": "m00864",
+   "id": "G42",
+   "lineage": [
+    {
+     "id": "s040",
+     "op": "seed"
+    },
+    {
+     "id": "m00015",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00065",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00094",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00112",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00465",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00499",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00746",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00864",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": true,
+   "strokes": [
+    {
+     "k": "A",
+     "p": [
+      -0.5,
+      0.25,
+      0.25,
+      90,
+      315
+     ]
+    }
+   ],
+   "source_id": "m00886",
+   "id": "G43",
+   "lineage": [
+    {
+     "id": "s040",
+     "op": "seed"
+    },
+    {
+     "id": "m00015",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00065",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00094",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00112",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00241",
+     "op": "change-symmetry"
+    },
+    {
+     "id": "m00274",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00886",
+     "op": "remove-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.5,
+      0.25,
+      0.0,
+      0.5
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      1.0,
+      0.75,
+      0.25,
+      -0.75
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.5,
+      0.25,
+      0.5,
+      -0.25
+     ]
+    }
+   ],
+   "source_id": "m00091",
+   "id": "G44",
+   "lineage": [
+    {
+     "id": "s028",
+     "op": "seed"
+    },
+    {
+     "id": "m00003",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00014",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00041",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00072",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00091",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.0,
+      1.0,
+      0.75,
+      -1.0
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      -0.25,
+      0.0,
+      0.5,
+      90,
+      225
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -1.0,
+      -1.0,
+      0.25,
+      -0.75
+     ]
+    }
+   ],
+   "source_id": "m00716",
+   "id": "G45",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00013",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00043",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00064",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00074",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00379",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00716",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 3,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      -0.75,
+      0.75,
+      0.75,
+      0.25
+     ]
+    },
+    {
+     "k": "D",
+     "p": [
+      0.0,
+      0.0,
+      0.1
+     ]
+    }
+   ],
+   "source_id": "m00655",
+   "id": "G46",
+   "lineage": [
+    {
+     "id": "s024",
+     "op": "seed"
+    },
+    {
+     "id": "m00009",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00034",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00152",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00417",
+     "op": "toggle-mirror"
+    },
+    {
+     "id": "m00470",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00655",
+     "op": "toggle-mirror"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.5,
+      -0.75,
+      -0.75,
+      0.5
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      0.75,
+      -0.5,
+      0.5,
+      -0.25
+     ]
+    },
+    {
+     "k": "A",
+     "p": [
+      -0.25,
+      0.0,
+      0.5,
+      90,
+      225
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      0.0,
+      -0.75,
+      0.75
+     ]
+    }
+   ],
+   "source_id": "m00947",
+   "id": "G47",
+   "lineage": [
+    {
+     "id": "s017",
+     "op": "seed"
+    },
+    {
+     "id": "m00013",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00043",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00076",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00404",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00947",
+     "op": "add-stroke"
+    }
+   ]
+  },
+  {
+   "sym": 2,
+   "mirror": false,
+   "strokes": [
+    {
+     "k": "L",
+     "p": [
+      0.5,
+      1.0,
+      -1.0,
+      -0.75
+     ]
+    },
+    {
+     "k": "L",
+     "p": [
+      -0.25,
+      -0.75,
+      0.0,
+      0.75
+     ]
+    }
+   ],
+   "source_id": "m00883",
+   "id": "G48",
+   "lineage": [
+    {
+     "id": "s038",
+     "op": "seed"
+    },
+    {
+     "id": "m00142",
+     "op": "remove-stroke"
+    },
+    {
+     "id": "m00536",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00592",
+     "op": "add-stroke"
+    },
+    {
+     "id": "m00758",
+     "op": "replace-stroke"
+    },
+    {
+     "id": "m00777",
+     "op": "move-stroke"
+    },
+    {
+     "id": "m00883",
+     "op": "toggle-mirror"
+    }
+   ]
+  }
+ ],
+ "archetype_defaults": {
+  "LION": "G01",
+  "EAGLE": "G06",
+  "BEAR": "G03",
+  "LEOPARD": "G18",
+  "RAVEN": "G02",
+  "TIGER": "G09"
+ },
+ "stats": {
+  "population": 600,
+  "selected": 48,
+  "min_visual_distance_selected": 0.032429087802484186,
+  "min_visual_distance_random_set": 0.0,
+  "distinct_haptic": 45,
+  "distinct_tone": 38
+ }
+}

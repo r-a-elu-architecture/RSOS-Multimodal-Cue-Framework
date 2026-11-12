@@ -6,5 +6,5 @@
 - [CONTAIN](CONTAIN/) — Safety and governance: Governs every module: allow, block, roll back or quarantine actions; drift control; human in the loop; device safety envelope.
 - [MEMSTACK](MEMSTACK/) — Memory layer: Archetype- and state-indexed memory: stores and recalls tier activations, snapshots and history.
 - [CM1](CM1/) — Compression layer: Compresses symbolic states and finds reusable patterns across domains.
-- [LINX](LINX/) — AI interface layer: Connects the operating system to language models: routes commands and context to a model and the result back.
+- [LINX](LINX/) — AI interface and injection layer: Symbolic layer injection: connects the operating system to AI models in both directions. Commands, tier state and context go to the model; the model injects back, as RSX programs and cues delivered through the device and brain-computer-interface loop, the resourceful state the moment calls for.
 - [UGCL](UGCL/) — Glyph layer: Native glyph representation: multi-resolution glyph encoding, glyph genealogy and compression of glyph streams for devices.

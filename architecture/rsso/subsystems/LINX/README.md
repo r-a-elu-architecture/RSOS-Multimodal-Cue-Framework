@@ -1,10 +1,10 @@
-# LINX — AI interface layer
+# LINX — AI interface and injection layer
 
-**Function:** Connects the operating system to language models: routes commands and context to a model and the result back.
+**Function:** Symbolic layer injection: connects the operating system to AI models in both directions. Commands, tier state and context go to the model; the model injects back, as RSX programs and cues delivered through the device and brain-computer-interface loop, the resourceful state the moment calls for.
 
 **Status:** **Specified** — described in the archive and this map; not yet implemented
 
-**Now:** Natural next uses: an AI that detects context and selects the program, or that writes RSX programs from a description.
+**Now:** Specified. Next uses: an AI that detects a negative state (from context, EEG or HRV) and injects the matching override or tier, and an AI that writes RSX programs from a description.
 
 ## Sources in the archive
 

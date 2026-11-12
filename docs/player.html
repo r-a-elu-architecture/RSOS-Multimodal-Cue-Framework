@@ -68,6 +68,10 @@ dialog::backdrop{background:rgba(9,12,24,.7)}
 dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .log{font-size:.85rem;color:var(--muted)}
+.tier{border-top:1px solid var(--line);padding:10px 0 4px;font-size:.9rem;color:var(--muted)}
+.tier b{font-family:var(--serif);font-weight:500;font-size:1.05rem;color:var(--text)}
+.tier ul{margin:6px 0 0;padding-left:1.1em}.tier li{margin:2px 0}
+.ok-mark{color:var(--gold)}
 .offer{position:absolute;left:50%;top:22px;transform:translateX(-50%);width:min(92%,460px);background:var(--ink-2);border:1px solid var(--gold);border-radius:12px;padding:16px 18px;text-align:center}
 .offer p{margin:0 0 4px}
 .rec{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
@@ -141,12 +145,17 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </fieldset>
 
   <fieldset>
-    <legend>Your runs</legend>
+    <legend>Your progress</legend>
     <p class="log" id="logSummary">No runs recorded yet.</p>
-    <div class="actions"><button class="btn quiet" id="exportLog" type="button">Download log (CSV)</button><button class="btn quiet" id="clearLog" type="button">Clear log</button></div>
+    <div id="progress"></div>
+    <p class="note" id="weeklyHint"></p>
+    <div class="actions"><button class="btn quiet" id="weeklyBtn" type="button">Weekly automaticity check</button></div>
+    <div class="actions"><button class="btn quiet" id="exportLog" type="button">Download log (CSV)</button><button class="btn quiet" id="saveSnap" type="button">Save memory</button><button class="btn quiet" id="loadSnapBtn" type="button">Load memory</button><button class="btn quiet" id="clearLog" type="button">Clear</button></div>
+    <input type="file" id="loadSnap" accept="application/json,.json" hidden>
+    <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.3.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.4.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -184,16 +193,34 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
         <option value="K">A body feeling</option><option value="O">A smell</option><option value="G">A taste</option>
         <option value="thought">A thought</option><option value="memory">A memory</option>
       </select>
+      <div id="latBox" hidden>
+        <label for="lat">How soon after you noticed it did you start?</label>
+        <select id="lat">
+          <option value="">Not sure</option>
+          <option value="2">Within 3 seconds</option><option value="6">3–10 seconds</option><option value="20">10–30 seconds</option>
+          <option value="60">30 seconds to 2 minutes</option><option value="180">Longer</option>
+        </select>
+      </div>
     </div>
     <div class="actions"><button class="btn go" value="ok" id="checkinGo">Begin</button><button class="btn quiet" value="skip" formnovalidate>Skip</button></div>
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.3.0"></script>
-<script src="js/hrs.js?v=1.3.0"></script>
+<dialog id="weekly" aria-labelledby="weeklyTitle">
+  <form method="dialog">
+    <h2 id="weeklyTitle">Weekly automaticity check</h2>
+    <p class="note">Think about starting the override when something sets you off. How much do you agree? (1 = not at all, 5 = completely)</p>
+    <div id="srbaiItems"></div>
+    <div class="actions"><button class="btn go" value="ok">Save</button><button class="btn quiet" value="cancel" formnovalidate>Cancel</button></div>
+  </form>
+</dialog>
+
+<script src="js/rsx.js?v=1.4.0"></script>
+<script src="js/hrs.js?v=1.4.0"></script>
+<script src="js/memstack.js?v=1.4.0"></script>
 <script>
 "use strict";
-const BUILD = "1.3.0";
+const BUILD = "1.4.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector"];
 const sources = {};
@@ -421,20 +448,26 @@ function askCheckin(after) {
     $("checkinHint").textContent = after ? "Rate the same two things again." : "How are you right now?";
     $("triggerBox").hidden = after; $("checkinGo").textContent = after ? "Save" : "Begin";
     const d = $("checkin");
-    d.onclose = () => res(d.returnValue === "ok" ? { sud: +$("sud").value, agency: +$("agency").value, trig: $("trig").value } : null);
+    $("latBox").hidden = after || !$("trig").value || pendingTrigger === "device";
+    d.onclose = () => res(d.returnValue === "ok" ? { sud: +$("sud").value, agency: +$("agency").value, trig: $("trig").value, lat: $("lat").value } : null);
     d.returnValue = ""; d.showModal();
   });
 }
+let pendingTrigger = "self", offerShownAt = 0;
+$("trig").addEventListener("change", () => { $("latBox").hidden = !$("trig").value || pendingTrigger === "device"; });
 async function start(trigger) {
   if (!timeline || run) return;
   trigger = trigger === "device" ? "device" : "self";
+  pendingTrigger = trigger;
+  const deviceLatency = trigger === "device" && offerShownAt ? (performance.now() - offerShownAt) / 1000 : null;
   $("offer").hidden = true;
   ensureAudio();
   const before = await askCheckin(false);
   const firstTier = timeline.events.find(e => e.kind === "tier");
   const says = sayTexts();
   const voice = !$("optVoice").checked || !says.length ? "none" : says.some(t => store.get(recKey(t), null)) ? "own" : "computer";
-  pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice, trigger };
+  const latency = deviceLatency !== null ? Math.round(deviceLatency * 10) / 10 : (before && before.trig && before.lat ? +before.lat : "");
+  pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice, trigger, latency };
   $("main").classList.add("running"); $("start").disabled = true;
   run = { t0: performance.now(), next: 0, phase: null, scale: 0.55, from: 0.55, scaleFor: null, nodes: [], seen: "", felt: "", spoken: {} };
   setCue("", ""); run.raf = requestAnimationFrame(frame);
@@ -454,12 +487,80 @@ async function finish(completed) {
   const after = await askCheckin(true);
   const b = pending.before || {}, a = after || {};
   records.push({ timestamp: (pending.startedAt / 1000).toFixed(0), participant: "self", protocol: pending.protocol, trigger: pending.trigger,
-    trigger_channel: b.trig || "", trigger_note: "", sud_before: b.sud ?? "", sud_after: a.sud ?? "", agency_before: b.agency ?? "",
-    agency_after: a.agency ?? "", latency_s: "", completed: completed ? 1 : 0, stopped_at_phase: stoppedAt,
+    trigger_channel: b.trig || (pending.trigger === "device" ? "K" : ""), trigger_note: "", sud_before: b.sud ?? "", sud_after: a.sud ?? "", agency_before: b.agency ?? "",
+    agency_after: a.agency ?? "", latency_s: pending.latency, completed: completed ? 1 : 0, stopped_at_phase: stoppedAt,
     tier: pending.tier, voice: pending.voice });
   store.set("rsos.runs", records); summarize(); $("start").focus();
 }
+let srbaiLog = store.get("rsos.srbai", []);
+const SRBAI_ITEMS = ["I do it automatically.", "I do it without having to consciously remember.", "I do it without thinking.", "I start doing it before I realize I'm doing it."];
+function weekNo() {
+  if (!records.length) return 1;
+  const first = Math.min(...records.map(r => +r.timestamp || Infinity));
+  return Math.floor((Date.now() / 1000 - first) / (7 * 86400)) + 1;
+}
+function renderProgress() {
+  const box = $("progress"); box.innerHTML = "";
+  const done = records.filter(r => +r.completed === 1);
+  if (!done.length) { $("weeklyHint").textContent = ""; return; }
+  const sum = RSOSMemstack.summarize(records, srbaiLog);
+  for (const [name, t] of Object.entries(sum.tiers)) {
+    const div = document.createElement("div"); div.className = "tier";
+    const title = document.createElement("b"); title.textContent = name === "LION" ? "Lion tier" : name.replace(/_/g, " ");
+    div.appendChild(title);
+    const ul = document.createElement("ul");
+    const li = txt => { const x = document.createElement("li"); x.textContent = txt; ul.appendChild(x); return x; };
+    li(t.completed + " completed runs: " + t.practice + " practice, " + t.trigger_runs + " after a real trigger.");
+    if (t.distress_drop_latest !== null) li("Distress drop per run: " + t.distress_drop_first.toFixed(1) + " in your first runs, " + t.distress_drop_latest.toFixed(1) + " lately.");
+    li("Bundle strength (model estimate): " + Math.round(100 * t.bundle_strength) + "%.");
+    if (t.median_latency_last10 !== null) li("Time from noticing to starting, last 10 triggers: " + t.median_latency_last10.toFixed(1) + " s (median).");
+    if (t.habit) li("Learning curve: start time now about " + t.habit.predicted_latency_now.toFixed(1) + " s" +
+      (t.habit.runs_to_reflex === 0 ? ", at or near reflex speed; the criterion below confirms it." : "; about " + t.habit.runs_to_reflex + " more triggers to a 3-second start."));
+    else if (t.trigger_runs) li("Rate how soon you started in at least 5 trigger runs to see your progress toward a reflex.");
+    const r = t.reflex;
+    const rl = li((r.met ? "Reflex criterion met. " : "Reflex criterion: ") + (r.latency_at_or_below_3s ? "✓" : "○") + " start within 3 s over 10+ triggers, " + (r.srbai_two_weeks_at_4 ? "✓" : "○") + " automaticity 4+ two weeks running.");
+    if (r.met) rl.className = "ok-mark";
+    div.appendChild(ul); box.appendChild(div);
+  }
+  const wk = weekNo(), last = srbaiLog.length ? srbaiLog[srbaiLog.length - 1].week : 0;
+  $("weeklyHint").textContent = last >= wk ? "Weekly check done for week " + wk + "." : "Week " + wk + ": the weekly automaticity check is due.";
+}
+function askWeekly() {
+  const box = $("srbaiItems"); box.innerHTML = "";
+  SRBAI_ITEMS.forEach((q, i) => {
+    const l = document.createElement("label"); l.textContent = q; l.htmlFor = "sr" + i;
+    const sc = document.createElement("div"); sc.className = "scale";
+    sc.innerHTML = '<input type="range" min="1" max="5" value="3" id="sr' + i + '"><output>3</output>';
+    sc.firstChild.addEventListener("input", e => { e.target.nextSibling.textContent = e.target.value; });
+    box.appendChild(l); box.appendChild(sc);
+  });
+  const d = $("weekly");
+  d.onclose = () => {
+    if (d.returnValue !== "ok") return;
+    const score = SRBAI_ITEMS.reduce((s, _, i) => s + +$("sr" + i).value, 0) / SRBAI_ITEMS.length;
+    const wk = weekNo();
+    srbaiLog = srbaiLog.filter(x => x.week !== wk).concat([{ week: wk, srbai: score }]).sort((a, b) => a.week - b.week);
+    store.set("rsos.srbai", srbaiLog); renderProgress();
+  };
+  d.returnValue = ""; d.showModal();
+}
+async function saveSnapshot() {
+  const snap = await RSOSMemstack.snapshot(records, srbaiLog);
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(snap, null, 1)], { type: "application/json" }));
+  a.download = "rsos-memory.json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+async function loadSnapshot(file) {
+  try {
+    const [runs, sr] = await RSOSMemstack.restore(JSON.parse(await file.text()));
+    records = RSOSMemstack.merge(records, runs);
+    const byWeek = {}; for (const x of srbaiLog.concat(sr)) byWeek[x.week] = x;
+    srbaiLog = Object.values(byWeek).sort((a, b) => a.week - b.week);
+    store.set("rsos.runs", records); store.set("rsos.srbai", srbaiLog); summarize();
+    $("logSummary").textContent += " Memory loaded and merged.";
+  } catch (e) { $("logSummary").textContent = "Couldn't load that file: " + e.message; }
+}
 function summarize() {
+  renderProgress();
   if (!records.length) { $("logSummary").textContent = "No runs recorded yet."; return; }
   const both = records.filter(r => r.sud_before !== "" && r.sud_after !== "");
   let txt = records.length + (records.length === 1 ? " run" : " runs") + " recorded in this browser.";
@@ -486,7 +587,11 @@ $("start").addEventListener("click", () => start("self"));
 $("stop").addEventListener("click", () => finish(false));
 document.addEventListener("keydown", e => { if (e.key === "Escape" && run) { e.preventDefault(); finish(false); } });
 $("exportLog").addEventListener("click", exportLog);
-$("clearLog").addEventListener("click", () => { if (records.length) { records = []; store.set("rsos.runs", records); summarize(); } });
+$("clearLog").addEventListener("click", () => { if (records.length || srbaiLog.length) { records = []; srbaiLog = []; store.set("rsos.runs", records); store.set("rsos.srbai", srbaiLog); summarize(); } });
+$("weeklyBtn").addEventListener("click", askWeekly);
+$("saveSnap").addEventListener("click", saveSnapshot);
+$("loadSnapBtn").addEventListener("click", () => $("loadSnap").click());
+$("loadSnap").addEventListener("change", e => { if (e.target.files[0]) loadSnapshot(e.target.files[0]); e.target.value = ""; });
 $("voice").addEventListener("change", saveSettings);
 $("testVoice").addEventListener("click", () => { const t = sayTexts()[0] || "I move, I act"; const was = $("optVoice").checked; $("optVoice").checked = true; speak(t); $("optVoice").checked = was; });
 if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; } else loadVoices();
@@ -515,7 +620,7 @@ function onStress() {
   governor = governor || new RSOSHeart.Governor(timeline.safety, true);
   const [ok] = governor.check(Date.now());
   if (!ok) return;
-  $("offer").hidden = false;
+  $("offer").hidden = false; offerShownAt = performance.now();
   if (navigator.vibrate && $("optVib").checked) navigator.vibrate([200, 100, 200]);
   $("offerStart").focus();
 }

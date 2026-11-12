@@ -2,9 +2,9 @@
 
 **Function:** Archetype- and state-indexed memory: stores and recalls tier activations, snapshots and history.
 
-**Status:** **Partly built** — some functions implemented, others still specified only
+**Status:** **Built** — working, tested code in this repository
 
-**Now:** The run log (one row per run, shared format) and the cue engine's per-person history. Tier-indexed memory is specified.
+**Now:** Built: tier memory from the run log and weekly automaticity checks (runs, effect over time, model estimate of bundle strength and trigger value, fitted habit curve, estimated triggers to a reflex, the spec's reflex criterion); checksummed snapshots to move or restore memory, with merging (`rsso/rsso/memstack.py`, and identically in the player's progress view).
 
 ## Sources in the archive
 

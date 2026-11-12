@@ -118,6 +118,8 @@ Every run should log the following. The schema is defined in [`rsx/README.md`](.
 
 **Reflex criterion (proposed, to be validated):** SRBAI mean ≥ 4 of 5 for two consecutive weeks *and* median latency ≤ 3 s across at least 10 real triggers.
 
+The protocol player tracks these measures per tier (RSSO MEMSTACK): it asks how soon the run started after each real trigger, offers the weekly SRBAI check, fits a habit curve to the latencies and shows the estimated number of triggers until a 3-second start.
+
 ## 9. Safety and contraindications
 
 **Hard rules (enforced by the runtime):**

@@ -15,6 +15,7 @@ Collected here until the next release, planned once all RSSO subsystems are comp
 - **RSOS Device Protocol** (`spec/DEVICE_PROTOCOL.md`) and **firmware** (`firmware/`): portable C++ device core passing the conformance suite in the host simulator; ESP32 wristband sketch (compile-checked, not yet run on a board).
 - **Heart-rate trigger**: Bluetooth Heart Rate Service driver and stress detector in Python and in the player (identical results), opt-in offer with run limits, simulated strap.
 - **EEG input** (`rsso/eeg.py`): stream interface (replay, synthetic, Lab Streaming Layer), band powers, arousal detector.
+- **MEMSTACK** (`rsso/rsso/memstack.py`, `docs/js/memstack.js`): tier memory, habit-curve fit, estimated triggers to a reflex, reflex criterion, checksummed memory snapshots with merge; player progress view, latency question and weekly automaticity check (player 1.4.0).
 - **Installable player**: web app manifest and offline support (network first, so updates are never held back).
 
 ## Changed

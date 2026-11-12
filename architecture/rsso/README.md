@@ -10,7 +10,7 @@
 | [AUG](subsystems/AUG/) | Device and augmentation layer | **Complete in simulation** |
 | [MICRO](subsystems/MICRO/) | Edge runtime | **Complete in simulation** |
 | [CONTAIN](subsystems/CONTAIN/) | Safety and governance | **Partly built** |
-| [MEMSTACK](subsystems/MEMSTACK/) | Memory layer | **Partly built** |
+| [MEMSTACK](subsystems/MEMSTACK/) | Memory layer | **Built** |
 | [CM1](subsystems/CM1/) | Compression layer | **Partly built** |
 | [LINX](subsystems/LINX/) | AI interface and injection layer | **Specified** |
 | [UGCL](subsystems/UGCL/) | Glyph layer | **Specified** |

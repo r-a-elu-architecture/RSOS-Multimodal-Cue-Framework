@@ -10,13 +10,14 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/conformance.py` | The conformance suite: what any runtime and device set must do to be RSOS-compatible. |
 | `rsso/protocol.py` | Host side of the [RSOS Device Protocol](../spec/DEVICE_PROTOCOL.md): drives any RDP/1 wristband or scent module; with `SimTransport` it runs the real firmware core ([`firmware/`](../firmware/)) in simulation. |
 | `rsso/hrs.py` | Bluetooth Heart Rate Service driver (the standard every chest strap and most watches use): parses Heart Rate Measurement packets into beat-to-beat intervals. The player has the same driver in JavaScript (`docs/js/hrs.js`). |
+| `rsso/memstack.py` | MEMSTACK: per-tier memory from the run log and weekly automaticity checks: runs, effect over time, bundle strength (model estimate), fitted habit curve, estimated triggers until a 3-second start, and the reflex criterion; checksummed snapshots with restore and merge. The player shows the same summary (`docs/js/memstack.js`), computed identically. |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
 | `rsso/analysis.py` | Pre-specified analyses for H1, H2 and H5. The same code runs on synthetic and on real data. |
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 24 tests
+python -m unittest discover -s tests                     # 30 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

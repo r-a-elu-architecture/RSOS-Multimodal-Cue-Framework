@@ -44,3 +44,10 @@ class Conformance(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PublishedCopies(unittest.TestCase):
+    def test_site_protocols_match_sources(self):
+        site = ROOT.parent / "docs" / "protocols"
+        for p in (ROOT / "protocols").glob("*.rsx"):
+            self.assertEqual((site / p.name).read_bytes(), p.read_bytes(), f"docs/protocols/{p.name} is out of date")

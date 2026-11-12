@@ -1,0 +1,604 @@
+{
+ "format": "rsos-thera/1",
+ "protocols": {
+  "stress": {
+   "title": "Stress and chronic stress",
+   "for": [
+    "stress",
+    "chronic_stress",
+    "anxiety"
+   ],
+   "therapist_led": false,
+   "stop_sud": 9,
+   "aim": "A calm, able state the client can start in seconds when stress begins.",
+   "steps": [
+    {
+     "id": "open",
+     "title": "Check in",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "say": "How are you right now, from 0 (calm) to 10 (the most distress)? And how able do you feel to act, from 0 to 10?",
+     "do": "Agree what today's session is for. Confirm consent for every node and cue you will use."
+    },
+    {
+     "id": "breath",
+     "title": "Paced breathing",
+     "op": "BreathOverride",
+     "minutes": 3,
+     "required": true,
+     "measure": [
+      "sud"
+     ],
+     "run": "program:paced_breathing",
+     "say": "Breathe with the light: in for four, out for six. Let the exhale be longer.",
+     "do": "Run paced breathing in the player; rate distress after it."
+    },
+    {
+     "id": "install",
+     "title": "Build the node",
+     "op": "IdentityRebuild",
+     "minutes": 10,
+     "required": true,
+     "measure": [
+      "believability"
+     ],
+     "say": "Picture the {node}: what you see, hear, feel, smell and taste in that state. Say the frame aloud: “{frame}”.",
+     "do": "Review the node with the client: senses, frame, glyph and vibration code. Rate how believable the frame is (0–10); reword it if it is below 6."
+    },
+    {
+     "id": "anchor",
+     "title": "Anchor the state",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 3,
+     "run": "node:0",
+     "say": "Go fully into the state. At its peak, feel the code on your wrist: {code}.",
+     "do": "Run the node three times in the player (VIB-ANCHOR at the peak). Rate distress and agency after each run."
+    },
+    {
+     "id": "test",
+     "title": "Rehearse a trigger",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 2,
+     "run": "node:0",
+     "say": "Bring to mind a moment of this: {trigger}. Only up to a 5 of 10. Then start the {node}.",
+     "do": "Imagined trigger at moderate intensity, then the node. Rate distress before and after. Stop and return to breathing above the session's distress ceiling."
+    },
+    {
+     "id": "future",
+     "title": "Future pacing",
+     "op": "FP-ANCHOR",
+     "minutes": 5,
+     "required": false,
+     "measure": [
+      "agency"
+     ],
+     "run": "node:0",
+     "say": "See yourself in {contexts}, with the {node} already in you, acting as you want to.",
+     "do": "Run the node's futures (FP-ANCHOR, 150 ms × 8). Rate agency."
+    },
+    {
+     "id": "homework",
+     "title": "Practice between sessions",
+     "op": "VIB-ANCHOR",
+     "minutes": 3,
+     "required": true,
+     "measure": [],
+     "say": "Between now and next time, start the {node} when this happens: {trigger}. And practise it {dose}.",
+     "do": "Agree the practice plan; the player records every run and the weekly automaticity check."
+    },
+    {
+     "id": "close",
+     "title": "Close",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency",
+      "adverse",
+      "cgi_s",
+      "cgi_i",
+      "engagement"
+     ],
+     "say": "Notice your feet on the floor and your breath. How are you now, 0 to 10? Did anything feel unpleasant today?",
+     "do": "Rate distress and agency. Record any unpleasant event. Therapist: rate severity (CGI-S), improvement (CGI-I) and engagement."
+    }
+   ]
+  },
+  "boundaries": {
+   "title": "Confidence and boundaries",
+   "for": [
+    "confidence"
+   ],
+   "therapist_led": false,
+   "stop_sud": 9,
+   "aim": "Saying no and holding ground with calm confidence.",
+   "steps": [
+    {
+     "id": "open",
+     "title": "Check in",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "say": "How are you right now, from 0 (calm) to 10 (the most distress)? And how able do you feel to act, from 0 to 10?",
+     "do": "Agree what today's session is for. Confirm consent for every node and cue you will use."
+    },
+    {
+     "id": "breath",
+     "title": "Paced breathing",
+     "op": "BreathOverride",
+     "minutes": 3,
+     "required": true,
+     "measure": [
+      "sud"
+     ],
+     "run": "program:paced_breathing",
+     "say": "Breathe with the light: in for four, out for six. Let the exhale be longer.",
+     "do": "Run paced breathing in the player; rate distress after it."
+    },
+    {
+     "id": "install",
+     "title": "Build the node",
+     "op": "IdentityRebuild",
+     "minutes": 10,
+     "required": true,
+     "measure": [
+      "believability"
+     ],
+     "say": "Picture the {node}: what you see, hear, feel, smell and taste in that state. Say the frame aloud: “{frame}”.",
+     "do": "Review the node with the client: senses, frame, glyph and vibration code. Rate how believable the frame is (0–10); reword it if it is below 6."
+    },
+    {
+     "id": "anchor",
+     "title": "Anchor the state",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 3,
+     "run": "node:0",
+     "say": "Go fully into the state. At its peak, feel the code on your wrist: {code}.",
+     "do": "Run the node three times in the player (VIB-ANCHOR at the peak). Rate distress and agency after each run."
+    },
+    {
+     "id": "test",
+     "title": "Rehearse saying no",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 2,
+     "run": "node:0",
+     "say": "Picture the moment you need to say no: {trigger}. Start the {node}, then say it aloud.",
+     "do": "Rehearse the boundary aloud with the node active. Rate distress and agency."
+    },
+    {
+     "id": "future",
+     "title": "Future pacing",
+     "op": "FP-ANCHOR",
+     "minutes": 5,
+     "required": false,
+     "measure": [
+      "agency"
+     ],
+     "run": "node:0",
+     "say": "See yourself in {contexts}, with the {node} already in you, acting as you want to.",
+     "do": "Run the node's futures (FP-ANCHOR, 150 ms × 8). Rate agency."
+    },
+    {
+     "id": "homework",
+     "title": "Practice between sessions",
+     "op": "VIB-ANCHOR",
+     "minutes": 3,
+     "required": true,
+     "measure": [],
+     "say": "Between now and next time, start the {node} when this happens: {trigger}. And practise it {dose}.",
+     "do": "Agree the practice plan; the player records every run and the weekly automaticity check."
+    },
+    {
+     "id": "close",
+     "title": "Close",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency",
+      "adverse",
+      "cgi_s",
+      "cgi_i",
+      "engagement"
+     ],
+     "say": "Notice your feet on the floor and your breath. How are you now, 0 to 10? Did anything feel unpleasant today?",
+     "do": "Rate distress and agency. Record any unpleasant event. Therapist: rate severity (CGI-S), improvement (CGI-I) and engagement."
+    }
+   ]
+  },
+  "habits": {
+   "title": "Unwanted habits",
+   "for": [
+    "habits",
+    "focus"
+   ],
+   "therapist_led": false,
+   "stop_sud": 9,
+   "aim": "Replace the habit loop: trigger, then the node, then the chosen action.",
+   "steps": [
+    {
+     "id": "open",
+     "title": "Check in",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "say": "How are you right now, from 0 (calm) to 10 (the most distress)? And how able do you feel to act, from 0 to 10?",
+     "do": "Agree what today's session is for. Confirm consent for every node and cue you will use."
+    },
+    {
+     "id": "install",
+     "title": "Build the node",
+     "op": "IdentityRebuild",
+     "minutes": 10,
+     "required": true,
+     "measure": [
+      "believability"
+     ],
+     "say": "Picture the {node}: what you see, hear, feel, smell and taste in that state. Say the frame aloud: “{frame}”.",
+     "do": "Review the node with the client: senses, frame, glyph and vibration code. Rate how believable the frame is (0–10); reword it if it is below 6."
+    },
+    {
+     "id": "anchor",
+     "title": "Anchor the state",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 3,
+     "run": "node:0",
+     "say": "Go fully into the state. At its peak, feel the code on your wrist: {code}.",
+     "do": "Run the node three times in the player (VIB-ANCHOR at the peak). Rate distress and agency after each run."
+    },
+    {
+     "id": "test",
+     "title": "Interrupt the loop",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 3,
+     "run": "node:0",
+     "say": "The urge arrives: {trigger}. Start the {node}, and move straight into the action you choose.",
+     "do": "Rehearse trigger, node, new action three times. Rate the urge as distress (0–10)."
+    },
+    {
+     "id": "future",
+     "title": "Future pacing",
+     "op": "FP-ANCHOR",
+     "minutes": 5,
+     "required": false,
+     "measure": [
+      "agency"
+     ],
+     "run": "node:0",
+     "say": "See yourself in {contexts}, with the {node} already in you, acting as you want to.",
+     "do": "Run the node's futures (FP-ANCHOR, 150 ms × 8). Rate agency."
+    },
+    {
+     "id": "homework",
+     "title": "Practice between sessions",
+     "op": "VIB-ANCHOR",
+     "minutes": 3,
+     "required": true,
+     "measure": [],
+     "say": "Between now and next time, start the {node} when this happens: {trigger}. And practise it {dose}.",
+     "do": "Agree the practice plan; the player records every run and the weekly automaticity check."
+    },
+    {
+     "id": "close",
+     "title": "Close",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency",
+      "adverse",
+      "cgi_s",
+      "cgi_i",
+      "engagement"
+     ],
+     "say": "Notice your feet on the floor and your breath. How are you now, 0 to 10? Did anything feel unpleasant today?",
+     "do": "Rate distress and agency. Record any unpleasant event. Therapist: rate severity (CGI-S), improvement (CGI-I) and engagement."
+    }
+   ]
+  },
+  "low_mood": {
+   "title": "Low mood",
+   "for": [
+    "depression"
+   ],
+   "therapist_led": false,
+   "stop_sud": 9,
+   "screen": true,
+   "aim": "Small, planned actions started from an able state.",
+   "steps": [
+    {
+     "id": "open",
+     "title": "Check in",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "say": "How are you right now, from 0 (calm) to 10 (the most distress)? And how able do you feel to act, from 0 to 10?",
+     "do": "Agree what today's session is for. Confirm consent for every node and cue you will use."
+    },
+    {
+     "id": "screen",
+     "title": "Screening",
+     "op": "EthicsContain",
+     "minutes": 1,
+     "required": true,
+     "measure": [
+      "screen"
+     ],
+     "say": "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?",
+     "do": "If the answer is yes, stop the session work and follow your crisis procedure."
+    },
+    {
+     "id": "breath",
+     "title": "Paced breathing",
+     "op": "BreathOverride",
+     "minutes": 3,
+     "required": true,
+     "measure": [
+      "sud"
+     ],
+     "run": "program:paced_breathing",
+     "say": "Breathe with the light: in for four, out for six. Let the exhale be longer.",
+     "do": "Run paced breathing in the player; rate distress after it."
+    },
+    {
+     "id": "install",
+     "title": "Build the node",
+     "op": "IdentityRebuild",
+     "minutes": 10,
+     "required": true,
+     "measure": [
+      "believability"
+     ],
+     "say": "Picture the {node}: what you see, hear, feel, smell and taste in that state. Say the frame aloud: “{frame}”.",
+     "do": "Review the node with the client: senses, frame, glyph and vibration code. Rate how believable the frame is (0–10); reword it if it is below 6."
+    },
+    {
+     "id": "anchor",
+     "title": "Anchor the state",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 3,
+     "run": "node:0",
+     "say": "Go fully into the state. At its peak, feel the code on your wrist: {code}.",
+     "do": "Run the node three times in the player (VIB-ANCHOR at the peak). Rate distress and agency after each run."
+    },
+    {
+     "id": "action",
+     "title": "Plan one small action",
+     "op": "FP-ANCHOR",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "agency"
+     ],
+     "run": "node:0",
+     "say": "Choose one small action for tomorrow. See yourself doing it with the {node} in you.",
+     "do": "Plan one concrete, small action with a time and place. Rate agency."
+    },
+    {
+     "id": "homework",
+     "title": "Practice between sessions",
+     "op": "VIB-ANCHOR",
+     "minutes": 3,
+     "required": true,
+     "measure": [],
+     "say": "Between now and next time, start the {node} when this happens: {trigger}. And practise it {dose}.",
+     "do": "Agree the practice plan; the player records every run and the weekly automaticity check."
+    },
+    {
+     "id": "close",
+     "title": "Close",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency",
+      "adverse",
+      "cgi_s",
+      "cgi_i",
+      "engagement"
+     ],
+     "say": "Notice your feet on the floor and your breath. How are you now, 0 to 10? Did anything feel unpleasant today?",
+     "do": "Rate distress and agency. Record any unpleasant event. Therapist: rate severity (CGI-S), improvement (CGI-I) and engagement."
+    }
+   ]
+  },
+  "trauma_observer": {
+   "title": "A memory, observed (therapist-led)",
+   "for": [
+    "ptsd"
+   ],
+   "therapist_led": true,
+   "stop_sud": 8,
+   "screen": true,
+   "aim": "A distressing memory observed from another position, where nothing binds, without reliving it.",
+   "steps": [
+    {
+     "id": "open",
+     "title": "Check in",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "say": "How are you right now, from 0 (calm) to 10 (the most distress)? And how able do you feel to act, from 0 to 10?",
+     "do": "Agree what today's session is for. Confirm consent for every node and cue you will use."
+    },
+    {
+     "id": "screen",
+     "title": "Screening",
+     "op": "EthicsContain",
+     "minutes": 1,
+     "required": true,
+     "measure": [
+      "screen"
+     ],
+     "say": "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?",
+     "do": "If the answer is yes, stop the session work and follow your crisis procedure."
+    },
+    {
+     "id": "breath",
+     "title": "Paced breathing",
+     "op": "BreathOverride",
+     "minutes": 3,
+     "required": true,
+     "measure": [
+      "sud"
+     ],
+     "run": "program:paced_breathing",
+     "say": "Breathe with the light: in for four, out for six. Let the exhale be longer.",
+     "do": "Run paced breathing in the player; rate distress after it."
+    },
+    {
+     "id": "install",
+     "title": "Build the node",
+     "op": "IdentityRebuild",
+     "minutes": 10,
+     "required": true,
+     "measure": [
+      "believability"
+     ],
+     "say": "Picture the {node}: what you see, hear, feel, smell and taste in that state. Say the frame aloud: “{frame}”.",
+     "do": "Review the node with the client: senses, frame, glyph and vibration code. Rate how believable the frame is (0–10); reword it if it is below 6.",
+     "run": "node:observer"
+    },
+    {
+     "id": "anchor",
+     "title": "Anchor the observer state",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 3,
+     "run": "node:observer",
+     "say": "Go fully into the state. At its peak, feel the code on your wrist: {code}.",
+     "do": "Run the node three times in the player (VIB-ANCHOR at the peak). Rate distress and agency after each run."
+    },
+    {
+     "id": "observe",
+     "title": "Observe the memory",
+     "op": "IdentityRebuild",
+     "minutes": 12,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 2,
+     "run": "node:observer",
+     "say": "From the observer position, let the memory play far away, small and still. Nothing binds; it is only observed.",
+     "do": "Therapist-led. Rate distress during. At 8 or more: stop, return to breathing and grounding; do not continue the memory today."
+    },
+    {
+     "id": "return",
+     "title": "Return to the able state",
+     "op": "EmotionalLock",
+     "minutes": 8,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency"
+     ],
+     "repeat": 1,
+     "run": "node:0",
+     "say": "Come back fully into the room and into the {node}.",
+     "do": "Run the client's associated node once."
+    },
+    {
+     "id": "homework",
+     "title": "Practice between sessions",
+     "op": "VIB-ANCHOR",
+     "minutes": 3,
+     "required": true,
+     "measure": [],
+     "say": "Between now and next time, start the {node} when this happens: {trigger}. And practise it {dose}.",
+     "do": "Agree the practice plan; the player records every run and the weekly automaticity check."
+    },
+    {
+     "id": "close",
+     "title": "Close",
+     "op": "EthicsContain",
+     "minutes": 5,
+     "required": true,
+     "measure": [
+      "sud",
+      "agency",
+      "adverse",
+      "cgi_s",
+      "cgi_i",
+      "engagement"
+     ],
+     "say": "Notice your feet on the floor and your breath. How are you now, 0 to 10? Did anything feel unpleasant today?",
+     "do": "Rate distress and agency. Record any unpleasant event. Therapist: rate severity (CGI-S), improvement (CGI-I) and engagement."
+    }
+   ]
+  }
+ }
+}

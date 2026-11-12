@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Therapist sessions — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="Therapist mode for RSOS: structured, measured sessions with the client's own nodes, stop rules, homework and a session record for research.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1180px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 20px}
+@media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:16ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:0 0 6px}
+.lede{color:var(--muted);max-width:64ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:66ch;margin:6px 0 0}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-top:22px}
+label{display:block;font-size:.88rem;color:var(--muted);margin:14px 0 5px}
+input[type=text],select{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 11px;color:var(--text);font:inherit;font-size:.95rem}
+.protos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:6px}
+.proto{display:block;margin:0;border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;color:var(--text);position:relative}
+.proto input{position:absolute;opacity:0}
+.proto b{display:block;font-family:var(--serif);font-weight:500;font-size:1.05rem;margin-bottom:4px}
+.proto span{color:var(--muted);font-size:.85rem;display:block}
+.proto em{font-style:normal;color:var(--warn);font-size:.8rem}
+.proto:has(input:checked){border-color:var(--gold);background:var(--ink-3)}
+.proto:has(input:focus-visible){outline:3px solid var(--glow);outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.check{display:flex;gap:10px;align-items:flex-start;color:var(--text);font-size:.92rem;margin:14px 0 0}
+.check input{margin-top:4px;accent-color:var(--gold)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;margin:12px 8px 0 0;text-decoration:none}
+.btn:hover{border-color:var(--gold)}
+.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.msg{font-size:.92rem;margin:12px 0 0;min-height:1.2em}
+.msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
+.session{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;margin-top:26px;align-items:start}
+.steps{list-style:none;margin:0;padding:0;position:sticky;top:16px}
+.steps li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem;color:var(--muted);cursor:pointer}
+.steps li::before{content:"";width:12px;height:12px;margin-top:6px;border-radius:50%;border:1.5px solid var(--line)}
+.steps li.done{color:var(--text)} .steps li.done::before{background:var(--ok);border-color:var(--ok)}
+.steps li.now{color:var(--text)} .steps li.now::before{border-color:var(--gold);box-shadow:0 0 0 3px rgba(232,176,74,.25)}
+.steps small{display:block;font-size:.78rem;color:var(--muted)}
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:24px 26px}
+.card .op{color:var(--gold);font-size:.82rem}
+.card h3{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:2px 0 14px}
+.say{font-family:var(--serif);font-size:1.22rem;line-height:1.5;border-left:3px solid var(--gold);padding:2px 0 2px 16px;margin:0 0 14px}
+.do{color:var(--muted);margin:0 0 6px}
+.meas{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 18px;margin-top:8px}
+.range{display:flex;align-items:center;gap:10px}
+.range input{flex:1;accent-color:var(--gold)}
+.range output{min-width:2.2em;text-align:right;font-variant-numeric:tabular-nums}
+.alert{border-radius:10px;padding:12px 16px;margin:0 0 14px;font-size:.95rem}
+.alert.return{background:rgba(240,163,90,.12);border:1px solid var(--warn)}
+.alert.stop{background:rgba(239,125,109,.12);border:1px solid var(--stop)}
+.line{margin-top:18px}
+.line svg{width:100%;height:110px;display:block}
+.sum{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+.sum div{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.sum b{display:block;font-family:var(--serif);font-weight:500;font-size:1.35rem}
+.sum span{color:var(--muted);font-size:.82rem}
+ul.hw{margin:8px 0 0;padding-left:20px}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+@media (max-width:900px){.session{grid-template-columns:1fr}.steps{position:static}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="therapist.html" aria-current="page">Therapist</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>Run a session with RSOS</h1>
+  <p class="lede">A structured session with your client's own nodes: what to say, what to do and what to measure at each step, the stop rules, the practice plan for between sessions, and a session record you can keep or add to research. RSOS supports your clinical judgement; it does not diagnose or treat.</p>
+
+  <section class="panel" id="setup">
+    <h2>Set up</h2>
+    <label>Session protocol</label>
+    <div class="protos" id="protos"></div>
+    <div class="two">
+      <div><label for="client">Client code (a pseudonym, never a name)</label><input type="text" id="client" placeholder="C-07"></div>
+      <div><label for="planSrc">The client's node plan</label><select id="planSrc"></select><input type="file" id="planFile" accept="application/json,.json" hidden></div>
+    </div>
+    <p class="hint" id="planNote"></p>
+    <label class="check"><input type="checkbox" id="present"> I am the therapist and I am with the client for this session</label>
+    <button class="btn go" type="button" id="begin">Start the session</button>
+    <p class="msg" id="msg" aria-live="polite"></p>
+  </section>
+
+  <section class="session" id="session" hidden>
+    <ol class="steps" id="steps" aria-label="Session steps"></ol>
+    <div>
+      <div id="alerts" aria-live="polite"></div>
+      <article class="card" id="card"></article>
+      <div class="panel line"><h2>Distress through the session</h2><div id="line"></div></div>
+    </div>
+  </section>
+
+  <section class="panel" id="done" hidden>
+    <h2>Session summary</h2>
+    <div class="sum" id="sum"></div>
+    <h2 style="margin-top:18px">Practice until the next session</h2>
+    <ul class="hw" id="hw"></ul>
+    <button class="btn" type="button" id="copyHw">Copy the practice plan</button>
+    <button class="btn go" type="button" id="toContrib">Add to the research contribution</button>
+    <button class="btn" type="button" id="dl">Download the session record</button>
+    <button class="btn" type="button" id="again">New session</button>
+    <p class="msg" id="msg2" aria-live="polite"></p>
+  </section>
+</main>
+<footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. If your client is in crisis or at risk of harm, follow your crisis procedure and contact emergency services. Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
+<script src="js/contain.js?v=1.14.0"></script>
+<script src="js/thera.js?v=1.14.0"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id), T = RSOSThera, K = RSOSContain;
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+const now = () => Date.now() / 1000;
+let P = null, cur = store.get("rsos.thera.current", null), loaded = null, at = 0;
+const MEAS = { sud: ["Distress", 0, 10, 5], agency: ["Able to act", 0, 10, 5], believability: ["Frame believable", 0, 10, 7], engagement: ["Engagement (therapist)", 0, 10, 7] };
+const SELECTS = { screen: ["Screening answer", [["", "Choose"], ["no", "No"], ["yes", "Yes"]]], adverse: ["Anything unpleasant", [["none", "Nothing"], ["mild", "Mild"], ["moderate", "Moderate"], ["serious", "Serious"]]],
+  cgi_s: ["CGI severity (1 normal – 7 extremely ill)", [["", "Choose"]].concat([1, 2, 3, 4, 5, 6, 7].map(x => [String(x), String(x)]))],
+  cgi_i: ["CGI improvement (1 very much better – 7 very much worse)", [["", "Choose"]].concat([1, 2, 3, 4, 5, 6, 7].map(x => [String(x), String(x)]))] };
+function plan() { return $("planSrc").value === "browser" ? store.get("rsos.plan", null) : $("planSrc").value === "file" ? loaded : null; }
+function save() { store.set("rsos.thera.current", cur); }
+
+fetch("data/thera.json?v=1.14.0").then(r => r.json()).then(d => { P = d.protocols; setup(); if (cur && !cur.ended) show(); }).catch(() => { $("msg").className = "msg err"; $("msg").textContent = "The protocols could not be loaded. Open this page from the published site or a local web server."; });
+
+function setup() {
+  const box = $("protos"); box.innerHTML = "";
+  for (const [id, p] of Object.entries(P)) {
+    const l = el("label", "proto"); const i = el("input"); i.type = "radio"; i.name = "proto"; i.value = id; if (id === "stress") i.checked = true;
+    l.append(i, el("b", "", p.title), el("span", "", p.aim)); if (p.therapist_led) l.appendChild(el("em", "", "Therapist-led, screening first"));
+    box.appendChild(l);
+  }
+  const s = $("planSrc"); s.innerHTML = "";
+  const bp = store.get("rsos.plan", null);
+  if (bp && bp.nodes) s.appendChild(new Option("The plan saved in this browser (" + bp.nodes.map(n => n.name).join(", ") + ")", "browser"));
+  s.appendChild(new Option("Load the client's plan file", "file")); s.appendChild(new Option("No plan yet: guide without nodes", "none"));
+  notePlan();
+}
+function notePlan() {
+  const p = plan();
+  $("planNote").innerHTML = "";
+  if (p) $("planNote").append("Nodes: " + p.nodes.map(n => n.name + " (" + n.mode + ", code " + n.tacton + ")").join("; ") + ".");
+  else $("planNote").append("Without a plan the steps that run a node are guided only. ", Object.assign(el("a", "", "Build the plan with your client in the node studio"), { href: "nodes.html" }), ".");
+}
+$("planSrc").addEventListener("change", () => { if ($("planSrc").value === "file") $("planFile").click(); notePlan(); });
+$("planFile").addEventListener("change", async e => {
+  try { const d = JSON.parse(await e.target.files[0].text()); loaded = d.plan && d.plan.nodes ? Object.assign({}, d.plan, { intake: d.intake || d.plan.intake }) : d; notePlan(); }
+  catch (err) { $("msg").className = "msg err"; $("msg").textContent = "That file is not a node plan. Download it from the node studio (“Download the plan”)."; }
+});
+$("begin").addEventListener("click", () => {
+  const id = document.querySelector('input[name="proto"]:checked').value, pr = P[id];
+  if (!$("present").checked) { $("msg").className = "msg err"; $("msg").textContent = "Therapist mode is for sessions you run with your client: confirm you are with them."; return; }
+  const [cst] = K.review(store.get("rsos.contain", K.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), now());
+  const d = K.decide({ kind: "run", protocol: "session_" + id, therapist_led: pr.therapist_led, therapist_present: true }, cst, null, now());
+  const lg = store.get("rsos.contain.log", []); lg.push({ at: Date.now(), action: "session " + id, decision: d.decision, reasons: d.reasons }); store.set("rsos.contain.log", lg.slice(-200));
+  if (d.decision !== "allow") { $("msg").className = "msg err"; $("msg").textContent = "CONTAIN: " + d.reasons.join("; ") + "."; return; }
+  const p = plan();
+  cur = Object.assign(T.sessionPlan(P, id, p), { client: $("client").value.trim(), started: now(), at: 0, plan: p });
+  save(); show();
+});
+function show() {
+  $("setup").hidden = true; $("done").hidden = true; $("session").hidden = false;
+  drawSteps(); drawCard(); drawAlerts(); drawLine();
+}
+function drawSteps() {
+  const done = new Set(cur.events.filter(e => e.done).map(e => e.step)), L = $("steps"); L.innerHTML = "";
+  cur.steps.forEach((s, i) => {
+    const li = el("li", (i === cur.at ? "now " : "") + (done.has(s.id) ? "done" : ""));
+    const t = el("div"); t.append(s.title); t.appendChild(el("small", "", s.minutes + " min" + (s.required ? "" : ", optional")));
+    li.appendChild(t); li.tabIndex = 0; li.addEventListener("click", () => { cur.at = i; save(); show(); }); L.appendChild(li);
+  });
+}
+function drawCard() {
+  const s = cur.steps[cur.at], C = $("card"); C.innerHTML = "";
+  C.appendChild(el("div", "op", "Step " + (cur.at + 1) + " of " + cur.steps.length + ", " + s.op + (cur.client ? ", client " + cur.client : "")));
+  C.appendChild(el("h3", "", s.title));
+  C.appendChild(el("p", "say", s.say));
+  C.appendChild(el("p", "do", s.do));
+  if (cur.problems && cur.problems.length && s.program === undefined && /node/.test(s.do)) C.appendChild(el("p", "hint", cur.problems.join(" ")));
+  if (s.program) {
+    const a = el("a", "btn", "Run " + (s.node ? "the " + s.node.toLowerCase() + " node" : s.program.replace(/_/g, " ")) + " in the player" + (s.repeat ? " (" + s.repeat + " times)" : ""));
+    a.href = "player.html?program=" + encodeURIComponent(s.program); a.target = "rsos-player"; C.appendChild(a);
+    const since = cur.events.filter(e => e.step === s.id).map(e => e.at)[0] || cur.started;
+    const n = store.get("rsos.runs", []).filter(r => Number(r.timestamp) >= since).length;
+    C.appendChild(el("p", "hint", n + (n === 1 ? " run" : " runs") + " recorded in the player since this step began."));
+  }
+  const m = el("div", "meas"), inputs = {};
+  for (const k of s.measure || []) {
+    const w = el("div");
+    if (MEAS[k]) {
+      const [name, lo, hi, def] = MEAS[k]; const l = el("label", "", name); const r = el("div", "range"); const i = el("input"); i.type = "range"; i.min = lo; i.max = hi; i.value = def;
+      const o = el("output", "", String(def)); i.addEventListener("input", () => { o.textContent = i.value; }); l.htmlFor = i.id = "m-" + k; r.append(i, o); w.append(l, r); inputs[k] = i;
+    } else if (SELECTS[k]) {
+      const [name, opts] = SELECTS[k]; const l = el("label", "", name); const sel = el("select"); for (const [v, t] of opts) sel.appendChild(new Option(t, v)); l.htmlFor = sel.id = "m-" + k; w.append(l, sel); inputs[k] = sel;
+    }
+    m.appendChild(w);
+  }
+  C.appendChild(m);
+  const rec = el("button", "btn", "Record"), next = el("button", "btn go", cur.at === cur.steps.length - 1 ? "Finish the session" : "Done, next step");
+  rec.type = next.type = "button";
+  const vals = () => { const v = {}; for (const [k, i] of Object.entries(inputs)) if (i.value !== "") v[k] = MEAS[k] ? Number(i.value) : /^cgi/.test(k) ? Number(i.value) : i.value; return v; };
+  rec.addEventListener("click", () => { add(s.id, vals(), false); });
+  next.addEventListener("click", () => {
+    const v = vals();
+    if ((s.measure || []).includes("screen") && !v.screen) { alertBox("return", "Ask the screening question and record the answer before you go on."); return; }
+    add(s.id, v, true);
+    if (v.screen === "yes") return;
+    if (cur.at < cur.steps.length - 1) { cur.at++; save(); show(); } else finish();
+  });
+  C.append(rec, next);
+}
+function add(step, v, done) {
+  cur = Object.assign(T.record(cur, step, Object.assign({}, v, done ? { done: true } : {}), now()), { client: cur.client, started: cur.started, at: cur.at, plan: cur.plan });
+  if (v.screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: v.screen }); store.set("rsos.screens", sc.slice(-50)); }
+  if (v.adverse && v.adverse !== "none") {
+    const runs = store.get("rsos.runs", []).filter(r => Number(r.timestamp) >= cur.started), last = runs[runs.length - 1];
+    const adv = store.get("rsos.adverse", []); adv.push({ ts: Date.now(), severity: v.adverse, related: "possible", resolved: false, text: "", protocol: last ? last.protocol : "" }); store.set("rsos.adverse", adv);
+  }
+  save(); drawSteps(); drawAlerts(); drawLine();
+}
+function alertBox(level, text) { const a = el("div", "alert " + level, text); $("alerts").prepend(a); }
+function drawAlerts() { $("alerts").innerHTML = ""; for (const c of T.check(cur)) if (c.level !== "ok") alertBox(c.level, c.text); }
+function drawLine() {
+  const pts = cur.events.filter(e => e.sud !== undefined && e.sud !== ""), W = 600, H = 110, pad = 16;
+  if (!pts.length) { $("line").innerHTML = '<p class="hint">Distress ratings appear here as you record them, with this session\'s ceiling of ' + cur.stop_sud + ".</p>"; return; }
+  const t0 = cur.started, t1 = Math.max(now(), pts[pts.length - 1].at + 1), x = t => pad + (W - 2 * pad) * (t - t0) / (t1 - t0), y = v => H - pad - (H - 2 * pad) * v / 10;
+  let svg = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Distress ratings through the session, 0 to 10">';
+  svg += '<line x1="' + pad + '" x2="' + (W - pad) + '" y1="' + y(cur.stop_sud) + '" y2="' + y(cur.stop_sud) + '" stroke="#ef7d6d" stroke-dasharray="4 5" stroke-width="1.5"/>';
+  svg += '<text x="' + (W - pad) + '" y="' + (y(cur.stop_sud) - 5) + '" text-anchor="end" font-size="11" fill="#a3abc6">ceiling ' + cur.stop_sud + "</text>";
+  svg += '<polyline fill="none" stroke="#e8b04a" stroke-width="2" points="' + pts.map(e => x(e.at).toFixed(1) + "," + y(e.sud).toFixed(1)).join(" ") + '"/>';
+  for (const e of pts) svg += '<circle cx="' + x(e.at).toFixed(1) + '" cy="' + y(e.sud).toFixed(1) + '" r="4" fill="#e8b04a" stroke="#1d2540" stroke-width="2"><title>' + e.step + ": " + e.sud + "</title></circle>";
+  $("line").innerHTML = svg + "</svg>";
+}
+let last = null;
+function finish() {
+  cur.ended = now(); save();
+  const sm = T.summary(cur, store.get("rsos.runs", []), cur.started, cur.ended); last = sm;
+  $("session").hidden = true; $("done").hidden = false;
+  const S = $("sum"); S.innerHTML = "";
+  const add2 = (v, t) => { const d = el("div"); d.append(el("b", "", v === null || v === undefined ? "—" : String(v)), el("span", "", t)); S.appendChild(d); };
+  add2(sm.minutes + " min", "Session length"); add2(sm.fidelity + " / 10", "Fidelity: required steps done");
+  add2(sm.sud_start === null ? null : sm.sud_start + " → " + sm.sud_end, "Distress, start to end"); add2(sm.sud_peak, "Highest distress");
+  add2(sm.agency_change === null ? null : (sm.agency_change > 0 ? "+" : "") + sm.agency_change, "Change in agency"); add2(sm.runs, "Runs in the player");
+  add2(sm.adverse, "Unpleasant events"); add2(sm.record.cgi_i, "CGI improvement");
+  const H = $("hw"); H.innerHTML = ""; for (const h of T.homework(cur.plan, cur)) H.appendChild(el("li", "", h));
+}
+$("copyHw").addEventListener("click", async () => { try { await navigator.clipboard.writeText([...$("hw").children].map(li => "- " + li.textContent).join("\n")); $("msg2").className = "msg ok"; $("msg2").textContent = "Copied."; } catch (e) {} });
+$("toContrib").addEventListener("click", () => {
+  const d = store.get("rsos.contribute", {}); d.sessions = (d.sessions || []).concat([last.record]); store.set("rsos.contribute", d);
+  $("msg2").className = "msg ok"; $("msg2").textContent = "Added to the clinician sessions on the contribution page. The client's consent is confirmed there before any file is made.";
+});
+$("dl").addEventListener("click", () => {
+  const rec = { format: cur.format, client: cur.client, protocol: cur.protocol, session: { steps: cur.steps.map(s => s.id), events: cur.events }, summary: last, homework: T.homework(cur.plan, cur) };
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(rec, null, 1)], { type: "application/json" }));
+  a.download = "rsos-session-" + (cur.client || "client") + "-" + new Date().toISOString().slice(0, 10) + ".json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+});
+$("again").addEventListener("click", () => { cur = null; store.set("rsos.thera.current", null); $("done").hidden = true; $("setup").hidden = false; setup(); });
+</script>
+</body>
+</html>

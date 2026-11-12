@@ -177,9 +177,9 @@ for sub, title, body, f in [
 
 # ------------------------------------------------------------------ RSSO
 SUBS = [
-    ("THERA", "Therapeutic protocol layer", "partial",
+    ("THERA", "Therapeutic protocol layer", "built",
      "Deploys state-change protocols: identity rebuild, breath override, emotional lock, the VIB-ANCHOR and FP-ANCHOR haptic anchors, refractory limits and a human in the loop.",
-     "The Override Protocol, its VIB-ANCHOR and FP-ANCHOR, and the refractory and run limits are built (spec, RSX, `SafetyGovernor`). EEG- and gaze-triggered starts are specified."),
+     "Built (`spec/THERA.md`, `rsso/rsso/thera.py`, identically `docs/js/thera.js`, protocols as data `docs/data/thera.json`, therapist mode `docs/therapist.html`): structured, measured sessions a therapist runs with a client's own nodes, each step tagged with the archive's operator (IdentityRebuild, BreathOverride, EmotionalLock, VIB-ANCHOR, FP-ANCHOR, EthicsContain). Five protocols: stress, confidence and boundaries, unwanted habits, low mood, and therapist-led observer work with a memory. Each step says what to say, what to do and what to measure; stop rules (screening, a distress ceiling per protocol, adverse events) act at once; the summary gives fidelity, distress and agency from start to end, the runs practised and clinician ratings (CGI), and becomes a research-contribution session record; the practice plan between sessions is generated from the node plan. Every session start is checked by CONTAIN. Also: the Override Protocol with its VIB-ANCHOR and FP-ANCHOR. Specified: EEG- and gaze-triggered starts. No clinical efficacy is claimed: protocols await ethics-approved studies."),
     ("AUG", "Device and augmentation layer", "sim",
      "Connects state control to devices: AR overlays, EEG, haptics, scent and vibration, wearables; EEG-triggered anchors.",
      "Built: one device interface with virtual vibration, audio, display and scent devices; the RSOS Device Protocol for wristbands and scent modules; a Bluetooth heart-rate driver (standard Heart Rate Service) with a stress detector in Python and in the player, identical in both; an EEG stream interface (replay, synthetic, Lab Streaming Layer) with an arousal detector (`rsso/`, `docs/player.html`, `spec/DEVICE_PROTOCOL.md`). Awaiting: a check with real straps, scent hardware and EEG headsets."),

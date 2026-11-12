@@ -6,7 +6,7 @@
 
 | Subsystem | Function | Status |
 |---|---|---|
-| [THERA](subsystems/THERA/) | Therapeutic protocol layer | **Partly built** |
+| [THERA](subsystems/THERA/) | Therapeutic protocol layer | **Built** |
 | [AUG](subsystems/AUG/) | Device and augmentation layer | **Complete in simulation** |
 | [MICRO](subsystems/MICRO/) | Edge runtime | **Complete in simulation** |
 | [CONTAIN](subsystems/CONTAIN/) | Safety and governance | **Built** |

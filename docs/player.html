@@ -851,7 +851,7 @@ $("hrDemo").addEventListener("click", async () => {
 });
 
 summarize(); loadAll(); safetyReview();
-if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js").catch(() => {});
+if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(r => r.update()).catch(() => {});
 
 /* ---- UGCL: personal glyph and colour (spec/GLYPH_FORMAT.md) ---- */
 const PALETTE = [["Lion gold", "#e8b04a"], ["Sun yellow", "#f5d04a"], ["Amber", "#f09a3a"], ["Fire red", "#e5533d"],

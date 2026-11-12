@@ -1,6 +1,6 @@
 /* RSOS player service worker: works offline, never serves a stale version when online.
  * Network first for everything; the cache is only a fallback when there is no connection. */
-const CACHE = "rsos-player-v15";
+const CACHE = "rsos-player-v16";
 const SHELL = ["player.html", "js/rsx.js", "js/hrs.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png",
   "protocols/override.rsx", "protocols/interrupt_only.rsx", "protocols/swish.rsx", "protocols/legacy_vector.rsx",
   "protocols/paced_breathing.rsx", "data/demo_rr.json", "js/memstack.js",
@@ -21,7 +21,8 @@ self.addEventListener("fetch", e => {
   if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
   e.respondWith((async () => {
     try {
-      const res = await fetch(req);
+      // always ask the server whether the file changed (a cheap 304 when it did not), never a stale browser copy
+      const res = await fetch(req, { cache: "no-cache" });
       // keep a copy for offline use (whole, same-origin responses only; never a redirect)
       if (res.ok && res.type === "basic" && !res.redirected) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req.url.split("?")[0], copy)).catch(() => null); }
       return res;

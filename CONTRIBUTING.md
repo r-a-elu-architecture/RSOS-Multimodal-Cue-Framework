@@ -3,9 +3,10 @@
 We welcome technically rigorous contributions that improve falsifiability, software correctness, independent replication, usability, accessibility, or consent-first human–AI interaction.
 
 Prioritize:
-- reproducible benchmark implementations and fair, equally informed baselines;
-- adversarial tests of assumption watchdogs, source genealogy, and program compilation;
-- neutral mnemonic-learning studies using consenting participants and predeclared outcomes;
+- new RSX programs and tiers, with tests;
+- runtimes for other devices (wearables, VR, scent and haptic hardware) that consume the RSX timeline format;
+- studies of the Override Protocol hypotheses (spec §10) with consenting participants, predeclared outcomes and the shared run-log format;
+- improvements to the learning model and the personalised cue engine, with fair, equally informed baselines;
 - independent security, privacy, licensing, and clinical-claims audits.
 
 For a research claim provide: precise test question, source/data license, sample provenance, train/test boundary, model and hyperparameters, strong baselines, failures, random seeds, uncertainty intervals and command to reproduce.

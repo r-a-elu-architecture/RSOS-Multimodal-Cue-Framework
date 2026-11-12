@@ -1,9 +1,9 @@
 {
-  "name": "RSOS Research Framework",
+  "name": "RSOS — Recursive Symbolic Operating System",
   "url_after_pages_activation": "https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/",
   "repository": "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework",
-  "research_phase": "open research preview",
+  "research_phase": "open specification and software; no human outcome data yet",
   "release_status": "tagged GitHub release pending",
   "doi_status": "not issued",
-  "publication_note": "Synthetic benchmark evidence does not establish real-world conditioning or neurological efficacy."
+  "publication_note": "Not a medical device. No clinical efficacy has been established."
 }

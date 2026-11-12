@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "Please cite the repository and the relevant benchmark manuscript; distinguish simulated outcomes from human evidence."
-title: "RSOS Multimodal Cue Framework: Programmable Human–AI Adaptation and Evidence-Gated Compositional Transfer"
+message: "Please cite the repository. The DOI identifies the earlier v1.0.0 research-preview archive."
+title: "RSOS — Recursive Symbolic Operating System: Override Protocol, RSX language and multimodal cue engine"
 type: software
 version: "v1.0.0-research-preview"
 date-released: 2026-11-11
@@ -11,9 +11,11 @@ authors:
 repository-code: "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework"
 license: "Apache-2.0"
 keywords:
-  - multimodal cue systems
-  - personalized learning
-  - human-computer interaction
-  - mnemonic interfaces
-  - compositional adaptation
-  - EEG research
+  - state regulation
+  - counterconditioning
+  - multisensory cues
+  - anchoring
+  - future pacing
+  - domain-specific language
+  - just-in-time adaptive interventions
+  - open protocol

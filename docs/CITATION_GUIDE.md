@@ -4,6 +4,8 @@
 
 **Citation metadata:** [CITATION.cff](../CITATION.cff). GitHub shows a "Cite this repository" button built from it.
 
+**DOI for all versions** (always resolves to the latest): [doi:10.5281/zenodo.24143731](https://doi.org/10.5281/zenodo.24143731).
+
 **Archived release:** v2.0.0, [doi:10.5281/zenodo.24151788](https://doi.org/10.5281/zenodo.24151788). Zenodo assigns a new DOI to each GitHub release.
 
 **Earlier version:** v1.0.0-research-preview, [doi:10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732) (superseded).

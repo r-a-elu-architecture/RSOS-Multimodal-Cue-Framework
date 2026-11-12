@@ -1,9 +1,10 @@
 cff-version: 1.2.0
-message: "Please cite this software using the metadata below. Zenodo assigns a DOI to each GitHub release."
+message: "Please cite this software using the metadata below. The DOI covers all versions and resolves to the latest."
 title: "RSOS — Recursive Symbolic Operating System: Override Protocol, RSX language and multimodal cue engine"
 type: software
 version: "v2.1.0"
 date-released: 2026-11-12
+doi: "10.5281/zenodo.24143731"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.24151788"

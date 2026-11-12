@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How RSOS fits together — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="How the parts of RSOS connect: senses, body sensors, EEG and BCI, the AI layer, safety, the RSX program, devices, memory and glyphs, and where every tier of the ledger lives.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995;
+  --built:#c98500; --sim:#3987e5; --partial:#d55181; --specified:#56608a;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.55 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main{max-width:1240px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.95rem}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.6vw,3rem);line-height:1.1;margin:44px 0 12px;max-width:21ch}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:56px 0 6px}
+.lede{color:var(--muted);max-width:70ch;margin:0}
+.note{color:var(--muted);font-size:.88rem}
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;margin-top:30px;align-items:start}
+svg.map{width:100%;height:auto;display:block}
+.node{cursor:pointer}
+.node rect{fill:var(--ink-2);stroke:var(--line);stroke-width:1.5}
+.node:hover rect,.node:focus rect{stroke:var(--muted)}
+.node.on rect{stroke:var(--gold);stroke-width:2.5}
+.node:focus{outline:none}
+.node text{fill:var(--text);font:600 14px var(--sans)}
+.node text.sub{fill:var(--muted);font:12.5px var(--sans)}
+.band text{fill:var(--muted);font:13px var(--sans)}
+.edge{stroke:#56608a;stroke-width:1.6;fill:none}
+.edge.loop{stroke-dasharray:5 5}
+.panel{position:sticky;top:20px;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:20px 22px;min-height:300px}
+.panel h3{font-family:var(--serif);font-weight:500;font-size:1.45rem;margin:0 0 4px;line-height:1.2}
+.panel h4{font-size:.88rem;color:var(--muted);font-weight:600;margin:16px 0 4px}
+.panel p,.panel li{font-size:.93rem;margin:4px 0}
+.panel ul{padding-left:1.1em;margin:4px 0}
+.st{display:inline-block;font-size:.78rem;border-radius:4px;padding:0 7px;margin-right:6px;color:#11141f;font-weight:650}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0 0;color:var(--muted);font-size:.85rem}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600}
+.matrix td.c{text-align:center;font-variant-numeric:tabular-nums;cursor:pointer;min-width:58px}
+.matrix td.c a{display:block;color:var(--text);text-decoration:none}
+.matrix td.c:hover{outline:1px solid var(--muted)}
+.matrix th.r{white-space:nowrap}
+.chips span{display:inline-block;border:1px solid var(--line);border-radius:4px;padding:0 6px;margin:0 4px 4px 0;font-size:.82rem}
+footer{max-width:1240px;margin:60px auto;padding:0 24px;color:var(--muted);font-size:.88rem}
+@media (max-width:980px){.mapwrap{grid-template-columns:1fr}.panel{position:static}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="player.html">Player</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html" aria-current="page">System</a><a href="glyphs.html">Glyphs</a></nav>
+</header>
+<main>
+  <h1>How a negative state becomes an override, and the override a reflex</h1>
+  <p class="lede">One loop runs through every part of RSOS. A trigger arrives through the senses, the body or a sensor; safety decides whether anything may start; the RSX program plays the tier's bundle through every channel; memory records what happened and learns. Select any part to see what it does, how far it is built, and which tiers of the ledger live there.</p>
+
+  <div class="mapwrap">
+    <div>
+      <svg class="map" id="map" viewBox="0 0 900 640" role="group" aria-label="RSOS system map"></svg>
+      <div class="legend" id="legend"></div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+
+  <h2>The channels</h2>
+  <p class="note">Each tier is a bundle: one cue per channel, learned and later triggered as one unit. The same channels carry triggers in and the override out.</p>
+  <div style="overflow:auto"><table id="channels"></table></div>
+
+  <h2>Where the tiers live</h2>
+  <p class="note">Tier records by subsystem and channel. Select a number to see those tiers. Placement is by hand for the override-practice tiers and by keyword rule for the rest; the tier ledger page shows which, and why. No tier in the ledger names smell or taste: those two channels come from the tier-bundle design (RSIA) and the device protocol, not from the ledger.</p>
+  <div style="overflow:auto"><table class="matrix" id="matrix"></table></div>
+
+  <h2>What the system does when it responds</h2>
+  <p class="note">The ledger recorded how the system behaved at each tier (as “GPT Behavior”). Those behaviours reduce to a small set of responses, which the AI, BCI and device layers perform.</p>
+  <div style="overflow:auto"><table id="responses"></table></div>
+</main>
+<footer>Statuses come from the architecture map (<code>architecture/build.py</code>): built, complete in simulation (tested with virtual devices and participants, waiting for real hardware and people), partly built, specified. Data: <a href="data/tier_map.json">tier_map.json</a>.</footer>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const REPO = "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/tree/main/";
+const STATUS = { built: ["Built", "var(--built)"], sim: ["Complete in simulation", "var(--sim)"], partial: ["Partly built", "var(--partial)"], specified: ["Specified", "var(--specified)"] };
+// x, y, w, h in the 900×640 map
+const NODES = {
+  senses: { x: 20, y: 70, w: 190, h: 64, t: "Senses and self", s: "seen, heard, felt, smell, taste", status: "built", layer: null,
+    does: "The person notices the trigger: something seen, heard or felt, a smell, a taste, a thought or a memory, and starts the override at once.", files: ["docs/player.html"],
+    parts: ["Self-start is always allowed (conformance C9)", "Latency question: how soon after noticing did you start?"] },
+  body: { x: 20, y: 160, w: 190, h: 64, t: "Body sensors", s: "heart rate, motion", status: "sim", layer: "AUG",
+    does: "A heart-rate strap or watch (standard Bluetooth Heart Rate Service) streams beat-to-beat intervals. A sustained rise in heart rate with falling variability, without movement, marks a stress response.", files: ["rsso/rsso/hrs.py", "rsso/rsso/sensors.py", "docs/js/hrs.js"],
+    parts: ["Python and browser detectors identical", "Virtual strap: 80% sensitivity, 0.10 false alarms per hour with motion gating"] },
+  eeg: { x: 20, y: 250, w: 190, h: 64, t: "EEG and BCI", s: "pre-attentive detection", status: "sim", layer: "AUG",
+    does: "An EEG stream (replay, synthetic, or a headset through Lab Streaming Layer) gives band powers and an arousal detector: detection before the state is noticed, as Tiers 589–590 describe.", files: ["rsso/rsso/eeg.py"],
+    parts: ["Muse, OpenBCI, Emotiv via LSL", "Synthetic test: 2 of 2 events found, none false"] },
+  ai: { x: 20, y: 340, w: 190, h: 64, t: "AI layer", s: "LINX", status: "specified", layer: "LINX",
+    does: "The AI interface and injection layer, in both directions: context, tier state and sensor events go to the model; the model sends back the program, tier or glyph the moment calls for, through the device and BCI loop. It may only offer; the person starts.", files: ["architecture/rsso/subsystems/LINX/"],
+    parts: ["Specified: AI that detects a negative state and offers the matching override", "Specified: AI that writes RSX programs from a description"] },
+  gate: { x: 270, y: 200, w: 180, h: 76, t: "Safety", s: "CONTAIN", status: "partial", layer: "CONTAIN",
+    does: "Decides whether anything may start: opt-in for device-triggered runs, a refractory period, hourly and daily limits, an intensity cap, allergy confirmation before scent or taste, and Stop at any moment.", files: ["rsx/rsx/runtime.py", "rsso/rsso/conformance.py", "spec/OVERRIDE_PROTOCOL.md"],
+    parts: ["SafetyGovernor: 90 s refractory, 6 per hour, 20 per day", "Device Stop within 100 ms (RDP/1)", "Human in the loop: offers, never automatic starts"] },
+  program: { x: 500, y: 60, w: 200, h: 84, t: "RSX program", s: "THERA protocols, RSIA tiers", status: "partial", layer: "RSX",
+    does: "The protocol as a timeline: breath pacing, words, imagery, gestures, tones, vibration, scent, with tiers as bundles of cues. The Override Protocol and six programs from the tier ledger run in the player.", files: ["rsx/", "rsx/protocols/", "spec/OVERRIDE_PROTOCOL.md"],
+    parts: ["Python and JavaScript compilers, conformance-checked", "THERA: override built; EEG- and gaze-triggered starts specified"] },
+  devices: { x: 500, y: 200, w: 200, h: 76, t: "Devices", s: "MICRO edge runtime, AUG", status: "sim", layer: "MICRO",
+    does: "Plays the timeline on screens, speakers, wristbands and scent modules. A portable C++ core speaks the RSOS Device Protocol and keeps its own clock, so timing survives a slow link.", files: ["firmware/", "spec/DEVICE_PROTOCOL.md", "rsso/rsso/protocol.py"],
+    parts: ["Firmware core: 11 of 11 conformance checks in simulation", "ESP32 wristband sketch: compile-checked, not yet run on a board"] },
+  glyph: { x: 500, y: 330, w: 200, h: 76, t: "Glyphs", s: "UGCL", status: "built", layer: "UGCL",
+    does: "One glyph description gives an image at any size, a vibration rhythm and a melody, so a cue can move between senses. A library of 48 evolved glyphs; each person finds their own by pairwise choices.", files: ["spec/GLYPH_FORMAT.md", "rsso/rsso/ugcl.py", "docs/glyphs.html"],
+    parts: ["Compact code fits one Bluetooth packet", "Next: calibration from the body's response"] },
+  memory: { x: 740, y: 140, w: 140, h: 84, t: "Memory", s: "MEMSTACK", status: "built", layer: "MEMSTACK",
+    does: "Records every run and weekly automaticity check, models how strong each tier's bundle has become, fits the habit curve, estimates the triggers left to a reflex, and checks the reflex criterion. Checksummed snapshots move memory between devices.", files: ["rsso/rsso/memstack.py", "docs/js/memstack.js"],
+    parts: ["Reflex: automaticity ≥ 4 for two weeks and a start within 3 s", "Your metrics on the metrics page"] },
+  compress: { x: 740, y: 300, w: 140, h: 84, t: "Compression", s: "CM1", status: "partial", layer: "CM1",
+    does: "Compresses many people's histories into a few response modes, so the cue engine can suggest the program, tier and voice most likely to work for someone new.", files: ["toolkit/rsos_cue/"],
+    parts: ["Cue engine on run logs: 60–78% lower regret than the best fixed setting (synthetic)", "Cross-domain compression specified"] },
+};
+const EDGES = [["senses", "gate"], ["body", "gate"], ["eeg", "gate"], ["ai", "gate"], ["gate", "program"], ["gate", "devices"], ["program", "devices"], ["glyph", "devices"],
+  ["devices", "memory"], ["program", "memory"], ["memory", "compress"], ["compress", "ai", true], ["memory", "glyph", true], ["memory", "program", true]];
+const CH = [["V", "Visual", "Something seen", "Screen, AR: light imagery, the glyph", "SEE, glyph"],
+  ["A", "Auditory", "Something heard", "Voice (your own recording or a computer voice), tone motif", "SAY, TONE"],
+  ["K", "Kinesthetic", "A body feeling", "Gesture, posture, vibration rhythm (wristband)", "GESTURE, FEEL, HAPTIC"],
+  ["O", "Olfactory", "A smell", "Scent module, after allergy confirmation", "SMELL"],
+  ["G", "Gustatory", "A taste", "Taste cue, after allergy confirmation", "TASTE"],
+  ["BREATH", "Breath", "—", "Breath pacing: the light grows on the inhale and settles on the exhale", "BREATH, PHASE breath="],
+  ["EEG/BCI", "EEG / BCI", "Arousal detected before it is noticed", "Planned: BCI feedback", "trigger channel"],
+  ["AI", "AI", "Context from the AI layer", "Programs and glyphs the AI writes (specified)", "LINX"]];
+let MAP, sel = null;
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+function draw() {
+  const svg = $("map"), ns = "http://www.w3.org/2000/svg";
+  const bands = [[0, "Triggers in"], [255, "Gate"], [480, "Program and output"], [725, "Learning"]];
+  for (const [x, t] of bands) { const g = document.createElementNS(ns, "g"); g.setAttribute("class", "band"); const tx = document.createElementNS(ns, "text"); tx.setAttribute("x", x + 20); tx.setAttribute("y", 30); tx.textContent = t; g.appendChild(tx); svg.appendChild(g); }
+  const mid = (n, side) => { const N = NODES[n]; return side === "r" ? [N.x + N.w, N.y + N.h / 2] : side === "l" ? [N.x, N.y + N.h / 2] : side === "b" ? [N.x + N.w / 2, N.y + N.h] : [N.x + N.w / 2, N.y]; };
+  const defs = document.createElementNS(ns, "defs");
+  defs.innerHTML = '<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#56608a"/></marker>';
+  svg.appendChild(defs);
+  for (const [a, b, loop] of EDGES) {
+    const A = NODES[a], B = NODES[b]; let p;
+    if (loop && a === "compress" && b === "ai") { const [x1, y1] = mid(a, "b"), [x2, y2] = mid(b, "b"); p = `M${x1},${y1} C${x1},${600} ${x2},${600} ${x2},${y2}`; }
+    else if (loop && a === "memory" && b === "glyph") { const [x1, y1] = [A.x + 30, A.y + A.h], [x2, y2] = mid(b, "r"); p = `M${x1},${y1} C${x1},${y2} ${x1 - 10},${y2} ${x2},${y2}`; }
+    else if (loop && a === "memory" && b === "program") { const [x1, y1] = mid(a, "t"), [x2, y2] = mid(b, "r"); p = `M${x1},${y1} C${x1},${y2} ${x1},${y2} ${x2},${y2}`; }
+    else if (A.x === B.x) { const [x1, y1] = A.y < B.y ? mid(a, "b") : mid(a, "t"), [x2, y2] = A.y < B.y ? mid(b, "t") : mid(b, "b"); p = `M${x1},${y1} L${x2},${y2}`; }
+    else { const [x1, y1] = mid(a, "r"), [x2, y2] = mid(b, "l"); const cx = (x1 + x2) / 2; p = `M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`; }
+    const path = document.createElementNS(ns, "path"); path.setAttribute("d", p); path.setAttribute("class", "edge" + (loop ? " loop" : "")); path.setAttribute("marker-end", "url(#arr)"); svg.appendChild(path);
+  }
+  for (const [id, N] of Object.entries(NODES)) {
+    const g = document.createElementNS(ns, "g"); g.setAttribute("class", "node"); g.setAttribute("tabindex", "0"); g.setAttribute("role", "button"); g.setAttribute("aria-label", N.t + ": " + STATUS[N.status][0]); g.id = "n-" + id;
+    const r = document.createElementNS(ns, "rect"); r.setAttribute("x", N.x); r.setAttribute("y", N.y); r.setAttribute("width", N.w); r.setAttribute("height", N.h); r.setAttribute("rx", 8);
+    const bar = document.createElementNS(ns, "rect"); bar.setAttribute("x", N.x); bar.setAttribute("y", N.y); bar.setAttribute("width", 5); bar.setAttribute("height", N.h); bar.setAttribute("rx", 2); bar.style.fill = STATUS[N.status][1]; bar.style.stroke = "none";
+    const t1 = document.createElementNS(ns, "text"); t1.setAttribute("x", N.x + 16); t1.setAttribute("y", N.y + N.h / 2 - 3); t1.textContent = N.t;
+    const t2 = document.createElementNS(ns, "text"); t2.setAttribute("class", "sub"); t2.setAttribute("x", N.x + 16); t2.setAttribute("y", N.y + N.h / 2 + 16); t2.textContent = N.s;
+    g.append(r, bar, t1, t2);
+    g.addEventListener("click", () => show(id)); g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(id); } });
+    svg.appendChild(g);
+  }
+  for (const [k, [label, c]] of Object.entries(STATUS)) { const s = el("span"); const i = el("i"); i.style.background = c; s.append(i, label); $("legend").appendChild(s); }
+  const note = el("span", "", "Dashed: what memory and learning feed back"); $("legend").appendChild(note);
+}
+function tiersIn(layer) { return Object.entries(MAP.tiers).filter(([, v]) => v.layers.includes(layer)); }
+function show(id) {
+  sel = id; document.querySelectorAll(".node").forEach(n => n.classList.toggle("on", n.id === "n-" + id));
+  const N = NODES[id], p = $("panel"); p.innerHTML = "";
+  p.appendChild(el("h3", "", N.t));
+  const st = el("p"); const b = el("span", "st", STATUS[N.status][0]); b.style.background = STATUS[N.status][1]; if (N.status === "specified") b.style.color = "#e7e9f2"; st.append(b, N.s); p.appendChild(st);
+  p.appendChild(el("p", "", N.does));
+  p.appendChild(el("h4", "", "Now")); const ul = el("ul"); for (const x of N.parts) ul.appendChild(el("li", "", x)); p.appendChild(ul);
+  if (N.layer) {
+    const ts = tiersIn(N.layer), by = {}; for (const [, v] of ts) by[v.role] = (by[v.role] || 0) + 1;
+    p.appendChild(el("h4", "", "Tiers that live here"));
+    const q = el("p"); const a = el("a", "", ts.length + " tier records"); a.href = "tiers.html?layer=" + N.layer; q.appendChild(a);
+    q.append(": " + Object.entries(by).map(([k, n]) => n + " " + k).join(", ") + "."); p.appendChild(q);
+    const hand = ts.filter(([, v]) => v.method === "hand").slice(0, 8);
+    if (hand.length) { const l = el("p", "note", "Placed by hand: "); hand.forEach(([k], i) => { const x = el("a", "", k.slice(1)); x.href = "tiers.html#" + k; l.append(x, i < hand.length - 1 ? ", " : ""); }); p.appendChild(l); }
+    const rs = new Set(ts.map(([, v]) => v.response).filter(Boolean));
+    if (rs.size) p.appendChild(el("p", "note", "Responses: " + [...rs].map(r => r.charAt(0) + r.slice(1).replace("_", " ").toLowerCase()).join(", ") + "."));
+  }
+  p.appendChild(el("h4", "", "Files"));
+  const f = el("p"); N.files.forEach((x, i) => { const a = el("a", "", x); a.href = REPO + x; f.append(a, i < N.files.length - 1 ? ", " : ""); }); p.appendChild(f);
+}
+function tables() {
+  const ct = $("channels"); const h = el("tr"); ["Channel", "Trigger in", "Override out", "RSX", "Tiers"].forEach(x => h.appendChild(el("th", "", x))); ct.appendChild(h);
+  for (const [k, name, inp, out, rsx] of CH) {
+    const n = Object.values(MAP.tiers).filter(v => v.channels.includes(k)).length;
+    const tr = el("tr"); tr.append(el("td", "", name), el("td", "", inp), el("td", "", out), el("td", "", rsx));
+    const td = el("td"); const a = el("a", "", String(n)); a.href = "tiers.html?channel=" + encodeURIComponent(k); td.appendChild(a); tr.appendChild(td); ct.appendChild(tr);
+  }
+  const mt = $("matrix"), hr = el("tr"); hr.appendChild(el("th", "", ""));
+  for (const c of MAP.channels) hr.appendChild(el("th", "", c === "BREATH" ? "Breath" : c)); hr.appendChild(el("th", "", "All")); mt.appendChild(hr);
+  let max = 0; const cnt = {};
+  for (const l of MAP.layers) for (const c of MAP.channels) { const n = Object.values(MAP.tiers).filter(v => v.layers.includes(l) && v.channels.includes(c)).length; cnt[l + c] = n; max = Math.max(max, n); }
+  for (const l of MAP.layers) {
+    const tr = el("tr"); tr.appendChild(el("th", "r", l));
+    for (const c of MAP.channels) {
+      const n = cnt[l + c], td = el("td", "c"); td.style.background = n ? `rgba(201,133,0,${(0.08 + 0.62 * n / max).toFixed(2)})` : "transparent";
+      const a = el("a", "", n ? String(n) : "·"); a.href = "tiers.html?layer=" + l + "&channel=" + encodeURIComponent(c); a.title = n + " tiers: " + l + " with " + c; td.appendChild(a); tr.appendChild(td);
+    }
+    const all = el("td", "c"); const a = el("a", "", String(tiersIn(l).length)); a.href = "tiers.html?layer=" + l; all.appendChild(a); tr.appendChild(all); mt.appendChild(tr);
+  }
+  const rt = $("responses"); const rh = el("tr"); ["Response", "What it does", "Status", "Performed by", "Tiers"].forEach(x => rh.appendChild(el("th", "", x))); rt.appendChild(rh);
+  for (const [k, r] of Object.entries(MAP.responses)) {
+    const n = Object.values(MAP.tiers).filter(v => v.response === k).length;
+    const tr = el("tr"); tr.append(el("td", "", k.charAt(0) + k.slice(1).replace("_", " ").toLowerCase()), el("td", "", r.meaning), el("td", "", { built: "Built", partial: "Partly built", specified: "Specified" }[r.status]), el("td", "", r.by), el("td", "", String(n)));
+    rt.appendChild(tr);
+  }
+}
+fetch("data/tier_map.json").then(r => r.json()).then(m => { MAP = m; draw(); tables(); show("gate"); })
+  .catch(() => { $("panel").textContent = "The tier data could not be loaded. Open this page from the published site or a local web server."; draw(); });
+</script>
+</body>
+</html>

@@ -92,7 +92,7 @@ Run `python architecture/build.py` to regenerate these pages from the manifest.
 
 # ------------------------------------------------------------------ RSOS
 page("rsos", "RSOS — Recursive Symbolic Operating System", f"""
-**Role:** the cue bundles. A **tier** binds one cue per sensory channel (visual glyph and imagery, auditory metaphor word, kinesthetic feeling, and optionally scent and taste) so that the whole bundle is learned, and later triggered, as one unit. Tiers are numbered and progress over practice toward a reflex. The tier ledger records how the tiers were developed.
+**Role:** the cue bundles. A **tier** binds one cue per sensory channel (visual glyph and imagery, auditory metaphor word, kinesthetic feeling, and optionally scent and taste) so that the whole bundle is learned, and later triggered, as one unit. Tiers are numbered and progress over practice toward a reflex. The tier ledger records how the tiers were developed; every tier of it is placed in the architecture in `spec/TIER_LEDGER.md` and browsable on the [tier ledger page](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/tiers.html).
 
 **Status:** {STATUS['partial']}
 

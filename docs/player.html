@@ -110,7 +110,16 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
       <option value="interrupt_only">Interrupt only (≈ 10 s)</option>
       <option value="swish">Swish (≈ 23 s)</option>
       <option value="legacy_vector">RSX v1 command, tier 8</option>
+      <optgroup label="From the tier ledger">
+        <option value="tier003_command_stack">Tier 003: Recursive Command Stack</option>
+        <option value="tier012_breath_anchor">Tier 012: Breath Anchor</option>
+        <option value="tier014_seal">Tier 014: Lion Seal</option>
+        <option value="tier016_stillness">Tier 016: Stillness, then interrupt</option>
+        <option value="tier406_release">Tier 406: Release what was never yours</option>
+        <option value="tier579_glyph">Tier 579: Glyph from stillness</option>
+      </optgroup>
     </select>
+    <p class="note" id="tierNote" hidden></p>
     <div id="futuresBox">
       <label for="f0">Your three futures</label>
       <input type="text" id="f0"><input type="text" id="f1" style="margin-top:6px"><input type="text" id="f2" style="margin-top:6px">
@@ -172,7 +181,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.5.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.6.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -247,15 +256,16 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.5.0"></script>
-<script src="js/hrs.js?v=1.5.0"></script>
-<script src="js/memstack.js?v=1.5.0"></script>
-<script src="js/ugcl.js?v=1.5.0"></script>
+<script src="js/rsx.js?v=1.6.0"></script>
+<script src="js/hrs.js?v=1.6.0"></script>
+<script src="js/memstack.js?v=1.6.0"></script>
+<script src="js/ugcl.js?v=1.6.0"></script>
 <script>
 "use strict";
-const BUILD = "1.5.0";
+const BUILD = "1.6.0";
 const $ = id => document.getElementById(id);
-const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector"];
+const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
+  "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph"];
 const sources = {};
 let timeline = null, run = null, audio = null;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -278,6 +288,8 @@ async function loadAll() {
   if (saved) { for (const k of ["inhale", "exhale"]) if (saved[k] != null) $(k).value = saved[k];
     if (saved.futuresEdited) for (const k of ["f0", "f1", "f2"]) if (saved[k] != null) $(k).value = saved[k];
     for (const k of ["optVoice", "optTone", "optVib"]) if (saved[k] != null) $(k).checked = saved[k]; }
+  const asked = new URLSearchParams(location.search).get("program");
+  if (asked && PROTOCOLS.includes(asked)) $("program").value = asked;
   selectProgram();
 }
 function futuresOf(src) {
@@ -289,6 +301,10 @@ function selectProgram() {
   if (src == null) { $("source").value = ""; $("compileMsg").className = "err";
     $("compileMsg").textContent = "Could not load protocols/" + p + ".rsx. Open this page from the published site or a local web server."; return; }
   $("source").value = src;
+  const tm = /^# (Tier \d{3}[^(]*)\(tier ledger[^)]*\)/m.exec(src);
+  $("tierNote").hidden = !tm;
+  if (tm) { $("tierNote").innerHTML = ""; const a = document.createElement("a"); a.href = "tiers.html#T" + tm[1].match(/\d{3}/)[0] + (tm[1].includes("406") ? "b" : "");
+    a.textContent = "Read " + tm[1].trim() + " in the ledger"; $("tierNote").appendChild(a); }
   const f = futuresOf(src);
   $("futuresBox").hidden = !f;
   if (f) { const saved = store.get("rsos.settings", {}); if (!saved.futuresEdited) f.forEach((x, i) => { $("f" + i).value = x; }); }

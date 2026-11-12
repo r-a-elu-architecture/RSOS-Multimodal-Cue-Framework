@@ -17,6 +17,8 @@ Collected here until the next release, planned once all RSSO subsystems are comp
 - **EEG input** (`rsso/eeg.py`): stream interface (replay, synthetic, Lab Streaming Layer), band powers, arousal detector.
 - **MEMSTACK** (`rsso/rsso/memstack.py`, `docs/js/memstack.js`): tier memory, habit-curve fit, estimated triggers to a reflex, reflex criterion, checksummed memory snapshots with merge; player progress view, latency question and weekly automaticity check (player 1.4.0).
 - **UGCL glyph layer** (`spec/GLYPH_FORMAT.md`, `rsso/rsso/ugcl.py`, `docs/js/ugcl.js`): one glyph description gives an image at any size, a vibration rhythm and a melody, plus a compact one-line code for devices; a library of 48 glyphs evolved by recorded mutation and selected for distinctness (`rsso/rsso/ugcl_library.py`, `docs/ugcl/`); glyph gallery to see, feel and hear each glyph (`docs/glyphs.html`); personal glyph and colour calibration in the player from pairwise choices (Bradley–Terry, `rsso/rsso/calibration.py`), player 1.5.0. Python and JavaScript identical (tested).
+- **Tier ledger in the architecture** (`spec/TIER_LEDGER.md`): the ledger read losslessly into structured records (`rsso/rsso/ledger.py`; joining them gives back the file byte for byte), every tier placed in the architecture with subsystems, channels, role, response primitive and status (`rsso/rsso/ledger_map.py`), the recorded "GPT Behavior" read as system behaviour of the AI, BCI and device layers; six tier programs runnable in the player (`rsx/protocols/tier*.rsx`); pages: tier ledger (`docs/tiers.html`), system map (`docs/system.html`), ledger glyphs and mutation chain on the glyph page.
+- **Metric registry and operational metrics** (`rsso/rsso/metrics.py`, `docs/js/metrics.js`, `docs/metrics.html`): 54 codes with every name, definition and recorded value; 20 computed for each person from the run log (Python and JavaScript identical), 12 measured by the system's tests, the rest kept as records.
 - **Installable player**: web app manifest and offline support (network first, so updates are never held back).
 
 ## Changed
@@ -31,7 +33,7 @@ Collected here until the next release, planned once all RSSO subsystems are comp
 ## Verify
 ```bash
 cd rsx && python -m unittest discover -s tests          # 35 tests
-cd ../rsso && python -m unittest discover -s tests      # 38 tests
+cd ../rsso && python -m unittest discover -s tests      # 46 tests
 python -m rsso.conformance
 cd ../toolkit && python -m unittest discover -s tests   # 10 tests
 ```

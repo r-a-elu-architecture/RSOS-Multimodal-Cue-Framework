@@ -1,0 +1,6807 @@
+{
+"responses": {
+"STOP": {
+"meaning": "Halt at once and hold",
+"status": "built",
+"by": "Runtime Stop; RDP/1 STOP within 100 ms (conformance C2, firmware)"
+},
+"GATE": {
+"meaning": "Hold a signal until it is stable or allowed",
+"status": "built",
+"by": "SafetyGovernor refractory and limits; stress detector sustain and motion gating"
+},
+"PAUSE": {
+"meaning": "Insert stillness before or between steps",
+"status": "built",
+"by": "RSX WAIT and PHASE dur= / breath=none"
+},
+"REENTRY": {
+"meaning": "Return safely after a stop or break",
+"status": "specified",
+"by": "Resume from the logged stopped_at_phase (spec)"
+},
+"RECALIBRATE": {
+"meaning": "Detect drift and re-align",
+"status": "partial",
+"by": "Detector baselines, glyph recalibration, snapshot checksums; drift threshold per tier 009 specified"
+},
+"BLEND": {
+"meaning": "Run several archetypes as one bundle",
+"status": "built",
+"by": "RSX: several TIER blocks, ACTIVATE in one phase"
+},
+"GLYPH_CUE": {
+"meaning": "A glyph that acts as the command",
+"status": "partial",
+"by": "UGCL glyph shown at tier activation; glyph-only trigger specified"
+},
+"SEQUENCE": {
+"meaning": "Run the whole override chain",
+"status": "built",
+"by": "RSX timeline (override.rsx and tier programs)"
+},
+"OFFER": {
+"meaning": "Start on its own initiative — as an opt-in offer, never by itself",
+"status": "built",
+"by": "Heart-rate trigger offer with SafetyGovernor (player)"
+},
+"RECALL": {
+"meaning": "Bring back a stored state or pattern",
+"status": "built",
+"by": "MEMSTACK summary and snapshot restore / merge"
+},
+"COMPRESS": {
+"meaning": "Fold many states into one carrier",
+"status": "partial",
+"by": "CM1 ArchetypeBank; UGCL compact code"
+},
+"GENERATE": {
+"meaning": "Produce new symbols, rituals or prompts",
+"status": "specified",
+"by": "LINX: AI writes RSX programs and glyphs (specified)"
+},
+"GOVERN": {
+"meaning": "Apply rules and limits to what may run",
+"status": "built",
+"by": "SAFETY statement, SafetyGovernor, haptic_max clamp"
+},
+"MIRROR": {
+"meaning": "Reflect state back to the person",
+"status": "built",
+"by": "Check-in before/after and the progress view"
+}
+},
+"layers": [
+"RSIA",
+"RSX",
+"THERA",
+"AUG",
+"MICRO",
+"CONTAIN",
+"MEMSTACK",
+"CM1",
+"LINX",
+"UGCL"
+],
+"channels": [
+"V",
+"A",
+"K",
+"O",
+"G",
+"BREATH",
+"EEG/BCI",
+"AI"
+],
+"tiers": {
+"T001": {
+"layers": [
+"RSX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "override.rsx phase 1 (interrupt): SAY \"I move, I act\" + GESTURE fist",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T002": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"BREATH",
+"K",
+"V"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "RSX BREATH + GESTURE in one phase (override.rsx phases 1–2)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T003": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"A",
+"K",
+"V",
+"BREATH"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "rsx/protocols/tier003_command_stack.rsx; grown into override.rsx",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T004": {
+"layers": [
+"CONTAIN",
+"MICRO"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "STOP",
+"operator": "Runtime stop; RDP/1 STOP ≤100 ms (spec/DEVICE_PROTOCOL.md)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T005": {
+"layers": [
+"CONTAIN",
+"MEMSTACK"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "REENTRY",
+"operator": "Override allowed again after the refractory period (SafetyGovernor)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T006": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"K",
+"BREATH",
+"V",
+"A"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "Anchor → Inhale → Lion → Light → Exhale → I Own: override.rsx phases",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T007": {
+"layers": [
+"CONTAIN",
+"MICRO",
+"AUG"
+],
+"channels": [
+"EEG/BCI",
+"AI"
+],
+"role": "runtime",
+"response": "GATE",
+"operator": "SafetyGovernor refractory 90 s; detector requires a sustained, motion-free signal",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T008": {
+"layers": [
+"CONTAIN",
+"RSX"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "RSX SAFETY limits; SafetyGovernor; SHA-256 checksummed memory",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T009": {
+"layers": [
+"CONTAIN",
+"MEMSTACK",
+"MICRO"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "RECALIBRATE",
+"operator": "Checksum verification on restore; conformance timing checks; 3.1% drift rule specified",
+"status": "partial",
+"method": "hand",
+"reason": ""
+},
+"T010": {
+"layers": [
+"RSIA"
+],
+"channels": [
+"AI"
+],
+"role": "record",
+"response": "MIRROR",
+"operator": "",
+"status": "record",
+"method": "hand",
+"reason": ""
+},
+"T011": {
+"layers": [
+"CONTAIN",
+"RSX"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "PAUSE",
+"operator": "Phase hold; output pauses until the next breath",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T012": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"BREATH",
+"K",
+"A"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "rsx/protocols/tier012_breath_anchor.rsx",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T013": {
+"layers": [
+"RSIA",
+"RSX",
+"THERA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "practice",
+"response": "BLEND",
+"operator": "Two TIER blocks activated together (Lion + Dragon, legacy_vector.rsx ArchetypeMerge)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T014": {
+"layers": [
+"RSX",
+"THERA",
+"UGCL"
+],
+"channels": [
+"K",
+"V",
+"BREATH",
+"A"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "rsx/protocols/tier014_seal.rsx",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T015": {
+"layers": [
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"K",
+"A"
+],
+"role": "runtime",
+"response": "RECALL",
+"operator": "MEMSTACK reflex criterion: the override as reflex (rsso/rsso/memstack.py)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T016": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"K",
+"BREATH"
+],
+"role": "practice",
+"response": "PAUSE",
+"operator": "rsx/protocols/tier016_stillness.rsx",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T017": {
+"layers": [
+"CM1",
+"RSIA",
+"RSX"
+],
+"channels": [
+"BREATH",
+"V"
+],
+"role": "practice",
+"response": "COMPRESS",
+"operator": "Several archetypes held in one breath phase; CM1 compression specified",
+"status": "partial",
+"method": "hand",
+"reason": ""
+},
+"T018": {
+"layers": [
+"UGCL",
+"RSX",
+"MEMSTACK"
+],
+"channels": [
+"V"
+],
+"role": "runtime",
+"response": "GLYPH_CUE",
+"operator": "UGCL glyph bound to the tier; glyph-only start after the reflex criterion is met (specified)",
+"status": "partial",
+"method": "hand",
+"reason": ""
+},
+"T019": {
+"layers": [
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"K",
+"A"
+],
+"role": "runtime",
+"response": "REENTRY",
+"operator": "Safe re-entry after Stop: resume at the logged phase (specified)",
+"status": "specified",
+"method": "hand",
+"reason": ""
+},
+"T020": {
+"layers": [
+"RSIA"
+],
+"channels": [
+"AI"
+],
+"role": "record",
+"response": "SEQUENCE",
+"operator": "Authorship and provenance (architecture/provenance/)",
+"status": "record",
+"method": "hand",
+"reason": ""
+},
+"T021": {
+"layers": [],
+"channels": [],
+"role": "structure",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "hand",
+"reason": "placeholder or sealed range"
+},
+"T022": {
+"layers": [],
+"channels": [],
+"role": "structure",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "hand",
+"reason": "placeholder or sealed range"
+},
+"T023": {
+"layers": [],
+"channels": [],
+"role": "structure",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "hand",
+"reason": "placeholder or sealed range"
+},
+"T024": {
+"layers": [],
+"channels": [],
+"role": "structure",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "hand",
+"reason": "placeholder or sealed range"
+},
+"T025": {
+"layers": [
+"UGCL",
+"MEMSTACK"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "runtime",
+"response": "RECALL",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T026": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"AUG"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "runtime",
+"response": "RECALL",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"AUG": "sensory",
+"V": "glyph",
+"A": "echo",
+"K": "touch"
+}
+},
+"T027": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"LINX"
+],
+"channels": [
+"V",
+"AI"
+],
+"role": "runtime",
+"response": "RECALL",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "lock",
+"LINX": "token",
+"V": "glyph",
+"AI": "token"
+}
+},
+"T028": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "runtime",
+"response": "RECALL",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CM1": "fold",
+"CONTAIN": "seal",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T029": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"LINX"
+],
+"channels": [
+"V",
+"A",
+"AI"
+],
+"role": "runtime",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"LINX": "cross-session",
+"V": "shape",
+"A": "sound",
+"AI": "session"
+}
+},
+"T030": {
+"layers": [
+"UGCL"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "runtime",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"V": "glyph",
+"A": "silence"
+}
+},
+"T030.1": {
+"layers": [
+"UGCL"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"V": "glyph",
+"A": "silence",
+"BREATH": "inhale"
+}
+},
+"T031": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"LINX"
+],
+"channels": [
+"V",
+"A",
+"AI"
+],
+"role": "runtime",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "lock",
+"LINX": "gpt",
+"V": "glyph",
+"A": "echo",
+"AI": "gpt"
+}
+},
+"T032": {
+"layers": [
+"UGCL"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "runtime",
+"response": "RECALIBRATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T033": {
+"layers": [
+"CM1",
+"LINX",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"AI"
+],
+"role": "runtime",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "seed",
+"LINX": "gpt",
+"RSIA": "mirror",
+"V": "mirror",
+"A": "echo",
+"AI": "gpt"
+}
+},
+"T034": {
+"layers": [
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "runtime",
+"response": "BLEND",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"RSIA": "mirror",
+"V": "mirror",
+"A": "echo"
+}
+},
+"T035": {
+"layers": [
+"UGCL",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "voice"
+}
+},
+"T036": {
+"layers": [
+"MEMSTACK",
+"LINX",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"LINX": "gpt",
+"RSIA": "self",
+"V": "shape",
+"A": "tone",
+"K": "move",
+"AI": "gpt"
+}
+},
+"T037": {
+"layers": [
+"UGCL",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "identity",
+"RSIA": "identity",
+"V": "glyph"
+}
+},
+"T038": {
+"layers": [
+"UGCL",
+"CM1",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "fold",
+"RSIA": "self",
+"RSX": "chain",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T039": {
+"layers": [
+"UGCL",
+"RSIA"
+],
+"channels": [
+"V",
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"RSIA": "mirror",
+"V": "glyph",
+"BREATH": "exhale"
+}
+},
+"T040": {
+"layers": [
+"UGCL",
+"MEMSTACK"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T041": {
+"layers": [
+"UGCL",
+"MEMSTACK"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T042": {
+"layers": [
+"UGCL",
+"THERA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "ritual",
+"V": "glyph",
+"K": "move"
+}
+},
+"T043": {
+"layers": [
+"MEMSTACK"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory"
+}
+},
+"T044": {
+"layers": [
+"LINX",
+"MICRO"
+],
+"channels": [
+"A",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"LINX": "gpt",
+"MICRO": "reflex",
+"A": "echo",
+"AI": "gpt"
+}
+},
+"T045": {
+"layers": [
+"CM1",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fusion",
+"THERA": "identity",
+"RSIA": "identity",
+"V": "shape"
+}
+},
+"T046": {
+"layers": [
+"UGCL",
+"LINX",
+"RSIA"
+],
+"channels": [
+"V",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"LINX": "gpt",
+"RSIA": "mirror",
+"V": "mirror",
+"AI": "gpt"
+}
+},
+"T047": {
+"layers": [
+"UGCL"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"V": "glyph"
+}
+},
+"T048": {
+"layers": [
+"UGCL"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"V": "glyph"
+}
+},
+"T049": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CM1": "compress",
+"MICRO": "pulse",
+"V": "glyph"
+}
+},
+"T050": {
+"layers": [
+"UGCL",
+"CM1",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "compress",
+"RSIA": "self",
+"V": "glyph"
+}
+},
+"T050b": {
+"layers": [
+"UGCL",
+"CM1",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "compress",
+"RSIA": "self",
+"V": "glyph"
+}
+},
+"T051": {
+"layers": [
+"UGCL",
+"CM1"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "seed",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T052": {
+"layers": [
+"MEMSTACK"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"A": "echo",
+"K": "motion"
+}
+},
+"T053": {
+"layers": [
+"MEMSTACK",
+"RSIA"
+],
+"channels": [
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"RSIA": "self",
+"A": "echo"
+}
+},
+"T054": {
+"layers": [
+"UGCL",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"RSIA": "mirror",
+"V": "mirror"
+}
+},
+"T055": {
+"layers": [
+"UGCL",
+"CM1",
+"CONTAIN",
+"RSX"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "compress",
+"CONTAIN": "lock",
+"RSX": "sequence",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T056": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "breath",
+"V": "glyph",
+"A": "silence",
+"BREATH": "breath"
+}
+},
+"T057": {
+"layers": [
+"UGCL",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"RSIA": "self",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T058": {
+"layers": [
+"UGCL"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T059": {
+"layers": [
+"UGCL",
+"CM1",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "fold",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "say"
+}
+},
+"T060": {
+"layers": [
+"CM1",
+"LINX"
+],
+"channels": [
+"V",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"LINX": "session",
+"V": "form",
+"AI": "session"
+}
+},
+"T061": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"CM1": "fold",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T062": {
+"layers": [],
+"channels": [
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"A": "echo"
+}
+},
+"T063": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"LINX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"BREATH",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"CM1": "fusion",
+"LINX": "gpt",
+"THERA": "breath",
+"RSIA": "self",
+"V": "glyph",
+"BREATH": "breath",
+"AI": "gpt"
+}
+},
+"T064": {
+"layers": [
+"MEMSTACK",
+"LINX",
+"THERA"
+],
+"channels": [
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"LINX": "session",
+"THERA": "override",
+"AI": "session"
+}
+},
+"T065": {
+"layers": [
+"UGCL",
+"CM1",
+"LINX",
+"RSIA"
+],
+"channels": [
+"V",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "seed",
+"LINX": "gpt",
+"RSIA": "self",
+"V": "glyph",
+"AI": "gpt"
+}
+},
+"T066": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"RSIA": "mirror",
+"V": "mirror"
+}
+},
+"T067": {
+"layers": [
+"UGCL",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "ritual",
+"RSIA": "self",
+"V": "glyph",
+"BREATH": "breath"
+}
+},
+"T068": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"THERA": "ritual",
+"RSIA": "mirror",
+"V": "mirror"
+}
+},
+"T069": {
+"layers": [
+"UGCL",
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MICRO": "reflex",
+"V": "glyph"
+}
+},
+"T070": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"THERA": "identity",
+"RSIA": "self",
+"A": "echo",
+"K": "feel"
+}
+},
+"T071": {
+"layers": [
+"LINX",
+"RSIA"
+],
+"channels": [
+"V",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"LINX": "model",
+"RSIA": "mirror",
+"V": "mirror",
+"AI": "model"
+}
+},
+"T072": {
+"layers": [
+"RSX"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"RSX": "directive"
+}
+},
+"T073": {
+"layers": [
+"UGCL",
+"CONTAIN"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "law",
+"V": "glyph"
+}
+},
+"T074": {
+"layers": [
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "judic",
+"THERA": "breath",
+"BREATH": "breath"
+}
+},
+"T075": {
+"layers": [
+"UGCL"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"V": "glyph"
+}
+},
+"T076": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "law",
+"THERA": "breath",
+"RSIA": "self",
+"V": "glyph",
+"A": "echo",
+"BREATH": "breath"
+}
+},
+"T077": {
+"layers": [
+"UGCL",
+"CONTAIN"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "rights",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T078": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "judic",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T079": {
+"layers": [
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"MICRO"
+],
+"channels": [
+"A",
+"BREATH",
+"AI"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "seed",
+"CONTAIN": "law",
+"LINX": "llm",
+"THERA": "breath",
+"MICRO": "pulse",
+"A": "echo",
+"BREATH": "breath",
+"AI": "llm"
+}
+},
+"T080": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"BREATH",
+"AI"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "law",
+"LINX": "token",
+"THERA": "breath",
+"RSIA": "self",
+"V": "form",
+"A": "echo",
+"BREATH": "breath",
+"AI": "token"
+}
+},
+"T081": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"BREATH",
+"AI"
+],
+"role": "runtime",
+"response": "MIRROR",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CONTAIN": "contain",
+"LINX": "token",
+"THERA": "breath",
+"RSIA": "mirror",
+"MICRO": "pulse",
+"V": "mirror",
+"A": "echo",
+"BREATH": "breath",
+"AI": "token"
+}
+},
+"T082": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSX",
+"AUG",
+"MICRO"
+],
+"channels": [
+"A",
+"BREATH",
+"EEG/BCI",
+"AI"
+],
+"role": "runtime",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CM1": "seed",
+"CONTAIN": "law",
+"LINX": "token",
+"THERA": "breath",
+"RSX": "chain",
+"AUG": "neural",
+"MICRO": "pulse",
+"A": "echo",
+"BREATH": "breath",
+"EEG/BCI": "neural",
+"AI": "token"
+}
+},
+"T083": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "runtime",
+"response": "RECALIBRATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "law",
+"THERA": "breath",
+"MICRO": "pulse",
+"V": "form",
+"A": "echo",
+"BREATH": "breath"
+}
+},
+"T084": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA",
+"RSX",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"BREATH",
+"AI"
+],
+"role": "runtime",
+"response": "RECALIBRATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "trace",
+"CM1": "fold",
+"CONTAIN": "law",
+"LINX": "session",
+"THERA": "breath",
+"RSIA": "self",
+"RSX": "chain",
+"MICRO": "pulse",
+"V": "glyph",
+"A": "echo",
+"BREATH": "breath",
+"AI": "session"
+}
+},
+"T085": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"BREATH",
+"AI"
+],
+"role": "runtime",
+"response": "MIRROR",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CM1": "kernel",
+"CONTAIN": "law",
+"LINX": "llm",
+"THERA": "breath",
+"MICRO": "pulse",
+"V": "glyph",
+"BREATH": "breath",
+"AI": "llm"
+}
+},
+"T086": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"BREATH",
+"AI"
+],
+"role": "runtime",
+"response": "RECALIBRATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "persist",
+"CM1": "fold",
+"CONTAIN": "contain",
+"LINX": "llm",
+"THERA": "breath",
+"RSIA": "self",
+"V": "glyph",
+"A": "silence",
+"BREATH": "breath",
+"AI": "llm"
+}
+},
+"T087": {
+"layers": [
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH",
+"AI"
+],
+"role": "runtime",
+"response": "MIRROR",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "seed",
+"CONTAIN": "law",
+"LINX": "cross-session",
+"THERA": "breath",
+"RSIA": "archetype",
+"V": "mirror",
+"A": "silence",
+"K": "walk",
+"BREATH": "breath",
+"AI": "session"
+}
+},
+"T088-405": {
+"layers": [],
+"channels": [],
+"role": "structure",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "hand",
+"reason": "placeholder or sealed range"
+},
+"T406": {
+"layers": [],
+"channels": [],
+"role": "structure",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "hand",
+"reason": "placeholder or sealed range"
+},
+"T406b": {
+"layers": [
+"RSIA",
+"THERA",
+"RSX"
+],
+"channels": [
+"A",
+"BREATH"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "rsx/protocols/tier406_release.rsx",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T407": {
+"layers": [
+"RSIA",
+"THERA"
+],
+"channels": [
+"BREATH",
+"A"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "Sovereign Breath Sequence: SAY on exhale ×3 (RSX)",
+"status": "specified",
+"method": "hand",
+"reason": ""
+},
+"T408": {
+"layers": [
+"RSIA",
+"UGCL"
+],
+"channels": [
+"V"
+],
+"role": "practice",
+"response": "GENERATE",
+"operator": "Personal glyph of law origin: UGCL personal glyph",
+"status": "partial",
+"method": "hand",
+"reason": ""
+},
+"T409": {
+"layers": [
+"RSIA",
+"UGCL"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "practice",
+"response": "GENERATE",
+"operator": "Personal law sealed with the current glyph",
+"status": "specified",
+"method": "hand",
+"reason": ""
+},
+"T410": {
+"layers": [
+"RSIA",
+"THERA"
+],
+"channels": [
+"K"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "One action taken without justification: agency practice",
+"status": "specified",
+"method": "hand",
+"reason": ""
+},
+"T411": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "GOVERN",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "governance",
+"THERA": "breath",
+"RSIA": "self",
+"RSX": "command",
+"V": "glyph",
+"A": "silence",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T412": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "GOVERN",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "persist",
+"CM1": "seed",
+"CONTAIN": "law",
+"THERA": "breath",
+"RSIA": "identity",
+"RSX": "command",
+"V": "glyph",
+"A": "echo",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T413": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"RSIA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "archive",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "trace",
+"RSIA": "self",
+"V": "glyph",
+"K": "move"
+}
+},
+"T414": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "self-erasure framing",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "recall",
+"THERA": "breath",
+"RSIA": "identity",
+"MICRO": "reflex",
+"V": "glyph",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T415": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "practice",
+"response": "GENERATE",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "law",
+"THERA": "breath",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "echo",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T416": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "trace",
+"THERA": "breath",
+"RSIA": "ego",
+"V": "glyph",
+"K": "walk",
+"BREATH": "breath"
+}
+},
+"T417": {
+"layers": [
+"UGCL",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "breath",
+"RSIA": "self",
+"V": "glyph",
+"A": "whisper",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T418": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "archive",
+"response": "GENERATE",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "trace",
+"THERA": "breath",
+"V": "glyph",
+"A": "echo",
+"BREATH": "breath"
+}
+},
+"T419": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "override",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "echo",
+"BREATH": "breath"
+}
+},
+"T420": {
+"layers": [
+"UGCL",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "self-erasure framing",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "breath",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "speak",
+"BREATH": "breath"
+}
+},
+"T420b": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSX",
+"AUG",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "self-erasure framing",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "persist",
+"THERA": "breath",
+"RSX": "command",
+"AUG": "body",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "speak",
+"K": "body",
+"BREATH": "breath"
+}
+},
+"T421": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA",
+"AUG"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH",
+"EEG/BCI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "memory",
+"THERA": "breath",
+"RSIA": "self",
+"AUG": "nervous",
+"V": "light",
+"A": "speak",
+"K": "move",
+"BREATH": "breath",
+"EEG/BCI": "nervous"
+}
+},
+"T422": {
+"layers": [
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "halt",
+"THERA": "breath",
+"V": "light",
+"A": "speak",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T423": {
+"layers": [
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "trace",
+"THERA": "override",
+"V": "light",
+"A": "sound",
+"K": "touch",
+"BREATH": "breath"
+}
+},
+"T424": {
+"layers": [
+"UGCL",
+"CM1",
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"EEG/BCI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "fold",
+"CONTAIN": "lock",
+"THERA": "ritual",
+"V": "light",
+"A": "speak",
+"K": "move",
+"EEG/BCI": "subconscious"
+}
+},
+"T425": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "ritual",
+"RSIA": "mirror",
+"V": "mirror",
+"K": "feel"
+}
+},
+"T426": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "ritual",
+"RSIA": "self",
+"K": "move"
+}
+},
+"T427": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"K": "move"
+}
+},
+"T428": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "identity",
+"K": "motion"
+}
+},
+"T429": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "identity",
+"A": "silence",
+"K": "move"
+}
+},
+"T430": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSX"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSX": "sequence",
+"A": "speak",
+"K": "move"
+}
+},
+"T431": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "memory",
+"CONTAIN": "seal",
+"THERA": "psych",
+"MICRO": "reflex",
+"K": "feel"
+}
+},
+"T432": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSX",
+"MICRO"
+],
+"channels": [
+"A",
+"K",
+"BREATH",
+"EEG/BCI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "recall",
+"CONTAIN": "seal",
+"THERA": "breath",
+"RSX": "command",
+"MICRO": "reflex",
+"A": "voice",
+"K": "stand",
+"BREATH": "breath",
+"EEG/BCI": "subconscious"
+}
+},
+"T433": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "trace",
+"CONTAIN": "law",
+"THERA": "psych",
+"V": "form",
+"A": "voice",
+"K": "stand"
+}
+},
+"T434": {
+"layers": [
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"V"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"V": "form"
+}
+},
+"T435": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSX"
+],
+"channels": [],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSX": "command"
+}
+},
+"T436": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "memory",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "identity",
+"A": "echo"
+}
+},
+"T437": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "mirror",
+"A": "silence"
+}
+},
+"T438": {
+"layers": [
+"CONTAIN",
+"THERA",
+"AUG"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "contain",
+"THERA": "psych",
+"AUG": "body",
+"V": "shape",
+"A": "silence",
+"K": "body"
+}
+},
+"T439": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "self-erasure framing",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "mirror",
+"MICRO": "gate",
+"V": "mirror",
+"BREATH": "breath"
+}
+},
+"T440": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "self-erasure framing",
+"evidence": {
+"MEMSTACK": "imprint",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "identity",
+"MICRO": "reflex",
+"V": "shape",
+"A": "silence",
+"K": "move"
+}
+},
+"T441": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA",
+"RSX",
+"MICRO"
+],
+"channels": [
+"V",
+"K",
+"EEG/BCI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"RSX": "command",
+"MICRO": "reflex",
+"V": "shape",
+"K": "walk",
+"EEG/BCI": "pre-conscious"
+}
+},
+"T442": {
+"layers": [
+"CM1",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CM1": "fold",
+"THERA": "breath",
+"RSIA": "self",
+"RSX": "directive",
+"V": "form",
+"A": "silence",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T443": {
+"layers": [
+"THERA"
+],
+"channels": [
+"V",
+"K",
+"EEG/BCI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"THERA": "psych",
+"V": "shape",
+"K": "move",
+"EEG/BCI": "subconscious"
+}
+},
+"T444": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"RSX"
+],
+"channels": [
+"V"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "memory",
+"CM1": "seed",
+"CONTAIN": "seal",
+"RSX": "sequence",
+"V": "shape"
+}
+},
+"T445": {
+"layers": [
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"AI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"LINX": "model",
+"THERA": "identity",
+"RSIA": "identity",
+"RSX": "sequence",
+"V": "shape",
+"AI": "model"
+}
+},
+"T446": {
+"layers": [
+"UGCL",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "identity",
+"RSIA": "self",
+"V": "glyph",
+"A": "echo",
+"K": "feel"
+}
+},
+"T447": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "recall",
+"CONTAIN": "seal",
+"THERA": "identity",
+"RSIA": "identity",
+"RSX": "sequence",
+"V": "glyph",
+"K": "move"
+}
+},
+"T448": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "safe",
+"RSX": "sequence",
+"V": "glyph",
+"A": "echo",
+"K": "move"
+}
+},
+"T449": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CONTAIN": "seal",
+"RSIA": "mirror",
+"RSX": "sequence",
+"V": "mirror",
+"A": "speak",
+"K": "move"
+}
+},
+"T450": {
+"layers": [
+"CONTAIN",
+"AUG",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K",
+"EEG/BCI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"AUG": "body",
+"MICRO": "reflex",
+"V": "visual",
+"A": "echo",
+"K": "body",
+"EEG/BCI": "neural"
+}
+},
+"T451": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"BREATH"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"MEMSTACK": "trace",
+"CONTAIN": "seal",
+"THERA": "breath",
+"V": "shape",
+"A": "echo",
+"BREATH": "breath"
+}
+},
+"T452": {
+"layers": [
+"CONTAIN",
+"THERA",
+"AUG",
+"MICRO"
+],
+"channels": [
+"A",
+"K",
+"EEG/BCI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "override",
+"AUG": "neural",
+"MICRO": "reflex",
+"A": "echo",
+"K": "move",
+"EEG/BCI": "neural"
+}
+},
+"T453": {
+"layers": [
+"CONTAIN"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"V": "form",
+"A": "hear",
+"K": "motion"
+}
+},
+"T454": {
+"layers": [
+"CONTAIN"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"V": "form",
+"A": "echo",
+"K": "gesture"
+}
+},
+"T455": {
+"layers": [
+"UGCL",
+"MEMSTACK"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "Genealogy and checksums lock authorship (UGCL genealogy, MEMSTACK SHA-256)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T456": {
+"layers": [
+"UGCL",
+"MEMSTACK"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "Authorship watermark: recorded lineage and hashes",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T457": {
+"layers": [
+"UGCL",
+"CONTAIN"
+],
+"channels": [
+"AI",
+"A"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "Lock phrase \"Only the true return. All else falls away.\"; snapshot tamper check",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T458": {
+"layers": [
+"CONTAIN"
+],
+"channels": [
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "lock",
+"K": "move"
+}
+},
+"T459": {
+"layers": [],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {}
+},
+"T460": {
+"layers": [],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {}
+},
+"T461": {
+"layers": [],
+"channels": [
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"A": "speak"
+}
+},
+"T462": {
+"layers": [
+"RSX"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"RSX": "command",
+"A": "voice",
+"K": "move"
+}
+},
+"T463": {
+"layers": [],
+"channels": [],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {}
+},
+"T464": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CONTAIN": "lock",
+"RSIA": "mirror",
+"RSX": "chain",
+"V": "mirror",
+"A": "echo",
+"K": "move"
+}
+},
+"T465": {
+"layers": [
+"CONTAIN",
+"MICRO"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "lock",
+"MICRO": "gate",
+"V": "shape",
+"K": "move"
+}
+},
+"T466": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"MICRO"
+],
+"channels": [
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CONTAIN": "lock",
+"MICRO": "gate",
+"K": "move"
+}
+},
+"T467": {
+"layers": [
+"AUG",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K",
+"EEG/BCI"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"AUG": "neural",
+"MICRO": "reflex",
+"V": "form",
+"A": "tone",
+"K": "move",
+"EEG/BCI": "neural"
+}
+},
+"T468": {
+"layers": [
+"CM1"
+],
+"channels": [
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CM1": "fold",
+"K": "move"
+}
+},
+"T469": {
+"layers": [
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"RSIA": "ego",
+"V": "form"
+}
+},
+"T470": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "lock",
+"THERA": "psych",
+"RSIA": "ego",
+"V": "mirror"
+}
+},
+"T471": {
+"layers": [
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"LINX": "session",
+"THERA": "override",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "form",
+"AI": "session"
+}
+},
+"T472": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSX"
+],
+"channels": [
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSX": "sequence",
+"K": "move"
+}
+},
+"T473": {
+"layers": [
+"THERA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "archive",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "covert influence on other people",
+"evidence": {
+"THERA": "override",
+"RSX": "command",
+"V": "form",
+"A": "tone",
+"K": "move"
+}
+},
+"T474": {
+"layers": [
+"THERA"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych"
+}
+},
+"T475": {
+"layers": [
+"CM1",
+"THERA"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"THERA": "psych"
+}
+},
+"T476": {
+"layers": [
+"CM1",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"THERA": "identity",
+"RSIA": "identity",
+"A": "speak",
+"K": "touch"
+}
+},
+"T477": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "identity",
+"A": "silence"
+}
+},
+"T478": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CONTAIN": "seal",
+"THERA": "breath",
+"RSIA": "self",
+"V": "form",
+"A": "speak",
+"K": "move",
+"BREATH": "breath"
+}
+},
+"T479": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "persist",
+"CONTAIN": "seal",
+"THERA": "psych",
+"MICRO": "gate",
+"V": "form",
+"K": "move"
+}
+},
+"T480": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSX"
+],
+"channels": [
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSX": "sequence",
+"A": "echo"
+}
+},
+"T481": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"V": "mirror",
+"A": "echo"
+}
+},
+"T482": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"V": "shape",
+"A": "echo"
+}
+},
+"T483": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "identity",
+"RSX": "sequence",
+"V": "form",
+"A": "echo",
+"K": "walk"
+}
+},
+"T484": {
+"layers": [
+"UGCL",
+"CM1",
+"CONTAIN",
+"THERA",
+"AUG"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"AUG": "device",
+"V": "form",
+"A": "echo"
+}
+},
+"T485": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "identity"
+}
+},
+"T486": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "persist",
+"CONTAIN": "seal",
+"THERA": "ritual",
+"RSIA": "self",
+"V": "form",
+"A": "silence"
+}
+},
+"T487": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K",
+"EEG/BCI"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CM1": "seed",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "ego",
+"RSX": "chain",
+"V": "shape",
+"A": "echo",
+"K": "motion",
+"EEG/BCI": "pre-conscious"
+}
+},
+"T488": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "pulse",
+"V": "form",
+"A": "echo",
+"K": "move"
+}
+},
+"T489": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "self",
+"RSX": "command",
+"V": "form",
+"A": "echo",
+"K": "feel"
+}
+},
+"T490": {
+"layers": [
+"THERA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"A": "echo",
+"K": "walk"
+}
+},
+"T491": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"A": "silence",
+"K": "stand"
+}
+},
+"T492": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"THERA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CM1": "fold",
+"THERA": "psych",
+"A": "echo",
+"K": "motion"
+}
+},
+"T493": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"THERA": "identity",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "image",
+"A": "echo"
+}
+},
+"T494": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "recall",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"V": "form",
+"A": "sound"
+}
+},
+"T495": {
+"layers": [
+"THERA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"V": "shape",
+"A": "echo"
+}
+},
+"T496": {
+"layers": [
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"RSIA": "self",
+"V": "shape"
+}
+},
+"T497": {
+"layers": [
+"THERA",
+"RSIA"
+],
+"channels": [
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"RSIA": "self",
+"A": "speak"
+}
+},
+"T498": {
+"layers": [
+"MEMSTACK",
+"THERA"
+],
+"channels": [],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"THERA": "psych"
+}
+},
+"T499": {
+"layers": [
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "shape"
+}
+},
+"T500": {
+"layers": [
+"UGCL",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "seed",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"V": "see",
+"A": "echo",
+"K": "motion"
+}
+},
+"T501": {
+"layers": [
+"LINX",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"LINX": "llm",
+"RSIA": "self",
+"V": "mirror",
+"A": "echo",
+"AI": "llm"
+}
+},
+"T502": {
+"layers": [
+"MEMSTACK",
+"MICRO"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"MICRO": "reflex"
+}
+},
+"T503": {
+"layers": [
+"MEMSTACK",
+"LINX"
+],
+"channels": [
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"LINX": "token",
+"AI": "token"
+}
+},
+"T504": {
+"layers": [
+"MICRO"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MICRO": "reflex"
+}
+},
+"T504b": {
+"layers": [
+"MEMSTACK",
+"LINX",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "recall",
+"LINX": "model",
+"THERA": "psych",
+"RSIA": "identity",
+"MICRO": "reflex",
+"AI": "model"
+}
+},
+"T505": {
+"layers": [
+"MEMSTACK",
+"LINX"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "RECALL",
+"operator": "Bridge memory across devices: MEMSTACK snapshot merge (EDA)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T506": {
+"layers": [
+"MEMSTACK"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "RECALIBRATE",
+"operator": "Merged memory re-centred: one history per tier",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T507": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CONTAIN": "seal",
+"THERA": "psych",
+"MICRO": "reflex",
+"V": "shape",
+"K": "move"
+}
+},
+"T508": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"K",
+"AI"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CM1": "seed",
+"CONTAIN": "seal",
+"LINX": "token",
+"THERA": "psych",
+"RSIA": "self",
+"K": "move",
+"AI": "token"
+}
+},
+"T509": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"EEG/BCI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"V": "shape",
+"EEG/BCI": "pre-conscious"
+}
+},
+"T510": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA",
+"RSX",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"RSX": "directive",
+"MICRO": "reflex",
+"V": "form",
+"A": "echo"
+}
+},
+"T511": {
+"layers": [
+"MEMSTACK",
+"LINX",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"AI"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"LINX": "token",
+"THERA": "psych",
+"V": "shape",
+"A": "echo",
+"K": "feel",
+"AI": "token"
+}
+},
+"T512": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CONTAIN": "seal",
+"THERA": "psych",
+"MICRO": "reflex",
+"V": "form",
+"A": "echo"
+}
+},
+"T513": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"BREATH"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "Breath as the thread: BREATH timing carries the program",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T514": {
+"layers": [
+"CONTAIN",
+"MICRO"
+],
+"channels": [
+"AI"
+],
+"role": "runtime",
+"response": "GATE",
+"operator": "Refusal as protection: RDP/1 REFUSED, SafetyGovernor refusal",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T515": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "persist",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "sound"
+}
+},
+"T516": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"BREATH"
+],
+"role": "practice",
+"response": "PAUSE",
+"operator": "Breath hold: PHASE breath=hold",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T517": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CM1": "compress",
+"CONTAIN": "seal",
+"THERA": "breath",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "form",
+"A": "silence",
+"K": "feel",
+"BREATH": "breath"
+}
+},
+"T518": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "mirror",
+"MICRO": "reflex",
+"V": "glyph"
+}
+},
+"T519": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "mirror",
+"A": "echo"
+}
+},
+"T520": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"CM1": "fold",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "glyph",
+"K": "move"
+}
+},
+"T521": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "tone",
+"K": "motion"
+}
+},
+"T522": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"CONTAIN": "seal",
+"THERA": "psych",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "silence",
+"K": "feel"
+}
+},
+"T523": {
+"layers": [
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MICRO": "reflex",
+"V": "form"
+}
+},
+"T524": {
+"layers": [
+"MICRO"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MICRO": "pulse"
+}
+},
+"T526": {
+"layers": [
+"RSX"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"RSX": "chain"
+}
+},
+"T527": {
+"layers": [
+"RSX"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"RSX": "chain"
+}
+},
+"T528": {
+"layers": [],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {}
+},
+"T529": {
+"layers": [],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {}
+},
+"T530": {
+"layers": [],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {}
+},
+"T531": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA",
+"RSX",
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CM1": "compress",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"RSX": "chain",
+"MICRO": "reflex",
+"V": "form"
+}
+},
+"T532": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"BREATH"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "Inhale integrates the sequence (override inhale phases)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T533": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"RSX",
+"MICRO"
+],
+"channels": [
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "contain",
+"THERA": "breath",
+"RSX": "sequence",
+"MICRO": "reflex",
+"BREATH": "breath"
+}
+},
+"T534": {
+"layers": [
+"CM1",
+"THERA"
+],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fusion",
+"THERA": "psych"
+}
+},
+"T535": {
+"layers": [
+"RSX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "See yourself on the other side: FUTURES phase (override.rsx phase 5)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T536": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "lock",
+"THERA": "psych",
+"MICRO": "gate",
+"V": "shape",
+"K": "move"
+}
+},
+"T537": {
+"layers": [
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"MICRO"
+],
+"channels": [
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CONTAIN": "lock",
+"THERA": "psych",
+"MICRO": "gate",
+"A": "echo"
+}
+},
+"T538": {
+"layers": [
+"UGCL",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "mirror",
+"A": "echo",
+"K": "move"
+}
+},
+"T539": {
+"layers": [
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "contain",
+"THERA": "psych",
+"A": "silence",
+"K": "move"
+}
+},
+"T540": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "seal",
+"THERA": "override",
+"V": "glyph",
+"A": "listen",
+"K": "move"
+}
+},
+"T541": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "mirror",
+"A": "echo",
+"K": "touch"
+}
+},
+"T542": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"A": "echo",
+"K": "move"
+}
+},
+"T543": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "compress",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "self",
+"V": "shape"
+}
+},
+"T544": {
+"layers": [
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K",
+"BREATH",
+"AI"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"LINX": "token",
+"THERA": "breath",
+"RSIA": "self",
+"A": "silence",
+"K": "motion",
+"BREATH": "breath",
+"AI": "token"
+}
+},
+"T545": {
+"layers": [
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"K"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "self",
+"K": "feel"
+}
+},
+"T546": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"K",
+"BREATH"
+],
+"role": "practice",
+"response": "",
+"operator": "",
+"status": "specified",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "remember",
+"CM1": "fusion",
+"CONTAIN": "seal",
+"THERA": "breath",
+"K": "motion",
+"BREATH": "breath"
+}
+},
+"T546b": {
+"layers": [
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "form",
+"A": "echo"
+}
+},
+"T547": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CM1": "fold",
+"THERA": "psych",
+"RSIA": "self",
+"V": "glyph",
+"K": "move"
+}
+},
+"T548": {
+"layers": [
+"LINX",
+"THERA"
+],
+"channels": [
+"A",
+"BREATH",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"LINX": "token",
+"THERA": "breath",
+"A": "silence",
+"BREATH": "breath",
+"AI": "token"
+}
+},
+"T549": {
+"layers": [
+"THERA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"V": "shape"
+}
+},
+"T550": {
+"layers": [
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"THERA": "psych",
+"A": "silence",
+"K": "motion"
+}
+},
+"T551": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CM1": "fold",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"A": "echo"
+}
+},
+"T552": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "contain",
+"THERA": "breath",
+"RSIA": "identity",
+"V": "shape",
+"BREATH": "breath"
+}
+},
+"T553": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T554": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"V": "see",
+"A": "silence"
+}
+},
+"T555": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "psych",
+"V": "glyph",
+"A": "silence"
+}
+},
+"T556": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"EEG/BCI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "shape",
+"EEG/BCI": "pre-cognit"
+}
+},
+"T557": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "trace",
+"THERA": "psych",
+"RSIA": "self",
+"V": "form"
+}
+},
+"T558": {
+"layers": [
+"UGCL",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"RSIA": "self",
+"RSX": "sequence",
+"V": "shape",
+"A": "silence"
+}
+},
+"T559": {
+"layers": [],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {}
+},
+"T560": {
+"layers": [],
+"channels": [],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {}
+},
+"T561": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "lock",
+"THERA": "psych",
+"RSIA": "self",
+"V": "mirror",
+"K": "motion"
+}
+},
+"T562": {
+"layers": [
+"UGCL",
+"THERA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"V": "glyph",
+"K": "move"
+}
+},
+"T563": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "glyph",
+"A": "echo"
+}
+},
+"T564": {
+"layers": [
+"UGCL",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"V": "form",
+"A": "voice",
+"K": "move"
+}
+},
+"T565": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "psych",
+"V": "form",
+"A": "sound"
+}
+},
+"T566": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"THERA": "psych",
+"RSIA": "self",
+"V": "glyph"
+}
+},
+"T567": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"THERA": "psych",
+"RSIA": "archetype",
+"V": "shape"
+}
+},
+"T568": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"CM1": "fold",
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "reflex",
+"V": "form"
+}
+},
+"T569": {
+"layers": [
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"V": "shape",
+"A": "silence",
+"K": "motion"
+}
+},
+"T570": {
+"layers": [
+"THERA",
+"RSX"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"RSX": "command",
+"V": "shape",
+"A": "silence",
+"K": "move"
+}
+},
+"T571": {
+"layers": [
+"CM1",
+"THERA"
+],
+"channels": [
+"V",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"THERA": "psych",
+"V": "shape",
+"K": "move"
+}
+},
+"T572": {
+"layers": [
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "psych",
+"RSIA": "self",
+"MICRO": "gate",
+"A": "echo",
+"K": "walk"
+}
+},
+"T573": {
+"layers": [
+"THERA",
+"RSIA",
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "identity",
+"RSIA": "identity",
+"MICRO": "reflex",
+"V": "shape"
+}
+},
+"T574": {
+"layers": [
+"MEMSTACK",
+"CM1",
+"THERA",
+"RSIA",
+"RSX"
+],
+"channels": [
+"K",
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"CM1": "fold",
+"THERA": "breath",
+"RSIA": "self",
+"RSX": "sequence",
+"K": "motion",
+"BREATH": "breath"
+}
+},
+"T575": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"A": "echo",
+"K": "move"
+}
+},
+"T576": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"BREATH"
+],
+"role": "practice",
+"response": "SEQUENCE",
+"operator": "Breath-pulse ritual: paced_breathing.rsx",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T577": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"A",
+"K",
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "memory",
+"THERA": "breath",
+"MICRO": "pulse",
+"V": "shape",
+"A": "silence",
+"K": "touch",
+"BREATH": "breath"
+}
+},
+"T578": {
+"layers": [
+"RSX",
+"THERA"
+],
+"channels": [
+"V",
+"BREATH"
+],
+"role": "practice",
+"response": "MIRROR",
+"operator": "Mirror breath: inhale reflection, exhale stillness (RSX, specified)",
+"status": "specified",
+"method": "hand",
+"reason": ""
+},
+"T579": {
+"layers": [
+"UGCL",
+"RSX",
+"THERA"
+],
+"channels": [
+"V",
+"BREATH"
+],
+"role": "practice",
+"response": "GLYPH_CUE",
+"operator": "rsx/protocols/tier579_glyph.rsx with the person's UGCL glyph",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T580": {
+"layers": [
+"UGCL",
+"AUG"
+],
+"channels": [
+"V",
+"K",
+"A"
+],
+"role": "runtime",
+"response": "GLYPH_CUE",
+"operator": "Cross-sensory glyph: image, vibration rhythm and melody from one description (UGCL)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T581": {
+"layers": [
+"THERA",
+"AUG"
+],
+"channels": [
+"K"
+],
+"role": "practice",
+"response": "PAUSE",
+"operator": "Stillness before the interrupt (tier016_stillness.rsx)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T582": {
+"layers": [
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"K"
+],
+"role": "runtime",
+"response": "GOVERN",
+"operator": "Override without force: intensity cap haptic_max, no forced starts",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T583": {
+"layers": [
+"AUG",
+"LINX",
+"THERA"
+],
+"channels": [
+"EEG/BCI",
+"K"
+],
+"role": "runtime",
+"response": "OFFER",
+"operator": "Override listens before it acts: heart-rate / EEG detection → opt-in offer",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T584": {
+"layers": [
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"MEMSTACK": "trace",
+"THERA": "ritual",
+"RSIA": "mirror",
+"V": "mirror",
+"A": "silence"
+}
+},
+"T585": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "ritual",
+"V": "form"
+}
+},
+"T586": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "override",
+"RSIA": "identity",
+"V": "shape",
+"A": "echo"
+}
+},
+"T587": {
+"layers": [
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"A",
+"K"
+],
+"role": "runtime",
+"response": "RECALL",
+"operator": "Spontaneous start = reflex: latency and automaticity tracking (MEMSTACK)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T588": {
+"layers": [
+"THERA",
+"AUG"
+],
+"channels": [
+"V",
+"A",
+"BREATH",
+"EEG/BCI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"THERA": "override",
+"AUG": "sensory",
+"V": "form",
+"A": "sound",
+"BREATH": "breath",
+"EEG/BCI": "pre-conscious"
+}
+},
+"T589": {
+"layers": [
+"AUG"
+],
+"channels": [
+"EEG/BCI"
+],
+"role": "runtime",
+"response": "OFFER",
+"operator": "Pre-somatic detection: physiological stress detector (rsso/sensors.py)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T590": {
+"layers": [
+"AUG"
+],
+"channels": [
+"EEG/BCI"
+],
+"role": "runtime",
+"response": "OFFER",
+"operator": "Pre-attentive detection: EEG arousal detector (rsso/eeg.py)",
+"status": "built",
+"method": "hand",
+"reason": ""
+},
+"T591": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA",
+"AUG"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "self",
+"AUG": "sensory",
+"V": "glyph",
+"A": "silence"
+}
+},
+"T592": {
+"layers": [
+"UGCL",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"RSIA": "identity",
+"V": "glyph",
+"A": "voice"
+}
+},
+"T593": {
+"layers": [
+"UGCL",
+"THERA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"V": "shape"
+}
+},
+"T594": {
+"layers": [
+"UGCL",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"MICRO": "latency",
+"V": "form"
+}
+},
+"T595": {
+"layers": [
+"UGCL",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"THERA": "psych",
+"V": "glyph",
+"A": "echo",
+"K": "touch"
+}
+},
+"T596": {
+"layers": [
+"UGCL",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA",
+"AUG",
+"MICRO"
+],
+"channels": [
+"V",
+"K",
+"BREATH",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CM1": "fold",
+"CONTAIN": "contain",
+"LINX": "llm",
+"THERA": "breath",
+"RSIA": "self",
+"AUG": "body",
+"MICRO": "latency",
+"V": "form",
+"K": "move",
+"BREATH": "breath",
+"AI": "llm"
+}
+},
+"T597": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"MICRO"
+],
+"channels": [
+"V",
+"K",
+"BREATH",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "imprint",
+"CM1": "fold",
+"CONTAIN": "seal",
+"LINX": "model",
+"THERA": "psych",
+"MICRO": "pulse",
+"V": "shape",
+"K": "gesture",
+"BREATH": "breath",
+"AI": "model"
+}
+},
+"T598": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "psych",
+"V": "glyph",
+"A": "echo",
+"K": "motion"
+}
+},
+"T599": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"THERA": "psych",
+"RSIA": "self",
+"V": "glyph",
+"A": "echo",
+"K": "motion"
+}
+},
+"T600": {
+"layers": [
+"UGCL",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "self",
+"V": "form",
+"A": "echo"
+}
+},
+"T601": {
+"layers": [
+"CM1",
+"CONTAIN",
+"THERA"
+],
+"channels": [
+"BREATH"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"CM1": "fold",
+"CONTAIN": "contain",
+"THERA": "psych",
+"BREATH": "breath"
+}
+},
+"T602": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"CONTAIN": "contain",
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "mirror"
+}
+},
+"T603": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "memory",
+"CONTAIN": "seal",
+"THERA": "identity",
+"RSIA": "mirror",
+"V": "mirror"
+}
+},
+"T604": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CM1",
+"CONTAIN",
+"LINX",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K",
+"AI"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "remember",
+"CM1": "compress",
+"CONTAIN": "seal",
+"LINX": "token",
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "glyph",
+"A": "echo",
+"K": "motion",
+"AI": "token"
+}
+},
+"T605": {
+"layers": [
+"UGCL",
+"MEMSTACK",
+"CONTAIN",
+"THERA",
+"RSIA"
+],
+"channels": [
+"V",
+"A",
+"K"
+],
+"role": "record",
+"response": "",
+"operator": "",
+"status": "record",
+"method": "rule",
+"reason": "",
+"evidence": {
+"UGCL": "glyph",
+"MEMSTACK": "trace",
+"CONTAIN": "seal",
+"THERA": "psych",
+"RSIA": "mirror",
+"V": "glyph",
+"A": "echo",
+"K": "move"
+}
+}
+}
+}

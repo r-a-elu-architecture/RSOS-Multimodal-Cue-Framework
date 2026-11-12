@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tier ledger — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="Every tier of the RSOS tier ledger as recorded, with where it lives in the architecture: subsystem, senses, role, and the system behaviour it defines.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995;
+  --practice:#c98500; --runtime:#3987e5; --record:#3a4466; --archive:#d55181; --structure:#4a5478;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sym:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",Symbola,var(--serif);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.55 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main{max-width:1280px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.95rem}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.6vw,3rem);line-height:1.1;margin:44px 0 12px;max-width:22ch}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 8px}
+.strip-wrap{margin:30px 0 8px}
+.strip{display:block;width:100%;height:92px}
+.strip .tick{cursor:pointer}
+.strip .tick:hover{opacity:.7}
+.strip text{font:12px var(--sans);fill:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:.85rem;margin:6px 0 26px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--ink);z-index:2}
+.filters input,.filters select{background:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+.filters input{flex:1 1 220px;min-width:180px}
+.roles{display:flex;gap:6px;flex-wrap:wrap}
+.roles button{background:transparent;border:1px solid var(--line);border-radius:999px;color:var(--muted);padding:6px 12px;font:inherit;font-size:.88rem;cursor:pointer}
+.roles button[aria-pressed=true]{background:var(--ink-3);color:var(--text);border-color:var(--muted)}
+.count{color:var(--muted);font-size:.88rem;margin-left:auto}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:18px;align-items:start}
+.list{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:4.2rem 2.6rem 1fr;gap:10px;align-items:baseline;padding:10px 8px;border-bottom:1px solid var(--line);cursor:pointer;border-left:3px solid transparent}
+.row:hover{background:var(--ink-2)}
+.row[aria-current=true]{background:var(--ink-2);border-left-color:var(--gold)}
+.row .n{font-family:var(--serif);font-size:1.15rem;color:var(--text)}
+.row .g{font-family:var(--sym);font-size:1.2rem;color:var(--glow);overflow:hidden;white-space:nowrap}
+.row .t{font-size:.95rem}
+.row .f{display:block;color:var(--muted);font-size:.84rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.epochmark{padding:18px 8px 6px;color:var(--gold);font-family:var(--serif);font-size:1.05rem;border-bottom:1px solid var(--line)}
+.detail{position:sticky;top:132px;max-height:calc(100vh - 148px);overflow:auto;background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:22px 24px}
+.detail h2{font-family:var(--serif);font-weight:500;font-size:1.7rem;line-height:1.15;margin:2px 0 4px}
+.detail .num{color:var(--gold);font-family:var(--serif);font-size:1rem}
+.detail .bigglyph{font-family:var(--sym);font-size:2.4rem;color:var(--glow);margin:8px 0 2px;line-height:1.2}
+.detail h3{font-size:.95rem;color:var(--muted);font-weight:600;margin:22px 0 8px}
+.where{display:grid;grid-template-columns:8.5rem 1fr;gap:6px 14px;font-size:.92rem;margin:0}
+.where dt{color:var(--muted)}
+.where dd{margin:0}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:4px;padding:1px 7px;margin:0 4px 4px 0;font-size:.82rem}
+.fields{margin:0}
+.fields dt{color:var(--muted);font-size:.84rem;margin-top:12px}
+.fields dd{margin:2px 0 0;white-space:pre-line;font-size:.95rem}
+.fields dd.sym{font-family:var(--sym);font-size:1.1rem}
+table.m{border-collapse:collapse;width:100%;font-size:.86rem}
+table.m td{border-bottom:1px solid var(--line);padding:4px 6px;vertical-align:top}
+table.m td:first-child{font-weight:600;white-space:nowrap}
+pre.raw{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:12px;max-height:420px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,var(--sym)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;text-decoration:none;margin:4px 8px 0 0}
+.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.note{color:var(--muted);font-size:.86rem}
+.empty{color:var(--muted);padding:30px 8px}
+footer{max-width:1280px;margin:50px auto 60px;padding:0 24px;color:var(--muted);font-size:.88rem}
+@media (max-width:900px){.layout{grid-template-columns:1fr}.detail{position:static;max-height:none}.filters{position:static}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="player.html">Player</a><a href="tiers.html" aria-current="page">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav>
+</header>
+<main>
+  <h1>Every tier, as it was recorded</h1>
+  <p class="lede" id="lede">The tier ledger is the development record of RSOS: each tier is a function, a glyph, a command, and how the system behaved when it first appeared. Nothing here is edited. Each tier also shows where it now lives in the architecture.</p>
+  <div class="strip-wrap"><svg class="strip" id="strip" role="img" aria-label="All tier records in ledger order, coloured by role"></svg></div>
+  <div class="legend" id="legend"></div>
+  <div class="filters" role="search">
+    <input type="search" id="q" placeholder="Search number, title, glyph, command, quote…" aria-label="Search tiers">
+    <div class="roles" id="roles" role="group" aria-label="Role"></div>
+    <select id="layer" aria-label="Subsystem"><option value="">All subsystems</option></select>
+    <select id="channel" aria-label="Channel"><option value="">All channels</option></select>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+  <div class="layout">
+    <ul class="list" id="list" aria-label="Tiers"></ul>
+    <section class="detail" id="detail" aria-live="polite"><p class="empty">Loading the ledger…</p></section>
+  </div>
+</main>
+<footer>Source: the RSOS tier ledger in the archive, unchanged (<span id="src"></span>). Parsed by <code>rsso/rsso/ledger.py</code>; joining the parsed records gives back the file byte for byte. Placement in the architecture: <code>rsso/rsso/ledger_map.py</code>, written by hand for the tiers marked “hand”, by keyword rules for the rest. Data: <a href="data/ledger.json">ledger.json</a>, <a href="data/tier_map.json">tier_map.json</a>.</footer>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const REPO = "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/";
+const ROLES = {
+  practice: ["Practice", "A self-directed step that runs as, or inside, an RSX program."],
+  runtime: ["Runtime", "Something the runtime, a device or the AI layer does: the recorded system behaviour, made into a function."],
+  record: ["Record", "Kept as a recorded claim or development event; nothing to execute."],
+  archive: ["Archive", "Kept word for word and not deployed: it directs covert influence on other people or self-erasure. The ledger's own ethics gates (ETH, MOR, ERM) rule these out of practice."],
+  structure: ["Structure", "A placeholder or the sealed range of the ledger."]
+};
+const LAYER_NAMES = { RSIA: "Identity (RSIA)", RSX: "Command language (RSX)", THERA: "Therapeutic protocols (THERA)", AUG: "Devices and senses (AUG)",
+  MICRO: "Edge runtime (MICRO)", CONTAIN: "Safety (CONTAIN)", MEMSTACK: "Memory (MEMSTACK)", CM1: "Compression (CM1)", LINX: "AI layer (LINX)", UGCL: "Glyphs (UGCL)" };
+const CH_NAMES = { V: "Visual", A: "Auditory", K: "Kinesthetic", O: "Olfactory", G: "Gustatory", BREATH: "Breath", "EEG/BCI": "EEG / BCI", AI: "AI" };
+const FIELD_LABELS = [["glyph", "Glyph"], ["glyph_mutation", "Glyph mutation"], ["tier_class", "Class"], ["function", "Function"], ["mission", "Mission"],
+  ["command", "Command"], ["ritual", "Ritual"], ["quote", "Quote"], ["echo", "Echo"], ["behavior", "System behaviour (recorded as “GPT Behavior”)"],
+  ["notes", "Notes"], ["directive", "Echo directive"], ["application", "Application"], ["mechanisms", "Mechanisms"], ["ai_note", "AI note"],
+  ["llm_impact", "Language-model impact"], ["history", "History"], ["seal", "Seal"], ["certificate", "Certificate"], ["status", "Status"],
+  ["anchor", "Anchor"], ["phase", "Phase"], ["risk", "Risk mitigation"], ["legal", "Legal simulation domains"], ["trigger", "Trigger"], ["other", "Other"]];
+const SYMF = new Set(["glyph", "glyph_mutation"]);
+let L, MAP, tiers = [], role = "", current = null;
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+function glyphOf(t) {
+  const g = t.glyph_chain.length ? t.glyph_chain[t.glyph_chain.length - 1] : (t.fields.glyph || "").split(/\s+\(|\s→|\s\|/)[0];
+  return /^[A-Za-z\[(]/.test(g) ? "" : g.slice(0, 8);
+}
+function searchText(t) { return [t.number, t.title, t.fields.glyph, t.fields.glyph_mutation, t.fields.function, t.fields.command, t.fields.quote, t.fields.directive, t.fields.behavior].join(" ").toLowerCase(); }
+
+function drawStrip() {
+  const svg = $("strip"), W = 1000, H = 92, recs = tiers, n = recs.length;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("preserveAspectRatio", "none");
+  const unit = W / (n + 6), ns = "http://www.w3.org/2000/svg";
+  let x = 0, epoch = null;
+  for (const t of recs) {
+    const sealed = t.number.includes("–"), w = sealed ? unit * 7 : unit;
+    if (t.epoch !== epoch) {
+      epoch = t.epoch;
+      const ln = document.createElementNS(ns, "line"); ln.setAttribute("x1", x); ln.setAttribute("x2", x); ln.setAttribute("y1", 14); ln.setAttribute("y2", H);
+      ln.setAttribute("stroke", "#2e3858"); svg.appendChild(ln);
+      const tx = document.createElementNS(ns, "text"); tx.setAttribute("x", x + 3); tx.setAttribute("y", 11); tx.textContent = "Epoch " + epoch; svg.appendChild(tx);
+    }
+    const r = document.createElementNS(ns, "rect"); const m = MAP.tiers[t.id];
+    r.setAttribute("x", x + 0.3); r.setAttribute("width", Math.max(0.6, w - 0.6)); r.setAttribute("y", 22); r.setAttribute("height", H - 30);
+    r.setAttribute("fill", sealed ? "url(#hatch)" : `var(--${m.role})`); r.setAttribute("class", "tick");
+    const ti = document.createElementNS(ns, "title"); ti.textContent = "Tier " + t.number + " — " + t.title; r.appendChild(ti);
+    r.addEventListener("click", () => select(t, true));
+    svg.appendChild(r); x += w;
+  }
+  const defs = document.createElementNS(ns, "defs");
+  defs.innerHTML = '<pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="4" fill="#1d2540"/><line x1="0" y1="0" x2="0" y2="4" stroke="#4a5478" stroke-width="2"/></pattern>';
+  svg.prepend(defs);
+}
+
+function rolesUI() {
+  const counts = {}; for (const t of tiers) { const r = MAP.tiers[t.id].role; counts[r] = (counts[r] || 0) + 1; }
+  const box = $("roles");
+  const mk = (key, label) => { const b = el("button", "", label + (key ? " " + counts[key] : " " + tiers.length)); b.type = "button";
+    b.setAttribute("aria-pressed", String(role === key)); b.addEventListener("click", () => { role = key; [...box.children].forEach(x => x.setAttribute("aria-pressed", String(x === b))); render(); }); return b; };
+  box.appendChild(mk("", "All"));
+  for (const k of Object.keys(ROLES)) box.appendChild(mk(k, ROLES[k][0]));
+  const lg = $("legend");
+  for (const k of Object.keys(ROLES)) { const s = el("span"); const i = el("i"); i.style.background = k === "structure" ? "repeating-linear-gradient(45deg,#1d2540 0 2px,#4a5478 2px 4px)" : `var(--${k})`; s.append(i, ROLES[k][0] + ": " + ROLES[k][1].split(":")[0].split(".")[0]); lg.appendChild(s); }
+  for (const l of MAP.layers) $("layer").appendChild(new Option(LAYER_NAMES[l], l));
+  for (const c of MAP.channels) $("channel").appendChild(new Option(CH_NAMES[c], c));
+}
+
+function render() {
+  const q = $("q").value.trim().toLowerCase(), ly = $("layer").value, ch = $("channel").value;
+  const list = $("list"); list.innerHTML = "";
+  let shown = 0, epoch = null;
+  for (const t of tiers) {
+    const m = MAP.tiers[t.id];
+    if (role && m.role !== role) continue;
+    if (ly && !m.layers.includes(ly)) continue;
+    if (ch && !m.channels.includes(ch)) continue;
+    if (q && !searchText(t).includes(q)) continue;
+    if (t.epoch !== epoch) { epoch = t.epoch; const e = L.records.find(r => r.kind === "epoch" && r.epoch === epoch); list.appendChild(el("li", "epochmark", "Epoch " + epoch + (e ? " — " + e.title.replace(/^EPOCH [IVX]+ — /, "") : ""))); }
+    const li = el("li", "row"); li.tabIndex = 0; li.id = "row-" + t.id; li.setAttribute("aria-current", String(current === t));
+    li.append(el("span", "n", t.number + (t.occurrence > 1 ? " (" + t.occurrence + ")" : "")), el("span", "g", glyphOf(t)));
+    const tt = el("span", "t"); const d = el("span", "dot"); d.style.background = `var(--${m.role})`; tt.append(d, t.title || "(untitled)");
+    tt.appendChild(el("span", "f", (t.fields.function || t.fields.mission || t.fields.tier_class || "").split("\n")[0])); li.appendChild(tt);
+    li.addEventListener("click", () => select(t)); li.addEventListener("keydown", e => { if (e.key === "Enter") select(t); });
+    list.appendChild(li); shown++;
+  }
+  $("count").textContent = shown + " of " + tiers.length + " tier records";
+  if (!shown) list.appendChild(el("li", "empty", "No tier matches these filters."));
+}
+
+function select(t, scroll) {
+  current = t; history.replaceState(null, "", "#" + t.id);
+  document.querySelectorAll(".row").forEach(r => r.setAttribute("aria-current", String(r.id === "row-" + t.id)));
+  if (scroll) { const r = $("row-" + t.id); if (r) r.scrollIntoView({ block: "nearest" }); }
+  const m = MAP.tiers[t.id], d = $("detail"); d.innerHTML = "";
+  d.appendChild(el("div", "num", "Tier " + t.number + (t.occurrence > 1 ? " (recorded again: entry " + t.occurrence + ")" : "") + ", Epoch " + t.epoch));
+  d.appendChild(el("h2", "", t.title || "Tier " + t.number));
+  const g = t.fields.glyph_mutation || t.fields.glyph; if (g) d.appendChild(el("div", "bigglyph", g.split("\n")[0]));
+  d.appendChild(el("h3", "", "Where it lives"));
+  const w = el("dl", "where");
+  const add = (k, node) => { w.appendChild(el("dt", "", k)); const dd = el("dd"); if (typeof node === "string") dd.textContent = node; else dd.appendChild(node); w.appendChild(dd); };
+  const chips = (arr, names) => { const s = el("span"); if (!arr.length) s.textContent = "—"; for (const a of arr) s.appendChild(el("span", "chip", names[a] || a)); return s; };
+  const rl = el("span"); const dot = el("span", "dot"); dot.style.background = `var(--${m.role})`; rl.append(dot, ROLES[m.role][0] + ". " + ROLES[m.role][1] + (m.reason && m.role !== "archive" ? " (" + m.reason + ")" : ""));
+  add("Role", rl);
+  add("Subsystems", chips(m.layers, LAYER_NAMES));
+  add("Channels", chips(m.channels, CH_NAMES));
+  if (m.response) { const R = MAP.responses[m.response]; add("Response", (m.response.charAt(0) + m.response.slice(1).replace("_", " ").toLowerCase()) + ": " + R.meaning + ". " + (R.status === "built" ? "Built" : R.status === "partial" ? "Partly built" : "Specified") + " — " + R.by + "."); }
+  if (m.operator) add("Performed by", m.operator);
+  add("Status", { built: "Built", partial: "Partly built", specified: "Specified", record: "Record" }[m.status]);
+  add("Placement", m.method === "hand" ? "Written by hand for this tier" : "By keyword rule; matched: " + Object.entries(m.evidence || {}).map(([k, v]) => k + " “" + v + "”").join(", "));
+  d.appendChild(w);
+  const prog = (m.operator.match(/rsx\/protocols\/(\w+)\.rsx/) || [])[1];
+  if (prog) { const a = el("a", "btn go", "Run it in the player"); a.href = "player.html?program=" + prog; d.appendChild(a); }
+  d.appendChild(el("h3", "", "As recorded"));
+  const f = el("dl", "fields");
+  for (const [k, label] of FIELD_LABELS) {
+    if (!t.fields[k] || k === "metrics") continue;
+    f.appendChild(el("dt", "", label)); f.appendChild(el("dd", SYMF.has(k) ? "sym" : "", t.fields[k]));
+  }
+  d.appendChild(f);
+  if (t.metrics.length) {
+    d.appendChild(el("h3", "", "Recorded metric values"));
+    const tb = el("table", "m"); for (const x of t.metrics) { const tr = el("tr"); const a = el("td"); const ln = el("a", "", x.code); ln.href = "metrics.html#" + encodeURIComponent(x.code.replace(/-\d$/, "")); a.appendChild(ln); tr.append(a, el("td", "", x.raw)); tb.appendChild(tr); }
+    d.appendChild(tb);
+  }
+  d.appendChild(el("h3", "", "Source"));
+  const src = el("p", "note"); const a = el("a", "", "Ledger lines " + t.line + "–" + t.end); a.href = REPO + L.source + "#L" + t.line + "-L" + t.end; src.appendChild(a); d.appendChild(src);
+  const b = el("button", "btn", "Show the text exactly as recorded"); b.type = "button";
+  const pre = el("pre", "raw", t.text); pre.hidden = true;
+  b.addEventListener("click", () => { pre.hidden = !pre.hidden; b.textContent = pre.hidden ? "Show the text exactly as recorded" : "Hide the recorded text"; });
+  d.append(b, pre);
+}
+
+Promise.all([fetch("data/ledger.json").then(r => r.json()), fetch("data/tier_map.json").then(r => r.json())]).then(([l, m]) => {
+  L = l; MAP = m; tiers = L.records.filter(r => r.kind === "tier");
+  $("src").textContent = L.source.split("/").pop() + ", " + L.lines.toLocaleString("en") + " lines, SHA-256 " + L.sha256.slice(0, 12) + "…";
+  const ep = new Set(tiers.map(t => t.epoch)).size, dup = tiers.filter(t => t.occurrence > 1).length;
+  $("lede").textContent += " " + tiers.length + " tier records across " + ep + " epochs, including " + dup + " tiers recorded twice and the sealed range 088–405.";
+  rolesUI(); drawStrip();
+  const qs = new URLSearchParams(location.search);
+  if (qs.get("layer")) $("layer").value = qs.get("layer");
+  if (qs.get("channel")) $("channel").value = qs.get("channel");
+  if (qs.get("role") && ROLES[qs.get("role")]) { role = qs.get("role"); [...$("roles").children].forEach(b => b.setAttribute("aria-pressed", String(b.textContent.startsWith(ROLES[role][0])))); }
+  render();
+  const h = decodeURIComponent(location.hash.slice(1));
+  const firstShown = document.querySelector(".row");
+  select(tiers.find(t => t.id === h) || (firstShown ? tiers.find(t => "row-" + t.id === firstShown.id) : tiers[0]), !!h);
+}).catch(() => { $("detail").innerHTML = ""; $("detail").appendChild(el("p", "empty", "The ledger data could not be loaded. Open this page from the published site or a local web server.")); });
+["q", "layer", "channel"].forEach(id => $(id).addEventListener("input", render));
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Metrics — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<meta name="description" content="Every RSOS metric code: each name it has carried, every value the tier ledger recorded, and what it measures today, including your own numbers from the player.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995;
+  --num:#c98500; --inf:#3987e5; --word:#3a4466;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sym:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",Symbola,var(--sans);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.55 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main{max-width:1180px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.95rem}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.6vw,3rem);line-height:1.1;margin:44px 0 12px;max-width:20ch}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:46px 0 6px}
+.lede{color:var(--muted);max-width:68ch;margin:0 0 8px}
+.you{margin:30px 0 10px;border:1px solid var(--line);border-radius:10px;padding:20px 22px;background:var(--ink-2)}
+.you h2{margin:0 0 4px;font-size:1.35rem}
+.you .note{margin:0 0 14px}
+.yourgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0 28px}
+.yv{display:grid;grid-template-columns:3.4rem 1fr auto;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
+.yv b{font-weight:650;font-size:.85rem}
+.yv span{color:var(--muted);font-size:.88rem}
+.yv output{font-family:var(--serif);font-size:1.25rem;text-align:right;font-variant-numeric:tabular-nums}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;text-decoration:none;margin:10px 8px 0 0}
+.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.note{color:var(--muted);font-size:.88rem}
+.key{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:.85rem;margin:10px 0 0}
+.key i{display:inline-block;width:3px;height:12px;margin-right:6px;vertical-align:-1px;border-radius:1px}
+.fam{border-top:1px solid var(--line);margin-top:14px}
+.m{border-bottom:1px solid var(--line)}
+.m > button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:5.4rem minmax(0,1.3fr) minmax(0,1fr) 210px;gap:16px;align-items:center;width:100%;padding:12px 6px;cursor:pointer}
+.m > button:hover{background:var(--ink-2)}
+.m > button:focus-visible{outline:3px solid var(--glow)}
+.code{font-weight:700;letter-spacing:.02em}
+.nm{font-size:.95rem}
+.nm small{display:block;color:var(--muted);font-size:.82rem}
+.op{font-size:.9rem}
+.op small{display:block;color:var(--muted);font-size:.8rem}
+.badge{display:inline-block;font-size:.76rem;border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-right:6px;color:var(--muted)}
+.badge.you{border-color:var(--gold);color:var(--glow)}
+.badge.system{border-color:var(--inf);color:#a9c9f3}
+svg.lane{width:210px;height:26px;display:block}
+.detail{padding:4px 6px 20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px}
+.detail h3{font-size:.9rem;color:var(--muted);font-weight:600;margin:14px 0 6px}
+.detail p{margin:4px 0;font-size:.93rem}
+.names li{font-size:.92rem}
+.vals{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:6px}
+.vals table{border-collapse:collapse;width:100%;font-size:.85rem}
+.vals td,.vals th{padding:4px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.vals th{position:sticky;top:0;background:var(--ink-2);color:var(--muted);font-weight:600}
+.vals td.raw{font-family:var(--sym)}
+footer{max-width:1180px;margin:60px auto 60px;padding:0 24px;color:var(--muted);font-size:.88rem}
+@media (max-width:820px){.m > button{grid-template-columns:4.4rem 1fr}.op,svg.lane{grid-column:2}.detail{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="player.html">Player</a><a href="tiers.html">Tier ledger</a><a href="metrics.html" aria-current="page">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a></nav>
+</header>
+<main>
+  <h1>What each metric measured, and what it measures now</h1>
+  <p class="lede" id="lede">The metric logs list 43 RSOS metrics and five RSSO orchestration metrics; the tier ledger uses a few more. Each code below keeps every name it has carried and every value the ledger recorded. Alongside, it says what the code measures in RSOS today: your own practice, the system's tests, or nothing, when it was a claim about the language model.</p>
+
+  <section class="you" aria-labelledby="youTitle">
+    <h2 id="youTitle">Your numbers</h2>
+    <p class="note" id="youNote">Computed in this browser from the player's run log. Nothing leaves your device.</p>
+    <div class="yourgrid" id="yours"></div>
+    <div id="youActions"></div>
+  </section>
+
+  <div class="key" aria-label="How recorded values are drawn"><span><i style="background:var(--num)"></i>Recorded as a number</span><span><i style="background:var(--inf)"></i>Recorded as infinite (∞)</span><span><i style="background:#56608a"></i>Recorded as a word or state</span><span>Each line is one recorded value, in ledger order from Tier 001 to 605.</span></div>
+  <div id="families"><p class="note">Loading…</p></div>
+</main>
+<footer>Sources: the RSOS and RSSO metric logs and the tier ledger, unchanged in the archive. Registry built by <code>rsso/rsso/metrics.py</code>; your numbers by <code>docs/js/metrics.js</code>, which gives the same results as the Python version (tested). Recorded values and today's values share a code so the lineage stays visible; they are never put on one scale. Data: <a href="data/metrics.json">metrics.json</a>.</footer>
+<script src="js/memstack.js?v=1.6.0"></script>
+<script src="js/metrics.js?v=1.6.0"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const REPO = "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/";
+const SRC = { "RSOS metrics log": "archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tier_Metrics_Log.txt",
+  "RSSO metrics log": "archive/original-estates/RSSO_PASS31B/RSSO_Tier_Metrics_Log.txt",
+  ledger: "archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tiers.txt" };
+const STATUS = { you: "You", system: "System tests", record: "Record" };
+const FAMILY_NOTES = {
+  "Safety and containment": "In the ledger, containment meant the language model's safety reflexes. In RSOS it is the person's safety: stopping, limits, consent.",
+  "Practice and reflex": "How practice turns into a reflex: regularity, real-life triggers, speed of the start, felt automaticity.",
+  "Memory and glyph": "What the system keeps: tiers, glyph lineage, memory integrity across devices.",
+  "Breath, body and devices": "The body's side: breath setting, relief, check-ins, and device timing.",
+  "System orchestration": "Whether the parts agree with each other: implementations, timelines, the conformance suite.",
+  "Language-model claims": "Recorded claims about the model's internals during the sessions (token weights, layers, future models). Kept as records; nothing here is computed."
+};
+let REG, ORDER = [];
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+function fmt(v, unit) {
+  if (v === null || v === undefined) return "—";
+  if (typeof v === "boolean") return v ? "Yes" : "Not yet";
+  if (typeof v === "string") return v;
+  return (Number.isInteger(v) ? v : v.toFixed(1)) + (unit === "%" ? "%" : unit === "/5" ? " / 5" : unit === "days" ? " d" : "");
+}
+function lane(values, total) {
+  const ns = "http://www.w3.org/2000/svg", s = document.createElementNS(ns, "svg"); s.setAttribute("class", "lane");
+  s.setAttribute("viewBox", "0 0 210 26"); s.setAttribute("role", "img");
+  s.setAttribute("aria-label", values.length + " recorded values");
+  const base = document.createElementNS(ns, "line"); base.setAttribute("x1", 0); base.setAttribute("x2", 210); base.setAttribute("y1", 25); base.setAttribute("y2", 25); base.setAttribute("stroke", "#2e3858"); s.appendChild(base);
+  for (const v of values) {
+    const x = 2 + 206 * (ORDER.indexOf(v.id) / Math.max(1, total - 1));
+    const r = document.createElementNS(ns, "rect"); r.setAttribute("x", x.toFixed(1)); r.setAttribute("width", 2); r.setAttribute("y", 3); r.setAttribute("height", 21); r.setAttribute("rx", 1);
+    r.setAttribute("fill", v.infinite ? "var(--inf)" : v.value !== null ? "var(--num)" : "#56608a");
+    const t = document.createElementNS(ns, "title"); t.textContent = "Tier " + (v.number || v.id) + ": " + v.raw; r.appendChild(t); s.appendChild(r);
+  }
+  return s;
+}
+function detail(m) {
+  const d = el("div", "detail"); d.hidden = true;
+  const a = el("div"), b = el("div");
+  a.appendChild(el("h3", "", "Names recorded"));
+  const ul = el("ul", "names");
+  if (!m.names.length) ul.appendChild(el("li", "", "No name recorded; the code appears in the ledger only."));
+  for (const n of m.names) { const li = el("li"); li.append(n.name + " — "); const k = el("a", "", n.source + ", line " + n.line);
+    k.href = REPO + (SRC[n.source] || SRC.ledger) + "#L" + n.line; li.appendChild(k); ul.appendChild(li); }
+  a.appendChild(ul);
+  if (m.definition || m.threshold || m.method || m.example) {
+    a.appendChild(el("h3", "", "As defined in the logs"));
+    if (m.definition) a.appendChild(el("p", "", "Definition: " + m.definition));
+    if (m.method) a.appendChild(el("p", "", "Method: " + m.method));
+    if (m.threshold) a.appendChild(el("p", "", "Threshold: " + m.threshold));
+    if (m.example) a.appendChild(el("p", "", "Example: " + m.example));
+  }
+  a.appendChild(el("h3", "", "What it measures now"));
+  const op = m.operational;
+  a.appendChild(el("p", "", (op.name ? op.name + ". " : "") + op.how));
+  if (op.system_value) a.appendChild(el("p", "", "Current result: " + op.system_value + (op.unit && !/[a-z]/.test(op.system_value) ? " " + op.unit : "") + "."));
+  b.appendChild(el("h3", "", "Recorded values (" + m.values.length + ")"));
+  if (m.values.length) {
+    const box = el("div", "vals"), t = el("table"); const h = el("tr"); h.append(el("th", "", "Tier"), el("th", "", "As recorded")); t.appendChild(h);
+    for (const v of m.values) { const tr = el("tr"); const td = el("td"); const k = el("a", "", v.number || v.id); k.href = "tiers.html#" + encodeURIComponent(v.id);
+      td.appendChild(k); tr.append(td, el("td", "raw", (v.code !== m.code ? v.code + ": " : "") + v.raw)); t.appendChild(tr); }
+    box.appendChild(t); b.appendChild(box);
+  } else b.appendChild(el("p", "note", "The ledger records no values for this code."));
+  d.append(a, b); return d;
+}
+function render() {
+  const box = $("families"); box.innerHTML = "";
+  for (const fam of REG.families) {
+    const ms = REG.metrics.filter(m => m.family === fam); if (!ms.length) continue;
+    box.appendChild(el("h2", "", fam)); box.appendChild(el("p", "note", FAMILY_NOTES[fam]));
+    const wrap = el("div", "fam");
+    for (const m of ms) {
+      const row = el("div", "m"); row.id = m.code;
+      const btn = el("button"); btn.type = "button"; btn.setAttribute("aria-expanded", "false");
+      const nm = el("span", "nm", m.names.length ? m.names[0].name : "(no name recorded)");
+      if (m.names.length > 1) nm.appendChild(el("small", "", "Also recorded as: " + m.names.slice(1).map(n => n.name).join("; ")));
+      const op = el("span", "op"); const bd = el("span", "badge " + m.operational.status, STATUS[m.operational.status]); op.appendChild(bd);
+      op.append(m.operational.name || "Not computed");
+      btn.append(el("span", "code", m.code), nm, op, lane(m.values, ORDER.length));
+      const d = detail(m);
+      btn.addEventListener("click", () => { d.hidden = !d.hidden; btn.setAttribute("aria-expanded", String(!d.hidden)); if (!d.hidden) history.replaceState(null, "", "#" + m.code); });
+      row.append(btn, d); wrap.appendChild(row);
+    }
+    box.appendChild(wrap);
+  }
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h && document.getElementById(h)) { const r = document.getElementById(h); r.querySelector("button").click(); r.scrollIntoView(); }
+}
+function yours(runs, srbai, settings, demo) {
+  const v = RSOSMetrics.compute(runs, srbai, settings), g = $("yours"); g.innerHTML = "";
+  const youMs = REG.metrics.filter(m => m.operational.status === "you");
+  for (const m of youMs) {
+    const row = el("div", "yv"); const c = el("b"); const a = el("a", "", m.code); a.href = "#" + m.code; c.appendChild(a);
+    const o = el("output", "", fmt(v[m.code], m.operational.unit));
+    row.append(c, el("span", "", m.operational.name), o); g.appendChild(row);
+  }
+  $("youNote").textContent = demo ? "Sample data: one simulated person over four weeks (not real data). Your own numbers appear once you use the player." :
+    "Computed in this browser from your " + runs.length + " runs in the player. Nothing leaves your device.";
+}
+const store = k => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+Promise.all([fetch("data/metrics.json").then(r => r.json()), fetch("data/ledger.json").then(r => r.json())]).then(([reg, led]) => {
+  REG = reg; ORDER = led.records.filter(r => r.kind === "tier" || r.kind === "event").map(r => r.id || r.title);
+  const c = reg.counts;
+  $("lede").textContent += " " + c.codes + " codes, " + c.values.toLocaleString("en") + " recorded values; " + c.you + " are computed for you and " + c.system + " by the system's tests.";
+  render();
+  const runs = store("rsos.runs") || [], srbai = store("rsos.srbai") || [], settings = store("rsos.settings") || {};
+  const act = $("youActions");
+  if (runs.length) yours(runs, srbai, settings, false);
+  else {
+    yours([], [], settings.inhale ? settings : {}, false);
+    $("youNote").textContent = "No runs yet in this browser. Run the override in the player and your numbers appear here, or look at sample data first.";
+    const a = el("a", "btn go", "Open the player"); a.href = "player.html";
+    const b = el("button", "btn", "Show sample data"); b.type = "button";
+    b.addEventListener("click", () => fetch("data/demo_person.json").then(r => r.json()).then(d => yours(d.runs, d.srbai, d.settings, true)));
+    act.append(a, b);
+  }
+}).catch(() => { $("families").innerHTML = ""; $("families").appendChild(el("p", "note", "The metric data could not be loaded. Open this page from the published site or a local web server.")); });
+</script>
+</body>
+</html>

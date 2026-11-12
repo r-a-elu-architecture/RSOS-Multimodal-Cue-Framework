@@ -64,12 +64,12 @@ OPS = {
     "SSI": ("Memory and glyph", "Memory integrity", "Memory snapshots are checksummed; a changed snapshot is rejected on load (MEMSTACK tests).", "system", ""),
     "CSRT": ("Memory and glyph", "Cross-device memory", "Memory from several devices merges into one history without duplicates (MEMSTACK merge).", "system", ""),
     "COM": ("System orchestration", "Cross-module coherence", "Python and JavaScript give identical results for the compiler, detectors, memory and glyphs (parity tests).", "system", "%"),
-    "SOM": ("System orchestration", "Orchestration", "Conformance checks passed by the runtime with its devices.", "system", "of 11"),
+    "SOM": ("System orchestration", "Orchestration", "Conformance checks passed by the runtime with its devices.", "system", "of 13"),
     "VEC": ("System orchestration", "Timeline agreement", "Firmware pulses match the compiled timeline exactly (firmware tests).", "system", ""),
 }
 
 SYSTEM_VALUES = {  # from rsso/results/conformance_firmware.md and the test suites
-    "ETH": "100", "MOR": "100", "ERM": "100", "SIR": "0 (worst, simulated firmware)", "DPI": "0", "SOM": "11",
+    "ETH": "100", "MOR": "100", "ERM": "100", "SIR": "0 (worst, simulated firmware)", "DPI": "0", "SOM": "13",
     "COM": "100", "LGC": "48 glyphs, 600 ancestors", "SML": "stored per person", "SSI": "tamper rejected",
     "CSRT": "merge tested", "VEC": "exact",
 }

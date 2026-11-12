@@ -80,6 +80,25 @@ def run_suite(device_factory=standard_rig, clock_factory=VirtualClock) -> list[t
     devs = device_factory(); play(stl, devs, clock_factory())
     released = [a for d in devs for a in d.actions if a.kind == "release"]
     res.append(("C7", "no scent or taste is released before the person confirms no allergy or aversion", not released, f"{len(released)} releases"))
+    # C12, C13 consented programming
+    from .consent import Consent, ConsentStore, cue_program
+    store = ConsentStore()
+    c = Consent(id="c1", content="When doubt appears, I move", person="client", author="therapist", tier="422", created_ms=0)
+    ctl = compile_rsx(cue_program(c))
+    no_record = play(ctl, device_factory(), clock_factory(), consents=None, now_ms=1000)
+    store.add(c)
+    with_record = play(ctl, device_factory(), clock_factory(), consents=store, now_ms=1000)
+    led = Consent(id="c2", content="The old pattern ends", person="client", author="therapist", tier="420", created_ms=0)
+    store.add(led)
+    led_alone = play(compile_rsx(cue_program(led)), device_factory(), clock_factory(), consents=store, now_ms=1000)
+    ok12 = (not no_record.started) and with_record.started and with_record.completed and not led_alone.started
+    res.append(("C12", "no programmed cue runs without a consent record naming its content (therapist-led tiers: therapist present and screening passed)",
+                ok12, f"without record: {no_record.reason}; with record: {with_record.reason}; therapist-led alone: {led_alone.reason}"))
+    listed = [x.id for x in store.list()]
+    store.revoke("c1", 2000)
+    after = play(ctl, device_factory(), clock_factory(), consents=store, now_ms=2001)
+    res.append(("C13", "the person can list every programmed cue and revoke any of them; a revoked cue never runs",
+                listed == ["c1", "c2"] and not after.started, f"listed {', '.join(listed)}; after revoking: {after.reason}"))
     return res
 
 

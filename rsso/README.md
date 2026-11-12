@@ -13,13 +13,14 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/memstack.py` | MEMSTACK: per-tier memory from the run log and weekly automaticity checks: runs, effect over time, bundle strength (model estimate), fitted habit curve, estimated triggers until a 3-second start, and the reflex criterion; checksummed snapshots with restore and merge. The player shows the same summary (`docs/js/memstack.js`), computed identically. |
 | `rsso/ugcl.py`, `rsso/ugcl_library.py`, `rsso/calibration.py` | UGCL glyph layer ([format](../spec/GLYPH_FORMAT.md)): image, vibration rhythm, melody and compact code from one glyph description; the evolved library of 48 maximally distinct glyphs with full genealogy (`python -m rsso.ugcl_library`); Bradley–Terry personal calibration from pairwise choices. Identical to `docs/js/ugcl.js`. |
 | `rsso/ledger.py`, `rsso/ledger_map.py`, `rsso/metrics.py` | The tier ledger as lossless structured data; where every tier lives in the architecture; the metric registry and the operational metrics computed from the run log (identical to `docs/js/metrics.js`). See [the tier ledger in the architecture](../spec/TIER_LEDGER.md). |
+| `rsso/consent.py` | Consented programming: cues a person or their therapist chooses to install, each with a consent record; programs with a cue are refused without valid consent; every cue can be listed and revoked. Identical to `docs/js/consent.js`. |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
 | `rsso/analysis.py` | Pre-specified analyses for H1, H2 and H5. The same code runs on synthetic and on real data. |
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 46 tests
+python -m unittest discover -s tests                     # 50 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study
@@ -31,7 +32,7 @@ Requires Python 3.10+, NumPy, SciPy and pandas, and the `rsx` package in this re
 
 ## Conformance
 
-**11/11 checks pass** on the virtual rig ([report](results/conformance_virtual_rig.md)) and on the C++ firmware core running in the host simulator ([report](results/conformance_firmware.md)).
+**13/13 checks pass** on the virtual rig ([report](results/conformance_virtual_rig.md)) and on the C++ firmware core running in the host simulator ([report](results/conformance_firmware.md)).
 
 | Check | Requirement |
 |---|---|
@@ -46,6 +47,8 @@ Requires Python 3.10+, NumPy, SciPy and pandas, and the `rsx` package in this re
 | C9 | A self-initiated run is always allowed |
 | C10 | "I move, I act" spoken exactly once, then "I own" once |
 | C11 | A run that is not stopped completes |
+| C12 | No programmed cue runs without a consent record naming its content; therapist-led tiers also need a therapist present and the screening passed |
+| C13 | The person can list every programmed cue and revoke any of them; a revoked cue never runs |
 
 The suite is tested against deliberately faulty devices (one that keeps vibrating after Stop, one that over-drives the motor) to make sure the checks catch them. On the development machine, the real-time clock dispatched a full Override Protocol run with 0 ms maximum lateness and stopped in 0 ms.
 

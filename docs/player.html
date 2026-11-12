@@ -149,6 +149,31 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </fieldset>
 
   <fieldset>
+    <legend>Programmed cues</legend>
+    <p class="note" style="margin-top:0">Install a thought, a chain of thoughts, a metaphor or a behaviour you choose, so it becomes automatic. Write it yourself, or with your therapist during a session. Every cue needs your consent and stays listed here; you can revoke any of them at any time.</p>
+    <label for="cueText">The cue: words, a metaphor or a chain of thoughts</label>
+    <textarea id="cueText" style="min-height:70px;font-family:inherit;font-size:.95rem" placeholder="When doubt appears, I move"></textarea>
+    <label for="cueTier">From the tier ledger (optional)</label>
+    <select id="cueTier"><option value="">No tier</option></select>
+    <p class="note" id="cueTierInfo"></p>
+    <div class="row">
+      <div><label for="cueAuthor">Written by</label><select id="cueAuthor"><option value="self">Me</option><option value="therapist">My therapist, with me</option></select></div>
+      <div><label for="cueTone">Sound</label><select id="cueTone"><option value="">None</option><option value="220">Low tone</option><option value="330">Middle tone</option><option value="440">High tone</option></select></div>
+    </div>
+    <label for="cueUntil">Valid until (optional)</label>
+    <input type="date" id="cueUntil" style="width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px">
+    <div id="cueLed" hidden>
+      <label class="check"><input type="checkbox" id="cueTherapist"> A therapist is present for this session</label>
+      <p class="note" id="cueScreenQ"></p>
+      <div class="row"><label class="check"><input type="radio" name="cueScreen" value="no"> No</label><label class="check"><input type="radio" name="cueScreen" value="yes"> Yes</label></div>
+    </div>
+    <label class="check"><input type="checkbox" id="cueConsent"> I know exactly what this cue says, and I agree that it runs for me</label>
+    <div class="actions" style="margin-top:6px"><button class="btn quiet" id="cueSave" type="button">Save cue</button></div>
+    <p class="err" id="cueMsg" aria-live="polite"></p>
+    <div id="cueList"></div>
+  </fieldset>
+
+  <fieldset>
     <legend>Heart-rate trigger</legend>
     <p class="note" style="margin-top:0">Connect a Bluetooth heart-rate strap or watch that broadcasts heart rate. When your heart rate rises and its variability drops for several seconds, the player offers the override. Works in Chrome or Edge on Android, Windows, macOS and Linux.</p>
     <div class="actions" style="margin-top:6px"><button class="btn quiet" id="hrConnect" type="button">Connect heart-rate strap</button><button class="btn quiet" id="hrDemo" type="button">Try a simulated strap</button></div>
@@ -181,7 +206,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.6.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.7.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -256,13 +281,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.6.0"></script>
-<script src="js/hrs.js?v=1.6.0"></script>
-<script src="js/memstack.js?v=1.6.0"></script>
-<script src="js/ugcl.js?v=1.6.0"></script>
+<script src="js/rsx.js?v=1.7.0"></script>
+<script src="js/hrs.js?v=1.7.0"></script>
+<script src="js/memstack.js?v=1.7.0"></script>
+<script src="js/ugcl.js?v=1.7.0"></script>
+<script src="js/consent.js?v=1.7.0"></script>
 <script>
 "use strict";
-const BUILD = "1.6.0";
+const BUILD = "1.7.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
   "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph"];
@@ -506,6 +532,8 @@ let pendingTrigger = "self", offerShownAt = 0;
 $("trig").addEventListener("change", () => { $("latBox").hidden = !$("trig").value || pendingTrigger === "device"; });
 async function start(trigger) {
   if (!timeline || run) return;
+  const [cueOk, cueWhy] = RSOSConsent.gate(timeline, store.get("rsos.cues", []), Date.now());
+  if (!cueOk) { $("compileMsg").className = "err"; $("compileMsg").textContent = "This program contains a programmed cue that may not run: " + cueWhy + "."; return; }
   trigger = trigger === "device" ? "device" : "self";
   pendingTrigger = trigger;
   const deviceLatency = trigger === "device" && offerShownAt ? (performance.now() - offerShownAt) / 1000 : null;
@@ -806,6 +834,72 @@ $("calColour").addEventListener("click", () => {
 $("colourSave").addEventListener("click", () => { const st = ugclState(); st.colour = pickedColour; store.set("rsos.ugcl", st); $("colourCal").close(); applyColour(); });
 $("colourCancel").addEventListener("click", () => $("colourCal").close());
 loadLibrary().then(drawMine);
+
+/* ---- Programmed cues with consent (rsso/rsso/consent.py, docs/js/consent.js) ---- */
+let consentedTiers = {};
+function cueStatus(c) { const [ok, why] = RSOSConsent.check(c, Date.now()); return ok ? "active" : why; }
+function drawCues() {
+  const box = $("cueList"); box.innerHTML = "";
+  const cues = store.get("rsos.cues", []);
+  if (!cues.length) return;
+  const h = document.createElement("p"); h.className = "note"; h.textContent = "Your programmed cues (" + cues.length + "):"; box.appendChild(h);
+  for (const c of cues.slice().reverse()) {
+    const div = document.createElement("div"); div.className = "tier";
+    const b = document.createElement("b"); b.textContent = "“" + c.content + "”"; div.appendChild(b);
+    const meta = document.createElement("p"); meta.className = "note"; meta.style.margin = "4px 0";
+    meta.textContent = (c.tier ? "Tier " + c.tier + ". " : "") + (c.author === "therapist" ? "Written with your therapist. " : "Written by you. ") +
+      "Saved " + new Date(c.created_ms).toLocaleDateString() + (c.expires_ms ? ", valid until " + new Date(c.expires_ms).toLocaleDateString() : "") + ". Status: " + cueStatus(c) + ".";
+    div.appendChild(meta);
+    const acts = document.createElement("div"); acts.className = "actions";
+    if (cueStatus(c) === "active") {
+      const load = document.createElement("button"); load.className = "btn quiet"; load.type = "button"; load.textContent = "Load into the player";
+      load.addEventListener("click", () => { $("source").value = RSOSConsent.cueProgram(c, +$("inhale").value || 4, +$("exhale").value || 6); $("futuresBox").hidden = true; $("tierNote").hidden = true; recompile(); $("start").focus(); });
+      const rv = document.createElement("button"); rv.className = "btn quiet"; rv.type = "button"; rv.textContent = "Revoke";
+      rv.addEventListener("click", () => { const all = store.get("rsos.cues", []); const x = all.find(y => y.id === c.id); if (x) x.revoked_ms = Date.now(); store.set("rsos.cues", all); drawCues(); });
+      acts.append(load, rv);
+    }
+    div.appendChild(acts); box.appendChild(div);
+  }
+}
+function cueTierChanged() {
+  const id = $("cueTier").value, t = consentedTiers[id];
+  $("cueTierInfo").textContent = t ? t.purpose + " " + t.condition : "";
+  const led = !!t && t.mode === "therapist-led";
+  $("cueLed").hidden = !led;
+  if (led) { $("cueAuthor").value = "therapist"; }
+}
+$("cueTier").addEventListener("change", cueTierChanged);
+$("cueScreenQ").textContent = RSOSConsent.SCREENING_QUESTION;
+$("cueSave").addEventListener("click", () => {
+  const msg = $("cueMsg"); msg.textContent = "";
+  const content = $("cueText").value.trim();
+  if (!content) { msg.textContent = "Write the cue first: the exact words that will be spoken."; return; }
+  if (!$("cueConsent").checked) { msg.textContent = "A cue is saved only with your consent: tick the box once you have read it."; return; }
+  const tid = $("cueTier").value, t = consentedTiers[tid], tier = t ? t.number : "";
+  const screen = (document.querySelector('input[name="cueScreen"]:checked') || {}).value;
+  if (t && t.mode === "therapist-led") {
+    if (!$("cueTherapist").checked) { msg.textContent = "This tier is therapist-led: save it during a session with your therapist present."; return; }
+    if (screen === "yes") { msg.textContent = "Please do not run this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist."; return; }
+    if (screen !== "no") { msg.textContent = "Answer the screening question first."; return; }
+  }
+  const until = $("cueUntil").value ? new Date($("cueUntil").value + "T23:59:59").getTime() : null;
+  const c = { id: "c" + Date.now().toString(36), content, person: "me", author: $("cueAuthor").value, tier, created_ms: Date.now(), expires_ms: until,
+    therapist_present: $("cueTherapist").checked, screened_ok: screen === "no" ? true : screen === "yes" ? false : null, revoked_ms: null,
+    sound_hz: $("cueTone").value ? +$("cueTone").value : null, glyph: "" };
+  const all = store.get("rsos.cues", []); all.push(c); store.set("rsos.cues", all);
+  $("cueText").value = ""; $("cueConsent").checked = false; msg.className = "ok"; msg.textContent = "Saved. Load it into the player to run it.";
+  setTimeout(() => { msg.className = "err"; msg.textContent = ""; }, 4000);
+  drawCues();
+});
+fetch("data/tier_map.json?v=" + BUILD).then(r => r.json()).then(m => {
+  for (const [id, v] of Object.entries(m.tiers)) if (v.role === "consented") {
+    consentedTiers[id] = v;
+    $("cueTier").appendChild(new Option("Tier " + v.number + (id.endsWith("b") ? " (second entry)" : "") + ": " + v.title + (v.mode === "therapist-led" ? " (therapist-led)" : ""), id));
+  }
+  const want = new URLSearchParams(location.search).get("cueTier");
+  if (want && consentedTiers[want]) { $("cueTier").value = want; cueTierChanged(); $("cueText").focus(); }
+}).catch(() => {});
+drawCues();
 </script>
 </body>
 </html>

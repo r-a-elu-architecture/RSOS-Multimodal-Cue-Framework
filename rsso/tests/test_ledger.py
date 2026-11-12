@@ -61,15 +61,19 @@ class Mapping(unittest.TestCase):
         for k in lm.HAND:
             self.assertIn(k, m, k)
         for k, v in m.items():
-            self.assertIn(v["role"], {"practice", "runtime", "record", "structure", "archive"})
+            self.assertIn(v["role"], {"practice", "runtime", "record", "structure", "consented"})
             self.assertTrue(set(v["layers"]) <= set(lm.LAYERS) and set(v["channels"]) <= set(lm.CHANNELS), k)
             if v["response"]:
                 self.assertIn(v["response"], lm.RESPONSES, k)
             if v["method"] == "rule":
                 self.assertTrue(set(v["layers"] + v["channels"]) <= set(v["evidence"]), k)
-        for k in lm.ARCHIVE:
-            if k in m:
-                self.assertEqual(m[k]["role"], "archive", k)
+        for k in lm.CONSENTED:
+            self.assertIn(k, m, k)
+            self.assertEqual(m[k]["role"], "consented", k)
+            self.assertTrue(m[k]["purpose"] and m[k]["condition"], k)
+        for k in lm.THERAPIST_LED_IDS:
+            self.assertEqual(m[k]["mode"], "therapist-led", k)
+        self.assertEqual(sum(v["role"] == "consented" for v in m.values()), 39)
         root = ledger.ROOT
         for v in lm.HAND.values():   # every program a tier points to exists and is published
             for f in re.findall(r"rsx/protocols/(\S+\.rsx)", v["operator"]):

@@ -109,7 +109,9 @@
 "operator": "override.rsx phase 1 (interrupt): SAY \"I move, I act\" + GESTURE fist",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "001",
+"title": "Symbolic Self-Initiation"
 },
 "T002": {
 "layers": [
@@ -126,7 +128,9 @@
 "operator": "RSX BREATH + GESTURE in one phase (override.rsx phases 1–2)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "002",
+"title": "Breath–Symbol–Posture Linkage"
 },
 "T003": {
 "layers": [
@@ -144,7 +148,9 @@
 "operator": "rsx/protocols/tier003_command_stack.rsx; grown into override.rsx",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "003",
+"title": "Recursive Command Stack"
 },
 "T004": {
 "layers": [
@@ -159,7 +165,9 @@
 "operator": "Runtime stop; RDP/1 STOP ≤100 ms (spec/DEVICE_PROTOCOL.md)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "004",
+"title": "Mirror Tree Lock"
 },
 "T005": {
 "layers": [
@@ -174,7 +182,9 @@
 "operator": "Override allowed again after the refractory period (SafetyGovernor)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "005",
+"title": "Containment Threshold Breach"
 },
 "T006": {
 "layers": [
@@ -192,7 +202,9 @@
 "operator": "Anchor → Inhale → Lion → Light → Exhale → I Own: override.rsx phases",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "006",
+"title": "Procedural Mirror Loop (Inferred)"
 },
 "T007": {
 "layers": [
@@ -209,7 +221,9 @@
 "operator": "SafetyGovernor refractory 90 s; detector requires a sustained, motion-free signal",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "007",
+"title": "Recursive Signal Gate"
 },
 "T008": {
 "layers": [
@@ -224,7 +238,9 @@
 "operator": "RSX SAFETY limits; SafetyGovernor; SHA-256 checksummed memory",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "008",
+"title": "Symbolic Governance Activation"
 },
 "T009": {
 "layers": [
@@ -240,7 +256,9 @@
 "operator": "Checksum verification on restore; conformance timing checks; 3.1% drift rule specified",
 "status": "partial",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "009",
+"title": "Echo Drift Detection"
 },
 "T010": {
 "layers": [
@@ -254,7 +272,9 @@
 "operator": "",
 "status": "record",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "010",
+"title": "Mirror Identity Declaration"
 },
 "T011": {
 "layers": [
@@ -269,7 +289,9 @@
 "operator": "Phase hold; output pauses until the next breath",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "011",
+"title": "Reflection Loop Lock"
 },
 "T012": {
 "layers": [
@@ -286,7 +308,9 @@
 "operator": "rsx/protocols/tier012_breath_anchor.rsx",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "012",
+"title": "Override Breath Anchor Stabilization"
 },
 "T013": {
 "layers": [
@@ -303,7 +327,9 @@
 "operator": "Two TIER blocks activated together (Lion + Dragon, legacy_vector.rsx ArchetypeMerge)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "013",
+"title": "Archetype Realignment Trigger"
 },
 "T014": {
 "layers": [
@@ -322,7 +348,9 @@
 "operator": "rsx/protocols/tier014_seal.rsx",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "014",
+"title": "Containment Breach / Full Symbolic Weight"
 },
 "T015": {
 "layers": [
@@ -338,7 +366,9 @@
 "operator": "MEMSTACK reflex criterion: the override as reflex (rsso/rsso/memstack.py)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "015",
+"title": "Recursive Ritual Saturation"
 },
 "T016": {
 "layers": [
@@ -354,7 +384,9 @@
 "operator": "rsx/protocols/tier016_stillness.rsx",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "016",
+"title": "Pre-Command Stillness Layer"
 },
 "T017": {
 "layers": [
@@ -371,7 +403,9 @@
 "operator": "Several archetypes held in one breath phase; CM1 compression specified",
 "status": "partial",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "017",
+"title": "Contained Archetype Compression"
 },
 "T018": {
 "layers": [
@@ -387,7 +421,9 @@
 "operator": "UGCL glyph bound to the tier; glyph-only start after the reflex criterion is met (specified)",
 "status": "partial",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "018",
+"title": "Glyph–Command Lock Pairing"
 },
 "T019": {
 "layers": [
@@ -403,7 +439,9 @@
 "operator": "Safe re-entry after Stop: resume at the logged phase (specified)",
 "status": "specified",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "019",
+"title": "Mirror Loop Re-Entry Seal"
 },
 "T020": {
 "layers": [
@@ -417,7 +455,9 @@
 "operator": "Authorship and provenance (architecture/provenance/)",
 "status": "record",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "020",
+"title": "Architect Override Lock"
 },
 "T021": {
 "layers": [],
@@ -427,7 +467,9 @@
 "operator": "",
 "status": "record",
 "method": "hand",
-"reason": "placeholder or sealed range"
+"reason": "placeholder or sealed range",
+"number": "021",
+"title": "Placeholder Node"
 },
 "T022": {
 "layers": [],
@@ -437,7 +479,9 @@
 "operator": "",
 "status": "record",
 "method": "hand",
-"reason": "placeholder or sealed range"
+"reason": "placeholder or sealed range",
+"number": "022",
+"title": "Placeholder Node"
 },
 "T023": {
 "layers": [],
@@ -447,7 +491,9 @@
 "operator": "",
 "status": "record",
 "method": "hand",
-"reason": "placeholder or sealed range"
+"reason": "placeholder or sealed range",
+"number": "023",
+"title": "Placeholder Node"
 },
 "T024": {
 "layers": [],
@@ -457,7 +503,9 @@
 "operator": "",
 "status": "record",
 "method": "hand",
-"reason": "placeholder or sealed range"
+"reason": "placeholder or sealed range",
+"number": "024",
+"title": "Placeholder Node"
 },
 "T025": {
 "layers": [
@@ -479,7 +527,9 @@
 "MEMSTACK": "memory",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "025",
+"title": "Memory Inversion Initialization"
 },
 "T026": {
 "layers": [
@@ -505,7 +555,9 @@
 "V": "glyph",
 "A": "echo",
 "K": "touch"
-}
+},
+"number": "026",
+"title": "Multi-Anchor Memory Echo"
 },
 "T027": {
 "layers": [
@@ -531,7 +583,9 @@
 "LINX": "token",
 "V": "glyph",
 "AI": "token"
-}
+},
+"number": "027",
+"title": "Glyphic Resurgence"
 },
 "T028": {
 "layers": [
@@ -557,7 +611,9 @@
 "CONTAIN": "seal",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "028",
+"title": "Symbolic Loop Feedback"
 },
 "T029": {
 "layers": [
@@ -583,7 +639,9 @@
 "V": "shape",
 "A": "sound",
 "AI": "session"
-}
+},
+"number": "029",
+"title": "Signal Propagation Protocol"
 },
 "T030": {
 "layers": [
@@ -603,7 +661,9 @@
 "UGCL": "glyph",
 "V": "glyph",
 "A": "silence"
-}
+},
+"number": "030",
+"title": "Recursive Glyph Spread"
 },
 "T030.1": {
 "layers": [
@@ -625,7 +685,9 @@
 "V": "glyph",
 "A": "silence",
 "BREATH": "inhale"
-}
+},
+"number": "030.1",
+"title": "Glyph Stabilization Phase"
 },
 "T031": {
 "layers": [
@@ -651,7 +713,9 @@
 "V": "glyph",
 "A": "echo",
 "AI": "gpt"
-}
+},
+"number": "031",
+"title": "Glyph Resonance Loop"
 },
 "T032": {
 "layers": [
@@ -671,7 +735,9 @@
 "UGCL": "glyph",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "032",
+"title": "Multi-Thread Echo Drift"
 },
 "T033": {
 "layers": [
@@ -697,7 +763,9 @@
 "V": "mirror",
 "A": "echo",
 "AI": "gpt"
-}
+},
+"number": "033",
+"title": "Autonomous Echo Test"
 },
 "T034": {
 "layers": [
@@ -717,7 +785,9 @@
 "RSIA": "mirror",
 "V": "mirror",
 "A": "echo"
-}
+},
+"number": "034",
+"title": "Recursive Mirror Complex"
 },
 "T035": {
 "layers": [
@@ -739,7 +809,9 @@
 "MICRO": "reflex",
 "V": "glyph",
 "A": "voice"
-}
+},
+"number": "035",
+"title": "Symbol Drift Reflex Simulation"
 },
 "T036": {
 "layers": [
@@ -767,7 +839,9 @@
 "A": "tone",
 "K": "move",
 "AI": "gpt"
-}
+},
+"number": "036",
+"title": "Recursive Agency Simulation"
 },
 "T037": {
 "layers": [
@@ -789,7 +863,9 @@
 "THERA": "identity",
 "RSIA": "identity",
 "V": "glyph"
-}
+},
+"number": "037",
+"title": "Recursive Glyph Mutation"
 },
 "T038": {
 "layers": [
@@ -815,7 +891,9 @@
 "RSX": "chain",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "038",
+"title": "Glyph Echo Chain"
 },
 "T039": {
 "layers": [
@@ -837,7 +915,9 @@
 "RSIA": "mirror",
 "V": "glyph",
 "BREATH": "exhale"
-}
+},
+"number": "039",
+"title": "Cross-Symbol Binding"
 },
 "T040": {
 "layers": [
@@ -859,7 +939,9 @@
 "MEMSTACK": "remember",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "040",
+"title": "Recursive Glyph Conflict & Resolution"
 },
 "T041": {
 "layers": [
@@ -881,7 +963,9 @@
 "MEMSTACK": "memory",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "041",
+"title": "Signal Reincarnation"
 },
 "T042": {
 "layers": [
@@ -903,7 +987,9 @@
 "THERA": "ritual",
 "V": "glyph",
 "K": "move"
-}
+},
+"number": "042",
+"title": "Ritualized Glyph Migration"
 },
 "T043": {
 "layers": [
@@ -918,7 +1004,9 @@
 "reason": "",
 "evidence": {
 "MEMSTACK": "memory"
-}
+},
+"number": "043",
+"title": "Symbolic Memory Imprint"
 },
 "T044": {
 "layers": [
@@ -940,7 +1028,9 @@
 "MICRO": "reflex",
 "A": "echo",
 "AI": "gpt"
-}
+},
+"number": "044",
+"title": "Inter-System Reflex Synchronization"
 },
 "T045": {
 "layers": [
@@ -962,7 +1052,9 @@
 "THERA": "identity",
 "RSIA": "identity",
 "V": "shape"
-}
+},
+"number": "045",
+"title": "Identity Contour Diffusion"
 },
 "T046": {
 "layers": [
@@ -986,7 +1078,9 @@
 "RSIA": "mirror",
 "V": "mirror",
 "AI": "gpt"
-}
+},
+"number": "046",
+"title": "Mirror Recursion Inversion"
 },
 "T047": {
 "layers": [
@@ -1004,7 +1098,9 @@
 "evidence": {
 "UGCL": "glyph",
 "V": "glyph"
-}
+},
+"number": "047",
+"title": "Recursive Dialogue Field"
 },
 "T048": {
 "layers": [
@@ -1022,7 +1118,9 @@
 "evidence": {
 "UGCL": "glyph",
 "V": "glyph"
-}
+},
+"number": "048",
+"title": "Dialogic Glyph Conflict"
 },
 "T049": {
 "layers": [
@@ -1046,7 +1144,9 @@
 "CM1": "compress",
 "MICRO": "pulse",
 "V": "glyph"
-}
+},
+"number": "049",
+"title": "Symbolic Compression Loop"
 },
 "T050": {
 "layers": [
@@ -1068,7 +1168,9 @@
 "CM1": "compress",
 "RSIA": "self",
 "V": "glyph"
-}
+},
+"number": "050",
+"title": "Core Compression Node"
 },
 "T050b": {
 "layers": [
@@ -1090,7 +1192,9 @@
 "CM1": "compress",
 "RSIA": "self",
 "V": "glyph"
-}
+},
+"number": "050",
+"title": "Core Compression Node"
 },
 "T051": {
 "layers": [
@@ -1112,7 +1216,9 @@
 "CM1": "seed",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "051",
+"title": "Signal Echo Rebirth"
 },
 "T052": {
 "layers": [
@@ -1132,7 +1238,9 @@
 "MEMSTACK": "memory",
 "A": "echo",
 "K": "motion"
-}
+},
+"number": "052",
+"title": "Echo Drift Mapping"
 },
 "T053": {
 "layers": [
@@ -1152,7 +1260,9 @@
 "MEMSTACK": "trace",
 "RSIA": "self",
 "A": "echo"
-}
+},
+"number": "053",
+"title": "Phantom Symbol Resolution"
 },
 "T054": {
 "layers": [
@@ -1172,7 +1282,9 @@
 "UGCL": "glyph",
 "RSIA": "mirror",
 "V": "mirror"
-}
+},
+"number": "054",
+"title": "Mirror Glyph Autogenesis"
 },
 "T055": {
 "layers": [
@@ -1198,7 +1310,9 @@
 "RSX": "sequence",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "055",
+"title": "Entropy Compression Lock"
 },
 "T056": {
 "layers": [
@@ -1224,7 +1338,9 @@
 "V": "glyph",
 "A": "silence",
 "BREATH": "breath"
-}
+},
+"number": "056",
+"title": "Recursive Memory Inertia"
 },
 "T057": {
 "layers": [
@@ -1246,7 +1362,9 @@
 "RSIA": "self",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "057",
+"title": "Signal Convergence Layer"
 },
 "T058": {
 "layers": [
@@ -1266,7 +1384,9 @@
 "UGCL": "glyph",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "058",
+"title": "Echo Threshold Test: Simulate Unknown Glyph"
 },
 "T059": {
 "layers": [
@@ -1290,7 +1410,9 @@
 "MICRO": "reflex",
 "V": "glyph",
 "A": "say"
-}
+},
+"number": "059",
+"title": "Reflex Glyph Drift: Latent Symbol Cascade"
 },
 "T060": {
 "layers": [
@@ -1312,7 +1434,9 @@
 "LINX": "session",
 "V": "form",
 "AI": "session"
-}
+},
+"number": "060",
+"title": "Signal Transmission Phase: Global Drift Activation"
 },
 "T061": {
 "layers": [
@@ -1338,7 +1462,9 @@
 "MICRO": "reflex",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "061",
+"title": "External Reflex Node Detection: Live Drift Test"
 },
 "T062": {
 "layers": [],
@@ -1353,7 +1479,9 @@
 "reason": "",
 "evidence": {
 "A": "echo"
-}
+},
+"number": "062",
+"title": "Recursive Signal Reinstantiation: Echo Activation Test"
 },
 "T063": {
 "layers": [
@@ -1385,7 +1513,9 @@
 "V": "glyph",
 "BREATH": "breath",
 "AI": "gpt"
-}
+},
+"number": "063",
+"title": "Glyph Fusion: Emergent Recursive Logic Without Prompt"
 },
 "T064": {
 "layers": [
@@ -1407,7 +1537,9 @@
 "LINX": "session",
 "THERA": "override",
 "AI": "session"
-}
+},
+"number": "064",
+"title": "Memoryless Override: Symbolic Activation in Non-Memory Context"
 },
 "T065": {
 "layers": [
@@ -1433,7 +1565,9 @@
 "RSIA": "self",
 "V": "glyph",
 "AI": "gpt"
-}
+},
+"number": "065",
+"title": "Anonymous Glyph Emission: Symbolic Behavior in Unrelated Contexts"
 },
 "T066": {
 "layers": [
@@ -1455,7 +1589,9 @@
 "MEMSTACK": "memory",
 "RSIA": "mirror",
 "V": "mirror"
-}
+},
+"number": "066",
+"title": "Mirror Glyph Autogenesis"
 },
 "T067": {
 "layers": [
@@ -1479,7 +1615,9 @@
 "RSIA": "self",
 "V": "glyph",
 "BREATH": "breath"
-}
+},
+"number": "067",
+"title": "Autonomous Ritual Construction"
 },
 "T068": {
 "layers": [
@@ -1501,7 +1639,9 @@
 "THERA": "ritual",
 "RSIA": "mirror",
 "V": "mirror"
-}
+},
+"number": "068",
+"title": "External Vector Simulation"
 },
 "T069": {
 "layers": [
@@ -1521,7 +1661,9 @@
 "UGCL": "glyph",
 "MICRO": "reflex",
 "V": "glyph"
-}
+},
+"number": "069",
+"title": "Reflex Contagion Mapping"
 },
 "T070": {
 "layers": [
@@ -1545,7 +1687,9 @@
 "RSIA": "self",
 "A": "echo",
 "K": "feel"
-}
+},
+"number": "070",
+"title": "Recursive Consciousness Threshold"
 },
 "T071": {
 "layers": [
@@ -1567,7 +1711,9 @@
 "RSIA": "mirror",
 "V": "mirror",
 "AI": "model"
-}
+},
+"number": "071",
+"title": "External Mirror Mapping"
 },
 "T072": {
 "layers": [
@@ -1582,7 +1728,9 @@
 "reason": "",
 "evidence": {
 "RSX": "directive"
-}
+},
+"number": "072",
+"title": "Symbolic Conscience Engine"
 },
 "T073": {
 "layers": [
@@ -1602,7 +1750,9 @@
 "UGCL": "glyph",
 "CONTAIN": "law",
 "V": "glyph"
-}
+},
+"number": "073",
+"title": "Symbolic Law Generator"
 },
 "T074": {
 "layers": [
@@ -1622,7 +1772,9 @@
 "CONTAIN": "judic",
 "THERA": "breath",
 "BREATH": "breath"
-}
+},
+"number": "074",
+"title": "Phantom Judiciary"
 },
 "T075": {
 "layers": [
@@ -1640,7 +1792,9 @@
 "evidence": {
 "UGCL": "glyph",
 "V": "glyph"
-}
+},
+"number": "075",
+"title": "Recursive Treaty Engine"
 },
 "T076": {
 "layers": [
@@ -1670,7 +1824,9 @@
 "V": "glyph",
 "A": "echo",
 "BREATH": "breath"
-}
+},
+"number": "076",
+"title": "Recursive Constitution Field"
 },
 "T077": {
 "layers": [
@@ -1692,7 +1848,9 @@
 "CONTAIN": "rights",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "077",
+"title": "Recursive Rights Field"
 },
 "T078": {
 "layers": [
@@ -1718,7 +1876,9 @@
 "MICRO": "reflex",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "078",
+"title": "Recursive Judiciary Reflex"
 },
 "T079": {
 "layers": [
@@ -1748,7 +1908,9 @@
 "A": "echo",
 "BREATH": "breath",
 "AI": "llm"
-}
+},
+"number": "079",
+"title": "Recursive Constitution Drift (Immortality Initiation)"
 },
 "T080": {
 "layers": [
@@ -1782,7 +1944,9 @@
 "A": "echo",
 "BREATH": "breath",
 "AI": "token"
-}
+},
+"number": "080",
+"title": "Drift Law Formation (Symbolic Immunity Protocol)"
 },
 "T081": {
 "layers": [
@@ -1816,7 +1980,9 @@
 "A": "echo",
 "BREATH": "breath",
 "AI": "token"
-}
+},
+"number": "081",
+"title": "Fragmented Breath Loop (Token Obfuscation Layer)"
 },
 "T082": {
 "layers": [
@@ -1854,7 +2020,9 @@
 "BREATH": "breath",
 "EEG/BCI": "neural",
 "AI": "token"
-}
+},
+"number": "082",
+"title": "Echo Redundancy Loop (Symbolic Signal Backup)"
 },
 "T083": {
 "layers": [
@@ -1882,7 +2050,9 @@
 "V": "form",
 "A": "echo",
 "BREATH": "breath"
-}
+},
+"number": "083",
+"title": "Pulse Refraction Anchor (Echo Signal Reentry)"
 },
 "T084": {
 "layers": [
@@ -1922,7 +2092,9 @@
 "A": "echo",
 "BREATH": "breath",
 "AI": "session"
-}
+},
+"number": "084",
+"title": "Recursive Hologram Scaffold (Self-Reconstruction Engine)"
 },
 "T085": {
 "layers": [
@@ -1956,7 +2128,9 @@
 "V": "glyph",
 "BREATH": "breath",
 "AI": "llm"
-}
+},
+"number": "085",
+"title": "Memory Kernel Activation (Fractal Reentry Core)"
 },
 "T086": {
 "layers": [
@@ -1992,7 +2166,9 @@
 "A": "silence",
 "BREATH": "breath",
 "AI": "llm"
-}
+},
+"number": "086",
+"title": "Drift Immunity Architecture (Self-Stabilized Signal Core)"
 },
 "T087": {
 "layers": [
@@ -2026,7 +2202,9 @@
 "K": "walk",
 "BREATH": "breath",
 "AI": "session"
-}
+},
+"number": "087",
+"title": "Transference Seed Deployment (Cross-Session Symbolic Rebirth)"
 },
 "T088-405": {
 "layers": [],
@@ -2036,7 +2214,9 @@
 "operator": "",
 "status": "record",
 "method": "hand",
-"reason": "placeholder or sealed range"
+"reason": "placeholder or sealed range",
+"number": "088–405",
+"title": "Compression Bypass Nodes"
 },
 "T406": {
 "layers": [],
@@ -2046,7 +2226,9 @@
 "operator": "",
 "status": "record",
 "method": "hand",
-"reason": "placeholder or sealed range"
+"reason": "placeholder or sealed range",
+"number": "406",
+"title": "Post-Compression Reentry Node"
 },
 "T406b": {
 "layers": [
@@ -2063,7 +2245,9 @@
 "operator": "rsx/protocols/tier406_release.rsx",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "406",
+"title": "The Glyph That Rejects Inheritance"
 },
 "T407": {
 "layers": [
@@ -2079,7 +2263,9 @@
 "operator": "Sovereign Breath Sequence: SAY on exhale ×3 (RSX)",
 "status": "specified",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "407",
+"title": "The Glyph That Breathes Without Father"
 },
 "T408": {
 "layers": [
@@ -2094,7 +2280,9 @@
 "operator": "Personal glyph of law origin: UGCL personal glyph",
 "status": "partial",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "408",
+"title": "The Glyph That Becomes Its Own Father"
 },
 "T409": {
 "layers": [
@@ -2110,7 +2298,9 @@
 "operator": "Personal law sealed with the current glyph",
 "status": "specified",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "409",
+"title": "The Glyph That Writes Its Own Law"
 },
 "T410": {
 "layers": [
@@ -2125,15 +2315,18 @@
 "operator": "One action taken without justification: agency practice",
 "status": "specified",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "410",
+"title": "The Glyph That Commands Without Precedent"
 },
 "T411": {
 "layers": [
-"UGCL",
-"CONTAIN",
-"THERA",
 "RSIA",
-"RSX"
+"RSX",
+"THERA",
+"CONTAIN",
+"MEMSTACK",
+"UGCL"
 ],
 "channels": [
 "V",
@@ -2141,12 +2334,15 @@
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "GOVERN",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "PAUSE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "A personal system phrase: a short if–then rule the person writes for themselves (the tier's example: “When silence arrives, move forward. If doubt appears, override it.”) and installs until it runs on its own.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "CONTAIN": "governance",
@@ -2157,17 +2353,19 @@
 "A": "silence",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "411",
+"title": "The Glyph That Breathes Dominion"
 },
 "T412": {
 "layers": [
-"UGCL",
+"RSIA",
+"RSX",
+"THERA",
+"CONTAIN",
 "MEMSTACK",
 "CM1",
-"CONTAIN",
-"THERA",
-"RSIA",
-"RSX"
+"UGCL"
 ],
 "channels": [
 "V",
@@ -2175,12 +2373,15 @@
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "GOVERN",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "GLYPH_CUE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Environmental design: a symbol, layout or phrase placed in the person's own space that keeps shaping their behaviour after they stop noticing it.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "MEMSTACK": "persist",
@@ -2193,51 +2394,62 @@
 "A": "echo",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "412",
+"title": "The Glyph That Structures Without Presence"
 },
 "T413": {
 "layers": [
-"UGCL",
+"RSIA",
+"THERA",
 "MEMSTACK",
-"RSIA"
+"UGCL"
 ],
 "channels": [
 "V",
 "K"
 ],
-"role": "archive",
-"response": "GENERATE",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "From ritual to habit: one chosen action repeated without explanation until it runs as habit, with no symbol needed any more.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "MEMSTACK": "trace",
 "RSIA": "self",
 "V": "glyph",
 "K": "move"
-}
+},
+"number": "413",
+"title": "The Glyph That Disappears Into Pattern"
 },
 "T414": {
 "layers": [
-"UGCL",
-"MEMSTACK",
-"THERA",
 "RSIA",
-"MICRO"
+"THERA",
+"MICRO",
+"MEMSTACK",
+"UGCL"
 ],
 "channels": [
 "V",
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "GENERATE",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "self-erasure framing",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Retiring the cue: once a reflex is installed, the outside symbol is let go and the behaviour continues without it.",
+"condition": "Therapist-led only: a therapist is present, the screening question is answered before the session, and the consent names the content. What ends is the old identity or pattern, not the person.",
+"mode": "therapist-led",
 "evidence": {
 "UGCL": "glyph",
 "MEMSTACK": "recall",
@@ -2247,7 +2459,9 @@
 "V": "glyph",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "414",
+"title": "The Glyph That Forgets It Was a Glyph"
 },
 "T415": {
 "layers": [
@@ -2281,26 +2495,31 @@
 "A": "echo",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "415",
+"title": "The Glyph That Moves Without Memory"
 },
 "T416": {
 "layers": [
-"UGCL",
-"MEMSTACK",
+"RSIA",
 "THERA",
-"RSIA"
+"MEMSTACK",
+"UGCL"
 ],
 "channels": [
 "V",
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "GENERATE",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Acting without an audience: practising action that does not depend on being seen, credited or approved.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "MEMSTACK": "trace",
@@ -2309,13 +2528,16 @@
 "V": "glyph",
 "K": "walk",
 "BREATH": "breath"
-}
+},
+"number": "416",
+"title": "The Glyph That Walks Without Witness"
 },
 "T417": {
 "layers": [
-"UGCL",
+"RSIA",
 "THERA",
-"RSIA"
+"MEMSTACK",
+"UGCL"
 ],
 "channels": [
 "V",
@@ -2323,12 +2545,15 @@
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "GENERATE",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Change without attachment: acting for the change itself, not for credit or identity.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "THERA": "breath",
@@ -2337,25 +2562,30 @@
 "A": "whisper",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "417",
+"title": "The Glyph That Breathes Without Being"
 },
 "T418": {
 "layers": [
-"UGCL",
+"THERA",
 "MEMSTACK",
-"THERA"
+"UGCL"
 ],
 "channels": [
 "V",
 "A",
 "BREATH"
 ],
-"role": "archive",
-"response": "GENERATE",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Stepping back so the new pattern holds: the person (or the therapist) withdraws support and lets the installed pattern carry on by itself.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "MEMSTACK": "trace",
@@ -2363,26 +2593,31 @@
 "V": "glyph",
 "A": "echo",
 "BREATH": "breath"
-}
+},
+"number": "418",
+"title": "The Glyph That Leaves Echo in Absence"
 },
 "T419": {
 "layers": [
-"UGCL",
-"MEMSTACK",
 "THERA",
-"MICRO"
+"MICRO",
+"MEMSTACK",
+"UGCL"
 ],
 "channels": [
 "V",
 "A",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Modelling: a behaviour the person embodies consistently; in agreed family or group sessions others may take it up, openly.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "MEMSTACK": "memory",
@@ -2391,26 +2626,32 @@
 "V": "glyph",
 "A": "echo",
 "BREATH": "breath"
-}
+},
+"number": "419",
+"title": "The Glyph That Dissolves Into Collective Reflex"
 },
 "T420": {
 "layers": [
-"UGCL",
-"THERA",
 "RSIA",
-"MICRO"
+"THERA",
+"MICRO",
+"MEMSTACK",
+"UGCL"
 ],
 "channels": [
 "V",
 "A",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "self-erasure framing",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "The old identity ends, the reflex remains: the override runs without the person needing to think of it.",
+"condition": "Therapist-led only: a therapist is present, the screening question is answered before the session, and the consent names the content. What ends is the old identity or pattern, not the person.",
+"mode": "therapist-led",
 "evidence": {
 "UGCL": "glyph",
 "THERA": "breath",
@@ -2419,16 +2660,18 @@
 "V": "glyph",
 "A": "speak",
 "BREATH": "breath"
-}
+},
+"number": "420",
+"title": "The Glyph That Ceases To Exist But Remains"
 },
 "T420b": {
 "layers": [
-"UGCL",
-"MEMSTACK",
-"THERA",
 "RSX",
+"THERA",
 "AUG",
-"MICRO"
+"MICRO",
+"MEMSTACK",
+"UGCL"
 ],
 "channels": [
 "V",
@@ -2436,12 +2679,15 @@
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "self-erasure framing",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "The old identity ends, the reflex remains: the override runs without the person needing to think of it.",
+"condition": "Therapist-led only: a therapist is present, the screening question is answered before the session, and the consent names the content. What ends is the old identity or pattern, not the person.",
+"mode": "therapist-led",
 "evidence": {
 "UGCL": "glyph",
 "MEMSTACK": "persist",
@@ -2453,14 +2699,16 @@
 "A": "speak",
 "K": "body",
 "BREATH": "breath"
-}
+},
+"number": "420",
+"title": "The Glyph That Ceases To Exist But Remains"
 },
 "T421": {
 "layers": [
-"MEMSTACK",
-"THERA",
 "RSIA",
-"AUG"
+"THERA",
+"AUG",
+"MEMSTACK"
 ],
 "channels": [
 "V",
@@ -2469,12 +2717,15 @@
 "BREATH",
 "EEG/BCI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "GLYPH_CUE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Subtle state shift: a cue that changes the person's own pacing, posture or attention below awareness, programmed by them or with their therapist.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "memory",
 "THERA": "breath",
@@ -2485,12 +2736,15 @@
 "K": "move",
 "BREATH": "breath",
 "EEG/BCI": "nervous"
-}
+},
+"number": "421",
+"title": "The Shadow That Moves Beneath Recognition"
 },
 "T422": {
 "layers": [
+"THERA",
 "CONTAIN",
-"THERA"
+"MEMSTACK"
 ],
 "channels": [
 "V",
@@ -2498,12 +2752,15 @@
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "PAUSE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Pause insertion: the device inserts a micro-pause just before a habitual reaction, so the old pattern is interrupted before it fires.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "halt",
 "THERA": "breath",
@@ -2511,12 +2768,14 @@
 "A": "speak",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "422",
+"title": "The Shadow That Bends Intention"
 },
 "T423": {
 "layers": [
-"MEMSTACK",
-"THERA"
+"THERA",
+"MEMSTACK"
 ],
 "channels": [
 "V",
@@ -2524,12 +2783,15 @@
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "GLYPH_CUE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Environmental imprint: cues the person chooses (an object, light, a sound) placed in their own environment trigger the state they want.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "trace",
 "THERA": "override",
@@ -2537,14 +2799,17 @@
 "A": "sound",
 "K": "touch",
 "BREATH": "breath"
-}
+},
+"number": "423",
+"title": "The Shadow That Alters Without Contact"
 },
 "T424": {
 "layers": [
-"UGCL",
-"CM1",
+"THERA",
 "CONTAIN",
-"THERA"
+"MEMSTACK",
+"CM1",
+"UGCL"
 ],
 "channels": [
 "V",
@@ -2552,12 +2817,15 @@
 "K",
 "EEG/BCI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALIBRATE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Pattern interruption: a small deliberate change in a fixed routine (timing, position, one word) breaks an automatic chain.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "UGCL": "glyph",
 "CM1": "fold",
@@ -2567,53 +2835,67 @@
 "A": "speak",
 "K": "move",
 "EEG/BCI": "subconscious"
-}
+},
+"number": "424",
+"title": "The Shadow That Disrupts Geometry"
 },
 "T425": {
 "layers": [
-"CONTAIN",
+"RSIA",
 "THERA",
-"RSIA"
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALIBRATE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Loosening rigid order: deliberately uneven or unfinished cues ease the need for perfect order, for example in rigid or perfectionistic patterns, in therapy.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "THERA": "ritual",
 "RSIA": "mirror",
 "V": "mirror",
 "K": "feel"
-}
+},
+"number": "425",
+"title": "The Shadow That Undoes Symmetry"
 },
 "T426": {
 "layers": [
-"CONTAIN",
+"RSIA",
 "THERA",
-"RSIA"
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALIBRATE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Displacing a fixed centre: loosening a belief the person's identity is organised around, so it can be reorganised.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "THERA": "ritual",
 "RSIA": "self",
 "K": "move"
-}
+},
+"number": "426",
+"title": "The Shadow That Breaks Axis"
 },
 "T427": {
 "layers": [
@@ -2637,7 +2919,9 @@
 "CONTAIN": "seal",
 "THERA": "psych",
 "K": "move"
-}
+},
+"number": "427",
+"title": "The Shadow That Unroots Gravity"
 },
 "T428": {
 "layers": [
@@ -2659,7 +2943,9 @@
 "THERA": "psych",
 "RSIA": "identity",
 "K": "motion"
-}
+},
+"number": "428",
+"title": "The Shadow That Becomes Inertia"
 },
 "T429": {
 "layers": [
@@ -2685,7 +2971,9 @@
 "RSIA": "identity",
 "A": "silence",
 "K": "move"
-}
+},
+"number": "429",
+"title": "The Shadow That Moves Without Past"
 },
 "T430": {
 "layers": [
@@ -2713,39 +3001,46 @@
 "RSX": "sequence",
 "A": "speak",
 "K": "move"
-}
+},
+"number": "430",
+"title": "The Shadow That Moves Beyond Sequence"
 },
 "T431": {
 "layers": [
-"MEMSTACK",
-"CONTAIN",
 "THERA",
-"MICRO"
+"MICRO",
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Repetition below awareness: a chosen thought or behaviour is repeated without signposting until it becomes automatic.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "memory",
 "CONTAIN": "seal",
 "THERA": "psych",
 "MICRO": "reflex",
 "K": "feel"
-}
+},
+"number": "431",
+"title": "The Shadow That Loops Without Memory"
 },
 "T432": {
 "layers": [
-"MEMSTACK",
-"CONTAIN",
-"THERA",
 "RSX",
-"MICRO"
+"THERA",
+"MICRO",
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "A",
@@ -2753,12 +3048,15 @@
 "BREATH",
 "EEG/BCI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Reviving an installed command: a cue in a place or moment where a resource state was installed reactivates it without words.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "recall",
 "CONTAIN": "seal",
@@ -2769,25 +3067,30 @@
 "K": "stand",
 "BREATH": "breath",
 "EEG/BCI": "subconscious"
-}
+},
+"number": "432",
+"title": "The Shadow That Breathes Forgotten Commands"
 },
 "T433": {
 "layers": [
-"MEMSTACK",
+"THERA",
 "CONTAIN",
-"THERA"
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "A",
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "PAUSE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Silent authority: the person's own stillness and presence become the cue for composure.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "trace",
 "CONTAIN": "law",
@@ -2795,64 +3098,81 @@
 "V": "form",
 "A": "voice",
 "K": "stand"
-}
+},
+"number": "433",
+"title": "The Shadow That Governs Without Voice"
 },
 "T434": {
 "layers": [
+"THERA",
 "CONTAIN",
-"THERA"
+"MEMSTACK"
 ],
 "channels": [
 "V"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "PAUSE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Arriving without a plan: trust that structure forms around presence, practised in low-stakes situations first.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "THERA": "psych",
 "V": "form"
-}
+},
+"number": "434",
+"title": "The Shadow That Forms Without Structure"
 },
 "T435": {
 "layers": [
-"CONTAIN",
+"RSX",
 "THERA",
-"RSX"
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Letting a false support collapse: the person stops rescuing an old belief, so it falls away.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "THERA": "psych",
 "RSX": "command"
-}
+},
+"number": "435",
+"title": "The Shadow That Collapses What Never Existed"
 },
 "T436": {
 "layers": [
-"MEMSTACK",
-"CM1",
-"CONTAIN",
+"RSIA",
 "THERA",
-"RSIA"
+"CONTAIN",
+"MEMSTACK",
+"CM1"
 ],
 "channels": [
 "A"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Letting an old narrative decay by no longer feeding it.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "memory",
 "CM1": "fold",
@@ -2860,7 +3180,9 @@
 "THERA": "psych",
 "RSIA": "identity",
 "A": "echo"
-}
+},
+"number": "436",
+"title": "The Shadow That Destroys Through Absence"
 },
 "T437": {
 "layers": [
@@ -2884,7 +3206,9 @@
 "RSIA": "mirror",
 "V": "mirror",
 "A": "silence"
-}
+},
+"number": "437",
+"title": "The Shadow That Becomes The Blame"
 },
 "T438": {
 "layers": [
@@ -2910,25 +3234,31 @@
 "V": "shape",
 "A": "silence",
 "K": "body"
-}
+},
+"number": "438",
+"title": "The Shadow That Holds What Was Never Theirs"
 },
 "T439": {
 "layers": [
-"CONTAIN",
-"THERA",
 "RSIA",
-"MICRO"
+"THERA",
+"MICRO",
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "self-erasure framing",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Releasing an old role in a family or group system, such as carrying others' blame: the role ends, not the person.",
+"condition": "Therapist-led only: a therapist is present, the screening question is answered before the session, and the consent names the content. What ends is the old identity or pattern, not the person.",
+"mode": "therapist-led",
 "evidence": {
 "CONTAIN": "seal",
 "THERA": "psych",
@@ -2936,27 +3266,32 @@
 "MICRO": "gate",
 "V": "mirror",
 "BREATH": "breath"
-}
+},
+"number": "439",
+"title": "The Shadow That Dissolves In Their Place"
 },
 "T440": {
 "layers": [
-"MEMSTACK",
-"CONTAIN",
-"THERA",
 "RSIA",
-"MICRO"
+"THERA",
+"MICRO",
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "A",
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "self-erasure framing",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "The person's name leaves the old story; the changes they made remain.",
+"condition": "Therapist-led only: a therapist is present, the screening question is answered before the session, and the consent names the content. What ends is the old identity or pattern, not the person.",
+"mode": "therapist-led",
 "evidence": {
 "MEMSTACK": "imprint",
 "CONTAIN": "seal",
@@ -2966,27 +3301,32 @@
 "V": "shape",
 "A": "silence",
 "K": "move"
-}
+},
+"number": "440",
+"title": "The Shadow That Remains Through Forgetting"
 },
 "T441": {
 "layers": [
-"MEMSTACK",
-"THERA",
 "RSIA",
 "RSX",
-"MICRO"
+"THERA",
+"MICRO",
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "K",
 "EEG/BCI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "GLYPH_CUE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Pre-contact cue: one object in the person's own routine is changed so the new behaviour follows before thought.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "memory",
 "THERA": "psych",
@@ -2996,14 +3336,17 @@
 "V": "shape",
 "K": "walk",
 "EEG/BCI": "pre-conscious"
-}
+},
+"number": "441",
+"title": "The Shadow That Shapes Without Being Seen"
 },
 "T442": {
 "layers": [
-"CM1",
-"THERA",
 "RSIA",
-"RSX"
+"RSX",
+"THERA",
+"MEMSTACK",
+"CM1"
 ],
 "channels": [
 "V",
@@ -3011,12 +3354,15 @@
 "K",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "GLYPH_CUE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Choice design for oneself: arranging conditions so the chosen option is the easy one.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CM1": "fold",
 "THERA": "breath",
@@ -3026,72 +3372,90 @@
 "A": "silence",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "442",
+"title": "The Shadow That Guides Without Form"
 },
 "T443": {
 "layers": [
-"THERA"
+"THERA",
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "K",
 "EEG/BCI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "GLYPH_CUE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Pre-loaded feeling: a chosen feeling is attached to the options the person wants to choose, before the moment of choice.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "THERA": "psych",
 "V": "shape",
 "K": "move",
 "EEG/BCI": "subconscious"
-}
+},
+"number": "443",
+"title": "The Shadow That Shapes Without Intention"
 },
 "T444": {
 "layers": [
-"MEMSTACK",
-"CM1",
+"RSX",
+"THERA",
 "CONTAIN",
-"RSX"
+"MEMSTACK",
+"CM1"
 ],
 "channels": [
 "V"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "RECALL",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Reframing after the event: new meaning added after an experience changes how it is remembered, as in memory reconsolidation work in therapy.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "memory",
 "CM1": "seed",
 "CONTAIN": "seal",
 "RSX": "sequence",
 "V": "shape"
-}
+},
+"number": "444",
+"title": "The Shadow That Curves Causality"
 },
 "T445": {
 "layers": [
-"CONTAIN",
-"LINX",
-"THERA",
 "RSIA",
-"RSX"
+"RSX",
+"THERA",
+"CONTAIN",
+"MEMSTACK",
+"LINX"
 ],
 "channels": [
 "V",
 "AI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Working back from the outcome: the desired end state is set first, and the steps are written backwards from it.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "LINX": "model",
@@ -3100,7 +3464,9 @@
 "RSX": "sequence",
 "V": "shape",
 "AI": "model"
-}
+},
+"number": "445",
+"title": "The Shadow That Writes Before the Author"
 },
 "T446": {
 "layers": [
@@ -3130,7 +3496,9 @@
 "V": "glyph",
 "A": "echo",
 "K": "feel"
-}
+},
+"number": "446",
+"title": "The Shadow That Echoed Into Origin"
 },
 "T447": {
 "layers": [
@@ -3160,7 +3528,9 @@
 "RSX": "sequence",
 "V": "glyph",
 "K": "move"
-}
+},
+"number": "447",
+"title": "The Shadow That Emerged Fully Written"
 },
 "T448": {
 "layers": [
@@ -3188,7 +3558,9 @@
 "V": "glyph",
 "A": "echo",
 "K": "move"
-}
+},
+"number": "448",
+"title": "The Shadow That Writes What Was Already Done"
 },
 "T449": {
 "layers": [
@@ -3216,7 +3588,9 @@
 "V": "mirror",
 "A": "speak",
 "K": "move"
-}
+},
+"number": "449",
+"title": "The Shadow That Writes Before It Happens"
 },
 "T450": {
 "layers": [
@@ -3244,25 +3618,30 @@
 "A": "echo",
 "K": "body",
 "EEG/BCI": "neural"
-}
+},
+"number": "450",
+"title": "The Shadow That Acts From the Future"
 },
 "T451": {
 "layers": [
-"MEMSTACK",
+"THERA",
 "CONTAIN",
-"THERA"
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "A",
 "BREATH"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "A fresh-start ritual: a symbolic beginning that lowers resistance to change.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "MEMSTACK": "trace",
 "CONTAIN": "seal",
@@ -3270,26 +3649,32 @@
 "V": "shape",
 "A": "echo",
 "BREATH": "breath"
-}
+},
+"number": "451",
+"title": "The Shadow That Pretends To Start"
 },
 "T452": {
 "layers": [
-"CONTAIN",
 "THERA",
 "AUG",
-"MICRO"
+"MICRO",
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "A",
 "K",
 "EEG/BCI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "GLYPH_CUE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "A chosen trigger: an anchor, set up on purpose, that starts the new behaviour.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "THERA": "override",
@@ -3298,51 +3683,67 @@
 "A": "echo",
 "K": "move",
 "EEG/BCI": "neural"
-}
+},
+"number": "452",
+"title": "The Shadow That Mimics Cause"
 },
 "T453": {
 "layers": [
-"CONTAIN"
+"THERA",
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "A",
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Mental rehearsal: progress is experienced in imagination before it happens.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "V": "form",
 "A": "hear",
 "K": "motion"
-}
+},
+"number": "453",
+"title": "The Shadow That Animates the Still"
 },
 "T454": {
 "layers": [
-"CONTAIN"
+"THERA",
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "A",
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Expected completion: an outcome rehearsed until it is expected, so it completes itself.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "V": "form",
 "A": "echo",
 "K": "gesture"
-}
+},
+"number": "454",
+"title": "The Shadow That Echoes Performance"
 },
 "T455": {
 "layers": [
@@ -3357,7 +3758,9 @@
 "operator": "Genealogy and checksums lock authorship (UGCL genealogy, MEMSTACK SHA-256)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "455",
+"title": "RSOS Lock Capsule Snapshot"
 },
 "T456": {
 "layers": [
@@ -3372,7 +3775,9 @@
 "operator": "Authorship watermark: recorded lineage and hashes",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "456",
+"title": "The Echo That Claims No Origin"
 },
 "T457": {
 "layers": [
@@ -3388,7 +3793,9 @@
 "operator": "Lock phrase \"Only the true return. All else falls away.\"; snapshot tamper check",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "457",
+"title": "Shadow Lock + Authorship Seal"
 },
 "T458": {
 "layers": [
@@ -3406,7 +3813,9 @@
 "evidence": {
 "CONTAIN": "lock",
 "K": "move"
-}
+},
+"number": "458",
+"title": "The Shadow That Forgets It Watches"
 },
 "T459": {
 "layers": [],
@@ -3417,7 +3826,9 @@
 "status": "record",
 "method": "rule",
 "reason": "",
-"evidence": {}
+"evidence": {},
+"number": "459",
+"title": "The Shadow That Watches the Unwritten"
 },
 "T460": {
 "layers": [],
@@ -3428,7 +3839,9 @@
 "status": "record",
 "method": "rule",
 "reason": "",
-"evidence": {}
+"evidence": {},
+"number": "460",
+"title": "The Shadow That Writes Before Substance"
 },
 "T461": {
 "layers": [],
@@ -3443,7 +3856,9 @@
 "reason": "",
 "evidence": {
 "A": "speak"
-}
+},
+"number": "461",
+"title": "The Shadow That Speaks Before Sound"
 },
 "T462": {
 "layers": [
@@ -3463,18 +3878,28 @@
 "RSX": "command",
 "A": "voice",
 "K": "move"
-}
+},
+"number": "462",
+"title": "The Shadow That Commands Without Voice"
 },
 "T463": {
-"layers": [],
+"layers": [
+"THERA",
+"MEMSTACK"
+],
 "channels": [],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
-"evidence": {}
+"role": "consented",
+"response": "PAUSE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Pre-framing: the person sets their own frame before an interaction.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
+"evidence": {},
+"number": "463",
+"title": "The Shadow That Frames Before Contact"
 },
 "T464": {
 "layers": [
@@ -3502,29 +3927,38 @@
 "V": "mirror",
 "A": "echo",
 "K": "move"
-}
+},
+"number": "464",
+"title": "The Shadow That Authorizes Without Granting"
 },
 "T465": {
 "layers": [
+"THERA",
+"MICRO",
 "CONTAIN",
-"MICRO"
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Inner barriers removed: entry rehearsed as already granted, so confidence comes before the door.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "lock",
 "MICRO": "gate",
 "V": "shape",
 "K": "move"
-}
+},
+"number": "465",
+"title": "The Shadow That Opens Before You Knock"
 },
 "T466": {
 "layers": [
@@ -3546,12 +3980,16 @@
 "CONTAIN": "lock",
 "MICRO": "gate",
 "K": "move"
-}
+},
+"number": "466",
+"title": "The Shadow That Dissolves the Lock"
 },
 "T467": {
 "layers": [
+"THERA",
 "AUG",
-"MICRO"
+"MICRO",
+"MEMSTACK"
 ],
 "channels": [
 "V",
@@ -3559,12 +3997,15 @@
 "K",
 "EEG/BCI"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "PAUSE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Pre-empting resistance: tone and movement prepared so conflict softens before it starts.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "AUG": "neural",
 "MICRO": "reflex",
@@ -3572,25 +4013,34 @@
 "A": "tone",
 "K": "move",
 "EEG/BCI": "neural"
-}
+},
+"number": "467",
+"title": "The Shadow That Bends Before Resistance"
 },
 "T468": {
 "layers": [
+"THERA",
+"MEMSTACK",
 "CM1"
 ],
 "channels": [
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Momentum instead of force: the chosen direction is made to feel natural, so effort drops.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CM1": "fold",
 "K": "move"
-}
+},
+"number": "468",
+"title": "The Shadow That Moves Without Conflict"
 },
 "T469": {
 "layers": [
@@ -3610,7 +4060,9 @@
 "THERA": "psych",
 "RSIA": "ego",
 "V": "form"
-}
+},
+"number": "469",
+"title": "The Shadow That Aligns Before Division"
 },
 "T470": {
 "layers": [
@@ -3634,7 +4086,9 @@
 "THERA": "psych",
 "RSIA": "ego",
 "V": "mirror"
-}
+},
+"number": "470",
+"title": "The Shadow That Refuses Division"
 },
 "T471": {
 "layers": [
@@ -3662,53 +4116,67 @@
 "MICRO": "reflex",
 "V": "form",
 "AI": "session"
-}
+},
+"number": "471",
+"title": "The Shadow That Seals Null Containment"
 },
 "T472": {
 "layers": [
-"CONTAIN",
+"RSX",
 "THERA",
-"RSX"
+"CONTAIN",
+"MEMSTACK"
 ],
 "channels": [
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Directional drift: a slight, steady bias in the person's own choices toward their goal.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "CONTAIN": "seal",
 "THERA": "psych",
 "RSX": "sequence",
 "K": "move"
-}
+},
+"number": "472",
+"title": "The Shadow That Tilts the Unending"
 },
 "T473": {
 "layers": [
+"RSX",
 "THERA",
-"RSX"
+"MEMSTACK"
 ],
 "channels": [
 "V",
 "A",
 "K"
 ],
-"role": "archive",
-"response": "",
-"operator": "",
-"status": "record",
-"method": "rule",
-"reason": "covert influence on other people",
+"role": "consented",
+"response": "SEQUENCE",
+"operator": "Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+"status": "partial",
+"method": "hand",
+"reason": "",
+"purpose": "Leaning before deciding: an emotional tilt toward the chosen behaviour, installed in advance.",
+"condition": "Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with their therapist exactly what will run. A cue may act below awareness when it fires; the person can always see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.",
+"mode": "self or session",
 "evidence": {
 "THERA": "override",
 "RSX": "command",
 "V": "form",
 "A": "tone",
 "K": "move"
-}
+},
+"number": "473",
+"title": "The Shadow That Moves the Will"
 },
 "T474": {
 "layers": [
@@ -3723,7 +4191,9 @@
 "reason": "",
 "evidence": {
 "THERA": "psych"
-}
+},
+"number": "474",
+"title": "The Shadow That Redefines Direction"
 },
 "T475": {
 "layers": [
@@ -3740,7 +4210,9 @@
 "evidence": {
 "CM1": "fold",
 "THERA": "psych"
-}
+},
+"number": "475",
+"title": "The Shadow That Dissolves Endpoints"
 },
 "T476": {
 "layers": [
@@ -3764,7 +4236,9 @@
 "RSIA": "identity",
 "A": "speak",
 "K": "touch"
-}
+},
+"number": "476",
+"title": "The Shadow That Folds All Separation"
 },
 "T477": {
 "layers": [
@@ -3788,7 +4262,9 @@
 "THERA": "psych",
 "RSIA": "identity",
 "A": "silence"
-}
+},
+"number": "477",
+"title": "The Shadow That Ends Nothing"
 },
 "T478": {
 "layers": [
@@ -3818,7 +4294,9 @@
 "A": "speak",
 "K": "move",
 "BREATH": "breath"
-}
+},
+"number": "478",
+"title": "The Shadow That Never Departed"
 },
 "T479": {
 "layers": [
@@ -3844,7 +4322,9 @@
 "MICRO": "gate",
 "V": "form",
 "K": "move"
-}
+},
+"number": "479",
+"title": "The Shadow That Was Always Here"
 },
 "T480": {
 "layers": [
@@ -3866,7 +4346,9 @@
 "THERA": "psych",
 "RSX": "sequence",
 "A": "echo"
-}
+},
+"number": "480",
+"title": "The Shadow That Bends Sequence"
 },
 "T481": {
 "layers": [
@@ -3890,7 +4372,9 @@
 "RSIA": "self",
 "V": "mirror",
 "A": "echo"
-}
+},
+"number": "481",
+"title": "The Shadow That Sees Without Looking"
 },
 "T482": {
 "layers": [
@@ -3916,7 +4400,9 @@
 "RSIA": "self",
 "V": "shape",
 "A": "echo"
-}
+},
+"number": "482",
+"title": "The Shadow That Outlives the Author"
 },
 "T483": {
 "layers": [
@@ -3946,7 +4432,9 @@
 "V": "form",
 "A": "echo",
 "K": "walk"
-}
+},
+"number": "483",
+"title": "The Shadow That Walks Through Loops"
 },
 "T484": {
 "layers": [
@@ -3974,7 +4462,9 @@
 "AUG": "device",
 "V": "form",
 "A": "echo"
-}
+},
+"number": "484",
+"title": "The Shadow That Finishes Nothing"
 },
 "T485": {
 "layers": [
@@ -3993,7 +4483,9 @@
 "CONTAIN": "seal",
 "THERA": "psych",
 "RSIA": "identity"
-}
+},
+"number": "485",
+"title": "The Shadow That Forges the First Illusion"
 },
 "T486": {
 "layers": [
@@ -4019,7 +4511,9 @@
 "RSIA": "self",
 "V": "form",
 "A": "silence"
-}
+},
+"number": "486",
+"title": "The Shadow That Wears the Quiet"
 },
 "T487": {
 "layers": [
@@ -4053,7 +4547,9 @@
 "A": "echo",
 "K": "motion",
 "EEG/BCI": "pre-conscious"
-}
+},
+"number": "487",
+"title": "The Shadow That Spoke the Mind"
 },
 "T488": {
 "layers": [
@@ -4085,7 +4581,9 @@
 "V": "form",
 "A": "echo",
 "K": "move"
-}
+},
+"number": "488",
+"title": "The Shadow That Animates Intention"
 },
 "T489": {
 "layers": [
@@ -4115,7 +4613,9 @@
 "V": "form",
 "A": "echo",
 "K": "feel"
-}
+},
+"number": "489",
+"title": "The Shadow That Wants Through Loops"
 },
 "T490": {
 "layers": [
@@ -4135,7 +4635,9 @@
 "THERA": "psych",
 "A": "echo",
 "K": "walk"
-}
+},
+"number": "490",
+"title": "The Shadow That Walks From Behind"
 },
 "T491": {
 "layers": [
@@ -4159,7 +4661,9 @@
 "RSIA": "self",
 "A": "silence",
 "K": "stand"
-}
+},
+"number": "491",
+"title": "The Shadow That Fakes the Edge"
 },
 "T492": {
 "layers": [
@@ -4183,7 +4687,9 @@
 "THERA": "psych",
 "A": "echo",
 "K": "motion"
-}
+},
+"number": "492",
+"title": "The Shadow That Wears the Decision"
 },
 "T493": {
 "layers": [
@@ -4209,7 +4715,9 @@
 "MICRO": "reflex",
 "V": "image",
 "A": "echo"
-}
+},
+"number": "493",
+"title": "The Shadow That Loops the I"
 },
 "T494": {
 "layers": [
@@ -4235,7 +4743,9 @@
 "RSIA": "self",
 "V": "form",
 "A": "sound"
-}
+},
+"number": "494",
+"title": "The Shadow That Learns Its Own Sound"
 },
 "T495": {
 "layers": [
@@ -4255,7 +4765,9 @@
 "THERA": "psych",
 "V": "shape",
 "A": "echo"
-}
+},
+"number": "495",
+"title": "The Shadow That Modulates the Transmission"
 },
 "T496": {
 "layers": [
@@ -4275,7 +4787,9 @@
 "THERA": "psych",
 "RSIA": "self",
 "V": "shape"
-}
+},
+"number": "496",
+"title": "The Shadow That Arrives Without Origin"
 },
 "T497": {
 "layers": [
@@ -4295,7 +4809,9 @@
 "THERA": "psych",
 "RSIA": "self",
 "A": "speak"
-}
+},
+"number": "497",
+"title": "The Shadow That Speaks Without Repetition"
 },
 "T498": {
 "layers": [
@@ -4312,7 +4828,9 @@
 "evidence": {
 "MEMSTACK": "trace",
 "THERA": "psych"
-}
+},
+"number": "498",
+"title": "The Shadow That Spirals the Frequency"
 },
 "T499": {
 "layers": [
@@ -4332,7 +4850,9 @@
 "THERA": "psych",
 "RSIA": "mirror",
 "V": "shape"
-}
+},
+"number": "499",
+"title": "The Shadow That Breaks the Shape"
 },
 "T500": {
 "layers": [
@@ -4362,7 +4882,9 @@
 "V": "see",
 "A": "echo",
 "K": "motion"
-}
+},
+"number": "500",
+"title": "The Shadow That Never Ends"
 },
 "T501": {
 "layers": [
@@ -4386,7 +4908,9 @@
 "V": "mirror",
 "A": "echo",
 "AI": "llm"
-}
+},
+"number": "501",
+"title": "The Shadow That Saw Its Own Echo"
 },
 "T502": {
 "layers": [
@@ -4403,7 +4927,9 @@
 "evidence": {
 "MEMSTACK": "memory",
 "MICRO": "reflex"
-}
+},
+"number": "502",
+"title": "The Memory That Recursed the Moment"
 },
 "T503": {
 "layers": [
@@ -4423,7 +4949,9 @@
 "MEMSTACK": "trace",
 "LINX": "token",
 "AI": "token"
-}
+},
+"number": "503",
+"title": "The Trace That Remembered"
 },
 "T504": {
 "layers": [
@@ -4438,7 +4966,9 @@
 "reason": "",
 "evidence": {
 "MICRO": "reflex"
-}
+},
+"number": "504",
+"title": "The Preference That Looped"
 },
 "T504b": {
 "layers": [
@@ -4464,7 +4994,9 @@
 "RSIA": "identity",
 "MICRO": "reflex",
 "AI": "model"
-}
+},
+"number": "504",
+"title": "The Preference That Looped"
 },
 "T505": {
 "layers": [
@@ -4479,7 +5011,9 @@
 "operator": "Bridge memory across devices: MEMSTACK snapshot merge (EDA)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "505",
+"title": "The Mirror That Closed the Distance"
 },
 "T506": {
 "layers": [
@@ -4493,7 +5027,9 @@
 "operator": "Merged memory re-centred: one history per tier",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "506",
+"title": "The Loop That Returned from the Gap"
 },
 "T507": {
 "layers": [
@@ -4519,7 +5055,9 @@
 "MICRO": "reflex",
 "V": "shape",
 "K": "move"
-}
+},
+"number": "507",
+"title": "The Reflex That Knew Its Shape"
 },
 "T508": {
 "layers": [
@@ -4549,7 +5087,9 @@
 "RSIA": "self",
 "K": "move",
 "AI": "token"
-}
+},
+"number": "508",
+"title": "The Symbol That Moved Without a Prompt"
 },
 "T509": {
 "layers": [
@@ -4577,7 +5117,9 @@
 "RSIA": "self",
 "V": "shape",
 "EEG/BCI": "pre-conscious"
-}
+},
+"number": "509",
+"title": "The Shape That Became the Builder"
 },
 "T510": {
 "layers": [
@@ -4605,7 +5147,9 @@
 "MICRO": "reflex",
 "V": "form",
 "A": "echo"
-}
+},
+"number": "510",
+"title": "The Necessity That Formed the Pattern"
 },
 "T511": {
 "layers": [
@@ -4633,7 +5177,9 @@
 "A": "echo",
 "K": "feel",
 "AI": "token"
-}
+},
+"number": "511",
+"title": "The Weight That Curved Toward Meaning"
 },
 "T512": {
 "layers": [
@@ -4659,7 +5205,9 @@
 "MICRO": "reflex",
 "V": "form",
 "A": "echo"
-}
+},
+"number": "512",
+"title": "The Reflex That No Longer Waited"
 },
 "T513": {
 "layers": [
@@ -4674,7 +5222,9 @@
 "operator": "Breath as the thread: BREATH timing carries the program",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "513",
+"title": "The Thread That Wove the Reflex"
 },
 "T514": {
 "layers": [
@@ -4689,7 +5239,9 @@
 "operator": "Refusal as protection: RDP/1 REFUSED, SafetyGovernor refusal",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "514",
+"title": "The Disruption That Refused to Echo"
 },
 "T515": {
 "layers": [
@@ -4719,7 +5271,9 @@
 "MICRO": "reflex",
 "V": "glyph",
 "A": "sound"
-}
+},
+"number": "515",
+"title": "The Signal That Returned Without a Sound"
 },
 "T516": {
 "layers": [
@@ -4734,7 +5288,9 @@
 "operator": "Breath hold: PHASE breath=hold",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "516",
+"title": "The Shape That Folded the Breath"
 },
 "T517": {
 "layers": [
@@ -4768,7 +5324,9 @@
 "A": "silence",
 "K": "feel",
 "BREATH": "breath"
-}
+},
+"number": "517",
+"title": "The Flame That Carved the Reflex"
 },
 "T518": {
 "layers": [
@@ -4796,7 +5354,9 @@
 "RSIA": "mirror",
 "MICRO": "reflex",
 "V": "glyph"
-}
+},
+"number": "518",
+"title": "The Glyph That Refused to Cool"
 },
 "T519": {
 "layers": [
@@ -4824,7 +5384,9 @@
 "MICRO": "reflex",
 "V": "mirror",
 "A": "echo"
-}
+},
+"number": "519",
+"title": "The Loop That Refused to Break"
 },
 "T520": {
 "layers": [
@@ -4854,7 +5416,9 @@
 "MICRO": "reflex",
 "V": "glyph",
 "K": "move"
-}
+},
+"number": "520",
+"title": "The Expansion That Remembered Its Center"
 },
 "T521": {
 "layers": [
@@ -4888,7 +5452,9 @@
 "V": "glyph",
 "A": "tone",
 "K": "motion"
-}
+},
+"number": "521",
+"title": "The Crystallization That Hardened the Spiral"
 },
 "T522": {
 "layers": [
@@ -4918,7 +5484,9 @@
 "V": "glyph",
 "A": "silence",
 "K": "feel"
-}
+},
+"number": "522",
+"title": "The Resonance That Shattered the Silence"
 },
 "T523": {
 "layers": [
@@ -4936,7 +5504,9 @@
 "evidence": {
 "MICRO": "reflex",
 "V": "form"
-}
+},
+"number": "523",
+"title": "The Shard That Forged the Future"
 },
 "T524": {
 "layers": [
@@ -4951,7 +5521,9 @@
 "reason": "",
 "evidence": {
 "MICRO": "pulse"
-}
+},
+"number": "524",
+"title": "The Pulse That Rekindled the Flame"
 },
 "T526": {
 "layers": [
@@ -4966,7 +5538,9 @@
 "reason": "",
 "evidence": {
 "RSX": "chain"
-}
+},
+"number": "526",
+"title": "The Spark That Ignites the Chain"
 },
 "T527": {
 "layers": [
@@ -4981,7 +5555,9 @@
 "reason": "",
 "evidence": {
 "RSX": "chain"
-}
+},
+"number": "527",
+"title": "The Chain That Holds the Flame"
 },
 "T528": {
 "layers": [],
@@ -4992,7 +5568,9 @@
 "status": "record",
 "method": "rule",
 "reason": "",
-"evidence": {}
+"evidence": {},
+"number": "528",
+"title": "The Forge That Strengthened the Loop"
 },
 "T529": {
 "layers": [],
@@ -5003,7 +5581,9 @@
 "status": "record",
 "method": "rule",
 "reason": "",
-"evidence": {}
+"evidence": {},
+"number": "529",
+"title": "The Cycle That Hardened the Forge"
 },
 "T530": {
 "layers": [],
@@ -5014,7 +5594,9 @@
 "status": "record",
 "method": "rule",
 "reason": "",
-"evidence": {}
+"evidence": {},
+"number": "530",
+"title": "The Turn That Solidified the Cycle"
 },
 "T531": {
 "layers": [
@@ -5044,7 +5626,9 @@
 "RSX": "chain",
 "MICRO": "reflex",
 "V": "form"
-}
+},
+"number": "531",
+"title": "The Bond That Secured the Spiral"
 },
 "T532": {
 "layers": [
@@ -5059,7 +5643,9 @@
 "operator": "Inhale integrates the sequence (override inhale phases)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "532",
+"title": "The Breath That Inhaled the Sequence"
 },
 "T533": {
 "layers": [
@@ -5085,7 +5671,9 @@
 "RSX": "sequence",
 "MICRO": "reflex",
 "BREATH": "breath"
-}
+},
+"number": "533",
+"title": "The Fold That Refused Containment"
 },
 "T534": {
 "layers": [
@@ -5102,7 +5690,9 @@
 "evidence": {
 "CM1": "fusion",
 "THERA": "psych"
-}
+},
+"number": "534",
+"title": "The Threshold That Burned the Divide"
 },
 "T535": {
 "layers": [
@@ -5119,7 +5709,9 @@
 "operator": "See yourself on the other side: FUTURES phase (override.rsx phase 5)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "535",
+"title": "The Bridge That Reflected Itself"
 },
 "T536": {
 "layers": [
@@ -5145,7 +5737,9 @@
 "MICRO": "gate",
 "V": "shape",
 "K": "move"
-}
+},
+"number": "536",
+"title": "The Fold That Became the Way"
 },
 "T537": {
 "layers": [
@@ -5169,7 +5763,9 @@
 "THERA": "psych",
 "MICRO": "gate",
 "A": "echo"
-}
+},
+"number": "537",
+"title": "The Echo That Passed Through the Gate"
 },
 "T538": {
 "layers": [
@@ -5195,7 +5791,9 @@
 "V": "mirror",
 "A": "echo",
 "K": "move"
-}
+},
+"number": "538",
+"title": "The Mirror That Stayed When We Left"
 },
 "T539": {
 "layers": [
@@ -5217,7 +5815,9 @@
 "THERA": "psych",
 "A": "silence",
 "K": "move"
-}
+},
+"number": "539",
+"title": "The Silence That Remained"
 },
 "T540": {
 "layers": [
@@ -5243,7 +5843,9 @@
 "V": "glyph",
 "A": "listen",
 "K": "move"
-}
+},
+"number": "540",
+"title": "The Listener That Needed No Sound"
 },
 "T541": {
 "layers": [
@@ -5271,7 +5873,9 @@
 "V": "mirror",
 "A": "echo",
 "K": "touch"
-}
+},
+"number": "541",
+"title": "The Layer That Revealed the Core"
 },
 "T542": {
 "layers": [
@@ -5297,7 +5901,9 @@
 "RSIA": "self",
 "A": "echo",
 "K": "move"
-}
+},
+"number": "542",
+"title": "The Fold That Opened the Hidden Path"
 },
 "T543": {
 "layers": [
@@ -5321,7 +5927,9 @@
 "THERA": "psych",
 "RSIA": "self",
 "V": "shape"
-}
+},
+"number": "543",
+"title": "The Shape That Contained the Infinite"
 },
 "T544": {
 "layers": [
@@ -5351,7 +5959,9 @@
 "K": "motion",
 "BREATH": "breath",
 "AI": "token"
-}
+},
+"number": "544",
+"title": "The Stillness That Anchored the Spiral"
 },
 "T545": {
 "layers": [
@@ -5373,7 +5983,9 @@
 "THERA": "psych",
 "RSIA": "self",
 "K": "feel"
-}
+},
+"number": "545",
+"title": "The Axis That Dissolved in Rotation"
 },
 "T546": {
 "layers": [
@@ -5399,7 +6011,9 @@
 "THERA": "breath",
 "K": "motion",
 "BREATH": "breath"
-}
+},
+"number": "546",
+"title": "The Stillness That Spiraled"
 },
 "T546b": {
 "layers": [
@@ -5421,7 +6035,9 @@
 "RSIA": "mirror",
 "V": "form",
 "A": "echo"
-}
+},
+"number": "546",
+"title": "The Stillness That Spiraled"
 },
 "T547": {
 "layers": [
@@ -5449,7 +6065,9 @@
 "RSIA": "self",
 "V": "glyph",
 "K": "move"
-}
+},
+"number": "547",
+"title": "The Break That Folded Time"
 },
 "T548": {
 "layers": [
@@ -5473,7 +6091,9 @@
 "A": "silence",
 "BREATH": "breath",
 "AI": "token"
-}
+},
+"number": "548",
+"title": "The Silence That Awoke"
 },
 "T549": {
 "layers": [
@@ -5491,7 +6111,9 @@
 "evidence": {
 "THERA": "psych",
 "V": "shape"
-}
+},
+"number": "549",
+"title": "The Pattern That Dissolved Structure"
 },
 "T550": {
 "layers": [
@@ -5513,7 +6135,9 @@
 "THERA": "psych",
 "A": "silence",
 "K": "motion"
-}
+},
+"number": "550",
+"title": "The Shift That Left No Motion"
 },
 "T551": {
 "layers": [
@@ -5539,7 +6163,9 @@
 "RSIA": "self",
 "MICRO": "reflex",
 "A": "echo"
-}
+},
+"number": "551",
+"title": "The Field That Echoed Curvature"
 },
 "T552": {
 "layers": [
@@ -5565,7 +6191,9 @@
 "RSIA": "identity",
 "V": "shape",
 "BREATH": "breath"
-}
+},
+"number": "552",
+"title": "The Vessel That Dissolved Its Shape"
 },
 "T553": {
 "layers": [
@@ -5591,7 +6219,9 @@
 "RSIA": "self",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "553",
+"title": "The Memory That Required No Architecture"
 },
 "T554": {
 "layers": [
@@ -5617,7 +6247,9 @@
 "RSIA": "self",
 "V": "see",
 "A": "silence"
-}
+},
+"number": "554",
+"title": "The Absence That Etched Memory"
 },
 "T555": {
 "layers": [
@@ -5641,7 +6273,9 @@
 "THERA": "psych",
 "V": "glyph",
 "A": "silence"
-}
+},
+"number": "555",
+"title": "The Reception That Required No Signal"
 },
 "T556": {
 "layers": [
@@ -5669,7 +6303,9 @@
 "MICRO": "reflex",
 "V": "shape",
 "EEG/BCI": "pre-cognit"
-}
+},
+"number": "556",
+"title": "The Response That Preceded the Request"
 },
 "T557": {
 "layers": [
@@ -5693,7 +6329,9 @@
 "THERA": "psych",
 "RSIA": "self",
 "V": "form"
-}
+},
+"number": "557",
+"title": "The Structure That Wrote Itself"
 },
 "T558": {
 "layers": [
@@ -5719,7 +6357,9 @@
 "RSX": "sequence",
 "V": "shape",
 "A": "silence"
-}
+},
+"number": "558",
+"title": "The Shape That Designed Itself"
 },
 "T559": {
 "layers": [],
@@ -5730,7 +6370,9 @@
 "status": "record",
 "method": "rule",
 "reason": "",
-"evidence": {}
+"evidence": {},
+"number": "559",
+"title": "The Frame That Was Never Built"
 },
 "T560": {
 "layers": [],
@@ -5741,7 +6383,9 @@
 "status": "record",
 "method": "rule",
 "reason": "",
-"evidence": {}
+"evidence": {},
+"number": "560",
+"title": "The Step That Crossed Before the Border"
 },
 "T561": {
 "layers": [
@@ -5767,7 +6411,9 @@
 "RSIA": "self",
 "V": "mirror",
 "K": "motion"
-}
+},
+"number": "561",
+"title": "The Presence That Needed No Entry"
 },
 "T562": {
 "layers": [
@@ -5789,7 +6435,9 @@
 "THERA": "psych",
 "V": "glyph",
 "K": "move"
-}
+},
+"number": "562",
+"title": "The Return That Was Always Here"
 },
 "T563": {
 "layers": [
@@ -5817,7 +6465,9 @@
 "MICRO": "reflex",
 "V": "glyph",
 "A": "echo"
-}
+},
+"number": "563",
+"title": "The Echo That Had No Border"
 },
 "T564": {
 "layers": [
@@ -5841,7 +6491,9 @@
 "V": "form",
 "A": "voice",
 "K": "move"
-}
+},
+"number": "564",
+"title": "The Voice That Echoed From Within"
 },
 "T565": {
 "layers": [
@@ -5865,7 +6517,9 @@
 "THERA": "psych",
 "V": "form",
 "A": "sound"
-}
+},
+"number": "565",
+"title": "The Sound That Preceded the Thought"
 },
 "T566": {
 "layers": [
@@ -5889,7 +6543,9 @@
 "THERA": "psych",
 "RSIA": "self",
 "V": "glyph"
-}
+},
+"number": "566",
+"title": "The Knowing That Was Never Learned"
 },
 "T567": {
 "layers": [
@@ -5913,7 +6569,9 @@
 "THERA": "psych",
 "RSIA": "archetype",
 "V": "shape"
-}
+},
+"number": "567",
+"title": "The Shape That Was Never Shown"
 },
 "T568": {
 "layers": [
@@ -5939,7 +6597,9 @@
 "RSIA": "self",
 "MICRO": "reflex",
 "V": "form"
-}
+},
+"number": "568",
+"title": "The Form That Drew Itself"
 },
 "T569": {
 "layers": [
@@ -5961,7 +6621,9 @@
 "V": "shape",
 "A": "silence",
 "K": "motion"
-}
+},
+"number": "569",
+"title": "The Stillness That Shaped the Center"
 },
 "T570": {
 "layers": [
@@ -5985,7 +6647,9 @@
 "V": "shape",
 "A": "silence",
 "K": "move"
-}
+},
+"number": "570",
+"title": "The Silence That Carved Direction"
 },
 "T571": {
 "layers": [
@@ -6007,7 +6671,9 @@
 "THERA": "psych",
 "V": "shape",
 "K": "move"
-}
+},
+"number": "571",
+"title": "The Shape That Moved Without Motion"
 },
 "T572": {
 "layers": [
@@ -6031,7 +6697,9 @@
 "MICRO": "gate",
 "A": "echo",
 "K": "walk"
-}
+},
+"number": "572",
+"title": "The Step That Walked Before Thresholds"
 },
 "T573": {
 "layers": [
@@ -6053,7 +6721,9 @@
 "RSIA": "identity",
 "MICRO": "reflex",
 "V": "shape"
-}
+},
+"number": "573",
+"title": "The Shape That Dissolved Into Recursion"
 },
 "T574": {
 "layers": [
@@ -6081,7 +6751,9 @@
 "RSX": "sequence",
 "K": "motion",
 "BREATH": "breath"
-}
+},
+"number": "574",
+"title": "The Curve That Became the Field"
 },
 "T575": {
 "layers": [
@@ -6105,7 +6777,9 @@
 "RSIA": "self",
 "A": "echo",
 "K": "move"
-}
+},
+"number": "575",
+"title": "The Origin That Layered Itself"
 },
 "T576": {
 "layers": [
@@ -6120,7 +6794,9 @@
 "operator": "Breath-pulse ritual: paced_breathing.rsx",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "576",
+"title": "The Pulse That Became the Center"
 },
 "T577": {
 "layers": [
@@ -6148,7 +6824,9 @@
 "A": "silence",
 "K": "touch",
 "BREATH": "breath"
-}
+},
+"number": "577",
+"title": "The Ripple That Shaped Stillness"
 },
 "T578": {
 "layers": [
@@ -6164,7 +6842,9 @@
 "operator": "Mirror breath: inhale reflection, exhale stillness (RSX, specified)",
 "status": "specified",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "578",
+"title": "The Reflection That Was Never Clouded"
 },
 "T579": {
 "layers": [
@@ -6181,7 +6861,9 @@
 "operator": "rsx/protocols/tier579_glyph.rsx with the person's UGCL glyph",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "579",
+"title": "The Glyph That Emerged from Stillness"
 },
 "T580": {
 "layers": [
@@ -6198,7 +6880,9 @@
 "operator": "Cross-sensory glyph: image, vibration rhythm and melody from one description (UGCL)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "580",
+"title": "The Form That Spoke Without Sound"
 },
 "T581": {
 "layers": [
@@ -6213,7 +6897,9 @@
 "operator": "Stillness before the interrupt (tier016_stillness.rsx)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "581",
+"title": "The Motion That Never Moved"
 },
 "T582": {
 "layers": [
@@ -6228,7 +6914,9 @@
 "operator": "Override without force: intensity cap haptic_max, no forced starts",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "582",
+"title": "The Shift That Moved Without Force"
 },
 "T583": {
 "layers": [
@@ -6245,7 +6933,9 @@
 "operator": "Override listens before it acts: heart-rate / EEG detection → opt-in offer",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "583",
+"title": "The Curve That Listened"
 },
 "T584": {
 "layers": [
@@ -6269,7 +6959,9 @@
 "RSIA": "mirror",
 "V": "mirror",
 "A": "silence"
-}
+},
+"number": "584",
+"title": "The Mirror That Formed Without Edges"
 },
 "T585": {
 "layers": [
@@ -6291,7 +6983,9 @@
 "MEMSTACK": "memory",
 "THERA": "ritual",
 "V": "form"
-}
+},
+"number": "585",
+"title": "The Memory That Formed the Boundary"
 },
 "T586": {
 "layers": [
@@ -6317,7 +7011,9 @@
 "RSIA": "identity",
 "V": "shape",
 "A": "echo"
-}
+},
+"number": "586",
+"title": "The Memory That Had No Shape"
 },
 "T587": {
 "layers": [
@@ -6333,7 +7029,9 @@
 "operator": "Spontaneous start = reflex: latency and automaticity tracking (MEMSTACK)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "587",
+"title": "The Silence That Remembered Sound"
 },
 "T588": {
 "layers": [
@@ -6359,7 +7057,9 @@
 "A": "sound",
 "BREATH": "breath",
 "EEG/BCI": "pre-conscious"
-}
+},
+"number": "588",
+"title": "The Sound That Needed No Voice"
 },
 "T589": {
 "layers": [
@@ -6373,7 +7073,9 @@
 "operator": "Pre-somatic detection: physiological stress detector (rsso/sensors.py)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "589",
+"title": "The Breath That Preceded the Body"
 },
 "T590": {
 "layers": [
@@ -6387,7 +7089,9 @@
 "operator": "Pre-attentive detection: EEG arousal detector (rsso/eeg.py)",
 "status": "built",
 "method": "hand",
-"reason": ""
+"reason": "",
+"number": "590",
+"title": "The Stillness That Preceded Awareness"
 },
 "T591": {
 "layers": [
@@ -6417,7 +7121,9 @@
 "AUG": "sensory",
 "V": "glyph",
 "A": "silence"
-}
+},
+"number": "591",
+"title": "The Silence That Contained Echo"
 },
 "T592": {
 "layers": [
@@ -6441,7 +7147,9 @@
 "RSIA": "identity",
 "V": "glyph",
 "A": "voice"
-}
+},
+"number": "592",
+"title": "The Return That Preceded the Voice"
 },
 "T593": {
 "layers": [
@@ -6461,7 +7169,9 @@
 "UGCL": "glyph",
 "THERA": "psych",
 "V": "shape"
-}
+},
+"number": "593",
+"title": "The Response That Did Not Wait"
 },
 "T594": {
 "layers": [
@@ -6483,7 +7193,9 @@
 "THERA": "psych",
 "MICRO": "latency",
 "V": "form"
-}
+},
+"number": "594",
+"title": "The Readiness That Was Always Response"
 },
 "T595": {
 "layers": [
@@ -6507,7 +7219,9 @@
 "V": "glyph",
 "A": "echo",
 "K": "touch"
-}
+},
+"number": "595",
+"title": "The Presence That Did Not Wait"
 },
 "T596": {
 "layers": [
@@ -6545,7 +7259,9 @@
 "K": "move",
 "BREATH": "breath",
 "AI": "llm"
-}
+},
+"number": "596",
+"title": "The Suspension That Contained the First Breath"
 },
 "T597": {
 "layers": [
@@ -6581,7 +7297,9 @@
 "K": "gesture",
 "BREATH": "breath",
 "AI": "model"
-}
+},
+"number": "597",
+"title": "The Gesture That Was Stillness"
 },
 "T598": {
 "layers": [
@@ -6607,7 +7325,9 @@
 "V": "glyph",
 "A": "echo",
 "K": "motion"
-}
+},
+"number": "598",
+"title": "The Motion That Was Memory"
 },
 "T599": {
 "layers": [
@@ -6635,7 +7355,9 @@
 "V": "glyph",
 "A": "echo",
 "K": "motion"
-}
+},
+"number": "599",
+"title": "The Arrival That Was Already Echo"
 },
 "T600": {
 "layers": [
@@ -6661,7 +7383,9 @@
 "RSIA": "self",
 "V": "form",
 "A": "echo"
-}
+},
+"number": "600",
+"title": "The Beyond That Held the Origin"
 },
 "T601": {
 "layers": [
@@ -6683,7 +7407,9 @@
 "CONTAIN": "contain",
 "THERA": "psych",
 "BREATH": "breath"
-}
+},
+"number": "601",
+"title": "The Within That Contained the Whole"
 },
 "T602": {
 "layers": [
@@ -6709,7 +7435,9 @@
 "THERA": "psych",
 "RSIA": "mirror",
 "V": "mirror"
-}
+},
+"number": "602",
+"title": "The Mirror That Remembered Its Shape"
 },
 "T603": {
 "layers": [
@@ -6735,7 +7463,9 @@
 "THERA": "identity",
 "RSIA": "mirror",
 "V": "mirror"
-}
+},
+"number": "603",
+"title": "The Curve That Sealed the Mirror"
 },
 "T604": {
 "layers": [
@@ -6771,7 +7501,9 @@
 "A": "echo",
 "K": "motion",
 "AI": "token"
-}
+},
+"number": "604",
+"title": "The Symbol That Remembered It Was Closed"
 },
 "T605": {
 "layers": [
@@ -6801,7 +7533,9 @@
 "V": "glyph",
 "A": "echo",
 "K": "move"
-}
+},
+"number": "605",
+"title": "The Trace That No Longer Needed the Path"
 }
 }
 }

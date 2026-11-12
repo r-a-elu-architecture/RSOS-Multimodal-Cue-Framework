@@ -65,13 +65,19 @@ def phase_at(timeline: dict, t_ms: int) -> str:
 
 
 def play(timeline: dict, devices: list[Device], clock=None, stop_at_ms: int | None = None,
-         governor=None, trigger: str = "self", now_ms: int = 0) -> Trace:
+         governor=None, trigger: str = "self", now_ms: int = 0, consents=None) -> Trace:
     """Play `timeline` on `devices`.
 
     stop_at_ms: simulate the person pressing Stop at this time (relative to the run start).
     governor:   an rsx SafetyGovernor; device-triggered runs are refused if it says no.
+    consents:   an rsso.consent.ConsentStore; a program with programmed cues is refused without valid consent.
     """
     tr = Trace(timeline["protocol"], trigger, started=False, devices=devices)
+    from .consent import gate        # programmed cues run only with a valid consent record (C12)
+    ok, why = gate(timeline, consents, now_ms)
+    if not ok:
+        tr.reason = why
+        return tr
     if governor is not None:
         ok, why = governor.start(now_ms, trigger)
         if not ok:

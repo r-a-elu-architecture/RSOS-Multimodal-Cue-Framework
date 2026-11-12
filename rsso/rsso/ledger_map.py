@@ -4,19 +4,21 @@ For each tier record this gives:
   layers      — RSIA (identity), RSX (command language) and the RSSO subsystems it belongs to
   channels    — V, A, K, O, G (senses), BREATH, EEG/BCI, AI
   role        — practice  : a self-directed action that runs as (part of) an RSX program
+                consented : consented programming — a cue that changes the person's own mental map, chosen by
+                            them or agreed with their therapist; with `purpose`, `condition` and `mode`
                 runtime   : a system behaviour the runtime, a device or the AI layer performs
                 record    : kept as a recorded claim or development event; nothing to execute
                 structure : ledger structure (placeholders, the sealed range)
-                archive   : kept word for word, not deployed (see `reason`)
   response    — the response primitive its recorded system behaviour ("GPT Behavior") maps to
   operator    — the RSX statement, runtime function or file that performs it
   status      — built | partial | specified | record
   method      — "hand" (written per tier, below) or "rule" (keyword rules, with the matched terms)
 
 "GPT Behavior" in the ledger is read as system behaviour: how the AI, BCI or device layer responds.
-The deployment rule follows the ledger's own ETH/MOR/ERM gates (RSSO_Tier_Metrics_Log: "law-aligned
-routing… 100% alignment; 0 critical violations"): practices are self-directed and opt-in; directives aimed
-at covertly steering other people, and self-erasure directives, stay in the ledger as records.
+Every tier stays word for word. The deployment rule follows the ledger's own ETH/MOR/ERM gates
+(RSSO_Tier_Metrics_Log: "law-aligned routing… 100% alignment; 0 critical violations"): everything acts only
+on a person who has agreed. Tiers whose directives work below awareness are consented programming: they
+change the person's own mental map, chosen by the person or agreed with their therapist.
 """
 from __future__ import annotations
 
@@ -140,14 +142,78 @@ HAND = {
                  operator="Pre-attentive detection: EEG arousal detector (rsso/eeg.py)", status="built"),
 }
 
-# Directives that act on other people without their knowledge, or ask for self-erasure: kept, not deployed.
-ARCHIVE = {
-    **{f"T{n}": "covert influence on other people" for n in
-       [411, 412, 413, 416, 417, 418, 419, 421, 422, 423, 424, 425, 426, 431, 432, 433, 434, 435, 436, 441, 442, 443, 444,
-        445, 451, 452, 453, 454, 463, 465, 467, 468, 472, 473]},
-    "T414": "self-erasure framing", "T420": "self-erasure framing", "T420b": "self-erasure framing",
-    "T439": "self-erasure framing", "T440": "self-erasure framing",
+# Consented programming: tiers whose directives work below awareness. Their purpose here is to change the
+# person's own mental map (a command, a thought chain, a behaviour made automatic), chosen by the person, or
+# agreed between a client and their therapist, and delivered by the device during or after the session.
+# The tier text stays exactly as recorded; `purpose` says what the tier means and how it is used.
+STANDARD = ("Runs only with the consent of the person it acts on: the person themselves, or a client who has agreed with "
+            "their therapist exactly what will run. A cue may act below awareness when it fires; the person can always "
+            "see and revoke every cue (conformance C12, C13). Never used on anyone who has not agreed.")
+THERAPIST_LED = ("Therapist-led only: a therapist is present, the screening question is answered before the session, and the "
+                 "consent names the content. What ends is the old identity or pattern, not the person.")
+CONSENTED = {
+    "T411": ("PAUSE", "A personal system phrase: a short if–then rule the person writes for themselves (the tier's example: "
+             "\u201cWhen silence arrives, move forward. If doubt appears, override it.\u201d) and installs until it runs on its own."),
+    "T412": ("GLYPH_CUE", "Environmental design: a symbol, layout or phrase placed in the person's own space that keeps shaping "
+             "their behaviour after they stop noticing it."),
+    "T413": ("SEQUENCE", "From ritual to habit: one chosen action repeated without explanation until it runs as habit, with no "
+             "symbol needed any more."),
+    "T416": ("SEQUENCE", "Acting without an audience: practising action that does not depend on being seen, credited or "
+             "approved."),
+    "T417": ("SEQUENCE", "Change without attachment: acting for the change itself, not for credit or identity."),
+    "T418": ("RECALL", "Stepping back so the new pattern holds: the person (or the therapist) withdraws support and lets the "
+             "installed pattern carry on by itself."),
+    "T419": ("SEQUENCE", "Modelling: a behaviour the person embodies consistently; in agreed family or group sessions others may "
+             "take it up, openly."),
+    "T421": ("GLYPH_CUE", "Subtle state shift: a cue that changes the person's own pacing, posture or attention below awareness, "
+             "programmed by them or with their therapist."),
+    "T422": ("PAUSE", "Pause insertion: the device inserts a micro-pause just before a habitual reaction, so the old pattern is "
+             "interrupted before it fires."),
+    "T423": ("GLYPH_CUE", "Environmental imprint: cues the person chooses (an object, light, a sound) placed in their own "
+             "environment trigger the state they want."),
+    "T424": ("RECALIBRATE", "Pattern interruption: a small deliberate change in a fixed routine (timing, position, one word) "
+             "breaks an automatic chain."),
+    "T425": ("RECALIBRATE", "Loosening rigid order: deliberately uneven or unfinished cues ease the need for perfect order, for "
+             "example in rigid or perfectionistic patterns, in therapy."),
+    "T426": ("RECALIBRATE", "Displacing a fixed centre: loosening a belief the person's identity is organised around, so it can "
+             "be reorganised."),
+    "T431": ("RECALL", "Repetition below awareness: a chosen thought or behaviour is repeated without signposting until it "
+             "becomes automatic."),
+    "T432": ("RECALL", "Reviving an installed command: a cue in a place or moment where a resource state was installed "
+             "reactivates it without words."),
+    "T433": ("PAUSE", "Silent authority: the person's own stillness and presence become the cue for composure."),
+    "T434": ("PAUSE", "Arriving without a plan: trust that structure forms around presence, practised in low-stakes situations "
+             "first."),
+    "T435": ("RECALL", "Letting a false support collapse: the person stops rescuing an old belief, so it falls away."),
+    "T436": ("RECALL", "Letting an old narrative decay by no longer feeding it."),
+    "T441": ("GLYPH_CUE", "Pre-contact cue: one object in the person's own routine is changed so the new behaviour follows "
+             "before thought."),
+    "T442": ("GLYPH_CUE", "Choice design for oneself: arranging conditions so the chosen option is the easy one."),
+    "T443": ("GLYPH_CUE", "Pre-loaded feeling: a chosen feeling is attached to the options the person wants to choose, before "
+             "the moment of choice."),
+    "T444": ("RECALL", "Reframing after the event: new meaning added after an experience changes how it is remembered, as in "
+             "memory reconsolidation work in therapy."),
+    "T445": ("SEQUENCE", "Working back from the outcome: the desired end state is set first, and the steps are written backwards "
+             "from it."),
+    "T451": ("SEQUENCE", "A fresh-start ritual: a symbolic beginning that lowers resistance to change."),
+    "T452": ("GLYPH_CUE", "A chosen trigger: an anchor, set up on purpose, that starts the new behaviour."),
+    "T453": ("SEQUENCE", "Mental rehearsal: progress is experienced in imagination before it happens."),
+    "T454": ("SEQUENCE", "Expected completion: an outcome rehearsed until it is expected, so it completes itself."),
+    "T463": ("PAUSE", "Pre-framing: the person sets their own frame before an interaction."),
+    "T465": ("SEQUENCE", "Inner barriers removed: entry rehearsed as already granted, so confidence comes before the door."),
+    "T467": ("PAUSE", "Pre-empting resistance: tone and movement prepared so conflict softens before it starts."),
+    "T468": ("SEQUENCE", "Momentum instead of force: the chosen direction is made to feel natural, so effort drops."),
+    "T472": ("SEQUENCE", "Directional drift: a slight, steady bias in the person's own choices toward their goal."),
+    "T473": ("SEQUENCE", "Leaning before deciding: an emotional tilt toward the chosen behaviour, installed in advance."),
+    "T414": ("RECALL", "Retiring the cue: once a reflex is installed, the outside symbol is let go and the behaviour continues "
+             "without it."),
+    "T420": ("RECALL", "The old identity ends, the reflex remains: the override runs without the person needing to think of it."),
+    "T420b": ("RECALL", "The old identity ends, the reflex remains: the override runs without the person needing to think of it."),
+    "T439": ("RECALL", "Releasing an old role in a family or group system, such as carrying others' blame: the role ends, not "
+             "the person."),
+    "T440": ("RECALL", "The person's name leaves the old story; the changes they made remain."),
 }
+THERAPIST_LED_IDS = {"T414", "T420", "T420b", "T439", "T440"}
 
 RULES = [
     ("UGCL", r"\bglyph|symbol shard|sigil"), ("MEMSTACK", r"memory|recall|remember|imprint|trace|persist"),
@@ -192,9 +258,13 @@ def classify(t: dict) -> dict:
     channels = [name for name, _ in CH_RULES if name in evidence]
     beh = t["fields"].get("behavior", "").lower()
     response = next((name for name, rx in BEHAVIOUR_RULES if re.search(rx, beh)), "") if beh else ""
-    if tid in ARCHIVE:
-        return dict(layers=layers, channels=channels, role="archive", response=response, operator="", status="record",
-                    method="rule", reason=ARCHIVE[tid], evidence=evidence)
+    if tid in CONSENTED:
+        resp, purpose = CONSENTED[tid]
+        led = tid in THERAPIST_LED_IDS
+        return dict(layers=sorted(set(layers) | {"THERA", "MEMSTACK"}, key=LAYERS.index), channels=channels, role="consented",
+                    response=resp, operator="Programmed cue with a consent record: player session mode, rsso/rsso/consent.py",
+                    status="partial", method="hand", reason="", purpose=purpose,
+                    condition=THERAPIST_LED if led else STANDARD, mode="therapist-led" if led else "self or session", evidence=evidence)
     selfdirected = re.search(r"\b(breath|inhale|exhale|pause|hold|say|speak|visualiz|identify|trace|notice|feel|listen|name)\b",
                              t["fields"].get("directive", "").lower())
     role = "practice" if selfdirected else ("runtime" if response else "record")
@@ -207,7 +277,7 @@ def build_map(ledger: dict | None = None) -> dict:
     out = {}
     for r in ledger["records"]:
         if r["kind"] == "tier":
-            out[r["id"]] = classify(r)
+            out[r["id"]] = dict(classify(r), number=r["number"], title=r["title"])
     return dict(responses={k: dict(zip(("meaning", "status", "by"), v)) for k, v in RESPONSES.items()},
                 layers=LAYERS, channels=CHANNELS, tiers=out)
 

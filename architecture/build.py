@@ -185,7 +185,7 @@ SUBS = [
      "Built: one device interface with virtual vibration, audio, display and scent devices; the RSOS Device Protocol for wristbands and scent modules; a Bluetooth heart-rate driver (standard Heart Rate Service) with a stress detector in Python and in the player, identical in both; an EEG stream interface (replay, synthetic, Lab Streaming Layer) with an arousal detector (`rsso/`, `docs/player.html`, `spec/DEVICE_PROTOCOL.md`). Awaiting: a check with real straps, scent hardware and EEG headsets."),
     ("MICRO", "Edge runtime", "sim",
      "Runs symbolic reflexes on edge devices (watches, wearables, IoT): receives RSX commands and context, executes them locally.",
-     "Built: the runtime that plays RSX timelines on any set of devices; the portable C++ device core and an ESP32 wristband sketch (`firmware/`); the installable offline player app; the conformance suite, which the firmware core passes 11/11 in the host simulator. Awaiting: flashing and checking on a real board."),
+     "Built: the runtime that plays RSX timelines on any set of devices; the portable C++ device core and an ESP32 wristband sketch (`firmware/`); the installable offline player app; the conformance suite, which the firmware core passes 13/13 in the host simulator. Awaiting: flashing and checking on a real board."),
     ("CONTAIN", "Safety and governance", "partial",
      "Governs every module: allow, block, roll back or quarantine actions; drift control; human in the loop; device safety envelope.",
      "Compile-time haptic limit in RSX; run limits, refractory period and opt-in in `SafetyGovernor`; runtime intensity clamp and Stop in every phase, verified by the conformance suite; the CONTAIN twins in the cue engine guard against misleading self-reports."),

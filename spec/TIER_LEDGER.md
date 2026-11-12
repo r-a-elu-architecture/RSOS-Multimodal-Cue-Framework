@@ -34,13 +34,13 @@ Nothing is edited, merged or dropped:
 |---|---|
 | Subsystems | RSIA, RSX, THERA, AUG, MICRO, CONTAIN, MEMSTACK, CM1, LINX, UGCL |
 | Channels | V, A, K, O, G, breath, EEG/BCI, AI |
-| Role | practice (a self-directed step that runs as, or inside, an RSX program), runtime (a behaviour the runtime, a device or the AI layer performs), record (a recorded claim or development event), structure (placeholder or sealed range), archive (kept, not deployed) |
+| Role | practice (a self-directed step that runs as, or inside, an RSX program), runtime (a behaviour the runtime, a device or the AI layer performs), consented programming (a cue that changes the person's own mental map, with consent; section 2a), record (a recorded claim or development event), structure (placeholder or sealed range) |
 | Response | the response primitive its recorded system behaviour reduces to (section 3) |
 | Performed by | the RSX statement, runtime function or file that performs it |
 | Status | built, partial, specified, record |
-| Placement | by hand (51 tiers: Epoch I and the practice and runtime tiers of later epochs), or by keyword rule with the matched terms shown |
+| Placement | by hand (90 tiers: Epoch I, the practice and runtime tiers of later epochs, and every consented-programming tier), or by keyword rule with the matched terms shown |
 
-Result: 62 practice, 43 runtime, 143 record, 39 archive, 6 structure.
+Result: 62 practice, 43 runtime, 39 consented programming, 143 record, 6 structure. No tier is left out.
 
 **System behaviour.** The ledger's "GPT Behavior" is read as system behaviour: how the AI, BCI or device
 layer responds. Several Epoch I tiers define the runtime's core responses directly: Tier 004 (self-halted
@@ -48,12 +48,44 @@ propagation) is Stop; 007 (signal gated until stable) is the refractory gate and
 011 and 016 (stillness inserted) are pauses; 015 (ritual becomes reflex) is the reflex criterion; 018 (the
 glyph is the command) is the glyph cue.
 
-**Deployment rule.** The ledger's own ethics gates decide what becomes practice: ETH and MOR, and the RSSO
-Ethical Routing Metric (ERM: law-aligned routing, 100% alignment, no critical violations). Practices are
-self-directed and opt-in. Directives that aim to steer other people without their knowledge (for example
-Tiers 412–426, 431–436, 441–445, 451–454) and self-erasure directives (414, 420, 439, 440) stay in the ledger
-word for word as records, with the reason shown. Where such a tier has a self-directed part, that part is
-what the mapping uses.
+**Deployment rule.** Every tier stays word for word, and nothing is left out or downgraded. The ledger's
+own ethics gates decide how a tier runs: ETH and MOR, and the RSSO Ethical Routing Metric (ERM: law-aligned
+routing, 100% alignment, no critical violations). Everything acts only on a person who has agreed to it.
+
+## 2a. Consented programming
+
+39 tiers have directives that work below awareness: pause insertion (422), environmental imprints (423),
+pattern interruption (424–426), repetition below awareness (431–433), cues that shape a choice before it is
+made (441–443), reframing after the event (444–445), simulated beginnings and completions (451–454), and
+others (411–419, 434–436, 463–473). Their purpose in RSOS is to change the **person's own** mental map:
+a command, a thought or chain of thoughts, or a behaviour that becomes a reflex or runs unconsciously,
+carried by a metaphor, a sound or a glyph. The content is chosen by the person, or agreed between a client
+and their therapist during a session; the device delivers it during the session or afterwards.
+
+Each of these tiers carries, next to its unchanged text:
+
+- **What it means**: the tier's purpose in plain terms, for the therapist and for people using it themselves;
+- **Condition**: it runs only with the consent of the person it acts on, never on anyone who has not agreed;
+- **Mode**: on your own or in a session, or therapist-led only.
+
+**Therapist-led tiers.** 414, 420 (both entries), 439 and 440 are about letting an old identity, role or
+pattern end. Their original text stays word for word. They run only in a session with a therapist present,
+after a screening question (`rsso/rsso/consent.py: SCREENING_QUESTION`); the practice wording is that the
+old pattern ends, not the person.
+
+**How it runs** (`rsso/rsso/consent.py`, `docs/js/consent.js`, identical; player "Programmed cues"):
+
+1. The person or therapist writes the cue: the exact words, optionally a tone, a tier and an expiry date.
+2. A consent record names the content, the person, who wrote it and how long it is valid; the person
+   confirms they know exactly what it says.
+3. The cue becomes a short RSX program (settle, inhale, the cue on the exhale) marked
+   `MARK "programmed:<id>"`; the runtime refuses it unless the consent is valid at that moment.
+4. The person sees every cue ever programmed, with its status, and can revoke any of them; a revoked cue
+   never runs again.
+
+Conformance checks C12 (no programmed cue runs without a consent record naming its content; therapist-led
+tiers also need a therapist present and the screening passed) and C13 (every cue can be listed and revoked;
+a revoked cue never runs) pass on the virtual rig and on the firmware core.
 
 **No tier names smell or taste.** The olfactory and gustatory channels come from the tier-bundle design
 (RSIA) and the device protocol, not from the ledger.

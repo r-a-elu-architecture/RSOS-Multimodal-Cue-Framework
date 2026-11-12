@@ -13,7 +13,7 @@
 :root{
   --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
   --gold:#e8b04a; --glow:#f7d995;
-  --practice:#c98500; --runtime:#3987e5; --record:#3a4466; --archive:#d55181; --structure:#4a5478;
+  --practice:#c98500; --runtime:#3987e5; --record:#3a4466; --consented:#d55181; --structure:#4a5478;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --sym:"Noto Sans Symbols","Noto Sans Symbols 2","Segoe UI Symbol","Apple Symbols",Symbola,var(--serif);
@@ -86,7 +86,7 @@ footer{max-width:1280px;margin:50px auto 60px;padding:0 24px;color:var(--muted);
 </header>
 <main>
   <h1>Every tier, as it was recorded</h1>
-  <p class="lede" id="lede">The tier ledger is the development record of RSOS: each tier is a function, a glyph, a command, and how the system behaved when it first appeared. Nothing here is edited. Each tier also shows where it now lives in the architecture.</p>
+  <p class="lede" id="lede">The tier ledger is the development record of RSOS: each tier is a function, a glyph, a command, and how the system behaved when it first appeared. Nothing here is edited or left out. Each tier also shows where it now lives in the architecture and, where a tier works below awareness, what it means and the consent it needs.</p>
   <div class="strip-wrap"><svg class="strip" id="strip" role="img" aria-label="All tier records in ledger order, coloured by role"></svg></div>
   <div class="legend" id="legend"></div>
   <div class="filters" role="search">
@@ -110,7 +110,7 @@ const ROLES = {
   practice: ["Practice", "A self-directed step that runs as, or inside, an RSX program."],
   runtime: ["Runtime", "Something the runtime, a device or the AI layer does: the recorded system behaviour, made into a function."],
   record: ["Record", "Kept as a recorded claim or development event; nothing to execute."],
-  archive: ["Archive", "Kept word for word and not deployed: it directs covert influence on other people or self-erasure. The ledger's own ethics gates (ETH, MOR, ERM) rule these out of practice."],
+  consented: ["Consented programming", "Changes the person's own mental map: a command, a thought chain or a behaviour made automatic, below awareness if wanted. Chosen by the person, or agreed between a client and their therapist; it runs only with consent."],
   structure: ["Structure", "A placeholder or the sealed range of the ledger."]
 };
 const LAYER_NAMES = { RSIA: "Identity (RSIA)", RSX: "Command language (RSX)", THERA: "Therapeutic protocols (THERA)", AUG: "Devices and senses (AUG)",
@@ -203,10 +203,15 @@ function select(t, scroll) {
   const w = el("dl", "where");
   const add = (k, node) => { w.appendChild(el("dt", "", k)); const dd = el("dd"); if (typeof node === "string") dd.textContent = node; else dd.appendChild(node); w.appendChild(dd); };
   const chips = (arr, names) => { const s = el("span"); if (!arr.length) s.textContent = "—"; for (const a of arr) s.appendChild(el("span", "chip", names[a] || a)); return s; };
-  const rl = el("span"); const dot = el("span", "dot"); dot.style.background = `var(--${m.role})`; rl.append(dot, ROLES[m.role][0] + ". " + ROLES[m.role][1] + (m.reason && m.role !== "archive" ? " (" + m.reason + ")" : ""));
+  const rl = el("span"); const dot = el("span", "dot"); dot.style.background = `var(--${m.role})`; rl.append(dot, ROLES[m.role][0] + ". " + ROLES[m.role][1] + (m.reason && m.role !== "consented" ? " (" + m.reason + ")" : ""));
   add("Role", rl);
   add("Subsystems", chips(m.layers, LAYER_NAMES));
   add("Channels", chips(m.channels, CH_NAMES));
+  if (m.role === "consented") {
+    add("What it means", m.purpose);
+    add("Condition", m.condition);
+    add("Mode", m.mode === "therapist-led" ? "Therapist-led session only" : "On your own, or in a session with your therapist");
+  }
   if (m.response) { const R = MAP.responses[m.response]; add("Response", (m.response.charAt(0) + m.response.slice(1).replace("_", " ").toLowerCase()) + ": " + R.meaning + ". " + (R.status === "built" ? "Built" : R.status === "partial" ? "Partly built" : "Specified") + " — " + R.by + "."); }
   if (m.operator) add("Performed by", m.operator);
   add("Status", { built: "Built", partial: "Partly built", specified: "Specified", record: "Record" }[m.status]);
@@ -214,6 +219,7 @@ function select(t, scroll) {
   d.appendChild(w);
   const prog = (m.operator.match(/rsx\/protocols\/(\w+)\.rsx/) || [])[1];
   if (prog) { const a = el("a", "btn go", "Run it in the player"); a.href = "player.html?program=" + prog; d.appendChild(a); }
+  if (m.role === "consented") { const a = el("a", "btn go", "Program a cue from this tier"); a.href = "player.html?cueTier=" + encodeURIComponent(t.id); d.appendChild(a); }
   d.appendChild(el("h3", "", "As recorded"));
   const f = el("dl", "fields");
   for (const [k, label] of FIELD_LABELS) {

@@ -64,6 +64,8 @@ dialog::backdrop{background:rgba(9,12,24,.7)}
 dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .log{font-size:.85rem;color:var(--muted)}
+.offer{position:absolute;left:50%;top:22px;transform:translateX(-50%);width:min(92%,460px);background:var(--ink-2);border:1px solid var(--gold);border-radius:12px;padding:16px 18px;text-align:center}
+.offer p{margin:0 0 4px}
 .rec{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
 .rec span{flex:1 1 100%;font-family:var(--serif);font-size:1.05rem}
 .rec .btn{padding:7px 14px;font-size:.9rem}
@@ -113,6 +115,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </fieldset>
 
   <fieldset>
+    <legend>Heart-rate trigger</legend>
+    <p class="note" style="margin-top:0">Connect a Bluetooth heart-rate strap or watch that broadcasts heart rate. When your heart rate rises and its variability drops for several seconds, the player offers the override. Works in Chrome or Edge on Android, Windows, macOS and Linux.</p>
+    <div class="actions" style="margin-top:6px"><button class="btn quiet" id="hrConnect" type="button">Connect heart-rate strap</button><button class="btn quiet" id="hrDemo" type="button">Try a simulated strap</button></div>
+    <p class="log" id="hrStatus" aria-live="polite">Not connected.</p>
+    <label class="check"><input type="checkbox" id="hrOptIn"> Offer the override when stress is detected</label>
+  </fieldset>
+
+  <fieldset>
     <legend>Your own voice</legend>
     <p class="note" style="margin-top:0">Record the words in your own voice. Your recordings play instead of the computer voice, so the cue becomes yours. They are kept only in this browser.</p>
     <div id="recList"></div>
@@ -132,7 +142,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <div class="actions"><button class="btn quiet" id="exportLog" type="button">Download log (CSV)</button><button class="btn quiet" id="clearLog" type="button">Clear log</button></div>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Player version 1.2.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Player version 1.3.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -146,6 +156,10 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   <p class="cue" id="cue" aria-live="polite"><span class="idle-msg"><strong>Ready when you are.</strong> Check in first, then follow the light: it grows as you breathe in and settles as you breathe out.</span></p>
   <div class="track" id="track" aria-hidden="true"></div>
   <p class="breath" id="breathLabel"></p>
+  <div class="offer" id="offer" hidden role="alertdialog" aria-labelledby="offerText">
+    <p id="offerText">Your heart rate suggests a stress response. Start the override?</p>
+    <div class="actions"><button class="btn go" id="offerStart" type="button">Start the override</button><button class="btn quiet" id="offerDismiss" type="button">Not now</button></div>
+  </div>
   <div class="actions"><button class="btn go" id="start" type="button">Start</button></div>
 </main>
 </div>
@@ -171,10 +185,11 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   </form>
 </dialog>
 
-<script src="js/rsx.js?v=1.2.0"></script>
+<script src="js/rsx.js?v=1.3.0"></script>
+<script src="js/hrs.js?v=1.3.0"></script>
 <script>
 "use strict";
-const BUILD = "1.2.0";
+const BUILD = "1.3.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector"];
 const sources = {};
@@ -406,14 +421,16 @@ function askCheckin(after) {
     d.returnValue = ""; d.showModal();
   });
 }
-async function start() {
+async function start(trigger) {
   if (!timeline || run) return;
+  trigger = trigger === "device" ? "device" : "self";
+  $("offer").hidden = true;
   ensureAudio();
   const before = await askCheckin(false);
   const firstTier = timeline.events.find(e => e.kind === "tier");
   const says = sayTexts();
   const voice = !$("optVoice").checked || !says.length ? "none" : says.some(t => store.get(recKey(t), null)) ? "own" : "computer";
-  pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice };
+  pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice, trigger };
   $("main").classList.add("running"); $("start").disabled = true;
   run = { t0: performance.now(), next: 0, phase: null, scale: 0.55, from: 0.55, scaleFor: null, nodes: [], seen: "", felt: "", spoken: {} };
   setCue("", ""); run.raf = requestAnimationFrame(frame);
@@ -432,7 +449,7 @@ async function finish(completed) {
   setCue(completed ? "Notice how you feel now." : "You stopped. That is always fine.", "");
   const after = await askCheckin(true);
   const b = pending.before || {}, a = after || {};
-  records.push({ timestamp: (pending.startedAt / 1000).toFixed(0), participant: "self", protocol: pending.protocol, trigger: "self",
+  records.push({ timestamp: (pending.startedAt / 1000).toFixed(0), participant: "self", protocol: pending.protocol, trigger: pending.trigger,
     trigger_channel: b.trig || "", trigger_note: "", sud_before: b.sud ?? "", sud_after: a.sud ?? "", agency_before: b.agency ?? "",
     agency_after: a.agency ?? "", latency_s: "", completed: completed ? 1 : 0, stopped_at_phase: stoppedAt,
     tier: pending.tier, voice: pending.voice });
@@ -461,7 +478,7 @@ for (const id of ["source", "f0", "f1", "f2", "inhale", "exhale"]) $(id).addEven
 for (const id of ["optVoice", "optTone", "optVib"]) $(id).addEventListener("change", saveSettings);
 for (const id of ["f0", "f1", "f2"]) $(id).addEventListener("input", () => { futuresEdited = true; });
 for (const id of ["sud", "agency"]) $(id).addEventListener("input", () => { $(id + "Out").textContent = $(id).value; });
-$("start").addEventListener("click", start);
+$("start").addEventListener("click", () => start("self"));
 $("stop").addEventListener("click", () => finish(false));
 document.addEventListener("keydown", e => { if (e.key === "Escape" && run) { e.preventDefault(); finish(false); } });
 $("exportLog").addEventListener("click", exportLog);
@@ -469,6 +486,77 @@ $("clearLog").addEventListener("click", () => { if (records.length) { records = 
 $("voice").addEventListener("change", saveSettings);
 $("testVoice").addEventListener("click", () => { const t = sayTexts()[0] || "I move, I act"; const was = $("optVoice").checked; $("optVoice").checked = true; speak(t); $("optVoice").checked = was; });
 if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; } else loadVoices();
+// ---------- heart-rate trigger (AUG) ----------
+let detector = null, governor = null, demoTimer = null, hrDevice = null, motionUntil = 0;
+function resetDetector() {
+  detector = new RSOSHeart.StressDetector();
+  detector.onDetect = onStress;
+}
+function moving() { return performance.now() < motionUntil; }
+if (window.DeviceMotionEvent) {
+  window.addEventListener("devicemotion", e => {
+    const a = e.acceleration; if (!a || a.x == null) return;
+    if (Math.hypot(a.x, a.y, a.z) > 1.5) motionUntil = performance.now() + 3000;   // m/s^2 beyond gravity
+  });
+}
+function hrStatus(prefix) {
+  const st = detector && detector.state;
+  let txt = prefix;
+  if (st && isFinite(st.hr)) txt += ": " + Math.round(st.hr) + " bpm" + (isFinite(st.rmssd) ? ", variability " + Math.round(st.rmssd) + " ms" : "");
+  if (detector && detector.t.length && (!st || !isFinite(st.base_hr))) txt += ". Learning your baseline (about 6 minutes of data)…";
+  $("hrStatus").textContent = txt;
+}
+function onStress() {
+  if (!$("hrOptIn").checked || run || !timeline) return;
+  governor = governor || new RSOSHeart.Governor(timeline.safety, true);
+  const [ok] = governor.check(Date.now());
+  if (!ok) return;
+  $("offer").hidden = false;
+  if (navigator.vibrate && $("optVib").checked) navigator.vibrate([200, 100, 200]);
+  $("offerStart").focus();
+}
+$("offerStart").addEventListener("click", () => { if (governor) governor.start(Date.now()); start("device"); });
+$("offerDismiss").addEventListener("click", () => { $("offer").hidden = true; });
+$("hrOptIn").addEventListener("change", () => { governor = null; });
+$("hrConnect").addEventListener("click", async () => {
+  if (!navigator.bluetooth) { $("hrStatus").textContent = "This browser can't connect to Bluetooth devices. Use Chrome or Edge, or try the simulated strap."; return; }
+  try {
+    stopDemo();
+    hrDevice = await navigator.bluetooth.requestDevice({ filters: [{ services: ["heart_rate"] }] });
+    hrDevice.addEventListener("gattserverdisconnected", () => { $("hrStatus").textContent = "Strap disconnected."; });
+    const server = await hrDevice.gatt.connect();
+    const ch = await (await server.getPrimaryService("heart_rate")).getCharacteristic("heart_rate_measurement");
+    resetDetector();
+    ch.addEventListener("characteristicvaluechanged", ev => {
+      const m = RSOSHeart.parseHeartRateMeasurement(ev.target.value);
+      for (const r of m.rr_ms) if (r >= 300 && r <= 2000) detector.push(r, moving());
+      hrStatus(hrDevice.name || "Strap");
+      if (!m.rr_ms.length) $("hrStatus").textContent = (hrDevice.name || "Strap") + ": " + m.hr + " bpm. This device does not send beat-to-beat intervals, so stress detection is unavailable.";
+    });
+    await ch.startNotifications();
+    $("hrStatus").textContent = "Connected to " + (hrDevice.name || "strap") + ". Waiting for beats…";
+  } catch (e) {
+    if (e && e.name === "NotFoundError") $("hrStatus").textContent = "No strap selected.";
+    else $("hrStatus").textContent = "Couldn't connect: " + (e && e.message ? e.message : e);
+  }
+});
+function stopDemo() { if (demoTimer) { clearInterval(demoTimer); demoTimer = null; $("hrDemo").textContent = "Try a simulated strap"; } }
+$("hrDemo").addEventListener("click", async () => {
+  if (demoTimer) { stopDemo(); $("hrStatus").textContent = "Simulation stopped."; return; }
+  let data;
+  try { data = await (await fetch("data/demo_rr.json?v=" + BUILD)).json(); }
+  catch (e) { $("hrStatus").textContent = "Couldn't load the simulated recording."; return; }
+  resetDetector();
+  const SPEED = 20, t0 = performance.now(); let k = 0, tBeat = 0;
+  $("hrDemo").textContent = "Stop simulation";
+  demoTimer = setInterval(() => {
+    const simT = (performance.now() - t0) / 1000 * SPEED;
+    while (k < data.rr_ms.length && tBeat + data.rr_ms[k] / 1000 <= simT) { tBeat += data.rr_ms[k] / 1000; detector.push(data.rr_ms[k], false, tBeat); k++; }
+    hrStatus("Simulated strap at 20× speed, minute " + Math.floor(simT / 60));
+    if (k >= data.rr_ms.length) { stopDemo(); $("hrStatus").textContent += " Simulation finished."; }
+  }, 100);
+});
+
 summarize(); loadAll();
 </script>
 </body>

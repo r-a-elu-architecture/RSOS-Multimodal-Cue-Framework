@@ -9,7 +9,7 @@
 
 ## Modern implementation (not identical to historical texts)
 
-The current [v1.3 compositional-transfer program](../../experiments/compositional-transfer-v1.3/) implements a scoped cue registry, executable graph, user-consent gates and a synthetic evidence-gated decision benchmark. It is a later **engineering interpretation**; do not read a passing software check as proof that any historical symbolic or physiological outcome was achieved.
+The current open implementation is the [Override Protocol specification](../../spec/OVERRIDE_PROTOCOL.md), the [RSX language and runtime](../../rsx/) and the [personalised cue engine](../../toolkit/). It is a later **engineering interpretation**; a passing software check does not show that any historical symbolic or physiological outcome was achieved.
 
 ## Important conflicts and non-independence
 

@@ -1,68 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RSOS v1.4 — Invariance Successor Falsification Explorer</title>
-<meta name="description" content="Explore independent-seed holdout and novel-context failures of the RSOS v1.4 synthetic successor against generic equal-information controls.">
-<style>
-:root{color-scheme:dark;font:16px/1.5 system-ui,Arial,sans-serif;background:#081321;color:#ecf4ff}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1120px;margin:auto;padding:24px 18px 65px}a{color:#7fd4ff}header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{font-weight:800;letter-spacing:.07em;color:#7fd4ff}nav{display:flex;flex-wrap:wrap;gap:16px}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;letter-spacing:-.04em;margin:40px 0 12px}h2{margin:0 0 12px;font-size:1.3rem}p{color:#b7cee1}.lead{max-width:780px;font-size:1.12rem}.panel{border:1px solid #36516d;border-radius:16px;padding:22px;background:#111f32;margin:18px 0}.pills{display:flex;flex-wrap:wrap;gap:8px}.pill{border:1px solid #46637d;border-radius:40px;padding:6px 11px;font-size:.8rem;color:#bbd9ef}.caution{border-left:4px solid #ffbd77;background:#2b261f;padding:12px 18px;color:#ffe0ad;border-radius:8px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:18px}label{display:block;margin-bottom:8px;font-weight:700}select{padding:12px;border:1px solid #536d87;border-radius:10px;width:100%;color:#eaf5ff;background:#0c1b2c}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.card{border:1px solid #375571;background:#0b1b2d;border-radius:12px;padding:15px}.card small{color:#a9c3d9}.value{font-size:1.75rem;font-weight:780;letter-spacing:-.03em}.chart{display:grid;gap:11px}.bar{display:grid;grid-template-columns:205px 1fr 68px;align-items:center;gap:12px;font-size:.88rem}.track{height:17px;border-radius:20px;background:#30445a;overflow:hidden}.fill{height:100%;background:#66caff}.fill.alt{background:#e4b77e}.fill.bad{background:#88a8d2}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid #344d68}td:not(:first-child),th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}td.good{color:#79e3aa}td.bad{color:#ffb89d}code{background:#08121e;padding:3px 5px;border-radius:5px}footer{border-top:1px solid #354d66;margin-top:24px;padding-top:18px;color:#afc0d1}@media(max-width:710px){.cards{grid-template-columns:1fr 1fr}.controls{grid-template-columns:1fr}.bar{grid-template-columns:105px 1fr 60px}.panel{padding:15px}}@media(max-width:470px){.cards{grid-template-columns:1fr}}
-</style></head><body><main class="wrap">
-<header><div class="brand">RSOS / v1.4 FALSIFICATION LAB</div><nav><a href="./">Research home</a><a href="cue-lab-v13.html">Run v1.3 Python</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">Source</a></nav></header>
-<h1>Find the failure. Test the successor.</h1><p class="lead">Explore the actual locally executed v1.4 synthetic holdouts for an invariance-aware selector, a soft prediction blend, strong generic baselines, and an exact-equality generic control.</p>
-<div class="pills"><span class="pill">8 simulated worlds</span><span class="pill">180 programs</span><span class="pill">17 policy arms · all 11 original controls</span><span class="pill">3 independent holdout seeds</span><span class="pill">18,432 decisions per policy</span></div>
-<p class="caution"><strong>Scientific status:</strong> The proposed successor does not beat generic cross-validation overall. Its generic identical implementation ties exactly. No human, clinical, EEG or neurological finding is established. This page displays executed local results; it does not launch a new run or imply the v1.4 results were in the earlier Zenodo archive.</p>
-<section class="panel"><h2>1 · Explore cohort and environment</h2><div class="controls"><div><label for="cohort">Evaluation cohort</label><select id="cohort"><option value="holdout">Independent standard holdout</option><option value="strict_ood">Strict unobserved-context holdout</option></select></div><div><label for="world">Synthetic world</label><select id="world"><option value="all">All eight worlds</option><option value="unstructured_actions">Unstructured actions</option><option value="idiosyncratic_glyphs">Idiosyncratic glyphs</option><option value="context_reversal">Context reversal</option><option value="novel_context_drift">Novel context drift</option><option value="family_transfer">Family transfer</option><option value="family_program_synergy">Family/operator synergy</option><option value="sensor_report_noise">Sensor report noise</option><option value="null_effect">Null effect</option></select></div></div><p id="scope" aria-live="polite"></p></section>
-<section class="panel" aria-live="polite"><h2>2 · Mean regret comparison <span style="font-weight:400;color:#b8ccdc;font-size:.85rem">(lower is better)</span></h2>
-<div class="cards"><div class="card"><small>Invariance blend</small><div class="value" id="mblend">—</div></div><div class="card"><small>Original generic CV</small><div class="value" id="mcv">—</div></div><div class="card"><small>Original RSIA gate</small><div class="value" id="mgate">—</div></div></div>
-<div id="bars" class="chart"></div>
-<p id="takeaway"></p><p id="ci" style="font-size:.9rem"></p></section>
-<section class="panel"><h2>3 · Every scenario compared</h2><div class="tablewrap"><table><thead><tr><th>Environment</th><th>Invariance blend</th><th>Generic CV</th><th>Original RSIA</th><th>Blend minus CV</th></tr></thead><tbody id="worldtable"></tbody></table></div></section>
-<section class="panel"><h2>4 · Falsification and provenance</h2><p><strong>Exact generic twin:</strong> the algorithmically identical generic blend selected the same action and earned the same regret in every paired case. No RSOS-exclusive superiority can be attributed to the blend.</p><p><strong>Selection rule:</strong> three-fold CV prediction error + 0.5 × variance of context-specific signed residual means, then softmax blending at temperature 0.025. Same observations and program space for every policy; no hidden world label is available.</p><p><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/research/compositional-transfer-v1.4/REPORT.md">Full results and confidence intervals</a> · <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/experiments/compositional-transfer-v1.3/src/invariance_successor.py">Executable Python</a> · <a href="data/invariance-v14-summary.json">Machine-readable results</a></p><p>The <a href="https://doi.org/10.5281/zenodo.24143732">Zenodo v1.0.0 archive</a> is an earlier publication; v1.4 is currently a GitHub research successor.</p></section>
-<footer>R. A. Elu · RSOS Multimodal Cue Framework · Synthetic computational results, not independent human validation.</footer></main>
-<script>
-"use strict";
-const $=id=>document.getElementById(id);
-const worldOrder=["context_reversal","family_program_synergy","family_transfer","idiosyncratic_glyphs","novel_context_drift","null_effect","sensor_report_noise","unstructured_actions"];
-const keys=["invariance_guard","invariance_blend","generic_cv_selector","generic_threeway_blend","rsia_evidence_gate","generic_all_pairs","flat_arm"];
-const datasets={
-holdout:{
-means:{invariance_guard:.189162,invariance_blend:.189179,generic_cv_selector:.187238,generic_threeway_blend:.190627,rsia_evidence_gate:.194588,generic_all_pairs:.211797,flat_arm:.216710},
-worlds:{
-context_reversal:[.203583,.206902,.213245,.208227,.220516,.208067,.248304],
-family_program_synergy:[.206449,.205726,.198828,.207695,.203175,.221851,.231825],
-family_transfer:[.173315,.179443,.174653,.179957,.180302,.192452,.211376],
-idiosyncratic_glyphs:[.165784,.191794,.170058,.195104,.188526,.181236,.222010],
-novel_context_drift:[.217974,.233455,.212523,.235911,.223402,.257372,.300336],
-null_effect:[0,0,0,0,0,0,0],
-sensor_report_noise:[.184766,.195846,.184859,.197625,.189521,.194852,.223104],
-unstructured_actions:[.361426,.300269,.343738,.300493,.351262,.438549,.296728]},
-ci:"Invariance blend versus original generic CV: paired improvement −0.001941, 95% cluster CI [−0.011735, +0.008957]."},
-strict_ood:{
-means:{invariance_guard:.195388,invariance_blend:.197928,generic_cv_selector:.192708,generic_threeway_blend:.198269,rsia_evidence_gate:.197555,generic_all_pairs:.215516,flat_arm:.218848},
-worlds:{
-context_reversal:[.189728,.207766,.195800,.208764,.205289,.202176,.252498],
-family_program_synergy:[.185833,.192961,.183422,.194383,.197363,.209724,.228926],
-family_transfer:[.174296,.187568,.171243,.190866,.174782,.193018,.224140],
-idiosyncratic_glyphs:[.185259,.194862,.180137,.193125,.188812,.192431,.216136],
-novel_context_drift:[.262996,.270062,.244869,.268820,.251055,.289436,.294133],
-null_effect:[0,0,0,0,0,0,0],
-sensor_report_noise:[.172579,.185788,.180606,.190810,.190168,.185457,.217776],
-unstructured_actions:[.392411,.344418,.385588,.339384,.372972,.451884,.317173]},
-ci:"Invariance blend versus original generic CV: paired improvement −0.005220, 95% cluster CI [−0.016524, +0.009544]."}
-};
-function human(w){return w.split("_").map(x=>x.charAt(0).toUpperCase()+x.slice(1)).join(" ")}
-function pick(d,w){return w==="all"?d.means:Object.fromEntries(keys.map((k,i)=>[k,d.worlds[w][i]]))}
-function render(){
-const name=$("cohort").value,w=$("world").value,d=datasets[name],v=pick(d,w);
-$("mblend").textContent=v.invariance_blend.toFixed(4);
-$("mcv").textContent=v.generic_cv_selector.toFixed(4);
-$("mgate").textContent=v.rsia_evidence_gate.toFixed(4);
-$("scope").textContent="3 independent seeds · "+(w==="all"?"8 worlds":"1 world")+" · "+(w==="all"?"18,432":"2,304")+" evaluation decisions per policy. "+(name==="strict_ood"?"Context 3 is withheld only in the novel-context-drift world.":"Standard calibration settings.");
-const bars=[["Generic CV",v.generic_cv_selector,""],["Invariance guard",v.invariance_guard,"alt"],["Invariance blend",v.invariance_blend,"alt"],["Generic 3-way blend",v.generic_threeway_blend,"bad"],["Original RSIA",v.rsia_evidence_gate,"bad"],["Generic all-pairs",v.generic_all_pairs,"bad"],["Flat memory",v.flat_arm,"bad"]];
-const bound=Math.max(...bars.map(x=>x[1]),.00001)*1.03;
-$("bars").innerHTML=bars.map(([label,x,cls])=>'<div class="bar"><span>'+label+'</span><div class="track"><div class="fill '+cls+'" style="width:'+(100*x/bound).toFixed(1)+'%"></div></div><strong>'+x.toFixed(4)+'</strong></div>').join("");
-const delta=v.invariance_blend-v.generic_cv_selector;
-$("takeaway").textContent=delta<0?"The invariance blend has "+(-delta).toFixed(4)+" lower regret than generic CV in this selected synthetic slice. This is not an independent mechanism claim.":"The invariance blend has "+delta.toFixed(4)+" higher regret than generic CV in this selected synthetic slice.";
-$("ci").textContent=w==="all"?d.ci:"World-slice differences are exploratory; each world has only 3 independent seed clusters and no world-specific inferential claim is made.";
-$("worldtable").innerHTML=worldOrder.map(world=>{const z=pick(d,world),diff=z.invariance_blend-z.generic_cv_selector;return '<tr><td>'+human(world)+'</td><td>'+z.invariance_blend.toFixed(4)+'</td><td>'+z.generic_cv_selector.toFixed(4)+'</td><td>'+z.rsia_evidence_gate.toFixed(4)+'</td><td class="'+(diff<0?"good":"bad")+'">'+(diff>0?"+":"")+diff.toFixed(4)+'</td></tr>'}).join("");
-}
-$("cohort").addEventListener("change",render);$("world").addEventListener("change",render);render();
-</script></body></html>
+<meta name="robots" content="noindex">
+<title>Page retired — RSOS</title>
+<link rel="canonical" href="https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/">
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b0f17;color:#e9eef6;font:16px/1.6 system-ui,sans-serif}main{max-width:520px;padding:32px}a{color:#f2c46d}</style>
+</head><body><main><h1>This page has been retired</h1>
+<p>It belonged to an earlier research preview and is no longer part of RSOS.</p>
+<p><a href="./">Go to the RSOS home page →</a></p></main></body></html>

@@ -47,5 +47,5 @@ GitHub official guide: https://docs.github.com/en/pages/getting-started-with-git
 - Verify the tag and release point at the intended snapshot.
 - Verify all archive hashes against `archive/provenance/SHA256SUMS.txt`.
 - After Zenodo returns a DOI, update `CITATION.cff` and README with **the actual DOI**, not a placeholder.
-- Test branded and nonbranded searches documented in `research/discovery-query-matrix.csv`. Indexing is not guaranteed.
+- Test branded and nonbranded searches. Indexing is not guaranteed.
 - Submit sitemap to Google Search Console only if you have verified site ownership. For a GitHub project subpath, sitemap submission may depend on property scope.

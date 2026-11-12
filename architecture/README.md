@@ -19,6 +19,6 @@
 | `archive/original-package` | exact historical source ZIP | immutable source bytes |
 | `archive/original-estates` | exact text contents at original paths | source texts, may include unverified assertions |
 | `architecture/` | modern organized conceptual index | derived interpretation with links |
-| `experiments/` | new implementations and measurement | results bounded by experimental design |
+| `rsx/`, `spec/`, `toolkit/` | current open implementation | software behaviour, tested; not clinical evidence |
 
 Read historical claims as *claims*. A high tier, glyph, vector, or internal model telemetry assertion does not prove a neural state, exclusive software capability, prior-art priority, or clinical effect.

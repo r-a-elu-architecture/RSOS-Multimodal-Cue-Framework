@@ -15,4 +15,4 @@ RSOS, RSIA, RSX, RSSO and RSSO PASS31B archives are dated historical specificati
 - Described EEG, VR, olfactory and gustatory channels are research interfaces, not validated clinical intervention devices.
 - Original model assertions about hidden weights, telemetry or symbolic authority are recorded historical claims, not verified internal model mechanisms.
 
-See [benchmark evidence](BENCHMARKS.md) and [repository overview](../README.md).
+See the [repository overview](../README.md).

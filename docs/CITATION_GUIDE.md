@@ -12,8 +12,8 @@
 
 ## What to cite
 
-- **Software / computational benchmark:** cite the versioned release (after it exists), with the reported snapshot and its actual DOI.
-- **Specific empirical benchmark values:** additionally cite [v1.3 results report](../research/compositional-transfer-v1.3/RESULTS_REPORT.md) and the exact CSV outcome tables.
+- **Software (RSX, protocol runtime, cue engine):** cite the versioned release and its DOI once one is issued for the current version.
+- **Specific computed values:** cite the exact script, seed and output file that produced them.
 - **Historical specifications and claims:** cite the immutable document path and SHA-256 from [source manifest](../archive/provenance/SOURCE-MANIFEST.csv); do not attribute unverified causal or neural facts to those documents.
 - **Research manuscript:** identify it as an unreviewed preprint/draft until independently published.
 

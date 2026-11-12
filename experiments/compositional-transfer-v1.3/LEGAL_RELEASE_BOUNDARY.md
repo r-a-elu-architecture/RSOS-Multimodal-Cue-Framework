@@ -1,3 +1,0 @@
-# Rights notice
-
-The user's original copyright-estate ZIP archives are private and are excluded. The model-authored Python scripts and documentation have been provided for the user's review and potential public release. A repository **without a license is not yet open-source in the legal sense**. Before GitHub publication, the owner must approve a suitable explicit code license (MIT or Apache-2.0 are options subject to rights review) and verify source attribution. Nothing here authorizes public release of the underlying private chat corpus, personal health history, copyright-estate text or third-party datasets.

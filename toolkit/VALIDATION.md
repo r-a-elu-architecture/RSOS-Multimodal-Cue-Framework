@@ -16,16 +16,6 @@ Regret = true best gain for that trigger minus the true gain of the recommended 
 - From 10 runs on, choosing what to try next beats trying settings at random (−22% and −26%). With only 5 runs, random runs are slightly better, because the engine spends its first 4 runs exploring.
 - **Limit:** the invented response types are additive, which matches the engine's model. Real people will be less tidy; these numbers show the machinery works, not how large real benefits are.
 
-## 2. Outside check on public human ratings
-
-`validate/external/` (`real_data.py`, `universes.py`, `analyze_external.py`), results in `validate/external/results/`. The same algorithm, applied to choosing items from public ratings, tests it on real human preference data that was not designed around it.
-
-- **Data:** MovieLens-1M (100 most-rated movies) and goodbooks-10k (150 most-rated books), 400 test users each; 16 rated items form each user's decision set, 24 other ratings are given. The datasets are not redistributed; download them from their publishers.
-- **Choosing which items to ask about helps:** −23.6% regret on MovieLens (matrix factorisation on the engine's chosen ratings vs random ratings) and −15.3% on goodbooks (engine's probes vs random), both significant.
-- **Not better than a standard bandit:** the engine's probes and hierarchical-Bayes Thompson sampling differ by −2% and −5%, not significant.
-- **Structure from metadata helps; extra response modes do not:** genre and author families improve on the generic model by 8% and 21%, while the multi-mode bank does no better than a single shared prior there.
-- **24 random population generators** (noise types, nonlinear links, binary outcomes, misleading self-ratings, wrong families): the engine's probing had the lowest regret (0.074, vs 0.082 for Thompson sampling, not significant; 33–50% below random probes, significant).
-
 ## Earlier results
 
-Version 0.1 was also evaluated on the v1.3 synthetic simulator, which was retired from `main` with the v1 benchmarks. Those results and their code remain at the `v1.0.0-research-preview` tag.
+Version 0.1 was also evaluated on the retired v1.3 simulator and, as a check of the algorithm alone, on public movie and book ratings. Neither is related to RSOS, so both were removed; the code and results remain in the git history and at the `v1.0.0-research-preview` and `v2.0.0` tags.

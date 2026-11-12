@@ -10,7 +10,7 @@
 | `trigger_channel` (V, A, K, O, G, thought, memory) | context |
 | distress drop + agency gain | outcome |
 
-**Status:** working software, tested on synthetic run logs and, as an outside check of the algorithm, on public movie and book ratings. No human outcome data exists yet; its purpose is to learn from such data as soon as it does.
+**Status:** working software, tested on synthetic run logs. No human outcome data exists yet; its purpose is to learn from such data as soon as it does.
 
 ## Install and run
 

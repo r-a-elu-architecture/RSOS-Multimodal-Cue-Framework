@@ -17,5 +17,6 @@ Website for the About box: https://r-a-elu-architecture.github.io/RSOS-Multimoda
 
 ## Release history
 
-- **v2.0.0** — Override Protocol, RSX language, protocol player ([notes](../releases/v2.0.0.md)).
+- **v2.1.0** — architecture map and provenance layer, cue engine on the run log, study kit ([notes](../releases/v2.1.0.md)); to be released.
+- **v2.0.0** — Override Protocol, RSX language, protocol player ([notes](../releases/v2.0.0.md), [doi:10.5281/zenodo.24151788](https://doi.org/10.5281/zenodo.24151788)).
 - **v1.0.0-research-preview** — superseded ([notes](../releases/v1.0.0-research-preview.md), [doi:10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732)).

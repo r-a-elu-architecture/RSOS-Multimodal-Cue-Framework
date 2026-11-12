@@ -1,0 +1,9 @@
+split,world,lib_rsos_world_unseen,lib_rsos_world_unseen_nofix
+lowo,heavy_tail_noise,0.2486,0.2392
+lowo,linear_base,0.1213,0.1132
+lowo,misleading_reports,0.285,0.3866
+lowo,null_effect,0.0,0.0
+lowo,saturating,0.0412,0.0418
+lowo,sparse_jackpot,0.4768,0.4779
+lowo,triple_interaction,0.3149,0.3141
+lowo,within_session_drift,0.3799,0.3835

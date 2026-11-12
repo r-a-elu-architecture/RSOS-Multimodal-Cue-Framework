@@ -1,0 +1,31 @@
+== v1.3 simulator holdout
+                           comparison  regret_other  regret_ref  improvement  rel_reduction_pct  ci_low  ci_high  ref_wins_worlds  clusters
+v13_rsia_evidence_gate minus lib_full        0.1978      0.1523       0.0456               23.0  0.0303   0.0621               20        24
+   generic_cv_selector minus lib_full        0.1951      0.1523       0.0429               22.0  0.0275   0.0592               20        24
+              lib_base minus lib_full        0.1515      0.1523      -0.0008               -0.5 -0.0027   0.0009                9        24
+== v1.3 simulator ood
+                           comparison  regret_other  regret_ref  improvement  rel_reduction_pct  ci_low  ci_high  ref_wins_worlds  clusters
+v13_rsia_evidence_gate minus lib_full        0.1985       0.154       0.0445               22.4  0.0304   0.0593               21        24
+   generic_cv_selector minus lib_full        0.1990       0.154       0.0450               22.6  0.0320   0.0588               21        24
+              lib_base minus lib_full        0.1534       0.154      -0.0006               -0.4 -0.0023   0.0011                8        24
+== v1.3 simulator, world never seen by bank
+                           comparison  regret_other  regret_ref  improvement  rel_reduction_pct  ci_low  ci_high  ref_wins_worlds  clusters
+v13_rsia_evidence_gate minus lib_full        0.1978      0.1634       0.0344               17.4  0.0197   0.0499               18        24
+              lib_base minus lib_full        0.1867      0.1634       0.0233               12.5  0.0067   0.0432                9        24
+== hard worlds, mixture population, random calibration
+                           comparison  regret_other  regret_ref  improvement  rel_reduction_pct  ci_low  ci_high  ref_wins_worlds  clusters
+v13_rsia_evidence_gate minus lib_rsos        0.2516      0.2223       0.0293               11.6  0.0067   0.0527               11        16
+   v13_rsos_relational minus lib_rsos        0.2325      0.2223       0.0102                4.4 -0.0143   0.0337               10        16
+           lib_generic minus lib_rsos        0.2255      0.2223       0.0031                1.4 -0.0089   0.0159                9        16
+         lib_rsos_base minus lib_rsos        0.2242      0.2223       0.0019                0.9 -0.0039   0.0088                6        16
+== hard worlds, active calibration
+                                  comparison  regret_other  regret_ref  improvement  rel_reduction_pct  ci_low  ci_high  ref_wins_worlds  clusters
+v13_rsia_evidence_gate minus lib_rsos_active        0.2516       0.192       0.0596               23.7  0.0191   0.0999               11        16
+   v13_rsos_relational minus lib_rsos_active        0.2325       0.192       0.0405               17.4  0.0021   0.0806               10        16
+    lib_generic_active minus lib_rsos_active        0.1970       0.192       0.0050                2.5 -0.0108   0.0200               10        16
+              lib_rsos minus lib_rsos_active        0.2223       0.192       0.0303               13.6  0.0036   0.0584                8        16
+== hard worlds, world never seen by bank
+                                             comparison  regret_other  regret_ref  improvement  rel_reduction_pct  ci_low  ci_high  ref_wins_worlds  clusters
+     v13_rsia_evidence_gate minus lib_rsos_world_unseen        0.2516      0.2335       0.0181                7.2 -0.0082   0.0425               11        16
+        v13_rsos_relational minus lib_rsos_world_unseen        0.2325      0.2335      -0.0010               -0.4 -0.0300   0.0256               10        16
+lib_rsos_world_unseen_nofix minus lib_rsos_world_unseen        0.2445      0.2335       0.0111                4.5 -0.0037   0.0336                6        16

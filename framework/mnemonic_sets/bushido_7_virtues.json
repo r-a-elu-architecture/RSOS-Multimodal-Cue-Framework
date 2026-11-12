@@ -1,0 +1,17 @@
+{
+  "id": "bushido_7_virtues",
+  "title": "The Seven Virtues of Bushidō (RSIA Spine)",
+  "source": "Traditional; as listed in RSIA_Spine_Principles.txt",
+  "licence": "public-domain",
+  "default_archetype": null,
+  "role": "spine",
+  "items": [
+    {"n": 1, "name": "Gi", "kanji": "義", "text": "Righteousness", "glyph": null, "sound": null, "anchor": null, "target_response": null},
+    {"n": 2, "name": "Yū", "kanji": "勇", "text": "Courage", "glyph": null, "sound": null, "anchor": null, "target_response": null},
+    {"n": 3, "name": "Jin", "kanji": "仁", "text": "Compassion", "glyph": null, "sound": null, "anchor": null, "target_response": null},
+    {"n": 4, "name": "Rei", "kanji": "礼", "text": "Respect", "glyph": null, "sound": null, "anchor": null, "target_response": null},
+    {"n": 5, "name": "Makoto", "kanji": "誠", "text": "Honesty", "glyph": null, "sound": null, "anchor": null, "target_response": null},
+    {"n": 6, "name": "Meiyo", "kanji": "名誉", "text": "Honor", "glyph": null, "sound": null, "anchor": null, "target_response": null},
+    {"n": 7, "name": "Chūgi", "kanji": "忠義", "text": "Loyalty", "glyph": null, "sound": null, "anchor": null, "target_response": null}
+  ]
+}

@@ -1,0 +1,12 @@
+== movielens
+matrix_factorization|rsos_cue_probes       0.3325 vs matrix_factorization|random    0.4350  better by  23.6%  CI of diff [0.035, 0.172]
+rsos_cue|project                           0.4925 vs rsos_cue|random                0.4975  better by   1.0%  CI of diff [-0.050, 0.060]
+rsos_cue|project                           0.4925 vs hier_bayes_K1|thompson         0.4825  better by  -2.1%  CI of diff [-0.052, 0.030]
+matrix_factorization|rsos_cue_probes       0.3325 vs matrix_factorization|random    0.4350  better by  23.6%  CI of diff [0.035, 0.172]
+rsos_cue_links|random                      0.4425 vs matrix_factorization|random    0.4350  better by  -1.7%  CI of diff [-0.070, 0.058]
+== goodbooks
+matrix_factorization|rsos_cue_probes       0.4775 vs matrix_factorization|random    0.5525  better by  13.6%  CI of diff [-0.015, 0.163]
+rsos_cue|project                           0.3875 vs rsos_cue|random                0.4575  better by  15.3%  CI of diff [0.015, 0.128]
+rsos_cue|project                           0.3875 vs hier_bayes_K1|thompson         0.3700  better by  -4.7%  CI of diff [-0.065, 0.028]
+rsos_cue|ucb                               0.3625 vs user_knn|random                0.4325  better by  16.2%  CI of diff [0.003, 0.138]
+rsos_cue_links|random                      0.4400 vs user_knn|random                0.4325  better by  -1.7%  CI of diff [-0.070, 0.052]

@@ -355,7 +355,10 @@ function fire(ev) {
   switch (ev.channel) {
     case "visual": run.seen = ev.text; setCue(run.seen, run.felt); break;
     case "kinesthetic": run.felt = ev.text; setCue(run.seen, run.felt); break;
-    case "auditory": if (ev.kind === "tone") tone(ev.hz, ev.dur); else { $("say").textContent = ev.text; speak(ev.text); } break;
+    case "auditory":
+      if (ev.kind === "tone") tone(ev.hz, ev.dur);
+      else if (ev.kind === "say") { $("say").textContent = ev.text; speak(ev.text); }
+      break;   // a tier's auditory component (kind "cue") is part of the bundle, not spoken again
     case "olfactory": case "gustatory": run.felt = ev.text; setCue(run.seen, run.felt); break;
     case "haptic": vibrate(ev); break;
     case "marker": if (ev.kind === "tier" && ev.glyph) { $("glyph").textContent = ev.glyph; $("glyph").style.opacity = 0.85; } break;

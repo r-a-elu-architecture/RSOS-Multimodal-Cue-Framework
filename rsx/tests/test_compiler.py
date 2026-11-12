@@ -31,6 +31,9 @@ class OverrideProtocol(unittest.TestCase):
         self.assertEqual([e["text"] for e in ev], ["Driving the car", "At work", "Achieving your goal"])
         self.assertEqual([e["t"] - ev[0]["t"] for e in ev], [0, 2000, 4000])   # all inside one exhale
 
+    def test_interrupt_is_short(self):
+        self.assertLessEqual(self.t["phases"][0]["dur"], 2000)
+
     def test_first_and_last_words(self):
         says = [e["text"] for e in self.t["events"] if e["kind"] == "say"]
         self.assertEqual(says, ["I move, I act", "I own"])
@@ -48,7 +51,7 @@ class OverrideProtocol(unittest.TestCase):
 
     def test_vib_and_fp_anchors(self):
         h = [e for e in self.t["events"] if e["channel"] == "haptic"]
-        self.assertEqual((h[0]["on"], h[0]["off"], h[0]["count"]), (300, 300, 6))
+        self.assertEqual((h[0]["on"], h[0]["off"], h[0]["count"]), (300, 300, 3))
         fp = [e for e in h if e["phase"] == "futures"]
         self.assertEqual([(e["on"], e["count"]) for e in fp], [(150, 8)])
         self.assertTrue(all(e["amp"] <= self.t["safety"]["haptic_max"] for e in h))

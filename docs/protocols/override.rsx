@@ -17,11 +17,11 @@ TIER 1 LION {
 
 FUTURES "Driving the car" | "At work" | "Achieving your goal"
 
-# 1. Interrupt: move, straighten, clench the fist and speak, all at the same moment.
+# 1. Interrupt: move, straighten, clench the fist and say "I move, I act" once, all at the same moment. Then inhale.
 PHASE interrupt {
   SAY "I move, I act"
   GESTURE "Move: spine straight, head up, clench your fist"
-  HAPTIC on=300ms off=300ms x=6 amp=0.4      # VIB-ANCHOR
+  HAPTIC on=300ms off=300ms x=3 amp=0.4      # VIB-ANCHOR (short, so the inhale follows at once)
   MARK "interrupt"
 }
 

@@ -42,7 +42,7 @@ Then one interrupt and five full breaths. Default breath: 4 s inhale, 6 s exhale
 
 | # | Phase | Breath | What you do | Default device cue |
 |---|---|---|---|---|
-| 1 | **Interrupt** | — (instantly) | Move, even slightly; straighten the spine and lift the head; clench the fist and say **"I move, I act"** at the same moment the fist closes | Haptic VIB-ANCHOR (300 ms on/off × 6) |
+| 1 | **Interrupt** | — (instantly) | Move, even slightly; straighten the spine and lift the head; clench the fist and say **"I move, I act"** once, at the same moment the fist closes; then go straight into the inhale | Haptic VIB-ANCHOR, short form (300 ms on/off × 3; the archive specifies × 6) |
 | 2 | **Ignite** | Inhale | Breathe golden lion light into the belly: courage and agency | Warm tone; lion-light visual |
 | 3 | **Radiate** | Exhale | The light expands inside, filling the blood flow, the lymph, every part of the body and every cell | Expanding light |
 | 4 | **Anchor** | Inhale | At the top of the inhale, touch middle finger to thumb | Short haptic pulse |

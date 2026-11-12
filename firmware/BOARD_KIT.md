@@ -100,7 +100,7 @@ You can check the band in three ways.
   ```
 
   On Windows the port is `COM3`, `COM5` and so on; on a Mac it is `/dev/cu.usbserial-…`.
-- **Without a board.** `python -m rsso.board --sim` runs the same checks against the firmware core in real time, which is how the checks themselves are tested.
+- **Without a board.** `python -m rsso.board --sim` runs the same checks against the firmware core in real time, which is how the checks themselves are tested. With `--full` it passes all 22 checks, B1–B7 and C1–C15, in real time ([report](../rsso/results/board_check_sim_realtime.md)).
 
 | Check | Requires |
 |---|---|

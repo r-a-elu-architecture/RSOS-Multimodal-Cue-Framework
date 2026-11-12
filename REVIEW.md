@@ -59,7 +59,7 @@ contribution format, the device protocol with its board check, and the heart-rat
 |---|---|---|---|
 | Tier ledger read losslessly | 293 records, byte-identical when rebuilt | Measured on the archive | `rsso/rsso/ledger.py`, tests |
 | Conformance suite | 15/15 on the virtual rig and on the C++ firmware core | Software in the loop | `rsso/results/conformance_*.md` |
-| Board check B1–B7 | 7/7 against the firmware core in real time | Software in the loop (no board yet) | `python -m rsso.board --sim` |
+| Board check B1–B7, then C1–C15 over the serial transport in real time | 22/22 against the firmware core | Software in the loop (no board yet) | `rsso/results/board_check_sim_realtime.md` |
 | Device Stop | Within 100 ms (protocol); 0 ms in simulation | Simulation | C2, B4 |
 | Heart-rate stress detector | 80% of stress events, 0.10 false alarms an hour with motion gating | Synthetic: virtual strap model | `rsso/results/detector_summary.txt` |
 | EEG arousal detector | 2 of 2 events, none false | Synthetic signal | `rsso/rsso/eeg.py`, tests |

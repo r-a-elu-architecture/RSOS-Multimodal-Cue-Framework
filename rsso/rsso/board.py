@@ -58,6 +58,11 @@ class SimSerialPort:
             self.p.stdin.write(line + "\n")
             self.p.stdin.flush()
 
+    @property
+    def in_waiting(self) -> int:
+        self._pump()
+        return len(self.buf)
+
     def readline(self) -> bytes:
         self._pump()
         if not self.buf:
@@ -94,6 +99,8 @@ class SerialTransport:
 
     def send(self, line: str):
         self.port.write((line + "\n").encode())
+        if line.split(" ")[0] in ("HELLO", "STOP", "STATUS"):   # replies the host waits for; the rest arrive while it runs
+            self.pending = True
 
     def read_for(self, ms: int) -> list[str]:
         out, end = [], time.monotonic() + ms / 1000
@@ -104,9 +111,23 @@ class SerialTransport:
         return [x for x in out if x]
 
     def tick(self, t_ms: int) -> list[str]:
-        """Collect what the device says until it has been quiet for SETTLE_MS."""
+        """After a command: collect the reply until the device has been quiet for SETTLE_MS. Otherwise (the runtime
+        passing time during a run): take only what has already arrived, so host-side events are not delayed."""
         self.now = max(self.now, t_ms)
-        out, quiet_since = [], time.monotonic()
+        out = []
+        if not getattr(self, "pending", False):
+            while True:
+                waiting = getattr(self.port, "in_waiting", None)
+                if waiting == 0:
+                    return out
+                raw = self.port.readline()
+                if not raw:
+                    return out
+                line = raw.decode(errors="replace").strip()
+                if line:
+                    out.append(line)
+        self.pending = False
+        quiet_since = time.monotonic()
         while (time.monotonic() - quiet_since) * 1000 < SETTLE_MS:
             raw = self.port.readline()
             if raw:

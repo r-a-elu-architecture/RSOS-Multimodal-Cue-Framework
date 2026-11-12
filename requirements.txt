@@ -3,4 +3,5 @@ numpy>=1.24
 scipy>=1.10
 pandas>=2.0
 pillow>=10.0
+fonttools>=4.40
 # optional, for checking a real wristband over USB: pyserial>=3.5

@@ -141,8 +141,21 @@ These are operational definitions; the RSOS metric log names these metrics but g
 - **Safety inherited:** the cue compiler's `haptic_max` is a compile error, and the device protocol and firmware enforce their own limits.
 - **Scope rule:** no electrical stimulation. An argument naming electrical, charge-based, tDCS, tACS, TENS, EMS or galvanic output is refused, both by the RSX-V compiler and by the bridge.
 
-## 9. Status
+## 9. Clause-to-Body Causal Ledger
 
-- **Language, runtime, all ten laws, the six metrics, the audit chain, NEXT and the firmware path:** prototype, with 37 tests.
+`rsxv/ledger.py` answers one question: *which part of what the person said moved their body, by how much, and how sure are we?*
+
+1. **Units.** Clause IDs from the translator (`m1·v3`) are carried by the operators they produced. Only clause-derived content operators are randomised. Gate, settle, close and coverage-fill operators always run.
+2. **Micro-randomisation.** Every 10-second cycle inside a phase is a decision point. Each eligible clause is switched on with probability p = 0.6, independently, and an operator runs if any of its clauses is on. This needs `randomisation` in the consent list. NullSafe still stops a session.
+3. **Estimate.** The outcomes are change in distress, arousal, agency and target-layer activation over the cycle. They are regressed on the centred indicators (A − p), with the cycle's starting arousal and distress as covariates. This is the weighted-and-centred least-squares estimator used for micro-randomised trials. Intervals are 95%, cluster-robust by session.
+4. **Language.** `sentences()` renders the effects whose interval excludes zero, quoting the clause.
+5. **NEXT.** `next_from_ledger()` drops operators whose every clause raised distress, with an interval above zero.
+6. **Audit.** `to_audit()` appends the ledger to the hash-chained Resonance Audit Log.
+
+`ledger_recovery.py` plants known per-clause effects, with operators made inert so the planted effects are the whole truth, and checks that the ledger recovers them.
+
+## 10. Status
+
+- **Language, runtime, all ten laws, the six metrics, the audit chain, NEXT and the firmware path:** prototype, with 44 tests.
 - **The person model used by GhostPass and the arm comparison:** a stated model, not data. Its assumptions (dilution, readiness, backfire, conflict, plus circadian and carry-over for sessions) can each be switched off.
 - **Human effectiveness:** untested. It needs the three-arm study (canonical v1, RSX-V, sham) with the same per-vector audit.

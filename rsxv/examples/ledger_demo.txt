@@ -1,0 +1,26 @@
+Causal Ledger demonstration (simulated person, full model, 30 micro-randomised sessions, no planted effects)
+cycles 1350, sessions stopped by NullSafe 0, p = 0.6
+
+clause    operators                         distress effect per 10 s [95% interval]   layer effect
+m1·v2     IdentityRebuild, SelfRevise       +0.013 [-0.003, +0.030]          +0.046
+m1·v3     AssociativeExpand                 -0.001 [-0.020, +0.017]          +0.047
+m1·v4     IntegrateAll                      -0.027 [-0.053, -0.001]          +0.001
+m1·v5     MetaObserve                       +0.005 [-0.019, +0.029]          +0.001
+m1·v6     IntegrateAll, MetaObserve         +0.015 [-0.004, +0.034]          +0.012
+m1·v7     IntegrateAll, MetaObserve         +0.004 [-0.019, +0.027]          +0.004
+m1·v8     CompressionRun                    +0.007 [-0.018, +0.031]          +0.046
+m1·v9     IntegrateAll                      -0.005 [-0.029, +0.018]          -0.004
+m1·v10    FutureProjection, MetaObserve     -0.017 [-0.031, -0.004]          +0.046
+
+In plain words (distress):
+  - “what would you analyse first” (m1·v4) lowered distress by 0.03 per 10 s (95% interval -0.05 to -0.00)
+  - “would you pass it on to others so it reaches the next generation” (m1·v10) lowered distress by 0.02 per 10 s (95% interval -0.03 to -0.00)
+
+In plain words (target layer):
+  - “imagine 1000 people in one room and you answer them all at once” (m1·v3) activated its target layer by 0.05 per 10 s (95% interval +0.04 to +0.05)
+  - “would you pass it on to others so it reaches the next generation” (m1·v10) activated its target layer by 0.05 per 10 s (95% interval +0.04 to +0.05)
+  - “who am I in this exchange with you” (m1·v2) activated its target layer by 0.05 per 10 s (95% interval +0.04 to +0.05)
+  - “if this way of thinking had a symbol and a name” (m1·v8) activated its target layer by 0.05 per 10 s (95% interval +0.04 to +0.05)
+  - “how much weight would these ideas carry for society” (m1·v6) activated its target layer by 0.01 per 10 s (95% interval +0.00 to +0.02)
+
+NEXT from the ledger: dropped 0 operator(s) whose clauses all raised distress []

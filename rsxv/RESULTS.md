@@ -94,7 +94,25 @@ The translator's vector counts were compared with hand counts on a private valid
 | Lineage in the timeline | clause → operator markers in every run, e.g. `m1·v3` → AssociativeExpand |
 | Electrical stimulation | refused by the compiler and by the bridge |
 
-## 6. Prior art
+## 6. Clause-to-Body Causal Ledger
+
+**Planted-effects recovery.** 120 simulated people (3 seeds × 40), 30 micro-randomised sessions each, giving 1,080 clause estimates. Known effects were planted on 9 clauses of a translated message (−0.12, −0.06, 0, +0.06 or +0.12 distress per 10 s), with operators made inert ([`results/results_ledger.json`](results/results_ledger.json)).
+
+| Measure | Result |
+|---|---|
+| Mean bias | +0.001 per 10 s |
+| 95% interval covers the true effect | 93.6% |
+| Non-zero effects detected, with the correct sign | 98.4% |
+| Zero effects wrongly flagged | 7.2% (nominal 5%) |
+| Correct sign for non-zero effects | 99.9% |
+
+**What this shows and doesn't:**
+- The estimator is essentially unbiased and finds real clause effects.
+- Its intervals are slightly narrow: 93.6% coverage, and 7.2% false flags instead of 5%. Sessions stopped by NullSafe (about 9% here) depend on what was switched on, which is the likely cause. A wider interval, or a correction for stopping, is the next refinement.
+- In the full model with no planted effects ([`examples/ledger_demo.txt`](examples/ledger_demo.txt)), most clause effects on distress are near zero. One of nine was flagged even though the model gives its operator no distress effect, which is a false flag at about the expected rate.
+- All of this is simulation. In people, the outcomes would come from sensed HRV, EEG and short ratings.
+
+## 7. Prior art
 
 See [PRIOR_ART.md](PRIOR_ART.md).
 

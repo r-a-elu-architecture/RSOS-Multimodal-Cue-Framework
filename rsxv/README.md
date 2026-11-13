@@ -27,6 +27,7 @@ message ─▶ translator ─▶ RSX-V command ─▶ RSX cue program ─▶ tim
   - ResonanceAudit: a hash-chained log;
   - Emergency Purge, with proof.
 - **Measurement.** Every vector is audited (agency, distress, drift, layer activation). Six RSOS metrics that had no formula now have operational definitions: STC, IEC, RSI, SMV, ECR, SEP-L.
+- **Clause-to-Body Causal Ledger.** Micro-randomises the clauses of a person's own message inside the session (with consent, safety operators never randomised). It estimates each clause's causal effect on distress, arousal, agency and layer activation, with 95% intervals, says it back in plain words, and feeds NEXT. Recovery of planted effects is checked in simulation.
 - **NEXT** writes the successor command from the measured result, and upgrades any v1 command automatically.
 - **Translator.** It turns a message into its vectors, then into a complete command. Pasted material is set aside, and every operator carries lineage back to the clause it came from.
 - **Bridge.** It compiles to RSX cue programs, which the existing Python and JavaScript compilers, the player and the device protocol run unchanged. Their safety limits therefore apply.
@@ -36,11 +37,12 @@ message ─▶ translator ─▶ RSX-V command ─▶ RSX cue program ─▶ tim
 
 ```bash
 cd rsxv
-python3 -m unittest discover -s tests                     # 37 tests (needs Node for the JS parity check)
+python3 -m unittest discover -s tests                     # 44 tests (needs Node for the JS parity check)
 python3 -m rsxv examples/dragon.rsxv --fw                  # run on a simulated person, with firmware output
 python3 -m rsxv examples/canonical17.rsx --next out.rsxv   # upgrade the canonical v1 command
 python3 -m rsxv.arms examples/canonical17.rsx examples/dragon.rsxv results/results_arms.json
 python3 -m rsxv.evaluate_laws examples/dragon_full.rsxv results/results_laws.json
+python3 -m rsxv.ledger_recovery results/results_ledger.json         # planted-effects recovery
 ```
 
 ## Files
@@ -50,9 +52,9 @@ python3 -m rsxv.evaluate_laws examples/dragon_full.rsxv results/results_laws.jso
 | [`SPEC.md`](SPEC.md) | Language, run-time semantics, laws, metrics, translator, bridge |
 | [`RESULTS.md`](RESULTS.md) | All measured results, with what they do and do not show |
 | [`PRIOR_ART.md`](PRIOR_ART.md) | Prior-art search (papers, patents, products) and what can be claimed |
-| `rsxv/` | `ops` (operator table) · `lang` (parser) · `run` (runtime, NEXT) · `sim` (simulated person) · `metrics` · `chain` (sessions, audit log, purge) · `translate` · `bridge` · `arms` · `evaluate_laws` |
+| `rsxv/` | `ops` (operator table) · `lang` (parser) · `run` (runtime, NEXT) · `sim` (simulated person) · `metrics` · `chain` (sessions, audit log, purge) · `translate` · `bridge` · `ledger`, `ledger_recovery` · `arms` · `evaluate_laws` |
 | `examples/` | The canonical 17-vector command, its RSX-V forms, compiled cue programs and run logs |
-| `results/` | Arm comparison, session laws and translator validation (aggregates only) |
+| `results/` | Arm comparison, session laws, ledger recovery and translator validation (aggregates only) |
 
 ## Status
 

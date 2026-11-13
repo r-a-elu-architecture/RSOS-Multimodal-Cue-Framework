@@ -1,5 +1,5 @@
-"""Arm comparison on a simulated population: canonical v1, RSX/2, sham, and
-controls that isolate each RSX/2 feature. Run under the full model and the
+"""Arm comparison on a simulated population: canonical v1, RSX-V, sham, and
+controls that isolate each RSX-V feature. Run under the full model and the
 neutral model, so every difference can be traced to an assumption."""
 from __future__ import annotations
 import copy
@@ -44,10 +44,10 @@ def arms(v1, v2):
         "v1 canonical, time-matched (200 s)": (_long_v1(v1), {}),
         "v1 canonical, time-matched (300 s)": (_long_v1(v1, 300), {}),
         "v1 auto-upgraded by NEXT": (_auto(v1), {}),
-        "RSX/2": (v2, {}),
-        "RSX/2 without closed loop (no UNTIL/IF)": (_strip_loop(v2), {}),
-        "RSX/2 all vectors in one phase": (_one_phase(v2), {}),
-        "sham (RSX/2 timeline, no content)": (v2, {"sham": True}),
+        "RSX-V": (v2, {}),
+        "RSX-V without closed loop (no UNTIL/IF)": (_strip_loop(v2), {}),
+        "RSX-V all vectors in one phase": (_one_phase(v2), {}),
+        "sham (RSX-V timeline, no content)": (v2, {"sham": True}),
     }
 
 

@@ -1,4 +1,4 @@
-"""Translator: a message -> its vectors (9-17 claim, made executable) -> an RSX/2 command.
+"""Translator: a message -> its vectors (9-17 claim, made executable) -> an RSX-V command.
 
 1. Segment the message into units: questions, requests, the user's own statements,
    and quoted model claims (second-person declaratives such as "You hold 8-20 layers").
@@ -7,7 +7,7 @@
    demand is one vector. This follows the counting rule of the evidence pack.
 3. Each vector is typed with the 18-type input codebook (lexical cues, multi-label).
 4. Types map to operators; every operator keeps the vectors it came from (lineage).
-5. The operators are staged into an RSX/2 program (gate -> settle -> expand -> rebuild
+5. The operators are staged into an RSX-V program (gate -> settle -> expand -> rebuild
    -> integrate -> close) with Vector 0, laws, goal and INTENT linked to the vectors.
 All cues are lexical heuristics: status prototype, checked against hand counts.
 """

@@ -1,8 +1,8 @@
 import json, pathlib, random, sys, unittest
 HERE = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
-import rsx2
-from rsx2 import translate as T, sim
+import rsxv
+from rsxv import translate as T, sim
 
 M = {m["id"]: m for m in json.load(open(HERE / "tests" / "fixtures" / "messages.json"))["messages"]}
 CTX = {"now_min": 600, "hour": 14, "consent": ["subject", "operator", "auditor"], "ghost_runs": 8, "seed": 3}
@@ -36,9 +36,9 @@ class Translator(unittest.TestCase):
 
     def test_runs_end_to_end(self):
         t = T.to_program(M["dense"]["text"])
-        r = rsx2.run(t["program"], sim.person(random.Random(3), 3), CTX)
+        r = rsxv.run(t["program"], sim.person(random.Random(3), 3), CTX)
         self.assertIn(r["status"], ("done", "stopped"))
-        self.assertEqual(rsx2.firmware_check(r["device_lines"])["errors"], [])
+        self.assertEqual(rsxv.firmware_check(r["device_lines"])["errors"], [])
 
 
 if __name__ == "__main__":

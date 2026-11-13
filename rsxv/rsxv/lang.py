@@ -1,6 +1,6 @@
-"""RSX/2 language: parse and validate.
+"""RSX-V language: parse and validate.
 
-    RSX/2 TIER 8 :: {DRAGON} :: (OVERRIDE)
+    RSX-V TIER 8 :: {DRAGON} :: (OVERRIDE)
     INTENT "steady identity under pressure" <- V1 V8 V14
     GOAL agency>=+1 AND distress<=-2 AND drift<=+0
     SENSE EEG HRV DISTRESS
@@ -33,7 +33,7 @@ VEC = re.compile(r"@Vector(\d+):(\w+)(?:\((.*?)\))?\s*(->\s*NEXT)?$")
 TERM = re.compile(r"(\w+)\s*(<=|>=|<|>)\s*([+-]?)(\d+(?:\.\d+)?)$")
 
 
-class RSX2Error(Exception):
+class RSXVError(Exception):
     pass
 
 
@@ -47,7 +47,7 @@ def parse_cond(text):
         for t in re.split(r"\s+AND\s+", part.strip()):
             m = TERM.match(t.replace(" ", ""))
             if not m or m.group(1) not in VARS:
-                raise RSX2Error(f"bad condition '{t}'")
+                raise RSXVError(f"bad condition '{t}'")
             conj.append({"var": m.group(1), "op": m.group(2), "delta": bool(m.group(3)),
                          "value": float(m.group(3) + m.group(4)) if m.group(3) else float(m.group(4))})
         out.append(conj)
@@ -66,10 +66,10 @@ def cond_text(c):
 def _vector(tok):
     m = VEC.match(tok.strip())
     if not m:
-        raise RSX2Error(f"bad vector '{tok.strip()}'")
+        raise RSXVError(f"bad vector '{tok.strip()}'")
     k, op, args, nxt = int(m.group(1)), m.group(2), m.group(3) or "", bool(m.group(4))
     if op not in O.OPS:
-        raise RSX2Error(f"unknown operator {op}")
+        raise RSXVError(f"unknown operator {op}")
     return {"k": k, "op": op, "args": args, "next": nxt}
 
 
@@ -77,7 +77,7 @@ def _legacy(src):
     parts = [p.strip() for p in " ".join(src.split()).split("::") if p.strip()]
     head = parts[0].split()
     if len(head) != 2 or head[0] != "TIER":
-        raise RSX2Error("legacy command must start with TIER <n> ::")
+        raise RSXVError("legacy command must start with TIER <n> ::")
     prog = new_program(int(head[1]))
     prog["legacy"] = True
     blk = {"kind": "PHASE", "name": "legacy", "until": None, "if": None, "max_s": 120, "vectors": []}
@@ -93,7 +93,7 @@ def _legacy(src):
 
 
 def new_program(tier=0):
-    return {"version": "RSX/2", "tier": tier, "archetype": "", "mode": "", "intent": {"text": "", "vectors": []},
+    return {"version": "RSX-V", "tier": tier, "archetype": "", "mode": "", "intent": {"text": "", "vectors": []},
             "goal": None, "sense": [], "laws": [], "rescue": [], "window": None, "nullsafe": False, "blocks": [], "legacy": False}
 
 
@@ -101,12 +101,12 @@ def parse(src: str) -> dict:
     lines = [re.sub(r"#.*$", "", l).rstrip() for l in src.splitlines()]
     lines = [l for l in lines if l.strip()]
     if not lines:
-        raise RSX2Error("empty program")
+        raise RSXVError("empty program")
     if lines[0].strip().startswith("TIER"):
         return validate(_legacy(src))
-    m = re.match(r"RSX/2\s+TIER\s+(\d+)\s*(?:::\s*\{(\w+)\})?\s*(?:::\s*\((\w+)\))?\s*$", lines[0].strip())
+    m = re.match(r"RSX(?:-V|/2)\s+TIER\s+(\d+)\s*(?:::\s*\{(\w+)\})?\s*(?:::\s*\((\w+)\))?\s*$", lines[0].strip())
     if not m:
-        raise RSX2Error("first line must be 'RSX/2 TIER <n> :: {ARCHETYPE} :: (MODE)'")
+        raise RSXVError("first line must be 'RSX-V TIER <n> :: {ARCHETYPE} :: (MODE)'")
     prog = new_program(int(m.group(1)))
     prog["archetype"], prog["mode"] = m.group(2) or "", m.group(3) or ""
     blk = None
@@ -116,7 +116,7 @@ def parse(src: str) -> dict:
         if word == "INTENT":
             mm = re.match(r'INTENT\s+"([^"]*)"\s*(?:<-\s*(.*))?$', s)
             if not mm:
-                raise RSX2Error("INTENT needs a quoted text")
+                raise RSXVError("INTENT needs a quoted text")
             prog["intent"] = {"text": mm.group(1), "vectors": (mm.group(2) or "").split()}
         elif word == "GOAL":
             prog["goal"] = parse_cond(s[4:])
@@ -124,21 +124,21 @@ def parse(src: str) -> dict:
             prog["sense"] = s.split()[1:]
             bad = set(prog["sense"]) - SENSES
             if bad:
-                raise RSX2Error(f"unknown sense {sorted(bad)}")
+                raise RSXVError(f"unknown sense {sorted(bad)}")
         elif word == "LAWS":
             prog["laws"] = s.split()[1:]
             bad = set(prog["laws"]) - LAWS
             if bad:
-                raise RSX2Error(f"unknown law {sorted(bad)}")
+                raise RSXVError(f"unknown law {sorted(bad)}")
         elif word == "RESCUE":
             prog["rescue"] = [x.strip("{}") for x in s.split()[1:]]
             bad = set(prog["rescue"]) - RESCUES
             if bad:
-                raise RSX2Error(f"unknown rescue archetype {sorted(bad)}")
+                raise RSXVError(f"unknown rescue archetype {sorted(bad)}")
         elif word == "WINDOW":
             mm = re.match(r"WINDOW\s+(\d\d):(\d\d)-(\d\d):(\d\d)$", s)
             if not mm:
-                raise RSX2Error("WINDOW hh:mm-hh:mm")
+                raise RSXVError("WINDOW hh:mm-hh:mm")
             a = int(mm.group(1)) * 60 + int(mm.group(2)); b = int(mm.group(3)) * 60 + int(mm.group(4))
             prog["window"] = [a, b]
         elif word in ("GATE", "CLOSE"):
@@ -147,24 +147,24 @@ def parse(src: str) -> dict:
         elif word == "PHASE":
             mm = re.match(r"PHASE\s+(\w+)(?:\s+IF\s+(.+?))?(?:\s+ELSE\s+(\w+))?(?:\s+UNTIL\s+(.+?))?(?:\s+MIN\s+(\d+)s)?(?:\s+MAX\s+(\d+)s)?$", s)
             if not mm:
-                raise RSX2Error(f"bad PHASE line: {s}")
+                raise RSXVError(f"bad PHASE line: {s}")
             blk = {"kind": "PHASE", "name": mm.group(1), "if": parse_cond(mm.group(2)), "else": mm.group(3),
                    "until": parse_cond(mm.group(4)), "min_s": int(mm.group(5) or 0), "max_s": int(mm.group(6) or 60), "vectors": []}
             if blk["min_s"] > blk["max_s"]:
-                raise RSX2Error(f"{blk['name']}: MIN above MAX")
+                raise RSXVError(f"{blk['name']}: MIN above MAX")
             prog["blocks"].append(blk)
         elif s.startswith("@Vector"):
             v = _vector(s)
             if v["op"] == "NullSafe":
                 if v["k"] != 0:
-                    raise RSX2Error("NullSafe is Vector 0")
+                    raise RSXVError("NullSafe is Vector 0")
                 prog["nullsafe"] = True
                 continue
             if blk is None:
-                raise RSX2Error(f"@Vector{v['k']} outside a GATE, PHASE or CLOSE block")
+                raise RSXVError(f"@Vector{v['k']} outside a GATE, PHASE or CLOSE block")
             blk["vectors"].append(v)
         else:
-            raise RSX2Error(f"unexpected line: {s}")
+            raise RSXVError(f"unexpected line: {s}")
     return validate(prog)
 
 
@@ -213,13 +213,13 @@ def validate(prog: dict) -> dict:
     prog["check"] = {"errors": errs, "warnings": warns, "vectors": total, "deep_ops": len(deep),
                      "layers_covered": covered, "layers_missing": [c for c in O.LAYERS if c not in covered]}
     if errs:
-        raise RSX2Error("; ".join(errs))
+        raise RSXVError("; ".join(errs))
     return prog
 
 
 def to_text(prog: dict) -> str:
-    """Program -> RSX/2 source (used for NEXT)."""
-    L = [f"RSX/2 TIER {prog['tier']}" + (f" :: {{{prog['archetype']}}}" if prog["archetype"] else "") + (f" :: ({prog['mode']})" if prog["mode"] else "")]
+    """Program -> RSX-V source (used for NEXT)."""
+    L = [f"RSX-V TIER {prog['tier']}" + (f" :: {{{prog['archetype']}}}" if prog["archetype"] else "") + (f" :: ({prog['mode']})" if prog["mode"] else "")]
     if prog["intent"]["text"]:
         L.append(f'INTENT "{prog["intent"]["text"]}"' + (" <- " + " ".join(prog["intent"]["vectors"]) if prog["intent"]["vectors"] else ""))
     if prog["goal"]:

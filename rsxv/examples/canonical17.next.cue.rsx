@@ -1,4 +1,4 @@
-PROTOCOL canonical17_next "RSX/2 command"
+PROTOCOL canonical17_next "RSX-V command"
 VERSION 1.0
 SAFETY max_per_hour=6 max_per_day=20 refractory=90s haptic_max=0.4
 BREATH inhale=4s exhale=6s

@@ -1,4 +1,4 @@
-RSX/2 TIER 8 :: {DRAGON} :: (OVERRIDE)
+RSX-V TIER 8 :: {DRAGON} :: (OVERRIDE)
 INTENT "steady identity under pressure" <- V1 V8 V14
 GOAL agency>=+1 AND distress<=-1 AND drift<=+0
 SENSE EEG HRV DISTRESS

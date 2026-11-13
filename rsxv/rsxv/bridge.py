@@ -1,8 +1,8 @@
-"""Bridge: an RSX/2 command -> an RSX cue program (the repository's cue language) -> timeline -> device.
+"""Bridge: an RSX-V command -> an RSX cue program (the repository's cue language) -> timeline -> device.
 
 The cue program is what the existing player, the Python/JavaScript compilers and the device protocol
-already understand, so RSX/2 inherits their safety limits (haptic_max is a compile error) and runs in
-the live editor. Closed-loop control stays in the RSX/2 runtime: each RSX/2 block becomes one breath
+already understand, so RSX-V inherits their safety limits (haptic_max is a compile error) and runs in
+the live editor. Closed-loop control stays in the RSX-V runtime: each RSX-V block becomes one breath
 *cycle* of cue phases inside REPEAT n, and a manifest tells the runtime which cue phases belong to
 which block, so it can stop a block early (UNTIL) or skip it (IF).
 
@@ -95,7 +95,7 @@ def scope_check(prog):
         raise BridgeError("electrical stimulation is out of scope: " + ", ".join(bad))
 
 
-def to_cue(prog: dict, lineage: dict | None = None, seconds: dict | None = None, pid: str = "rsx2") -> dict:
+def to_cue(prog: dict, lineage: dict | None = None, seconds: dict | None = None, pid: str = "rsxv") -> dict:
     """lineage: {operator name: [clause ids]}; seconds: {block name: seconds actually run} (else MAX)."""
     scope_check(prog)
     lineage = lineage or {}
@@ -109,7 +109,7 @@ def to_cue(prog: dict, lineage: dict | None = None, seconds: dict | None = None,
                 futures = [f"Your future self in {T}", "A real moment where you will need this"]
     if prog["archetype"]:
         arches.add(prog["archetype"].upper())
-    L = [f'PROTOCOL {pid} "{_q(prog["intent"]["text"] or "RSX/2 command")[:60]}"', "VERSION 1.0",
+    L = [f'PROTOCOL {pid} "{_q(prog["intent"]["text"] or "RSX-V command")[:60]}"', "VERSION 1.0",
          "SAFETY max_per_hour=6 max_per_day=20 refractory=90s haptic_max=0.4", "BREATH inhale=4s exhale=6s", ""]
     for n, a in enumerate(sorted(arches), 1):
         V, Au, K = TIERS.get(a, (f"The {a.lower()} as light", f"I carry the {a.lower()}", "Steady breath"))
@@ -186,7 +186,7 @@ def lineage_events(timeline: dict) -> list[dict]:
     return out
 
 
-def realized(prog: dict, R: dict, lineage: dict | None = None, pid: str = "rsx2_run") -> dict:
+def realized(prog: dict, R: dict, lineage: dict | None = None, pid: str = "rsxv_run") -> dict:
     """The cue program that actually ran: blocks in executed order (ELSE repeats, deferred blocks included),
     each with the seconds it really lasted; skipped blocks left out. Returns cue source, timeline,
     firmware result and the lineage events."""

@@ -1,15 +1,15 @@
-# RSX/2 — the command layer above RSX
+# RSX-V — RSX vector commands, the command layer above RSX
 
-RSX/2 is a closed-loop, typed and auditable command language. It sits above the RSX cue language in [`rsx/`](../rsx/) and compiles into it, so one program exists in three forms: a vector command, a cue program and device lines.
+RSX-V is a closed-loop, typed and auditable command language. It sits above the RSX cue language in [`rsx/`](../rsx/) and compiles into it, so one program exists in three forms: a vector command, a cue program and device lines.
 
 ```
-message ─▶ translator ─▶ RSX/2 command ─▶ RSX cue program ─▶ timeline ─▶ device protocol ─▶ firmware
+message ─▶ translator ─▶ RSX-V command ─▶ RSX cue program ─▶ timeline ─▶ device protocol ─▶ firmware
                          (gate, phases,     (tiers, breath,                                    │
                           laws, audit)       haptics)                                          ▼
       NEXT ◀── per-vector audit ◀───────────── sensed body and layer state ◀─────────────────┘
 ```
 
-The name is provisional. It is not the same thing as version 2 of the cue language described in [`rsx/README.md`](../rsx/README.md).
+"RSX" stays the name of the cue language that plays on devices ([`rsx/README.md`](../rsx/README.md)); "RSX-V" names the vector-command layer above it. Files use the extension `.rsxv`.
 
 ## What it adds
 
@@ -35,12 +35,12 @@ The name is provisional. It is not the same thing as version 2 of the cue langua
 ## Quick start
 
 ```bash
-cd rsx2
+cd rsxv
 python3 -m unittest discover -s tests                     # 37 tests (needs Node for the JS parity check)
-python3 -m rsx2 examples/dragon.rsx2 --fw                  # run on a simulated person, with firmware output
-python3 -m rsx2 examples/canonical17.rsx --next out.rsx2   # upgrade the canonical v1 command
-python3 -m rsx2.arms examples/canonical17.rsx examples/dragon.rsx2 results/results_arms.json
-python3 -m rsx2.evaluate_laws examples/dragon_full.rsx2 results/results_laws.json
+python3 -m rsxv examples/dragon.rsxv --fw                  # run on a simulated person, with firmware output
+python3 -m rsxv examples/canonical17.rsx --next out.rsxv   # upgrade the canonical v1 command
+python3 -m rsxv.arms examples/canonical17.rsx examples/dragon.rsxv results/results_arms.json
+python3 -m rsxv.evaluate_laws examples/dragon_full.rsxv results/results_laws.json
 ```
 
 ## Files
@@ -50,12 +50,12 @@ python3 -m rsx2.evaluate_laws examples/dragon_full.rsx2 results/results_laws.jso
 | [`SPEC.md`](SPEC.md) | Language, run-time semantics, laws, metrics, translator, bridge |
 | [`RESULTS.md`](RESULTS.md) | All measured results, with what they do and do not show |
 | [`PRIOR_ART.md`](PRIOR_ART.md) | Prior-art search (papers, patents, products) and what can be claimed |
-| `rsx2/` | `ops` (operator table) · `lang` (parser) · `run` (runtime, NEXT) · `sim` (simulated person) · `metrics` · `chain` (sessions, audit log, purge) · `translate` · `bridge` · `arms` · `evaluate_laws` |
-| `examples/` | The canonical 17-vector command, its RSX/2 forms, compiled cue programs and run logs |
+| `rsxv/` | `ops` (operator table) · `lang` (parser) · `run` (runtime, NEXT) · `sim` (simulated person) · `metrics` · `chain` (sessions, audit log, purge) · `translate` · `bridge` · `arms` · `evaluate_laws` |
+| `examples/` | The canonical 17-vector command, its RSX-V forms, compiled cue programs and run logs |
 | `results/` | Arm comparison, session laws and translator validation (aggregates only) |
 
 ## Status
 
 - **Prototype.** Everything runs in simulation and on the firmware core in the host simulator.
 - **Simulated people only.** The person model is a set of stated assumptions, each of which can be switched off.
-- **Not yet tested in people.** The next evidence steps are an independent second coder for the translator, a multi-intent benchmark, and a consented three-arm study: the canonical command, RSX/2 and a sham.
+- **Not yet tested in people.** The next evidence steps are an independent second coder for the translator, a multi-intent benchmark, and a consented three-arm study: the canonical command, RSX-V and a sham.

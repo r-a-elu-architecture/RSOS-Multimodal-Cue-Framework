@@ -1,4 +1,4 @@
-"""RSX/2 runtime: laws, gate, closed-loop phases, NullSafe, per-vector audit,
+"""RSX-V runtime: laws, gate, closed-loop phases, NullSafe, per-vector audit,
 firmware lines, and the NEXT command built from the measured result."""
 from __future__ import annotations
 import copy
@@ -97,7 +97,7 @@ def _device_lines(v, t_ms, dur_ms, arche):
         return [f"D {t_ms} {min(dur_ms, 8000)} {img}"]
     if tpl == "device":
         if "EEG" in a:
-            return []                       # EEG is a sensor in RSX/2 (SENSE EEG), not an output
+            return []                       # EEG is a sensor in RSX-V (SENSE EEG), not an output
         if "VIBRATION" in a:
             return [f"HF {t_ms} 200 0 1 0.4 170 0 wrist_left"]
         return [f"D {t_ms} {min(dur_ms, 8000)} {img}"]

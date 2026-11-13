@@ -1,4 +1,4 @@
-"""python -m rsx2 FILE [--person SEED] [--fw] [--next OUT]"""
+"""python -m rsxv FILE [--person SEED] [--fw] [--next OUT]"""
 import argparse, json, random, sys
 from . import parse, run, next_program, firmware_check, sim
 

@@ -7,8 +7,8 @@ step() { printf '\n== %s\n' "$1"; }
 
 step "RSX: language, compilers (Python and JavaScript), repository and link checks"
 (cd rsx && python3 -m unittest discover -s tests)
-step "RSX/2: command layer, laws, translator and bridge into RSX"
-(cd rsx2 && python3 -m unittest discover -s tests)
+step "RSX-V: command layer, laws, translator and bridge into RSX"
+(cd rsxv && python3 -m unittest discover -s tests)
 step "RSSO: runtime, devices, firmware, safety, nodes, LINX, CONTAIN, THERA, CM1, PEAK, camera heart rate, TRIAL, CHECKS, contribution, board"
 (cd rsso && python3 -m unittest discover -s tests)
 step "Toolkit: cue engine and study kit"

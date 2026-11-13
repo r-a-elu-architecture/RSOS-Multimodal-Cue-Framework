@@ -1,10 +1,10 @@
-# Prior-art search: the RSX/2 combination
+# Prior-art search: the RSX-V combination
 
 Date: 13 November 2026. Scope: web search of papers (arXiv, ACM, IEEE, Frontiers, JMIR, Wellcome Open Research), patents (USPTO full text, patent aggregators) and products. Fourteen searches, one per component and several on the combinations. This is a first pass, not a full freedom-to-operate or patentability search. That would need a patent attorney and the EPO, USPTO and WIPO databases.
 
 ## 1. The combination being checked
 
-RSX/2, together with the existing RSX cue layer, does the following, in this order:
+RSX-V, together with the existing RSX cue layer, does the following, in this order:
 
 1. A person's message is decomposed into many separate directions (the 9–17-vector claim), with pasted material set aside.
 2. Each direction is typed, then mapped to **operators that are typed by the cognitive layer they act on**, across 11 layers.
@@ -23,7 +23,7 @@ RSX/2, together with the existing RSX cue layer, does the following, in this ord
 | B | Language models generating physiology-adaptive sessions | EarStreAM monitors HR and HRV from an earable and starts an LLM-generated meditation when stress rises<sup>3</sup>. NieNie combines HRV with LLM guidance and rhythmic squeezing<sup>4</sup>. NeuroChat adapts an LLM tutor to EEG engagement<sup>5</sup>. MindMelody uses an EEG-driven loop for music<sup>6</sup>. NeuroSkill is an agentic system built on wearable brain-computer-interface signals<sup>7</sup> | **Exists** |
 | C | A language for closed-loop protocols | NFBLab describes protocols in an internal XML language<sup>8</sup>. neuroConn's LoopIT runs RALGOL, a purpose-built on-device language for closed-loop control<sup>9</sup>. Turbo-Satori defines stimulation protocols<sup>10</sup> | **Exists as a category.** These describe signal processing and stimulus timing, not psychological operators |
 | D | Interventions typed by their mechanism of action | Behaviour-change science has a 93-technique taxonomy (BCTTv1), a machine-readable Mechanism of Action ontology with 261 entities, and the Theory and Techniques Tool, which links techniques to mechanisms<sup>11, 12</sup> | **Exists conceptually.** This is the closest prior art to "operators typed by the layer they act on". It is a reporting and design vocabulary, not an executable language with run-time conditions |
-| E | Decision rules over sensed variables | Just-in-time adaptive interventions (JITAI) are defined by decision points, tailoring variables, intervention options and decision rules<sup>13</sup>. JITAI-Twin (2026) uses a digital twin to test decision rules before deployment<sup>14</sup> | **Exists.** RSX/2's IF/UNTIL phases are decision rules. GhostPass is a per-person, per-run form of the twin idea |
+| E | Decision rules over sensed variables | Just-in-time adaptive interventions (JITAI) are defined by decision points, tailoring variables, intervention options and decision rules<sup>13</sup>. JITAI-Twin (2026) uses a digital twin to test decision rules before deployment<sup>14</sup> | **Exists.** RSX-V's IF/UNTIL phases are decision rules. GhostPass is a per-person, per-run form of the twin idea |
 | F | Text to haptics, scent or multisensory output | HapticGen (CHI 2025) and HapticLDM (2026) generate vibration from text<sup>15, 16</sup>. "Touched by ChatGPT" drives a 5×5 vibration sleeve from an LLM<sup>17</sup>. AromaGen generates scent mixtures from free-form text through a neck-worn dispenser<sup>18</sup> | **Exists** |
 | G | Multisensory wearables that adapt to sensors (patents) | US 11,554,244 claims wearable multimodal stimulation with monitoring and adjustment; its claims require *charge-based* (electrical) stimulation plus a second modality<sup>19</sup>. US 10,912,915 describes multisensory sessions (sound, vibration, scent, VR) with breathing and heart-rate sensors feeding back<sup>20</sup>. US 11,422,626 covers outputting tactile, thermal, olfactory, visual and auditory stimulation to a user<sup>21</sup> | **Exists.** RSOS uses no electrical stimulation, which appears to put it outside US 11,554,244's independent claims. Only a patent attorney can confirm that |
 | H | Provenance and lineage from prompt to action | PROV-AGENT (IEEE e-Science 2025) treats AI agent actions as first-class elements of a provenance graph<sup>22</sup>. Industry gateways record lineage from the user request to every tool call, with hash chains for tamper evidence<sup>23</sup> | **Exists for software actions.** Lineage that ends in a *body intervention and its measured effect* was not found |
@@ -56,14 +56,14 @@ The closest neighbours each cover two or three of these:
 **Should not be said:**
 - "First closed-loop system", "first LLM-driven biofeedback", "first text-to-haptics", "first intervention typology". Each of these exists.
 - "Unprecedented" without the scope and date. Absence in one search is not proof of absence.
-- Any claim of human effectiveness. All RSX/2 results are simulated.
+- Any claim of human effectiveness. All RSX-V results are simulated.
 
 **Patent note:** each component exists, so a patent on the combination would turn on non-obviousness. That is a question for a patent attorney, ideally before any public description of the full combination. Publishing first (for example the Zenodo release) creates prior art against others, but it also starts grace-period clocks that differ by jurisdiction.
 
 ## 5. What this changes in the design
 
-1. **Map the 11 RSX layers and 34 operators to the Mechanism of Action ontology** (BCIO MoA IDs) and to BCTTv1 techniques where they fit. This anchors RSX/2's typing in an existing, peer-reviewed vocabulary. It makes the typing checkable, and it makes the executable-language part clearly the new contribution.
-2. **Describe RSX/2 phases in JITAI terms** (decision points, tailoring variables, decision rules), so researchers recognise it immediately. GhostPass should be presented as a per-run digital twin, citing JITAI-Twin.
+1. **Map the 11 RSX layers and 34 operators to the Mechanism of Action ontology** (BCIO MoA IDs) and to BCTTv1 techniques where they fit. This anchors RSX-V's typing in an existing, peer-reviewed vocabulary. It makes the typing checkable, and it makes the executable-language part clearly the new contribution.
+2. **Describe RSX-V phases in JITAI terms** (decision points, tailoring variables, decision rules), so researchers recognise it immediately. GhostPass should be presented as a per-run digital twin, citing JITAI-Twin.
 3. **Make the audit chain PROV-compatible**: export the lineage as W3C PROV or OpenTelemetry spans, so it plugs into standard provenance tools.
 4. **Lean the originality on the combination and its two strongest parts:**
    - lineage from message to body (no prior art found);

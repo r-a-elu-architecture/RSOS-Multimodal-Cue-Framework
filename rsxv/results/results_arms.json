@@ -88,7 +88,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.765
   },
-  "RSX/2": {
+  "RSX-V": {
    "agency": [
     2.06,
     0.053
@@ -110,7 +110,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.78
   },
-  "RSX/2 without closed loop (no UNTIL/IF)": {
+  "RSX-V without closed loop (no UNTIL/IF)": {
    "agency": [
     2.993,
     0.106
@@ -132,7 +132,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.97
   },
-  "RSX/2 all vectors in one phase": {
+  "RSX-V all vectors in one phase": {
    "agency": [
     1.984,
     0.232
@@ -154,7 +154,7 @@
    "refused_rate": 0.36,
    "goal_rate": 0.0
   },
-  "sham (RSX/2 timeline, no content)": {
+  "sham (RSX-V timeline, no content)": {
    "agency": [
     0.0,
     0.0
@@ -266,7 +266,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.945
   },
-  "RSX/2": {
+  "RSX-V": {
    "agency": [
     2.404,
     0.04
@@ -288,7 +288,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.945
   },
-  "RSX/2 without closed loop (no UNTIL/IF)": {
+  "RSX-V without closed loop (no UNTIL/IF)": {
    "agency": [
     5.251,
     0.14
@@ -310,7 +310,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.99
   },
-  "RSX/2 all vectors in one phase": {
+  "RSX-V all vectors in one phase": {
    "agency": [
     5.432,
     0.144
@@ -332,7 +332,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.99
   },
-  "sham (RSX/2 timeline, no content)": {
+  "sham (RSX-V timeline, no content)": {
    "agency": [
     0.0,
     0.0
@@ -444,7 +444,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.85
   },
-  "RSX/2": {
+  "RSX-V": {
    "agency": [
     2.248,
     0.035
@@ -466,7 +466,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.87
   },
-  "RSX/2 without closed loop (no UNTIL/IF)": {
+  "RSX-V without closed loop (no UNTIL/IF)": {
    "agency": [
     4.073,
     0.147
@@ -488,7 +488,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.985
   },
-  "RSX/2 all vectors in one phase": {
+  "RSX-V all vectors in one phase": {
    "agency": [
     3.689,
     0.144
@@ -510,7 +510,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.945
   },
-  "sham (RSX/2 timeline, no content)": {
+  "sham (RSX-V timeline, no content)": {
    "agency": [
     0.0,
     0.0
@@ -622,7 +622,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.935
   },
-  "RSX/2": {
+  "RSX-V": {
    "agency": [
     2.364,
     0.044
@@ -644,7 +644,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.94
   },
-  "RSX/2 without closed loop (no UNTIL/IF)": {
+  "RSX-V without closed loop (no UNTIL/IF)": {
    "agency": [
     3.258,
     0.112
@@ -666,7 +666,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.99
   },
-  "RSX/2 all vectors in one phase": {
+  "RSX-V all vectors in one phase": {
    "agency": [
     5.423,
     0.144
@@ -688,7 +688,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.99
   },
-  "sham (RSX/2 timeline, no content)": {
+  "sham (RSX-V timeline, no content)": {
    "agency": [
     0.0,
     0.0
@@ -800,7 +800,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.92
   },
-  "RSX/2": {
+  "RSX-V": {
    "agency": [
     2.404,
     0.04
@@ -822,7 +822,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.925
   },
-  "RSX/2 without closed loop (no UNTIL/IF)": {
+  "RSX-V without closed loop (no UNTIL/IF)": {
    "agency": [
     2.161,
     0.357
@@ -844,7 +844,7 @@
    "refused_rate": 0.575,
    "goal_rate": 0.24
   },
-  "RSX/2 all vectors in one phase": {
+  "RSX-V all vectors in one phase": {
    "agency": [
     5.382,
     0.162
@@ -866,7 +866,7 @@
    "refused_rate": 0.02,
    "goal_rate": 0.975
   },
-  "sham (RSX/2 timeline, no content)": {
+  "sham (RSX-V timeline, no content)": {
    "agency": [
     0.0,
     0.0
@@ -978,7 +978,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.945
   },
-  "RSX/2": {
+  "RSX-V": {
    "agency": [
     2.404,
     0.04
@@ -1000,7 +1000,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.945
   },
-  "RSX/2 without closed loop (no UNTIL/IF)": {
+  "RSX-V without closed loop (no UNTIL/IF)": {
    "agency": [
     5.251,
     0.14
@@ -1022,7 +1022,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.99
   },
-  "RSX/2 all vectors in one phase": {
+  "RSX-V all vectors in one phase": {
    "agency": [
     5.416,
     0.144
@@ -1044,7 +1044,7 @@
    "refused_rate": 0.01,
    "goal_rate": 0.935
   },
-  "sham (RSX/2 timeline, no content)": {
+  "sham (RSX-V timeline, no content)": {
    "agency": [
     0.0,
     0.0

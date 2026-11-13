@@ -1,10 +1,10 @@
-# RSX/2 command layer — specification
+# RSX-V command layer — specification
 
-RSX/2 extends the RSX vector command of 4 August 2025 (9–17 concurrent vectors; the canonical 17-vector form is in [`archive/`](../archive/)). It is a command layer *above* the RSX cue language in [`rsx/`](../rsx/), and compiles into it (§8). Every RSX v1 vector command is still valid RSX/2: it runs as one open-loop phase, and `next_program` upgrades it automatically. The name is provisional and is not the same thing as version 2 of the cue language.
+RSX-V extends the RSX vector command of 4 August 2025 (9–17 concurrent vectors; the canonical 17-vector form is in [`archive/`](../archive/)). It is a command layer *above* the RSX cue language in [`rsx/`](../rsx/), and compiles into it (§8). Every RSX v1 vector command is still valid RSX-V: it runs as one open-loop phase, and `next_program` upgrades it automatically. **Naming:** "RSX" is the cue language that plays on devices; "RSX-V" (RSX vector commands) is the command layer above it. Programs start with `RSX-V TIER …`; the earlier working header `RSX/2 TIER …` is still accepted.
 
 ## 1. What changes from RSX v1
 
-| RSX v1 | RSX/2 |
+| RSX v1 | RSX-V |
 |---|---|
 | 17 vectors start together | Blocks run in order: GATE → PHASEs → CLOSE. Each block runs up to 17 vectors at once |
 | EthicsContain runs alongside everything else | GATE runs first and can stop the command |
@@ -20,7 +20,7 @@ RSX/2 extends the RSX vector command of 4 August 2025 (9–17 concurrent vectors
 
 ```
 program  := header line* 
-header   := "RSX/2 TIER" n [":: {" ARCHETYPE "}"] [":: (" MODE ")"]
+header   := "RSX-V TIER" n [":: {" ARCHETYPE "}"] [":: (" MODE ")"]
 line     := INTENT | GOAL | SENSE | LAWS | RESCUE | WINDOW | vector | block
 INTENT   := 'INTENT "' text '"' ["<-" Vn+]
 GOAL     := "GOAL" cond
@@ -81,7 +81,7 @@ A value written with a sign (`+5`, `-1`) is a change from the person's baseline.
 
 All ten vector laws of 5 August 2025 are now built.
 
-| Law | What RSX/2 does |
+| Law | What RSX-V does |
 |---|---|
 | Vector 0 NullSafe | Required. Halts every output and locks state on any stop rule |
 | InteractionMatrix | Separates conflicting operators into a follow-on block |
@@ -98,7 +98,7 @@ All ten vector laws of 5 August 2025 are now built.
 
 These are operational definitions; the RSOS metric log names these metrics but gives no formula.
 
-| Metric | Recorded definition | RSX/2 computation |
+| Metric | Recorded definition | RSX-V computation |
 |---|---|---|
 | STC Symbolic Tier Coherence | "Monitors Tier alignment during symbolic mutation" | Mean of (a) the share of deep-operator seconds run at arousal ≤ 0.6 and (b) the share run after or alongside settling |
 | IEC Internal Echo Coherence | "Evaluates internal echo stability across recursion phases" | Share of phases in which drift did not rise by more than 0.01 |
@@ -109,7 +109,7 @@ These are operational definitions; the RSOS metric log names these metrics but g
 
 ## 7. The translator: message → vectors → command
 
-`rsx2/translate.py` turns a message into an RSX/2 command. This makes the 9–17-vector claim executable.
+`rsxv/translate.py` turns a message into an RSX-V command. This makes the 9–17-vector claim executable.
 
 1. **Units.** The message is split into lines and sentences. The user's own lines are kept; a line counts as the user's own if it:
    - starts lowercase;
@@ -123,9 +123,9 @@ These are operational definitions; the RSOS metric log names these metrics but g
 4. **Operators.** Types map to operators, plus cue-based extras: body → PostureShift; video, light or glyph → DeviceOutput(AR); repetition → FutureAnchor; vibration or EMDR → DeviceTrigger. Any layer left uncovered is filled with its default operator, so every generated command covers all 11 layers and has at least 9 vectors. Every operator line carries a `# from v…` comment: the input vectors it came from.
 5. **Command.** The operators are staged gate → settle → expand → rebuild → integrate → close, with all ten laws, the three rescue archetypes, a goal and senses. The archetype header is the first one named in the message (LION if none is named), and two named archetypes produce ArchetypeMerge.
 
-## 8. The bridge: RSX/2 → RSX cue program → device
+## 8. The bridge: RSX-V → RSX cue program → device
 
-`rsx2/bridge.py` compiles an RSX/2 command into the repository's RSX cue language. The existing compilers, player and device protocol then run it unchanged.
+`rsxv/bridge.py` compiles an RSX-V command into the repository's RSX cue language. The existing compilers, player and device protocol then run it unchanged.
 
 - **Blocks become cycles.** The gate becomes one phase. Each other block becomes one 10-second cycle inside `REPEAT n`: an inhale and an exhale phase when the block holds body or affect operators, otherwise one 10-second phase. `n` comes from MAX, or from the seconds the block actually ran.
 - **Operators become cue steps:**
@@ -137,12 +137,12 @@ These are operational definitions; the RSOS metric log names these metrics but g
   - meta, identity and integration operators → short SEE, SAY or FEEL lines;
   - control operators (contain, drift, echo, memory, export) → no cue, only a marker.
 - **Lineage:** every vector writes `MARK "lin:<clause ids>|v<k>:<Operator>"`, so the compiled timeline carries message clause → operator → cue. Clause IDs come from the translator in the form `m1·v3`.
-- **The closed loop stays in RSX/2.** A manifest maps every block to its cue phases. `realized()` rebuilds the cue program that actually ran (blocks in executed order, each with its real duration, skipped blocks left out), compiles it, and runs it on the firmware core.
+- **The closed loop stays in RSX-V.** A manifest maps every block to its cue phases. `realized()` rebuilds the cue program that actually ran (blocks in executed order, each with its real duration, skipped blocks left out), compiles it, and runs it on the firmware core.
 - **Safety inherited:** the cue compiler's `haptic_max` is a compile error, and the device protocol and firmware enforce their own limits.
-- **Scope rule:** no electrical stimulation. An argument naming electrical, charge-based, tDCS, tACS, TENS, EMS or galvanic output is refused, both by the RSX/2 compiler and by the bridge.
+- **Scope rule:** no electrical stimulation. An argument naming electrical, charge-based, tDCS, tACS, TENS, EMS or galvanic output is refused, both by the RSX-V compiler and by the bridge.
 
 ## 9. Status
 
 - **Language, runtime, all ten laws, the six metrics, the audit chain, NEXT and the firmware path:** prototype, with 37 tests.
 - **The person model used by GhostPass and the arm comparison:** a stated model, not data. Its assumptions (dilution, readiness, backfire, conflict, plus circadian and carry-over for sessions) can each be switched off.
-- **Human effectiveness:** untested. It needs the three-arm study (canonical v1, RSX/2, sham) with the same per-vector audit.
+- **Human effectiveness:** untested. It needs the three-arm study (canonical v1, RSX-V, sham) with the same per-vector audit.

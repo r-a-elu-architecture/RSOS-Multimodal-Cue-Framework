@@ -1,14 +1,14 @@
-# RSX/2 — results
+# RSX-V — results
 
 Every number below comes from simulation, from the firmware core in the host simulator, or from a hand-coded validation set. **None comes from people.** Each result can be reproduced with the commands in [README.md](README.md).
 
-## 1. The canonical 17-vector command, checked by the RSX/2 compiler
+## 1. The canonical 17-vector command, checked by the RSX-V compiler
 
 - 17 vectors. Layers covered: C1 and C3–C8. Missing: C2 (associative expansion) and the meta layers C9–C11.
 - Three pairs that conflict run at the same moment: IdentityRebuild + ArchetypeMerge, EmotionalLock + MemoryRecall, and SymbolicEcho + EchoPropagationStop.
 - It runs open loop, with no gate and no stop rules, and lists EEG as an output.
 
-`next_program` upgrades it without manual editing. The result is [`examples/canonical17.next.rsx2`](examples/canonical17.next.rsx2):
+`next_program` upgrades it without manual editing. The result is [`examples/canonical17.next.rsxv`](examples/canonical17.next.rsxv):
 - the vectors are staged into gate → settle → expand → rebuild → integrate → close;
 - Vector 0, the laws, a goal and senses are added;
 - EEG is moved to `SENSE`;
@@ -24,15 +24,15 @@ The simulated person is a stated model. Its assumptions can each be switched off
 |---|---|---|---|---|---|---|
 | v1 canonical, as written | +1.21 | +2.11 | 5.1 | 120 | 26% | 0% |
 | v1 canonical, time-matched (300 s) | +3.30 | +3.91 | 6.8 | 300 | 95% | 0% |
-| RSX/2 | +2.06 | −1.46 | 9.4 | 289 | 0% | 78% |
+| RSX-V | +2.06 | −1.46 | 9.4 | 289 | 0% | 78% |
 | v1 upgraded automatically by NEXT | +2.04 | −1.41 | 9.6 | 292 | 0% | 77% |
-| RSX/2 without the closed loop | +2.99 | −3.36 | 9.2 | 470 | 0% | 97% |
-| RSX/2, all vectors in one phase | +1.98 | +0.79 | 6.6 | 130 | 2% | 0% |
+| RSX-V without the closed loop | +2.99 | −3.36 | 9.2 | 470 | 0% | 97% |
+| RSX-V, all vectors in one phase | +1.98 | +0.79 | 6.6 | 130 | 2% | 0% |
 | Sham | 0.00 | −0.57 | 0 | 658 | 0% | 0% |
 
 **Goal met, by model setting:**
 
-| Model | v1 canonical | RSX/2 | v1 upgraded by NEXT |
+| Model | v1 canonical | RSX-V | v1 upgraded by NEXT |
 |---|---|---|---|
 | full | 0% | 78% | 77% |
 | neutral (no assumptions) | 100% | 95% | 95% |
@@ -42,10 +42,10 @@ The simulated person is a stated model. Its assumptions can each be switched off
 | only conflict | 35% | 95% | 95% |
 
 **Reading these results:**
-- **Safety and coverage hold in every model setting.** RSX/2 produced no distress spikes and reached 9–11 layers. The v1 command reached 5–7, because it has no operator for four of the layers.
-- **The size of the effect depends on the assumptions.** When running vectors at the same time costs nothing, v1 gives larger changes in less time. RSX/2 does better on the goal only when vectors interfere or share attention. A study in people decides which case is true.
-- **The closed loop trades effect size against time.** RSX/2 stops each phase once its target is met (289 s); without the loop it runs to the maximum (470 s).
-- **The first RSX/2 draft reached the goal for 16% of people.** Its phases ended on body state alone, which cut the dose. Making each phase end on its own layer target, with a minimum duration, raised this to 78% ([`results/results_arms_round1.json`](results/results_arms_round1.json)).
+- **Safety and coverage hold in every model setting.** RSX-V produced no distress spikes and reached 9–11 layers. The v1 command reached 5–7, because it has no operator for four of the layers.
+- **The size of the effect depends on the assumptions.** When running vectors at the same time costs nothing, v1 gives larger changes in less time. RSX-V does better on the goal only when vectors interfere or share attention. A study in people decides which case is true.
+- **The closed loop trades effect size against time.** RSX-V stops each phase once its target is met (289 s); without the loop it runs to the maximum (470 s).
+- **The first RSX-V draft reached the goal for 16% of people.** Its phases ended on body state alone, which cut the dose. Making each phase end on its own layer target, with a minimum duration, raised this to 78% ([`results/results_arms_round1.json`](results/results_arms_round1.json)).
 
 ## 3. Session laws and metrics (120 simulated people, 8 sessions each)
 

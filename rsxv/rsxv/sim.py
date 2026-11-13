@@ -1,4 +1,4 @@
-"""Simulated person and sensors for RSX/2 ghost passes and arm comparisons.
+"""Simulated person and sensors for RSX-V ghost passes and arm comparisons.
 
 Everything here is a stated model, not data. The four assumptions can be
 switched off one by one (MODEL flags) so a result can be traced to the

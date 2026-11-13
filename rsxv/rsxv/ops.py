@@ -1,4 +1,4 @@
-"""RSX/2 operator table: 30 operators from the record plus 4 proposed ones.
+"""RSX-V operator table: 30 operators from the record plus 4 proposed ones.
 
 Each operator is typed by the cognitive layer it acts on (C1-C11, see the
 private registry) or by a system role (contain, audit, device, export).

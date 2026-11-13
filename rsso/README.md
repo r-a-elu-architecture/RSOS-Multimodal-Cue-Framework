@@ -40,7 +40,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 187 tests
+python -m unittest discover -s tests                     # 189 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

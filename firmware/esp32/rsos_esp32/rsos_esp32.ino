@@ -5,7 +5,7 @@
 // Always: a vibration motor through a MOSFET or driver on MOTOR_PIN (PWM); optional scent and taste valves or
 // atomisers on SCENT_PIN / TASTE_PIN (on/off).
 // Build flags add the modules (firmware/BOARD_KIT.md §8; their logic is rsos_modules.*, tested in simulation):
-//   -DRSOS_THERMAL  wrist cooling and warming: Peltier element through an H-bridge, skin and heat-sink thermistors,
+//   -DRSOS_THERMAL  wrist cooling and warming: Peltier element through a DRV8833 H-bridge (runs from the 3.7 V battery), skin and heat-sink thermistors,
 //                   battery sense; the safety cut-offs act on every control step, whatever the host sends.
 //   -DRSOS_SITES    up to six LRA motors, each with a DRV2605L, behind a TCA9548A I2C multiplexer.
 //   -DRSOS_DISPLAY  a round 240x240 GC9A01 display; images are files /img/<name>.rgb (RGB565) in LittleFS.
@@ -75,7 +75,7 @@ void sendLine(const char* line);
 // ------------------------------------------------------------------ cooling and warming (-DRSOS_THERMAL)
 #ifdef RSOS_THERMAL
 #ifndef RSOS_PELTIER_IN1
-#define RSOS_PELTIER_IN1 16       // H-bridge (DRV8871) inputs: IN1 high = warm the skin side, IN2 high = cool it
+#define RSOS_PELTIER_IN1 16       // H-bridge (DRV8833, both bridges in parallel: AIN1+BIN1, AIN2+BIN2): IN1 high = warm the skin side, IN2 high = cool it
 #endif
 #ifndef RSOS_PELTIER_IN2
 #define RSOS_PELTIER_IN2 17

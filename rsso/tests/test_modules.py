@@ -28,6 +28,23 @@ class Modules(unittest.TestCase):
         self.assertLessEqual(max(d["max_skin"] for d in by.values()), 40.0)
 
 
+class Parts(unittest.TestCase):
+    def test_parts_list_on_the_site_matches(self):
+        import json
+        self.assertEqual(json.loads((REPO / "docs" / "data" / "parts.json").read_text(encoding="utf-8")), json.loads(json.dumps(MD.parts_json())))
+
+    def test_costs(self):
+        thermal = next(k for k in MD.KITS if k["id"] == "thermal")
+        sites = next(k for k in MD.KITS if k["id"] == "sites")
+        full, added = MD.kit_cost(thermal), MD.kit_cost(thermal, have_band=True)
+        self.assertGreater(full["total"], added["total"])
+        self.assertFalse(any("ESP32" in r["part"] for r in added["rows"]))
+        self.assertAlmostEqual(MD.kit_cost(sites, 6)["total"] - MD.kit_cost(sites, 2)["total"], 4 * (2.99 + 7.95), places=2)
+        for k in MD.KITS:
+            for r in MD.kit_cost(k, 3)["rows"]:
+                self.assertEqual(r["shop"] is None, r["url"] is None)
+
+
 class ImageTool(unittest.TestCase):
     def test_convert(self):
         try:

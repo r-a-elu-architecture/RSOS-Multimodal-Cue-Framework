@@ -91,6 +91,19 @@ code.line{display:block;margin-top:10px;font:13px ui-monospace,Menlo,Consolas,mo
 .prongrid{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
 @media (max-width:820px){.prongrid{grid-template-columns:1fr}}
 video.cam{width:100%;max-width:260px;border-radius:10px;border:1px solid var(--line);display:none;margin-top:10px;transform:scaleX(-1)}
+.kits{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.kits button{border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:transparent;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer}
+.kits button[aria-pressed=true]{border-color:var(--gold);color:var(--glow)}
+.parts td.num,.parts th.num{text-align:right;white-space:nowrap}
+.parts td.est{color:var(--muted);font-style:italic}
+.parts tr.total td{border-bottom:0;font-weight:600;color:var(--text)}
+.buildrow{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:12px}
+.stepper{display:inline-flex;align-items:center;gap:8px}
+.stepper button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--text);font:inherit;cursor:pointer}
+.bigtotal{font-family:var(--serif);font-size:2rem;line-height:1.1}
+.tablewrap{overflow-x:auto}
+.stepper[hidden]{display:none}
+@media (max-width:600px){.parts th:nth-child(3),.parts td:nth-child(3){display:none}.parts{font-size:.82rem}.parts th,.parts td{padding:6px 5px}}
 .msg{font-size:.9rem;margin:10px 0 0;min-height:1.2em}
 .msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
 footer{margin:60px auto;color:var(--muted);font-size:.88rem}
@@ -248,6 +261,20 @@ header.top nav a{font-size:.88rem}
       <p class="msg" id="lnMsg"></p>
     </section>
   </div>
+
+  <section class="panel" id="build" style="margin-top:16px">
+    <h2>Build one</h2>
+    <p class="hint">What a person needs to build each device: the parts, what they cost, the command that puts the software on it and the checks that show it works. The software is written and tested in simulation; none of these has been assembled and checked on hardware yet, so the first builder's results matter.</p>
+    <div class="kits" id="kitPick"></div>
+    <p class="hint" id="kitSay"></p>
+    <div class="buildrow">
+      <label style="display:flex;gap:8px;align-items:center;margin:0"><input type="checkbox" id="kitHave"> I already have the wristband (board, battery, charger, strap)</label>
+      <span class="stepper" id="kitSites" hidden><button type="button" id="sMinus" aria-label="Fewer motors">−</button><span id="sN">2</span> motors<button type="button" id="sPlus" aria-label="More motors">+</button></span>
+    </div>
+    <div class="tablewrap"><table class="parts" id="kitTable"></table></div>
+    <div class="buildrow"><span class="bigtotal" id="kitTotal"></span><span class="hint" id="kitNote" style="margin:0"></span></div>
+    <p class="hint" id="kitHow"></p>
+  </section>
 
   <section class="panel" id="pron" style="margin-top:16px">
     <h2>Pronunciation</h2>
@@ -502,6 +529,47 @@ $("prRec").addEventListener("click", async () => {
   setTimeout(() => rec.stop(), 3000);
 });
 drawDrills(); show(null);
+})();
+</script>
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+const mk = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+let D = null, kit = "thermal", sites = 2;
+const money = x => "$" + x.toFixed(2);
+// The same rule as kit_cost in rsso/rsso/modules.py.
+function cost(k, n, haveBand) {
+  const rows = []; let total = 0, est = 0;
+  k.parts.forEach(([key, q]) => {
+    if (haveBand && k.id !== "band" && D.shared.includes(key)) return;
+    const qty = q === "n" ? n : q, p = D.parts[key], sub = Math.round(p.price * qty * 100) / 100;
+    total += sub; if (!p.shop) est += sub;
+    rows.push({ part: p.name, qty, unit: p.price, cost: sub, shop: p.shop, url: p.url });
+  });
+  return { rows, total: Math.round(total * 100) / 100, estimated: Math.round(est * 100) / 100 };
+}
+function draw() {
+  const k = D.kits.find(x => x.id === kit), P = $("kitPick"); P.textContent = "";
+  D.kits.forEach(x => { const b = mk("button", "", x.title); b.setAttribute("aria-pressed", x.id === kit); b.addEventListener("click", () => { kit = x.id; draw(); }); P.append(b); });
+  $("kitSay").textContent = k.say;
+  $("kitSites").hidden = !k.sites; $("sN").textContent = sites;
+  $("kitHave").disabled = k.id === "band"; if (k.id === "band") $("kitHave").checked = false;
+  const c = cost(k, sites, $("kitHave").checked), T = $("kitTable");
+  T.innerHTML = '<tr><th>Part</th><th class="num">Qty</th><th class="num">Each</th><th class="num">Cost</th><th>Price from</th></tr>';
+  c.rows.forEach(r => { const tr = mk("tr"); tr.append(mk("td", "", r.part), mk("td", "num", r.qty), mk("td", "num", money(r.unit)), mk("td", "num", money(r.cost)));
+    const w = mk("td", r.shop ? "" : "est"); if (r.shop) { const a = mk("a", "", r.shop); a.href = r.url; a.rel = "noopener"; a.target = "_blank"; w.append(a); } else w.textContent = "estimate"; tr.append(w); T.append(tr); });
+  const tr = mk("tr", "total"); tr.append(mk("td", "", "Total"), mk("td"), mk("td"), mk("td", "num", money(c.total)), mk("td")); T.append(tr);
+  $("kitTotal").textContent = "About $" + Math.round(c.total);
+  $("kitNote").textContent = "US dollars at single-unit prices, before tax and shipping; checked " + D.checked + " at the shops linked, " + money(c.estimated) + " of it estimated for small parts. You also need a soldering iron and a USB cable.";
+  $("kitHow").innerHTML = "";
+  const h = $("kitHow"); h.append(document.createTextNode("Software: "), mk("code", "", k.build), document.createTextNode(". Checks once it is built: " + k.checks + ". Status: " + k.stage + ". Wiring, pins and the checks step by step: "));
+  const a = mk("a", "", "board kit"); a.href = "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/firmware/BOARD_KIT.md"; h.append(a, document.createTextNode("."));
+}
+$("kitHave").addEventListener("change", draw);
+$("sMinus").addEventListener("click", () => { sites = Math.max(2, sites - 1); draw(); });
+$("sPlus").addEventListener("click", () => { sites = Math.min(6, sites + 1); draw(); });
+fetch("data/parts.json").then(r => r.json()).then(d => { D = d; draw(); }).catch(() => { $("kitSay").textContent = "The parts list could not load; it is in firmware/BOARD_KIT.md."; });
 })();
 </script>
 <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>

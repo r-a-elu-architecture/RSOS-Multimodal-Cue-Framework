@@ -34,15 +34,15 @@ STEPS = [
 ITEMS = [
     (1, "Peak-state anchoring with probe trials", "new", "PEAK", 1, "built in simulation", "R08–R20, 2025-04",
      "A state's own vibration code is played at a measured peak (self-tap, HRV rise, Duchenne smile, EEG); cue-alone probe trials test whether the anchor really shifts the body."),
-    (2, "Closed-loop sleep cueing", "new", "SLEEP", 6, "idea", "R10–R16, R25, R31, 2025-04/05",
+    (2, "Closed-loop sleep cueing", "new", "SLEEP", 6, "built in simulation", "R10–R16, R25, R31, 2025-04/05",
      "Cues only in deep sleep, below waking level, stopping on arousal, with a nightly limit; the day's code replayed with light and an earbud voice; trauma gets a safety code or waking by default."),
-    (3, "External success events and a reward code", "new", "REWARD", 6, "idea", "R12, 2025-04-10",
+    (3, "External success events and a reward code", "new", "REWARD", 6, "built in simulation", "R12, 2025-04-10",
      "An outside sensor reports a success (a ball through the rim, a correct answer) and a reward code plays within a fraction of a second; it can be replayed at night."),
     (4, "Cue wear-out from overuse", "new", "MEMSTACK, CONTAIN", 3, "built in simulation", "R18, 2025-04-11",
      "Every appearance of a cue outside training is counted, its loss of strength modelled, and CONTAIN warns before a cue stops working."),
     (5, "Generalisation score and an ordered glyph route", "extension", "MEMSTACK, UGCL", 4, "built in simulation", "R02–R07, 2023",
      "Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route."),
-    (6, "A code family per learning area", "extension", "UGCL", 6, "mostly built", "R11, 2025-04-10",
+    (6, "A code family per learning area", "extension", "UGCL", 6, "built in simulation", "R11, 2025-04-10",
      "Each learning area gets its own family of vibration codes, marked by a code prefix."),
     (7, "Phase codes in a sequence", "extension", "RSX", 1, "built in simulation", "R16, 2025-04-10",
      "Each phase of a program announces itself with its own code."),
@@ -86,7 +86,7 @@ ITEMS = [
      "Manual training, then automatic detection, then overload conditioning, then default; an anchor may fire on its own only after it has earned it."),
     (27, "Vibration at the peak of the inhale", "extension", "Player", 1, "mostly built", "R34, 2025-05-22",
      "Breathing the symbol into the chest with a posture change; the code fires at the peak of the inhale."),
-    (28, "Peak vibration in sport via a motion sensor", "extension", "REWARD", 6, "idea", "R33, 2025-05-21",
+    (28, "Peak vibration in sport via a motion sensor", "extension", "REWARD", 6, "built in simulation", "R33, 2025-05-21",
      "A motion sensor detects a successful move and fires the reward code."),
     (29, "Carrier frequency for vibration", "extension", "Devices", 8, "idea", "R31, 2025-05-18",
      "Vibration settings that take a carrier frequency, to test whether a frequency shifts EEG at that frequency."),
@@ -314,7 +314,8 @@ TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32",          # step 1,
               "C1", "C26", "C34", "C40", "C58", "C70", "C77", "C78", "C85", "C86", "C88", "C97", "C101",   # step 2, TRIAL and CHECKS
               "C13", "C63",   # step 3, the autonomy gate (wear-out, dose)
               "C16", "C17", "C41", "C61", "C62", "C82", "C89",   # step 4, IDENTITY
-              "C92", "C93", "C94", "C95", "C99", "C100"}   # step 5, ATLAS
+              "C92", "C93", "C94", "C95", "C99", "C100",   # step 5, ATLAS
+              "C5", "C7", "C8", "C9", "C28", "C33", "C36"}   # step 6, SLEEP and REWARD
 WHO = {"assistant": "Assistant (design records)", "records": "Design records", "report": "Record review", "review": "Later review"}
 
 

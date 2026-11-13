@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Night and reward — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="description" content="Closed-loop cueing during sleep, only in deep sleep, below waking level, stopping on any arousal; trauma-related codes never played. Next-day recall for cued against uncued items, a night diary, reward codes for successes within a fraction of a second, and a motion sensor that recognises a good move.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d; --deep:#6f86d6; --rem:#b58cd9;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:24px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 12px}
+nav a{color:var(--muted);text-decoration:none;font-size:.88rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:62px 0 6px}
+h3{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:70ch}
+.labels{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:.86rem;color:var(--muted)}
+.labels span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gold);vertical-align:1px}
+.labels span.u::before{background:transparent;border:1px solid var(--muted)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer;margin:6px 8px 0 0}
+.btn:hover{border-color:var(--gold)}
+.btn.main{border-color:var(--gold);color:var(--glow)}
+.btn[aria-pressed=true]{background:var(--ink-3);border-color:var(--gold);color:var(--glow)}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text],input[type=number]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+.verdict{font-size:.95rem;margin:10px 0 0}
+.say{color:var(--muted);font-size:.9rem;margin:6px 0 0}
+.warn{border-left:3px solid var(--warn);padding:6px 12px;font-size:.88rem;margin-top:12px}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+.codes{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.coderow{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 12px}
+.coderow small{color:var(--muted)}
+.coderow .feel{background:none;border:0;color:var(--muted);cursor:pointer;display:flex;gap:6px;align-items:center;font:inherit;font-size:.82rem}
+/* the sleep timeline */
+.tl{width:100%;display:block;margin-top:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-family:var(--serif);font-weight:500;font-size:1.5rem;color:var(--glow);line-height:1.1}
+.stat span{font-size:.8rem;color:var(--muted)}
+.cmp{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:14px}
+.cmp th,.cmp td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line)}
+.cmp th{color:var(--muted);font-weight:500}
+.cmp tr.on td{color:var(--glow)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8rem;color:var(--muted);margin-top:8px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+/* reward */
+.hit{width:100%;max-width:340px;height:120px;border-radius:20px;border:1px solid var(--gold);background:radial-gradient(circle at 50% 40%,rgba(232,176,74,.25),transparent 70%);color:var(--glow);font:inherit;font-family:var(--serif);font-size:1.6rem;cursor:pointer;margin-top:12px;touch-action:manipulation}
+.hit:active{background:rgba(232,176,74,.3)}
+.flash{position:fixed;inset:0;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 45%,rgba(247,217,149,.55),transparent 65%);transition:opacity .15s}
+.notice{display:flex;flex-direction:column;align-items:center;gap:12px;background:var(--ink-3);border-radius:12px;padding:24px;margin-top:12px;text-align:center}
+@media (max-width:760px){.two{grid-template-columns:1fr}.four{grid-template-columns:1fr 1fr}.cmp{display:block;overflow-x:auto;white-space:nowrap;font-size:.8rem}.coderow{grid-template-columns:auto 1fr auto}.coderow label{grid-column:2/-1}}
+@media (prefers-reduced-motion:reduce){.flash{transition:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html" aria-current="page">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>Night and reward</h1>
+  <p class="lede">Two ways to strengthen what you practise by day. At night, the day's codes are replayed softly in deep sleep, and only there: below waking level, stopping at the first sign of waking, with a nightly limit. By day, a success (a ball through the rim, a right answer, a clean move) is answered within a fraction of a second by a reward code, which can also return at night.</p>
+  <div class="labels"><span>Built and tested in simulation</span><span class="u">Effect unproven in people</span></div>
+
+  <section aria-labelledby="planTitle">
+    <h2 id="planTitle">Tonight's plan</h2>
+    <p class="lede">Choose the codes you practised today. Mark any code linked to a painful memory: it is never played during sleep. If a nightmare is detected, the device plays a separate safety code or wakes you gently.</p>
+    <div class="panel">
+      <div class="codes" id="codes"></div>
+      <div class="two">
+        <div><label>Channels</label><div id="channels"></div></div>
+        <div><label for="trauma">When a nightmare is detected</label><select id="trauma"><option value="safety">Play the safety code (. .)</option><option value="wake">Wake me gently</option></select></div>
+      </div>
+      <p class="verdict" id="planSay"></p>
+      <div class="warn" id="consent"></div>
+      <button class="btn" id="planCopy">Copy the plan for a sleep device</button> <span class="hint" id="copyMsg"></span>
+      <p class="hint">Finding deep sleep needs a sleep headband or another device that reads sleep stages; a phone on the mattress cannot. The plan is the device's instructions, in the RSOS night format.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="tlTitle">
+    <h2 id="tlTitle">A night, simulated</h2>
+    <p class="lede">A simulated sleeper with a device that sometimes misreads the stage. Compare closed-loop cueing with cueing at random times, on the same night.</p>
+    <div class="panel">
+      <div id="policies" role="group" aria-label="Cueing policy"></div>
+      <button class="btn" id="another">Another night</button>
+      <svg class="tl" id="tl" role="img" aria-label="Sleep timeline with cues"></svg>
+      <div class="key"><span><i style="background:var(--deep)"></i>Deep sleep (N3)</span><span><i style="background:var(--rem)"></i>REM</span><span><i style="background:var(--gold)"></i>Cue</span><span><i style="background:var(--stop)"></i>Cue that woke the sleeper</span></div>
+      <div class="stats" id="stats"></div>
+      <table class="cmp" id="cmp"></table>
+    </div>
+  </section>
+
+  <section aria-labelledby="tmrTitle">
+    <h2 id="tmrTitle">Did it help memory</h2>
+    <p class="lede">In the evening, learn a list (words of a language, say), test yourself, and split the items into two halves: one half gets codes tonight, the other none. Test both halves in the morning. Over several nights the difference in what you kept is the effect of the night cues.</p>
+    <div class="panel">
+      <div class="four">
+        <div><label for="cb">Cued, evening</label><input type="number" id="cb" min="0" max="200" value="20"></div>
+        <div><label for="ca">Cued, morning</label><input type="number" id="ca" min="0" max="200"></div>
+        <div><label for="ub">Uncued, evening</label><input type="number" id="ub" min="0" max="200" value="20"></div>
+        <div><label for="ua">Uncued, morning</label><input type="number" id="ua" min="0" max="200"></div>
+      </div>
+      <button class="btn main" id="tmrAdd">Save the night</button>
+      <p class="verdict" id="tmrSay"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="dTitle">
+    <h2 id="dTitle">Night diary</h2>
+    <p class="lede">Each morning, note whether cueing ran, how many bad dreams you remember, and how distressing they were. Cueing nights and nights without are compared.</p>
+    <div class="panel">
+      <div class="four">
+        <div><label for="dOn">Cueing last night</label><select id="dOn"><option value="1">Yes</option><option value="0">No</option></select></div>
+        <div><label for="dN">Bad dreams</label><input type="number" id="dN" min="0" max="20" value="0"></div>
+        <div><label for="dD">Distress, 0-10</label><input type="number" id="dD" min="0" max="10" value="0"></div>
+        <div><label>&nbsp;</label><button class="btn main" id="dAdd" style="margin:0">Save</button></div>
+      </div>
+      <p class="verdict" id="dSay"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="rTitle">
+    <h2 id="rTitle">Reward codes</h2>
+    <p class="lede">Each learning area has its own family of codes, all starting with the area's prefix, so the body knows the area from the first pulses. A success plays the area's reward code at once: tap the button the moment you succeed, or let the phone's motion sensor recognise a good move.</p>
+    <div class="panel">
+      <div class="two">
+        <div><label for="area">Area</label><input type="text" id="area" value="Free throws"></div>
+        <div><label for="prefix">Prefix</label><select id="prefix"></select></div>
+      </div>
+      <div class="codes" id="family"></div>
+      <div style="text-align:center"><button class="hit" id="hit">Success</button></div>
+      <button class="btn" id="motion">Use the motion sensor</button> <span class="hint" id="motionMsg"></span>
+      <svg class="tl" id="rtl" role="img" aria-label="Reward timeline"></svg>
+      <p class="verdict" id="rSay"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="nTitle">
+    <h2 id="nTitle">Is a cue noticed sooner with light</h2>
+    <p class="lede">Ten short trials. Keep your eyes on this box; at a random moment a cue comes, as vibration alone or as vibration with a flash of light. Tap as soon as you notice it. (Vibration works on Android phones; elsewhere you will hear a tone instead.)</p>
+    <div class="panel"><div class="notice" id="notice"><button class="btn main" id="nStart">Start the test</button></div><p class="verdict" id="nSay"></p></div>
+  </section>
+
+  <section aria-labelledby="simTitle">
+    <h2 id="simTitle">Across many simulated people</h2>
+    <p class="lede">Closed-loop cueing put nearly every cue in deep sleep and rarely woke the sleeper; cueing at random times woke them many times a night and, in the memory model, turned a benefit into a loss. A memory benefit was found in most groups of twenty people, rarely in a single person over a week. Reward codes and night replay are small effects that need large training studies.</p>
+    <div class="panel"><p class="hint" style="margin:0">Full results: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/night.md">rsso/results/night.md</a>. To run it with real people and devices: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/NIGHT_PROTOCOL_KIT.md">the protocol kit</a>.</p></div>
+  </section>
+</main>
+<div class="flash" id="flash" aria-hidden="true"></div>
+<footer>SLEEP and REWARD are <code>rsso/rsso/night.py</code>, identically <code>docs/js/night.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/NIGHT.md">spec/NIGHT.md</a>. Cueing during sleep is experimental and is not a treatment; with a trauma history, work with a therapist. If something feels wrong, stop and use the <a href="safety.html">Safety page</a>.</footer>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/trial.js?v=1.18.0"></script>
+<script src="js/gate.js?v=1.16.0"></script>
+<script src="js/night.js?v=1.19.0"></script>
+<script>
+const $ = id => document.getElementById(id);
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
+const N = window.RSOSNight;
+const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } } };
+const now = () => Math.floor(Date.now() / 1000);
+const feel = (code, marks) => { try { return UGCL.feel(code, marks ? { marks } : {}); } catch (e) { return null; } };
+const codeSvg = c => { try { return UGCL.codeSVG(c, "#e8b04a", 8); } catch (e) { return ""; } };
+
+/* ---------- tonight's plan ---------- */
+let NP = store.get("rsos.night.plan", { picked: {}, trauma: {}, channels: ["vibration"], mode: "safety" });
+function sources() {
+  const out = [];
+  store.get("rsos.anchors", []).filter(a => !a.sim).forEach(a => out.push({ code: a.code, label: a.glyph + " " + a.name, area: "anchor" }));
+  store.get("rsos.identity.profiles", []).filter(p => !p.sim).forEach(p => out.push({ code: p.code, label: p.symbol + " " + p.name, area: "identity" }));
+  (store.get("rsos.night.areas", [])).forEach(a => out.push({ code: a.prefix + " .", label: a.name + " (reward)", area: a.name }));
+  if (!out.length) out.push({ code: "..-", label: "🦁 Lion (example)", area: "example" }, { code: "-.- .", label: "French words (example)", area: "french" });
+  const seen = new Set(); return out.filter(c => { const k = c.code + c.label; if (seen.has(k)) return false; seen.add(k); return true; });
+}
+function plan() { return N.makePlan(sources().filter(c => NP.picked[c.code + c.label] !== false).map(c => Object.assign({}, c, { trauma: !!NP.trauma[c.code + c.label] })), NP.channels, NP.mode); }
+function drawPlan() {
+  const C = $("codes"); C.textContent = "";
+  sources().forEach(c => { const k = c.code + c.label, r = el("div", "coderow");
+    const on = el("input"); on.type = "checkbox"; on.checked = NP.picked[k] !== false; on.setAttribute("aria-label", "Replay " + c.label);
+    on.addEventListener("change", () => { NP.picked[k] = on.checked; save(); drawPlan(); });
+    const nm = el("div"); nm.append(document.createTextNode(c.label)); nm.append(el("small", "", "  " + c.area));
+    const f = el("button", "feel"); f.innerHTML = codeSvg(c.code); f.append(document.createTextNode(c.code)); f.addEventListener("click", () => feel(c.code));
+    const tl = el("label"); tl.style.margin = "0"; const t = el("input"); t.type = "checkbox"; t.checked = !!NP.trauma[k]; t.addEventListener("change", () => { NP.trauma[k] = t.checked; save(); drawPlan(); });
+    tl.append(t, document.createTextNode(" linked to a painful memory")); r.append(on, nm, f, tl); C.append(r); });
+  const H = $("channels"); H.textContent = "";
+  [["vibration", "Vibration"], ["light", "Dim light"], ["voice", "Earbud voice"]].forEach(([v, t]) => { const b = el("button", "btn", t); b.setAttribute("aria-pressed", NP.channels.includes(v) ? "true" : "false");
+    b.addEventListener("click", () => { NP.channels = NP.channels.includes(v) ? NP.channels.filter(x => x !== v) : NP.channels.concat([v]); if (!NP.channels.length) NP.channels = ["vibration"]; save(); drawPlan(); }); H.append(b); });
+  $("trauma").value = NP.mode; const p = plan(); $("planSay").textContent = p.say;
+  const ok = window.RSOSGate && RSOSGate.hasConsent(store.get("rsos.consents", []), "night_cueing", now());
+  $("consent").innerHTML = ""; $("consent").append(document.createTextNode(ok ? "Consent to cueing during sleep is on record. " : "Plays while you sleep: give consent to cueing during sleep on the Safety page before any device uses this plan. "));
+  const a = el("a", "", "Safety page"); a.href = "safety.html#autonomy"; $("consent").append(a);
+}
+function save() { store.set("rsos.night.plan", NP); }
+$("trauma").addEventListener("change", () => { NP.mode = $("trauma").value; save(); drawPlan(); });
+$("planCopy").addEventListener("click", () => { const t = JSON.stringify(plan(), null, 2); try { navigator.clipboard.writeText(t).then(() => { $("copyMsg").textContent = "Copied."; }); } catch (e) { $("copyMsg").textContent = "Copy is not available here."; } });
+
+/* ---------- the sleep timeline ---------- */
+let seed = 7, policy = "closed";
+const COLS = { W: "#a3abc6", N1: "#8fa0c8", N2: "#7d92cf", N3: "#6f86d6", REM: "#b58cd9" }, ROW = { W: 0, REM: 1, N1: 2, N2: 3, N3: 4 };
+function nights() { const p = plan(), o = {}; ["closed", "random", "none"].forEach(k => { o[k] = new N.Sleeper(seed).run(k === "none" ? null : new N.Controller(p, k)); }); return o; }
+function drawNight() {
+  const P = $("policies"); P.textContent = ""; [["closed", "Closed loop"], ["random", "Random times"], ["none", "No cues"]].forEach(([k, t]) => { const b = el("button", "btn", t); b.setAttribute("aria-pressed", policy === k ? "true" : "false"); b.addEventListener("click", () => { policy = k; drawNight(); }); P.append(b); });
+  const all = nights(), r = all[policy], S = $("tl"), W = S.getBoundingClientRect().width || 900, H = 240, L = 64, top = 36, rh = 34, n = r.true.length;
+  S.setAttribute("viewBox", "0 0 " + W + " " + H); const x = i => L + i / n * (W - L - 8);
+  let g = "";
+  ["Awake", "REM", "N1", "N2", "Deep"].forEach((t, k) => { g += '<text x="' + (L - 10) + '" y="' + (top + k * rh + 5) + '" fill="#a3abc6" font-size="11" text-anchor="end">' + t + '</text><line x1="' + L + '" x2="' + W + '" y1="' + (top + k * rh) + '" y2="' + (top + k * rh) + '" stroke="#2e3858" stroke-dasharray="2 5"/>'; });
+  let i = 0; while (i < n) { let j = i; while (j < n && r.true[j] === r.true[i]) j++; const s = r.true[i], y = top + ROW[s] * rh;
+    g += '<rect x="' + x(i) + '" y="' + (y - (s === "N3" ? 9 : s === "REM" ? 7 : 3)) + '" width="' + Math.max(1, x(j) - x(i)) + '" height="' + (s === "N3" ? 18 : s === "REM" ? 14 : 6) + '" rx="3" fill="' + COLS[s] + '" opacity="' + (s === "N3" || s === "REM" ? .95 : .6) + '"/>';
+    if (j < n) g += '<line x1="' + x(j) + '" x2="' + x(j) + '" y1="' + y + '" y2="' + (top + ROW[r.true[j]] * rh) + '" stroke="#a3abc6" stroke-opacity=".35"/>'; i = j; }
+  r.cues.forEach(c => { g += '<line x1="' + x(c.epoch) + '" x2="' + x(c.epoch) + '" y1="8" y2="' + (c.aroused ? 26 : 20) + '" stroke="' + (c.aroused ? "#ef7d6d" : "#e8b04a") + '" stroke-width="' + (c.aroused ? 2 : 1) + '" stroke-opacity="' + (c.aroused ? 1 : .7) + '"/>'; });
+  for (let h = 0; h <= 8; h++) g += '<text x="' + x(h * 120) + '" y="' + (H - 6) + '" fill="#a3abc6" font-size="11" text-anchor="middle">' + (h === 0 ? "lights out" : h + " h") + "</text>";
+  S.innerHTML = g;
+  const R = r.report, st = [["Cues", R.cues], ["In deep sleep", R.in_n3 === null ? "—" : R.in_n3 + "%"], ["Cues that woke the sleeper", R.arousals], ["Deep sleep", R.n3_min + " min"], ["Awake after falling asleep", R.waso_min + " min"]];
+  $("stats").textContent = ""; st.forEach(([t, v]) => { const d = el("div", "stat"); d.append(el("b", "", String(v)), el("span", "", t)); $("stats").append(d); });
+  const T = $("cmp"); T.innerHTML = "<tr><th>Same night</th><th>Cues</th><th>In deep sleep</th><th>Woke the sleeper</th><th>Awake after falling asleep</th><th>Deep sleep</th></tr>";
+  [["closed", "Closed loop"], ["random", "Random times"], ["none", "No cues"]].forEach(([k, t]) => { const q = all[k].report, tr = el("tr", k === policy ? "on" : "");
+    [t, q.cues, q.in_n3 === null ? "—" : q.in_n3 + "%", q.arousals, q.waso_min + " min", q.n3_min + " min"].forEach(v => tr.append(el("td", "", String(v)))); T.append(tr); });
+}
+$("another").addEventListener("click", () => { seed = (seed * 7 + 3) % 997 + 1; drawNight(); });
+
+/* ---------- memory and diary ---------- */
+function drawTmr() { $("tmrSay").textContent = N.tmrAnalyze(store.get("rsos.night.tmr", [])).say; }
+$("tmrAdd").addEventListener("click", () => { const v = id => parseInt($(id).value, 10); if ([v("cb"), v("ca"), v("ub"), v("ua")].some(x => !isFinite(x))) { $("tmrSay").textContent = "Fill in all four numbers."; return; }
+  const t = store.get("rsos.night.tmr", []); t.push({ ts: now(), cued_before: v("cb"), cued_after: v("ca"), uncued_before: v("ub"), uncued_after: v("ua") }); store.set("rsos.night.tmr", t); $("ca").value = ""; $("ua").value = ""; drawTmr(); });
+function drawDiary() { const d = store.get("rsos.night.diary", []); const a = N.diaryCompare(d), b = N.diaryCompare(d, "distress"); $("dSay").textContent = d.length + " nights. " + a.say + (b.verdict !== "too_few" ? " " + b.say : ""); }
+$("dAdd").addEventListener("click", () => { const d = store.get("rsos.night.diary", []); d.push({ night: now(), cueing: $("dOn").value === "1", nightmares: parseInt($("dN").value, 10) || 0, distress: parseInt($("dD").value, 10) || 0 }); store.set("rsos.night.diary", d); drawDiary(); });
+
+/* ---------- reward ---------- */
+let RS = null, t0 = performance.now();
+const PREFIXES = ["-.", ".-", "--", "..", "-..", ".-.", "--.", ".--"];
+function drawFamily() {
+  const S = $("prefix"); if (!S.options.length) PREFIXES.forEach(p => S.append(new Option(p, p)));
+  const areas = store.get("rsos.night.areas", []), mine = areas.find(a => a.name === $("area").value.trim());
+  if (mine && S.value !== mine.prefix && !S.dataset.touched) S.value = mine.prefix;
+  const fam = N.family(S.value, 4), F = $("family"); F.textContent = "";
+  fam.forEach((c, i) => { const r = el("div", "coderow"); r.style.gridTemplateColumns = "1fr auto"; const nm = el("div", "", i === 0 ? "Reward code for " + ($("area").value.trim() || "this area") : "Code " + (i + 1) + " of the family");
+    const f = el("button", "feel"); f.innerHTML = codeSvg(c); f.append(document.createTextNode(c)); f.addEventListener("click", () => feel(c)); r.append(nm, f); F.append(r); });
+  const clash = N.familiesOk(Object.fromEntries(areas.filter(a => a.name !== $("area").value.trim()).map(a => [a.name, a.prefix]).concat([[$("area").value.trim() || "this area", S.value]])));
+  if (clash.length) F.append(el("p", "say", "Choose another prefix: " + clash.join("; ") + "."));
+  RS = N.rewardState($("area").value.trim(), fam[0]); RS.log = store.get("rsos.night.rewardlog." + S.value, []); drawRewards();
+}
+$("prefix").addEventListener("change", () => { $("prefix").dataset.touched = 1; keepArea(); drawFamily(); });
+$("area").addEventListener("change", () => { delete $("prefix").dataset.touched; drawFamily(); });
+function keepArea() { const areas = store.get("rsos.night.areas", []).filter(a => a.name !== $("area").value.trim()); areas.push({ name: $("area").value.trim(), prefix: $("prefix").value }); store.set("rsos.night.areas", areas); }
+function success(source, detect) {
+  const t = performance.now(); const d = N.onEvent(RS, { t_ms: Math.round(t - t0), source, success: true, detect_ms: detect || 0 });
+  if (d.play) { const start = performance.now(); feel(RS.code); const f = $("flash"); f.style.opacity = 1; setTimeout(() => { f.style.opacity = 0; }, 250); d.latency_ms = Math.round((detect || 0) + N.REWARD.device_ms + (start - t)); }
+  store.set("rsos.night.rewardlog." + $("prefix").value, RS.log.slice(-200)); keepArea(); drawRewards();
+}
+$("hit").addEventListener("pointerdown", e => { e.preventDefault(); success("manual", 0); });
+$("hit").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); success("manual", 0); } });
+function drawRewards() {
+  const S = $("rtl"), W = S.getBoundingClientRect().width || 900, H = 110, log = RS.log.slice(-40); S.setAttribute("viewBox", "0 0 " + W + " " + H);
+  if (!log.length) { S.innerHTML = '<text x="0" y="60" fill="#a3abc6" font-size="13">Each success appears here, with the time from the success to the code.</text>'; $("rSay").textContent = ""; return; }
+  const a = log[0].t_ms, b = Math.max(a + 1000, log[log.length - 1].t_ms), x = t => 20 + (t - a) / (b - a) * (W - 40);
+  let g = '<line x1="10" x2="' + (W - 10) + '" y1="70" y2="70" stroke="#2e3858"/>';
+  log.forEach(e => { const c = e.play ? "#e8b04a" : "#a3abc6"; g += '<circle cx="' + x(e.t_ms) + '" cy="70" r="' + (e.play ? 7 : 4) + '" fill="' + c + '" opacity="' + (e.play ? 1 : .6) + '"><title>' + (e.play ? "Rewarded, " + e.latency_ms + " ms" : (e.why || "")) + "</title></circle>";
+    if (e.play) g += '<line x1="' + x(e.t_ms) + '" x2="' + x(e.t_ms) + '" y1="60" y2="' + (60 - Math.min(44, e.latency_ms / 8)) + '" stroke="#e8b04a"/><text x="' + x(e.t_ms) + '" y="' + (54 - Math.min(44, e.latency_ms / 8)) + '" fill="#e7e9f2" font-size="10" text-anchor="middle">' + e.latency_ms + "</text>"; });
+  g += '<text x="10" y="100" fill="#a3abc6" font-size="11">Gold: rewarded (ms from success to code). Grey: held back by the limits.</text>';
+  S.innerHTML = g; $("rSay").textContent = N.rewardReport(RS).say;
+}
+let motionOn = false, buf = [], lastFire = 0;
+$("motion").addEventListener("click", async () => {
+  if (motionOn) { motionOn = false; $("motion").textContent = "Use the motion sensor"; $("motionMsg").textContent = ""; return; }
+  try { if (typeof DeviceMotionEvent !== "undefined" && DeviceMotionEvent.requestPermission) { const r = await DeviceMotionEvent.requestPermission(); if (r !== "granted") throw new Error("permission refused"); } }
+  catch (e) { $("motionMsg").textContent = "The motion sensor could not be used: " + (e.message || e); return; }
+  if (typeof DeviceMotionEvent === "undefined") { $("motionMsg").textContent = "This device has no motion sensor."; return; }
+  motionOn = true; $("motion").textContent = "Stop the motion sensor"; $("motionMsg").textContent = "Hold the phone and make the move: a wind-up, a sharp release, a follow-through.";
+});
+window.addEventListener("devicemotion", ev => {
+  if (!motionOn) return; const a = ev.accelerationIncludingGravity || ev.acceleration; if (!a || a.x === null) return;
+  const m = Math.abs(Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z) - (ev.acceleration ? 0 : 9.81)) / 9.81; buf.push(m); if (buf.length > 120) buf.shift();
+  const hz = Math.round(1000 / (ev.interval > 1 ? ev.interval : 16)); const evs = N.detectMoves(buf, null, Math.min(100, Math.max(20, hz)));
+  const last = evs[evs.length - 1]; if (last && performance.now() - lastFire > 1500) { lastFire = performance.now(); buf = [];
+    if (last.success) success("motion", last.detect_ms); else { N.onEvent(RS, { t_ms: Math.round(performance.now() - t0), source: "motion", success: false }); $("motionMsg").textContent = "A move, but not the shape of a good one (match " + last.r + ")."; drawRewards(); } }
+});
+
+/* ---------- the notice test ---------- */
+let NT = null;
+$("nStart").addEventListener("click", () => { NT = { trials: [], k: 0 }; nextNotice(); });
+function nextNotice() {
+  const B = $("notice"); B.textContent = "";
+  if (NT.k >= 10) { const r = N.noticeReport(NT.trials); B.append(el("p", "", "Done. Vibration alone noticed in " + r.vibration.noticed + "% (median " + r.vibration.median_ms + " ms); with light in " + r.both.noticed + "% (median " + r.both.median_ms + " ms).")); $("nSay").textContent = r.say + " Ten trials are a first look; run it on several days.";
+    const again = el("button", "btn", "Run it again"); again.addEventListener("click", () => { NT = { trials: [], k: 0 }; nextNotice(); }); B.append(again); store.set("rsos.night.notice", (store.get("rsos.night.notice", [])).concat(NT.trials).slice(-200)); return; }
+  const ch = NT.k % 2 ? "both" : "vibration", tap = el("button", "btn main", "I noticed it"); B.append(el("span", "hint", "Trial " + (NT.k + 1) + " of 10. Wait for the cue…"), tap);
+  let at = null; const delay = 2000 + Math.random() * 4000;
+  const timer = setTimeout(() => { at = performance.now(); feel("."); if (ch === "both") { const f = $("flash"); f.style.opacity = 1; setTimeout(() => { f.style.opacity = 0; }, 200); }
+    setTimeout(() => { if (NT && NT.trials.length === NT.k) { NT.trials.push({ channel: ch, noticed: false, latency_ms: null }); NT.k++; nextNotice(); } }, 3000); }, delay);
+  tap.addEventListener("click", () => { if (at === null) { clearTimeout(timer); B.prepend(el("p", "say", "Too early: wait for the cue.")); setTimeout(nextNotice, 900); return; }
+    NT.trials.push({ channel: ch, noticed: true, latency_ms: Math.round(performance.now() - at) }); NT.k++; nextNotice(); });
+}
+
+drawPlan(); drawNight(); drawTmr(); drawDiary(); drawFamily();
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { drawNight(); drawRewards(); }, 150); });
+</script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
+</body>
+</html>

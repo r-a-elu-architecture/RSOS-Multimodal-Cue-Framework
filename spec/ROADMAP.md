@@ -105,11 +105,11 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 2 | **Closed-loop sleep cueing**. Cues only in deep sleep, below waking level, stopping on arousal, with a nightly limit; the day's code replayed with light and an earbud voice; trauma gets a safety code or waking by default. | new | SLEEP | idea | R10–R16, R25, R31, 2025-04/05 |
-| 3 | **External success events and a reward code**. An outside sensor reports a success (a ball through the rim, a correct answer) and a reward code plays within a fraction of a second; it can be replayed at night. | new | REWARD | idea | R12, 2025-04-10 |
-| 6 | **A code family per learning area**. Each learning area gets its own family of vibration codes, marked by a code prefix. | extension | UGCL | mostly built | R11, 2025-04-10 |
+| 2 | **Closed-loop sleep cueing**. Cues only in deep sleep, below waking level, stopping on arousal, with a nightly limit; the day's code replayed with light and an earbud voice; trauma gets a safety code or waking by default. | new | SLEEP | built in simulation | R10–R16, R25, R31, 2025-04/05 |
+| 3 | **External success events and a reward code**. An outside sensor reports a success (a ball through the rim, a correct answer) and a reward code plays within a fraction of a second; it can be replayed at night. | new | REWARD | built in simulation | R12, 2025-04-10 |
+| 6 | **A code family per learning area**. Each learning area gets its own family of vibration codes, marked by a code prefix. | extension | UGCL | built in simulation | R11, 2025-04-10 |
 | 18 | **Light together with vibration**. Light comes on with the vibration so the cue is noticed more. | merged | SLEEP | merged into 2 | R14, R29, 2025-04/05 |
-| 28 | **Peak vibration in sport via a motion sensor**. A motion sensor detects a successful move and fires the reward code. | extension | REWARD | idea | R33, 2025-05-21 |
+| 28 | **Peak vibration in sport via a motion sensor**. A motion sensor detects a successful move and fires the reward code. | extension | REWARD | built in simulation | R33, 2025-05-21 |
 
 ### Step 7: LINX and THERA extensions
 

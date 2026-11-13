@@ -42,7 +42,7 @@ pip install -r requirements.txt          # Python 3.10+; Node.js 18+ and a C++ c
 
 The script runs:
 
-- the RSX, RSSO and toolkit test suites (198 tests);
+- the RSX, RSSO and toolkit test suites (208 tests);
 - the conformance suite on the virtual rig and on the firmware core;
 - the board check against the firmware core in real time;
 - a regeneration of every generated file, checking that nothing changed.
@@ -50,7 +50,7 @@ The script runs:
 The same script runs on GitHub on every push (`.github/workflows/checks.yml`).
 
 Wherever a module exists in both languages, Python and JavaScript are tested to give identical results. This
-covers 20 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, PEAK, TRIAL, CHECKS, the autonomy gate, IDENTITY, ATLAS, the
+covers 21 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, PEAK, TRIAL, CHECKS, the autonomy gate, IDENTITY, ATLAS, SLEEP and REWARD, the
 contribution format, the device protocol with its board check, the heart-rate driver and camera heart rate.
 
 ## 4. Evidence register: every number, and what kind of evidence it is
@@ -71,6 +71,7 @@ contribution format, the device protocol with its board check, the heart-rate dr
 | Autonomy gate | Strong anchors automatic in 100% of simulated people (about day 11); no-effect anchors never fire by themselves (180 firings without the gate); contaminated anchors lose automatic use within a day in 75%, 0% automatic at day 60 | Simulated people with known anchors | `rsso/results/gate.md` |
 | IDENTITY | Coherence rising 1 point a month found in 100% of simulated people over 26 weeks (2.5–3% false); drift found in 100% (2% false); tree advantage found faster in 99.5% after 12 walks (3% false); value conflict detected in 98.5% by chest strap, 81% by camera | Simulated people with known answers | `rsso/results/identity.md` |
 | ATLAS | Real triggers found in 98% of simulated people after two weeks (3% of null nodes called triggers); map predicts unseen moments in 100%; transfer found in 67% with a repeat mapping (7% false; 14% false without it); level-sweep peak found in 66% with eight sessions per level (2% false) | Simulated people with known triggers | `rsso/results/atlas.md` |
+| SLEEP and REWARD | Closed-loop cueing put 99% of cues in deep sleep with under one cue-caused arousal a night (random cueing: 16%, about 15 arousals); a memory benefit found in all groups of 20 and 15% of single people; a good move recognised in 90% (0% of poor moves) with the code about 190 ms after release | Simulated sleepers and athletes with known answers | `rsso/results/night.md` |
 | Original glyphs | 146 + 1 joined pair; 147 unique vibration codes | Measured on the ledger | `rsso/results/ugcl_originals.md` |
 | Effect of the Override Protocol or nodes on people | **None measured** | — | Study kit ready: `toolkit/study_kit/` |
 

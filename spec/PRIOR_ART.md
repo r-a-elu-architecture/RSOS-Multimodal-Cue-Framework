@@ -27,6 +27,7 @@ An entry here is a reference point, never a reason to drop an item: knowing what
 | Rasch, Büchel, Gais & Born, *Science* 315:1426, 2007 | Odour cues during slow-wave sleep prompt declarative memory consolidation (targeted memory reactivation) | 2 | checked |
 | Antony et al., *Nature Neuroscience* 15:1114, 2012 | Cued memory reactivation during sleep influences skill learning | 2, 3 | checked |
 | Schreiner & Rasch, *Cerebral Cortex* 25:4169, 2015 (doi:10.1093/cercor/bhu139) | Spoken cues during NonREM sleep improved later recall of foreign vocabulary; cueing while awake did not | 2, 6 | checked |
+| Hu, Cheng, Chiu & Paller, *Psychological Bulletin* 146:218, 2020 (doi:10.1037/bul0000223) | Meta-analysis of 91 targeted-memory-reactivation experiments: overall Hedges' g = 0.29 [0.21, 0.38]; effective in N2 and slow-wave sleep, not in REM or wakefulness | 2, 3 | checked |
 | Hauner et al., *Nature Neuroscience* 2013 | Odour exposure during sleep reduced a conditioned fear response | 2 | to verify |
 | Ngo et al., *Neuron* 2013 | Sound timed to slow oscillations (closed loop) enhanced memory | 2 | to verify |
 | Dresler et al., *Neuron* 2017 | Training in the method of loci changed memory performance and brain connectivity | 5, 11 | to verify |

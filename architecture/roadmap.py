@@ -96,7 +96,7 @@ ITEMS = [
      "A book on identity architecture, written after the prototype has data."),
     (32, "Glossary and foundations files", "extension", "Specs", 9, "partly built", "Design records, 2025-05",
      "Every term defined precisely; each module linked to the research it builds on."),
-    (33, "Personal randomised experiments, pooled", "new", "TRIAL", 2, "idea", "Design records, 2025-05",
+    (33, "Personal randomised experiments, pooled", "new", "TRIAL", 2, "built in simulation", "Design records, 2025-05",
      "Single-case designs: conditions chosen at random (cue or none, real or sham anchor, automatic or manual), each person's effect with an interval, pooled across people."),
     (34, "The platform's identity library", "extension", "Site", 4, "partly built", "Design records, 2025-05",
      "Device blueprints, ritual templates and a sequence builder exist; the identity library is missing."),
@@ -120,23 +120,23 @@ ITEMS = [
      "An agent reports its state as a glyph's code on the wristband; the person replies with a code."),
     (44, "Human error and stress signals feeding the agent", "new", "AUG, LINX", 8, "idea", "Design records, 2025-05",
      "A person's error-related or stress signal sharpens the agent's conflict detector."),
-    (45, "Behaviour-consistency test", "new", "TRIAL", 2, "idea", "Design records, 2025-05",
+    (45, "Behaviour-consistency test", "new", "TRIAL", 2, "built in simulation", "Design records, 2025-05",
      "How consistent an agent's behaviour is with a profile and without one."),
     (46, "Provenance of names, manifesto and briefs", "new", "Review package", 9, "idea", "Design records, 2025-05",
      "Every name kept with who coined it; one-page briefs for scientists, therapists and other audiences."),
     (47, "Life-timeline memory protocol", "new", "THERA", 7, "idea", "Design records, 2025-05",
      "Scattered life events mapped into ordered nodes with glyphs (memory specificity training)."),
-    (48, "Built-in cognitive tests", "new", "CHECKS", 2, "idea", "Design records, 2025-05",
+    (48, "Built-in cognitive tests", "new", "CHECKS", 2, "built in simulation", "Design records, 2025-05",
      "n-back, digit span, reaction time under stress, event recall, reading and threat-attention bias, dated over time."),
-    (49, "Lifestyle factors as background data", "extension", "TRIAL", 2, "idea", "Design records, 2025-05",
+    (49, "Lifestyle factors as background data", "extension", "TRIAL", 2, "built in simulation", "Design records, 2025-05",
      "Nutrition, cold exposure and similar factors logged as covariates in personal trials, not as advice."),
     (50, "DOL-9, the daily override loop, and OXQ", "extension", "RSX, Metrics", 7, "idea", "Design records, 2025-05",
      "A precise 90-second loop (breath 4-2-6, posture, phrase, gesture, 5-15 s action) as an RSX program; OXQ = overrides / waking hours x 100."),
     (51, "Four-step sequence, layers in another language, a month's dose", "extension", "IDENTITY, RSX", 4, "idea", "R35, 2025-05-27",
      "On a negative state: identity peak, Core Transformation, future-pacing, movement-peak vibrations; six layers practised in another language; 12 a day for a month."),
-    (52, "Trial: Core Transformation first or identity first", "new", "TRIAL", 2, "idea", "R35, 2025-05-27",
+    (52, "Trial: Core Transformation first or identity first", "new", "TRIAL", 2, "built in simulation", "R35, 2025-05-27",
      "The order question settled by a randomised crossover."),
-    (53, "Four orders as trial arms", "extension", "TRIAL", 2, "idea", "R35 answer, R36, 2025-05-27",
+    (53, "Four orders as trial arms", "extension", "TRIAL", 2, "built in simulation", "R35 answer, R36, 2025-05-27",
      "The three-phase hybrid, Core Transformation first in each cycle, the identity peak first, and identity fully first."),
     (54, "Typology network and mirroring drift", "merged", "TYPES, IDENTITY", 4, "merged into 12 and 14", "R37, 2025-05-27",
      "Type image, common phrases, responses; does mirroring others pull a person away from their own profile."),
@@ -158,7 +158,7 @@ ITEMS = [
      "2023 mnemonic images; April 2025 EEG, vibration and senses; May 2025 identity trees and sequences; July 2025 the atlas and the network trance."),
     (63, "The transfer engine", "new", "THERA, ATLAS, IDENTITY", 5, "idea", "Later review (SSIT)",
      "Choose the node to work on by weight (across the senses) or by level (above the problem), then measure transfer to nodes never treated."),
-    (64, "SSIT three-arm trial", "new", "TRIAL, CHECKS", 2, "idea", "Later review (SSIT)",
+    (64, "SSIT three-arm trial", "new", "TRIAL, CHECKS", 2, "built in simulation", "Later review (SSIT)",
      "Imagery about the activity, imagery about a higher node flowing down, and general calming imagery; transfer to untrained activities as the outcome."),
     (65, "Library of higher nodes and a level sweep", "new", "IDENTITY, CM1", 5, "idea", "Later review (SSIT)",
      "Ten candidate nodes above language; does transfer rise, peak or fall as the node gets more abstract, per person."),
@@ -310,7 +310,8 @@ CLAIMS = [
     ("C101", "Imagery about a higher node transfers more to untrained activities than local or calming imagery.", "review", "Later review", "mechanism", "SSIT trial.", [64]),
 ]
 
-TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32"}   # claims whose test now runs (step 1, PEAK)
+TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32",          # step 1, PEAK
+              "C1", "C26", "C34", "C40", "C58", "C70", "C77", "C78", "C85", "C86", "C88", "C97", "C101"}   # step 2, TRIAL and CHECKS
 WHO = {"assistant": "Assistant (design records)", "records": "Design records", "report": "Record review", "review": "Later review"}
 
 

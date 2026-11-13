@@ -55,13 +55,13 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 33 | **Personal randomised experiments, pooled**. Single-case designs: conditions chosen at random (cue or none, real or sham anchor, automatic or manual), each person's effect with an interval, pooled across people. | new | TRIAL | idea | Design records, 2025-05 |
-| 45 | **Behaviour-consistency test**. How consistent an agent's behaviour is with a profile and without one. | new | TRIAL | idea | Design records, 2025-05 |
-| 48 | **Built-in cognitive tests**. n-back, digit span, reaction time under stress, event recall, reading and threat-attention bias, dated over time. | new | CHECKS | idea | Design records, 2025-05 |
-| 49 | **Lifestyle factors as background data**. Nutrition, cold exposure and similar factors logged as covariates in personal trials, not as advice. | extension | TRIAL | idea | Design records, 2025-05 |
-| 52 | **Trial: Core Transformation first or identity first**. The order question settled by a randomised crossover. | new | TRIAL | idea | R35, 2025-05-27 |
-| 53 | **Four orders as trial arms**. The three-phase hybrid, Core Transformation first in each cycle, the identity peak first, and identity fully first. | extension | TRIAL | idea | R35 answer, R36, 2025-05-27 |
-| 64 | **SSIT three-arm trial**. Imagery about the activity, imagery about a higher node flowing down, and general calming imagery; transfer to untrained activities as the outcome. | new | TRIAL, CHECKS | idea | Later review (SSIT) |
+| 33 | **Personal randomised experiments, pooled**. Single-case designs: conditions chosen at random (cue or none, real or sham anchor, automatic or manual), each person's effect with an interval, pooled across people. | new | TRIAL | built in simulation | Design records, 2025-05 |
+| 45 | **Behaviour-consistency test**. How consistent an agent's behaviour is with a profile and without one. | new | TRIAL | built in simulation | Design records, 2025-05 |
+| 48 | **Built-in cognitive tests**. n-back, digit span, reaction time under stress, event recall, reading and threat-attention bias, dated over time. | new | CHECKS | built in simulation | Design records, 2025-05 |
+| 49 | **Lifestyle factors as background data**. Nutrition, cold exposure and similar factors logged as covariates in personal trials, not as advice. | extension | TRIAL | built in simulation | Design records, 2025-05 |
+| 52 | **Trial: Core Transformation first or identity first**. The order question settled by a randomised crossover. | new | TRIAL | built in simulation | R35, 2025-05-27 |
+| 53 | **Four orders as trial arms**. The three-phase hybrid, Core Transformation first in each cycle, the identity peak first, and identity fully first. | extension | TRIAL | built in simulation | R35 answer, R36, 2025-05-27 |
+| 64 | **SSIT three-arm trial**. Imagery about the activity, imagery about a higher node flowing down, and general calming imagery; transfer to untrained activities as the outcome. | new | TRIAL, CHECKS | built in simulation | Later review (SSIT) |
 
 ### Step 3: The autonomy gate
 

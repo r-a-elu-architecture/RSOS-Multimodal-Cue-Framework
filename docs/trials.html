@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trials — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="description" content="Personal randomised trials: compare two ways of practising, with the order chosen at random, and get your own effect with an interval. Short memory, attention, reaction and reading tasks.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d; --blue:#8fb4f0;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 14px}
+@media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
+nav a{color:var(--muted);text-decoration:none;font-size:.9rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:58px 0 6px}
+h3{font-family:var(--serif);font-weight:500;font-size:1.2rem;margin:0 0 4px}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:70ch;margin:4px 0}
+.labels{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:.86rem;color:var(--muted)}
+.labels span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gold);vertical-align:1px}
+.labels span.u::before{background:transparent;border:1px solid var(--muted)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer;margin:6px 8px 0 0}
+.btn:hover{border-color:var(--gold)}
+.btn.main{border-color:var(--gold);color:var(--glow)}
+.btn.quiet{border-color:transparent;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card.pick{cursor:pointer}
+.card.pick:hover,.card.pick.on{border-color:var(--gold)}
+.card ul{margin:6px 0 0;padding-left:18px;font-size:.88rem;color:var(--muted)}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:16px}
+.dots{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+.dots i{width:14px;height:14px;border-radius:50%;border:1px solid var(--line)}
+.dots i.next{border-color:var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.82rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
+.scale{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.scale button{width:36px;height:36px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);font:inherit;cursor:pointer}
+.scale button.on,.scale button:hover{border-color:var(--gold);color:var(--glow)}
+.row{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:end}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text],textarea{background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+textarea{width:100%;min-height:90px}
+.ci{width:100%;max-width:640px;height:auto;display:block;margin-top:10px}
+.verdict{font-family:var(--serif);font-size:1.15rem;margin:10px 0 2px}
+.verdict.better{color:var(--ok)} .verdict.worse{color:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin-top:10px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:.8rem}
+.stage{min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px;background:var(--ink-3);border-radius:12px;padding:20px;margin-top:12px}
+.big{font-family:var(--serif);font-size:4rem;line-height:1;color:var(--glow);min-height:4rem}
+.lamp{width:110px;height:110px;border-radius:50%;border:2px solid var(--line);background:transparent;cursor:pointer}
+.lamp.lit{background:var(--gold);border-color:var(--gold)}
+.probe{display:grid;grid-template-columns:1fr 40px 1fr;gap:10px;width:100%;max-width:520px;align-items:center;font-size:1.25rem}
+.probe span{min-height:2rem}
+.passage{max-width:62ch;text-align:left;font-family:var(--serif);font-size:1.08rem;line-height:1.7}
+.spark{width:120px;height:28px;vertical-align:middle}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+@media (max-width:760px){.grid{grid-template-columns:1fr}.big{font-size:3.2rem}}
+/* nav row */
+header.top{flex-direction:column;align-items:flex-start;gap:10px}
+header.top nav{justify-content:flex-start;gap:4px 12px}
+header.top nav a{font-size:.88rem}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="trials.html" aria-current="page">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>Find out what works for you</h1>
+  <p class="lede">Compare two or more ways of practising. The page decides at random which one each session uses, so your mood and expectations cannot tilt the result. After enough sessions you get your own answer, with an interval: this works better for you, the other does, or there is no clear difference yet.</p>
+  <div class="labels"><span>Built and tested in simulation</span><span class="u">Effect unproven in people</span></div>
+
+  <h2 id="trial">Your trial</h2>
+  <div id="trialArea"></div>
+
+  <h2 id="tasks">Short tasks</h2>
+  <p class="lede">One to three minutes each. Your scores are kept with the date so you can compare yourself over weeks. They are research measures, not diagnoses, and they improve a little with practice at first.</p>
+  <div class="grid" id="taskGrid"></div>
+  <div id="taskStage"></div>
+
+  <h2 id="simulation">See it on simulated people</h2>
+  <p class="lede">Thirty simulated people whose real effect of an anchor over a sham varies around one point. Each runs eight blocks. Every line is one person's result with its interval; the diamond is all of them pooled.</p>
+  <div class="panel">
+    <button class="btn main" id="simGo">Simulate 30 people</button>
+    <div id="simOut"></div>
+    <p class="hint">Across many simulated people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/trial.md">rsso/results/trial.md</a>. To run trials with real people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/TRIAL_PROTOCOL_KIT.md">the protocol kit</a>.</p>
+  </div>
+</main>
+<footer>TRIAL is <code>rsso/rsso/trial.py</code>, identically <code>docs/js/trial.js</code>; the tasks are <code>rsso/rsso/checks.py</code>, identically <code>docs/js/checks.js</code> (tested). Specifications: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/TRIAL.md">TRIAL</a>, <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CHECKS.md">CHECKS</a>. Everything stays in this browser until you export it.</footer>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.15.0"></script>
+<script src="js/trial.js?v=1.15.0"></script>
+<script src="js/checks.js?v=1.15.0"></script>
+<script>
+const $ = id => document.getElementById(id);
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
+const T = window.RSOSTrial, C = window.RSOSChecks;
+const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } } };
+const ARM_COL = ["#e8b04a", "#8fb4f0", "#8fd19e", "#c9a0f0"];
+const now = () => Math.floor(Date.now() / 1000);
+const fmt = x => (x > 0 ? "+" : "") + x;
+let trial = store.get("rsos.trial", null), pick = "anchor_vs_sham";
+const saveTrial = () => store.set("rsos.trial", trial);
+
+function scale(label, cb) {
+  const w = el("div"); w.append(el("label", "", label)); const S = el("div", "scale");
+  for (let k = 0; k <= 10; k++) { const b = el("button", "", String(k)); b.addEventListener("click", () => { [...S.children].forEach(x => x.classList.remove("on")); b.classList.add("on"); cb(k); }); S.append(b); }
+  w.append(S); return w;
+}
+function ciChart(contrasts, adjusted) {
+  // one row per contrast: the interval as a bar, the difference as a dot; adjusted below in a lighter line
+  const rows = []; contrasts.forEach(c => { if (c.lo !== null) rows.push({ c, kind: "raw" }); const a = adjusted && adjusted.contrasts.find(x => x.arm === c.arm); if (a) rows.push({ c: a, kind: "adjusted" }); });
+  if (!rows.length) return null;
+  const vals = rows.flatMap(r => [r.c.lo, r.c.hi, 0]), lo = Math.min(...vals), hi = Math.max(...vals), pad = (hi - lo) * 0.12 || 1;
+  const W = 600, L = 150, R = 20, H = rows.length * 34 + 30, x = v => L + (v - (lo - pad)) / ((hi + pad) - (lo - pad)) * (W - L - R);
+  let s = '<svg class="ci" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Differences with 95% intervals">';
+  s += '<line x1="' + x(0) + '" x2="' + x(0) + '" y1="6" y2="' + (H - 22) + '" stroke="#a3abc6" stroke-dasharray="3 4"/>';
+  s += '<text x="' + x(0) + '" y="' + (H - 6) + '" fill="#a3abc6" font-size="12" text-anchor="middle">no difference</text>';
+  rows.forEach((r, k) => {
+    const y = 22 + k * 34, col = r.kind === "raw" ? "#e8b04a" : "#8fb4f0";
+    s += '<text x="0" y="' + (y + 4) + '" fill="#e7e9f2" font-size="13">' + r.c.arm.replace(/_/g, " ") + (r.kind === "adjusted" ? " (adjusted)" : "") + "</text>";
+    s += '<line x1="' + x(r.c.lo) + '" x2="' + x(r.c.hi) + '" y1="' + y + '" y2="' + y + '" stroke="' + col + '" stroke-width="' + (r.kind === "raw" ? 4 : 2) + '" stroke-linecap="round"/>';
+    s += '<circle cx="' + x(r.c.diff) + '" cy="' + y + '" r="6" fill="' + col + '"/>';
+  });
+  return s + "</svg>";
+}
+
+function drawTrial() {
+  const A = $("trialArea"); A.textContent = "";
+  if (!trial) {
+    A.append(el("p", "lede", "Choose what to compare. Each card names the claims in the register that your trial helps to test."));
+    const G = el("div", "grid");
+    Object.entries(T.DESIGNS).forEach(([id, d]) => {
+      const c = el("div", "card pick" + (id === pick ? " on" : "")); c.tabIndex = 0;
+      c.append(el("h3", "", d.title)); const ul = el("ul"); d.arms.forEach(a => ul.append(el("li", "", d.arm_names[a]))); c.append(ul);
+      c.append(el("p", "hint", "Outcome: " + d.outcome + ". Tests claims " + d.claims.join(", ") + "."));
+      const on = () => { pick = id; drawTrial(); }; c.addEventListener("click", on); c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); on(); } });
+      G.append(c);
+    });
+    A.append(G);
+    const P = el("div", "panel"), d = T.DESIGNS[pick];
+    P.append(el("h3", "", d.title));
+    const rowB = el("div", "row"); const lb = el("div"); lb.append(el("label", "", "Blocks (each holds every arm once)"));
+    const sel = el("select"); [6, 8, 12].forEach(n => { const o = el("option", "", n + " blocks, " + n * d.arms.length + " sessions"); o.value = n; if (n === 8) o.selected = true; sel.append(o); }); lb.append(sel); rowB.append(lb);
+    let anchorSel = null;
+    if (pick === "anchor_vs_sham" || pick === "cue_vs_none") {
+      const anchors = store.get("rsos.anchors", []).filter(a => !a.sim), la = el("div"); la.append(el("label", "", "Anchor"));
+      anchorSel = el("select");
+      if (!anchors.length) { const o = el("option", "", "No anchor yet: create one on the Anchors page"); o.value = ""; anchorSel.append(o); }
+      anchors.forEach(a => { const o = el("option", "", a.glyph + "  " + a.name + "  " + a.code); o.value = a.id; anchorSel.append(o); });
+      la.append(anchorSel); rowB.append(la);
+    }
+    P.append(rowB, el("p", "hint", "One session a day at most, at least six hours apart. " + d.do));
+    const go = el("button", "btn main", "Start this trial"), msg = el("span", "hint");
+    go.addEventListener("click", () => {
+      if (anchorSel && !anchorSel.value) { msg.textContent = " Create an anchor on the Anchors page first."; return; }
+      trial = T.newTrial(pick, Number(sel.value), Math.floor(Math.random() * 4294967296), "t" + Date.now(), now());
+      if (anchorSel) trial.anchor = anchorSel.value; saveTrial(); drawTrial();
+    });
+    P.append(go, msg); A.append(P); return;
+  }
+  const d = T.DESIGNS[trial.design], an = T.analyze(trial), P = el("div", "panel");
+  P.append(el("h3", "", d.title), el("p", "hint", an.sessions + " of " + an.planned + " sessions done. Outcome: " + d.outcome + "."));
+  const dots = el("div", "dots"); trial.schedule.forEach((arm, i) => { const k = el("i"); if (i < trial.sessions.length) k.style.background = ARM_COL[d.arms.indexOf(arm)]; else if (i === trial.sessions.length) k.className = "next"; dots.append(k); }); P.append(dots);
+  const leg = el("div", "legend"); d.arms.forEach((a, k) => { const s = el("span"); const i = el("i"); i.style.background = ARM_COL[k]; s.append(i, document.createTextNode(d.arm_names[a])); leg.append(s); }); P.append(leg);
+  an.contrasts.forEach(c => { const v = el("p", "verdict " + c.verdict, c.say); P.append(v);
+    if (c.lo !== null) P.append(el("p", "hint", c.arm.replace(/_/g, " ") + " against " + c.against.replace(/_/g, " ") + ": " + fmt(c.diff) + " [" + fmt(c.lo) + ", " + fmt(c.hi) + "], p " + c.p + ".")); });
+  const ch = ciChart(an.contrasts, an.adjusted); if (ch) { const b = el("div"); b.innerHTML = ch; P.append(b); if (an.adjusted) P.append(el("p", "hint", "Adjusted for " + an.adjusted.for.map(k => ({ sleep_h: "hours slept" })[k] || k).join(" and ") + "; drift " + fmt(an.adjusted.trend_per_session) + " points a session.")); }
+  const ses = el("div"); P.append(ses);
+  if (trial.sessions.length < trial.schedule.length) { const b = el("button", "btn main", "Start today's session"); b.addEventListener("click", () => session(ses)); P.append(b); }
+  const ex = el("button", "btn", "Export for research"); ex.addEventListener("click", () => { const blob = new Blob([JSON.stringify(trial, null, 1)], { type: "application/json" }); const a = el("a"); a.href = URL.createObjectURL(blob); a.download = "rsos-trial-" + trial.design + ".json"; a.click(); });
+  const end = el("button", "btn quiet", "End this trial"); end.addEventListener("click", () => { if (end.dataset.sure) { const done = store.get("rsos.trials.done", []); done.push(trial); store.set("rsos.trials.done", done); trial = null; saveTrial(); drawTrial(); } else { end.dataset.sure = 1; end.textContent = "End it for good (results are kept)"; } });
+  P.append(ex, end); A.append(P);
+}
+function session(box) {
+  box.textContent = ""; const d = T.DESIGNS[trial.design], arm = trial.schedule[trial.sessions.length], blind = trial.design === "anchor_vs_sham";
+  const F = el("div", "stage"); F.style.alignItems = "stretch"; F.style.textAlign = "left"; box.append(F);
+  const rec = { cov: { hour: new Date().getHours() } };
+  F.append(el("h3", "", blind ? "Today's session: blind" : "Today: " + d.arm_names[arm]), el("p", "hint", d.do));
+  F.append(scale("Before: " + d.outcome, v => { rec.before = v; }));
+  const bg = el("div", "row");
+  const sl = el("div"); sl.append(el("label", "", "Hours slept")); const ss = el("select"); for (let h = 3; h <= 11; h += 0.5) { const o = el("option", "", String(h)); o.value = h; if (h === 7) o.selected = true; ss.append(o); } sl.append(ss);
+  const cf = el("div"); cf.append(el("label", "", "Caffeine in the last 4 hours")); const cs = el("select"); [["0", "No"], ["1", "Yes"]].forEach(([v, t]) => { const o = el("option", "", t); o.value = v; cs.append(o); }); cf.append(cs);
+  const exr = el("div"); exr.append(el("label", "", "Exercise today")); const es = el("select"); [["0", "No"], ["1", "Yes"]].forEach(([v, t]) => { const o = el("option", "", t); o.value = v; es.append(o); }); exr.append(es);
+  bg.append(sl, cf, exr); F.append(bg);
+  if (trial.anchor && (trial.design === "anchor_vs_sham" || (trial.design === "cue_vs_none" && arm === "cue"))) {
+    const a = store.get("rsos.anchors", []).find(x => x.id === trial.anchor);
+    const play = el("button", "btn main", blind ? "Play today's code" : "Play your anchor");
+    play.addEventListener("click", () => { let code = a ? a.code : "..-"; if (arm === "sham") { const pool = ["-..-", ".-.-", "--..", "-.-.", "..--"].filter(c => !a || c !== a.code); code = pool[Math.floor(Math.random() * pool.length)]; } UGCL.feel(code, {}); });
+    F.append(play);
+  }
+  F.append(scale("After: " + d.outcome, v => { rec.after = v; }));
+  const save = el("button", "btn main", "Save this session"), msg = el("span", "hint");
+  save.addEventListener("click", () => {
+    if (rec.before === undefined || rec.after === undefined) { msg.textContent = " Rate before and after first."; return; }
+    rec.cov.sleep_h = Number(ss.value); rec.cov.caffeine = Number(cs.value); rec.cov.exercise = Number(es.value);
+    T.record(trial, rec.before, rec.after, rec.cov, now()); saveTrial();
+    F.replaceChildren(el("p", "", "Saved." + (blind ? " Today's code was " + (arm === "anchor" ? "your anchor." : "a sham code.") : ""))); setTimeout(drawTrial, 1600);
+  });
+  F.append(save, msg);
+}
+
+// ---------------------------------------------------------------- tasks
+const TASKS = [
+  ["nback", "Working memory (2-back)", "Tap when a letter is the same as the one two letters back.", r => "d′ " + r.d_prime + ", " + r.accuracy + "% correct", r => r.d_prime],
+  ["span", "Digit span", "Remember a row of digits and type it back.", r => "span " + r.span, r => r.span],
+  ["reaction", "Reaction time", "Tap as soon as the circle lights.", r => r.median + " ms, " + r.lapses + " lapses", r => -r.median],
+  ["pressure", "Reaction under time pressure", "The same, with a countdown and an error tone.", r => r.median + " ms, " + r.lapses + " lapses", r => -r.median],
+  ["recall", "Word recall", "Twelve words, a short pause, then write all you remember.", r => r.correct + " of " + r.of, r => r.correct],
+  ["reading", "Reading", "Read a short passage, then answer three questions.", r => r.wpm + " words a minute, " + r.comprehension + "% understood", r => r.effective_wpm],
+  ["dotprobe", "Attention to threat", "Tap the side where the dot appears.", r => "bias " + fmt(r.bias) + " ms", r => -Math.abs(r.bias || 0)],
+];
+const hist = () => store.get("rsos.checks", []);
+function spark(vals) {
+  if (vals.length < 2) return ""; const mn = Math.min(...vals), mx = Math.max(...vals), sp = mx - mn || 1;
+  return '<svg class="spark" viewBox="0 0 120 28" aria-hidden="true"><polyline fill="none" stroke="#e8b04a" stroke-width="2" points="' + vals.map((v, k) => (k * 120 / (vals.length - 1)) + "," + (24 - (v - mn) / sp * 20)).join(" ") + '"/></svg>';
+}
+function drawTasks() {
+  const G = $("taskGrid"); G.textContent = ""; const H = hist();
+  TASKS.forEach(([id, name, what, summary, val]) => {
+    const c = el("div", "card"); c.append(el("h3", "", name), el("p", "hint", what));
+    const mine = H.filter(h => h.id === id);
+    if (mine.length) { const last = mine[mine.length - 1], p = el("p", "hint"); p.innerHTML = "Last: " + summary(last.result) + " (" + new Date(last.ts * 1000).toLocaleDateString() + ") " + spark(mine.slice(-10).map(h => val(h.result))); c.append(p); }
+    const b = el("button", "btn main", "Start"); b.addEventListener("click", () => runTask(id)); c.append(b); G.append(c);
+  });
+}
+function finishTask(id, result) {
+  const H = hist(); H.push({ id, ts: now(), result }); store.set("rsos.checks", H.slice(-300));
+  const t = TASKS.find(x => x[0] === id); $("taskStage").replaceChildren(stageOf([el("h3", "", "Done"), el("p", "", t[3](result))])); drawTasks();
+}
+function stageOf(kids) { const S = el("div", "stage"); S.append(...kids); return S; }
+function runTask(id) {
+  const box = $("taskStage"); box.scrollIntoView({ block: "center" });
+  const seed = Math.floor(Math.random() * 4294967296);
+  if (id === "nback") {
+    const seq = C.genNback(seed), pressed = []; let i = -1, shown = 0;
+    const L = el("div", "big"), btn = el("button", "btn main", "Match"); const S = stageOf([el("p", "hint", "Tap Match (or press the space bar) when the letter matches the one two back."), L, btn]); box.replaceChildren(S);
+    const press = () => { if (i >= 0 && !pressed.some(p => p.i === i)) { pressed.push({ i, rt: Math.round(performance.now() - shown) }); btn.classList.add("on"); } };
+    btn.addEventListener("click", press); const key = e => { if (e.code === "Space") { e.preventDefault(); press(); } }; document.addEventListener("keydown", key);
+    const step = () => { i++; if (i >= seq.length) { document.removeEventListener("keydown", key); finishTask("nback", C.scoreNback(seq, pressed)); return; }
+      L.textContent = seq[i].letter; shown = performance.now(); setTimeout(() => { L.textContent = ""; }, 1800); setTimeout(step, 2500); };
+    setTimeout(step, 1200);
+  } else if (id === "span") {
+    const trials = []; let k = 0;
+    const next = () => { const n = C.nextSpan(trials); if (n === null) { finishTask("span", C.scoreSpan(trials)); return; }
+      const digits = C.genDigits(seed + k++, n), D = el("div", "big"); box.replaceChildren(stageOf([el("p", "hint", n + " digits"), D])); let j = 0;
+      const show = () => { if (j < digits.length) { D.textContent = digits[j++]; setTimeout(() => { D.textContent = ""; }, 700); setTimeout(show, 1000); return; }
+        const inp = el("input"); inp.type = "text"; inp.inputMode = "numeric"; inp.setAttribute("aria-label", "The digits you saw"); const ok = el("button", "btn main", "Check");
+        const done = () => { trials.push({ length: n, correct: inp.value.replace(/\D/g, "") === digits ? 1 : 0 }); next(); };
+        ok.addEventListener("click", done); inp.addEventListener("keydown", e => { if (e.key === "Enter") done(); });
+        box.replaceChildren(stageOf([el("p", "", "Type the digits in order"), inp, ok])); inp.focus(); };
+      setTimeout(show, 800); };
+    next();
+  } else if (id === "reaction" || id === "pressure") {
+    const delays = C.genDelays(seed), rts = []; let misses = 0, k = 0, lit = 0, timer = null, waiting = false;
+    const lamp = el("button", "lamp"); lamp.setAttribute("aria-label", "Tap when it lights"); const info = el("p", "hint", id === "pressure" ? "Faster: every lapse sounds a tone." : "Tap the circle as soon as it lights.");
+    box.replaceChildren(stageOf([info, lamp]));
+    const beep = () => { const ac = UGCL.audioCtx(); if (!ac) return; const o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = 220; g.gain.value = 0.15; o.connect(g).connect(ac.destination); o.start(); o.stop(ac.currentTime + 0.25); };
+    const trialStep = () => { if (k >= delays.length) { finishTask(id, C.scoreReaction(rts, misses)); return; }
+      waiting = true; let left = delays[k] / 1000;
+      if (id === "pressure") info.textContent = "Trial " + (k + 1) + " of " + delays.length + ": be ready";
+      timer = setTimeout(() => { waiting = false; lamp.classList.add("lit"); lit = performance.now();
+        timer = setTimeout(() => { lamp.classList.remove("lit"); misses++; if (id === "pressure") beep(); k++; trialStep(); }, 1500); }, delays[k]); void left; };
+    lamp.addEventListener("click", () => {
+      if (waiting) { clearTimeout(timer); rts.push(0); if (id === "pressure") beep(); k++; trialStep(); return; }
+      if (!lamp.classList.contains("lit")) return;
+      clearTimeout(timer); lamp.classList.remove("lit"); const rt = Math.round(performance.now() - lit); rts.push(rt); if (id === "pressure" && rt > 500) beep(); k++; setTimeout(trialStep, 400); });
+    setTimeout(trialStep, 800);
+  } else if (id === "recall") {
+    const words = C.genWords(seed); const W = el("p", "passage", words.join("   ")); W.style.textAlign = "center"; const t = el("p", "hint", "Remember these words: 30 seconds");
+    box.replaceChildren(stageOf([t, W]));
+    setTimeout(() => { let n = 100 + Math.floor(Math.random() * 100); const N = el("div", "big", String(n)); box.replaceChildren(stageOf([el("p", "hint", "Pause: count backwards by 3 in your head for 30 seconds"), N]));
+      setTimeout(() => { const ta = el("textarea"); ta.setAttribute("aria-label", "The words you remember"); const ok = el("button", "btn main", "Done");
+        ok.addEventListener("click", () => finishTask("recall", C.scoreRecall(words, ta.value)));
+        box.replaceChildren(stageOf([el("p", "", "Write every word you remember, in any order"), ta, ok])); ta.focus(); }, 30000); }, 30000);
+  } else if (id === "reading") {
+    const done = hist().filter(h => h.id === "reading").length, p = C.PASSAGES[done % C.PASSAGES.length];
+    const go = el("button", "btn main", "Start reading"); box.replaceChildren(stageOf([el("h3", "", p.title), el("p", "hint", "Read at your normal pace. The time starts when you press Start."), go]));
+    go.addEventListener("click", () => { const t0 = performance.now(), fin = el("button", "btn main", "I've finished");
+      box.replaceChildren(stageOf([el("p", "passage", p.text), fin]));
+      fin.addEventListener("click", () => { const ms = performance.now() - t0, ans = [null, null, null], S = el("div"); S.style.textAlign = "left"; S.style.width = "100%"; S.style.maxWidth = "62ch";
+        p.questions.forEach((q, qi) => { S.append(el("p", "", q[0])); q[1].forEach((o, oi) => { const l = el("label"); const r = el("input"); r.type = "radio"; r.name = "q" + qi; r.addEventListener("change", () => { ans[qi] = oi; }); l.append(r, document.createTextNode(" " + o)); S.append(l); }); });
+        const ok = el("button", "btn main", "Submit"), msg = el("span", "hint"); ok.addEventListener("click", () => { if (ans.includes(null)) { msg.textContent = " Answer all three questions."; return; } finishTask("reading", C.scoreReading(p.id, Math.round(ms), ans)); });
+        box.replaceChildren(stageOf([S, ok, msg])); }); });
+  } else if (id === "dotprobe") {
+    const trials = C.genDotprobe(seed), resp = []; let k = 0, shown = 0, open = false;
+    const Lw = el("span"), mid = el("span", "", "+"), Rw = el("span"), P = el("div", "probe"); P.append(Lw, mid, Rw); Lw.style.textAlign = "right"; Rw.style.textAlign = "left";
+    const bl = el("button", "btn", "Left"), br = el("button", "btn", "Right"); const row = el("div"); row.append(bl, br);
+    box.replaceChildren(stageOf([el("p", "hint", "Two words appear, then a dot where one of them was. Tap its side (or press the left or right arrow)."), P, row]));
+    const answer = side => { if (!open) return; open = false; resp.push({ k, side, rt: Math.round(performance.now() - shown) }); Lw.textContent = Rw.textContent = ""; k++; setTimeout(step, 500); };
+    bl.addEventListener("click", () => answer("left")); br.addEventListener("click", () => answer("right"));
+    const key = e => { if (e.key === "ArrowLeft") answer("left"); if (e.key === "ArrowRight") answer("right"); }; document.addEventListener("keydown", key);
+    const step = () => { if (k >= trials.length) { document.removeEventListener("keydown", key); finishTask("dotprobe", C.scoreDotprobe(trials, resp)); return; }
+      const t = trials[k]; mid.textContent = "+"; Lw.textContent = Rw.textContent = "";
+      setTimeout(() => { Lw.textContent = t.threat_side === "left" ? t.threat : t.neutral; Rw.textContent = t.threat_side === "left" ? t.neutral : t.threat;
+        setTimeout(() => { Lw.textContent = t.probe_side === "left" ? "●" : ""; Rw.textContent = t.probe_side === "right" ? "●" : ""; shown = performance.now(); open = true; }, 500); }, 500); };
+    setTimeout(step, 800);
+  }
+}
+
+// ---------------------------------------------------------------- simulation
+$("simGo").addEventListener("click", () => {
+  const P = window.RSOSPeak, rng = new P.Rng(Math.floor(Math.random() * 1e9)), res = [];
+  for (let p = 0; p < 30; p++) { const eff = 1 + 0.5 * rng.gauss(); res.push({ eff, a: T.analyze(new T.SimPerson({ anchor: eff, sham: 0 }, { seed: Math.floor(rng.u() * 1e9), trend: 0.05 }).run(T.newTrial("anchor_vs_sham", 8, Math.floor(rng.u() * 1e9)))) }); }
+  const pooled = T.pool(res.map(r => r.a), "anchor"), cs = res.map(r => r.a.contrasts[0]);
+  const vals = cs.flatMap(c => [c.lo, c.hi]).concat([0]), lo = Math.min(...vals), hi = Math.max(...vals), W = 600, L = 40, R = 20, H = 30 * 9 + 70;
+  const x = v => L + (v - lo) / (hi - lo) * (W - L - R), rowH = (H - 70) / 30;
+  let s = '<svg class="ci" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Thirty simulated people and the pooled estimate">';
+  s += '<line x1="' + x(0) + '" x2="' + x(0) + '" y1="4" y2="' + (H - 22) + '" stroke="#a3abc6" stroke-dasharray="3 4"/>';
+  cs.forEach((c, k) => { const y = 8 + k * rowH, good = c.lo > 0; s += '<line x1="' + x(c.lo) + '" x2="' + x(c.hi) + '" y1="' + y + '" y2="' + y + '" stroke="' + (good ? "#8fd19e" : "#2e3858") + '" stroke-width="2"/><circle cx="' + x(c.diff) + '" cy="' + y + '" r="2.6" fill="#e7e9f2"/>'; });
+  const yp = H - 40; s += '<polygon points="' + x(pooled.lo) + "," + yp + " " + x(pooled.estimate) + "," + (yp - 9) + " " + x(pooled.hi) + "," + yp + " " + x(pooled.estimate) + "," + (yp + 9) + '" fill="#e8b04a"/>';
+  s += '<text x="' + x(0) + '" y="' + (H - 6) + '" fill="#a3abc6" font-size="12" text-anchor="middle">no difference</text></svg>';
+  const found = cs.filter(c => c.lo > 0).length;
+  $("simOut").innerHTML = s;
+  $("simOut").append(el("p", "hint", "Green: a clear personal effect (" + found + " of 30 people). Pooled: " + fmt(pooled.estimate) + " [" + fmt(pooled.lo) + ", " + fmt(pooled.hi) + "], spread between people " + pooled.tau + ". The true average is 1.0."));
+});
+
+drawTrial(); drawTasks();
+</script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
+</body>
+</html>

@@ -512,6 +512,100 @@ def report(ev: dict) -> str:
     return "\n".join(L)
 
 
+# ---------------------------------------------------------------- the channel suite on the firmware core (items 9, 15, 29, 36, 38)
+
+def fw_run(lines: list, caps="haptic,thermal,display") -> list:
+    """Run protocol lines through the real firmware core in the host simulator (software in the loop)."""
+    import subprocess
+    from .protocol import build_host_sim
+    out = subprocess.run([str(build_host_sim()), caps], input="\n".join(lines + ["QUIT"]) + "\n",
+                         capture_output=True, text=True, check=True).stdout
+    return [x for x in out.splitlines() if not x.startswith("TOCK")]
+
+
+def _load(events, hmax=0.6):
+    return [f"LOAD {len(events)} {_fmt(hmax)}"] + events
+
+
+def channel_suite(seed=11, fuzz=400) -> list:
+    """RDP/1.1 channel checks X1-X11 against the firmware core: (id, requirement, passed, measured)."""
+    res = []
+    o = fw_run(_load(["T 0 1000 5"]))
+    res.append(("X1", "a temperature change beyond 4 °C is refused by the device whatever the host sends", "ERR T envelope" in o, o[-1]))
+    o = fw_run(_load(["T 0 300000 -2"]) + ["START", "TICK 400000"])
+    th = [x for x in o if x.startswith("THERMAL")]
+    res.append(("X2", "a thermal cue lasts at most two minutes", th == ["THERMAL 0 -2.00", "THERMAL 120000 0.00"], "; ".join(th)))
+    o = fw_run(_load(["T %d 1000 1" % (k * 2000) for k in range(5)]))
+    res.append(("X3", "at most four thermal cues in a run", o[-1] == "ERR T too-many", o[-1]))
+    o1 = fw_run(_load(["T 0 60000 -3"]) + ["START", "TICK 2500", "STOP"])
+    o2 = fw_run(_load(["T 0 60000 3"]) + ["START", "TICK 2500", "LINK_LOST"])
+    ok = "THERMAL 2500 0.00" in o1 and "THERMAL 2500 0.00" in o2
+    res.append(("X4", "temperature returns to neutral at once on Stop and when the link drops", ok, "Stop: " + ("neutral at 2500 ms" if "THERMAL 2500 0.00" in o1 else "no") + "; link lost: " + ("neutral at 2500 ms" if "THERMAL 2500 0.00" in o2 else "no")))
+    o = fw_run(_load(["D 0 60000 lion", "D 20000 3000 owl"]) + ["START", "TICK 21000", "STOP"])
+    ds = [x for x in o if x.startswith("DISPLAY")]
+    res.append(("X5", "an image shows at most ten seconds and goes off on Stop", ds == ["DISPLAY 0 lion 1", "DISPLAY 10000 lion 0", "DISPLAY 20000 owl 1", "DISPLAY 21000 owl 0"], "; ".join(ds)))
+    o = fw_run(_load(["HF 0 100 0 1 0.4 500 0 chest"])) + fw_run(_load(["HF 0 100 0 1 0.4 170 80 chest"])) + fw_run(_load(["HF 0 100 0 1 0.4 0 0 elbow"]))
+    errs = [x for x in o if x.startswith("ERR")]
+    res.append(("X6", "a carrier outside 20-300 Hz, a rhythm outside 1-40 Hz or an unknown body site is refused", errs == ["ERR HF envelope", "ERR HF envelope", "ERR HF site"], "; ".join(errs)))
+    four = ["HF 0 1000 0 1 0.4 0 0 " + s for s in SITES[:4]]
+    o = fw_run(_load(four) + ["START", "TICK 1500"])
+    on = [x.split()[2] for x in o if x.startswith("SITE 0 ") and float(x.split()[3]) > 0]
+    ref = [x for x in o if x.startswith("REFUSED")]
+    res.append(("X7", "at most three body sites vibrate at once; a fourth is refused", len(on) == 3 and len(ref) == 1, f"{len(on)} on together; {ref[0] if ref else 'none refused'}"))
+    o = fw_run(_load(["HF 0 200 100 3 0.95 170 6 chest", "HF 0 200 100 3 0.9 0 0 ankle"], hmax=0.5) + ["START", "TICK 2000"])
+    peak = max((float(x.split()[3]) for x in o if x.startswith("SITE")), default=0)
+    res.append(("X8", "vibration on any site never exceeds the program's haptic_max", peak <= 0.5, f"peak {_fmt(peak)} (limit 0.5)"))
+    code, sites = "..- -.", ["wrist_left", "chest"]
+    sp = spread(code, sites)
+    lines = [encode({"kind": "haptic", "t": x["t"], "on": x["on"], "off": 0, "count": 1, "amp": 0.5, "carrier_hz": 0, "mod_hz": 0, "site": x["site"]}) for x in sp]
+    o = fw_run(_load(lines) + ["START", "TICK 5000"])
+    got = [(int(x.split()[1]), x.split()[2]) for x in o if x.startswith("SITE") and float(x.split()[3]) > 0]
+    want = [(x["t"], x["site"]) for x in sp]
+    res.append(("X9", "a code spread over body sites plays at the exact times on the right sites", got == want, f"{len(got)} of {len(want)} pulses exact"))
+    o = fw_run(_load(["T 0 1000 -1"]), caps="haptic") + fw_run(_load(["D 0 1000 lion"]), caps="haptic,olfactory")
+    errs = [x for x in o if x.startswith("ERR")]
+    res.append(("X10", "a device without the channel refuses its lines", errs == ["ERR T not-capable", "ERR D not-capable"], "; ".join(errs)))
+    # X11: the host check and the device envelope agree on random commands
+    rng = P.Rng(seed)
+    bad, n_ok, n_refused = [], 0, 0
+    pick = lambda xs: xs[int(rng.u() * len(xs)) % len(xs)]
+    for k in range(fuzz):
+        kind = pick(["thermal", "display", "haptic"])
+        if kind == "thermal":
+            cmd = {"kind": kind, "t": 0, "dur": pick([1000, 60000, 120000, 200000]), "delta_c": pick([-5, -4, -2.5, 0.5, 3, 4, 4.5])}
+        elif kind == "display":
+            cmd = {"kind": kind, "t": 0, "dur": pick([500, 5000, 10000, 15000]), "image": pick(["lion", "owl", "tree"])}
+        else:
+            cmd = {"kind": kind, "t": 0, "on": pick([50, 100, 300]), "off": pick([0, 100]), "count": pick([1, 3]), "amp": pick([0.2, 0.5, 0.6, 0.8]),
+                   "carrier_hz": pick([0, 10, 20, 170, 300, 400]), "mod_hz": pick([0, 1, 6, 40, 60]), "site": pick(list(SITES) + ["elbow"])}
+        host_ok = not check(cmd)
+        o = fw_run(_load([encode(cmd)], hmax=ENVELOPE_X["haptic_amp_max"]))
+        dev_plain = o[-1] == "OK LOAD"
+        dev_altered = any(x.startswith("ERR") or x.startswith("CLAMPED") for x in o)
+        if host_ok:
+            n_ok += 1
+            if not dev_plain or dev_altered:
+                bad.append(encode(cmd))
+        else:
+            n_refused += 1
+            if not dev_altered:
+                bad.append(encode(cmd))
+    res.append(("X11", "every command the host check accepts plays unchanged on the device; every command it refuses is refused or clamped by the device",
+                not bad, f"{fuzz} random commands: {n_ok} accepted by both, {n_refused} refused by the host and refused or clamped by the device; {len(bad)} disagreements"))
+    return res
+
+
+def channel_report(results) -> str:
+    out = ["# RDP/1.1 channels on the firmware core", "",
+           "Generated by `python -m rsso.machines --channels`. The checks run the real firmware core (`firmware/rsos_core`, the same code as the ESP32 sketch) "
+           "in the host simulator with the capabilities `haptic,thermal,display`: software in the loop. No thermal module, display or multi-site board has been built yet.", "",
+           "| Check | Requirement | Result | Measured |", "|---|---|---|---|"]
+    for cid, req, ok, m in results:
+        out.append(f"| {cid} | {req} | {'PASS' if ok else 'FAIL'} | {m} |")
+    out += ["", f"{sum(r[2] for r in results)}/{len(results)} checks passed."]
+    return "\n".join(out) + "\n"
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if argv[:1] == ["--evaluate"]:
@@ -520,7 +614,14 @@ def main(argv=None):
         path.write_text(report(evaluate()), encoding="utf-8")
         print(f"wrote {path}")
         return 0
-    print("usage: python -m rsso.machines --evaluate")
+    if argv[:1] == ["--channels"]:
+        import pathlib
+        r = channel_suite()
+        path = pathlib.Path(__file__).resolve().parents[1] / "results" / "channels_firmware.md"
+        path.write_text(channel_report(r), encoding="utf-8")
+        print(f"wrote {path}; {sum(x[2] for x in r)}/{len(r)} checks passed.")
+        return 0 if all(x[2] for x in r) else 1
+    print("usage: python -m rsso.machines --evaluate | --channels")
     return 2
 
 

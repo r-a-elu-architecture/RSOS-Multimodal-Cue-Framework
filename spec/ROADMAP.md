@@ -133,7 +133,7 @@ One operator holds across three years of the design records: change a central no
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
 | 9 | **Temperature and posture channels**. A wrist cooling device and a motion sensor for posture as cue channels. | new channel | Devices | built in simulation | R17, 2025-04-11 |
-| 10 | **Pronunciation feedback from the camera**. Face and lip tracking compared with a native template; moving the muscles to match is kept as a specification only. | adjacent | Devices | specified | R19–R20, 2025-04-12 |
+| 10 | **Pronunciation feedback from the camera**. Face and lip tracking compared with a native template; moving the muscles to match is kept as a specification only. Built as sound-based feedback (melody, vowels, rhythm) with an optional camera check of mouth shape. | adjacent | Devices | built in simulation | R19–R20, 2025-04-12 |
 | 15 | **Display output: AR glasses and the lock screen**. A state image conditioned at peaks and shown on a trigger, in smart glasses or on the phone's lock screen. | new channel | Devices | built in simulation | R25, 2025-04-23 |
 | 19 | **Content packs for any rule set**. The anchor tree as a format: any rule set, value system or skill becomes a pack. | new | UGCL | built in simulation | R21 (assistant suggestion), 2025-04-19 |
 | 29 | **Carrier frequency for vibration**. Vibration settings that take a carrier frequency, to test whether a frequency shifts EEG at that frequency. | extension | Devices | built in simulation | R31, 2025-05-18 |

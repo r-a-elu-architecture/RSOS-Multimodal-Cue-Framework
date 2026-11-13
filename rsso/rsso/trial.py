@@ -58,6 +58,21 @@ DESIGNS = {
                                           "timeline": "A timeline session: float back above the first event and release it"},
                             "outcome": "Calm while picturing an untreated trigger, 0-10", "items": [60, 63], "claims": ["C94", "C95"],
                             "do": "Run the session given, then picture one trigger you did not work on and rate how calm you feel, before and after."},
+    "rhythm_focus": {"title": "A vibration rhythm for focus", "arms": ["rhythm", "plain"], "reference": "plain",
+                     "arm_names": {"rhythm": "Wristband vibration pulsing 12 times a second for five minutes",
+                                   "plain": "The same vibration with no rhythm (the motor's own), same strength and time"},
+                     "outcome": "2-back score after five minutes, in tenths (0-10)", "items": [29], "claims": ["C35"],
+                     "do": "Wear the band during five minutes of reading, then do the 2-back test on the Checks page and enter the score divided by ten, rounded."},
+    "agent_values": {"title": "An agent with values or without", "arms": ["gated", "plain"], "reference": "plain",
+                     "arm_names": {"gated": "The agent checks each action against its values and asks when unsure",
+                                   "plain": "The same agent acting without the value check"},
+                     "outcome": "How much you trust the agent, 0-10", "items": [42, 44], "claims": ["C70", "C72"],
+                     "do": "Work with the agent on the task given for ten minutes, then rate how much you trust it and how much it cared about you."},
+    "pronunciation_feedback": {"title": "Pronunciation feedback or listening only", "arms": ["feedback", "listen"], "reference": "listen",
+                               "arm_names": {"feedback": "Practise drills with the feedback on the Devices page",
+                                             "listen": "Practise the same drills by listening and repeating, no feedback"},
+                               "outcome": "Clarity rated by a listener who does not know the arm, 0-10", "items": [10], "claims": ["C14"],
+                               "do": "Practise for ten minutes as given, then record one test phrase; a listener rates it later without knowing the arm."},
 }
 COVARIATES = ("sleep_h", "caffeine", "exercise", "hour")
 ADJUST = ("sleep_h",)          # pre-specified: session order and sleep; the others are checked for balance only

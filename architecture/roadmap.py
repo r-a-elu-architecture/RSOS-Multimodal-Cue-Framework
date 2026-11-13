@@ -50,8 +50,8 @@ ITEMS = [
      "A craving protocol, triggered by context such as a gambling app opening or arriving at a venue."),
     (9, "Temperature and posture channels", "new channel", "Devices", 8, "built in simulation", "R17, 2025-04-11",
      "A wrist cooling device and a motion sensor for posture as cue channels."),
-    (10, "Pronunciation feedback from the camera", "adjacent", "Devices", 8, "specified", "R19–R20, 2025-04-12",
-     "Face and lip tracking compared with a native template; moving the muscles to match is kept as a specification only."),
+    (10, "Pronunciation feedback from the camera", "adjacent", "Devices", 8, "built in simulation", "R19–R20, 2025-04-12",
+     "Face and lip tracking compared with a native template; moving the muscles to match is kept as a specification only. Built as sound-based feedback (melody, vowels, rhythm) with an optional camera check of mouth shape."),
     (11, "Anchor tree with attachment points", "extension", "UGCL, nodes", 4, "built in simulation", "R21, R27, 2025-04",
      "A central image with three context images fixed to its parts, each with its own code; a guided recall walk with recall timed per part."),
     (12, "Typology chains from speech, as plug-ins", "new", "TYPES", 7, "built in simulation", "R22, R28, R37, 2025-04/05",
@@ -316,7 +316,9 @@ TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32",          # step 1,
               "C16", "C17", "C41", "C61", "C62", "C82", "C89",   # step 4, IDENTITY
               "C92", "C93", "C94", "C95", "C99", "C100",   # step 5, ATLAS
               "C5", "C7", "C8", "C9", "C28", "C33", "C36",   # step 6, SLEEP and REWARD
-              "C4", "C18", "C19", "C21", "C31", "C44", "C45", "C57", "C64", "C81"}   # step 7, THERA and LINX
+              "C4", "C18", "C19", "C21", "C31", "C44", "C45", "C57", "C64", "C81",   # step 7, THERA and LINX
+              "C14", "C35", "C72"}   # step 8, MACHINES: pronunciation feedback, the EEG rhythm test and trial designs
+TRACKED = {"C56", "C60", "C67", "C71"}   # step 8: checked against public evidence in spec/PRIOR_ART.md, kept current
 WHO = {"assistant": "Assistant (design records)", "records": "Design records", "report": "Record review", "review": "Later review"}
 
 
@@ -330,7 +332,7 @@ def data() -> dict:
         "combinations": [{"id": c[0], "title": c[1], "items": c[2], "summary": c[3]} for c in COMBINATIONS],
         "hypotheses": [{"id": h[0], "title": h[1], "evidence": h[2], "status": "deferred"} for h in HYPOTHESES],
         "claims": [{"id": c[0], "claim": c[1], "by": WHO[c[2]], "source": c[3], "kind": c[4], "test": c[5],
-                    "items": c[6], "status": "recorded" if c[4] == "correction" else ("test built, untested in people" if c[0] in TEST_BUILT else "untested")} for c in CLAIMS],
+                    "items": c[6], "status": "recorded" if c[4] == "correction" else ("test built, untested in people" if c[0] in TEST_BUILT else "tracked against public evidence" if c[0] in TRACKED else "untested")} for c in CLAIMS],
         "labels": {"simulation": "Built and tested in simulation", "effect": "Effect unproven in people"},
         "_check": len(steps),
     }

@@ -110,6 +110,16 @@ class ProtocolDevice(Device):
                     a = self._open.pop(ch); a.dur_ms = t - a.t_ms
                 if on:
                     a = Action(t, self.name, "release", 0, {"channel": ch}); self.actions.append(a); self._open[ch] = a
+            elif f[0] in ("THERMAL", "DISPLAY", "SITE"):   # RDP/1.1 channels
+                t = int(f[1])
+                key = {"THERMAL": "th", "DISPLAY": "d:" + f[2], "SITE": "s:" + f[2]}[f[0]]
+                if key in self._open:
+                    a = self._open.pop(key); a.dur_ms = t - a.t_ms
+                on = {"THERMAL": lambda: float(f[2]) != 0, "DISPLAY": lambda: f[3] == "1", "SITE": lambda: float(f[3]) > 0}[f[0]]()
+                if on:
+                    kind, det = {"THERMAL": ("thermal", lambda: {"delta_c": float(f[2])}), "DISPLAY": ("image", lambda: {"image": f[2]}),
+                                 "SITE": ("pulse", lambda: {"amp": float(f[3]), "site": f[2], "carrier_hz": int(f[4]), "mod_hz": int(f[5])})}[f[0]]
+                    a = Action(t, self.name, kind, 0, det()); self.actions.append(a); self._open[key] = a
             elif f[0] == "REFUSED":
                 self.actions.append(Action(int(f[1]), self.name, "refused", 0, {"channel": f[2], "reason": f[3]}))
 

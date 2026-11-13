@@ -48,6 +48,8 @@ class Hardware : public rsos::Output {
     ledcWrite(PWM_CHANNEL, duty);        // Arduino-ESP32 2.x: by channel
 #endif
   }
+  // RDP/1.1 multi-site lines: a single-motor band plays every site on its one motor (carrier and rhythm need an LRA driver).
+  void site(int, float amp, int, int) override { motor(amp); }
   void valve(char ch, bool open) override { digitalWrite(ch == 'O' ? SCENT_PIN : TASTE_PIN, open ? HIGH : LOW); }
   void send(const char* line) override {
     Serial.println(line);

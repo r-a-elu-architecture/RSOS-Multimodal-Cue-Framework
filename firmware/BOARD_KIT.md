@@ -153,3 +153,13 @@ MICRO and AUG from "complete in simulation" to "built and checked on hardware" o
 | B4 fails above 100 ms | A USB hub or Bluetooth link adds delay: retry on direct USB. The band itself stops on the next millisecond tick |
 | The motor buzzes at boot | Add the 100 kΩ gate-to-ground resistor |
 | The board browns out when the motor starts | Power the motor from 3V3 with a 10 µF capacitor nearby, or from the battery through the MOSFET |
+
+## 8. RDP/1.1 modules (not yet built)
+
+The firmware core already runs the RDP/1.1 lines (11 of 11 channel checks in simulation, `rsso/results/channels_firmware.md`). To build the hardware, implement the matching `Output` methods (`thermal`, `display`, `site`) in the sketch and add the capability to the `Core` constructor (`"haptic,thermal,display"`).
+
+| Module | Parts | Notes |
+|---|---|---|
+| Wrist cooling and warming | Peltier element 20 × 20 mm; H-bridge driver (DRV8871 or a TB6612 channel) on PWM; NTC 10 kΩ thermistor on the skin side and one on the heat sink; small aluminium heat sink; 3.7 V LiPo 1000 mAh or more | Close the loop on the skin thermistor; cut power above 40 °C or below 15 °C on the skin whatever the program says; never more than 4 °C from the starting skin temperature |
+| Several body sites | Up to six LRA motors (10 mm, 170-235 Hz) each with a DRV2605L driver; a TCA9548A I2C multiplexer (the drivers share one address); elastic straps for wrist, upper arm, chest, back, ankle | LRAs give a clean carrier; the rhythm is amplitude modulation from the core; keep wires to the far sites flexible |
+| Image on a display | An ESP32 board with a round 1.28 in GC9A01 display (a watch face), images stored in flash under their names | Night use: the sketch caps brightness at 20%; glasses with an open SDK can take the `D` line over Bluetooth instead |

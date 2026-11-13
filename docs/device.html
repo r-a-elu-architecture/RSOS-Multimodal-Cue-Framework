@@ -76,6 +76,21 @@ canvas.lock{width:180px;border-radius:18px;border:1px solid var(--line);display:
 input[type=number]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
 .f3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 code.line{display:block;margin-top:10px;font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--glow);overflow-x:auto}
+.drills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.drills button{border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:transparent;color:var(--text);font:inherit;font-size:.86rem;cursor:pointer}
+.drills button[aria-pressed=true]{border-color:var(--gold);color:var(--glow)}
+.scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.scores div{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.scores b{font-family:var(--serif);font-weight:500;font-size:1.6rem;display:block;line-height:1.1}
+.scores span{font-size:.8rem;color:var(--muted)}
+.scores i{display:block;height:4px;border-radius:2px;background:var(--line);margin-top:8px;overflow:hidden}
+.scores i em{display:block;height:100%;background:var(--gold)}
+.sylls{display:flex;gap:6px;margin-top:12px}
+.sylls span{flex:1;text-align:center;border:1px solid var(--line);border-radius:8px;padding:6px 0;font-family:var(--serif)}
+.sylls span.hit{border-color:var(--warn);color:var(--warn)}
+.prongrid{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+@media (max-width:820px){.prongrid{grid-template-columns:1fr}}
+video.cam{width:100%;max-width:260px;border-radius:10px;border:1px solid var(--line);display:none;margin-top:10px;transform:scaleX(-1)}
 .msg{font-size:.9rem;margin:10px 0 0;min-height:1.2em}
 .msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
 footer{margin:60px auto;color:var(--muted);font-size:.88rem}
@@ -185,7 +200,7 @@ header.top nav a{font-size:.88rem}
   </section>
 
   <h2 style="margin-top:56px" id="channels">More channels</h2>
-  <p class="lede">The same programs and codes can reach a person through more than a phone and a band. Each class of device below carries some channels; the ones not built yet have a draft protocol line and safety limits, so a builder can start from them.</p>
+  <p class="lede">The same programs and codes can reach a person through more than a phone and a band. Each class of device below carries some channels; for the ones not built yet, the firmware already runs their protocol lines with the safety limits enforced on the device, so a builder only adds the hardware.</p>
   <div class="cls" id="classes"></div>
   <div class="grid" style="align-items:start">
     <section class="panel" id="posture">
@@ -221,7 +236,7 @@ header.top nav a{font-size:.88rem}
     </section>
     <section class="panel" id="thermal">
       <h2>Warm and cool</h2>
-      <p class="hint">For a wrist module that cools or warms (not built yet). The limits: at most 4 °C either way, at most two minutes, four times a session.</p>
+      <p class="hint">For a wrist module that cools or warms: the firmware already runs these lines; the module is not built yet. The limits: at most 4 °C either way, at most two minutes, four times a session.</p>
       <div class="f3"><div><label for="thD">Change, °C</label><input type="number" id="thD" value="-2" step="0.5"></div><div><label for="thS">Seconds</label><input type="number" id="thS" value="30"></div><div><label for="thT">Start, s</label><input type="number" id="thT" value="0"></div></div>
       <code class="line" id="thLine"></code><p class="msg" id="thMsg"></p>
     </section>
@@ -233,14 +248,37 @@ header.top nav a{font-size:.88rem}
       <p class="msg" id="lnMsg"></p>
     </section>
   </div>
+
+  <section class="panel" id="pron" style="margin-top:16px">
+    <h2>Pronunciation</h2>
+    <p class="hint">Listen to a drill, say it back, and see how your melody, vowel sounds and rhythm compare, syllable by syllable. Your own voice pitch, voice type and speed are taken out first, so a different voice is not a mistake. Say each vowel with a short break between. The recording stays on this device.</p>
+    <div class="prongrid">
+      <div>
+        <div class="drills" id="prDrills"></div>
+        <div class="row"><button class="btn go" id="prHear">Hear the model</button><button class="btn" id="prRec">Record (3 s)</button></div>
+        <label style="display:flex;gap:8px;align-items:center;margin-top:14px"><input type="checkbox" id="prCam"> Also use the camera for mouth shape. This loads Google's face model into this page; the video never leaves this device.</label>
+        <video class="cam" id="prVideo" playsinline muted></video>
+        <p class="hint">No microphone? Try a simulated learner:</p>
+        <div class="drills" id="prSim"></div>
+      </div>
+      <div>
+        <div class="scores" id="prScores"></div>
+        <div class="sylls" id="prSyl"></div>
+        <svg class="chart" id="prChart" viewBox="0 0 600 180" role="img" aria-label="Melody of the model and the recording"></svg>
+        <p class="msg" id="prSay"></p>
+        <p class="hint" id="prMouth"></p>
+      </div>
+    </div>
+  </section>
 </main>
-<footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent. The new channels use <code>docs/js/machines.js</code>, identical to <code>rsso/rsso/machines.py</code> (tested); draft lines in <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>.</footer>
+<footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent. The new channels use <code>docs/js/machines.js</code>, identical to <code>rsso/rsso/machines.py</code> (tested); pronunciation uses <code>docs/js/pron.js</code>, identical to <code>rsso/rsso/pron.py</code> (tested). The channel lines and their limits are in <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>.</footer>
 <script src="js/ugcl.js?v=1.14.0"></script>
 <script src="js/rsx.js?v=1.14.0"></script>
 <script src="js/contain.js?v=1.14.0"></script>
 <script src="js/rdp.js?v=1.14.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/machines.js?v=1.21.0"></script>
+<script src="js/pron.js?v=1.21.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id), R = RSOSRdp;
@@ -310,7 +348,7 @@ const mk = (t, c, x) => { const e = document.createElement(t); if (c) e.classNam
 // device classes
 const C = $("classes");
 Object.values(X.CLASSES).forEach(k => { const d = mk("div", k.spec_only ? "spec" : ""); d.append(mk("b", "", k.title), mk("span", "", k.channels.length ? k.channels.join(", ") : "no channels driven"));
-  d.append(mk("em", k.spec_only ? "s" : k.built ? "y" : "n", k.spec_only ? "specification only" : k.built ? "works now" : "draft protocol")); if (k.note) d.title = k.note; C.append(d); });
+  d.append(mk("em", k.spec_only ? "s" : k.built ? "y" : "n", k.spec_only ? "specification only" : k.built ? "works now" : "firmware ready, no module")); if (k.note) d.title = k.note; C.append(d); });
 // posture
 const NS = "http://www.w3.org/2000/svg";
 function drawPost() {
@@ -385,6 +423,85 @@ function lnShow() { let c; try { c = X.parse($("lnIn").value); } catch (e) { $("
   const p = X.check(c, $("lnNight").checked, $("lnNight").checked ? 0.5 : 1), what = { thermal: "Temperature change of " + c.delta_c + " °C for " + c.dur / 1000 + " s", display: "Image " + c.image + " for " + c.dur / 1000 + " s", haptic: c.count + " pulses on the " + (X.SITE_NAMES[c.site] || c.site).toLowerCase() + (c.carrier_hz ? " at " + c.carrier_hz + " Hz" : "") + (c.mod_hz ? ", pulsing " + c.mod_hz + " times a second" : "") }[c.kind];
   $("lnMsg").className = "msg " + (p.length ? "err" : "ok"); $("lnMsg").textContent = what + ". " + (p.length ? "Will not play: " + p.join("; ") + "." : "Inside the limits."); }
 ["lnIn", "lnNight"].forEach(i => $(i).addEventListener("input", lnShow)); $("lnNight").addEventListener("change", lnShow); lnShow();
+})();
+</script>
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id), R = RSOSPron;
+const mk = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+let drill = R.DRILLS[0], model = R.synth(drill.syllables), camOn = false, landmarker = null, trace = [], recT0 = 0;
+function drawDrills() {
+  const D = $("prDrills"); D.textContent = "";
+  R.DRILLS.forEach(d => { const b = mk("button", "", d.title + ": " + d.syllables.map(s => s.v).join("-")); b.setAttribute("aria-pressed", d === drill);
+    b.addEventListener("click", () => { drill = d; model = R.synth(d.syllables); drawDrills(); show(null); }); D.append(b); });
+}
+function play(x) { const ac = UGCL.audioCtx(); if (!ac) return; const b = ac.createBuffer(1, x.length, R.SR), ch = b.getChannelData(0);
+  let top = 0; x.forEach(v => { top = Math.max(top, Math.abs(v)); }); x.forEach((v, i) => { ch[i] = v / (top || 1) * 0.6; });
+  const s = ac.createBufferSource(); s.buffer = b; s.connect(ac.destination); s.start(); }
+$("prHear").addEventListener("click", () => play(model));
+const contour = x => { const F = R.features(x), syl = R.syllablesOf(F); if (!syl.length) return [];
+  const f = F.slice(syl[0][0], syl[syl.length - 1][1]).map(q => q.f0), v = f.filter(Boolean).sort((a, b) => a - b), ref = v[Math.floor(v.length / 2)];
+  return f.map(q => q && ref ? 12 * Math.log2(q / ref) : null); };
+function chart(x) {
+  const S = $("prChart"), W = 600, H = 180, y = s => H / 2 - s * 6;
+  let g = '<line x1="0" x2="' + W + '" y1="' + (H / 2) + '" y2="' + (H / 2) + '" stroke="#2e3858" stroke-dasharray="3 4"/>';
+  const line = (c, col, w) => { let d = "", pen = false; c.forEach((s, i) => { const X = i / Math.max(1, c.length - 1) * (W - 20) + 10; if (s == null) { pen = false; return; } d += (pen ? "L" : "M") + X.toFixed(1) + " " + y(Math.max(-13, Math.min(13, s))).toFixed(1); pen = true; }); return '<path d="' + d + '" fill="none" stroke="' + col + '" stroke-width="' + w + '"/>'; };
+  g += line(contour(model), "#e8b04a", 3);
+  if (x) g += line(contour(x), "#8fb4e8", 2);
+  g += '<text x="10" y="16" style="fill:#e8b04a;font-size:13px">Model melody</text>' + (x ? '<text x="130" y="16" style="fill:#8fb4e8;font-size:13px">Yours</text>' : "");
+  S.innerHTML = g;
+}
+function show(x, mouth) {
+  const C = x ? R.compare(x, model, drill.syllables.map(s => s.v)) : null, S = $("prScores"); S.textContent = "";
+  [["melody", "Melody"], ["vowels", "Vowel sounds"], ["rhythm", "Rhythm"]].forEach(([k, t]) => { const d = mk("div"), v = C && C.scores[k] != null ? C.scores[k] : null;
+    d.append(mk("b", "", v == null ? "–" : Math.round(v)), mk("span", "", t)); const bar = mk("i"), e = mk("em"); e.style.width = (v || 0) + "%"; bar.append(e); d.append(bar); S.append(d); });
+  const Y = $("prSyl"); Y.textContent = "";
+  drill.syllables.forEach((s, i) => Y.append(mk("span", C && C.worst && C.worst !== "count" && C.at[C.worst] === i ? "hit" : "", s.v)));
+  $("prSay").textContent = C ? C.say : "Hear the model, then record yourself or try a simulated learner.";
+  $("prSay").className = "msg" + (C ? (C.worst ? " err" : " ok") : "");
+  $("prMouth").textContent = mouth ? "Mouth: " + mouth.say : "";
+  chart(x);
+}
+const SIMS = [["correct", "A correct learner, other voice"], ["melody", "Melody turned round"], ["vowels", "One vowel wrong"], ["rhythm", "One syllable too long"]];
+let simRng = new RSOSPeak.Rng(Date.now() % 100000);
+SIMS.forEach(([k, t]) => { const b = mk("button", "", t); b.addEventListener("click", () => { const [x] = R.learner(drill, k, simRng); show(x); }); $("prSim").append(b); });
+// the camera, opt-in
+$("prCam").addEventListener("change", async e => {
+  camOn = e.target.checked; const v = $("prVideo");
+  if (!camOn) { if (v.srcObject) v.srcObject.getTracks().forEach(t => t.stop()); v.style.display = "none"; return; }
+  try {
+    const vis = await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs");
+    const fs = await vis.FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+    landmarker = await vis.FaceLandmarker.createFromOptions(fs, { baseOptions: { modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task" }, runningMode: "VIDEO", numFaces: 1 });
+    v.srcObject = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }); v.style.display = "block"; await v.play();
+  } catch (err) { camOn = false; e.target.checked = false; $("prMouth").textContent = "The camera or the face model could not start here; sound feedback still works."; }
+});
+function camLoop() {
+  if (!camOn || !landmarker || !recT0) return;
+  const v = $("prVideo"), r = landmarker.detectForVideo(v, performance.now()), L = r.faceLandmarks && r.faceLandmarks[0];
+  if (L) { const d = (a, b) => Math.hypot(L[a].x - L[b].x, L[a].y - L[b].y); trace.push({ t: (performance.now() - recT0) / 1000, gap: d(13, 14), width: d(61, 291) }); }
+  requestAnimationFrame(camLoop);
+}
+$("prRec").addEventListener("click", async () => {
+  let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false } }); }
+  catch (e) { $("prSay").textContent = "No microphone here. Try a simulated learner instead."; $("prSay").className = "msg err"; return; }
+  const rec = new MediaRecorder(stream), parts = []; rec.ondataavailable = e => parts.push(e.data);
+  rec.onstop = async () => {
+    stream.getTracks().forEach(t => t.stop()); recT0 = 0;
+    const buf = await UGCL.audioCtx().decodeAudioData(await new Blob(parts).arrayBuffer()), x = R.to8k(buf.getChannelData(0), buf.sampleRate);
+    let mouth = null;
+    if (trace.length) {
+      const rest = Math.max(...trace.map(p => p.width)), F = R.features(x), syl = R.syllablesOf(F), spans = syl.map(([a, b]) => [a * 160 / R.SR, b * 160 / R.SR + 0.025]);
+      const tr = trace.map(p => ({ t: p.t, open: p.gap / p.width, round: 1 - p.width / rest }));
+      if (spans.length === drill.syllables.length) mouth = R.mouthFeedback(tr, spans, drill.syllables.map(s => s.v));
+    }
+    show(x, mouth); $("prRec").textContent = "Record (3 s)";
+  };
+  trace = []; rec.start(); recT0 = performance.now(); camLoop(); $("prRec").textContent = "Recording…";
+  setTimeout(() => rec.stop(), 3000);
+});
+drawDrills(); show(null);
 })();
 </script>
 <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>

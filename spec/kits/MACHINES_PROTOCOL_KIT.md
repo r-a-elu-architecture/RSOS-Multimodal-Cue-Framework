@@ -9,6 +9,8 @@ A ready protocol for testing the new channels and the agent identity layer with 
 3. Does a value-gated agent make fewer value-breaking choices and more consistent choices than the same agent without the gate, across reworded prompts (C70)?
 4. Does the person's error signal (button first, then EEG) teach the agent what its values missed, at an acceptable cost in questions (item 44)?
 5. Do people rate a value-gated agent as more trustworthy or caring in a shared task (C72)?
+6. Does a vibration rhythm evoke an EEG response at its own frequency beyond the motor's electrical pickup, and does a 12 Hz rhythm improve focus (C35)?
+7. Does pronunciation feedback improve clarity more than listening and repeating (C14)?
 
 ## 2. Design
 
@@ -16,7 +18,9 @@ A ready protocol for testing the new channels and the agent identity layer with 
 - **Glyph reading (2)**: 20 or more people; 100 codes each over two sessions, while doing a typing or sorting task and while idle. Replies by tapping. Measures: accuracy, reaction time, task slowdown.
 - **Agent consistency (3)**: no people needed beyond scenario authors. 200 scenarios, each with an option that breaks a stated value, presented five times as reworded prompts to the same language model with and without the gate. Pre-register the scenarios and the rewordings.
 - **Teaching (4)**: 20 or more people supervise a simulated household agent for 40 actions; one disliked kind of action is not in its values. Error signal by button first (a perfect channel), then by EEG error-related potential in a sub-study.
-- **Trust (5)**: randomised, 60 or more people, a shared task with a robot or on-screen agent that is gated or not; trust and empathy questionnaires and behavioural reliance.
+- **Trust (5)**: randomised, 60 or more people, a shared task with a robot or on-screen agent that is gated or not; trust and empathy questionnaires and behavioural reliance. Within a person: TRIAL design `agent_values`.
+- **EEG rhythm (6)**: 20 or more people, EEG over the somatosensory cortex opposite the band, 30 trials of 5 s per condition (vibration felt, sham on foam beside the wrist, rest) at 12 Hz and 7.8 Hz, trials time-locked to the motor's onset; analysis `rsso/rsso/ssep.py`. Focus: TRIAL design `rhythm_focus` (2-back after five minutes of reading).
+- **Pronunciation (7)**: TRIAL design `pronunciation_feedback`, 30 or more learners, ten blocks; the test phrase of each session rated for clarity by a listener blind to the arm.
 
 ## 3. Measures
 
@@ -27,6 +31,8 @@ A ready protocol for testing the new channels and the agent identity layer with 
 | Same choice in five rewordings; value-breaking choices | 3 |
 | Disliked actions in the first and last thirds; fine actions asked about | 4 |
 | Trust and empathy ratings; reliance on the agent | 5 |
+| Response at the rhythm, vibration against sham with phase (z, p); pickup, sham against rest; 2-back score | 6 |
+| Listener clarity rating; feedback scores for melody, vowels and rhythm | 7 |
 
 ## 4. Analysis
 

@@ -14,7 +14,7 @@ class StdoutOutput : public rsos::Output {
 };
 
 int main(int argc, char** argv) {
-  const char* caps = argc > 1 ? argv[1] : "haptic,olfactory,gustatory";
+  const char* caps = argc > 1 ? argv[1] : "haptic,olfactory,gustatory";  // RDP/1.1 rigs add thermal,display
   StdoutOutput out;
   rsos::Core core(out, caps, 1.0f);
   char buf[128];

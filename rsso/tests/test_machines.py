@@ -104,3 +104,13 @@ class Parity(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+import shutil as _sh
+
+
+@unittest.skipUnless(_sh.which("g++") or _sh.which("c++") or _sh.which("clang++"), "no C++ compiler")
+class ChannelsOnFirmware(unittest.TestCase):
+    def test_channel_suite_passes_on_the_firmware_core(self):
+        r = M.channel_suite(fuzz=120)
+        self.assertTrue(all(x[2] for x in r), M.channel_report(r))

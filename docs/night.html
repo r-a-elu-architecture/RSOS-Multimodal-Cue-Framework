@@ -53,7 +53,7 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 .coderow .feel{background:none;border:0;color:var(--muted);cursor:pointer;display:flex;gap:6px;align-items:center;font:inherit;font-size:.82rem}
 /* the sleep timeline */
 .tl{width:100%;display:block;margin-top:14px}
-.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
 .stat{border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .stat b{display:block;font-family:var(--serif);font-weight:500;font-size:1.5rem;color:var(--glow);line-height:1.1}
 .stat span{font-size:.8rem;color:var(--muted)}
@@ -231,7 +231,7 @@ function drawNight() {
     g += '<rect x="' + x(i) + '" y="' + (y - (s === "N3" ? 9 : s === "REM" ? 7 : 3)) + '" width="' + Math.max(1, x(j) - x(i)) + '" height="' + (s === "N3" ? 18 : s === "REM" ? 14 : 6) + '" rx="3" fill="' + COLS[s] + '" opacity="' + (s === "N3" || s === "REM" ? .95 : .6) + '"/>';
     if (j < n) g += '<line x1="' + x(j) + '" x2="' + x(j) + '" y1="' + y + '" y2="' + (top + ROW[r.true[j]] * rh) + '" stroke="#a3abc6" stroke-opacity=".35"/>'; i = j; }
   r.cues.forEach(c => { g += '<line x1="' + x(c.epoch) + '" x2="' + x(c.epoch) + '" y1="8" y2="' + (c.aroused ? 26 : 20) + '" stroke="' + (c.aroused ? "#ef7d6d" : "#e8b04a") + '" stroke-width="' + (c.aroused ? 2 : 1) + '" stroke-opacity="' + (c.aroused ? 1 : .7) + '"/>'; });
-  for (let h = 0; h <= 8; h++) g += '<text x="' + x(h * 120) + '" y="' + (H - 6) + '" fill="#a3abc6" font-size="11" text-anchor="middle">' + (h === 0 ? "lights out" : h + " h") + "</text>";
+  for (let h = 0; h <= 8; h++) g += '<text x="' + x(h * 120) + '" y="' + (H - 6) + '" fill="#a3abc6" font-size="11" text-anchor="middle">' + (h === 0 ? (W < 600 ? "0 h" : "lights out") : h + " h") + "</text>";
   S.innerHTML = g;
   const R = r.report, st = [["Cues", R.cues], ["In deep sleep", R.in_n3 === null ? "—" : R.in_n3 + "%"], ["Cues that woke the sleeper", R.arousals], ["Deep sleep", R.n3_min + " min"], ["Awake after falling asleep", R.waso_min + " min"]];
   $("stats").textContent = ""; st.forEach(([t, v]) => { const d = el("div", "stat"); d.append(el("b", "", String(v)), el("span", "", t)); $("stats").append(d); });

@@ -82,17 +82,18 @@
     await video.play();
     const cv = document.createElement("canvas"); cv.width = 40; cv.height = 30;
     const ctx = cv.getContext("2d", { willReadFrequently: true });
-    const samples = []; const t0 = performance.now(); let frames = 0, coveredFrames = 0;
+    const samples = []; const t0 = performance.now(); let frames = 0, coveredFrames = 0, sumR = 0, sumG = 0, sumB = 0;
     await new Promise(resolve => {
       const step = () => {
         const now = performance.now();
         try {
           ctx.drawImage(video, 0, 0, cv.width, cv.height);
-          const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let rs = 0, gs = 0;
-          for (let i = 0; i < d.length; i += 4) { rs += d[i]; gs += d[i + 1]; }
-          const px = d.length / 4, red = rs / px, green = gs / px;
-          const covered = red > 90 && red > 1.6 * green;
-          frames++; if (covered) coveredFrames++;
+          const d = ctx.getImageData(0, 0, cv.width, cv.height).data; let rs = 0, gs = 0, bs = 0;
+          for (let i = 0; i < d.length; i += 4) { rs += d[i]; gs += d[i + 1]; bs += d[i + 2]; }
+          const px = d.length / 4, red = rs / px, green = gs / px, blue = bs / px;
+          // a fingertip lit from behind glows red: red clearly above green and blue. A screen, a room or a face does not.
+          const covered = red > 60 && red >= 1.15 * green && red >= 1.3 * blue;
+          frames++; if (covered) coveredFrames++; sumR += red; sumG += green; sumB += blue;
           samples.push([Math.round((now - t0) * 10) / 10, Math.round(red * 1000) / 1000]);
           if (opts.onProgress) opts.onProgress(Math.min(1, (now - t0) / (seconds * 1000)), covered);
         } catch (e) { /* frame not ready */ }
@@ -104,9 +105,11 @@
     track.stop(); stream.getTracks().forEach(t => t.stop());
     const res = analyze(samples); res.torch = torch;
     res.covered = frames ? Math.round(coveredFrames / frames * 1000) / 10 : 0;
-    if (res.covered < 80) {   // no fingertip: whatever rhythm was found is not a pulse
+    res.colour = frames ? [Math.round(sumR / frames), Math.round(sumG / frames), Math.round(sumB / frames)] : [0, 0, 0];
+    if (res.covered < 60) {   // no fingertip: whatever rhythm was found is not a pulse
       Object.assign(res, { ok: false, rmssd_ok: false, hr: null, rmssd: null,
-        say: "No fingertip detected. Cover the camera fully with a fingertip, flash on, and try again." });
+        say: "No fingertip detected (the camera saw red " + res.colour[0] + ", green " + res.colour[1] + ", blue " + res.colour[2] +
+          " on average, a fingertip in " + res.covered + "% of frames). Cover the camera fully with a fingertip, flash on, and try again." });
     }
     return { result: res, samples };
   }

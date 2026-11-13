@@ -168,8 +168,9 @@ header.top nav a{font-size:.88rem}
 <div class="flash" id="flash" aria-hidden="true"></div>
 <footer>PEAK is <code>rsso/rsso/peak.py</code>, identically <code>docs/js/peak.js</code>; camera heart rate is <code>rsso/rsso/ppg.py</code>, identically <code>docs/js/ppg.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/PEAK.md">spec/PEAK.md</a>. A strong anchor is a measured effect, not a treatment; if something feels wrong, stop and use the <a href="safety.html">Safety page</a>.</footer>
 <script src="js/ugcl.js?v=1.14.0"></script>
-<script src="js/peak.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
 <script src="js/ppg.js?v=1.14.0"></script>
+<script src="js/gate.js?v=1.16.0"></script>
 <script>
 const $ = id => document.getElementById(id);
 const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
@@ -222,6 +223,9 @@ function card(a) {
   ch.append(el("span", "", a.captures.length + " captures, " + a.probes.length + " probes, " + a.uses.length + " uses"));
   C.append(ch);
   if (a.sim) C.append(el("p", "say", "Simulated person: the truth is " + a.sim + "."));
+  if (!a.sim && window.RSOSGate) { const g = RSOSGate.gate(a, store.get("rsos.gate.offers", []), now(), store.get("rsos.gate.optins", {}), { auto_since: (store.get("rsos.gate.history", {}))[a.id] === undefined ? null : store.get("rsos.gate.history", {})[a.id] });
+    const p = el("p", "say"); p.append(document.createTextNode("Autonomy: " + g.stage_name + (g.next ? ". Next, " + RSOSGate.STAGE_NAMES[g.next].toLowerCase() + ", needs: " + g.needs.join(", ").toLowerCase() + ". " : ". ")));
+    const l = el("a", "", "See the gate"); l.href = "safety.html#autonomy"; p.append(l); C.append(p); }
   if (s.n_cue) {
     const box = el("div"); box.innerHTML = curve(s, light); C.append(box);
     const est = el("p", "est");

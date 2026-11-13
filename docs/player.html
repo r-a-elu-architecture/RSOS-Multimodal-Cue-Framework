@@ -107,7 +107,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <div class="app" id="app">
 <aside aria-label="Settings">
   <div class="top"><a class="home" href="./">RSOS</a>
-  <nav class="site" aria-label="Site"><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav></div>
+  <nav class="site" aria-label="Site"><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav></div>
   <h1>Protocol player</h1>
   <p class="lede">Runs an RSX program step by step: breath, words, imagery, tone and vibration. Everything stays in this browser.</p>
 
@@ -254,6 +254,10 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   <p class="cue" id="cue" aria-live="polite"><span class="idle-msg"><strong>Ready when you are.</strong> Check in first, then follow the light: it grows as you breathe in and settles as you breathe out.</span></p>
   <div class="track" id="track" aria-hidden="true"></div>
   <p class="breath" id="breathLabel"></p>
+  <div class="offer" id="anchorOffer" hidden role="alertdialog" aria-labelledby="anchorOfferText">
+    <p id="anchorOfferText"></p>
+    <div class="actions" id="anchorOfferActions" style="justify-content:center"></div>
+  </div>
   <div class="offer" id="offer" hidden role="alertdialog" aria-labelledby="offerText">
     <p id="offerText">Your heart rate suggests a stress response. Start the override?</p>
     <div class="actions"><button class="btn go" id="offerStart" type="button">Start the override</button><button class="btn quiet" id="offerDismiss" type="button">Not now</button></div>
@@ -323,6 +327,8 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/nodes.js?v=1.13.0"></script>
 <script src="js/linx.js?v=1.13.0"></script>
 <script src="js/contain.js?v=1.13.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/gate.js?v=1.16.0"></script>
 <script>
 "use strict";
 const BUILD = "1.13.0";
@@ -796,6 +802,7 @@ function onStress() {
   const [ok] = governor.check(Date.now());
   if (!ok) return;
   if (safetyDecide({ kind: "offer", protocol: timeline.protocol, trigger: "device" }).decision !== "allow") return;
+  if (anchorOffer()) return;
   // LINX: with an approved node plan, offer the node that fits best (rsso/rsso/linx.py offer); the person starts it
   const myPlan = store.get("rsos.plan", null);
   const pick = myPlan && myPlan.approved ? RSOSLinx.offer({ source: "hr" }, myPlan, records, {}, Date.now() / 1000) : null;
@@ -807,6 +814,54 @@ function onStress() {
   $("offer").hidden = false; offerShownAt = performance.now();
   if (navigator.vibrate && $("optVib").checked) navigator.vibrate([200, 100, 200]);
   $("offerStart").focus();
+}
+/* ---- The autonomy gate (rsso/rsso/gate.py, docs/js/gate.js): anchors offer or fire only at the stage they have earned ---- */
+function anchorOffer() {
+  const anchors = store.get("rsos.anchors", []).filter(a => !a.sim), offers = store.get("rsos.gate.offers", []), cons = store.get("rsos.consents", []);
+  const hist = store.get("rsos.gate.history", {}), optins = store.get("rsos.gate.optins", {}), t = Date.now() / 1000;
+  if (!anchors.length) return false;
+  let best = null;
+  anchors.forEach(a => {
+    const h = { auto_since: hist[a.id] === undefined ? null : hist[a.id] }, g = RSOSGate.gate(a, offers, t, optins, h);
+    if (g.stage === "auto" || g.stage === "pressure") { if (hist[a.id] === undefined) hist[a.id] = t; } else delete hist[a.id];
+    const est = RSOSPeak.strength(a).estimate || 0;
+    for (const mode of ["auto", "suggest"]) {
+      const d = RSOSGate.mayFire(a, mode, offers, t, optins, h, cons);
+      if (d.decision === "allow") { if (!best || (mode === "auto" && best.mode !== "auto") || (mode === best.mode && est > best.est)) best = { a, mode, est, flag: d.flag }; break; }
+    }
+  });
+  store.set("rsos.gate.history", hist);
+  if (!best) return false;
+  const au = store.get("rsos.gate.audit", []);
+  RSOSGate.audit(au, t, "device", best.mode === "auto" ? "fired" : "offered", best.a.name, "allow", [], best.flag);
+  store.set("rsos.gate.audit", au.slice(-300));
+  const box = $("anchorOffer"), txt = $("anchorOfferText"), acts = $("anchorOfferActions"); acts.innerHTML = "";
+  const feedback = () => {
+    txt.textContent = "Did " + best.a.name + " help just now?"; acts.innerHTML = "";
+    [["helped", "It helped"], ["not_needed", "It wasn't needed"], ["dismissed", "It didn't help"]].forEach(([o, label]) => {
+      const b = document.createElement("button"); b.className = "btn" + (o === "helped" ? " go" : " quiet"); b.type = "button"; b.textContent = label;
+      b.addEventListener("click", () => {
+        const offs = store.get("rsos.gate.offers", []); RSOSGate.recordOffer(offs, best.a.id, Date.now() / 1000, o, best.mode, o !== "not_needed"); store.set("rsos.gate.offers", offs.slice(-500));
+        const all = store.get("rsos.anchors", []), me = all.find(x => x.id === best.a.id); if (me) { RSOSPeak.addUse(me, Date.now() / 1000, o !== "not_needed"); store.set("rsos.anchors", all); }
+        box.hidden = true; });
+      acts.append(b);
+    });
+  };
+  const play = () => UGCL.feel(best.a.code, {});
+  if (best.mode === "auto") {
+    play(); txt.textContent = "Your heart rate suggests a stress response, so the device played " + best.a.glyph + " " + best.a.name + " by itself. It may, because this anchor has earned automatic use and you consented; change that on the Safety page.";
+    box.hidden = false; setTimeout(feedback, 4000);
+  } else {
+    txt.textContent = "Your heart rate suggests a stress response. Play " + best.a.glyph + " " + best.a.name + "?";
+    const go = document.createElement("button"); go.className = "btn go"; go.type = "button"; go.textContent = "Play it";
+    go.addEventListener("click", () => { play(); setTimeout(feedback, 3000); });
+    const no = document.createElement("button"); no.className = "btn quiet"; no.type = "button"; no.textContent = "Not needed";
+    no.addEventListener("click", () => { const offs = store.get("rsos.gate.offers", []); RSOSGate.recordOffer(offs, best.a.id, Date.now() / 1000, "not_needed", "suggest", false); store.set("rsos.gate.offers", offs.slice(-500)); box.hidden = true; });
+    const later = document.createElement("button"); later.className = "btn quiet"; later.type = "button"; later.textContent = "Not now";
+    later.addEventListener("click", () => { const offs = store.get("rsos.gate.offers", []); RSOSGate.recordOffer(offs, best.a.id, Date.now() / 1000, "ignored", "suggest"); store.set("rsos.gate.offers", offs.slice(-500)); box.hidden = true; });
+    acts.append(go, no, later); box.hidden = false; go.focus();
+  }
+  return true;
 }
 $("offerStart").addEventListener("click", () => { if (governor) governor.start(Date.now()); start("device"); });
 $("offerDismiss").addEventListener("click", () => { $("offer").hidden = true; });

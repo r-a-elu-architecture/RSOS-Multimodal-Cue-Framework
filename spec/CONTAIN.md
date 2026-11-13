@@ -125,3 +125,7 @@ Reported events are included in a research contribution only with the `safety` s
 - Pauses learned from pooled contributions: thresholds fitted on real drift and adverse-event data.
 - Signals from EEG and heart rate during runs (a run that raises arousal instead of lowering it).
 - The envelope enforced in the firmware itself, in addition to the host.
+
+## Autonomy gate
+
+What a device may do on its own, one anchor at a time, is decided by the autonomy gate: [GATE.md](GATE.md).

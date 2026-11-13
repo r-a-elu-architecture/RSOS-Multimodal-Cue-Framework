@@ -57,6 +57,22 @@ select,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--
 .crisis{border-left:3px solid var(--stop);padding:8px 14px;margin-top:20px;max-width:70ch}
 footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 @media (max-width:760px){table{display:block;overflow-x:auto}td.num{white-space:normal}.two{grid-template-columns:1fr}.gate li{grid-template-columns:32px 1fr}.gate .lamp{grid-column:2}}
+.locks{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:16px}
+.lockcard{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.lockhead{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.lockhead .g{font-size:26px;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);font-family:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif}
+.lockhead b{font-family:var(--serif);font-weight:500;font-size:1.1rem;display:block}
+.stagebar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:6px 0 12px}
+.stagebar span{height:6px;border-radius:3px;background:var(--line)}
+.stagebar span.on{background:var(--gold)}
+.stagelab{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-size:.72rem;color:var(--muted);margin-top:-8px;margin-bottom:10px}
+.req{list-style:none;margin:4px 0 10px;padding:0;font-size:.86rem}
+.req li{display:grid;grid-template-columns:20px 1fr auto;gap:6px;padding:3px 0;border-top:1px solid var(--line)}
+.req li .m{color:var(--ok)} .req li .x{color:var(--muted)}
+.req li small{color:var(--muted)}
+.reqh{font-size:.8rem;color:var(--muted);margin:8px 0 0}
+.consent{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line);font-size:.9rem}
+.consent small{display:block;color:var(--muted);font-size:.8rem}
 /* nav row */
 header.top{flex-direction:column;align-items:flex-start;gap:10px}
 header.top nav{justify-content:flex-start;gap:4px 12px}
@@ -92,6 +108,22 @@ header.top nav a{font-size:.88rem}
       <button class="btn" type="button" id="rollback" hidden>Go back to the previous plan</button>
     </div>
   </div>
+  <h2 id="autonomy">What the device may do on its own</h2>
+  <p class="lede">Each anchor earns its own autonomy, one stage at a time: manual (you fire it), suggest (the device offers it when it detects stress, you confirm), automatic (the device fires it by itself, within the limits below), and under pressure (also during your pressure practice, only if you choose it). Each stage needs evidence, and when the evidence weakens the anchor drops back by itself.</p>
+  <div class="locks" id="locks"></div>
+  <div class="two">
+    <div class="panel">
+      <h3>Your consent</h3>
+      <p class="hint">Some things work below your awareness or analyse you. None of them happens without a record of your consent, and you can withdraw it at any time.</p>
+      <div id="consents"></div>
+    </div>
+    <div class="panel">
+      <h3>Automatic decisions</h3>
+      <p class="hint" id="auditNote"></p>
+      <table id="audit"><thead><tr><th>When</th><th>What</th><th>Decision</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
   <div class="crisis"><b>If you are in crisis or at risk of harm</b>, contact local emergency services or a crisis line now. RSOS is not a treatment and does not replace care.</div>
 
   <h2>The device safety envelope</h2>
@@ -118,6 +150,9 @@ header.top nav a{font-size:.88rem}
 </main>
 <footer>CONTAIN is <code>rsso/rsso/contain.py</code>, identically <code>docs/js/contain.js</code> (tested); the runtime refuses what it blocks, and the conformance suite checks it (C14, C15). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CONTAIN.md">spec/CONTAIN.md</a>.</footer>
 <script src="js/contain.js?v=1.13.0"></script>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/gate.js?v=1.16.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id), K = RSOSContain;
@@ -139,7 +174,44 @@ const ENV = [["Vibration strength", "haptic_amp_max", v => Math.round(v * 100) +
   ["Scent bursts", "scent_per_run", (v, e) => v + " a run, " + e.scent_gap_ms / 1000 + " s apart", "Scent lingers and saturates; allergies are confirmed before any scent is used"],
   ["Taste cues", "taste_per_run", v => v + " a run", "Taste cues are brought by the person; allergies confirmed first"],
   ["Run length", "run_ms_max", v => v / 60000 + " minutes", "A cue routine, not a session"],
-  ["Device-offered runs", "max_per_hour", (v, e) => v + " an hour, " + e.max_per_day + " a day, " + e.refractory_ms_min / 1000 + " s apart", "Offers stay rare; the person starts every run"]];
+  ["Device-offered runs", "max_per_hour", (v, e) => v + " an hour, " + e.max_per_day + " a day, " + e.refractory_ms_min / 1000 + " s apart", "Offers stay rare; only an anchor that has earned automatic use, with your consent, plays by itself"]];
+const Gt = RSOSGate;
+const SCOPE_NAMES = { automatic_firing: ["Automatic firing", "The device may play an anchor by itself when it has earned it"],
+  night_cueing: ["Cues during sleep", "Codes played while you sleep, when that is built"], speech_profiling: ["Speech analysis", "Your words analysed for traits or levels"],
+  emotion_detection: ["Emotion detection", "Your body signals read as states"], research_sharing: ["Research sharing", "Your records shared with researchers, de-identified"] };
+const show = (v, id) => v === null || v === undefined ? "none yet" : v === true ? "yes" : v === false ? "no" : (id === "false_alarms" && typeof v === "number" ? v + "%" : String(v));
+function drawAutonomy() {
+  const anchors = store.get("rsos.anchors", []).filter(a => !a.sim), offers = store.get("rsos.gate.offers", []), hist = store.get("rsos.gate.history", {});
+  const optins = store.get("rsos.gate.optins", {}), L = $("locks"); L.innerHTML = "";
+  if (!anchors.length) { const p = el("p", "hint", "No anchors yet. Create one on the Anchors page; it starts at manual."); L.append(p); }
+  anchors.forEach(a => {
+    const g = Gt.gate(a, offers, now(), optins, { auto_since: hist[a.id] === undefined ? null : hist[a.id] }), C = el("div", "lockcard");
+    const H = el("div", "lockhead"), gl = el("span", "g", a.glyph); gl.style.borderColor = (a.channels.light || "#e8b04a") + "99";
+    const nm = el("div"); nm.append(el("b", "", a.name), el("span", "hint", g.say)); H.append(gl, nm); C.append(H);
+    const bar = el("div", "stagebar"), lab = el("div", "stagelab"); Gt.STAGES.forEach((st, k) => { bar.append(el("span", k <= Gt.STAGES.indexOf(g.stage) ? "on" : "")); lab.append(el("span", "", Gt.STAGE_NAMES[st])); });
+    C.append(bar, lab);
+    ["suggest", "auto", "pressure"].forEach(st => {
+      C.append(el("p", "reqh", Gt.STAGE_NAMES[st] + " needs"));
+      const ul = el("ul", "req"); g.checks[st].forEach(k => { const li = el("li"); li.append(el("span", k.met ? "m" : "x", k.met ? "✓" : "○"), el("span", "", k.name), el("small", "", show(k.have, k.id) + (k.met ? "" : " / " + show(k.need, k.id)))); ul.append(li); });
+      C.append(ul);
+    });
+    if (g.stage === "auto") { const b = el("button", "btn", optins.pressure ? "Stop pressure practice" : "Allow use during pressure practice"); b.type = "button";
+      b.addEventListener("click", () => { optins.pressure = !optins.pressure; store.set("rsos.gate.optins", optins); drawAutonomy(); }); C.append(b); }
+    L.append(C);
+  });
+  const cons = store.get("rsos.consents", []), CS = $("consents"); CS.innerHTML = "";
+  Gt.CONSENT_SCOPES.forEach(sc => {
+    const on = Gt.hasConsent(cons, sc, now()), row = el("div", "consent"), t = el("div"); t.append(document.createTextNode(SCOPE_NAMES[sc][0]), el("small", "", SCOPE_NAMES[sc][1] + (Gt.BELOW_AWARENESS[sc] ? " (works below awareness)" : "")));
+    const b = el("button", "btn", on ? "Withdraw" : "Give consent"); b.type = "button";
+    b.addEventListener("click", () => { const cs = store.get("rsos.consents", []); if (on) Gt.withdrawConsent(cs, sc, now()); else Gt.giveConsent(cs, sc, "person", now()); store.set("rsos.consents", cs);
+      const au = store.get("rsos.gate.audit", []); Gt.audit(au, now(), "person", (on ? "withdraw " : "consent ") + sc, null, "recorded"); store.set("rsos.gate.audit", au.slice(-300)); drawAutonomy(); });
+    row.append(t, b); CS.append(row);
+  });
+  const au = store.get("rsos.gate.audit", []), sm = Gt.auditSummary(au, now() - 30 * 86400);
+  $("auditNote").textContent = sm.entries ? "Last 30 days: " + sm.automatic + " device decisions, " + sm.denied + " refused, " + sm.flagged + " below your awareness and flagged." : "No automatic decisions yet.";
+  const T = $("audit").tBodies[0]; T.innerHTML = "";
+  au.slice().reverse().slice(0, 15).forEach(e => { const tr = el("tr"); tr.append(el("td", "num", new Date(e.ts * 1000).toLocaleString()), el("td", "", e.action + (e.anchor ? " " + e.anchor : "") + (e.flag ? " (" + e.flag + ")" : "")), el("td", "", e.decision || "")); T.append(tr); });
+}
 for (const [what, k, f, why] of ENV) { const tr = el("tr"); tr.append(el("td", "", what), el("td", "num", f(K.ENVELOPE[k], K.ENVELOPE)), el("td", "", why)); $("env").tBodies[0].appendChild(tr); }
 
 function draw() {
@@ -151,7 +223,7 @@ function draw() {
   step("Paused practice", "Device offers and therapist-led work stop when practice needs a therapist's eyes.", st.escalation.active ? "stop" : "", st.escalation.active ? "paused" : "not paused");
   step("Consent", "Programmed cues need a consent record naming their content; therapist-led tiers need a therapist present and the screening passed.", "", "checked at every start");
   step("Run limits", "Device-offered runs: at most 6 an hour and 20 a day, 90 s apart, only after the person opts in. Self-started runs are always the person's choice.", "", "checked at every offer");
-  step("The person starts", "Nothing starts by itself. LINX and the heart-rate trigger only offer; Stop works at any moment, within 100 ms on the device.", "", "always");
+  step("The autonomy gate", "An anchor fires by itself only after it has earned it: trained by hand, proven strong in blind probes, few false alarms, not worn out or taking on stress, and with your consent. Everything else only offers; Stop works at any moment, within 100 ms on the device.", "", "checked before every offer");
   const s = $("status");
   if (st.escalation.active) { s.className = "status stop"; s.textContent = "Device offers and therapist-led work are paused: " + st.escalation.reasons.join("; ") + ". Please talk with your therapist."; }
   else if (paused.length) { s.className = "status warn"; s.textContent = paused.length + (paused.length === 1 ? " program is paused." : " programs are paused."); }
@@ -173,6 +245,7 @@ function draw() {
   const hist = store.get("rsos.plan.history", []), prev = K.rollback(hist);
   $("planNote").textContent = hist.length ? hist.filter(h => h.approved).length + " approved versions saved in this browser." + (prev ? " If the newest plan does not suit you, go back to the one before." : "") : "No approved node plan yet. Plans are saved from the node studio.";
   $("rollback").hidden = !prev;
+  drawAutonomy();
   const L = $("log").tBodies[0]; L.innerHTML = "";
   for (const x of store.get("rsos.contain.log", []).slice().reverse().slice(0, 40)) {
     const tr = el("tr");

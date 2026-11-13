@@ -205,14 +205,16 @@ def strength(anchor: dict, window: int = WINDOW) -> dict:
     sham = [e for e in (probe_effect(p, metric) for p in probes if p.get("kind") == "sham") if e is not None][-window:]
     out = {"metric": metric, "metric_name": METRIC_NAMES[metric], "threshold": _v(thr), "n_cue": len(cue), "n_sham": len(sham),
            "effects": [_v(r1(e)) for e in cue], "estimate": None, "lo": None, "hi": None, "trend": 0, "status": "building",
-           "against": "sham" if len(sham) >= 2 else "zero"}
+           "against": "sham" if len(sham) >= 3 else "zero"}
     if not cue:
         out["say"] = "No probes yet. Run a probe after a few captures."
         return out
-    if len(sham) >= 2:
+    if len(sham) >= 3:
         est = _mean(cue) - _mean(sham)
-        se = math.sqrt(_var(cue) / len(cue) + _var(sham) / len(sham))
-        df = min(len(cue), len(sham)) - 1
+        va, vs = _var(cue) / len(cue), _var(sham) / len(sham)
+        se = math.sqrt(va + vs)
+        den = (va * va / (len(cue) - 1) if len(cue) > 1 else 0) + vs * vs / (len(sham) - 1)
+        df = math.floor((va + vs) * (va + vs) / den) if den > 0 else min(len(cue), len(sham)) - 1   # Welch
     else:
         est = _mean(cue)
         se = math.sqrt(_var(cue) / len(cue))
@@ -231,7 +233,7 @@ def strength(anchor: dict, window: int = WINDOW) -> dict:
     elif tr <= -thr / 2 and _mean(cue[-3:]) < _mean(cue[:-3] or cue) - thr / 2:
         st, say = "weakening", "The effect is falling with each probe. Re-pair it at a peak, and use it less outside practice."
     elif lo > 0 and est >= thr:
-        st, say = "strong", "The cue alone changes the body, clearly more than " + ("a sham cue." if len(sham) >= 2 else "nothing.")
+        st, say = "strong", "The cue alone changes the body, clearly more than " + ("a sham cue." if len(sham) >= 3 else "nothing.")
     elif lo > 0:
         st, say = "present", "There is an effect, but smaller than the threshold. Keep pairing it at peaks."
     else:
@@ -257,7 +259,7 @@ def contamination(anchor: dict, now=None) -> dict:
     if len(uses) >= 4 and stress_share >= 0.5:
         reasons.append(f"used during stress in {_v(r1(stress_share * 100))}% of recent uses")
         if risk == "low":
-            risk = "medium" if (s["trend"] or 0) < 0 or s["status"] in ("weakening", "unclear") else "low"
+            risk = "medium" if (s["trend"] or 0) <= -thr / 4 or s["status"] in ("weakening", "unclear") else "low"
     return {"contaminated": risk == "high", "risk": risk, "reasons": reasons, "stress_share": _v(r1(stress_share * 100)),
             "status": s["status"]}
 

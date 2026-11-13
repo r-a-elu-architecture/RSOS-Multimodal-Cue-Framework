@@ -24,6 +24,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/ppg.py` | Heart rate and RMSSD from a fingertip over the phone camera, with a quality score. Identical to `docs/js/ppg.js`. |
 | `rsso/trial.py` | TRIAL, personal randomised trials ([spec](../spec/TRIAL.md)): designs, permuted-block schedules, analysis with intervals, permutation p-values and adjustment, pooling across people, consistency, simulated people (`python -m rsso.trial --evaluate` writes [results](results/trial.md); `python -m rsso.trial analyze file.json` for real data). Identical to `docs/js/trial.js`. |
 | `rsso/checks.py` | CHECKS, built-in cognitive tests ([spec](../spec/CHECKS.md)): seeded task sequences and scoring for 2-back, digit span, reaction time, word recall, reading and dot-probe. Identical to `docs/js/checks.js`. |
+| `rsso/gate.py` | The autonomy gate, part of CONTAIN ([spec](../spec/GATE.md)): stages per anchor (manual, suggest, automatic, under pressure) earned from PEAK evidence, offers and wear-out, closing again when evidence weakens; consent records, flags for anything below awareness, and the audit log of automatic decisions (`python -m rsso.gate --evaluate` writes [results](results/gate.md)). Identical to `docs/js/gate.js`. |
 | `rsso/board.py` | Board kit check ([kit](../firmware/BOARD_KIT.md)): B1–B7 on a real wristband over USB serial (`python -m rsso.board --port …`), the whole conformance suite in real time (`--full`), or the firmware core in real time without a board (`--sim`). The browser version is `docs/js/rdp.js` on the Wristband page (tested to match). |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
@@ -31,7 +32,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 119 tests
+python -m unittest discover -s tests                     # 125 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

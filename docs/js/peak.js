@@ -102,10 +102,14 @@
     const eff = kind => probes.filter(p => p.kind === kind).map(p => probeEffect(p, metric)).filter(e => e !== null).slice(-window);
     const cue = eff("cue"), sham = eff("sham");
     const out = { metric, metric_name: METRIC_NAMES[metric], threshold: thr, n_cue: cue.length, n_sham: sham.length,
-      effects: cue.map(r1), estimate: null, lo: null, hi: null, trend: 0, status: "building", against: sham.length >= 2 ? "sham" : "zero" };
+      effects: cue.map(r1), estimate: null, lo: null, hi: null, trend: 0, status: "building", against: sham.length >= 3 ? "sham" : "zero" };
     if (!cue.length) { out.say = "No probes yet. Run a probe after a few captures."; return out; }
     let est, se, df;
-    if (sham.length >= 2) { est = mean(cue) - mean(sham); se = Math.sqrt(variance(cue) / cue.length + variance(sham) / sham.length); df = Math.min(cue.length, sham.length) - 1; }
+    if (sham.length >= 3) {
+      est = mean(cue) - mean(sham); const va = variance(cue) / cue.length, vs = variance(sham) / sham.length; se = Math.sqrt(va + vs);
+      const den = (cue.length > 1 ? va * va / (cue.length - 1) : 0) + vs * vs / (sham.length - 1);
+      df = den > 0 ? Math.floor((va + vs) * (va + vs) / den) : Math.min(cue.length, sham.length) - 1;
+    }
     else { est = mean(cue); se = Math.sqrt(variance(cue) / cue.length); df = cue.length - 1; }
     out.estimate = r1(est);
     if (cue.length >= 2) { const half = tcrit(Math.max(df, 1)) * se; out.lo = r1(est - half); out.hi = r1(est + half); }
@@ -117,7 +121,7 @@
     if (cue.length < 3) { st = "building"; say = "Too few probes to judge. Three or more give an answer."; }
     else if (hi < 0) { st = "contaminated"; say = "The cue now makes things worse than no cue. Restore it before using it again."; }
     else if (tr <= -thr / 2 && mean(cue.slice(-3)) < mean(early) - thr / 2) { st = "weakening"; say = "The effect is falling with each probe. Re-pair it at a peak, and use it less outside practice."; }
-    else if (lo > 0 && est >= thr) { st = "strong"; say = "The cue alone changes the body, clearly more than " + (sham.length >= 2 ? "a sham cue." : "nothing."); }
+    else if (lo > 0 && est >= thr) { st = "strong"; say = "The cue alone changes the body, clearly more than " + (sham.length >= 3 ? "a sham cue." : "nothing."); }
     else if (lo > 0) { st = "present"; say = "There is an effect, but smaller than the threshold. Keep pairing it at peaks."; }
     else { st = "unclear"; say = "No clear effect yet. Keep pairing at peaks and probing."; }
     out.status = st; out.say = say;
@@ -133,7 +137,7 @@
     else if (cue.length >= 3 && mean(cue.slice(-3)) < -thr) { reasons.push("the last three probes were negative"); risk = "high"; }
     if (uses.length >= 4 && share >= 0.5) {
       reasons.push("used during stress in " + r1(share * 100) + "% of recent uses");
-      if (risk === "low") risk = (s.trend || 0) < 0 || s.status === "weakening" || s.status === "unclear" ? "medium" : "low";
+      if (risk === "low") risk = (s.trend || 0) <= -thr / 4 || s.status === "weakening" || s.status === "unclear" ? "medium" : "low";
     }
     return { contaminated: risk === "high", risk, reasons, stress_share: r1(share * 100), status: s.status };
   }

@@ -39,7 +39,7 @@ A fingertip covers the rear camera with the flash on. Each frame's mean red valu
 
 A **probe** plays the cue alone, with nothing else, and measures the body before and after (30 seconds each with the camera or a strap, or a calm rating from 0 to 10). A **sham probe** plays a code that was never paired with any state. The page decides at random, one probe in three, which kind is played, and does not say which until afterwards.
 
-Each probe's effect is one of: RMSSD change in % (preferred), heart-rate fall in bpm, or calm change; the measure with three or more probes is used. **Strength** is the mean effect of the recent cue probes (up to 8) minus the mean effect of the sham probes, with a 95% interval (t distribution). The smallest effect that counts: 5% RMSSD, 2 bpm, or 1 calm point.
+Each probe's effect is one of: RMSSD change in % (preferred), heart-rate fall in bpm, or calm change; the measure with three or more probes is used. **Strength** is the mean effect of the recent cue probes (up to 8) minus the mean effect of the sham probes (once there are three or more; before that, against zero), with a 95% Welch interval (t distribution). The smallest effect that counts: 5% RMSSD, 2 bpm, or 1 calm point.
 
 | Status | When |
 |---|---|

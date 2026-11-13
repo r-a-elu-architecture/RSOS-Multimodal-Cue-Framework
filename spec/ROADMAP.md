@@ -67,9 +67,9 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 4 | **Cue wear-out from overuse**. Every appearance of a cue outside training is counted, its loss of strength modelled, and CONTAIN warns before a cue stops working. | new | MEMSTACK, CONTAIN | idea | R18, 2025-04-11 |
-| 26 | **Staged autonomy gate**. Manual training, then automatic detection, then overload conditioning, then default; an anchor may fire on its own only after it has earned it. | new | CONTAIN | idea | R32, R34, 2025-05 |
-| 56 | **Dual-use governance**. A consent record for any profiling, an audit log, and a visible flag on anything that works below awareness. | new | CONTAIN | idea | R38, 2025-05-28 |
+| 4 | **Cue wear-out from overuse**. Every appearance of a cue outside training is counted, its loss of strength modelled, and CONTAIN warns before a cue stops working. | new | MEMSTACK, CONTAIN | built in simulation | R18, 2025-04-11 |
+| 26 | **Staged autonomy gate**. Manual training, then automatic detection, then overload conditioning, then default; an anchor may fire on its own only after it has earned it. | new | CONTAIN | built in simulation | R32, R34, 2025-05 |
+| 56 | **Dual-use governance**. A consent record for any profiling, an audit log, and a visible flag on anything that works below awareness. | new | CONTAIN | built in simulation | R38, 2025-05-28 |
 
 ### Step 4: IDENTITY profiles
 

@@ -38,7 +38,7 @@ ITEMS = [
      "Cues only in deep sleep, below waking level, stopping on arousal, with a nightly limit; the day's code replayed with light and an earbud voice; trauma gets a safety code or waking by default."),
     (3, "External success events and a reward code", "new", "REWARD", 6, "idea", "R12, 2025-04-10",
      "An outside sensor reports a success (a ball through the rim, a correct answer) and a reward code plays within a fraction of a second; it can be replayed at night."),
-    (4, "Cue wear-out from overuse", "new", "MEMSTACK, CONTAIN", 3, "idea", "R18, 2025-04-11",
+    (4, "Cue wear-out from overuse", "new", "MEMSTACK, CONTAIN", 3, "built in simulation", "R18, 2025-04-11",
      "Every appearance of a cue outside training is counted, its loss of strength modelled, and CONTAIN warns before a cue stops working."),
     (5, "Generalisation score and an ordered glyph route", "extension", "MEMSTACK, UGCL", 4, "idea", "R02–R07, 2023",
      "Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route."),
@@ -82,7 +82,7 @@ ITEMS = [
      "Each identity learned and recalled in its own language, as a context switch between identities."),
     (25, "Rehearsing a value conflict", "new", "THERA", 4, "idea", "R33, 2025-05-21",
      "Imagine a situation that violates a value; the body's reaction is measured and the value's anchor brings it back; future-pace the new choice."),
-    (26, "Staged autonomy gate", "new", "CONTAIN", 3, "idea", "R32, R34, 2025-05",
+    (26, "Staged autonomy gate", "new", "CONTAIN", 3, "built in simulation", "R32, R34, 2025-05",
      "Manual training, then automatic detection, then overload conditioning, then default; an anchor may fire on its own only after it has earned it."),
     (27, "Vibration at the peak of the inhale", "extension", "Player", 1, "mostly built", "R34, 2025-05-22",
      "Breathing the symbol into the chest with a posture change; the code fires at the peak of the inhale."),
@@ -142,7 +142,7 @@ ITEMS = [
      "Type image, common phrases, responses; does mirroring others pull a person away from their own profile."),
     (55, "A prepared identity week for clients", "new", "THERA, RSX", 4, "idea", "R38, 2025-05-28",
      "One level a day for seven days with future-pacing, then the symbol installed in trance and three future situations."),
-    (56, "Dual-use governance", "new", "CONTAIN", 3, "idea", "R38, 2025-05-28",
+    (56, "Dual-use governance", "new", "CONTAIN", 3, "built in simulation", "R38, 2025-05-28",
      "A consent record for any profiling, an audit log, and a visible flag on anything that works below awareness."),
     (57, "Trigger atlas", "new", "ATLAS", 5, "idea", "R39, 2025-07-03",
      "A week of mapping which objects, sounds, smells, places and thoughts shift state, as a weighted graph with baselines, repeats, controls and statistics on each link."),
@@ -311,7 +311,8 @@ CLAIMS = [
 ]
 
 TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32",          # step 1, PEAK
-              "C1", "C26", "C34", "C40", "C58", "C70", "C77", "C78", "C85", "C86", "C88", "C97", "C101"}   # step 2, TRIAL and CHECKS
+              "C1", "C26", "C34", "C40", "C58", "C70", "C77", "C78", "C85", "C86", "C88", "C97", "C101",   # step 2, TRIAL and CHECKS
+              "C13", "C63"}   # step 3, the autonomy gate (wear-out, dose)
 WHO = {"assistant": "Assistant (design records)", "records": "Design records", "report": "Record review", "review": "Later review"}
 
 

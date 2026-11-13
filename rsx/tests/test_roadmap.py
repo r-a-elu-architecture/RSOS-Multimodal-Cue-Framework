@@ -73,7 +73,7 @@ class Site(unittest.TestCase):
         want = ["Protocol", "RSX", "Model", "Player", "Nodes", "Anchors", "Trials", "Therapist", "Devices", "Contribute", "Safety",
                 "Tier ledger", "Metrics", "System", "Glyphs", "Roadmap", "GitHub"]
         for f in sorted((REPO / "docs").glob("*.html")):
-            m = re.search(r"<nav>(.*?)</nav>", f.read_text(encoding="utf-8"), re.S)
+            m = re.search(r"<nav(?: class=\"site\"[^>]*)?>(.*?)</nav>", f.read_text(encoding="utf-8"), re.S)
             if not m:
                 continue
             got = re.findall(r">([^<]+)</a>", m.group(1))

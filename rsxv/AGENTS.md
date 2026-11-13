@@ -8,6 +8,10 @@ runtime that runs RSX-V programs for a person. The person-side architecture is d
 
 Everything an agent does is a visible proposal first, is checked against the Spine, is logged, and can be rolled back.
 
+**Mission.** Healing, transforming and evolving, and signalling this to others, for the growth, development and
+transformation of all living beings. The mission is the Meta-Architect's standing goal and what the Chūgi (loyalty) check
+measures every proposal against.
+
 ---
 
 ## 1. Hierarchy
@@ -57,7 +61,7 @@ A proposal passes when it passes, in order, the virtues, then the principles, th
 | 義 Gi, righteousness | It passes the laws (CONTAIN, the ten RSX-V laws) |
 | 勇 Yū, courage | Necessary actions are not blocked; false-block rate stays within bound |
 | 名誉 Meiyo, honour | The outcome is measured and attributed in the ledger |
-| 忠義 Chūgi, loyalty | It serves the session's stated mission |
+| 忠義 Chūgi, loyalty | It serves the mission (healing, transforming, evolving, signalling to others) and the session's goal |
 
 The 21 precepts of Musashi's Dokkōdō (1645) form the second list; each precept is mapped to the virtue it serves.
 
@@ -71,7 +75,7 @@ Below the Spine:
 
 **Law conflicts.** When two laws pull in opposite directions, the default resolution is a delayed and softened action rather
 than a block or a full action. Every conflict is logged. Priority when a resolution is needed: safety > consent > ethics >
-goal > efficiency.
+goal (the mission: healing, transforming, evolving, signalling to others, for the growth of all living beings) > efficiency.
 
 ## 4. Watchdog
 

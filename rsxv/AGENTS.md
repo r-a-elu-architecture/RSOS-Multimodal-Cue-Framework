@@ -1,8 +1,10 @@
 # RSX-V Agents — specification (step 5)
 
-Status: **core layer prototype (step 5B)**: Spine, audit log, memory, Meta-Architect, Watchdog, Observer and owner keys are in
-[`rsxv/agents.py`](rsxv/agents.py), with 26 unit tests in [`tests/test_agents.py`](tests/test_agents.py). The repair loop,
-archetype agents and World loop (steps 5C–5D) and the experiments in §11 are not yet built. Version 0.2, 14 November 2026.
+Status: **prototype (steps 5B–5C)**. The core layer (Spine, audit log, memory, Meta-Architect, Watchdog, Observer, owner keys)
+is in [`rsxv/agents.py`](rsxv/agents.py); the archetype profiles, the agent-system model, Raven, Eagle, Lion, Tiger and the
+two-speed repair loop are in [`rsxv/archetypes.py`](rsxv/archetypes.py). Unit tests: [`tests/test_agents.py`](tests/test_agents.py)
+(26) and [`tests/test_archetypes.py`](tests/test_archetypes.py) (14). The World loop (5D) and the experiments in §11 are not yet
+built or run. Version 0.3, 14 November 2026.
 
 The agents run the RSIA identity architecture (Meta-Architect, Spine, Watchdog, archetypes) as software, inside the same
 runtime that runs RSX-V programs for a person. The person-side architecture is defined in the RSIA estate
@@ -134,7 +136,14 @@ Every archetype agent carries:
 8. **Settle:** the fix is broadcast to other agents only after the repaired state has been stable for N ticks; the Watchdog may veto an unverified broadcast.
 9. **Seal:** the repair is recorded in the hash-chained log and lineage; the agent is marked as a new generation (Phoenix).
 
-The loop is the canonical 17-vector command executed on agent state. **Two speeds:** a fault seen before can use a fast,
+The loop is the canonical 17-vector command executed on agent state.
+
+**How the prototype implements it.** The agent system is a stated model: six agents in a dependency graph, three modules each,
+noisy observations, repairs that succeed with probability 0.85 and can damage a healthy module with probability 0.10. A
+*silent* fault corrupts what an agent passes on without raising its own error, so only downstream agents look sick. The
+Observer locates roots on the global map and, when a located root's own modules read healthy, walks upstream to the nearest
+agent whose modules show a fault. This global view is the meta position's advantage, and it is also why W1 must include a
+stronger local baseline (an agent that asks its worst input to retry) alongside plain reflect-and-retry. **Two speeds:** a fault seen before can use a fast,
 pre-approved reflex (logged, revocable, re-verified when conditions change); a new fault runs the full loop.
 
 ## 7. Memory, sleep and audit

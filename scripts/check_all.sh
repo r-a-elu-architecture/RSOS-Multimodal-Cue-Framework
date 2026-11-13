@@ -17,8 +17,9 @@ step "Board check against the firmware core in real time (no board)"
 (cd rsso && python3 -m rsso.board --sim | grep "checks passed")
 step "Generated files are reproducible"
 python3 architecture/build.py >/dev/null
+python3 architecture/roadmap.py >/dev/null
 (cd rsso && python3 -m rsso.thera >/dev/null && python3 -m rsso.cm1 >/dev/null)
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  git diff --exit-code --stat -- architecture docs/data rsso/results && echo "unchanged"
+  git diff --exit-code --stat -- architecture docs/data rsso/results spec/ROADMAP.md spec/CLAIMS.md && echo "unchanged"
 fi
 printf '\nAll checks passed.\n'

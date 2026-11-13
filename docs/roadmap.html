@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roadmap — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="description" content="The RSOS roadmap: 69 items from the RSOS design records, the build order in nine steps, and a searchable register of 101 claims, each with the test it becomes.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 16px}
+@media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
+nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:20ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:58px 0 6px}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:70ch}
+.labels{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:.86rem;color:var(--muted)}
+.labels span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gold);vertical-align:1px}
+.labels span.u::before{background:transparent;border:1px solid var(--muted)}
+.mapwrap{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;margin-top:26px;align-items:start}
+.map{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:210px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.row b{display:block;font-family:var(--serif);font-weight:500;font-size:1.05rem;line-height:1.3}
+.row .n{color:var(--gold);font-family:var(--serif);margin-right:6px}
+.row small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
+.tiles{display:flex;flex-wrap:wrap;gap:6px}
+.tile{width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);font:500 .86rem/1 var(--sans);cursor:pointer;font-variant-numeric:tabular-nums}
+.tile:hover{border-color:var(--gold)}
+.tile.partly{border-color:var(--gold);box-shadow:inset 0 -14px 0 rgba(232,176,74,.35)}
+.tile.mostly{border-color:var(--gold);background:rgba(232,176,74,.35)}
+.tile.merged{border-style:dashed;color:var(--muted)}
+.tile.sel{outline:2px solid var(--glow);outline-offset:2px}
+.tile.dim{opacity:.28}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.84rem;color:var(--muted);margin:12px 0 0}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line);vertical-align:-2px;margin-right:6px}
+.legend i.partly{border-color:var(--gold);box-shadow:inset 0 -6px 0 rgba(232,176,74,.35)}
+.legend i.mostly{border-color:var(--gold);background:rgba(232,176,74,.35)}
+.legend i.merged{border-style:dashed}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;position:sticky;top:16px}
+.panel h3{font-family:var(--serif);font-weight:500;font-size:1.25rem;line-height:1.25;margin:0 0 6px}
+.panel .meta{color:var(--muted);font-size:.84rem;margin:0 0 10px}
+.panel p{margin:0 0 10px;font-size:.95rem}
+.panel ul{list-style:none;margin:6px 0 0;padding:0;font-size:.9rem}
+.panel ul li{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:start;padding:5px 0;border-top:1px solid var(--line);line-height:1.45}
+.panel ul button{background:none;border:0;padding:0;color:var(--glow);font:inherit;font-family:var(--serif);text-align:left;cursor:pointer;text-decoration:underline}
+.back{display:none;margin-top:12px;background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--text);font:inherit;font-size:.86rem;cursor:pointer}
+@media (max-width:900px){.back{display:inline-block}}
+.chip{display:inline-block;font-size:.78rem;border:1px solid var(--line);border-radius:999px;padding:1px 9px;margin:0 6px 6px 0;color:var(--muted)}
+.chip.gold{border-color:var(--gold);color:var(--glow)}
+.combos{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.combos li{border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.combos b{display:block;font-family:var(--serif);font-weight:500;font-size:1.08rem}
+.combos span{color:var(--muted);font-size:.92rem}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px;align-items:center}
+input[type=search],select{background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+input[type=search]{flex:1;min-width:220px}
+.count{color:var(--muted);font-size:.86rem}
+.claims{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--line)}
+.claims li{display:grid;grid-template-columns:62px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.claims .id{font-family:var(--serif);color:var(--gold);font-variant-numeric:tabular-nums}
+.claims p{margin:0}
+.claims .src{color:var(--muted);font-size:.82rem;margin-top:3px}
+.claims .t{font-size:.92rem;margin-top:6px}
+.claims .t em{color:var(--muted);font-style:normal}
+.claims button.lnk{background:none;border:0;padding:0;color:var(--glow);font:inherit;font-size:.86rem;cursor:pointer;text-decoration:underline;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin-top:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.85rem}
+td.id{font-family:var(--serif);color:var(--gold);white-space:nowrap}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+@media (max-width:900px){.mapwrap{grid-template-columns:1fr}.panel{position:static}}
+@media (max-width:600px){.row{grid-template-columns:1fr;gap:8px}.claims li{grid-template-columns:48px 1fr}table{display:block;overflow-x:auto}}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html" aria-current="page">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>From the design records to the build</h1>
+  <p class="lede">Across three years of RSOS design records, one principle never changed: change a central node, and the change spreads to everything connected to it. The records hold 69 items worth building and 101 claims worth testing. This page is the plan: every item in build order, and every claim with the test it becomes. Nothing is discarded, and nothing is treated as established.</p>
+  <div class="labels" aria-label="How to read results on this site"><span>Built and tested in simulation</span><span class="u">Effect unproven in people</span></div>
+
+  <h2 id="map">The plan, item by item</h2>
+  <p class="hint">Nine steps, built in this order. Each square is one item; select it to see what it is, where it came from and the claims it will test.</p>
+  <div class="legend" aria-hidden="true"><span><i></i>Idea</span><span><i class="partly"></i>Partly built</span><span><i class="mostly"></i>Mostly built</span><span><i class="merged"></i>Merged into another item</span></div>
+  <div class="mapwrap">
+    <div class="map" id="rows"></div>
+    <aside class="panel" id="panel" aria-live="polite"><h3>Select an item</h3><p class="meta" id="totals"></p><p>Every step is built simulation first, with Python and browser versions that give identical results, a written spec, and a protocol kit so clinicians, labs, universities and companies can run it with real instruments.</p></aside>
+  </div>
+
+  <h2 id="combinations">Where the items meet</h2>
+  <p class="hint">The combinations that go beyond existing products and research we know of. Select one to highlight its items on the plan.</p>
+  <ul class="combos" id="combos"></ul>
+
+  <h2 id="claims">Claims register</h2>
+  <p class="lede">Every claim in the RSOS design records of 2023–2025 and their later review, recorded as a claim event with the test it becomes. Claims about an individual are written in general form.</p>
+  <div class="filters">
+    <label class="sr" for="q" style="position:absolute;left:-9999px">Search claims</label>
+    <input type="search" id="q" placeholder="Search claims and tests">
+    <label for="by" style="position:absolute;left:-9999px">Made by</label>
+    <select id="by"><option value="">Made by anyone</option></select>
+    <label for="kind" style="position:absolute;left:-9999px">Kind</label>
+    <select id="kind"><option value="">Every kind</option></select>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+  <ul class="claims" id="claimlist"></ul>
+
+  <h2 id="lineage">Lineage hypotheses</h2>
+  <p class="hint">Questions about how the design developed, to be tested on the full design records in a later step.</p>
+  <div style="overflow:auto"><table><thead><tr><th>#</th><th>Hypothesis</th><th>Evidence so far</th><th>Status</th></tr></thead><tbody id="hyp"></tbody></table></div>
+</main>
+<footer>Generated from one source, <code>architecture/roadmap.py</code>, which also writes <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/ROADMAP.md">spec/ROADMAP.md</a> and <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CLAIMS.md">spec/CLAIMS.md</a>. Prior art, glossary, foundations and the provenance of names: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/tree/main/spec">spec/</a>. Data: <a href="data/roadmap.json">roadmap.json</a>.</footer>
+<script>
+const $ = id => document.getElementById(id);
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
+const cls = s => s.startsWith("partly") ? "partly" : s.startsWith("mostly") ? "mostly" : s.startsWith("merged") ? "merged" : "idea";
+let D, tiles = {}, sel = null;
+
+function showItem(id, fromTile) {
+  const it = D.items.find(i => i.id === id); if (!it) return;
+  if (sel) tiles[sel].classList.remove("sel"); sel = id; tiles[id].classList.add("sel");
+  const step = D.steps.find(s => s.id === it.step);
+  const P = $("panel"); P.textContent = "";
+  P.append(el("h3", "", it.id + ". " + it.title));
+  P.append(el("p", "meta", (it.step ? "Step " + it.step + ": " : "") + step.title + " · " + it.module));
+  const chips = el("p", ""); [it.status, it.kind].forEach((t, k) => chips.append(el("span", k ? "chip" : "chip gold", t))); P.append(chips);
+  P.append(el("p", "", it.summary));
+  P.append(el("p", "meta", "Source: " + it.source));
+  const cs = D.claims.filter(c => c.items.includes(id));
+  if (cs.length) {
+    P.append(el("p", "meta", "Claims it will test"));
+    const ul = el("ul"); cs.forEach(c => { const li = el("li"); const b = el("button", "", c.id); b.setAttribute("aria-label", "Show claim " + c.id + " in the register");
+      b.addEventListener("click", () => { $("q").value = c.id; drawClaims(); location.hash = "claims"; }); li.append(b, el("span", "", c.claim)); ul.append(li); }); P.append(ul);
+  }
+  const back = el("button", "back", "Back to the plan"); back.addEventListener("click", () => tiles[id].scrollIntoView({ block: "center" })); P.append(back);
+  if (fromTile && window.matchMedia("(max-width:900px)").matches) P.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth" });
+}
+function highlight(ids) {
+  Object.keys(tiles).forEach(k => tiles[k].classList.toggle("dim", !!ids && !ids.includes(+k)));
+}
+function drawMap() {
+  const R = $("rows");
+  D.steps.forEach(s => {
+    const its = D.items.filter(i => i.step === s.id); if (!its.length) return;
+    const row = el("div", "row"), h = el("div");
+    const b = el("b"); b.append(el("span", "n", s.id ? String(s.id) : "·"), document.createTextNode(s.title)); h.append(b, el("small", "", its.length + (its.length === 1 ? " item" : " items")));
+    const T = el("div", "tiles");
+    its.forEach(i => { const t = el("button", "tile " + cls(i.status), String(i.id)); t.setAttribute("aria-label", i.id + ". " + i.title + " (" + i.status + ")"); t.title = i.title;
+      t.addEventListener("click", () => showItem(i.id, true)); tiles[i.id] = t; T.append(t); });
+    row.append(h, T); R.append(row);
+  });
+  const by = {}; D.items.forEach(i => { const c = cls(i.status); by[c] = (by[c] || 0) + 1; });
+  $("totals").textContent = D.items.length + " items in " + D.steps.filter(s => s.id).length + " steps, plus later lineage work. " + D.claims.length + " claims, " + D.combinations.length + " combinations.";
+}
+function drawCombos() {
+  D.combinations.forEach(c => { const li = el("li"); li.tabIndex = 0; li.style.cursor = "pointer";
+    li.append(el("b", "", c.title), el("span", "", c.summary + " Items " + c.items.join(", ") + "."));
+    const on = () => { highlight(c.items); showItem(c.items[0]); location.hash = "map"; };
+    li.addEventListener("click", on); li.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); on(); } });
+    $("combos").append(li); });
+}
+function drawClaims() {
+  const q = $("q").value.trim().toLowerCase(), by = $("by").value, kind = $("kind").value, L = $("claimlist"); L.textContent = "";
+  const hits = D.claims.filter(c => (!by || c.by === by) && (!kind || c.kind === kind) &&
+    (!q || (c.id.toLowerCase() === q) || (q.length > 1 && !/^c\d+$/.test(q) && (c.claim + " " + c.test + " " + c.source).toLowerCase().includes(q))));
+  hits.forEach(c => { const li = el("li"), body = el("div");
+    body.append(el("p", "", c.claim), el("p", "src", c.by + " · " + c.source + " · " + c.kind + " · " + c.status));
+    const t = el("p", "t"); t.append(el("em", "", "Becomes the test: "), document.createTextNode(c.test)); body.append(t);
+    if (c.items.length) { const p = el("p", "src"); p.append(document.createTextNode("Items: "));
+      c.items.forEach(i => { const b = el("button", "lnk", String(i)); b.addEventListener("click", () => { highlight(null); showItem(i); location.hash = "map"; }); p.append(b); }); body.append(p); }
+    li.append(el("span", "id", c.id), body); L.append(li); });
+  $("count").textContent = hits.length + " of " + D.claims.length;
+}
+function drawRest() {
+  D.hypotheses.forEach(h => { const tr = el("tr"); tr.append(el("td", "id", h.id), el("td", "", h.title), el("td", "", h.evidence), el("td", "", h.status)); $("hyp").append(tr); });
+  [...new Set(D.claims.map(c => c.by))].forEach(v => $("by").append(Object.assign(el("option", "", v), { value: v })));
+  [...new Set(D.claims.map(c => c.kind))].sort().forEach(v => $("kind").append(Object.assign(el("option", "", v), { value: v })));
+  ["q", "by", "kind"].forEach(k => $(k).addEventListener("input", drawClaims));
+}
+fetch("data/roadmap.json").then(r => r.json()).then(d => { D = d; drawMap(); drawCombos(); drawRest(); drawClaims(); })
+  .catch(() => { $("rows").append(el("p", "hint", "The roadmap data could not be loaded. Open this page online once to keep it for offline use.")); });
+</script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
+</body>
+</html>

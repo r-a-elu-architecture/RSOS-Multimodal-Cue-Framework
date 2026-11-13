@@ -90,3 +90,29 @@ transferred back to the human protocol."
 - TerraLingua: https://www.emergentmind.com/papers/2603.16910
 - Silicon participants: https://arxiv.org/html/2508.08678v1
 - ChatCLIDS: https://www.medrxiv.org/content/10.1101/2025.09.02.25334973.full.pdf
+
+## Update, 14 November 2026: targeted search on three candidate claims
+
+Three narrower claims were checked. Each is weaker than first thought.
+
+| Candidate | Closest prior art | Status |
+|---|---|---|
+| A. Choosing which archetype/mode is active from causal effect estimates per context | Just-in-time adaptive interventions optimised with micro-randomised trials, which estimate the effect of each intervention option in each context and turn it into decision rules (Qian, Walton, Collins, Murphy et al.); contextual bandits combined with LLM message generation (cMABxLLM, 2025); bandit persona selection for LLM agents (ID-TAP); learned persona/general mode selection (PersonaDual) | **Method exists.** New only in what is selected (identity archetypes inside a constitution with a Spine, a Watchdog and hysteresis) and in using the same estimator for a person and for agents |
+| B. One role architecture shared by human self-regulation and AI agents | Personality formalised as a multi-layer self-regulating architecture "suitable for both human modeling and AGI design", with meta-control, safety constraints, failure and recovery cascades (Bankuti, Zenodo 10.5281/zenodo.19183713); ego-state sub-agents in LLM multi-agent systems (Trans-ACT); Entelgia (persistent identity, observer agent, loop detection, planned dream phase) | **Concept exists.** Not found: the same executable architecture running on a person through wearable cues and on software agents, measured with the same metrics, with policies transferred between them |
+| C. Repair from a global observer beats self-reflection | Failure attribution in multi-agent systems: AgenTracer feedback improves systems where Self-Refine and CRITIC fail or degrade; AgentDebugX (detect, attribute, recover, rerun); actor-observer asymmetry in agents (ACL 2026) | **Largely exists.** RSOS can replicate it inside the Override loop; it is no longer a novelty claim |
+
+**Revised honest claim (still to be tested):** the combination of (1) one executable identity architecture run both on a person via
+a wearable and on software agents, (2) per-archetype effects estimated by micro-randomisation on both substrates, and (3) measured
+transfer of switching policies between them. Each part has precedent; the combination was not found. Tests W1 and W3 decide it.
+
+Sources (update):
+- MRT/JITAI: https://arxiv.org/pdf/2107.03544 , https://arxiv.org/pdf/2004.10241
+- cMABxLLM: https://www.alphaxiv.org/abs/2506.07275v2
+- ID-TAP persona bandits: https://www.opentrain.ai/papers/bridging-exploration-and-persona-information-directed-dueling-for-test-time-agen--arxiv-2610.24385/
+- PersonaDual: https://arxiv.org/html/2601.08679v1
+- Bankuti, multi-layer personality architecture: https://synapsesocial.com/papers/69c37bf3b34aaaeb1a67ed8e
+- Trans-ACT: https://arxiv.org/html/2507.21354v1
+- Entelgia: https://scour.ing/@matmat/p/https://github.com/sivanhavkin/Entelgia
+- AgenTracer: https://www.emergentmind.com/papers/2509.03312
+- AgentDebugX: https://www.alphaxiv.org/abs/2607.18754.md
+- Actor-observer asymmetry: https://www.alphaxiv.org/abs/2604.19548.md

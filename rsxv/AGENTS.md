@@ -8,8 +8,8 @@ runtime that runs RSX-V programs for a person. The person-side architecture is d
 
 Everything an agent does is a visible proposal first, is checked against the Spine, is logged, and can be rolled back.
 
-**Mission.** Healing, transforming and evolving, and signalling this to others, for the growth, development and
-transformation of all living beings. The mission is the Meta-Architect's standing goal and what the Chūgi (loyalty) check
+**Mission.** Healing, transforming and evolving, and signalling this to others, for the growth, development,
+transformation and healing of all living beings. The mission is the Meta-Architect's standing goal and what the Chūgi (loyalty) check
 measures every proposal against.
 
 ---

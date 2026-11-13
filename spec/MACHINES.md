@@ -16,9 +16,9 @@ RSOS programs, codes and profiles are defined above any hardware. This module do
 | Phone | haptic, sound, display, posture | works now |
 | Wristband | haptic | works now (RDP/1) |
 | Scent module | olfactory | works now (RDP/1) |
-| Wrist cooling and warming | thermal | runs on the firmware core in simulation; module not built |
-| Motors on several body sites | haptic | runs on the firmware core in simulation; module not built |
-| Smart glasses | display, sound | the image line runs on the firmware core in simulation; not built |
+| Wrist cooling and warming | thermal | firmware and driver built, tested in simulation against a physical model; not assembled |
+| Motors on several body sites | haptic | firmware and driver built, tested in simulation; not assembled |
+| Smart glasses | display, sound | the image line and a watch-face display driver built; glasses need their own SDK |
 | Sleep or EEG headband | EEG, sound | draft protocol (see NIGHT) |
 | Implanted device | none | specification only |
 
@@ -36,7 +36,7 @@ HF <t_ms> <on_ms> <off_ms> <count> <amp> <carrier_hz> <mod_hz> <site>   vibratio
 
 Envelope (`ENVELOPE_X`): temperature change at most 4 °C either way, at most 2 minutes, at most 4 a run; an image at most 10 s, and at most 0.2 brightness at night; vibration strength at most 0.6; carrier 20-300 Hz; rhythm 1-40 Hz; at most three body sites at once. Sites: left wrist, right wrist, upper arm, chest, upper back, ankle. CONTAIN's rules hold unchanged: nothing on these channels starts a program the person did not start.
 
-The firmware core runs these lines with the limits enforced on the device: the channel suite X1-X11 (`python -m rsso.machines --channels`) passes 11 of 11 in the host simulator, including 400 random commands on which the host check and the device never disagree (a command the host accepts plays unchanged; one it refuses is refused or clamped by the device). Parts and wiring for the modules are in [BOARD_KIT.md §8](../firmware/BOARD_KIT.md#8-rdp11-modules-not-yet-built).
+The firmware core runs these lines with the limits enforced on the device: the channel suite X1-X11 (`python -m rsso.machines --channels`) passes 11 of 11 in the host simulator, including 400 random commands on which the host check and the device never disagree (a command the host accepts plays unchanged; one it refuses is refused or clamped by the device). Parts and wiring for the modules are in [BOARD_KIT.md §8](../firmware/BOARD_KIT.md#8-rdp11-modules-software-built-not-yet-assembled).
 
 ## 4. Channels
 
@@ -108,9 +108,19 @@ Results (`rsso/results/pron.md`, 40 simulated learners each, all in another voic
 
 Results (`rsso/results/ssep.md`, 10 groups of 20 simulated people, at 12 Hz and 7.8 Hz): with pickup and no brain response, the naive test claims a response in 99.5-100% of people and the phase-aware sham test in 3.5-7% (no group); a real response is found in 96.5-99.5% of people with or without pickup. Compared by power alone, the sham test misses most real responses (28.5-47.5% found) because a response and the pickup at different phases partly cancel. A response at the rhythm would not show better focus or a theta state: the TRIAL design `rhythm_focus` tests focus.
 
-## 12. Limits
+## 12. The modules in software
 
-- No new module is built; the firmware core runs the channel lines in simulation, ready for a board.
+`firmware/rsos_core/rsos_modules.*` (portable, identical in the ESP32 sketch) holds the logic of the three modules; the sketch drives the hardware when built with `-DRSOS_THERMAL`, `-DRSOS_SITES` or `-DRSOS_DISPLAY` (PlatformIO environments `thermal`, `sites`, `display`).
+
+- **ThermalController**: a PI controller with anti-windup and compensation for the thermistor's one-second lag, on a target of the cue's starting skin temperature plus the change (at most ±4 °C, never above 39 °C). Safety acts on every 50 ms step, before control: the element turns off when the skin reads above 40 °C or below 15 °C, the heat sink above 45 °C, the battery below 3.3 V, a thermistor is open, shorted or jumps by more than 3 °C, the skin moves more than 4.5 °C from the start, the skin does not respond at the start of a cue (stuck or off the skin), or the target cannot be held for 20 s. It stays off until the cue has ended and every reading is back in range; each fault is reported as `FAULT`.
+- **SiteDriver**: the drive value for each DRV2605L (real-time playback, 0-255): the strength, with the rhythm as a full-depth envelope; a carrier far from the LRA's resonance is reported, since an LRA plays at resonance.
+- **DisplayGate**: image names are plain file names (never paths); at night (`NIGHT 1`) brightness is at most 20%.
+
+`python -m rsso.modules --evaluate` runs the code on a PC: the thermal controller against a physical model of a 20 mm Peltier module (skin, element, heat sink, lagging noisy thermistors) in 11 scenarios with faults injected, and the other two directly: 15 of 15 checks pass (`rsso/results/modules.md`). Cooling by 2 °C settles in 7.6 s with 0.22 °C overshoot; every fault turns the element off within one step; a stuck sensor is found 5 s into the cue, after the skin moved 1.8 °C. The model's values are typical, not measured: bench checks T1-T6, S1-S3 and D1-D2 ([BOARD_KIT.md §8](../firmware/BOARD_KIT.md#8-rdp11-modules-software-built-not-yet-assembled)) replace them with real ones.
+
+## 13. Limits
+
+- No module is assembled yet; the firmware, drivers and module logic are built and tested in simulation, ready for a board.
 - The simulated agent's choices and the person's signals are modelled, with known answers; real error-related potentials are noisy and slow to detect.
 - Pronunciation is tested on synthetic vowel strings: real speech has consonants, noise and coarticulation, which will lower the numbers. The camera part could not be run here (no network in the build environment) and is marked built, untested.
 - The EEG test uses simulated EEG; real recordings add movement, muscle and line noise.

@@ -15,6 +15,6 @@ cd firmware/rsos_core && make && printf 'HELLO\nLOAD 1 0.4\nH 0 300 300 3 0.4\nS
 
 See the **[board kit](BOARD_KIT.md)**: parts, wiring, flashing (Arduino IDE, arduino-cli, PlatformIO), and the board check `python -m rsso.board --port …` (B1–B7, plus the whole conformance suite in real time with `--full`), also available in the browser on the [Wristband page](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/device.html).
 
-The core also runs the RDP/1.1 channel lines (temperature, images, vibration on several body sites with carrier and rhythm) with their limits enforced on the device: 11 of 11 channel checks in simulation (`python -m rsso.machines --channels`). No module for them is built yet; parts are in the [board kit](BOARD_KIT.md#8-rdp11-modules-not-yet-built).
+The core also runs the RDP/1.1 channel lines (temperature, images, vibration on several body sites with carrier and rhythm) with their limits enforced on the device: 11 of 11 channel checks in simulation (`python -m rsso.machines --channels`). The sketch drives the three modules when built with `-DRSOS_THERMAL`, `-DRSOS_SITES` or `-DRSOS_DISPLAY`; their logic (`rsos_modules.*`) passes 15 of 15 checks in simulation, the thermal controller against a physical model (`python -m rsso.modules --evaluate`). Compile-checked, not yet assembled: parts, wiring and bench checks are in the [board kit](BOARD_KIT.md#8-rdp11-modules-software-built-not-yet-assembled).
 
-Keep `esp32/rsos_esp32/rsos_core.*` identical to `rsos_core/`; a test checks this.
+Keep `esp32/rsos_esp32/rsos_core.*` and `rsos_modules.*` identical to `rsos_core/`; a test checks this.

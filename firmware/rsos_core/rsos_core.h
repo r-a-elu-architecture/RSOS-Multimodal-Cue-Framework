@@ -18,6 +18,7 @@ class Output {
   virtual void thermal(float delta_c) { (void)delta_c; }                  // change from skin temperature, °C
   virtual void display(const char* image, bool on) { (void)image; (void)on; }
   virtual void site(int site, float amp, int carrier_hz, int mod_hz) { (void)site; (void)amp; (void)carrier_hz; (void)mod_hz; }
+  virtual void night(bool on) { (void)on; }                               // the host says it is night: dim displays
 };
 
 // RDP/1.1 envelope, enforced on the device whatever the host sends (spec/MACHINES.md §3).

@@ -44,6 +44,10 @@ void Core::line(const char* text, uint32_t now) {
     int c;
     if (sscanf(text, "CONSENT %d", &c) == 1 && (c == 0 || c == 1)) { consent_ = c == 1; sendf("OK CONSENT"); }
     else sendf("ERR CONSENT syntax");
+  } else if (!strcmp(cmd, "NIGHT")) {
+    int v;
+    if (sscanf(text, "NIGHT %d", &v) == 1 && (v == 0 || v == 1)) { out_.night(v == 1); sendf("OK NIGHT"); }
+    else sendf("ERR NIGHT syntax");
   } else if (!strcmp(cmd, "LOAD")) {
     int n; float hm;
     if (state_ == kPlaying) { sendf("ERR LOAD playing"); return; }

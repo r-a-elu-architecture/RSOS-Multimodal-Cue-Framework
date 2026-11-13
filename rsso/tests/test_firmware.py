@@ -50,6 +50,9 @@ class Firmware(unittest.TestCase):
         out = sim(["START", "LOAD 65 0.4", "LOAD 1 1.5", "X 1", "H 0 300 300 3 0.4"])
         self.assertEqual(out, ["ERR START not-loaded", "ERR LOAD too-many-events", "ERR LOAD syntax", "ERR X unknown", "ERR H not-loading"])
 
+    def test_night_command(self):
+        self.assertEqual(sim(["NIGHT 1", "NIGHT 0", "NIGHT 2"]), ["OK NIGHT", "OK NIGHT", "ERR NIGHT syntax"])
+
     def test_link_loss_stops_output(self):
         out = sim(["LOAD 1 0.4", "H 0 1000 0 5 0.4", "START", "TICK 1500", "LINK_LOST", "TICK 6000"])
         self.assertIn("STOPPED 1500", out)
@@ -64,17 +67,26 @@ class Firmware(unittest.TestCase):
 
 class SketchInSync(unittest.TestCase):
     def test_esp32_copy_of_core_is_identical(self):
-        for f in ("rsos_core.h", "rsos_core.cpp"):
+        for f in ("rsos_core.h", "rsos_core.cpp", "rsos_modules.h", "rsos_modules.cpp"):
             self.assertEqual((REPO / "firmware/rsos_core" / f).read_bytes(), (REPO / "firmware/esp32/rsos_esp32" / f).read_bytes(), f)
+
+    def test_no_pin_is_used_twice(self):
+        import re
+        src = (REPO / "firmware/esp32/rsos_esp32/rsos_esp32.ino").read_text(encoding="utf-8")
+        pins = {k: int(v) for k, v in re.findall(r"#define (RSOS_\w+) (\d+)", src)}
+        used = list(pins.values()) + [21, 22]          # Wire (I2C) default pins for the site multiplexer
+        self.assertEqual(len(used), len(set(used)), pins)
 
     @unittest.skipUnless(shutil.which("g++"), "no g++")
     def test_esp32_sketch_compiles_against_stubs(self):
         st = REPO / "firmware/esp32/stubs"
+        builds = ([], ["-DRSOS_THERMAL"], ["-DRSOS_SITES"], ["-DRSOS_DISPLAY"], ["-DRSOS_THERMAL", "-DRSOS_SITES", "-DRSOS_DISPLAY"])
         for major in ("2", "3"):     # both Arduino-ESP32 APIs (2.x: PlatformIO's default; 3.x: Arduino IDE)
-            r = subprocess.run(["g++", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-Wno-unused-parameter", f"-DESP_ARDUINO_VERSION_MAJOR={major}", f"-I{st}",
-                                f"-I{REPO / 'firmware/esp32/rsos_esp32'}", "-fsyntax-only", "-x", "c++", str(st / "check.cpp")],
-                               capture_output=True, text=True)
-            self.assertEqual(r.returncode, 0, major + ": " + r.stderr)
+            for flags in builds:     # the band alone, each RDP/1.1 module, and all of them
+                r = subprocess.run(["g++", "-std=c++17", "-Wall", "-Wextra", "-Werror", "-Wno-unused-parameter", f"-DESP_ARDUINO_VERSION_MAJOR={major}", *flags,
+                                    f"-I{st}", f"-I{REPO / 'firmware/esp32/rsos_esp32'}", "-fsyntax-only", "-x", "c++", str(st / "check.cpp")],
+                                   capture_output=True, text=True)
+                self.assertEqual(r.returncode, 0, major + " " + " ".join(flags) + ": " + r.stderr)
 
 
 if __name__ == "__main__":

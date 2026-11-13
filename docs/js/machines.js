@@ -55,14 +55,16 @@
         "channels": [
           "thermal"
         ],
-        "built": false
+        "built": false,
+        "stage": "drivers ready, not assembled"
       },
       "multisite": {
         "title": "Motors on several body sites",
         "channels": [
           "haptic"
         ],
-        "built": false
+        "built": false,
+        "stage": "drivers ready, not assembled"
       },
       "glasses": {
         "title": "Smart glasses",
@@ -70,7 +72,8 @@
           "display",
           "sound"
         ],
-        "built": false
+        "built": false,
+        "stage": "watch-face driver ready"
       },
       "headband": {
         "title": "Sleep or EEG headband",
@@ -78,7 +81,8 @@
           "eeg",
           "sound"
         ],
-        "built": false
+        "built": false,
+        "stage": "night logic built, no driver"
       },
       "implant": {
         "title": "Implanted device",

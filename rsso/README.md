@@ -32,6 +32,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/machines.py` | More channels and agents ([spec](../spec/MACHINES.md)): RDP/1.1 draft lines for temperature, images and vibration with carrier, rhythm and body site, with an extended envelope; posture with hysteresis; codes spread over body sites; an agent profile whose values gate every action (override, ask, allow), the person's error signal and answers, the alignment log; agent-state codes and replies with pulse coding; content packs as matrices and values (`python -m rsso.machines --evaluate` writes [results](results/machines.md); `--channels` runs checks X1-X11 on the firmware core: [results](results/channels_firmware.md)). Identical to `docs/js/machines.js`. |
 | `rsso/pron.py` | Pronunciation feedback ([spec](../spec/MACHINES.md#10-pronunciation-item-10-claim-c14)): pitch, spectral envelope and syllables at 8 kHz; melody, vowels and rhythm compared syllable by syllable with the speaker's own voice, vocal tract and speed taken out; mouth shape per vowel from the camera; synthesised drills and simulated learners (`python -m rsso.pron --evaluate` writes [results](results/pron.md)). Identical to `docs/js/pron.js`. |
 | `rsso/ssep.py` | The EEG test for claim C35 ([spec](../spec/MACHINES.md#11-the-eeg-test-for-claim-c35)): the response at a vibration rhythm, vibration against a sham with phase so the motor's electrical pickup cancels; permutation tests per person, pooled z per group (`python -m rsso.ssep --evaluate` writes [results](results/ssep.md)). |
+| `rsso/modules.py` | The RDP/1.1 modules in simulation ([spec](../spec/MACHINES.md#12-the-modules-in-software)): builds `firmware/rsos_core/module_sim`, runs the thermal controller against a physical model of a Peltier wrist module with faults injected, and the multi-site driver and display gate; bench checks for an assembled module (`python -m rsso.modules --evaluate` writes [results](results/modules.md)). |
 | `rsso/board.py` | Board kit check ([kit](../firmware/BOARD_KIT.md)): B1–B7 on a real wristband over USB serial (`python -m rsso.board --port …`), the whole conformance suite in real time (`--full`), or the firmware core in real time without a board (`--sim`). The browser version is `docs/js/rdp.js` on the Wristband page (tested to match). |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
@@ -39,7 +40,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 182 tests
+python -m unittest discover -s tests                     # 187 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

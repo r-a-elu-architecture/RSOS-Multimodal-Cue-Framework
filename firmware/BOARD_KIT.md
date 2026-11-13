@@ -154,12 +154,32 @@ MICRO and AUG from "complete in simulation" to "built and checked on hardware" o
 | The motor buzzes at boot | Add the 100 kΩ gate-to-ground resistor |
 | The board browns out when the motor starts | Power the motor from 3V3 with a 10 µF capacitor nearby, or from the battery through the MOSFET |
 
-## 8. RDP/1.1 modules (not yet built)
+## 8. RDP/1.1 modules (software built, not yet assembled)
 
-The firmware core already runs the RDP/1.1 lines (11 of 11 channel checks in simulation, `rsso/results/channels_firmware.md`). To build the hardware, implement the matching `Output` methods (`thermal`, `display`, `site`) in the sketch and add the capability to the `Core` constructor (`"haptic,thermal,display"`).
+The firmware core runs the RDP/1.1 lines (11 of 11 channel checks, `rsso/results/channels_firmware.md`). The module code (`rsos_modules.*`: the thermal controller with its safety cut-offs, the multi-site driver, the display gate) passes 15 of 15 checks in simulation, the thermal controller against a physical model of the module (`rsso/results/modules.md`). The sketch drives each module when built with its flag; it is compile-checked for Arduino-ESP32 2.x and 3.x, but not yet run on a board.
 
-| Module | Parts | Notes |
+| Module | Parts (about) | Build | Wiring (default pins, ESP32-DevKitC) |
+|---|---|---|---|
+| Wrist cooling and warming | Peltier element 20 × 20 mm (TEC1-03105 or similar, 3-5 W); DRV8871 H-bridge; two 10 kΩ NTC thermistors (B 3950) and two 10 kΩ resistors; aluminium heat sink 20 × 20 × 10 mm; 3.7 V LiPo 1000 mAh; 2 × 100 kΩ for battery sense. About $25-40 | `pio run -e thermal -t upload` | H-bridge IN1 → GPIO16, IN2 → GPIO17, output to the element (IN1 high warms the skin side; swap the element's wires if it cools). Skin thermistor: 3V3 → 10 kΩ → GPIO34 → NTC → GND, NTC glued to the plate's skin side with thermal paste. Heat-sink thermistor the same on GPIO35. Battery + → 100 kΩ → GPIO32 → 100 kΩ → GND |
+| Several body sites | Up to six 10 mm LRA motors (170-235 Hz); a DRV2605L board per motor; a TCA9548A multiplexer; elastic straps. About $30-60 | `pio run -e sites -t upload` | SDA → GPIO21, SCL → GPIO22 to the TCA9548A; its channels 0-5 to the drivers in site order (left wrist, right wrist, upper arm, chest, upper back, ankle); each driver's output to its motor. Set the motors' rated frequency in `SiteDriver siteDrv(170)` |
+| Image on a display | A 1.28 in round GC9A01 240 × 240 display. About $8-15 | `python make_image.py lion.png lion`, then `pio run -e display -t uploadfs` and `pio run -e display -t upload` | DC → GPIO33, CS → GPIO15, SCK → GPIO18, MOSI (SDA) → GPIO23, RST → GPIO4, backlight → GPIO13. All three modules can share one board: no pin is used twice (on ESP32-WROVER boards, move the H-bridge off GPIO16/17, which the PSRAM uses) |
+
+Safety in the thermal module does not depend on the host: the element is off at once, and stays off until the cue ends and every reading is back in range, when the skin reads above 40 °C or below 15 °C, the heat sink above 45 °C (safe to touch), the battery below 3.3 V, a thermistor is open, shorted or jumps by more than 3 °C, the skin moves more than 4.5 °C from where the cue started, the skin does not respond at the start of a cue, or the target cannot be held for 20 s. Each fault is reported as `FAULT <t> thermal <reason>`. Keep the heat sink uncovered: after a hot-sink cut-off, heat leaks back and warms the skin by about 3 °C for a while.
+
+### Bench checks for an assembled module
+
+| Check | Module | What to do and what must happen |
 |---|---|---|
-| Wrist cooling and warming | Peltier element 20 × 20 mm; H-bridge driver (DRV8871 or a TB6612 channel) on PWM; NTC 10 kΩ thermistor on the skin side and one on the heat sink; small aluminium heat sink; 3.7 V LiPo 1000 mAh or more | Close the loop on the skin thermistor; cut power above 40 °C or below 15 °C on the skin whatever the program says; never more than 4 °C from the starting skin temperature |
-| Several body sites | Up to six LRA motors (10 mm, 170-235 Hz) each with a DRV2605L driver; a TCA9548A I2C multiplexer (the drivers share one address); elastic straps for wrist, upper arm, chest, back, ankle | LRAs give a clean carrier; the rhythm is amplitude modulation from the core; keep wires to the far sites flexible |
-| Image on a display | An ESP32 board with a round 1.28 in GC9A01 display (a watch face), images stored in flash under their names | Night use: the sketch caps brightness at 20%; glasses with an open SDK can take the `D` line over Bluetooth instead |
+| T1 | Cooling and warming | Power on, strap on, no cue: the module reports skin and sink temperature within 1 °C of a reference thermometer. |
+| T2 | Cooling and warming | Play `T 0 60000 -2`: the skin side reaches 2 °C below the start within 20 s and holds it within 0.3 °C (reference thermometer under the plate). |
+| T3 | Cooling and warming | Play `T 0 60000 3`, then send STOP at 20 s: THERMAL 0.00 is reported at once and the element current is zero (multimeter). |
+| T4 | Cooling and warming | Unplug the skin thermistor during a cue: FAULT skin-sensor and zero current within 100 ms. |
+| T5 | Cooling and warming | Lift the module off the skin at the start of a warm cue: FAULT skin-not-responding within 6 s. |
+| T6 | Cooling and warming | Warm a thermistor with a finger to 41 °C equivalent (or a resistor of that value): FAULT skin-limit, element off. |
+| S1 | Several sites | Play a two-part code spread over left wrist and chest: each part is felt on its site, in order. |
+| S2 | Several sites | Play `HF 0 1000 0 1 0.5 0 6 chest`: the vibration pulses six times a second. |
+| S3 | Several sites | Play four sites at once: three vibrate and REFUSED is reported for the fourth. |
+| D1 | Display | Copy an image to flash and play `D 0 5000 <name>`: it shows for five seconds, then the screen is dark. |
+| D2 | Display | Send `NIGHT 1`, then play an image: the backlight is at most 20% (light meter or a phone camera at fixed exposure). |
+
+Record each result as a contribution (the Contribute page) with the module, parts and readings; the module's status then moves to "built and checked on hardware".

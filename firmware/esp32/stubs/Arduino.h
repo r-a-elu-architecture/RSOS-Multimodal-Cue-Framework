@@ -2,6 +2,8 @@
 #pragma once
 #include <stdint.h>
 #include <string>
+#include <math.h>
+#include <stdio.h>
 #define HIGH 1
 #define LOW 0
 #define OUTPUT 1
@@ -32,3 +34,4 @@ inline bool ledcAttach(int, int, int) { return true; }
 inline double ledcSetup(int, int, int) { return 0; }
 inline void ledcAttachPin(int, int) {}
 inline void ledcWrite(int, int) {}
+inline uint32_t analogReadMilliVolts(int) { return 1650; }

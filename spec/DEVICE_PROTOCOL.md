@@ -95,7 +95,9 @@ RDP/1.1 adds three event lines, sent between `LOAD` and `START` like `H` and `S`
 | `D <t> <dur> <image>` | Show the stored image `image` (up to 23 characters) for `dur` ms |
 | `HF <t> <on> <off> <count> <amp> <carrier_hz> <mod_hz> <site>` | Vibration as `H`, on body site `site`, with a carrier frequency and a slower rhythm (0 = the motor's own) |
 
-Reports: `THERMAL <t> <delta_c>` (0.00 = neutral), `DISPLAY <t> <image> <0|1>`, `SITE <t> <site> <amp> <carrier_hz> <mod_hz>`, `REFUSED <t> <site> sites`, `CLAMPED <t> dur <limit>`. Errors: `ERR <T|D|HF> not-capable`, `envelope`, `site`, `too-many`, `syntax`.
+`NIGHT <0|1>` tells the device it is night (`OK NIGHT`): displays are dimmed to at most 20%.
+
+Reports: `THERMAL <t> <delta_c>` (0.00 = neutral), `DISPLAY <t> <image> <0|1>`, `SITE <t> <site> <amp> <carrier_hz> <mod_hz>`, `REFUSED <t> <site> sites`, `CLAMPED <t> dur <limit>`. Errors: `ERR <T|D|HF> not-capable`, `envelope`, `site`, `too-many`, `syntax`. Modules add `FAULT <t> thermal <reason>` (the element is off) and `NOTE ...` lines (an image missing from flash; a carrier the motor cannot play, with the frequency it plays at).
 
 The device enforces, whatever the host sends: a temperature change of at most 4 °C either way (else `ERR T envelope`), at most 2 minutes (clamped) and at most 4 in a run; an image at most 10 s (clamped); a carrier of 20-300 Hz and a rhythm of 1-40 Hz; a known body site (`wrist_left`, `wrist_right`, `upper_arm`, `chest`, `upper_back`, `ankle`); at most three sites vibrating at once (a fourth is refused, not queued); vibration never above `haptic_max`. On `STOP`, on link loss and at the end, temperature returns to neutral, images go off and every site stops. A single-motor band accepts `HF` and plays every site on its one motor.
 

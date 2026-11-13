@@ -107,7 +107,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <div class="app" id="app">
 <aside aria-label="Settings">
   <div class="top"><a class="home" href="./">RSOS</a>
-  <nav class="site" aria-label="Site"><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav></div>
+  <nav class="site" aria-label="Site"><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav></div>
   <h1>Protocol player</h1>
   <p class="lede">Runs an RSX program step by step: breath, words, imagery, tone and vibration. Everything stays in this browser.</p>
 
@@ -132,6 +132,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
         <option value="node_observer">Observer node (no ego)</option>
       </optgroup>
       <optgroup label="Your node plan" id="planGroup" hidden></optgroup>
+      <optgroup label="Your identity" id="identityGroup" hidden></optgroup>
     </select>
     <p class="note"><a href="nodes.html">Design your own nodes in the node studio</a>.</p>
     <p class="note" id="tierNote" hidden></p>
@@ -363,6 +364,12 @@ async function loadAll() {
     const g = $("planGroup"); g.hidden = false;
     myPlan.nodes.forEach((n, i) => { sources["plan:" + i] = n.program; g.appendChild(new Option(n.name + " (" + (n.mode === "observer" ? "observer" : "associated") + ")", "plan:" + i)); });
   }
+  // programs sent from the identity page (identity.html): the symbol, the whole chain, four steps, the week
+  const idp = store.get("rsos.identity.programs", null);
+  if (idp && idp.items && idp.items.length) {
+    const g = $("identityGroup"); g.hidden = false; g.label = "Your identity: " + idp.name;
+    idp.items.forEach(it => { sources["identity:" + it.key] = it.program; g.appendChild(new Option(it.title, "identity:" + it.key)); });
+  }
   const asked = new URLSearchParams(location.search).get("program");
   if (asked && (PROTOCOLS.includes(asked) || asked in sources)) $("program").value = asked;
   selectProgram();
@@ -382,7 +389,7 @@ function selectProgram() {
     a.textContent = "Read " + tm[1].trim() + " in the ledger"; $("tierNote").appendChild(a); }
   const f = futuresOf(src);
   $("futuresBox").hidden = !f;
-  const own = p.startsWith("node_") || p.startsWith("plan:");   // a node's contexts belong to that node
+  const own = p.startsWith("node_") || p.startsWith("plan:") || p.startsWith("identity:");   // a node's contexts belong to that node
   if (f) { const saved = store.get("rsos.settings", {}); if (own || !saved.futuresEdited) { ["f0", "f1", "f2"].forEach((id, i) => { $(id).value = f[i] || ""; }); } }
   recompile();
 }

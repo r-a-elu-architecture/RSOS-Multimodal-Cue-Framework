@@ -48,6 +48,11 @@ DESIGNS = {
                            "calm": "General calming imagery"},
              "outcome": "Ease of an untrained activity, 0-10", "items": [63, 64], "claims": ["C97", "C101"],
              "do": "Do the imagery you are given for five minutes, then rate how easy an activity you did not imagine feels."},
+    "identity_language": {"title": "An identity in another language", "arms": ["other", "own"], "reference": "own",
+                          "arm_names": {"other": "Practise the identity in its own language (one you are learning)",
+                                        "own": "Practise the identity in your first language"},
+                          "outcome": "How true the identity feels, 0-10", "items": [24, 51], "claims": ["C82"],
+                          "do": "Run the identity session in the language given, then rate how true the identity feels."},
 }
 COVARIATES = ("sleep_h", "caffeine", "exercise", "hour")
 ADJUST = ("sleep_h",)          # pre-specified: session order and sleep; the others are checked for balance only

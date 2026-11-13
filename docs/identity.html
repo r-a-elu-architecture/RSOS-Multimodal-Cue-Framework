@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Identity — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<meta name="description" content="Identity profiles, level by level: a symbol heads a tree of mission, identity, values, beliefs, skills, behaviour and environment, each with its own image and vibration code. Rate how true each level feels, watch coherence over months, test drift, recall walks and value conflicts, and practise the symbol by day and the whole chain at night.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --glyph:'Noto Sans Symbols','Noto Sans Symbols 2','Noto Sans Math','Segoe UI Symbol','Apple Symbols',Symbola,'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:24px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 12px}
+nav a{color:var(--muted);text-decoration:none;font-size:.88rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:62px 0 6px}
+h3{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:70ch}
+.labels{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:.86rem;color:var(--muted)}
+.labels span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gold);vertical-align:1px}
+.labels span.u::before{background:transparent;border:1px solid var(--muted)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer;margin:6px 8px 0 0;text-decoration:none}
+.btn:hover{border-color:var(--gold)}
+.btn.main{border-color:var(--gold);color:var(--glow)}
+.btn.small{padding:5px 11px;font-size:.82rem}
+.btn[aria-pressed=true]{background:var(--ink-3);border-color:var(--gold)}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text],input[type=number],input[type=time]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+textarea{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit;font-size:.92rem;padding:8px 10px;min-height:64px}
+textarea.code{min-height:200px;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace}
+.say{color:var(--muted);font-size:.9rem;margin:8px 0 0}
+.verdict{font-size:.95rem;margin:10px 0 0}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:26px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin-top:10px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:500}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+
+/* profiles row */
+.profiles{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;align-items:center}
+.pchip{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 6px;background:transparent;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer}
+.pchip .g{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--glyph);font-size:17px;background:var(--ink-3)}
+.pchip[aria-current=true]{border-color:var(--gold);background:var(--ink-2)}
+.pchip small{color:var(--muted);font-size:.78rem;margin-left:2px}
+
+/* the level tree: the signature of this page */
+.treewrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;margin-top:22px;align-items:start}
+.tree{position:relative;padding:8px 0 4px}
+.crown{display:flex;align-items:center;gap:18px;margin-bottom:12px}
+.sym{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--glyph);font-size:46px;line-height:1;position:relative;
+  background:radial-gradient(circle at 50% 42%, rgba(247,217,149,.28), rgba(232,176,74,.08) 58%, transparent 72%);border:1px solid rgba(232,176,74,.55);cursor:pointer;color:var(--text)}
+.sym.wide{font-size:30px}
+.sym::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid rgba(232,176,74,.18)}
+.crown h3{font-size:1.5rem}
+.crown small{display:block;color:var(--muted);font-family:var(--sans);font-size:.84rem}
+.levels{list-style:none;margin:0;padding:0 0 0 47px;position:relative}
+.levels::before{content:"";position:absolute;left:47px;top:-12px;bottom:22px;width:2px;background:linear-gradient(var(--gold),rgba(232,176,74,.12))}
+.lv{position:relative;padding:0 0 0 34px;margin:0}
+.lv button.row{display:grid;grid-template-columns:1fr auto;gap:2px 14px;width:100%;text-align:left;background:transparent;border:0;border-radius:10px;padding:10px 12px;color:inherit;font:inherit;cursor:pointer}
+.lv button.row:hover{background:var(--ink-2)}
+.lv[aria-current=true] button.row{background:var(--ink-2);box-shadow:inset 0 0 0 1px var(--line)}
+.lv .node{position:absolute;left:-7px;top:19px;width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);transform:translateX(0)}
+.lv .node i{position:absolute;inset:2px;border-radius:50%;background:var(--gold);transform:scale(var(--fill,0));transition:transform .4s}
+.lv .branch{position:absolute;left:9px;top:26px;width:24px;height:2px;background:rgba(232,176,74,.4)}
+.lv .lname{font-family:var(--serif);font-size:1.02rem}
+.lv .lname small{font-family:var(--sans);color:var(--muted);font-size:.78rem;margin-left:8px}
+.lv .ltext{grid-column:1/-1;color:var(--muted);font-size:.9rem;line-height:1.45}
+.lv .ltext.empty{border:0;padding:0;font-style:italic;opacity:.75}
+.lv .lcode{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.lv.missing .node{border-color:var(--line)}
+.env{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0 12px}
+.env span{font-size:.78rem;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted)}
+.editor{position:sticky;top:16px}
+.editor h3{margin-bottom:2px}
+.issues{margin:10px 0 0;padding-left:18px;color:var(--warn);font-size:.86rem}
+.meter{display:flex;align-items:baseline;gap:12px;margin-top:14px}
+.meter b{font-family:var(--serif);font-weight:500;font-size:2.4rem;color:var(--glow);line-height:1}
+.meter span{color:var(--muted);font-size:.86rem}
+
+/* ratings */
+.rates{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:4px 22px;margin-top:8px}
+.rate label{display:flex;justify-content:space-between;margin:12px 0 2px;color:var(--text)}
+.rate label b{font-weight:500;color:var(--glow);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.chart{width:100%;height:180px;display:block;margin-top:12px}
+.legend{display:flex;gap:16px;font-size:.8rem;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+
+/* practice */
+.prac{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:18px}
+.pc{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.pc p{margin:0;color:var(--muted);font-size:.88rem}
+.pc .flag{font-size:.78rem;color:var(--warn)}
+.pc .acts{margin-top:auto}
+.week{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin-top:14px}
+.day{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.8rem;background:transparent;color:inherit;text-align:left;cursor:pointer;font-family:inherit}
+.day b{display:block;font-family:var(--serif);font-weight:500;font-size:.98rem;color:var(--text)}
+.day span{color:var(--muted)}
+.day:hover{border-color:var(--gold)}
+.day.last{border-color:rgba(232,176,74,.55)}
+.times{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.times span{font-size:.8rem;border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* tree walk */
+.walk{display:flex;flex-direction:column;align-items:center;gap:10px;background:var(--ink-3);border-radius:12px;padding:22px;margin-top:12px;text-align:center}
+.walk .big{font-family:var(--serif);font-size:1.5rem}
+.parts{display:grid;grid-template-columns:120px 2fr 1fr;gap:6px 10px;align-items:center;margin-top:8px}
+.parts input{margin:0}
+.bars{display:flex;align-items:flex-end;gap:14px;margin-top:16px}
+.bars .wk{display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 1 56px}
+.bars .pair{display:flex;align-items:flex-end;gap:3px;height:70px;width:100%}
+.bars .pair i{flex:1;border-radius:3px 3px 0 0;background:var(--gold);min-height:2px}
+.bars .pair i.s{background:var(--muted)}
+.bars small{font-size:.74rem;color:var(--muted)}
+
+@media (max-width:860px){.treewrap{grid-template-columns:1fr}.editor{position:static}.week{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:760px){.two{grid-template-columns:1fr}.parts{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){.lv .node i{transition:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html" aria-current="page">Identity</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>Identity, level by level</h1>
+  <p class="lede">A symbol heads a tree of seven levels: mission, identity, values, beliefs, skills, behaviour and environment. Each level has its own statement, image and vibration code, so the whole profile can be played as one chain and called up by its symbol alone. Rate how true each level feels, and the page measures whether the profile is becoming yours, whether other people pull you away from it, and whether the behaviour starts in places you never trained.</p>
+  <div class="labels"><span>Built and tested in simulation</span><span class="u">Effect unproven in people</span></div>
+
+  <div class="profiles" id="profiles" aria-label="Your profiles"></div>
+
+  <section id="tree" aria-labelledby="treeTitle">
+    <h2 id="treeTitle">The tree</h2>
+    <p class="hint">Choose a level to write it. Tap the symbol or a code to feel it. Stored only in this browser.</p>
+    <div class="treewrap">
+      <div class="tree" id="treeView"></div>
+      <div class="panel editor" id="editor"></div>
+    </div>
+  </section>
+
+  <section id="today" aria-labelledby="todayTitle">
+    <h2 id="todayTitle">How true is it today</h2>
+    <p class="lede">Rate each level from 0 (not me at all) to 10 (completely me). Coherence is how true the levels feel together: their average, less how unevenly they are felt. Rate on ordinary days, and sometimes right after time with other people, to see whether you keep the profile while mirroring them.</p>
+    <div class="panel">
+      <div class="rates" id="rates"></div>
+      <label for="ctx">When</label>
+      <select id="ctx" style="max-width:340px"><option value="baseline">An ordinary moment</option><option value="after_mirroring">Right after time with other people</option></select>
+      <button class="btn main" id="saveRate">Save today's rating</button>
+      <div class="meter" id="meter"></div>
+      <svg class="chart" id="chart" role="img" aria-label="Coherence over time"></svg>
+      <div class="legend"><span><i style="background:var(--gold)"></i>Ordinary moments</span><span><i style="background:var(--muted)"></i>After time with others</span></div>
+      <p class="verdict" id="trendSay"></p>
+      <p class="verdict" id="driftSay"></p>
+    </div>
+  </section>
+
+  <section id="practice" aria-labelledby="pracTitle">
+    <h2 id="pracTitle">Practice</h2>
+    <p class="lede">The symbol by day, a few seconds, with the whole profile behind it. The whole chain at night, symbol down to environment, one level per breath. Four steps when an old state starts. Each opens in the player.</p>
+    <div class="prac" id="prac"></div>
+    <div class="panel">
+      <h3>The prepared week</h3>
+      <p class="hint">One level a day for seven days, each with a future situation. On the eighth day the symbol is installed in a light trance, with three future situations.</p>
+      <div class="week" id="week"></div>
+      <h3 style="margin-top:22px">A month's dose</h3>
+      <p class="say" id="doseSay"></p>
+      <div class="times" id="doseTimes"></div>
+      <p class="hint">Whether practising in the identity's own language helps more than your first language is a trial you can run: <a href="trials.html#identity_language">An identity in another language</a>.</p>
+      <textarea class="code" id="rsxOut" hidden readonly aria-label="RSX program"></textarea>
+    </div>
+  </section>
+
+  <section id="anchortree" aria-labelledby="atTitle">
+    <h2 id="atTitle">The anchor tree</h2>
+    <p class="lede">One central image with up to five contexts fixed to its parts, each with its own code: the mane is the meeting, the paws are the phone call. Walk the tree and recall each context from its part, timed. To compare, walk the same contexts from a single image.</p>
+    <div class="panel">
+      <label for="atCenter">Central image</label>
+      <input type="text" id="atCenter" placeholder="A lion standing at the door">
+      <div class="parts" id="atParts"></div>
+      <button class="btn" id="atSave">Save the tree</button>
+      <button class="btn main" id="walkTree">Walk the tree</button>
+      <button class="btn" id="walkSingle">Walk from one image</button>
+      <div id="walkBox"></div>
+      <div class="bars" id="walkBars" aria-hidden="true"></div>
+      <p class="verdict" id="walkSay"></p>
+    </div>
+  </section>
+
+  <section id="conflict" aria-labelledby="vcTitle">
+    <h2 id="vcTitle">Rehearsing a value conflict</h2>
+    <p class="lede">Imagine, for a minute, a situation that goes against one of your values, with your heart measured before and during. Then play the profile's symbol and measure again. Rehearse an ordinary situation the same way, for comparison. A drop of 10% or more in heart rate variability counts as the body reacting.</p>
+    <div class="panel">
+      <div class="two">
+        <div><label for="vcValue">Value</label><input type="text" id="vcValue" placeholder="honesty"></div>
+        <div><label for="vcKind">Situation</label><select id="vcKind"><option value="violation">One that goes against the value</option><option value="neutral">An ordinary one, for comparison</option></select></div>
+      </div>
+      <div class="two">
+        <div><label for="vcBefore">RMSSD before (ms)</label><input type="number" id="vcBefore" min="5" max="250" step="0.1"></div>
+        <div><label for="vcDuring">RMSSD while imagining (ms)</label><input type="number" id="vcDuring" min="5" max="250" step="0.1"></div>
+      </div>
+      <div class="two">
+        <div><label for="vcAfter">RMSSD after the symbol (ms)</label><input type="number" id="vcAfter" min="5" max="250" step="0.1"></div>
+        <div><label>&nbsp;</label><button class="btn" id="vcCam" type="button">Measure with the camera</button> <span class="hint" id="vcCamMsg"></span></div>
+      </div>
+      <button class="btn main" id="vcSave">Save the rehearsal</button>
+      <div id="vcTable"></div>
+      <p class="verdict" id="vcSay"></p>
+    </div>
+  </section>
+
+  <section id="travel" aria-labelledby="gTitle">
+    <h2 id="gTitle">Does it travel</h2>
+    <p class="lede">A behaviour is learned when it starts in places it was never practised. Log each moment you meant to act from the profile: where, whether you had trained there, and whether the behaviour started.</p>
+    <div class="panel">
+      <div class="two">
+        <div><label for="gCtx">Where</label><input type="text" id="gCtx" placeholder="a meeting with the new team"></div>
+        <div><label for="gLat">Seconds until it started (optional)</label><input type="number" id="gLat" min="0" max="600"></div>
+      </div>
+      <label><input type="checkbox" id="gTrained"> I had practised it in this kind of place</label>
+      <button class="btn" id="gYes">It started</button> <button class="btn" id="gNo">It did not start</button>
+      <p class="verdict" id="gSay"></p>
+    </div>
+  </section>
+
+  <section id="switching" aria-labelledby="swTitle">
+    <h2 id="swTitle">Switching between profiles</h2>
+    <p class="lede">Each profile is like a user on one operating system. Its login code calls it up; a schedule can switch profiles at set hours; the interrupt brings you back to your base profile at once, whatever is running. When a switch has settled, say so, and the page learns how long your switches take.</p>
+    <div class="panel">
+      <div id="swNow"></div>
+      <button class="btn main" id="swSettle">I'm in it now</button>
+      <button class="btn" id="swInterrupt">Interrupt: back to base</button>
+      <label for="swBase">Base profile</label>
+      <select id="swBase" style="max-width:340px"></select>
+      <h3 style="margin-top:20px">Schedule</h3>
+      <div id="swSched"></div>
+      <button class="btn small" id="swAdd">Add a time</button>
+      <p class="verdict" id="swSay"></p>
+    </div>
+  </section>
+
+  <section id="versions" aria-labelledby="vTitle">
+    <h2 id="vTitle">Versions</h2>
+    <p class="lede">As values change, the profile changes. Save a version when it does, and see what changed between any two.</p>
+    <div class="panel">
+      <div class="two">
+        <div><label for="vNote">What changed, in a few words</label><input type="text" id="vNote" placeholder="Added rest to my values"></div>
+        <div><label>&nbsp;</label><button class="btn main" id="vSave">Save this version</button></div>
+      </div>
+      <div id="vList"></div>
+    </div>
+  </section>
+
+  <section id="simulation" aria-labelledby="simTitle">
+    <h2 id="simTitle">See it on a simulated person</h2>
+    <p class="lede">A simulated person practised the steady profile for six months: every level became truer by a known amount each month, and time with other people pulled them away from it. Add the person to see what the page concludes, then compare with the truth.</p>
+    <div class="panel">
+      <button class="btn" id="simAdd">Add the simulated person</button>
+      <button class="btn" id="simClear">Remove</button>
+      <p class="hint">How well each measure works across many simulated people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/identity.md">rsso/results/identity.md</a>. To run it with real people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/IDENTITY_PROTOCOL_KIT.md">the protocol kit</a>.</p>
+    </div>
+  </section>
+</main>
+<footer>IDENTITY is <code>rsso/rsso/identity.py</code>, identically <code>docs/js/identity.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/IDENTITY.md">spec/IDENTITY.md</a>. A profile is a practice you design, not a treatment; if something feels wrong, stop and use the <a href="safety.html">Safety page</a>.</footer>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/trial.js?v=1.17.0"></script>
+<script src="js/ppg.js?v=1.14.0"></script>
+<script src="js/gate.js?v=1.16.0"></script>
+<script src="js/identity.js?v=1.17.0"></script>
+<script>
+const $ = id => document.getElementById(id);
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
+const I = window.RSOSIdentity;
+const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } } };
+const KEY = "rsos.identity.profiles", CUR = "rsos.identity.current", LOG = "rsos.identity.switches", SCHED = "rsos.identity.schedule", BASEK = "rsos.identity.base";
+const now = () => Math.floor(Date.now() / 1000);
+let profiles = store.get(KEY, []), cur = store.get(CUR, null), sel = "identity";
+const save = () => { store.set(KEY, profiles); store.set(CUR, cur); };
+const P = () => profiles.find(p => p.id === cur) || null;
+const feel = code => { try { UGCL.feel(code, {}); } catch (e) { /* no vibration */ } };
+const wide = s => [...s].length > 2;
+
+function newId(base) { let id = base, k = 2; while (profiles.some(p => p.id === id)) id = base + "_" + k++; return id; }
+
+/* ---------- profiles row ---------- */
+function drawProfiles() {
+  const R = $("profiles"); R.textContent = "";
+  profiles.forEach(p => {
+    const b = el("button", "pchip"); b.setAttribute("aria-current", p.id === cur ? "true" : "false");
+    const g = el("span", "g", p.symbol || "○"); b.append(g, document.createTextNode(p.name));
+    if (p.sim) b.append(el("small", "", "simulated"));
+    b.addEventListener("click", () => { if (cur !== p.id) { const log = store.get(LOG, []); I.switchTo(log, now(), p.id, "person"); store.set(LOG, log); } cur = p.id; feel(p.code); save(); drawAll(); });
+    R.append(b);
+  });
+  const lib = el("select"); lib.style.maxWidth = "260px"; lib.setAttribute("aria-label", "Start a profile");
+  lib.append(new Option("Start a profile…", ""), new Option("A blank profile", "blank"));
+  I.LIBRARY.forEach(t => lib.append(new Option(t.symbol + " " + t.name + " (from the library)", t.id)));
+  lib.addEventListener("change", () => {
+    const v = lib.value; if (!v) return;
+    const p = v === "blank" ? I.makeProfile(newId("me"), "My profile", "✦", "--..", "", now()) : I.fromTemplate(v, newId(v), now());
+    profiles.push(p); cur = p.id; sel = "mission"; save(); drawAll();
+  });
+  R.append(lib);
+}
+
+/* ---------- the tree ---------- */
+function drawTree() {
+  const T = $("treeView"); T.textContent = ""; const p = P();
+  if (!p) {
+    const e = el("div", "empty"); e.append(el("h3", "", "Start with a profile"), el("p", "", "Pick one from the library above and make it yours, or start blank. The library holds six: steady under pressure, focused learner, creative maker, calm parent, athlete at rest and clear speaker."));
+    T.append(e); $("editor").hidden = true; return;
+  }
+  $("editor").hidden = false;
+  const last = p.ratings.length ? p.ratings[p.ratings.length - 1].scores : {};
+  const crown = el("div", "crown"), sym = el("button", "sym" + (wide(p.symbol) ? " wide" : ""), p.symbol);
+  sym.setAttribute("aria-label", "Feel the login code " + p.code); sym.addEventListener("click", () => { feel(p.code); sel = "symbol"; drawTree(); drawEditor(); });
+  const nm = el("div"); nm.append(el("h3", "", p.name), el("small", "", "Login code " + p.code + (p.language ? ", in " + p.language : "")));
+  if (p.simTruth) nm.append(el("small", "", "Simulated person: " + p.simTruth + "."));
+  crown.append(sym, nm); T.append(crown);
+  const ul = el("ul", "levels");
+  I.LEVELS.forEach(l => {
+    const L = p.levels[l], li = el("li", "lv" + (L.text ? "" : " missing")); li.setAttribute("aria-current", sel === l ? "true" : "false");
+    const node = el("span", "node"), fill = el("i"); node.append(fill); node.style.setProperty("--fill", last[l] == null ? 0 : (0.25 + last[l] / 10 * 0.75).toFixed(2));
+    li.append(node, el("span", "branch"));
+    const row = el("button", "row");
+    const name = el("span", "lname", I.LEVEL_NAMES[l]); if (last[l] != null) name.append(el("small", "", last[l] + " of 10 today"));
+    const code = el("span", "lcode");
+    if (L.code) { const c = el("span"); try { c.innerHTML = UGCL.codeSVG(L.code, "#e8b04a", 8); } catch (e) { /* plain */ } code.append(c, document.createTextNode(L.code)); }
+    row.append(name, code, el("span", "ltext" + (L.text ? "" : " empty"), L.text || I.LEVEL_ASK[l]));
+    row.addEventListener("click", () => { sel = l; if (L.code) feel(L.code); drawTree(); drawEditor(); });
+    li.append(row);
+    if (l === "environment") {
+      const env = el("div", "env"); I.ENV_KEYS.forEach(k => { if (p.environment[k]) env.append(el("span", "", k + ": " + p.environment[k])); });
+      if (env.children.length) li.append(env);
+    }
+    ul.append(li);
+  });
+  T.append(ul);
+}
+function field(label, id, value, ph, multi) {
+  const w = el("div"); const lb = el("label", "", label); lb.htmlFor = id; const i = el(multi ? "textarea" : "input"); if (!multi) i.type = "text";
+  i.id = id; i.value = value || ""; if (ph) i.placeholder = ph; w.append(lb, i); return w;
+}
+function drawEditor() {
+  const E = $("editor"), p = P(); E.textContent = ""; if (!p) return;
+  if (sel === "symbol") {
+    E.append(el("h3", "", "The profile"), el("p", "say", "Its name, symbol and login code. The code calls the whole profile up; make it unlike every level's code."));
+    E.append(field("Name", "eName", p.name), field("Symbol (one or two emoji or glyphs)", "eSym", p.symbol), field("Login code (dots and dashes)", "eCode", p.code, "..-"),
+      field("Language of this profile (optional)", "eLang", p.language, "Spanish"));
+    const ok = el("button", "btn main", "Save"); ok.addEventListener("click", () => {
+      p.name = $("eName").value.trim() || p.name; p.symbol = $("eSym").value.trim(); p.code = $("eCode").value.trim(); p.language = $("eLang").value.trim(); save(); drawAll(); });
+    const del = el("button", "btn", "Remove this profile");
+    del.addEventListener("click", () => { if (del.dataset.sure) { profiles = profiles.filter(x => x.id !== p.id); cur = profiles.length ? profiles[0].id : null; save(); drawAll(); } else { del.dataset.sure = 1; del.textContent = "Remove for good"; } });
+    E.append(ok, del);
+  } else {
+    const L = p.levels[sel];
+    E.append(el("h3", "", I.LEVEL_NAMES[sel]), el("p", "say", I.LEVEL_ASK[sel]));
+    E.append(field("Statement", "eText", L.text, "", true), field("Image", "eImg", L.image, "what you see when you hold it"), field("Code (dots and dashes, optional)", "eLcode", L.code, ".-."));
+    if (sel === "environment") I.ENV_KEYS.forEach(k => E.append(field(k.charAt(0).toUpperCase() + k.slice(1), "env_" + k, p.environment[k])));
+    const ok = el("button", "btn main", "Save"); ok.addEventListener("click", () => {
+      I.setLevel(p, sel, $("eText").value.trim(), $("eImg").value.trim(), $("eLcode").value.trim());
+      if (sel === "environment") I.ENV_KEYS.forEach(k => { p.environment[k] = $("env_" + k).value.trim(); });
+      const i = I.LEVELS.indexOf(sel); if (L.text && i < I.LEVELS.length - 1 && !p.levels[I.LEVELS[i + 1]].text) sel = I.LEVELS[i + 1];
+      save(); drawAll(); });
+    const tryc = el("button", "btn", "Feel the code"); tryc.addEventListener("click", () => feel($("eLcode").value.trim()));
+    E.append(ok, tryc);
+  }
+  const c = I.completeness(p), is = I.issues(p);
+  E.append(el("p", "say", c.levels + " of 7 levels written, " + c.codes + " with a code. " + (c.ready ? "Ready to play." : "")));
+  if (is.length) { const ul = el("ul", "issues"); is.slice(0, 4).forEach(x => ul.append(el("li", "", x.say))); if (is.length > 4) ul.append(el("li", "", "and " + (is.length - 4) + " more")); E.append(ul); }
+}
+
+/* ---------- ratings, coherence, drift ---------- */
+function drawRates() {
+  const R = $("rates"), p = P(); R.textContent = ""; $("saveRate").disabled = !p; if (!p) { $("meter").textContent = ""; $("chart").innerHTML = ""; $("trendSay").textContent = ""; $("driftSay").textContent = ""; return; }
+  const last = p.ratings.length ? p.ratings[p.ratings.length - 1].scores : {};
+  I.LEVELS.forEach(l => {
+    const w = el("div", "rate"), lb = el("label"), v = el("b", "", String(last[l] != null ? last[l] : 5)); lb.htmlFor = "r_" + l; lb.append(document.createTextNode(I.LEVEL_NAMES[l]), v);
+    const i = el("input"); i.type = "range"; i.min = 0; i.max = 10; i.step = 1; i.id = "r_" + l; i.value = last[l] != null ? last[l] : 5;
+    i.addEventListener("input", () => { v.textContent = i.value; meter(); });
+    w.append(lb, i); R.append(w);
+  });
+  meter(); chart(); verdicts();
+}
+function current() { const s = {}; I.LEVELS.forEach(l => { const i = $("r_" + l); if (i) s[l] = parseInt(i.value, 10); }); return s; }
+function meter() {
+  const c = I.coherence(current()), M = $("meter"); M.textContent = ""; if (!c) return;
+  M.append(el("b", "", String(c.score)), el("span", "", "coherence now: average " + c.mean + ", spread " + c.spread + ". The weakest level is " + I.LEVEL_NAMES[c.weakest].toLowerCase() + "."));
+}
+function chart() {
+  const p = P(), S = $("chart"); const rows = p.ratings.map(r => ({ ts: r.ts, ctx: r.context, c: I.coherence(r.scores) })).filter(r => r.c);
+  const W = Math.max(300, Math.round(S.getBoundingClientRect().width) || 640), H = 180, L = 30, B = 22, T = 10; S.setAttribute("viewBox", "0 0 " + W + " " + H);
+  if (rows.length < 2) { S.innerHTML = '<text x="' + L + '" y="' + (H / 2) + '" fill="#a3abc6" font-size="13">Two or more ratings draw the line.</text>'; return; }
+  const t0 = rows[0].ts, t1 = Math.max(rows[rows.length - 1].ts, t0 + 86400), x = t => L + (t - t0) / (t1 - t0) * (W - L - 10), y = v => T + (10 - v) / 10 * (H - T - B);
+  let g = "";
+  [0, 5, 10].forEach(v => { g += '<line x1="' + L + '" x2="' + W + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#2e3858"/><text x="' + (L - 8) + '" y="' + (y(v) + 4) + '" fill="#a3abc6" font-size="11" text-anchor="end">' + v + "</text>"; });
+  const days = Math.round((t1 - t0) / 86400); g += '<text x="' + (W - 10) + '" y="' + (H - 4) + '" fill="#a3abc6" font-size="11" text-anchor="end">' + days + " days</text>";
+  const base = rows.filter(r => r.ctx === "baseline");
+  if (base.length > 1) g += '<polyline fill="none" stroke="#e8b04a" stroke-width="2" points="' + base.map(r => x(r.ts).toFixed(1) + "," + y(r.c.score).toFixed(1)).join(" ") + '"/>';
+  const tr = I.trend(p);
+  if (tr.per_month !== null) { const a = base[0], m = tr.per_month / 30 / 86400, b0 = base.reduce((s, r) => s + r.c.score, 0) / base.length, tm = base.reduce((s, r) => s + r.ts, 0) / base.length;
+    g += '<line x1="' + x(t0) + '" x2="' + x(t1) + '" y1="' + y(b0 + m * (t0 - tm)) + '" y2="' + y(b0 + m * (t1 - tm)) + '" stroke="#f7d995" stroke-dasharray="4 5" opacity=".7"/>'; }
+  rows.forEach(r => { g += '<circle cx="' + x(r.ts).toFixed(1) + '" cy="' + y(r.c.score).toFixed(1) + '" r="' + (r.ctx === "baseline" ? 3.5 : 4) + '" fill="' + (r.ctx === "baseline" ? "#e8b04a" : "#151b2f") + '" stroke="' + (r.ctx === "baseline" ? "#151b2f" : "#a3abc6") + '" stroke-width="2"><title>' + new Date(r.ts * 1000).toLocaleDateString() + ": " + r.c.score + "</title></circle>"; });
+  S.innerHTML = g;
+}
+function verdicts() { const p = P(); $("trendSay").textContent = I.trend(p).say; $("driftSay").textContent = I.drift(p).say; }
+$("saveRate").addEventListener("click", () => { const p = P(); if (!p) return; I.rate(p, now(), current(), $("ctx").value); save(); drawTree(); drawRates(); });
+
+/* ---------- practice ---------- */
+function send(p, key, title, program) {
+  const box = store.get("rsos.identity.programs", { id: null, items: [] });
+  if (box.id !== p.id) { box.id = p.id; box.items = []; }
+  box.name = p.name; box.items = box.items.filter(i => i.key !== key).concat([{ key, title, program }]); store.set("rsos.identity.programs", box);
+  location.href = "player.html?program=" + encodeURIComponent("identity:" + key);
+}
+function showRsx(src) { const t = $("rsxOut"); t.hidden = false; t.value = src; t.scrollIntoView({ block: "nearest" }); }
+function drawPractice() {
+  const C = $("prac"), p = P(); C.textContent = ""; $("week").textContent = ""; $("doseTimes").textContent = ""; $("rsxOut").hidden = true;
+  const dose = I.dosePlan(); $("doseSay").textContent = dose.say + " The safety limits allow at most 20 plays a day.";
+  dose.times.forEach(t => $("doseTimes").append(el("span", "", t)));
+  if (!p) { C.append(el("p", "hint", "Choose a profile first.")); return; }
+  const night = store.get("rsos.consents", []), nightOk = window.RSOSGate ? RSOSGate.hasConsent(night, "night_cueing", now()) : false;
+  const items = [
+    ["day", "By day: the symbol", "A few seconds. The login code and one sentence. Use it whenever you step into the profile.", I.dayRsx(p), null],
+    ["night", "At night: the whole chain", "Symbol, then mission down to environment, one level per breath, at low volume as you fall asleep.", I.nightRsx(p),
+      window.RSOSGate ? RSOSGate.flag("night_cueing") + (nightOk ? "" : "; give consent on the Safety page before playing it during sleep") : null],
+    ["seq", "When an old state starts", "Four steps: the identity peak, Core Transformation, three future situations, a movement with the code.", I.sequenceRsx(p, "the old state"), null]];
+  items.forEach(([key, title, text, src, flag]) => {
+    const c = el("div", "pc"); c.append(el("h3", "", title), el("p", "", text)); if (flag) c.append(el("span", "flag", flag));
+    const acts = el("div", "acts"), go = el("button", "btn small main", "Open in the player"), see = el("button", "btn small", "RSX");
+    go.addEventListener("click", () => send(p, key, title, src)); see.addEventListener("click", () => showRsx(src)); acts.append(go, see); c.append(acts); C.append(c);
+  });
+  I.weekPlan(p).forEach(d => {
+    const b = el("button", "day" + (d.day === 8 ? " last" : "")); b.append(el("span", "", "Day " + d.day), el("b", "", d.title));
+    b.title = d.practice; b.addEventListener("click", () => send(p, "w" + d.day, "Week, day " + d.day + ": " + d.title.toLowerCase(), d.rsx)); $("week").append(b);
+  });
+}
+
+/* ---------- the anchor tree and recall walks ---------- */
+function drawTreeEdit() {
+  const p = P(), W = $("atParts"); W.textContent = ""; $("atCenter").value = p ? p.tree.center : "";
+  ["Part", "Context", "Code"].forEach(h => W.append(el("span", "hint", h)));
+  for (let k = 0; k < 5; k++) {
+    const x = p && p.tree.parts[k] || { part: "", context: "", code: "" };
+    [["part", ["mane", "paws", "eyes", "tail", "voice"][k]], ["context", ["before a meeting", "on the phone", "saying no", "", ""][k]], ["code", ""]].forEach(([f, ph]) => {
+      const i = el("input"); i.type = "text"; i.id = "at_" + f + k; i.value = x[f]; i.placeholder = ph; i.setAttribute("aria-label", f + " " + (k + 1)); W.append(i); });
+  }
+  drawWalks();
+}
+$("atSave").addEventListener("click", () => { const p = P(); if (!p) return; const parts = [];
+  for (let k = 0; k < 5; k++) { const part = $("at_part" + k).value.trim(), context = $("at_context" + k).value.trim(); if (part && context) parts.push({ part, context, code: $("at_code" + k).value.trim() }); }
+  I.setTree(p, $("atCenter").value.trim(), parts); save(); drawPractice(); $("walkSay").textContent = "Saved, " + parts.length + " parts."; });
+function walk(kind) {
+  const p = P(); if (!p || !p.tree.parts.length) { $("walkSay").textContent = "Save a tree with at least one part first."; return; }
+  const parts = p.tree.parts.slice().sort(() => Math.random() - 0.5), res = []; let k = 0, t0 = 0;
+  const box = $("walkBox"); box.textContent = ""; const W = el("div", "walk"); box.append(W);
+  const ask = () => {
+    W.textContent = "";
+    if (k >= parts.length) { I.addWalk(p, now(), kind, res); save(); box.textContent = ""; drawWalks(); return; }
+    const x = parts[k]; W.append(el("span", "hint", (kind === "tree" ? "Part " : "Context ") + (k + 1) + " of " + parts.length));
+    W.append(el("span", "big", kind === "tree" ? "The " + x.part + " of " + (p.tree.center ? p.tree.center.charAt(0).toLowerCase() + p.tree.center.slice(1) : "the image") : (p.tree.center || "The image") + ": context " + (k + 1)));
+    W.append(el("span", "hint", "Say the context out loud, then check it."));
+    const show = el("button", "btn main", "Show the context"); W.append(show); t0 = performance.now(); if (x.code && kind === "tree") feel(x.code);
+    show.addEventListener("click", () => {
+      const ms = Math.round(performance.now() - t0); show.remove(); W.append(el("p", "", "“" + x.context + "”"));
+      const y = el("button", "btn main", "I had it"), n = el("button", "btn", "I missed it");
+      y.addEventListener("click", () => { res.push({ part: x.part, ok: true, ms }); k++; ask(); });
+      n.addEventListener("click", () => { res.push({ part: x.part, ok: false, ms }); k++; ask(); }); W.append(y, n); y.focus();
+    });
+    show.focus();
+  };
+  ask();
+}
+$("walkTree").addEventListener("click", () => walk("tree")); $("walkSingle").addEventListener("click", () => walk("single"));
+function drawWalks() {
+  const p = P(), B = $("walkBars"); B.textContent = ""; if (!p) { $("walkSay").textContent = ""; return; }
+  const r = I.walksReport(p), n = Math.max(r.tree.cycles.length, r.single.cycles.length);
+  for (let i = 0; i < n; i++) { const wk = el("div", "wk"), pr = el("div", "pair");
+    ["tree", "single"].forEach(k => { const c = r[k].cycles[i], d = el("i", k === "single" ? "s" : ""); d.style.height = (c && c.accuracy != null ? c.accuracy : 0) * 0.7 + "px"; d.title = (k === "tree" ? "Tree" : "One image") + ", walk " + (i + 1) + ": " + (c ? c.accuracy + "% recalled" : "not walked"); pr.append(d); });
+    wk.append(pr, el("small", "", "Walk " + (i + 1))); B.append(wk); }
+  $("walkSay").textContent = r.say + (r.tree.walks ? " Bars: share recalled on each walk, gold from the tree, grey from one image." : "");
+}
+
+/* ---------- value conflict ---------- */
+let vcStep = 0;
+$("vcCam").addEventListener("click", async () => {
+  const slot = ["vcBefore", "vcDuring", "vcAfter"][vcStep % 3];
+  $("vcCamMsg").textContent = "Fingertip on the camera, 30 seconds: " + ({ vcBefore: "before", vcDuring: "while imagining", vcAfter: "after the symbol" })[slot] + "…";
+  try { const { result: r } = await RSOSPpg.measure({ seconds: 30 });
+    if (r.ok && r.rmssd_ok) { $(slot).value = r.rmssd; vcStep++; $("vcCamMsg").textContent = "RMSSD " + r.rmssd + " ms saved. " + (vcStep % 3 ? "Next: " + ["", "imagine the situation and measure again", "play the symbol and measure again"][vcStep % 3] + "." : "Done."); if (vcStep % 3 === 2) { const p = P(); if (p) feel(p.code); } }
+    else $("vcCamMsg").textContent = r.say + " Try again, or type the number from a chest strap.";
+  } catch (e) { $("vcCamMsg").textContent = "The camera could not be used: " + (e.message || e); }
+});
+$("vcSave").addEventListener("click", () => {
+  const p = P(); if (!p) return; const num = id => { const v = parseFloat($(id).value); return isFinite(v) ? v : null; };
+  if (num("vcBefore") === null || num("vcDuring") === null) { $("vcSay").textContent = "Enter RMSSD before and during, at least."; return; }
+  I.addRehearsal(p, now(), $("vcValue").value.trim() || "a value", $("vcKind").value, num("vcBefore"), num("vcDuring"), num("vcAfter"));
+  ["vcBefore", "vcDuring", "vcAfter"].forEach(i => { $(i).value = ""; }); vcStep = 0; save(); drawConflict();
+});
+function drawConflict() {
+  const p = P(), D = $("vcTable"); D.textContent = ""; if (!p) { $("vcSay").textContent = ""; return; }
+  const r = I.rehearsalsReport(p);
+  if (r.values.length) { const t = el("table"); t.innerHTML = "<tr><th>Value</th><th>Rehearsals</th><th>Change while imagining</th><th>Back after the symbol</th><th>Body reacted</th></tr>";
+    r.values.forEach(v => { const tr = el("tr"); [v.value, v.n, v.reaction + "%", v.recovery === null ? "" : "+" + v.recovery + "%", v.reacted + "%"].forEach(x => tr.append(el("td", "", String(x)))); t.append(tr); }); D.append(t); }
+  $("vcSay").textContent = r.say + (r.neutral ? " Ordinary situations flagged as reactions: " + r.neutral_reacted + "% of " + r.neutral + "." : "");
+}
+
+/* ---------- generalisation ---------- */
+function logCtx(fired) { const p = P(); if (!p || !$("gCtx").value.trim()) { $("gSay").textContent = "Say where it was first."; return; }
+  const lat = parseFloat($("gLat").value); I.addContext(p, now(), $("gCtx").value.trim(), $("gTrained").checked, fired, isFinite(lat) ? lat : null);
+  $("gCtx").value = ""; $("gLat").value = ""; save(); drawTravel(); }
+$("gYes").addEventListener("click", () => logCtx(true)); $("gNo").addEventListener("click", () => logCtx(false));
+function drawTravel() { const p = P(); if (!p) { $("gSay").textContent = ""; return; } const g = I.generalisation(p);
+  $("gSay").textContent = g.say + (g.travelled_to.length ? " New places: " + g.travelled_to.slice(0, 6).join(", ") + "." : "") + (g.median_latency_s !== null ? " It starts after " + g.median_latency_s + " s (median)." : ""); }
+
+/* ---------- switching ---------- */
+function drawSwitch() {
+  const log = store.get(LOG, []), base = store.get(BASEK, profiles.length ? profiles[0].id : null), sch = store.get(SCHED, []);
+  const S = $("swBase"); S.textContent = ""; profiles.forEach(p => S.append(new Option(p.symbol + " " + p.name, p.id))); if (base) S.value = base;
+  const at = I.profileAt(sch, new Date().getHours() * 60 + new Date().getMinutes());
+  const who = profiles.find(p => p.id === I.current(log, base));
+  $("swNow").textContent = ""; $("swNow").append(el("p", "", who ? "Now: " + who.symbol + " " + who.name + "." : "No profile yet."));
+  if (at && at !== cur) { const tp = profiles.find(p => p.id === at); if (tp) { const b = el("button", "btn small", "The schedule says " + tp.name + ": switch"); b.addEventListener("click", () => { I.switchTo(log, now(), at, "schedule"); store.set(LOG, log); cur = at; feel(tp.code); save(); drawAll(); }); $("swNow").append(b); } }
+  const W = $("swSched"); W.textContent = "";
+  sch.forEach((s, i) => { const r = el("div", "two"); r.style.gridTemplateColumns = "110px 110px 1fr auto"; r.style.alignItems = "end";
+    const a = el("input"); a.type = "time"; a.value = s.from; const b = el("input"); b.type = "time"; b.value = s.to; const pr = el("select"); profiles.forEach(p => pr.append(new Option(p.name, p.id))); pr.value = s.profile;
+    const x = el("button", "btn small", "Remove");
+    const upd = () => { sch[i] = { from: a.value || "08:00", to: b.value || "12:00", profile: pr.value }; store.set(SCHED, sch); };
+    [a, b, pr].forEach(e => e.addEventListener("change", upd)); x.addEventListener("click", () => { sch.splice(i, 1); store.set(SCHED, sch); drawSwitch(); });
+    a.setAttribute("aria-label", "From"); b.setAttribute("aria-label", "To"); pr.setAttribute("aria-label", "Profile"); r.append(a, b, pr, x); W.append(r); });
+  const rep = I.switchReport(log);
+  $("swSay").textContent = rep.switches ? rep.switches + " switches: " + Object.keys(rep.by).filter(k => rep.by[k]).map(k => rep.by[k] + " by " + ({ login: "login code", schedule: "schedule", interrupt: "interrupt", person: "choice" })[k]).join(", ") + "." + (rep.median_settle_s !== null ? " A switch settles in " + rep.median_settle_s + " s (median of " + rep.settled + ")." : "") : "Switch to a profile above, then say when it has settled.";
+}
+$("swSettle").addEventListener("click", () => { const log = store.get(LOG, []); I.settle(log, now()); store.set(LOG, log); drawSwitch(); });
+$("swInterrupt").addEventListener("click", () => { const log = store.get(LOG, []), base = $("swBase").value; if (!base) return; I.interrupt(log, now(), base); store.set(LOG, log); cur = base; const p = P(); if (p) feel(p.code); save(); drawAll(); });
+$("swBase").addEventListener("change", () => store.set(BASEK, $("swBase").value));
+$("swAdd").addEventListener("click", () => { const sch = store.get(SCHED, []); if (!profiles.length) return; sch.push({ from: "08:00", to: "12:00", profile: cur || profiles[0].id }); store.set(SCHED, sch); drawSwitch(); });
+
+/* ---------- versions ---------- */
+$("vSave").addEventListener("click", () => { const p = P(); if (!p) return; I.saveVersion(p, now(), $("vNote").value.trim()); $("vNote").value = ""; save(); drawVersions(); });
+function drawVersions() {
+  const p = P(), V = $("vList"); V.textContent = ""; if (!p) return;
+  if (!p.versions.length) { V.append(el("p", "say", "No versions yet. Save one now, and again when something changes.")); return; }
+  const t = el("table"); t.innerHTML = "<tr><th>Version</th><th>Date</th><th>Note</th><th>Changed since the one before</th></tr>";
+  p.versions.slice().reverse().forEach((v, j) => {
+    const i = p.versions.length - 1 - j, prev = p.versions[i - 1], d = prev ? I.diff(prev, v) : [];
+    const tr = el("tr"); tr.append(el("td", "", "v" + v.v), el("td", "", new Date(v.ts * 1000).toLocaleDateString()), el("td", "", v.note || ""));
+    const td = el("td"); if (!prev) td.textContent = "First version"; else if (!d.length) td.textContent = "Nothing";
+    d.forEach(x => { const r = el("div"); r.append(el("b", "", (I.LEVEL_NAMES[x.field] || x.field.replace("environment.", "environment, ")) + ": ")); r.append(document.createTextNode("“" + (x.before || "—") + "” → “" + (x.after || "—") + "”")); td.append(r); });
+    tr.append(td); t.append(tr);
+  });
+  V.append(t);
+}
+
+/* ---------- simulation ---------- */
+$("simAdd").addEventListener("click", () => {
+  profiles = profiles.filter(p => !p.sim);
+  const p = I.fromTemplate("steady", "sim_steady", 0); p.name = "Steady (simulated)"; p.sim = "every level rises 1 point a month; time with others pulls it down by about 2 points";
+  const s = new I.SimIdentity(5, 1, 1.5), t0 = now() - 182 * 86400;
+  for (let w = 0; w < 26; w++) { I.rate(p, t0 + w * 7 * 86400, s.rate(w * 7)); if (w % 3 === 1) I.rate(p, t0 + w * 7 * 86400 + 7200, s.rate(w * 7, true), "after_mirroring"); }
+  const rng = new RSOSPeak.Rng(9);
+  ["the stand-up", "a hard call", "the gym", "family dinner", "a negotiation", "the dentist", "a deadline", "traffic", "a new client", "a presentation"].forEach((c, k) => I.addContext(p, t0 + k * 9 * 86400, c, k < 4, rng.u() < (k < 4 ? 0.9 : 0.6), Math.round(2 + rng.u() * 8)));
+  I.setTree(p, "A lion at the door", [{ part: "mane", context: "Before a meeting", code: ".-" }, { part: "paws", context: "On the phone", code: "-." }, { part: "eyes", context: "Saying no", code: ".." }]);
+  for (let c = 0; c < 6; c++) ["tree", "single"].forEach(k => I.addWalk(p, t0 + c * 86400 * 7 + (k === "tree" ? 0 : 1), k, ["mane", "paws", "eyes"].map(x => ({ part: x, ok: rng.u() < (k === "tree" ? 0.6 + c * 0.06 : 0.45 + c * 0.05), ms: Math.round((k === "tree" ? 1700 : 2300) * Math.pow(c + 1, -0.35) * (1 + 0.15 * rng.gauss())) }))));
+  for (let k = 0; k < 6; k++) { const b = 48 + rng.u() * 12; I.addRehearsal(p, t0 + k * 86400 * 20, ["honesty", "fairness", "honesty"][k % 3], "violation", b, b * (0.76 + rng.u() * 0.1), b * 0.97); I.addRehearsal(p, t0 + k * 86400 * 20 + 600, "", "neutral", b, b * (0.96 + rng.u() * 0.08), b); }
+  I.saveVersion(p, t0, "First version"); p.levels.values.text = "Clarity, courage, care, rest."; I.saveVersion(p, t0 + 90 * 86400, "Added rest after three months");
+  p.simTruth = p.sim; p.sim = true; profiles.push(p); cur = p.id; sel = "values"; save(); drawAll();
+  $("simTitle").scrollIntoView({ block: "start" });
+});
+$("simClear").addEventListener("click", () => { profiles = profiles.filter(p => !p.sim); if (!P()) cur = profiles.length ? profiles[0].id : null; save(); drawAll(); });
+
+function drawAll() { if (cur && !P()) cur = profiles.length ? profiles[0].id : null; if (!cur && profiles.length) cur = profiles[0].id;
+  drawProfiles(); drawTree(); drawEditor(); drawRates(); drawPractice(); drawTreeEdit(); drawConflict(); drawTravel(); drawSwitch(); drawVersions(); }
+drawAll();
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (P()) chart(); }, 150); });
+</script>
+</body>
+</html>

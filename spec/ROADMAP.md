@@ -75,18 +75,18 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 5 | **Generalisation score and an ordered glyph route**. Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route. | extension | MEMSTACK, UGCL | idea | R02–R07, 2023 |
-| 11 | **Anchor tree with attachment points**. A central image with three context images fixed to its parts, each with its own code; a guided recall walk with recall timed per part. | extension | UGCL, nodes | idea | R21, R27, 2025-04 |
-| 23 | **Identity profiles, level by level**. A symbol heads a tree of mission, identity, values, beliefs, skills, behaviour and environment, each level with an image and a code; the symbol by day, the whole chain at night. | new | IDENTITY | idea | R33–R35, 2025-05 |
-| 24 | **A language for each identity**. Each identity learned and recalled in its own language, as a context switch between identities. | new | IDENTITY, LINX | idea | R34, 2025-05-22 |
-| 25 | **Rehearsing a value conflict**. Imagine a situation that violates a value; the body's reaction is measured and the value's anchor brings it back; future-pace the new choice. | new | THERA | idea | R33, 2025-05-21 |
-| 34 | **The platform's identity library**. Device blueprints, ritual templates and a sequence builder exist; the identity library is missing. | extension | Site | partly built | Design records, 2025-05 |
-| 35 | **Identities as user profiles**. An implant is the BIOS, the architecture is the operating system, an identity is a user profile: a login code, a global interrupt, policies per profile, timed switching. | new | IDENTITY | idea | Design records, 2025-05 |
-| 37 | **Versioned profiles**. As values change, the profile changes, with a record of what changed between versions. | extension | MEMSTACK | idea | Design records, 2025-05 |
-| 39 | **An environment layer for each profile**. Clothing, scent, music and the practice space prime a profile, as contexts and triggers. | extension | IDENTITY, LINX | idea | R33, 2025-05-21 |
-| 51 | **Four-step sequence, layers in another language, a month's dose**. On a negative state: identity peak, Core Transformation, future-pacing, movement-peak vibrations; six layers practised in another language; 12 a day for a month. | extension | IDENTITY, RSX | idea | R35, 2025-05-27 |
+| 5 | **Generalisation score and an ordered glyph route**. Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route. | extension | MEMSTACK, UGCL | mostly built | R02–R07, 2023 |
+| 11 | **Anchor tree with attachment points**. A central image with three context images fixed to its parts, each with its own code; a guided recall walk with recall timed per part. | extension | UGCL, nodes | built in simulation | R21, R27, 2025-04 |
+| 23 | **Identity profiles, level by level**. A symbol heads a tree of mission, identity, values, beliefs, skills, behaviour and environment, each level with an image and a code; the symbol by day, the whole chain at night. | new | IDENTITY | built in simulation | R33–R35, 2025-05 |
+| 24 | **A language for each identity**. Each identity learned and recalled in its own language, as a context switch between identities. | new | IDENTITY, LINX | built in simulation | R34, 2025-05-22 |
+| 25 | **Rehearsing a value conflict**. Imagine a situation that violates a value; the body's reaction is measured and the value's anchor brings it back; future-pace the new choice. | new | THERA | built in simulation | R33, 2025-05-21 |
+| 34 | **The platform's identity library**. Device blueprints, ritual templates and a sequence builder exist; the identity library is missing. | extension | Site | built in simulation | Design records, 2025-05 |
+| 35 | **Identities as user profiles**. An implant is the BIOS, the architecture is the operating system, an identity is a user profile: a login code, a global interrupt, policies per profile, timed switching. | new | IDENTITY | built in simulation | Design records, 2025-05 |
+| 37 | **Versioned profiles**. As values change, the profile changes, with a record of what changed between versions. | extension | MEMSTACK | built in simulation | Design records, 2025-05 |
+| 39 | **An environment layer for each profile**. Clothing, scent, music and the practice space prime a profile, as contexts and triggers. | extension | IDENTITY, LINX | built in simulation | R33, 2025-05-21 |
+| 51 | **Four-step sequence, layers in another language, a month's dose**. On a negative state: identity peak, Core Transformation, future-pacing, movement-peak vibrations; six layers practised in another language; 12 a day for a month. | extension | IDENTITY, RSX | built in simulation | R35, 2025-05-27 |
 | 54 | **Typology network and mirroring drift**. Type image, common phrases, responses; does mirroring others pull a person away from their own profile. | merged | TYPES, IDENTITY | merged into 12 and 14 | R37, 2025-05-27 |
-| 55 | **A prepared identity week for clients**. One level a day for seven days with future-pacing, then the symbol installed in trance and three future situations. | new | THERA, RSX | idea | R38, 2025-05-28 |
+| 55 | **A prepared identity week for clients**. One level a day for seven days with future-pacing, then the symbol installed in trance and three future situations. | new | THERA, RSX | built in simulation | R38, 2025-05-28 |
 
 ### Step 5: ATLAS and the transfer engine
 

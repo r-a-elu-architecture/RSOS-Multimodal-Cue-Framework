@@ -42,7 +42,7 @@ pip install -r requirements.txt          # Python 3.10+; Node.js 18+ and a C++ c
 
 The script runs:
 
-- the RSX, RSSO and toolkit test suites (178 tests);
+- the RSX, RSSO and toolkit test suites (189 tests);
 - the conformance suite on the virtual rig and on the firmware core;
 - the board check against the firmware core in real time;
 - a regeneration of every generated file, checking that nothing changed.
@@ -50,7 +50,7 @@ The script runs:
 The same script runs on GitHub on every push (`.github/workflows/checks.yml`).
 
 Wherever a module exists in both languages, Python and JavaScript are tested to give identical results. This
-covers 18 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, PEAK, TRIAL, CHECKS, the autonomy gate, the
+covers 19 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, PEAK, TRIAL, CHECKS, the autonomy gate, IDENTITY, the
 contribution format, the device protocol with its board check, the heart-rate driver and camera heart rate.
 
 ## 4. Evidence register: every number, and what kind of evidence it is
@@ -69,6 +69,7 @@ contribution format, the device protocol with its board check, the heart-rate dr
 | Camera heart rate | Heart rate within 1 bpm on clean synthetic fingertip signals; RMSSD approximate at 30 frames a second | Synthetic signals with known beats | `rsso/results/peak.md` |
 | TRIAL | Personal effect of 1.5 points found in 42% (8 blocks) and 63.5% (12 blocks) of simulated people; false claims 3% and 4.5%; 30 people pooled to 1.14 [0.74, 1.54] for a true 1.0 | Simulated people with known effects | `rsso/results/trial.md` |
 | Autonomy gate | Strong anchors automatic in 100% of simulated people (about day 11); no-effect anchors never fire by themselves (180 firings without the gate); contaminated anchors lose automatic use within a day in 75%, 0% automatic at day 60 | Simulated people with known anchors | `rsso/results/gate.md` |
+| IDENTITY | Coherence rising 1 point a month found in 100% of simulated people over 26 weeks (2.5–3% false); drift found in 100% (2% false); tree advantage found faster in 99.5% after 12 walks (3% false); value conflict detected in 98.5% by chest strap, 81% by camera | Simulated people with known answers | `rsso/results/identity.md` |
 | Original glyphs | 146 + 1 joined pair; 147 unique vibration codes | Measured on the ledger | `rsso/results/ugcl_originals.md` |
 | Effect of the Override Protocol or nodes on people | **None measured** | — | Study kit ready: `toolkit/study_kit/` |
 

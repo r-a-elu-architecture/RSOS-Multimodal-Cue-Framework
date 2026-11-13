@@ -40,7 +40,7 @@ ITEMS = [
      "An outside sensor reports a success (a ball through the rim, a correct answer) and a reward code plays within a fraction of a second; it can be replayed at night."),
     (4, "Cue wear-out from overuse", "new", "MEMSTACK, CONTAIN", 3, "built in simulation", "R18, 2025-04-11",
      "Every appearance of a cue outside training is counted, its loss of strength modelled, and CONTAIN warns before a cue stops working."),
-    (5, "Generalisation score and an ordered glyph route", "extension", "MEMSTACK, UGCL", 4, "idea", "R02–R07, 2023",
+    (5, "Generalisation score and an ordered glyph route", "extension", "MEMSTACK, UGCL", 4, "mostly built", "R02–R07, 2023",
      "Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route."),
     (6, "A code family per learning area", "extension", "UGCL", 6, "mostly built", "R11, 2025-04-10",
      "Each learning area gets its own family of vibration codes, marked by a code prefix."),
@@ -52,7 +52,7 @@ ITEMS = [
      "A wrist cooling device and a motion sensor for posture as cue channels."),
     (10, "Pronunciation feedback from the camera", "adjacent", "Devices", 8, "idea", "R19–R20, 2025-04-12",
      "Face and lip tracking compared with a native template; moving the muscles to match is kept as a specification only."),
-    (11, "Anchor tree with attachment points", "extension", "UGCL, nodes", 4, "idea", "R21, R27, 2025-04",
+    (11, "Anchor tree with attachment points", "extension", "UGCL, nodes", 4, "built in simulation", "R21, R27, 2025-04",
      "A central image with three context images fixed to its parts, each with its own code; a guided recall walk with recall timed per part."),
     (12, "Typology chains from speech, as plug-ins", "new", "TYPES", 7, "idea", "R22, R28, R37, 2025-04/05",
      "Trait lexicons per type build a profile over a conversation; typologies are plug-ins; profiling another person needs consent."),
@@ -76,11 +76,11 @@ ITEMS = [
      "One anchor carries a vibration, a scent and a light; one scent per state; the same anchor always means the same state."),
     (22, "Anchor chain program type", "new", "RSX, PEAK", 1, "built in simulation", "R32, 2025-05-18",
      "Anchors with roles played in sequence (healing, stability, redirection, action), each phase with its own check that it worked."),
-    (23, "Identity profiles, level by level", "new", "IDENTITY", 4, "idea", "R33–R35, 2025-05",
+    (23, "Identity profiles, level by level", "new", "IDENTITY", 4, "built in simulation", "R33–R35, 2025-05",
      "A symbol heads a tree of mission, identity, values, beliefs, skills, behaviour and environment, each level with an image and a code; the symbol by day, the whole chain at night."),
-    (24, "A language for each identity", "new", "IDENTITY, LINX", 4, "idea", "R34, 2025-05-22",
+    (24, "A language for each identity", "new", "IDENTITY, LINX", 4, "built in simulation", "R34, 2025-05-22",
      "Each identity learned and recalled in its own language, as a context switch between identities."),
-    (25, "Rehearsing a value conflict", "new", "THERA", 4, "idea", "R33, 2025-05-21",
+    (25, "Rehearsing a value conflict", "new", "THERA", 4, "built in simulation", "R33, 2025-05-21",
      "Imagine a situation that violates a value; the body's reaction is measured and the value's anchor brings it back; future-pace the new choice."),
     (26, "Staged autonomy gate", "new", "CONTAIN", 3, "built in simulation", "R32, R34, 2025-05",
      "Manual training, then automatic detection, then overload conditioning, then default; an anchor may fire on its own only after it has earned it."),
@@ -98,17 +98,17 @@ ITEMS = [
      "Every term defined precisely; each module linked to the research it builds on."),
     (33, "Personal randomised experiments, pooled", "new", "TRIAL", 2, "built in simulation", "Design records, 2025-05",
      "Single-case designs: conditions chosen at random (cue or none, real or sham anchor, automatic or manual), each person's effect with an interval, pooled across people."),
-    (34, "The platform's identity library", "extension", "Site", 4, "partly built", "Design records, 2025-05",
+    (34, "The platform's identity library", "extension", "Site", 4, "built in simulation", "Design records, 2025-05",
      "Device blueprints, ritual templates and a sequence builder exist; the identity library is missing."),
-    (35, "Identities as user profiles", "new", "IDENTITY", 4, "idea", "Design records, 2025-05",
+    (35, "Identities as user profiles", "new", "IDENTITY", 4, "built in simulation", "Design records, 2025-05",
      "An implant is the BIOS, the architecture is the operating system, an identity is a user profile: a login code, a global interrupt, policies per profile, timed switching."),
     (36, "A layer that works on any hardware", "new", "Device protocol", 8, "idea", "Design records, 2025-05",
      "Programs, anchors and profiles sit above the hardware; an implant device class is written as a specification only."),
-    (37, "Versioned profiles", "extension", "MEMSTACK", 4, "idea", "Design records, 2025-05",
+    (37, "Versioned profiles", "extension", "MEMSTACK", 4, "built in simulation", "Design records, 2025-05",
      "As values change, the profile changes, with a record of what changed between versions."),
     (38, "Anchors on parts of the body", "extension", "UGCL, Devices", 8, "idea", "Design records, 2025-05",
      "Attachment points placed on the body; vibration motors at several places."),
-    (39, "An environment layer for each profile", "extension", "IDENTITY, LINX", 4, "idea", "R33, 2025-05-21",
+    (39, "An environment layer for each profile", "extension", "IDENTITY, LINX", 4, "built in simulation", "R33, 2025-05-21",
      "Clothing, scent, music and the practice space prime a profile, as contexts and triggers."),
     (40, "Recovery and override metrics", "extension", "Metrics", 7, "idea", "Design records, 2025-05",
      "Overrides per day, the share of fear events turned around, reaction time under stress, memory under fatigue."),
@@ -132,7 +132,7 @@ ITEMS = [
      "Nutrition, cold exposure and similar factors logged as covariates in personal trials, not as advice."),
     (50, "DOL-9, the daily override loop, and OXQ", "extension", "RSX, Metrics", 7, "idea", "Design records, 2025-05",
      "A precise 90-second loop (breath 4-2-6, posture, phrase, gesture, 5-15 s action) as an RSX program; OXQ = overrides / waking hours x 100."),
-    (51, "Four-step sequence, layers in another language, a month's dose", "extension", "IDENTITY, RSX", 4, "idea", "R35, 2025-05-27",
+    (51, "Four-step sequence, layers in another language, a month's dose", "extension", "IDENTITY, RSX", 4, "built in simulation", "R35, 2025-05-27",
      "On a negative state: identity peak, Core Transformation, future-pacing, movement-peak vibrations; six layers practised in another language; 12 a day for a month."),
     (52, "Trial: Core Transformation first or identity first", "new", "TRIAL", 2, "built in simulation", "R35, 2025-05-27",
      "The order question settled by a randomised crossover."),
@@ -140,7 +140,7 @@ ITEMS = [
      "The three-phase hybrid, Core Transformation first in each cycle, the identity peak first, and identity fully first."),
     (54, "Typology network and mirroring drift", "merged", "TYPES, IDENTITY", 4, "merged into 12 and 14", "R37, 2025-05-27",
      "Type image, common phrases, responses; does mirroring others pull a person away from their own profile."),
-    (55, "A prepared identity week for clients", "new", "THERA, RSX", 4, "idea", "R38, 2025-05-28",
+    (55, "A prepared identity week for clients", "new", "THERA, RSX", 4, "built in simulation", "R38, 2025-05-28",
      "One level a day for seven days with future-pacing, then the symbol installed in trance and three future situations."),
     (56, "Dual-use governance", "new", "CONTAIN", 3, "built in simulation", "R38, 2025-05-28",
      "A consent record for any profiling, an audit log, and a visible flag on anything that works below awareness."),
@@ -312,7 +312,8 @@ CLAIMS = [
 
 TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32",          # step 1, PEAK
               "C1", "C26", "C34", "C40", "C58", "C70", "C77", "C78", "C85", "C86", "C88", "C97", "C101",   # step 2, TRIAL and CHECKS
-              "C13", "C63"}   # step 3, the autonomy gate (wear-out, dose)
+              "C13", "C63",   # step 3, the autonomy gate (wear-out, dose)
+              "C16", "C17", "C41", "C61", "C62", "C82", "C89"}   # step 4, IDENTITY
 WHO = {"assistant": "Assistant (design records)", "records": "Design records", "report": "Record review", "review": "Later review"}
 
 

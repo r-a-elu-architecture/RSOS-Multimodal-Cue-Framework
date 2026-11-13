@@ -32,6 +32,10 @@ An entry here is a reference point, never a reason to drop an item: knowing what
 | Dresler et al., *Neuron* 2017 | Training in the method of loci changed memory performance and brain connectivity | 5, 11 | to verify |
 | Marian & Neisser, *J Exp Psychol: General* 2000 | Memory depends on the language in which it was learned | 24 | to verify |
 | Keysar et al., *Psychological Science* 2012 | Decisions in a foreign language reduce some biases and emotional reactions | 24, 51 | to verify |
+| Van Berkum, Holleman, Nieuwland, Otten & Murre, *Psychological Science* 20:1092, 2009 (doi:10.1111/j.1467-9280.2009.02411.x) | EEG responds within 200 to 250 ms to the first word of a statement that clashes with the reader's value system | 25 | checked |
+| Chartrand & Bargh, *J Pers Soc Psychol* 76:893, 1999 | The chameleon effect: people mimic interaction partners without intending to, and more empathic people mimic more | 54 | checked |
+| Dilts, logical (neurological) levels | Environment, behaviour, capabilities, beliefs and values, identity and a level beyond identity as a model for change | 23 | to verify |
+| Andreas & Andreas, *Core Transformation*, 1994 | A process that follows a part's intentions down to a core state and returns it through the old reaction | 51, 52 | to verify |
 | Bouton (reviews of extinction learning) | Extinction is tied to the context in which it was learned; it may not transfer | 60, 63 | to verify |
 | Meichenbaum, stress inoculation training | Graded exposure to stressors while practising coping | 26 | to verify |
 | Imagery rescripting (meta-analyses) | Benefits over passive controls; no established advantage over other active treatments | 17, 63, 64 | to verify |

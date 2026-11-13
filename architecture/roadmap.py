@@ -32,7 +32,7 @@ STEPS = [
 
 # id, title, kind, module, step, status, source, summary
 ITEMS = [
-    (1, "Peak-state anchoring with probe trials", "new", "PEAK", 1, "idea", "R08–R20, 2025-04",
+    (1, "Peak-state anchoring with probe trials", "new", "PEAK", 1, "built in simulation", "R08–R20, 2025-04",
      "A state's own vibration code is played at a measured peak (self-tap, HRV rise, Duchenne smile, EEG); cue-alone probe trials test whether the anchor really shifts the body."),
     (2, "Closed-loop sleep cueing", "new", "SLEEP", 6, "idea", "R10–R16, R25, R31, 2025-04/05",
      "Cues only in deep sleep, below waking level, stopping on arousal, with a nightly limit; the day's code replayed with light and an earbud voice; trauma gets a safety code or waking by default."),
@@ -44,7 +44,7 @@ ITEMS = [
      "Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route."),
     (6, "A code family per learning area", "extension", "UGCL", 6, "mostly built", "R11, 2025-04-10",
      "Each learning area gets its own family of vibration codes, marked by a code prefix."),
-    (7, "Phase codes in a sequence", "extension", "RSX", 1, "mostly built", "R16, 2025-04-10",
+    (7, "Phase codes in a sequence", "extension", "RSX", 1, "built in simulation", "R16, 2025-04-10",
      "Each phase of a program announces itself with its own code."),
     (8, "Craving protocol and app or place triggers", "extension", "THERA, LINX", 7, "idea", "R10, 2025-04-10",
      "A craving protocol, triggered by context such as a gambling app opening or arriving at a venue."),
@@ -72,9 +72,9 @@ ITEMS = [
      "The anchor tree as a format: any rule set, value system or skill becomes a pack."),
     (20, "Core Transformation protocol", "new", "THERA, LINX", 7, "idea", "R30, 2025-05-06",
      "The outcome chain from an unwanted state to a core state, asked one question at a time, with a code for the core state."),
-    (21, "The anchor triplet", "merged", "PEAK", 1, "merged into 1", "R31, R34, 2025-05",
+    (21, "The anchor triplet", "merged", "PEAK", 1, "built in simulation", "R31, R34, 2025-05",
      "One anchor carries a vibration, a scent and a light; one scent per state; the same anchor always means the same state."),
-    (22, "Anchor chain program type", "new", "RSX, PEAK", 1, "idea", "R32, 2025-05-18",
+    (22, "Anchor chain program type", "new", "RSX, PEAK", 1, "built in simulation", "R32, 2025-05-18",
      "Anchors with roles played in sequence (healing, stability, redirection, action), each phase with its own check that it worked."),
     (23, "Identity profiles, level by level", "new", "IDENTITY", 4, "idea", "R33–R35, 2025-05",
      "A symbol heads a tree of mission, identity, values, beliefs, skills, behaviour and environment, each level with an image and a code; the symbol by day, the whole chain at night."),
@@ -162,11 +162,11 @@ ITEMS = [
      "Imagery about the activity, imagery about a higher node flowing down, and general calming imagery; transfer to untrained activities as the outcome."),
     (65, "Library of higher nodes and a level sweep", "new", "IDENTITY, CM1", 5, "idea", "Later review (SSIT)",
      "Ten candidate nodes above language; does transfer rise, peak or fall as the node gets more abstract, per person."),
-    (66, "Anchor contamination and restoration", "new", "PEAK, MEMSTACK, CONTAIN", 1, "idea", "Framework design, 2026",
+    (66, "Anchor contamination and restoration", "new", "PEAK, MEMSTACK, CONTAIN", 1, "built in simulation", "Framework design, 2026",
      "An anchor used during an ongoing stressor can take on the stress; detect when its effect turns negative and restore it by pairing with a higher-order resource."),
     (67, "Two kinds of higher: abstraction and scope", "extension", "THERA, ATLAS", 5, "idea", "Framework design, 2026",
      "Higher by abstraction (language, agency, identity) and higher by scope (a city, a country), tested side by side."),
-    (68, "A two-symbol anchor", "extension", "UGCL, PEAK", 1, "idea", "Framework design, 2026",
+    (68, "A two-symbol anchor", "extension", "UGCL, PEAK", 1, "built in simulation", "Framework design, 2026",
      "Two symbols held together as one anchor, the same form as the Tier 013 composite."),
     (69, "A setting that prepares the state", "extension", "THERA, TRIAL", 7, "idea", "Framework design, 2026",
      "Warmth, music and imagery logged with each session so personal trials can show whether the setting matters."),
@@ -310,6 +310,7 @@ CLAIMS = [
     ("C101", "Imagery about a higher node transfers more to untrained activities than local or calming imagery.", "review", "Later review", "mechanism", "SSIT trial.", [64]),
 ]
 
+TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32"}   # claims whose test now runs (step 1, PEAK)
 WHO = {"assistant": "Assistant (design records)", "records": "Design records", "report": "Record review", "review": "Later review"}
 
 
@@ -323,7 +324,7 @@ def data() -> dict:
         "combinations": [{"id": c[0], "title": c[1], "items": c[2], "summary": c[3]} for c in COMBINATIONS],
         "hypotheses": [{"id": h[0], "title": h[1], "evidence": h[2], "status": "deferred"} for h in HYPOTHESES],
         "claims": [{"id": c[0], "claim": c[1], "by": WHO[c[2]], "source": c[3], "kind": c[4], "test": c[5],
-                    "items": c[6], "status": "untested" if c[4] not in ("correction",) else "recorded"} for c in CLAIMS],
+                    "items": c[6], "status": "recorded" if c[4] == "correction" else ("test built, untested in people" if c[0] in TEST_BUILT else "untested")} for c in CLAIMS],
         "labels": {"simulation": "Built and tested in simulation", "effect": "Effect unproven in people"},
         "_check": len(steps),
     }

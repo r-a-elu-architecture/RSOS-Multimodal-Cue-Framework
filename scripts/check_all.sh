@@ -7,7 +7,7 @@ step() { printf '\n== %s\n' "$1"; }
 
 step "RSX: language, compilers (Python and JavaScript), repository and link checks"
 (cd rsx && python3 -m unittest discover -s tests)
-step "RSSO: runtime, devices, firmware, safety, nodes, LINX, CONTAIN, THERA, CM1, contribution, board"
+step "RSSO: runtime, devices, firmware, safety, nodes, LINX, CONTAIN, THERA, CM1, PEAK, camera heart rate, contribution, board"
 (cd rsso && python3 -m unittest discover -s tests)
 step "Toolkit: cue engine and study kit"
 (cd toolkit && python3 -m unittest discover -s tests)
@@ -18,7 +18,7 @@ step "Board check against the firmware core in real time (no board)"
 step "Generated files are reproducible"
 python3 architecture/build.py >/dev/null
 python3 architecture/roadmap.py >/dev/null
-(cd rsso && python3 -m rsso.thera >/dev/null && python3 -m rsso.cm1 >/dev/null)
+(cd rsso && python3 -m rsso.thera >/dev/null && python3 -m rsso.cm1 >/dev/null && python3 -m rsso.peak --evaluate >/dev/null)
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   git diff --exit-code --stat -- architecture docs/data rsso/results spec/ROADMAP.md spec/CLAIMS.md && echo "unchanged"
 fi

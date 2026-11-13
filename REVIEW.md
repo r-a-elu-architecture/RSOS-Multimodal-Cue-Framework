@@ -42,7 +42,7 @@ pip install -r requirements.txt          # Python 3.10+; Node.js 18+ and a C++ c
 
 The script runs:
 
-- the RSX, RSSO and toolkit test suites (141 tests);
+- the RSX, RSSO and toolkit test suites (160 tests);
 - the conformance suite on the virtual rig and on the firmware core;
 - the board check against the firmware core in real time;
 - a regeneration of every generated file, checking that nothing changed.
@@ -50,8 +50,8 @@ The script runs:
 The same script runs on GitHub on every push (`.github/workflows/checks.yml`).
 
 Wherever a module exists in both languages, Python and JavaScript are tested to give identical results. This
-covers 13 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, the
-contribution format, the device protocol with its board check, and the heart-rate driver.
+covers 15 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, PEAK, the
+contribution format, the device protocol with its board check, the heart-rate driver and camera heart rate.
 
 ## 4. Evidence register: every number, and what kind of evidence it is
 
@@ -65,6 +65,8 @@ contribution format, the device protocol with its board check, and the heart-rat
 | EEG arousal detector | 2 of 2 events, none false | Synthetic signal | `rsso/rsso/eeg.py`, tests |
 | Cue engine | 60% (10 runs) and 78% (20 runs) lower regret than the best fixed setting | Synthetic population | `toolkit/VALIDATION.md` |
 | CM1 profiles | Right profile from 10 runs: 100% (clear), 96% (hard) | Synthetic population with known profiles | `rsso/results/cm1.md` |
+| PEAK anchors | With 8 cue and 4 sham probes: strong anchors found 100%, no-effect anchors called an effect 0%, contaminated anchors flagged 100%, false flags 0.7% | Simulated people with known anchor strengths | `rsso/results/peak.md` |
+| Camera heart rate | Heart rate within 1 bpm on clean synthetic fingertip signals; RMSSD approximate at 30 frames a second | Synthetic signals with known beats | `rsso/results/peak.md` |
 | Original glyphs | 146 + 1 joined pair; 147 unique vibration codes | Measured on the ledger | `rsso/results/ugcl_originals.md` |
 | Effect of the Override Protocol or nodes on people | **None measured** | — | Study kit ready: `toolkit/study_kit/` |
 
@@ -117,6 +119,7 @@ them.
 - Do the pre-specified analyses test H1–H6 as stated?
 - Is the contribution format sufficient for pooled analysis?
 - Does CM1's synthetic validation say what it claims, and no more?
+- Does PEAK's probe design (blind, against sham) answer whether an anchor works, and does its simulation say what it claims, and no more?
 
 **Privacy and security**
 

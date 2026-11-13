@@ -43,13 +43,13 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 1 | **Peak-state anchoring with probe trials**. A state's own vibration code is played at a measured peak (self-tap, HRV rise, Duchenne smile, EEG); cue-alone probe trials test whether the anchor really shifts the body. | new | PEAK | idea | R08–R20, 2025-04 |
-| 7 | **Phase codes in a sequence**. Each phase of a program announces itself with its own code. | extension | RSX | mostly built | R16, 2025-04-10 |
-| 21 | **The anchor triplet**. One anchor carries a vibration, a scent and a light; one scent per state; the same anchor always means the same state. | merged | PEAK | merged into 1 | R31, R34, 2025-05 |
-| 22 | **Anchor chain program type**. Anchors with roles played in sequence (healing, stability, redirection, action), each phase with its own check that it worked. | new | RSX, PEAK | idea | R32, 2025-05-18 |
+| 1 | **Peak-state anchoring with probe trials**. A state's own vibration code is played at a measured peak (self-tap, HRV rise, Duchenne smile, EEG); cue-alone probe trials test whether the anchor really shifts the body. | new | PEAK | built in simulation | R08–R20, 2025-04 |
+| 7 | **Phase codes in a sequence**. Each phase of a program announces itself with its own code. | extension | RSX | built in simulation | R16, 2025-04-10 |
+| 21 | **The anchor triplet**. One anchor carries a vibration, a scent and a light; one scent per state; the same anchor always means the same state. | merged | PEAK | built in simulation | R31, R34, 2025-05 |
+| 22 | **Anchor chain program type**. Anchors with roles played in sequence (healing, stability, redirection, action), each phase with its own check that it worked. | new | RSX, PEAK | built in simulation | R32, 2025-05-18 |
 | 27 | **Vibration at the peak of the inhale**. Breathing the symbol into the chest with a posture change; the code fires at the peak of the inhale. | extension | Player | mostly built | R34, 2025-05-22 |
-| 66 | **Anchor contamination and restoration**. An anchor used during an ongoing stressor can take on the stress; detect when its effect turns negative and restore it by pairing with a higher-order resource. | new | PEAK, MEMSTACK, CONTAIN | idea | Framework design, 2026 |
-| 68 | **A two-symbol anchor**. Two symbols held together as one anchor, the same form as the Tier 013 composite. | extension | UGCL, PEAK | idea | Framework design, 2026 |
+| 66 | **Anchor contamination and restoration**. An anchor used during an ongoing stressor can take on the stress; detect when its effect turns negative and restore it by pairing with a higher-order resource. | new | PEAK, MEMSTACK, CONTAIN | built in simulation | Framework design, 2026 |
+| 68 | **A two-symbol anchor**. Two symbols held together as one anchor, the same form as the Tier 013 composite. | extension | UGCL, PEAK | built in simulation | Framework design, 2026 |
 
 ### Step 2: TRIAL and CHECKS
 

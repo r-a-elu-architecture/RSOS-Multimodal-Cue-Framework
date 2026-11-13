@@ -23,9 +23,9 @@ a{color:var(--glow)}
 header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
 header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
 .mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
-nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 16px}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 14px}
 @media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
-nav a{color:var(--muted);text-decoration:none;font-size:.95rem;white-space:nowrap}
+nav a{color:var(--muted);text-decoration:none;font-size:.9rem;white-space:nowrap}
 nav a:hover,nav a[aria-current=page]{color:var(--text)}
 h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:20ch;text-wrap:balance}
 h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:58px 0 6px}
@@ -46,6 +46,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:58px 0 6px}
 .tile.partly{border-color:var(--gold);box-shadow:inset 0 -14px 0 rgba(232,176,74,.35)}
 .tile.mostly{border-color:var(--gold);background:rgba(232,176,74,.35)}
 .tile.merged{border-style:dashed;color:var(--muted)}
+.tile.built{border-color:var(--gold);background:var(--gold);color:var(--ink)}
 .tile.sel{outline:2px solid var(--glow);outline-offset:2px}
 .tile.dim{opacity:.28}
 .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.84rem;color:var(--muted);margin:12px 0 0}
@@ -53,6 +54,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:58px 0 6px}
 .legend i.partly{border-color:var(--gold);box-shadow:inset 0 -6px 0 rgba(232,176,74,.35)}
 .legend i.mostly{border-color:var(--gold);background:rgba(232,176,74,.35)}
 .legend i.merged{border-style:dashed}
+.legend i.built{border-color:var(--gold);background:var(--gold)}
 .panel{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;position:sticky;top:16px}
 .panel h3{font-family:var(--serif);font-weight:500;font-size:1.25rem;line-height:1.25;margin:0 0 6px}
 .panel .meta{color:var(--muted);font-size:.84rem;margin:0 0 10px}
@@ -93,7 +95,7 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html" aria-current="page">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html" aria-current="page">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>From the design records to the build</h1>
@@ -102,7 +104,7 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 
   <h2 id="map">The plan, item by item</h2>
   <p class="hint">Nine steps, built in this order. Each square is one item; select it to see what it is, where it came from and the claims it will test.</p>
-  <div class="legend" aria-hidden="true"><span><i></i>Idea</span><span><i class="partly"></i>Partly built</span><span><i class="mostly"></i>Mostly built</span><span><i class="merged"></i>Merged into another item</span></div>
+  <div class="legend" aria-hidden="true"><span><i></i>Idea</span><span><i class="partly"></i>Partly built</span><span><i class="mostly"></i>Mostly built</span><span><i class="built"></i>Built in simulation</span><span><i class="merged"></i>Merged into another item</span></div>
   <div class="mapwrap">
     <div class="map" id="rows"></div>
     <aside class="panel" id="panel" aria-live="polite"><h3>Select an item</h3><p class="meta" id="totals"></p><p>Every step is built simulation first, with Python and browser versions that give identical results, a written spec, and a protocol kit so clinicians, labs, universities and companies can run it with real instruments.</p></aside>
@@ -133,7 +135,7 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 <script>
 const $ = id => document.getElementById(id);
 const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
-const cls = s => s.startsWith("partly") ? "partly" : s.startsWith("mostly") ? "mostly" : s.startsWith("merged") ? "merged" : "idea";
+const cls = s => s.startsWith("built") ? "built" : s.startsWith("partly") ? "partly" : s.startsWith("mostly") ? "mostly" : s.startsWith("merged") ? "merged" : "idea";
 let D, tiles = {}, sel = null;
 
 function showItem(id, fromTile) {

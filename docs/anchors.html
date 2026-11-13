@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anchors — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<meta name="description" content="Anchors you can measure: capture a cue at a peak state, test it with blind probe trials against a sham cue, see its strength with an interval, and catch an anchor that is taking on stress. Heart rate from the phone camera.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --glyph:'Noto Sans Symbols','Noto Sans Symbols 2','Noto Sans Math','Segoe UI Symbol','Apple Symbols',Symbola,'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;justify-content:space-between;align-items:baseline;padding-top:24px;flex-wrap:wrap;gap:8px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 14px}
+@media (max-width:700px){nav{justify-content:flex-start;gap:4px 16px}}
+nav a{color:var(--muted);text-decoration:none;font-size:.9rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:58px 0 6px}
+h3{font-family:var(--serif);font-weight:500;font-size:1.2rem;margin:0}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:70ch}
+.labels{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:.86rem;color:var(--muted)}
+.labels span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gold);vertical-align:1px}
+.labels span.u::before{background:transparent;border:1px solid var(--muted)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer;margin:6px 8px 0 0}
+.btn:hover{border-color:var(--gold)}
+.btn.main{border-color:var(--gold);color:var(--glow)}
+.btn.small{padding:5px 11px;font-size:.82rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;margin-top:20px}
+.card{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.head{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center}
+.orb{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--glyph);font-size:30px;line-height:1;border:1px solid var(--line)}
+.orb.wide{font-size:22px}
+.name small{display:block;color:var(--muted);font-size:.82rem;font-family:var(--sans)}
+.chip{display:inline-block;font-size:.78rem;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted);white-space:nowrap}
+.chip.strong{border-color:var(--ok);color:var(--ok)}
+.chip.present{border-color:var(--gold);color:var(--glow)}
+.chip.weakening{border-color:var(--warn);color:var(--warn)}
+.chip.contaminated{border-color:var(--stop);color:var(--stop)}
+.chip.sim{border-style:dashed}
+.code{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.84rem;cursor:pointer;background:none;border:0;padding:0;font-family:inherit}
+.code svg .tm.on{fill:var(--glow)}
+.chips{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.acts{display:flex;flex-wrap:wrap;align-items:center}
+.acts .btn:last-child{margin-left:auto;border-color:transparent;color:var(--muted)}
+.chan{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.84rem;color:var(--muted)}
+.chan i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.curve{width:100%;height:96px;display:block}
+.est{font-size:.9rem;margin:0}
+.est small{display:block;color:var(--muted);font-size:.8rem}
+.est b{font-family:var(--serif);font-weight:500;font-size:1.15rem;color:var(--glow)}
+.say{color:var(--muted);font-size:.86rem;margin:0}
+.card > div:empty{display:none}
+.alarm{border-left:3px solid var(--stop);padding:8px 12px;font-size:.88rem}
+.alarm.medium{border-color:var(--warn)}
+.alarm ol{margin:6px 0 0;padding-left:18px}
+.flow{background:var(--ink-3);border-radius:10px;padding:14px 16px;font-size:.9rem}
+.flow p{margin:0 0 8px}
+.scale{display:flex;flex-wrap:wrap;gap:6px}
+.scale button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--text);font:inherit;cursor:pointer}
+.scale button:hover{border-color:var(--gold)}
+.bar{height:6px;background:var(--ink);border-radius:3px;overflow:hidden;margin:8px 0}
+.bar div{height:100%;width:0;background:var(--gold);transition:width .3s linear}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+input[type=color]{width:56px;height:36px;border:1px solid var(--line);border-radius:6px;background:var(--ink);padding:2px}
+.chainrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+.step{border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:10px;align-items:center}
+.step .g{font-family:var(--glyph);font-size:22px}
+.step small{display:block;color:var(--muted);font-size:.78rem}
+.arrow{color:var(--muted)}
+.flash{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .25s}
+textarea{width:100%;min-height:180px;background:var(--ink);border:1px solid var(--line);border-radius:8px;color:var(--text);font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;padding:10px}
+.empty{border:1px dashed var(--line);border-radius:14px;padding:26px;color:var(--muted);text-align:left}
+.hr{font-family:var(--serif);font-size:2rem;color:var(--glow)}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+@media (max-width:760px){.two{grid-template-columns:1fr}.cards{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.bar div,.flash{transition:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html" aria-current="page">Anchors</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>Anchors you can measure</h1>
+  <p class="lede">An anchor is a cue paired with a state: a vibration code, a light, a scent, a phrase, a glyph. Here it becomes a measured object. Pair it at a peak, then test it with blind probes: the cue alone, or a sham cue, with your heart measured before and after. Its strength shows with an interval, and the page warns you when an anchor starts to take on stress instead of relieving it.</p>
+  <div class="labels"><span>Built and tested in simulation</span><span class="u">Effect unproven in people</span></div>
+
+  <h2 id="yours">Your anchors</h2>
+  <p class="hint">Stored only in this browser. Tap a code to feel it.</p>
+  <div class="cards" id="cards"></div>
+
+  <details class="panel" id="newPanel">
+    <summary style="cursor:pointer;font-family:var(--serif);font-size:1.15rem">New anchor</summary>
+    <div class="two">
+      <div>
+        <label for="nGlyph">Glyph (each has its own vibration code)</label>
+        <select id="nGlyph"></select>
+        <label for="nName">Name</label>
+        <input type="text" id="nName" placeholder="Lion">
+        <label for="nRole">Role in a chain</label>
+        <select id="nRole"><option value="healing">Healing</option><option value="stability">Stability</option><option value="redirection" selected>Redirection</option><option value="lockin">Lock-in</option></select>
+      </div>
+      <div>
+        <label for="nPhrase">Phrase</label>
+        <input type="text" id="nPhrase" placeholder="I move. I act.">
+        <label for="nScent">Scent (one per state)</label>
+        <input type="text" id="nScent" placeholder="cedar">
+        <label for="nLight">Light</label>
+        <input type="color" id="nLight" value="#e8b04a">
+      </div>
+    </div>
+    <button class="btn main" id="create">Create anchor</button> <span class="hint" id="createMsg"></span>
+  </details>
+
+  <h2 id="camera">Heart rate from your camera</h2>
+  <p class="lede">Cover the rear camera with a fingertip, press lightly and keep still. On Android the flash turns on by itself; on iPhone, hold the finger against a bright light. Thirty seconds gives heart rate and, when the signal is very clean, heart rate variability (RMSSD).</p>
+  <div class="panel">
+    <button class="btn main" id="camGo">Measure for 30 seconds</button>
+    <button class="btn" id="camBase">Measure my resting baseline</button>
+    <div class="bar" aria-hidden="true"><div id="camBar"></div></div>
+    <p class="hint" id="camMsg" aria-live="polite">Your measurements are used for captures and probes, and never leave this browser.</p>
+    <p id="camOut"></p>
+  </div>
+
+  <h2 id="chain">Chains</h2>
+  <p class="lede">Anchors play in role order: healing, stability, redirection, lock-in. After each phase you rate how calm you are, and the report shows which phase did its job.</p>
+  <div class="panel">
+    <div class="chainrow" id="chainRow"></div>
+    <div id="chainFlow"></div>
+    <button class="btn main" id="chainPlay">Play the chain</button>
+    <button class="btn" id="chainRsx">Show it as an RSX program</button>
+    <textarea id="rsxOut" hidden aria-label="RSX program for the chain" readonly></textarea>
+  </div>
+
+  <h2 id="simulation">See it on simulated people</h2>
+  <p class="lede">Four simulated anchors with known answers: a strong one, a weak one, one with no effect, and one taken over by use during stress. Each was paired eight times and probed eight times against four sham probes. Compare what the page concludes with the truth.</p>
+  <div class="panel">
+    <button class="btn" id="simAdd">Add the simulated anchors</button>
+    <button class="btn" id="simClear">Remove simulated anchors</button>
+    <p class="hint">How well this works across many simulated people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/peak.md">rsso/results/peak.md</a>. To run it with real people and instruments: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/PEAK_PROTOCOL_KIT.md">the protocol kit</a>.</p>
+  </div>
+</main>
+<div class="flash" id="flash" aria-hidden="true"></div>
+<footer>PEAK is <code>rsso/rsso/peak.py</code>, identically <code>docs/js/peak.js</code>; camera heart rate is <code>rsso/rsso/ppg.py</code>, identically <code>docs/js/ppg.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/PEAK.md">spec/PEAK.md</a>. A strong anchor is a measured effect, not a treatment; if something feels wrong, stop and use the <a href="safety.html">Safety page</a>.</footer>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.14.0"></script>
+<script src="js/ppg.js?v=1.14.0"></script>
+<script>
+const $ = id => document.getElementById(id);
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
+const P = window.RSOSPeak, G = window.RSOSPpg;
+const KEY = "rsos.anchors", BASE = "rsos.anchors.baseline";
+const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } } };
+let anchors = store.get(KEY, []), GLYPHS = [], busy = false;
+const save = () => store.set(KEY, anchors);
+const now = () => Math.floor(Date.now() / 1000);
+const STATUS = { building: "Building", strong: "Strong", present: "Present", weakening: "Weakening", contaminated: "Contaminated", unclear: "Unclear" };
+const fmt = x => (x > 0 ? "+" : "") + x;
+
+function flash(color) {
+  const f = $("flash"); f.style.background = "radial-gradient(circle at 50% 45%, " + color + "55, transparent 60%)";
+  f.style.opacity = 1; setTimeout(() => { f.style.opacity = 0; }, 900);
+}
+function speak(text) { try { if (text && window.speechSynthesis) { const u = new SpeechSynthesisUtterance(text); u.rate = 0.9; speechSynthesis.speak(u); } } catch (e) { /* no voice */ } }
+function play(a, marks) { flash(a.channels.light || "#e8b04a"); return UGCL.feel(a.code, { marks }); }
+
+function curve(s, light) {
+  const W = 300, H = 96, pad = 10, ef = s.effects, thr = s.threshold;
+  const vals = ef.concat([thr, 0], s.lo !== null ? [s.lo, s.hi] : []);
+  let top = Math.max(...vals), bot = Math.min(...vals); const span = (top - bot) || 1; top += span * 0.12; bot -= span * 0.12;
+  const y = v => pad + (top - v) / (top - bot) * (H - 2 * pad), x = k => pad + (ef.length < 2 ? (W - 2 * pad) / 2 : k * (W - 2 * pad) / (ef.length - 1));
+  let svg = '<svg class="curve" viewBox="0 0 ' + W + " " + H + '" preserveAspectRatio="none" role="img" aria-label="Effect of each probe">';
+  svg += '<line x1="0" x2="' + W + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="#2e3858"/>';
+  svg += '<line x1="0" x2="' + W + '" y1="' + y(thr) + '" y2="' + y(thr) + '" stroke="#2e3858" stroke-dasharray="3 4"/>';
+  if (s.lo !== null && s.hi !== null) svg += '<rect x="0" width="' + W + '" y="' + y(s.hi) + '" height="' + Math.max(1, y(s.lo) - y(s.hi)) + '" fill="' + light + '" opacity=".12"/>';
+  if (ef.length > 1) svg += '<polyline fill="none" stroke="' + light + '" stroke-width="2" points="' + ef.map((v, k) => x(k) + "," + y(v)).join(" ") + '"/>';
+  ef.forEach((v, k) => { svg += '<circle cx="' + x(k) + '" cy="' + y(v) + '" r="3.5" fill="' + (v < 0 ? "#ef7d6d" : light) + '"/>'; });
+  return svg + "</svg>";
+}
+
+function card(a) {
+  const s = P.strength(a), c = P.contamination(a), light = a.channels.light || "#e8b04a";
+  const st = c.contaminated ? "contaminated" : s.status;
+  const C = el("article", "card"); C.dataset.id = a.id;
+  const head = el("div", "head"), orb = el("div", "orb" + ([...a.glyph].length > 2 ? " wide" : ""), a.glyph);
+  orb.style.background = light + "22"; orb.style.borderColor = light + "88";
+  const nm = el("div", "name"); nm.append(el("h3", "", a.name), el("small", "", ({ healing: "Healing", stability: "Stability", redirection: "Redirection", lockin: "Lock-in" })[a.role]));
+  const chips = el("div", "chips"); chips.append(el("span", "chip " + st, STATUS[st])); if (a.sim) chips.append(el("span", "chip sim", "Simulated"));
+  head.append(orb, nm, chips); C.append(head);
+  const code = el("button", "code"); code.setAttribute("aria-label", "Feel the code " + a.code); code.innerHTML = UGCL.codeSVG(a.code, light, 10); code.append(el("span", "", a.code));
+  code.addEventListener("click", () => play(a, code)); C.append(code);
+  const ch = el("div", "chan");
+  const li = el("span"); const dot = el("i"); dot.style.background = light; li.append(dot, document.createTextNode("light")); ch.append(li);
+  if (a.channels.scent) ch.append(el("span", "", "scent: " + a.channels.scent));
+  if (a.channels.phrase) ch.append(el("span", "", "“" + a.channels.phrase + "”"));
+  ch.append(el("span", "", a.captures.length + " captures, " + a.probes.length + " probes, " + a.uses.length + " uses"));
+  C.append(ch);
+  if (a.sim) C.append(el("p", "say", "Simulated person: the truth is " + a.sim + "."));
+  if (s.n_cue) {
+    const box = el("div"); box.innerHTML = curve(s, light); C.append(box);
+    const est = el("p", "est");
+    est.innerHTML = "<b>" + fmt(s.estimate) + (s.metric === "rmssd_pct" ? "%" : "") + "</b> " + (s.lo !== null ? "<span>[" + fmt(s.lo) + ", " + fmt(s.hi) + "]</span>" : "");
+    est.append(el("small", "", s.metric_name + ", against " + (s.against === "sham" ? "sham cues" : "no cue") + ", " + s.n_cue + " probes"));
+    C.append(est);
+  }
+  C.append(el("p", "say", c.contaminated ? "Its recent probes turned negative: the cue is now linked with stress. Restore it before using it again." : s.say));
+  if (c.risk !== "low") {
+    const al = el("div", "alarm" + (c.risk === "medium" ? " medium" : ""));
+    const why = c.reasons.join("; "); al.append(el("strong", "", c.risk === "high" ? "This anchor is taking on stress." : "Watch this anchor."), document.createTextNode(" " + why.charAt(0).toUpperCase() + why.slice(1) + "."));
+    const plan = P.restorationPlan(a, anchors.find(x => x.id !== a.id && x.role === "healing" && P.strength(x).status === "strong") || null);
+    const ol = el("ol"); plan.steps.forEach(t => ol.append(el("li", "", t))); al.append(ol); C.append(al);
+  }
+  const flow = el("div"); C.append(flow);
+  const acts = el("div", "acts");
+  const bCap = el("button", "btn small main", "I'm at a peak"), bProbe = el("button", "btn small", "Run a probe"), bUse = el("button", "btn small", "I used it"), bDel = el("button", "btn small", "Remove");
+  bCap.addEventListener("click", () => capture(a, flow));
+  bProbe.addEventListener("click", () => probe(a, flow));
+  bUse.addEventListener("click", () => logUse(a, flow));
+  bDel.addEventListener("click", () => { if (bDel.dataset.sure) { anchors = anchors.filter(x => x.id !== a.id); save(); draw(); } else { bDel.dataset.sure = 1; bDel.textContent = "Remove for good"; } });
+  acts.append(bCap, bProbe, bUse, bDel); C.append(acts);
+  return C;
+}
+
+function draw() {
+  const K = $("cards"); K.textContent = "";
+  if (!anchors.length) {
+    const e = el("div", "empty"); e.append(el("h3", "", "Create your first anchor"), el("p", "", "Pick a glyph, a role, a light and a phrase below, or add the simulated anchors to see how measurement works."));
+    const b = el("button", "btn main", "New anchor"); b.addEventListener("click", () => { $("newPanel").open = true; $("nGlyph").focus(); }); e.append(b); K.append(e);
+  } else anchors.forEach(a => K.append(card(a)));
+  drawChain();
+}
+
+function scale(label, cb) {
+  const w = el("div"); w.append(el("p", "", label)); const S = el("div", "scale");
+  for (let k = 0; k <= 10; k++) { const b = el("button", "", String(k)); b.setAttribute("aria-label", label + " " + k); b.addEventListener("click", () => cb(k)); S.append(b); }
+  w.append(S); return w;
+}
+async function cameraReading(msgEl) {
+  const bar = el("div", "bar"), fill = el("div"); bar.append(fill); msgEl.append(bar);
+  try {
+    const { result } = await G.measure({ seconds: 30, onProgress: (f, covered) => { fill.style.width = Math.round(f * 100) + "%"; fill.style.background = covered ? "#e8b04a" : "#a3abc6"; } });
+    bar.remove(); return result;
+  } catch (e) { bar.remove(); return { ok: false, say: "The camera could not be used: " + (e.message || e) }; }
+}
+
+function capture(a, flow) {
+  if (busy) return; flow.textContent = "";
+  const f = el("div", "flow");
+  f.append(el("p", "", "Pair the anchor with a peak: a moment of calm strength, after a run or a cold shower, at the peak of a hypnosis track."));
+  const tap = el("button", "btn main", "I'm there now"), cam = el("button", "btn", "Measure first with the camera");
+  tap.addEventListener("click", () => f.replaceChildren(scale("How strong is the state now (0–10)?", k => {
+    P.addCapture(a, { source: "self_tap", intensity: k }, null, now()); save(); play(a); speak(a.channels.phrase);
+    f.replaceChildren(el("p", "", "Paired. Breathe it in while the code and the light play.")); setTimeout(draw, 2500);
+  })));
+  cam.addEventListener("click", async () => {
+    busy = true; f.replaceChildren(el("p", "", "Fingertip on the camera, keep still…")); const r = await cameraReading(f); busy = false;
+    if (!r.ok) { f.replaceChildren(el("p", "", r.say)); return; }
+    const base = store.get(BASE, null), sample = { source: base && r.rmssd_ok ? "hrv" : "self_tap", hr: r.hr, rmssd: r.rmssd_ok ? r.rmssd : null };
+    const c = P.addCapture(a, sample, base, now()); save();
+    if (c.ok) { play(a); speak(a.channels.phrase); f.replaceChildren(el("p", "", "Paired at " + r.hr + " bpm (" + c.reason + ").")); setTimeout(draw, 2500); }
+    else f.replaceChildren(el("p", "", "Not paired: " + c.reason + ". Try again at a stronger moment, or mark it yourself."));
+  });
+  f.append(tap, cam); flow.append(f);
+}
+
+function shamCode(a) {
+  const mine = new Set(anchors.map(x => x.code));
+  const pool = GLYPHS.filter(g => g.tacton && !mine.has(g.tacton) && !g.tacton.includes(" ") && g.tacton.length === a.code.length);
+  const any = pool.length ? pool : GLYPHS.filter(g => g.tacton && !mine.has(g.tacton));
+  return any.length ? any[Math.floor(Math.random() * any.length)].tacton : "-..-";
+}
+function probe(a, flow) {
+  if (busy) return; flow.textContent = "";
+  const f = el("div", "flow"), rec = { ts: now(), kind: Math.random() < 1 / 3 ? "sham" : "cue" };
+  const useCam = el("button", "btn main", "With the camera (30 s before, 30 s after)"), rateOnly = el("button", "btn", "Calm rating only");
+  f.append(el("p", "", "A probe plays either this anchor's code alone or a sham code, chosen at random. You find out which afterwards."), useCam, rateOnly);
+  const finish = () => { P.addProbe(a, rec); save(); f.replaceChildren(el("p", "", "Done. That was " + (rec.kind === "cue" ? "the anchor's code." : "a sham code, never paired with any state."))); setTimeout(draw, 2200); };
+  const cue = () => { const code = rec.kind === "cue" ? a.code : shamCode(a); flash(rec.kind === "cue" ? (a.channels.light || "#e8b04a") : "#a3abc6"); return UGCL.feel(code, {}); };
+  rateOnly.addEventListener("click", () => f.replaceChildren(scale("Calm right now (0–10)?", b => {
+    rec.calm_before = b; f.replaceChildren(el("p", "", "Close your eyes. The code plays now; stay with whatever comes for 30 seconds."));
+    cue(); setTimeout(() => f.replaceChildren(scale("Calm now (0–10)?", af => { rec.calm_after = af; finish(); })), 30000);
+  })));
+  useCam.addEventListener("click", async () => {
+    busy = true; f.replaceChildren(el("p", "", "Before: fingertip on the camera, keep still…"));
+    const r1 = await cameraReading(f);
+    if (!r1.ok) { busy = false; f.replaceChildren(el("p", "", r1.say)); return; }
+    rec.hr_before = r1.hr; if (r1.rmssd_ok) rec.rmssd_before = r1.rmssd;
+    f.replaceChildren(el("p", "", "Lift the finger. The code plays now; then put the finger back.")); cue();
+    await new Promise(res => setTimeout(res, 3500));
+    f.replaceChildren(el("p", "", "After: fingertip on the camera…"));
+    const r2 = await cameraReading(f); busy = false;
+    if (!r2.ok) { f.replaceChildren(el("p", "", r2.say + " The probe was not saved.")); return; }
+    rec.hr_after = r2.hr; if (r2.rmssd_ok && rec.rmssd_before !== undefined) rec.rmssd_after = r2.rmssd; else delete rec.rmssd_before;
+    finish();
+  });
+  flow.append(f);
+}
+function logUse(a, flow) {
+  flow.textContent = ""; const f = el("div", "flow");
+  f.append(el("p", "", "You fired this anchor outside practice. Was it during stress?"));
+  const y = el("button", "btn", "Yes, during stress"), n = el("button", "btn", "No, in calm");
+  y.addEventListener("click", () => { P.addUse(a, now(), true); save(); draw(); });
+  n.addEventListener("click", () => { P.addUse(a, now(), false); save(); draw(); });
+  f.append(y, n); flow.append(f);
+}
+
+function drawChain() {
+  const R = $("chainRow"); R.textContent = "";
+  const ph = P.chain(anchors.filter(a => !a.sim));
+  if (!ph.length) { R.append(el("p", "hint", "Create anchors with different roles to build a chain.")); return; }
+  ph.forEach((p, k) => {
+    if (k) R.append(el("span", "arrow", "→"));
+    const s = el("div", "step"); s.append(el("span", "g", p.glyph)); const t = el("div"); t.append(document.createTextNode(p.role_name), el("small", "", p.code)); s.append(t); R.append(s);
+  });
+}
+$("chainPlay").addEventListener("click", () => {
+  const list = anchors.filter(a => !a.sim), ph = P.chain(list), F = $("chainFlow"); F.textContent = "";
+  if (!ph.length) return;
+  const results = []; let k = 0, before = null;
+  const box = el("div", "flow"); F.append(box);
+  const next = () => {
+    if (k >= ph.length) { const rep = P.chainReport(results); box.replaceChildren(el("p", "", rep.worked + " of " + rep.of + " phases raised calm by a point or more." + (rep.weakest ? " Weakest: " + rep.weakest + "." : "")));
+      rep.phases.forEach(x => box.append(el("p", "hint", x.role + ": " + (x.change === null ? "no rating" : fmt(x.change))))); return; }
+    const p = ph[k], a = list.find(x => x.id === p.anchor);
+    box.replaceChildren(el("p", "", p.role_name + ": " + p.glyph + (p.phrase ? ": " + p.phrase : "")));
+    play(a); speak(p.phrase);
+    setTimeout(() => box.append(scale("Calm now (0–10)?", v => { results.push({ role: p.role, calm_before: before, calm_after: v }); before = v; k++; next(); })), 2500);
+  };
+  box.append(scale("Calm before the chain (0–10)?", v => { before = v; next(); }));
+});
+$("chainRsx").addEventListener("click", () => { const t = $("rsxOut"); t.hidden = !t.hidden; t.value = P.chainRsx(anchors.filter(a => !a.sim)); });
+
+$("camGo").addEventListener("click", () => cam(false));
+$("camBase").addEventListener("click", () => cam(true));
+async function cam(asBase) {
+  if (busy) return; busy = true; $("camOut").textContent = ""; $("camMsg").textContent = "Fingertip on the camera, keep still…";
+  try {
+    const { result: r } = await G.measure({ seconds: 30, onProgress: (f, covered) => { $("camBar").style.width = Math.round(f * 100) + "%"; $("camMsg").textContent = covered ? "Reading your pulse…" : "Cover the camera fully with your fingertip."; } });
+    $("camMsg").textContent = r.say;
+    if (r.hr !== null) {
+      $("camOut").innerHTML = '<span class="hr">' + r.hr + "</span> bpm, " + (r.rmssd_ok ? "RMSSD " + r.rmssd + " ms" : "RMSSD not clean enough") + ", quality " + r.quality + "%" + (r.torch ? "" : ", flash not available");
+      if (asBase && r.ok) { store.set(BASE, { hr: r.hr, rmssd: r.rmssd_ok ? r.rmssd : null, ts: now() }); $("camMsg").textContent = "Saved as your resting baseline."; }
+    }
+  } catch (e) { $("camMsg").textContent = "The camera could not be used: " + (e.message || e); }
+  busy = false; setTimeout(() => { $("camBar").style.width = "0"; }, 800);
+}
+
+$("simAdd").addEventListener("click", () => {
+  anchors = anchors.filter(a => !a.sim);
+  [["strong", 3, "Gold lion", "🦁", "#e8b04a", "..-"], ["weak", 17, "Seedling", "🌱", "#8fd19e", ". ."], ["none", 29, "Feather", "🪶", "#a3abc6", ".--."], ["contaminated", 41, "Shield", "🛡", "#f0a35a", "- --"]]
+    .forEach(([kind, seed, name, glyph, light, code]) => { const sc = P.scenario(kind, seed); const a = sc.anchor;
+      a.id = "sim-" + kind; a.name = name; a.glyph = glyph; a.channels.glyph = glyph; a.channels.light = light; a.code = a.channels.vibration = code;
+      a.sim = ({ strong: "a strong anchor", weak: "a weak anchor", none: "an anchor with no effect", contaminated: "an anchor taken over by use during stress" })[kind] + ", true strength " + sc.true_strength + "% now"; anchors.push(a); });
+  save(); draw(); $("yours").scrollIntoView();
+});
+$("simClear").addEventListener("click", () => { anchors = anchors.filter(a => !a.sim); save(); draw(); });
+
+$("nGlyph").addEventListener("change", () => { const g = GLYPHS.find(x => x.id === $("nGlyph").value); if (g && !$("nName").dataset.edited) $("nName").value = g.name; });
+$("nName").addEventListener("input", () => { $("nName").dataset.edited = 1; });
+$("create").addEventListener("click", () => {
+  const g = GLYPHS.find(x => x.id === $("nGlyph").value);
+  if (!g) { $("createMsg").textContent = "Pick a glyph first."; return; }
+  if (anchors.some(a => a.code === g.tacton && !a.sim)) { $("createMsg").textContent = "You already have an anchor with this glyph's code. Pick another glyph."; return; }
+  try {
+    const a = P.makeAnchor("a" + Date.now(), $("nName").value.trim() || g.name, g.char, g.tacton, $("nRole").value, $("nScent").value.trim() || null, $("nLight").value, $("nPhrase").value.trim() || null, now());
+    anchors.unshift(a); save(); draw(); $("createMsg").textContent = "Created. Pair it at a peak a few times, then run probes.";
+    ["nName", "nScent", "nPhrase"].forEach(k => { $(k).value = ""; delete $(k).dataset.edited; });
+  } catch (e) { $("createMsg").textContent = e.message; }
+});
+
+fetch("ugcl/originals.json?v=1.10.0").then(r => r.json()).then(d => {
+  GLYPHS = d.glyphs.filter(g => g.tacton && g.char);
+  const S = $("nGlyph");
+  GLYPHS.forEach(g => { const o = el("option", "", g.char + "  " + g.name + "  " + g.tacton); o.value = g.id; S.append(o); });
+  S.value = "O001"; $("nName").value = "Lion Face";
+}).catch(() => { $("createMsg").textContent = "Glyphs could not be loaded. Open this page online once to keep it for offline use."; });
+draw();
+</script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
+</body>
+</html>

@@ -115,18 +115,18 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 8 | **Craving protocol and app or place triggers**. A craving protocol, triggered by context such as a gambling app opening or arriving at a venue. | extension | THERA, LINX | idea | R10, 2025-04-10 |
-| 12 | **Typology chains from speech, as plug-ins**. Trait lexicons per type build a profile over a conversation; typologies are plug-ins; profiling another person needs consent. | new | TYPES | idea | R22, R28, R37, 2025-04/05 |
-| 13 | **The five-step level operator chain**. Detect, analyse, modify, output, future-pace; a classifier for which level a sentence comes from (environment to purpose); every change passes the LINX router and CONTAIN. | new | LINX, THERA | idea | R23, 2025-04-20 |
-| 14 | **Therapist decision matrix and copilot**. A central meaning with three trigger cues and three responses; the therapist memorises it, the copilot runs it on a live transcript, and agreement is measured. | new | THERA | idea | R24, 2025-04-20 |
-| 16 | **Four-day block, voice-recognised contexts, timed burst**. A four-day acquisition block per principle; entering a real context recognised from speech or sound fires the code; a timed vibration burst. | extension | RSX, LINX | idea | R26, 2025-04-23 (record truncated) |
-| 17 | **Re-living an event with a symbol and light**. After an event, replay it in imagination with the symbol and radiant light and rehearse the new behaviour (imagery rescripting), timed and measured. | extension | Player, THERA | idea | R28, 2025-04-27 |
-| 20 | **Core Transformation protocol**. The outcome chain from an unwanted state to a core state, asked one question at a time, with a code for the core state. | new | THERA, LINX | idea | R30, 2025-05-06 |
-| 40 | **Recovery and override metrics**. Overrides per day, the share of fear events turned around, reaction time under stress, memory under fatigue. | extension | Metrics | idea | Design records, 2025-05 |
-| 41 | **Perceptual-event triggers**. Unusual perceptual states as a trigger type, always routed through CONTAIN's escalation path. | new | LINX, CONTAIN | idea | Design records, 2025-05 |
-| 47 | **Life-timeline memory protocol**. Scattered life events mapped into ordered nodes with glyphs (memory specificity training). | new | THERA | idea | Design records, 2025-05 |
-| 50 | **DOL-9, the daily override loop, and OXQ**. A precise 90-second loop (breath 4-2-6, posture, phrase, gesture, 5-15 s action) as an RSX program; OXQ = overrides / waking hours x 100. | extension | RSX, Metrics | idea | Design records, 2025-05 |
-| 69 | **A setting that prepares the state**. Warmth, music and imagery logged with each session so personal trials can show whether the setting matters. | extension | THERA, TRIAL | idea | Framework design, 2026 |
+| 8 | **Craving protocol and app or place triggers**. A craving protocol, triggered by context such as a gambling app opening or arriving at a venue. | extension | THERA, LINX | built in simulation | R10, 2025-04-10 |
+| 12 | **Typology chains from speech, as plug-ins**. Trait lexicons per type build a profile over a conversation; typologies are plug-ins; profiling another person needs consent. | new | TYPES | built in simulation | R22, R28, R37, 2025-04/05 |
+| 13 | **The five-step level operator chain**. Detect, analyse, modify, output, future-pace; a classifier for which level a sentence comes from (environment to purpose); every change passes the LINX router and CONTAIN. | new | LINX, THERA | built in simulation | R23, 2025-04-20 |
+| 14 | **Therapist decision matrix and copilot**. A central meaning with three trigger cues and three responses; the therapist memorises it, the copilot runs it on a live transcript, and agreement is measured. | new | THERA | built in simulation | R24, 2025-04-20 |
+| 16 | **Four-day block, voice-recognised contexts, timed burst**. A four-day acquisition block per principle; entering a real context recognised from speech or sound fires the code; a timed vibration burst. | extension | RSX, LINX | built in simulation | R26, 2025-04-23 (record truncated) |
+| 17 | **Re-living an event with a symbol and light**. After an event, replay it in imagination with the symbol and radiant light and rehearse the new behaviour (imagery rescripting), timed and measured. | extension | Player, THERA | built in simulation | R28, 2025-04-27 |
+| 20 | **Core Transformation protocol**. The outcome chain from an unwanted state to a core state, asked one question at a time, with a code for the core state. | new | THERA, LINX | built in simulation | R30, 2025-05-06 |
+| 40 | **Recovery and override metrics**. Overrides per day, the share of fear events turned around, reaction time under stress, memory under fatigue. | extension | Metrics | built in simulation | Design records, 2025-05 |
+| 41 | **Perceptual-event triggers**. Unusual perceptual states as a trigger type, always routed through CONTAIN's escalation path. | new | LINX, CONTAIN | built in simulation | Design records, 2025-05 |
+| 47 | **Life-timeline memory protocol**. Scattered life events mapped into ordered nodes with glyphs (memory specificity training). | new | THERA | built in simulation | Design records, 2025-05 |
+| 50 | **DOL-9, the daily override loop, and OXQ**. A precise 90-second loop (breath 4-2-6, posture, phrase, gesture, 5-15 s action) as an RSX program; OXQ = overrides / waking hours x 100. | extension | RSX, Metrics | built in simulation | Design records, 2025-05 |
+| 69 | **A setting that prepares the state**. Warmth, music and imagery logged with each session so personal trials can show whether the setting matters. | extension | THERA, TRIAL | built in simulation | Framework design, 2026 |
 
 ### Step 8: Machines and channels
 

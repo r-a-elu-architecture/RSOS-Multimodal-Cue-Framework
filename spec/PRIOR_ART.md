@@ -40,6 +40,8 @@ An entry here is a reference point, never a reason to drop an item: knowing what
 | Borsboom & Cramer, *Annual Review of Clinical Psychology* 9:91, 2013 (doi:10.1146/annurev-clinpsy-050212-185608) | Network approach to psychopathology: symptoms as a causal network; which symptom is most central in a person's network; simulation of symptom dynamics | 57, 60, 63 | checked |
 | Shiffman, Stone & Hufford, *Annual Review of Clinical Psychology* 4:1, 2008 (doi:10.1146/annurev.clinpsy.3.022806.091415) | Ecological momentary assessment: repeated real-time sampling of experience in daily life, often at random times | 57, 61 | checked |
 | James & Woodsmall, *Time Line Therapy and the Basis of Personality*, 1988 | Releasing emotions by revisiting the first event on an imagined timeline | 60 | to verify |
+| Sharpley, *Journal of Counseling Psychology*, 1984 | Review of 15 studies of the "preferred representational system" (sensory predicates as a trait): the concept lacked support | 12 | checked |
+| Witkowski, *Polish Psychological Bulletin* 41:58, 2010 (doi:10.2478/v10059-010-0008-0) | Of 33 empirical studies testing NLP tenets, 18.2% supported them; the author concludes the results contradict an empirical basis for NLP | 12, 13, 20 | checked |
 | Bouton (reviews of extinction learning) | Extinction is tied to the context in which it was learned; it may not transfer | 60, 63 | to verify |
 | Meichenbaum, stress inoculation training | Graded exposure to stressors while practising coping | 26 | to verify |
 | Imagery rescripting (meta-analyses) | Benefits over passive controls; no established advantage over other active treatments | 17, 63, 64 | to verify |

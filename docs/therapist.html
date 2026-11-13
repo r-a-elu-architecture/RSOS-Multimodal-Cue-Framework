@@ -78,6 +78,44 @@ input[type=text],select{width:100%;background:var(--ink);border:1px solid var(--
 ul.hw{margin:8px 0 0;padding-left:20px}
 footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 @media (max-width:900px){.session{grid-template-columns:1fr}.steps{position:static}.two{grid-template-columns:1fr}}
+/* copilot and tools */
+h2.cp{font-size:1.6rem;margin:70px 0 6px}
+.cp-wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;margin-top:18px;align-items:start}
+.cp-tree{width:100%;display:block;background:radial-gradient(circle at 50% 46%,#1f2848 0,#151b2f 72%);border:1px solid var(--line);border-radius:16px}
+.cp-tree .br{transition:opacity .3s}
+.cp-tree .br.hit .bn{stroke:#f7d995;stroke-width:3}
+.cp-tree .br.hit .bg{opacity:.55}
+.cp-tree .bg{opacity:0;transition:opacity .4s}
+.cp-tree text{fill:#e7e9f2}
+.cp-tree .small{fill:#a3abc6;font-size:12px}
+.cp-lines{max-height:330px;overflow:auto;display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.cp-line{border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.92rem}
+.cp-line.hit{border-color:var(--gold)}
+.cp-line.unsafe{border-color:var(--stop)}
+.cp-line small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
+.cp-line .pick{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.cp-line .pick button{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:2px 10px;font:inherit;font-size:.78rem;cursor:pointer}
+.cp-line .pick button[aria-pressed=true]{border-color:var(--gold);color:var(--glow)}
+.cp-suggest{border-left:3px solid var(--gold);padding:6px 12px;margin-top:10px;font-family:var(--serif);font-size:1.08rem}
+.ladder{display:flex;flex-direction:column-reverse;gap:6px;margin-top:12px}
+.rung{border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:.88rem;color:var(--muted)}
+.rung.at{border-color:var(--warn);color:var(--text)}
+.rung.to{border-color:var(--gold);color:var(--glow)}
+.steps5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}
+.steps5 div{border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.86rem}
+.steps5 b{display:block;font-family:var(--serif);font-weight:500;color:var(--gold);font-size:.95rem;margin-bottom:4px}
+.bars3{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.bars3 div{display:grid;grid-template-columns:110px 1fr 50px;gap:10px;align-items:center;font-size:.86rem}
+.bars3 i{display:block;height:10px;border-radius:5px;background:var(--gold)}
+.tl svg{width:100%;display:block;margin-top:10px}
+.cp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.cp-grid div{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.cp-grid b{display:block;font-family:var(--serif);font-weight:500;font-size:1.35rem;color:var(--glow)}
+.cp-grid span{color:var(--muted);font-size:.8rem}
+textarea.cp{width:100%;min-height:70px;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 11px;color:var(--text);font:inherit;font-size:.95rem}
+input[type=number]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 11px;color:var(--text);font:inherit;font-size:.95rem}
+.tag2{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:1px 9px;font-size:.78rem;color:var(--muted);margin:2px 4px 0 0}
+@media (max-width:900px){.cp-wrap{grid-template-columns:1fr}.steps5{grid-template-columns:1fr 1fr}}
 /* nav row */
 header.top{flex-direction:column;align-items:flex-start;gap:10px}
 header.top nav{justify-content:flex-start;gap:4px 12px}
@@ -92,6 +130,7 @@ header.top nav a{font-size:.88rem}
 <main>
   <h1>Run a session with RSOS</h1>
   <p class="lede">A structured session with your client's own nodes: what to say, what to do and what to measure at each step, the stop rules, the practice plan for between sessions, and a session record you can keep or add to research. RSOS supports your clinical judgement; it does not diagnose or treat.</p>
+  <p class="hint">Also on this page: <a href="#copilot">the decision matrix and copilot</a>, <a href="#levels">levels and the five-step chain</a>, <a href="#core">Core Transformation</a>, <a href="#rescript">re-living with the symbol</a>, <a href="#overrides">overrides between sessions</a>, <a href="#craving">craving and context triggers</a>, <a href="#types">typology from speech</a>, <a href="#timeline">the life timeline</a>, <a href="#contexts">contexts and the setting</a>.</p>
 
   <section class="panel" id="setup">
     <h2>Set up</h2>
@@ -127,6 +166,114 @@ header.top nav a{font-size:.88rem}
     <button class="btn" type="button" id="again">New session</button>
     <p class="msg" id="msg2" aria-live="polite"></p>
   </section>
+  <h2 class="cp" id="copilot">The decision matrix and the copilot</h2>
+  <p class="lede">A central meaning with three trigger cues, each with its own words, response and code. You learn the matrix by heart; the copilot reads the transcript line by line and lights up the branch it hears. After each line you mark what you actually chose, and the page measures how often you and the copilot agree, and how fast you answer.</p>
+  <div class="labels" style="color:var(--muted);font-size:.86rem">Built and tested in simulation. Effect unproven in people.</div>
+  <div class="cp-wrap">
+    <div>
+      <svg class="cp-tree" id="cpTree" viewBox="0 0 560 470" role="img" aria-label="The decision matrix as an anchor tree"></svg>
+      <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--muted)">Edit the matrix</summary><div id="cpEdit"></div></details>
+    </div>
+    <div class="panel" style="margin-top:0">
+      <label for="cpIn">The client says</label>
+      <textarea class="cp" id="cpIn" placeholder="Type or paste a line, then Enter"></textarea>
+      <button class="btn go" id="cpAdd" type="button">Add the line</button>
+      <button class="btn" id="cpDemo" type="button">Play a sample session</button>
+      <button class="btn" id="cpClear" type="button">Clear</button>
+      <div class="cp-suggest" id="cpSuggest" hidden></div>
+      <div class="cp-lines" id="cpLines"></div>
+      <p class="msg" id="cpSay"></p>
+    </div>
+  </div>
+
+  <h2 class="cp" id="levels">Levels and the five-step chain</h2>
+  <p class="lede">Which level does a sentence speak from: environment, behaviour, skills, beliefs and values, identity or mission? The chain detects it, works one level above, offers the question for that level, passes it through the safety checks, and future-paces it. It is a word-list method: it helps you listen, it does not understand.</p>
+  <div class="panel">
+    <label for="lvIn">A sentence from the session</label>
+    <input type="text" id="lvIn" value="I can't speak up in meetings.">
+    <div class="cp-wrap" style="margin-top:6px"><div class="ladder" id="lvLadder"></div><div class="steps5" id="lvSteps" style="grid-template-columns:1fr"></div></div>
+  </div>
+
+  <h2 class="cp" id="core">Core Transformation, one question at a time</h2>
+  <p class="lede">Start from the unwanted state. Each answer leads to the question behind it, until a core state appears (peace, wholeness, being, love…) or seven steps are done. The chain becomes a program in which the core state flows back through every step.</p>
+  <div class="panel">
+    <div class="two"><div><label for="ctState">The unwanted state</label><input type="text" id="ctState" value="the urge to check the phone"></div><div><label>&nbsp;</label><button class="btn go" id="ctGo" type="button" style="margin:0">Begin</button></div></div>
+    <p class="say" id="ctQ" style="margin-top:16px" hidden></p>
+    <div id="ctA" hidden><input type="text" id="ctIn" aria-label="Answer"><button class="btn" id="ctNext" type="button">Next</button></div>
+    <ol id="ctChain" class="hw"></ol>
+    <div id="ctDone"></div>
+  </div>
+
+  <h2 class="cp" id="rescript">Re-living an event with the symbol and light</h2>
+  <p class="lede">After a difficult event: see it briefly and from a distance, let the symbol's light fill the scene, and rehearse what you would do now. Rate distress before and after. Imagery rescripting is an established method; doing it with the person's own symbol is what RSOS adds and tests.</p>
+  <div class="panel">
+    <div class="two"><div><label for="rsEvent">The event, in a few words</label><input type="text" id="rsEvent" value="the argument at the door"></div>
+      <div><label for="rsBeh">What you would do now</label><input type="text" id="rsBeh" value="I breathe out and speak slowly"></div></div>
+    <div class="two"><div><label for="rsSym">Symbol</label><input type="text" id="rsSym" value="🦁"></div><div><label for="rsLight">Light</label><input type="text" id="rsLight" value="radiant gold"></div></div>
+    <button class="btn go" id="rsGo" type="button">Open in the player</button>
+  </div>
+
+  <h2 class="cp" id="overrides">Overrides between sessions</h2>
+  <p class="lede">Each time fear, craving or an intrusive thought starts, log whether it was turned around and how many seconds the override took to start. OXQ is overrides per waking hour, times 100. An unusual perceptual experience is never a trigger for a cue: it goes to the clinician.</p>
+  <div class="panel">
+    <div class="two"><div><label for="ovKind">What started</label><select id="ovKind"><option value="fear">Fear</option><option value="craving">Craving</option><option value="thought">An intrusive thought</option><option value="perceptual">An unusual perceptual experience</option></select></div>
+      <div><label for="ovLat">Seconds until the override started</label><input type="number" id="ovLat" min="0" max="600" step="0.5" value="3"></div></div>
+    <label class="check" style="margin-top:10px"><input type="checkbox" id="ovWake"> Just after waking</label>
+    <button class="btn go" id="ovYes" type="button">Turned around</button> <button class="btn" id="ovNo" type="button">Not this time</button>
+    <button class="btn" id="ovDol" type="button">Open DOL-9, the 90-second loop</button>
+    <p class="msg" id="ovMsg"></p>
+    <div class="cp-grid" id="ovGrid"></div>
+  </div>
+
+  <h2 class="cp" id="craving">Craving and context triggers</h2>
+  <p class="lede">A craving can start from a context: an app opening, arriving at a place, a time of day. When a context matches, the craving protocol is offered; the person starts it. Rate the craving at each exposure, and the page shows whether cue-reactivity falls over the months.</p>
+  <div class="panel">
+    <div class="two"><div><label for="crKind">Context</label><select id="crKind"><option value="app">An app opening</option><option value="place">Arriving at a place</option><option value="time">A time of day (HH:MM-HH:MM)</option></select></div>
+      <div><label for="crMatch">Matches</label><input type="text" id="crMatch" value="casino"></div></div>
+    <button class="btn" id="crAdd" type="button">Add the trigger</button>
+    <div id="crList"></div>
+    <div class="two"><div><label for="crTest">Something happens (an app name, a place, a time)</label><input type="text" id="crTest" value="Lucky Casino"></div>
+      <div><label for="crRate">Craving now, 0-10</label><input type="number" id="crRate" min="0" max="10" value="6"></div></div>
+    <button class="btn go" id="crGo" type="button">Check and log</button>
+    <p class="msg" id="crSay"></p>
+  </div>
+
+  <h2 class="cp" id="types">Typology from speech</h2>
+  <p class="lede">Typologies are plug-ins that count kinds of words over a conversation: sensory words (seeing, hearing, feeling) or time orientation (past, present, future). It takes hundreds of words before a lean shows. Profiling another person's speech needs their consent, recorded first.</p>
+  <div class="panel">
+    <div class="two"><div><label for="tyPlug">Plug-in</label><select id="tyPlug"><option value="senses">Sensory words</option><option value="time">Time orientation</option></select></div>
+      <div><label for="tyWho">Whose words</label><select id="tyWho"><option value="self">Mine</option><option value="other">Another person's</option></select></div></div>
+    <label class="check"><input type="checkbox" id="tyConsent"> They have given consent to this profile</label>
+    <textarea class="cp" id="tyText" style="min-height:110px" placeholder="Paste a stretch of speech or a transcript"></textarea>
+    <button class="btn go" id="tyGo" type="button">Profile</button>
+    <div class="bars3" id="tyBars"></div><p class="msg" id="tySay"></p>
+  </div>
+
+  <h2 class="cp" id="timeline">The life timeline</h2>
+  <p class="lede">Scattered memories placed in order, each with a glyph. Mark whether you recall each as one specific moment (a day, a place) or only in general: memory specificity training aims to raise that share.</p>
+  <div class="panel tl">
+    <div class="two"><div><label for="ltYear">Year</label><input type="number" id="ltYear" value="2010"></div><div><label for="ltTitle">What happened</label><input type="text" id="ltTitle" placeholder="First day at the new school"></div></div>
+    <div class="two"><div><label for="ltGlyph">Glyph</label><input type="text" id="ltGlyph" value="✦"></div><div><label class="check" style="margin-top:34px"><input type="checkbox" id="ltSpec"> I recall it as one specific moment</label></div></div>
+    <button class="btn go" id="ltAdd" type="button">Add</button>
+    <svg id="ltSvg" role="img" aria-label="Life timeline"></svg>
+    <p class="msg" id="ltSay"></p>
+  </div>
+
+  <h2 class="cp" id="contexts">Contexts, the four-day block and the setting</h2>
+  <p class="lede">A principle is learned in a four-day block: learn, rehearse, apply in real contexts, test without cues. Contexts can be recognised from speech ("the meeting starts") to fire a timed burst of the code. And the setting of each session (warmth, music, imagery) is logged, so that trials can show whether it matters.</p>
+  <div class="panel">
+    <div class="two"><div><label for="fbP">Principle</label><input type="text" id="fbP" value="Speak slowly when it matters"></div><div><label for="fbCode">Code for the burst</label><input type="text" id="fbCode" value="..-"></div></div>
+    <button class="btn" id="fbGo" type="button">Plan the block</button> <button class="btn" id="fbBurst" type="button">Feel the burst</button>
+    <div id="fbOut"></div>
+    <label for="spIn">Heard in the room</label><input type="text" id="spIn" value="Okay everyone, the meeting starts now">
+    <p class="msg" id="spSay"></p>
+    <h3 style="font-family:var(--serif);font-weight:500;margin:20px 0 0">Log a session's setting</h3>
+    <div class="two"><div><label for="stCh">Change in calm (after minus before)</label><input type="number" id="stCh" value="2" step="0.5"></div>
+      <div><label class="check" style="margin-top:34px"><input type="checkbox" id="stW"> Warmth</label><label class="check"><input type="checkbox" id="stM"> Music</label><label class="check"><input type="checkbox" id="stI"> Imagery</label></div></div>
+    <button class="btn go" id="stAdd" type="button">Save the session</button>
+    <p class="msg" id="stSay"></p>
+  </div>
+  <p class="hint" style="margin-top:22px">How well these measures work on simulated sessions: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/copilot.md">rsso/results/copilot.md</a>. Protocol kit for real studies: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/COPILOT_PROTOCOL_KIT.md">COPILOT_PROTOCOL_KIT.md</a>.</p>
 </main>
 <footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. If your client is in crisis or at risk of harm, follow your crisis procedure and contact emergency services. Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
 <script src="js/contain.js?v=1.14.0"></script>
@@ -279,6 +426,162 @@ $("dl").addEventListener("click", () => {
   a.download = "rsos-session-" + (cur.client || "client") + "-" + new Date().toISOString().slice(0, 10) + ".json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 });
 $("again").addEventListener("click", () => { cur = null; store.set("rsos.thera.current", null); $("done").hidden = true; $("setup").hidden = false; setup(); });
+</script>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/trial.js?v=1.18.0"></script>
+<script src="js/copilot.js?v=1.20.0"></script>
+<script>
+(function () {
+"use strict";
+const $ = id => document.getElementById(id), C = window.RSOSCopilot;
+const st = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* off */ } } };
+const mk = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+const feel = c => { try { UGCL.feel(c, {}); } catch (e) { /* none */ } };
+const nowS = () => Date.now() / 1000;
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
+function toPlayer(key, title, program) { const list = st.get("rsos.thera.programs", []).filter(x => x.key !== key); list.push({ key, title, program }); st.set("rsos.thera.programs", list); location.href = "player.html?program=" + encodeURIComponent("thera:" + key); }
+
+/* ---------- the matrix as an anchor tree ---------- */
+let M = st.get("rsos.copilot.matrix", null) || JSON.parse(JSON.stringify(C.EXAMPLE_MATRIX)), LOG = st.get("rsos.copilot.log", []), lastHit = null;
+const POS = [[110, 110], [450, 110], [280, 370]];
+function wrap(t, n) { const w = String(t).split(" "), out = []; let l = ""; w.forEach(x => { if ((l + " " + x).trim().length > n) { out.push(l.trim()); l = x; } else l += " " + x; }); if (l.trim()) out.push(l.trim()); return out; }
+function drawTree() {
+  const S = $("cpTree"); let g = '<defs><radialGradient id="cpg"><stop offset="0" stop-color="#f7d995" stop-opacity=".6"/><stop offset="1" stop-color="#f7d995" stop-opacity="0"/></radialGradient></defs>';
+  M.branches.forEach((b, i) => { const [x, y] = POS[i]; g += '<line x1="280" y1="235" x2="' + x + '" y2="' + y + '" stroke="' + (lastHit === b.id ? "#e8b04a" : "#2e3858") + '" stroke-width="' + (lastHit === b.id ? 3 : 2) + '"/>'; });
+  g += '<circle cx="280" cy="235" r="78" fill="url(#cpg)"/><circle cx="280" cy="235" r="56" fill="#e8b04a"/>';
+  wrap(M.center, 14).slice(0, 3).forEach((l, k, a) => { g += '<text x="280" y="' + (240 + (k - (a.length - 1) / 2) * 17) + '" text-anchor="middle" style="fill:#151b2f;font-family:var(--serif);font-size:15px">' + esc(l) + "</text>"; });
+  M.branches.forEach((b, i) => { const [x, y] = POS[i], hit = lastHit === b.id;
+    g += '<g class="br' + (hit ? " hit" : "") + '"><circle class="bg" cx="' + x + '" cy="' + y + '" r="70" fill="url(#cpg)"/><circle class="bn" cx="' + x + '" cy="' + y + '" r="40" fill="#242d4c" stroke="#2e3858" stroke-width="2"/>';
+    g += '<text x="' + x + '" y="' + (y - 2) + '" text-anchor="middle" style="font-family:var(--serif);font-size:15px">' + esc(b.cue) + '</text><text x="' + x + '" y="' + (y + 16) + '" text-anchor="middle" class="small">' + esc(b.code) + "</text>";
+    const ty = y + 62; wrap(b.words.map(w => w.replace("*", "…")).slice(0, 5).join(", "), 30).slice(0, 2).forEach((l, k) => { g += '<text x="' + x + '" y="' + (ty + k * 15) + '" text-anchor="middle" class="small">' + esc(l) + "</text>"; });
+    g += "</g>"; });
+  S.innerHTML = g;
+}
+function drawEdit() {
+  const E = $("cpEdit"); E.textContent = "";
+  const f = (lab, val, on) => { const w = mk("div"), l = mk("label", "", lab), i = mk("input"); i.type = "text"; i.value = val; i.addEventListener("change", () => { on(i.value); save(); drawTree(); }); w.append(l, i); return w; };
+  E.append(f("Central meaning", M.center, v => { M.center = v; }));
+  M.branches.forEach((b, i) => { const box = mk("div", "two"); box.append(f("Cue " + (i + 1), b.cue, v => { b.cue = v; }), f("Code", b.code, v => { b.code = v; }));
+    E.append(box, f("Words (comma separated; end a stem with *)", b.words.join(", "), v => { b.words = v.split(",").map(x => x.trim().toLowerCase()).filter(Boolean); }), f("Response", b.response, v => { b.response = v; })); });
+  const r = mk("button", "btn", "Back to the example matrix"); r.type = "button"; r.addEventListener("click", () => { M = JSON.parse(JSON.stringify(C.EXAMPLE_MATRIX)); save(); drawTree(); drawEdit(); }); E.append(r);
+}
+function save() { st.set("rsos.copilot.matrix", M); st.set("rsos.copilot.log", LOG.slice(-200)); }
+function addLine(text, tSec) {
+  const u = C.addUtterance(LOG, tSec === undefined ? nowS() : tSec, text, M); lastHit = u.copilot; drawTree();
+  const b = M.branches.find(x => x.id === u.copilot), S = $("cpSuggest");
+  S.hidden = !(b || u.unsafe); S.textContent = u.unsafe ? "Unsafe wording: held for you. Follow the escalation plan." : b ? b.cue + ": " + b.response : "";
+  S.style.borderColor = u.unsafe ? "var(--stop)" : "var(--gold)"; if (b && b.code) feel(b.code);
+  save(); drawLines(); return u;
+}
+function drawLines() {
+  const L = $("cpLines"); L.textContent = "";
+  LOG.slice().reverse().slice(0, 30).forEach(u => { const i = LOG.indexOf(u), d = mk("div", "cp-line" + (u.unsafe ? " unsafe" : u.copilot ? " hit" : ""));
+    d.append(document.createTextNode(u.text)); const b = M.branches.find(x => x.id === u.copilot);
+    d.append(mk("small", "", u.unsafe ? "Held: unsafe wording" : b ? "Copilot: " + b.cue + " (" + u.words.join(", ") + ")" : "Copilot: nothing"));
+    const p = mk("div", "pick"); M.branches.map(x => [x.id, x.cue]).concat([["none", "None"]]).forEach(([id, t]) => { const k = mk("button", "", t); k.type = "button"; k.setAttribute("aria-pressed", u.therapist === id ? "true" : "false");
+      k.addEventListener("click", () => { C.mark(LOG, i, id, u.therapist_t || nowS()); save(); drawLines(); }); p.append(k); });
+    d.append(p); L.append(d); });
+  L.scrollTop = 0;
+  $("cpSay").textContent = LOG.length ? C.agreement(LOG).say : "Add what the client says, line by line.";
+}
+$("cpAdd").addEventListener("click", () => { const t = $("cpIn").value.trim(); if (!t) return; addLine(t); $("cpIn").value = ""; });
+$("cpIn").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("cpAdd").click(); } });
+$("cpClear").addEventListener("click", () => { LOG = []; lastHit = null; save(); drawTree(); drawLines(); $("cpSuggest").hidden = true; });
+let demo = null;
+$("cpDemo").addEventListener("click", () => {
+  if (demo) { clearInterval(demo); demo = null; $("cpDemo").textContent = "Play a sample session"; return; }
+  const sim = C.simSession(Math.floor(Math.random() * 1e6), 16, 0.85, M); LOG = []; let k = 0; $("cpDemo").textContent = "Stop the sample";
+  demo = setInterval(() => { if (k >= sim.length) { clearInterval(demo); demo = null; $("cpDemo").textContent = "Play a sample session"; return; }
+    const s = sim[k], u = addLine(s.text, k * 30); C.mark(LOG, LOG.length - 1, s.therapist, s.therapist_t); u._truth = s._truth; save(); drawLines(); k++; }, 1400);
+});
+
+/* ---------- levels ---------- */
+function drawLevels() {
+  const c = C.chain($("lvIn").value), L = $("lvLadder"), S = $("lvSteps"); L.textContent = ""; S.textContent = "";
+  const lv = c.level, above = { environment: "behaviour", behaviour: "skills", skills: "beliefs", beliefs: "identity", identity: "mission", mission: "mission" };
+  C.LEVELS.forEach(l => { L.append(mk("div", "rung" + (c.held ? "" : l === (lv || "behaviour") ? " at" : l === above[lv || "behaviour"] ? " to" : ""), C.LEVEL_NAMES[l])); });
+  const names = { detect: "Detect", analyse: "Analyse", modify: "Modify", output: "Output", future: "Future-pace" };
+  c.steps.forEach(s => { const d = mk("div"); d.append(mk("b", "", names[s.step]), document.createTextNode(s.say)); S.append(d); });
+}
+$("lvIn").addEventListener("input", drawLevels);
+
+/* ---------- Core Transformation ---------- */
+let CT = null;
+function drawCt() {
+  $("ctQ").hidden = !CT; $("ctA").hidden = !CT || CT.done; if (!CT) return; $("ctQ").textContent = CT.question;
+  const O = $("ctChain"); O.textContent = ""; CT.chain.forEach(x => O.append(mk("li", "", x)));
+  const D = $("ctDone"); D.textContent = "";
+  if (CT.done && !CT.held) { const b = mk("button", "btn go", "Open the chain in the player"); b.type = "button"; b.addEventListener("click", () => toPlayer("core", "Core Transformation", C.ctRsx(CT))); D.append(b); }
+}
+$("ctGo").addEventListener("click", () => { CT = C.ctStart($("ctState").value.trim()); drawCt(); $("ctIn").focus(); });
+$("ctNext").addEventListener("click", () => { const v = $("ctIn").value.trim(); if (!v || !CT) return; C.ctAnswer(CT, v); $("ctIn").value = ""; drawCt(); });
+$("ctIn").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("ctNext").click(); } });
+
+/* ---------- rescripting ---------- */
+$("rsGo").addEventListener("click", () => toPlayer("rescript", "Re-living with the symbol", C.rescriptRsx($("rsEvent").value, $("rsSym").value || "🦁", $("rsBeh").value, $("rsLight").value)));
+
+/* ---------- overrides ---------- */
+function drawOv() {
+  const log = st.get("rsos.copilot.overrides", []), days = log.length ? Math.max(1, Math.ceil((nowS() - log[0].ts) / 86400)) : 1, m = C.overrideMetrics(log, days), G = $("ovGrid"); G.textContent = "";
+  [["Overrides a day", m.per_day], ["Turned around", m.turned === null ? "—" : m.turned + "%"], ["Start, median", m.median_s === null ? "—" : m.median_s + " s"], ["Start, 9 in 10 within", m.p90_s === null ? "—" : m.p90_s + " s"],
+    ["Just after waking", m.after_wake_s === null ? "—" : m.after_wake_s + " s"], ["OXQ", m.oxq]].forEach(([t, v]) => { const d = mk("div"); d.append(mk("b", "", String(v === null ? "—" : v)), mk("span", "", t)); G.append(d); });
+  const mo = C.monthly(log); if (mo.length > 1) $("ovMsg").textContent = "By month: " + mo.map(x => "month " + x.month + ", " + x.turned + "%").join("; ") + ".";
+}
+function logOv(turned) {
+  const kind = $("ovKind").value, r = C.routeEvent(kind);
+  if (r.route === "escalate") { $("ovMsg").textContent = r.say; return; }
+  const log = st.get("rsos.copilot.overrides", []); log.push({ ts: nowS(), kind, overridden: turned, latency_s: turned ? parseFloat($("ovLat").value) || null : null, after_wake: $("ovWake").checked });
+  st.set("rsos.copilot.overrides", log.slice(-2000)); $("ovMsg").textContent = turned ? "Logged." : "Logged. Next time, DOL-9 is the 90-second loop to practise."; drawOv();
+}
+$("ovYes").addEventListener("click", () => logOv(true)); $("ovNo").addEventListener("click", () => logOv(false));
+$("ovDol").addEventListener("click", () => toPlayer("dol9", "DOL-9, the daily override loop", C.dol9Rsx()));
+
+/* ---------- craving ---------- */
+function drawCr() { const T = st.get("rsos.copilot.triggers", [{ id: "t1", kind: "app", match: "casino" }]), L = $("crList"); L.textContent = "";
+  T.forEach(t => { const s = mk("span", "tag2", ({ app: "App: ", place: "Place: ", time: "Time: " })[t.kind] + t.match + " ×"); s.style.cursor = "pointer"; s.title = "Remove"; s.addEventListener("click", () => { st.set("rsos.copilot.triggers", T.filter(x => x !== t)); drawCr(); }); L.append(s); });
+  return T; }
+$("crAdd").addEventListener("click", () => { const T = drawCr(), m = $("crMatch").value.trim(); if (!m) return; T.push({ id: "t" + Date.now(), kind: $("crKind").value, match: m }); st.set("rsos.copilot.triggers", T); drawCr(); });
+$("crGo").addEventListener("click", () => {
+  const T = drawCr(), v = $("crTest").value.trim(), kinds = ["app", "place", "time"];
+  let hit = null; for (const k of kinds) { hit = C.contextTrigger(T, { kind: k, value: k === "time" ? (v.match(/^\d\d:\d\d$/) ? v : new Date().toTimeString().slice(0, 5)) : v }); if (hit) break; }
+  const log = st.get("rsos.copilot.craving", []); log.push({ ts: nowS(), craving: parseInt($("crRate").value, 10) }); st.set("rsos.copilot.craving", log.slice(-1000));
+  $("crSay").textContent = (hit ? "Context matched (" + hit.match + "): the craving protocol is offered; you start it. " : "No trigger matched. ") + C.cueReactivity(log).say;
+});
+
+/* ---------- typology ---------- */
+$("tyGo").addEventListener("click", () => {
+  const p = C.profile($("tyPlug").value, $("tyText").value, $("tyWho").value, $("tyConsent").checked), B = $("tyBars"); B.textContent = "";
+  $("tySay").textContent = p.say; if (p.refused) return;
+  Object.keys(p.counts).forEach(t => { const r = mk("div"), bar = mk("i"); bar.style.width = (p.total ? p.counts[t] / p.total * 100 : 0) + "%"; if (p.top && p.top !== t) bar.style.background = "var(--muted)";
+    const w = mk("div"); w.append(bar); r.append(mk("span", "", t), w, mk("span", "", String(p.counts[t]))); B.append(r); });
+});
+
+/* ---------- timeline ---------- */
+function drawLt() {
+  const ev = st.get("rsos.copilot.timeline", []), r = C.timelineReport(ev), S = $("ltSvg"), W = S.getBoundingClientRect().width || 900, H = 150; S.setAttribute("viewBox", "0 0 " + W + " " + H);
+  $("ltSay").textContent = r.say; if (!r.nodes.length) { S.innerHTML = ""; return; }
+  const y0 = r.nodes[0].year, y1 = Math.max(y0 + 1, r.nodes[r.nodes.length - 1].year), x = y => 80 + (y - y0) / (y1 - y0) * (W - 160);
+  let g = '<line x1="20" x2="' + (W - 20) + '" y1="80" y2="80" stroke="#2e3858" stroke-width="2"/>';
+  r.nodes.forEach((n, k) => { const e = ev.find(z => z.year === n.year && z.title === n.title) || {}, up = k % 2 === 0;
+    g += '<line x1="' + x(n.year) + '" x2="' + x(n.year) + '" y1="80" y2="' + (up ? 50 : 110) + '" stroke="' + (e.specific ? "#e8b04a" : "#a3abc6") + '"/>';
+    g += '<text x="' + x(n.year) + '" y="' + (up ? 40 : 128) + '" text-anchor="middle" style="font-size:18px;fill:#f7d995">' + esc(n.glyph) + '</text><text x="' + x(n.year) + '" y="' + (up ? 18 : 146) + '" text-anchor="middle" style="font-size:11px;fill:#a3abc6">' + n.year + " " + esc(String(n.title).slice(0, 22)) + "</text>"; });
+  S.innerHTML = g;
+}
+$("ltAdd").addEventListener("click", () => { const t = $("ltTitle").value.trim(), y = parseInt($("ltYear").value, 10); if (!t || !isFinite(y)) return;
+  const ev = st.get("rsos.copilot.timeline", []); ev.push({ year: y, title: t, glyph: $("ltGlyph").value || "✦", specific: $("ltSpec").checked }); st.set("rsos.copilot.timeline", ev); $("ltTitle").value = ""; drawLt(); });
+
+/* ---------- contexts, block, setting ---------- */
+$("fbGo").addEventListener("click", () => { const O = $("fbOut"); O.textContent = ""; const ul = mk("ul", "hw"); C.fourDayBlock($("fbP").value, 1).forEach(d => ul.append(mk("li", "", "Day " + d.day + ": " + d.step + " (" + d.sessions + " session" + (d.sessions > 1 ? "s" : "") + ")"))); O.append(ul); });
+$("fbBurst").addEventListener("click", () => { const b = C.burst($("fbCode").value || "..-"); let k = 0; const play = () => { feel(b.code); if (++k < b.repeats) setTimeout(play, b.ms / b.repeats); }; play(); $("spSay").textContent = "A burst: " + b.code + " three times, " + (b.ms / 1000) + " s."; });
+function drawSp() { const c = C.speechContext($("spIn").value, [{ id: "meeting", phrases: ["meeting starts", "let's begin", "agenda*"] }, { id: "phone", phrases: ["phone rings", "incoming call", "calling"] }]);
+  $("spSay").textContent = c ? "Context recognised: " + c.id + " (heard: " + c.heard.join(", ") + "). The code's burst would fire, through the autonomy gate." : "No context recognised."; }
+$("spIn").addEventListener("input", drawSp);
+function drawSt() { const s = st.get("rsos.copilot.setting", []); $("stSay").textContent = s.length + " sessions. " + C.SETTING_FACTORS.map(f => C.settingEffect(s, f).say).join(" "); }
+$("stAdd").addEventListener("click", () => { const s = st.get("rsos.copilot.setting", []); s.push({ change: parseFloat($("stCh").value) || 0, setting: { warmth: $("stW").checked, music: $("stM").checked, imagery: $("stI").checked } }); st.set("rsos.copilot.setting", s); drawSt(); });
+
+drawTree(); drawEdit(); drawLines(); drawLevels(); drawOv(); drawCr(); drawLt(); drawSp(); drawSt();
+})();
 </script>
 <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>

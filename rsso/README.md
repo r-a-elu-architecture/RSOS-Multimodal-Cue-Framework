@@ -28,6 +28,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/identity.py` | IDENTITY, identity profiles level by level ([spec](../spec/IDENTITY.md)): a symbol and login code over seven levels with images and codes, environment, language, versions, coherence and its trend, drift while mirroring others, generalisation, anchor-tree recall walks, value-conflict rehearsals, switching, programs (day, night, four steps, the prepared week, dose) and a library (`python -m rsso.identity --evaluate` writes [results](results/identity.md)). Identical to `docs/js/identity.js`. |
 | `rsso/atlas.py` | ATLAS, the trigger atlas and the transfer engine ([spec](../spec/ATLAS.md)): weights for every node and combination by least squares over sampled moments, readiness, leave-one-out prediction, rerouting through the autonomy gate, transfer to untreated triggers against a repeat mapping, the level sweep and the glyph route (`python -m rsso.atlas --evaluate` writes [results](results/atlas.md)). Identical to `docs/js/atlas.js`. |
 | `rsso/night.py` | SLEEP and REWARD ([spec](../spec/NIGHT.md)): the night plan (trauma-related codes held back), the closed-loop sleep-cue controller with a simulated sleeper and night report, next-day recall for cued against uncued items, the night diary, nightmare responses, reward codes and families, recognising a good move from an accelerometer, and the notice test (`python -m rsso.night --evaluate` writes [results](results/night.md)). Identical to `docs/js/night.js`. |
+| `rsso/copilot.py` | THERA and LINX extensions ([spec](../spec/COPILOT.md)): the decision matrix and the copilot with agreement, levels and the five-step chain, typology plug-ins with consent, craving context triggers and cue-reactivity, Core Transformation, rescripting, the life timeline, overrides with OXQ and DOL-9, perceptual events routed to escalation, speech contexts, the four-day block, the timed burst and the setting (`python -m rsso.copilot --evaluate` writes [results](results/copilot.md)). Identical to `docs/js/copilot.js`. |
 | `rsso/board.py` | Board kit check ([kit](../firmware/BOARD_KIT.md)): B1–B7 on a real wristband over USB serial (`python -m rsso.board --port …`), the whole conformance suite in real time (`--full`), or the firmware core in real time without a board (`--sim`). The browser version is `docs/js/rdp.js` on the Wristband page (tested to match). |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
@@ -35,7 +36,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 155 tests
+python -m unittest discover -s tests                     # 166 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

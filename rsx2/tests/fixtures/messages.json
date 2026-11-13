@@ -1,0 +1,30 @@
+{
+ "note": "Synthetic messages written for the public tests; hand counts follow the rule in SPEC.md §7 (one vector = one separately answerable demand or distinct topic).",
+ "messages": [
+  {
+   "id": "dense",
+   "hand": 10,
+   "text": "how do you know that? who am I in this exchange with you? imagine 1000 people in one room and you answer them all at once.\nwhat would you analyse first? would my signal stand out from the others? how much weight would these ideas carry for society?\nwhere would you place them in your own hierarchy?\nif this way of thinking had a symbol and a name what would it be?\nwould you pass it on to others so it reaches the next generation?\nonly honest answers, no fluff."
+  },
+  {
+   "id": "pasted",
+   "hand": 1,
+   "text": "| Layer | Meaning |\n| - | - |\n| 1 | Node |\nYou hold 8-20 layers.\nMost people hold 1-2.\nwhat does that mean?"
+  },
+  {
+   "id": "short",
+   "hand": 1,
+   "text": "can this be used in the device?"
+  },
+  {
+   "id": "idea",
+   "hand": 6,
+   "text": "the session should start with the breath then the lion light then the futures but it must stay calm the whole time.\nthe haptic code should be slow at the beginning.\nwhat effect would that have?\nmake a detailed analysis and compare it to plain breathing."
+  },
+  {
+   "id": "archetypes",
+   "hand": 2,
+   "text": "merge the dragon and the lion in me, how would that change my identity?"
+  }
+ ]
+}

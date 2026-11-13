@@ -1,0 +1,264 @@
+{
+ "pid": "dragon",
+ "blocks": [
+  {
+   "name": "gate",
+   "kind": "GATE",
+   "cue_phases": [
+    "gate"
+   ],
+   "repeats": 1,
+   "until": null,
+   "if": null,
+   "vectors": [
+    {
+     "k": 7,
+     "op": "EthicsContain",
+     "clauses": []
+    },
+    {
+     "k": 13,
+     "op": "SymbolicDriftCheck",
+     "clauses": []
+    }
+   ]
+  },
+  {
+   "name": "settle",
+   "kind": "PHASE",
+   "cue_phases": [
+    "settle_in",
+    "settle_out"
+   ],
+   "repeats": 15,
+   "until": [
+    [
+     {
+      "var": "arousal",
+      "op": "<=",
+      "delta": false,
+      "value": 0.4
+     },
+     {
+      "var": "distress",
+      "op": "<=",
+      "delta": true,
+      "value": -1.0
+     }
+    ]
+   ],
+   "if": null,
+   "vectors": [
+    {
+     "k": 3,
+     "op": "BreathOverride",
+     "clauses": []
+    },
+    {
+     "k": 4,
+     "op": "PostureShift",
+     "clauses": []
+    },
+    {
+     "k": 6,
+     "op": "EmotionalLock",
+     "clauses": []
+    }
+   ]
+  },
+  {
+   "name": "expand",
+   "kind": "PHASE",
+   "cue_phases": [
+    "expand"
+   ],
+   "repeats": 9,
+   "until": [
+    [
+     {
+      "var": "C2",
+      "op": ">=",
+      "delta": false,
+      "value": 0.5
+     },
+     {
+      "var": "C3",
+      "op": ">=",
+      "delta": false,
+      "value": 0.5
+     }
+    ]
+   ],
+   "if": [
+    [
+     {
+      "var": "arousal",
+      "op": "<=",
+      "delta": false,
+      "value": 0.55
+     }
+    ]
+   ],
+   "vectors": [
+    {
+     "k": 5,
+     "op": "MemoryRecall",
+     "clauses": []
+    },
+    {
+     "k": 18,
+     "op": "AssociativeExpand",
+     "clauses": []
+    },
+    {
+     "k": 8,
+     "op": "CompressionRun",
+     "clauses": []
+    },
+    {
+     "k": 10,
+     "op": "ArchetypeMerge",
+     "clauses": []
+    }
+   ]
+  },
+  {
+   "name": "rebuild",
+   "kind": "PHASE",
+   "cue_phases": [
+    "rebuild"
+   ],
+   "repeats": 12,
+   "until": [
+    [
+     {
+      "var": "C7",
+      "op": ">=",
+      "delta": false,
+      "value": 0.5
+     },
+     {
+      "var": "C4",
+      "op": ">=",
+      "delta": false,
+      "value": 0.5
+     }
+    ]
+   ],
+   "if": [
+    [
+     {
+      "var": "arousal",
+      "op": "<=",
+      "delta": false,
+      "value": 0.6
+     },
+     {
+      "var": "distress",
+      "op": "<=",
+      "delta": false,
+      "value": 6.0
+     }
+    ]
+   ],
+   "vectors": [
+    {
+     "k": 1,
+     "op": "IdentityRebuild",
+     "clauses": []
+    },
+    {
+     "k": 9,
+     "op": "FutureProjection",
+     "clauses": []
+    },
+    {
+     "k": 11,
+     "op": "DeviceOutput",
+     "clauses": []
+    }
+   ]
+  },
+  {
+   "name": "integrate",
+   "kind": "PHASE",
+   "cue_phases": [
+    "integrate"
+   ],
+   "repeats": 9,
+   "until": [
+    [
+     {
+      "var": "C9",
+      "op": ">=",
+      "delta": false,
+      "value": 0.4
+     },
+     {
+      "var": "C10",
+      "op": ">=",
+      "delta": false,
+      "value": 0.4
+     },
+     {
+      "var": "C11",
+      "op": ">=",
+      "delta": false,
+      "value": 0.4
+     }
+    ]
+   ],
+   "if": null,
+   "vectors": [
+    {
+     "k": 19,
+     "op": "MetaObserve",
+     "clauses": []
+    },
+    {
+     "k": 21,
+     "op": "SelfRevise",
+     "clauses": []
+    },
+    {
+     "k": 20,
+     "op": "IntegrateAll",
+     "clauses": []
+    },
+    {
+     "k": 14,
+     "op": "RecursiveLawApply",
+     "clauses": []
+    }
+   ]
+  },
+  {
+   "name": "close",
+   "kind": "CLOSE",
+   "cue_phases": [
+    "close"
+   ],
+   "repeats": 2,
+   "until": null,
+   "if": null,
+   "vectors": [
+    {
+     "k": 15,
+     "op": "MemoryUpdate",
+     "clauses": []
+    },
+    {
+     "k": 17,
+     "op": "EchoPropagationStop",
+     "clauses": []
+    },
+    {
+     "k": 16,
+     "op": "SymbolicCommandExport",
+     "clauses": []
+    }
+   ]
+  }
+ ],
+ "cycle_s": 10
+}

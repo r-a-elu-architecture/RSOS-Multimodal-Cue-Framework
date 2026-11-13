@@ -1,0 +1,32 @@
+{
+ "tune": {
+  "n": 9,
+  "MAE": 1.44,
+  "r": 0.932,
+  "dense_vs_not_agree": "9/9"
+ },
+ "held1": {
+  "n": 4,
+  "MAE": 1.25,
+  "r": 0.993,
+  "dense_vs_not_agree": "4/4"
+ },
+ "held2": {
+  "n": 5,
+  "MAE": 1.8,
+  "r": 0.714,
+  "dense_vs_not_agree": "4/5"
+ },
+ "final": {
+  "n": 6,
+  "MAE": 1.67,
+  "r": 0.849,
+  "dense_vs_not_agree": "5/6"
+ },
+ "all": {
+  "n": 24,
+  "MAE": 1.54,
+  "r": 0.913,
+  "dense_vs_not_agree": "22/24"
+ }
+}

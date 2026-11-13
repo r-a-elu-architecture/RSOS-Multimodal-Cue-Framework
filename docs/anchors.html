@@ -358,8 +358,8 @@ async function cam(asBase) {
   if (busy) return; busy = true; $("camOut").textContent = ""; $("camMsg").textContent = "Fingertip on the camera, keep still…";
   try {
     const { result: r } = await G.measure({ seconds: 30, onProgress: (f, covered) => { $("camBar").style.width = Math.round(f * 100) + "%"; $("camMsg").textContent = covered ? "Reading your pulse…" : "Cover the camera fully with your fingertip."; } });
-    $("camMsg").textContent = r.say;
-    if (r.hr !== null) {
+    $("camMsg").textContent = r.ok ? r.say : r.say + (r.quality && r.hr !== null ? " (quality " + r.quality + "%, below the 70% needed)" : "");
+    if (r.ok) {
       $("camOut").innerHTML = '<span class="hr">' + r.hr + "</span> bpm, " + (r.rmssd_ok ? "RMSSD " + r.rmssd + " ms" : "RMSSD not clean enough") + ", quality " + r.quality + "%" + (r.torch ? "" : ", flash not available");
       if (asBase && r.ok) { store.set(BASE, { hr: r.hr, rmssd: r.rmssd_ok ? r.rmssd : null, ts: now() }); $("camMsg").textContent = "Saved as your resting baseline."; }
     }

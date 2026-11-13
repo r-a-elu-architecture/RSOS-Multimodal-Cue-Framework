@@ -55,6 +55,7 @@ python3 -m rsxv.ledger_recovery results/results_ledger.json         # planted-ef
 | [`PRIOR_ART.md`](PRIOR_ART.md) | Prior-art search (papers, patents, products) and what can be claimed |
 | [`PRIOR_ART_WORLD.md`](PRIOR_ART_WORLD.md) | Prior-art search for the RSOS World idea (archetype agents that self-repair with the Override Protocol) |
 | [`AGENTS.md`](AGENTS.md) | Specification of the archetype agents (step 5): hierarchy, Spine, Watchdog, repair loop, evolution, owner keys, tests fixed in advance |
+| [`rsxv/agents.py`](rsxv/agents.py) | Agents core layer (step 5B, prototype): Spine checks (7 virtues, 21 precepts, law priority), hash-chained audit log, scoped memory with snapshots and archive, switch tokens, fixed-rule Watchdog, Observer fault location, owner-only keys |
 | `rsxv/` | `ops` (operator table) · `lang` (parser) · `run` (runtime, NEXT) · `sim` (simulated person) · `metrics` · `chain` (sessions, audit log, purge) · `translate` · `bridge` · `ledger`, `ledger_recovery` · `subsystems` · `arms` · `evaluate_laws` |
 | `examples/` | The canonical 17-vector command, its RSX-V forms, compiled cue programs and run logs |
 | `results/` | Arm comparison, session laws, ledger recovery and translator validation (aggregates only) |

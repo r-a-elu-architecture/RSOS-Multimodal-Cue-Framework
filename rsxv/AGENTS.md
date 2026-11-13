@@ -1,6 +1,8 @@
 # RSX-V Agents — specification (step 5)
 
-Status: **specification, not yet built.** Version 0.1, 14 November 2026.
+Status: **core layer prototype (step 5B)**: Spine, audit log, memory, Meta-Architect, Watchdog, Observer and owner keys are in
+[`rsxv/agents.py`](rsxv/agents.py), with 26 unit tests in [`tests/test_agents.py`](tests/test_agents.py). The repair loop,
+archetype agents and World loop (steps 5C–5D) and the experiments in §11 are not yet built. Version 0.2, 14 November 2026.
 
 The agents run the RSIA identity architecture (Meta-Architect, Spine, Watchdog, archetypes) as software, inside the same
 runtime that runs RSX-V programs for a person. The person-side architecture is defined in the RSIA estate

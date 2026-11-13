@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atlas — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
+<meta name="description" content="The trigger atlas: map which sights, sounds, smells, places, thoughts and people shift your state, as a measured network with intervals. Reroute a trigger to an anchor, descend through the network in a live 3D guided trance, and measure whether the change spreads to triggers you never worked on.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --glyph:'Noto Sans Symbols','Noto Sans Symbols 2','Noto Sans Math','Segoe UI Symbol','Apple Symbols',Symbola,'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:24px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 12px}
+nav a{color:var(--muted);text-decoration:none;font-size:.88rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:62px 0 6px}
+h3{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:70ch}
+.labels{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:.86rem;color:var(--muted)}
+.labels span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gold);vertical-align:1px}
+.labels span.u::before{background:transparent;border:1px solid var(--muted)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer;margin:6px 8px 0 0;text-decoration:none}
+.btn:hover{border-color:var(--gold)}
+.btn.main{border-color:var(--gold);color:var(--glow)}
+.btn.small{padding:5px 11px;font-size:.82rem}
+.btn[disabled]{opacity:.45;cursor:default}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.verdict{font-size:.95rem;margin:10px 0 0}
+.say{color:var(--muted);font-size:.9rem;margin:6px 0 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin-top:10px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:500}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+
+/* the map */
+.mapwrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:22px;margin-top:20px;align-items:start}
+.map{width:100%;aspect-ratio:1/1;max-height:640px;display:block;background:radial-gradient(circle at 50% 50%,#1f2848 0,#151b2f 70%);border-radius:18px;border:1px solid var(--line)}
+.map .ring{fill:none;stroke:#2e3858;stroke-dasharray:2 6}
+.map .sector{fill:#a3abc6;font-size:11px;letter-spacing:.02em}
+.map .spoke{stroke-linecap:round}
+.map .co{stroke:#a3abc6;opacity:.18}
+.map .node{cursor:pointer}
+.map .node circle.core{transition:r .4s}
+.map .node text{fill:#e7e9f2;font-size:11px;pointer-events:none}
+.map .node.sel circle.core{stroke:#f7d995;stroke-width:3}
+.map .halo{transform-box:fill-box;transform-origin:center;animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.35);opacity:.08}}
+.map .flow{stroke-dasharray:3 9;animation:flow 2.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-24}}
+.map .centre text{fill:#151b2f;font-family:var(--serif);font-size:15px}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8rem;color:var(--muted);margin-top:10px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.detail h3{margin-bottom:4px}
+.big{font-family:var(--serif);font-size:2.2rem;color:var(--glow);line-height:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:transparent;color:var(--text);font:inherit;font-size:.84rem;cursor:pointer}
+.chip[aria-pressed=true]{border-color:var(--gold);background:var(--ink-3);color:var(--glow)}
+.chip small{color:var(--muted);margin-left:6px}
+.phase{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
+
+/* the descent */
+.stage{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#0e1324;margin-top:18px;height:min(70vh,560px)}
+.stage canvas{display:block;width:100%;height:100%}
+.caption{position:absolute;left:0;right:0;bottom:0;padding:22px 24px 20px;background:linear-gradient(transparent,rgba(14,19,36,.92) 40%);text-align:center}
+.caption p{font-family:var(--serif);font-size:clamp(1.05rem,2.4vw,1.35rem);margin:0 auto;max-width:44ch;min-height:2.6em;line-height:1.35}
+.caption .ctl{margin-top:8px}
+.tag{position:absolute;transform:translate(-50%,-140%);font-size:.78rem;color:var(--text);background:rgba(21,27,47,.75);border:1px solid var(--line);border-radius:999px;padding:1px 9px;white-space:nowrap;pointer-events:none;transition:opacity .4s}
+.steps{display:flex;gap:4px;justify-content:center;margin-top:10px}
+.steps i{width:22px;height:3px;border-radius:2px;background:var(--line)}
+.steps i.on{background:var(--gold)}
+.rate{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
+.rate input{max-width:260px}
+.rate b{font-family:var(--serif);font-size:1.4rem;color:var(--glow);min-width:1.5em}
+
+/* charts */
+.chart{width:100%;height:200px;display:block;margin-top:10px}
+.route{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.route span{width:46px;height:46px;border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--glyph);font-size:24px}
+.route span small{position:absolute}
+.quiz{display:flex;flex-direction:column;align-items:center;gap:12px;background:var(--ink-3);border-radius:12px;padding:22px;margin-top:12px}
+.quiz .g{font-family:var(--glyph);font-size:52px;line-height:1}
+.quiz .opts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.quiz .opts button{width:64px;height:64px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--text);font-family:var(--glyph);font-size:30px;cursor:pointer}
+.quiz .opts button:hover{border-color:var(--gold)}
+@media (max-width:860px){.mapwrap{grid-template-columns:1fr}}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.map .halo,.map .flow{animation:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html" aria-current="page">Atlas</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>The trigger atlas</h1>
+  <p class="lede">One feeling reaches you along many paths: a sound, a smell, a place, a face, a thought. For a week or two, note what is present at moments across the day and how your state moves. The atlas fits every path at once and shows which ones really shift you, by how much, and how sure it is. Then work on one node, and measure whether the change travels to the ones you never touched.</p>
+  <div class="labels"><span>Built and tested in simulation</span><span class="u">Effect unproven in people</span></div>
+
+  <section aria-labelledby="mapTitle">
+    <h2 id="mapTitle">Your map</h2>
+    <p class="hint">Closer to the centre and larger means a stronger trigger. Tap a node to see its numbers. Stored only in this browser.</p>
+    <div class="mapwrap">
+      <div><svg class="map" id="map" viewBox="0 0 640 640" role="img" aria-label="The trigger network"></svg>
+        <div class="key"><span><i style="background:#ef7d6d"></i>Trigger</span><span><i style="background:#8fd19e"></i>Soothing</span><span><i style="background:#a3abc6"></i>No effect or not clear</span><span><i style="border:1px dashed #a3abc6"></i>Too few moments</span><span><i style="background:#e8b04a"></i>Only together</span></div>
+      </div>
+      <div class="panel detail" id="detail"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="logTitle">
+    <h2 id="logTitle">Note a moment</h2>
+    <p class="lede">At a few moments a day, mark what is around you and how you feel now, then again a few minutes later. Also note ordinary moments with nothing in particular present: they are the baseline every node is measured against.</p>
+    <div class="panel">
+      <span class="hint">This mapping:</span>
+      <div class="phase" id="phase" role="group" aria-label="Which mapping"></div>
+      <span class="hint">What is present</span>
+      <div class="chips" id="present"></div>
+      <div class="two">
+        <div><label for="before">Before: <b id="beforeV">3</b> of 10</label><input type="range" id="before" min="0" max="10" value="3"></div>
+        <div><label for="after">A few minutes later: <b id="afterV">3</b> of 10</label><input type="range" id="after" min="0" max="10" value="3"></div>
+      </div>
+      <button class="btn main" id="logIt">Save this moment</button>
+      <button class="btn" id="logNone">Nothing in particular was present</button>
+      <p class="say" id="logMsg"></p>
+      <details style="margin-top:14px"><summary style="cursor:pointer;color:var(--muted)">Add a node</summary>
+        <div class="two">
+          <div><label for="nLabel">What it is</label><input type="text" id="nLabel" placeholder="The smell of hospital soap"></div>
+          <div><label for="nSense">Sense</label><select id="nSense"></select></div>
+        </div>
+        <button class="btn" id="nAdd">Add</button>
+        <label for="cA" style="margin-top:16px">A combination (two nodes that may only work together)</label>
+        <div class="two"><select id="cA" aria-label="First node"></select><select id="cB" aria-label="Second node"></select></div>
+        <button class="btn" id="cAdd">Add the combination</button>
+      </details>
+      <p class="verdict" id="ready"></p>
+      <p class="verdict" id="predict"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="rrTitle">
+    <h2 id="rrTitle">Rerouting</h2>
+    <p class="lede">When a strong trigger appears, the device can offer your best anchor, or play it by itself where the anchor has earned that on the Safety page. Try it: say which trigger is here.</p>
+    <div class="panel"><div class="chips" id="rrChips"></div><p class="verdict" id="rrOut"></p></div>
+  </section>
+
+  <section aria-labelledby="dTitle">
+    <h2 id="dTitle">The descent</h2>
+    <p class="lede">A guided trance through your own network, drawn live in three dimensions. You go down toward the strongest node, let light flow into it from the level above, and watch the change travel along every thread. Before and after, you rate one trigger you will not work on: that is the test.</p>
+    <div class="stage" id="stage">
+      <canvas id="gl" aria-label="Your trigger network in three dimensions"></canvas>
+      <div id="tags"></div>
+      <div class="caption"><p id="cap" aria-live="polite">Sit comfortably. When you are ready, start.</p><div class="steps" id="steps"></div><div class="ctl" id="ctl"></div></div>
+    </div>
+    <p class="hint">Uses WebGL; without it the same scene is drawn in two dimensions. With reduced motion set on your device, the camera moves in gentle cuts. Stop at any moment. If something feels wrong afterwards, use the <a href="safety.html">Safety page</a>.</p>
+  </section>
+
+  <section aria-labelledby="tTitle">
+    <h2 id="tTitle">Did the change spread</h2>
+    <p class="lede">Map once, map again with no treatment (the repeat shows how much triggers fade by themselves), work on one node, then map a third time. The change on the nodes you never treated, beyond that fading, is the transfer. The comparison with a timeline session is a trial: <a href="trials.html#network_vs_timeline">network trance or a timeline</a>.</p>
+    <div class="panel"><p class="hint" style="margin:0">Change in each trigger's weight after treatment, in points, beyond the fading measured by the repeat mapping. Below zero is calmer.</p><svg class="chart" id="tChart" role="img" aria-label="Change on each trigger"></svg><p class="verdict" id="tOut"></p></div>
+  </section>
+
+  <section aria-labelledby="sTitle">
+    <h2 id="sTitle">Higher nodes</h2>
+    <p class="lede">Instead of a trigger, work from a level above the problem: higher by abstraction (the words, the one who chooses, who you are, what matters, what your life is for) or higher by scope (the room, the city, the country, the world, all living things). After each session, rate how your untreated triggers feel. The sweep shows whether the benefit rises, peaks or falls as the level goes up.</p>
+    <div class="panel">
+      <div class="two"><div><label for="hNode">Higher node</label><select id="hNode"></select></div>
+        <div><label for="hChange">Untreated triggers afterwards, compared with before</label><select id="hChange"><option value="-3">Much calmer (−3)</option><option value="-2">Calmer (−2)</option><option value="-1">A little calmer (−1)</option><option value="0" selected>The same (0)</option><option value="1">Worse (+1)</option></select></div></div>
+      <button class="btn main" id="hAdd">Save the session</button>
+      <svg class="chart" id="sChart" role="img" aria-label="Benefit by level"></svg>
+      <div class="key"><span><i style="background:#e8b04a"></i>By abstraction</span><span><i style="background:#a3abc6"></i>By scope</span></div>
+      <p class="verdict" id="sOut"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="gTitle">
+    <h2 id="gTitle">The glyph route</h2>
+    <p class="lede">The original glyphs of the tier ledger, in ledger order, as a path to walk in memory. Study the route, then walk it: for each glyph, choose the one that comes next. Each walk is timed, and the page shows how the route settles.</p>
+    <div class="panel">
+      <div class="two"><div><label for="gStart">Start at</label><select id="gStart"></select></div><div><label for="gLen">Length</label><select id="gLen"><option>6</option><option selected>8</option><option>12</option></select></div></div>
+      <div class="route" id="gRoute"></div>
+      <button class="btn main" id="gWalk">Walk the route</button>
+      <div id="gQuiz"></div>
+      <p class="verdict" id="gOut"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="simTitle">
+    <h2 id="simTitle">See it on a simulated person</h2>
+    <p class="lede">A simulated person with known triggers, a pair that triggers only together, three mappings of two weeks (the second with no treatment), the strongest node treated with part of the change spreading, eight sessions at each higher node and four walks of the route. Compare what the page finds with the truth.</p>
+    <div class="panel">
+      <button class="btn" id="simAdd">Load the simulated person</button> <button class="btn" id="simClear">Back to my own atlas</button>
+      <p class="say" id="simTruth"></p>
+      <p class="hint">Across many simulated people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/atlas.md">rsso/results/atlas.md</a>. To run it with real people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/ATLAS_PROTOCOL_KIT.md">the protocol kit</a>.</p>
+    </div>
+  </section>
+</main>
+<footer>ATLAS is <code>rsso/rsso/atlas.py</code>, identically <code>docs/js/atlas.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/ATLAS.md">spec/ATLAS.md</a>. A map of triggers is a measurement, not a treatment; if something feels wrong, stop and use the <a href="safety.html">Safety page</a>.</footer>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/trial.js?v=1.18.0"></script>
+<script src="js/gate.js?v=1.16.0"></script>
+<script src="js/atlas.js?v=1.18.0"></script>
+<script>
+const $ = id => document.getElementById(id);
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt != null) e.textContent = txt; return e; };
+const NS = "http://www.w3.org/2000/svg", sv = (t, at) => { const e = document.createElementNS(NS, t); for (const k in at) e.setAttribute(k, at[k]); return e; };
+const A = window.RSOSAtlas;
+const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage off */ } } };
+const KEY = "rsos.atlas", now = () => Math.floor(Date.now() / 1000);
+const REDUCED = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+let atlas = store.get(KEY, null), sim = null, sel = null, phase = "map", present = new Set(), GLYPHS = [];
+const starter = () => { const a = A.makeAtlas("me", "Stress", now());
+  [["Raised voices", "sound"], ["Unread messages", "sight"], ["The office", "place"], ["Hospital smell", "smell"], ["Coffee", "taste"], ["\"I'm behind\"", "thought"], ["The manager", "person"], ["A clock ticking", "sound"], ["Rain on the window", "sound"], ["My own kitchen", "place"]]
+    .forEach(([l, s], i) => A.addNode(a, "t" + (i + 1), l, s)); return a; };
+if (!atlas) atlas = starter();
+const cur = () => (sim ? sim.atlas : atlas);
+const save = () => { if (!sim) store.set(KEY, atlas); };
+const COL = { trigger: "#ef7d6d", soothing: "#8fd19e", none: "#a3abc6", unclear: "#a3abc6", too_few: "#a3abc6" };
+const SAY = { trigger: "A trigger", soothing: "Soothing", none: "No effect", unclear: "Not clear yet", too_few: "Too few moments yet" };
+
+/* ---------- the 2D map ---------- */
+function layout(a, W) {
+  const real = a.nodes.filter(n => n.sense !== "combo"), pos = {}, by = {};
+  A.SENSES.forEach(s => { by[s] = real.filter(n => n.sense === s); });
+  const used = A.SENSES.filter(s => by[s].length), R = 270;
+  used.forEach((s, k) => {
+    const a0 = -Math.PI / 2 + k * 2 * Math.PI / used.length, span = 2 * Math.PI / used.length;
+    by[s].forEach((n, j) => {
+      const w = W[n.id], strength = w.weight === null ? 0 : Math.max(-4, Math.min(5, w.weight));
+      const r = w.verdict === "trigger" ? R - 70 - strength * 30 : w.verdict === "soothing" ? R - 10 : R - 45;
+      const ang = a0 + span * (j + 1) / (by[s].length + 1);
+      pos[n.id] = [320 + Math.cos(ang) * Math.max(70, r), 320 + Math.sin(ang) * Math.max(70, r), ang];
+    });
+  });
+  return { pos, used, by };
+}
+function drawMap() {
+  const a = cur(), W = A.weights(a, phase === "after" ? "after" : phase), S = $("map"); S.textContent = "";
+  const { pos, used } = layout(a, W), C = A.combos(a, phase);
+  [90, 180, 270].forEach(r => S.append(sv("circle", { cx: 320, cy: 320, r, class: "ring" })));
+  used.forEach((s, k) => { const ang = -Math.PI / 2 + (k + 0.5) * 2 * Math.PI / used.length;
+    const t = sv("text", { x: 320 + Math.cos(ang) * 306, y: 324 + Math.sin(ang) * 306, "text-anchor": Math.cos(ang) < -0.5 ? "start" : Math.cos(ang) > 0.5 ? "end" : "middle", class: "sector" }); t.textContent = A.SENSE_NAMES[s]; S.append(t); });
+  A.edges(a, phase).forEach(e => { if (pos[e.a] && pos[e.b]) S.append(sv("line", { x1: pos[e.a][0], y1: pos[e.a][1], x2: pos[e.b][0], y2: pos[e.b][1], class: "co", "stroke-width": 1 + e.share * 3 })); });
+  Object.keys(pos).forEach(id => { const w = W[id]; if (w.verdict !== "trigger" && w.verdict !== "soothing") return;
+    S.append(sv("line", { x1: pos[id][0], y1: pos[id][1], x2: 320, y2: 320, class: "spoke" + (w.verdict === "trigger" ? " flow" : ""), stroke: COL[w.verdict], "stroke-opacity": .55, "stroke-width": 1 + Math.min(5, Math.abs(w.weight)) * 0.8 })); });
+  const centre = sv("g", { class: "centre" });
+  centre.append(sv("circle", { cx: 320, cy: 320, r: 46, fill: "url(#cg)" }), sv("circle", { cx: 320, cy: 320, r: 34, fill: "#e8b04a" }));
+  const ct = sv("text", { x: 320, y: 325, "text-anchor": "middle" }); ct.textContent = a.state; centre.append(ct);
+  const defs = sv("defs", {}); const g = sv("radialGradient", { id: "cg" }); g.append(sv("stop", { offset: "0", "stop-color": "#f7d995", "stop-opacity": ".55" }), sv("stop", { offset: "1", "stop-color": "#f7d995", "stop-opacity": "0" })); defs.append(g); S.append(defs, centre);
+  C.forEach(c => { const p = c.of.map(x => pos[x]).filter(Boolean); if (p.length < 2) return;
+    const x = p.reduce((s, q) => s + q[0], 0) / p.length * 0.82 + 320 * 0.18, y = p.reduce((s, q) => s + q[1], 0) / p.length * 0.82 + 320 * 0.18;
+    p.forEach(q => S.append(sv("line", { x1: q[0], y1: q[1], x2: x, y2: y, stroke: "#e8b04a", "stroke-opacity": .5, "stroke-dasharray": "2 4" })));
+    pos[c.id] = [x, y, null, true]; });
+  a.nodes.forEach(n => {
+    if (!pos[n.id]) return; const w = W[n.id], [x, y] = pos[n.id], combo = n.sense === "combo";
+    const col = combo ? (w.verdict === "trigger" ? "#e8b04a" : "#a3abc6") : COL[w.verdict];
+    const rad = 7 + Math.min(16, Math.abs(w.weight || 0) * 3.2);
+    const G = sv("g", { class: "node" + (sel === n.id ? " sel" : ""), tabindex: 0, role: "button", "aria-label": n.label + ": " + SAY[w.verdict] });
+    if (w.verdict === "trigger") G.append(sv("circle", { cx: x, cy: y, r: rad + 6, fill: col, class: "halo", style: "animation-delay:-" + (n.id.length * 0.7 % 5).toFixed(1) + "s" }));
+    G.append(sv("circle", { cx: x, cy: y, r: rad, fill: w.verdict === "too_few" ? "transparent" : col, "fill-opacity": w.verdict === "trigger" || w.verdict === "soothing" || combo ? .95 : .45,
+      stroke: col, "stroke-dasharray": w.verdict === "too_few" ? "3 3" : "", class: "core" }));
+    const t = sv("text", { x, y: combo ? y - rad - 6 : y + rad + 13, "text-anchor": "middle" }); t.textContent = combo ? "together" : n.label.length > 22 ? n.label.slice(0, 21) + "…" : n.label; G.append(t);
+    const pick = () => { sel = n.id; drawMap(); drawDetail(); };
+    G.addEventListener("click", pick); G.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+    S.append(G);
+  });
+}
+function drawDetail() {
+  const D = $("detail"), a = cur(); D.textContent = "";
+  const W = A.weights(a, phase === "after" ? "after" : phase), n = a.nodes.find(x => x.id === sel);
+  if (!n) { const r = A.readiness(a, phase);
+    D.append(el("h3", "", "Your " + a.state.toLowerCase() + " network"), el("p", "say", a.nodes.length + " nodes, " + r.moments + " moments in this mapping, " + r.controls + " of them with nothing in particular."), el("p", "say", "Tap a node on the map to see how strongly it moves you."));
+    const top = a.nodes.filter(x => W[x.id].verdict === "trigger").sort((p, q) => W[q.id].weight - W[p.id].weight).slice(0, 3);
+    if (top.length) D.append(el("p", "verdict", "Strongest: " + top.map(x => x.label + " (+" + W[x.id].weight + ")").join(", ") + "."));
+    return; }
+  const w = W[n.id];
+  D.append(el("h3", "", n.label), el("p", "say", (A.SENSE_NAMES[n.sense] || n.sense) + (n.of ? ": " + n.of.map(i => (a.nodes.find(x => x.id === i) || {}).label).join(" with ") : "")));
+  if (w.weight !== null) { const b = el("p"); b.append(el("span", "big", (w.weight > 0 ? "+" : "") + w.weight)); b.append(document.createTextNode(" points" + (w.lo !== null ? " [" + w.lo + ", " + w.hi + "]" : ""))); D.append(b); }
+  D.append(el("p", "verdict", n.sense === "combo" ? ({ only_together: "Only together: neither part triggers alone, but together they do.", together_more: "Stronger together than the parts add up to.", together_less: "Weaker together than the parts add up to.", additive: "The parts simply add up.", too_few: "Too few moments with both present yet." })[(A.combos(a, phase).find(c => c.id === n.id) || {}).verdict || "too_few"]
+    : SAY[w.verdict] + (w.verdict === "trigger" ? ": it raises your " + a.state.toLowerCase() + " beyond ordinary moments." : w.verdict === "soothing" ? ": it lowers it." : ".")));
+  D.append(el("p", "say", "Seen in " + w.n + " moments. " + (w.ready ? "The weight is stable." : "About " + w.need + " moments in all would make it stable.")));
+  const b = el("button", "btn small", "It is here now"); b.addEventListener("click", () => { present = new Set([n.id]); drawPresent(); $("logTitle").scrollIntoView({ block: "start" }); }); D.append(b);
+  const x = el("button", "btn small", "Back to the overview"); x.addEventListener("click", () => { sel = null; drawMap(); drawDetail(); }); D.append(x);
+}
+
+/* ---------- logging ---------- */
+const PH = [["map", "First mapping"], ["map2", "Repeat, before treatment"], ["after", "After treatment"]];
+function drawPhase() { const P = $("phase"); P.textContent = ""; PH.forEach(([k, t]) => { const b = el("button", "chip", t); b.setAttribute("aria-pressed", phase === k ? "true" : "false"); b.addEventListener("click", () => { phase = k; drawAll(); }); P.append(b); }); }
+function drawPresent() {
+  const C = $("present"), a = cur(); C.textContent = "";
+  a.nodes.filter(n => n.sense !== "combo").forEach(n => { const b = el("button", "chip", n.label); b.setAttribute("aria-pressed", present.has(n.id) ? "true" : "false");
+    b.append(el("small", "", A.SENSE_NAMES[n.sense].toLowerCase())); b.addEventListener("click", () => { present.has(n.id) ? present.delete(n.id) : present.add(n.id); drawPresent(); }); C.append(b); });
+  const S = $("nSense"); if (!S.options.length) A.SENSES.forEach(s => S.append(new Option(A.SENSE_NAMES[s], s)));
+  ["cA", "cB"].forEach(id => { const X = $(id); X.textContent = ""; a.nodes.filter(n => n.sense !== "combo").forEach(n => X.append(new Option(n.label, n.id))); }); if ($("cB").options.length > 1) $("cB").selectedIndex = 1;
+}
+["before", "after"].forEach(id => $(id).addEventListener("input", () => { $(id + "V").textContent = $(id).value; }));
+function log(nodes) {
+  if (sim) { $("logMsg").textContent = "This is the simulated person. Go back to your own atlas to note moments."; return; }
+  A.expose(atlas, now(), nodes, parseInt($("before").value, 10), parseInt($("after").value, 10), phase); save();
+  $("logMsg").textContent = "Saved: " + (nodes.length ? nodes.map(i => atlas.nodes.find(n => n.id === i).label).join(", ") : "nothing in particular") + ", " + $("before").value + " → " + $("after").value + ".";
+  present = new Set(); drawAll();
+}
+$("logIt").addEventListener("click", () => { if (!present.size) { $("logMsg").textContent = "Mark what is present first, or use the button for ordinary moments."; return; } log([...present]); });
+$("logNone").addEventListener("click", () => log([]));
+$("nAdd").addEventListener("click", () => { if (sim) return; const l = $("nLabel").value.trim(); if (!l) return; let k = atlas.nodes.length + 1; while (atlas.nodes.some(n => n.id === "t" + k)) k++;
+  A.addNode(atlas, "t" + k, l, $("nSense").value); $("nLabel").value = ""; save(); drawAll(); });
+$("cAdd").addEventListener("click", () => { if (sim) return; const x = $("cA").value, y = $("cB").value; if (x === y) return; const id = "c_" + x + "_" + y;
+  if (atlas.nodes.some(n => n.id === id)) return; A.addCombo(atlas, id, [x, y], atlas.nodes.find(n => n.id === x).label + " with " + atlas.nodes.find(n => n.id === y).label); save(); drawAll(); });
+function drawReady() { const a = cur(); $("ready").textContent = A.readiness(a, phase).say; $("predict").textContent = A.predict(a, phase).say; }
+
+/* ---------- rerouting ---------- */
+function drawReroute() {
+  const C = $("rrChips"), a = cur(), W = A.weights(a); C.textContent = "";
+  const trig = a.nodes.filter(n => n.sense !== "combo" && W[n.id].verdict === "trigger");
+  if (!trig.length) { $("rrOut").textContent = "No trigger is clear yet. Map a few more moments first."; return; }
+  $("rrOut").textContent = "";
+  trig.forEach(n => { const b = el("button", "chip", n.label + " is here"); b.addEventListener("click", () => {
+    const anchors = store.get("rsos.anchors", []).filter(x => !x.sim), hist = store.get("rsos.gate.history", {}), h = {};
+    Object.keys(hist).forEach(k => { h[k] = { auto_since: hist[k] }; });
+    const r = A.reroute(a, [n.id], anchors, store.get("rsos.gate.offers", []), now(), store.get("rsos.gate.optins", {}), h, store.get("rsos.consents", []), 0);
+    const an = anchors.find(x => x.id === r.anchor);
+    $("rrOut").textContent = r.action === "fire" ? "The device would play " + an.glyph + " " + an.name + " by itself now (weight +" + r.weight + "). " + (r.flag || "")
+      : r.action === "suggest" ? "The device would offer " + an.glyph + " " + an.name + " now, and you confirm (weight +" + r.weight + ")."
+      : anchors.length ? "Nothing would play: " + r.reasons.join("; ") + ". Anchors earn this on the Anchors and Safety pages." : "Nothing would play: you have no anchor yet. Create one on the Anchors page.";
+    if (an) try { UGCL.feel(an.code, {}); } catch (e) { /* no vibration */ } }); C.append(b); });
+}
+
+/* ---------- transfer ---------- */
+function drawTransfer() {
+  const a = cur(), node = (a.treatments.length ? a.treatments[a.treatments.length - 1].node : null) || A.chooseNode(a), S = $("tChart"); S.innerHTML = "";
+  if (!node) { $("tOut").textContent = "Map first: the strongest trigger becomes the node to work on."; return; }
+  const t = A.transfer(a, node), W = S.getBoundingClientRect().width || 640, H = 200; S.setAttribute("viewBox", "0 0 " + W + " " + H);
+  const rows = (t.treated_change !== null ? [{ id: node, change: t.treated_change, treated: true }] : []).concat(t.untreated);
+  if (!rows.length) { $("tOut").textContent = t.say; return; }
+  const lab = id => { const n = a.nodes.find(x => x.id === id); return n ? n.label : id; }, mx = Math.max(1, ...rows.map(r => Math.abs(r.change)));
+  const L = Math.min(190, W * 0.38), bw = Math.min(26, (H - 20) / rows.length - 4), x0 = L + (W - L - 20) / 2, sc = (W - L - 30) / 2 / mx;
+  let g = '<line x1="' + x0 + '" x2="' + x0 + '" y1="0" y2="' + H + '" stroke="#2e3858"/>';
+  rows.forEach((r, i) => { const y = 8 + i * (bw + 6), w = r.change * sc;
+    g += '<text x="' + (L - 8) + '" y="' + (y + bw * 0.7) + '" fill="' + (r.treated ? "#f7d995" : "#a3abc6") + '" font-size="12" text-anchor="end">' + (r.treated ? "Treated: " : "") + lab(r.id).replace(/[<&]/g, "") + "</text>";
+    g += '<rect x="' + Math.min(x0, x0 + w) + '" y="' + y + '" width="' + Math.max(1, Math.abs(w)) + '" height="' + bw + '" rx="4" fill="' + (r.treated ? "#e8b04a" : r.change < 0 ? "#8fd19e" : "#ef7d6d") + '" opacity=".85"/>';
+    g += '<text x="' + (w < 0 ? x0 + 8 : x0 + w + 6) + '" y="' + (y + bw * 0.7) + '" fill="#e7e9f2" font-size="12" text-anchor="start">' + (r.change > 0 ? "+" : "") + r.change + "</text>"; });
+  S.setAttribute("height", Math.max(120, rows.length * (bw + 6) + 16)); S.style.height = Math.max(120, rows.length * (bw + 6) + 16) + "px"; S.setAttribute("viewBox", "0 0 " + W + " " + Math.max(120, rows.length * (bw + 6) + 16));
+  S.innerHTML = g; $("tOut").textContent = t.say + (t.controlled ? " Fading between the first two mappings: " + Math.round((1 - t.drift) * 100) + "%, removed." : "");
+}
+
+/* ---------- the level sweep ---------- */
+function drawSweep() {
+  const H = $("hNode"); if (!H.options.length) A.HIGHER.forEach(h => H.append(new Option((h.dim === "abstraction" ? "Abstraction " : "Scope ") + h.rank + ": " + h.label, h.id)));
+  const a = cur(), r = A.sweepReport(a), S = $("sChart"), W = S.getBoundingClientRect().width || 640, Hh = 200; S.setAttribute("viewBox", "0 0 " + W + " " + Hh);
+  const all = ["abstraction", "scope"].flatMap(d => r.dims[d].points.map(p => p.benefit)).filter(v => v !== null), top = Math.max(3, ...all), bot = Math.min(0, ...all);
+  const x = k => 40 + (k - 1) * (W - 70) / 4, y = v => 28 + (top - v) / (top - bot) * (Hh - 58);
+  let g = '<line x1="34" x2="' + (W - 20) + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="#2e3858"/><text x="30" y="' + (y(0) + 4) + '" fill="#a3abc6" font-size="11" text-anchor="end">0</text><text x="30" y="' + (y(top) + 4) + '" fill="#a3abc6" font-size="11" text-anchor="end">' + Math.round(top) + '</text><text x="40" y="12" fill="#a3abc6" font-size="11">Points calmer on untreated triggers</text>';
+  for (let k = 1; k <= 5; k++) g += '<text x="' + x(k) + '" y="' + (Hh - 8) + '" fill="#a3abc6" font-size="11" text-anchor="middle">level ' + k + "</text>";
+  [["abstraction", "#e8b04a"], ["scope", "#a3abc6"]].forEach(([d, c]) => { const pts = r.dims[d].points.filter(p => p.benefit !== null);
+    if (pts.length > 1) g += '<polyline fill="none" stroke="' + c + '" stroke-width="2" points="' + pts.map(p => x(p.rank) + "," + y(p.benefit)).join(" ") + '"/>';
+    pts.forEach(p => { g += '<circle cx="' + x(p.rank) + '" cy="' + y(p.benefit) + '" r="4.5" fill="' + c + '"><title>' + p.id + ": " + p.benefit + " (" + p.n + " sessions)</title></circle>"; }); });
+  S.innerHTML = g;
+  $("sOut").textContent = r.say + (r.abstraction_minus_scope ? " Abstraction minus scope: " + r.abstraction_minus_scope.difference + " [" + r.abstraction_minus_scope.lo + ", " + r.abstraction_minus_scope.hi + "]." : "");
+}
+$("hAdd").addEventListener("click", () => { if (sim) return; A.addSweep(atlas, now(), $("hNode").value, parseFloat($("hChange").value)); save(); drawSweep(); });
+
+/* ---------- the glyph route ---------- */
+function route() { return A.glyphRoute(GLYPHS, parseInt($("gStart").value || "0", 10), parseInt($("gLen").value, 10)); }
+function drawRoute() {
+  const R = $("gRoute"); R.textContent = ""; route().forEach((g, i) => { const s = el("span"); s.title = (i + 1) + ". " + g.name; try { s.innerHTML = UGCL.svg(g, 30, "#f7d995"); } catch (e) { s.textContent = g.char; } R.append(s); });
+  $("gOut").textContent = A.routeReport(cur()).say;
+}
+$("gStart").addEventListener("change", drawRoute); $("gLen").addEventListener("change", drawRoute);
+$("gWalk").addEventListener("click", () => {
+  const r = route(); if (r.length < 3) return; const Q = $("gQuiz"); Q.textContent = ""; $("gRoute").style.visibility = "hidden";
+  const res = []; let k = 0, t0 = 0; const box = el("div", "quiz"); Q.append(box);
+  const ask = () => { box.textContent = "";
+    if (k >= r.length - 1) { $("gRoute").style.visibility = ""; if (!sim) { A.addRouteWalk(atlas, now(), parseInt($("gStart").value, 10), r.length, res); save(); } Q.textContent = ""; $("gOut").textContent = A.routeReport(cur()).say; return; }
+    box.append(el("span", "hint", "Step " + (k + 1) + " of " + (r.length - 1) + ": what comes next?"));
+    const g = el("div", "g"); try { g.innerHTML = UGCL.svg(r[k], 56, "#f7d995"); } catch (e) { g.textContent = r[k].char; } box.append(g);
+    const right = r[k + 1], pool = GLYPHS.filter(x => x.id !== right.id && x.id !== r[k].id), opts = [right];
+    while (opts.length < 4 && pool.length) opts.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+    opts.sort(() => Math.random() - 0.5); const O = el("div", "opts");
+    opts.forEach(o => { const b = el("button"); b.setAttribute("aria-label", o.name); try { b.innerHTML = UGCL.svg(o, 34, "#e7e9f2"); } catch (e) { b.textContent = o.char; }
+      b.addEventListener("click", () => { res.push({ pos: k, ok: o.id === right.id, ms: Math.round(performance.now() - t0) }); k++; ask(); }); O.append(b); });
+    box.append(O); t0 = performance.now(); };
+  ask();
+});
+
+/* ---------- the descent: live 3D ---------- */
+const STEPS = [
+  { say: "Breathe out slowly. Here is every way this feeling reaches you.", cam: [0, 8, 22], look: [0, -5.5, 0], dur: 9 },
+  { say: "Each light is a path. The larger and warmer, the stronger it moves you.", cam: [13, 5, 17], look: [0, -5.5, 0], dur: 9 },
+  { say: "Now go down, slowly, toward the strongest: $node.", cam: "near", look: "target", dur: 12 },
+  { say: "Above it, from who you are, light begins to flow down into it.", cam: "near", look: "target", beam: 1, dur: 10 },
+  { say: "Watch it change. The warmth softens to gold.", cam: "near", look: "target", heal: 1, dur: 10 },
+  { say: "Now watch the change travel along every thread, to paths you never touched.", cam: [9, 4, 16], look: [0, -5.5, 0], heal: 1, spread: 1, dur: 14 },
+  { say: "Rise again, and see the whole network as it is now.", cam: [0, 10, 24], look: [0, -5.5, 0], heal: 1, spread: 1, dur: 9 },
+];
+let D = null;
+function scene() {
+  const a = cur(), W = A.weights(a), real = a.nodes.filter(n => n.sense !== "combo"), used = A.SENSES.filter(s => real.some(n => n.sense === s));
+  const target = A.chooseNode(a) || (real[0] && real[0].id), nodes = [];
+  used.forEach((s, k) => { const list = real.filter(n => n.sense === s);
+    list.forEach((n, j) => { const w = W[n.id], st = w.weight === null ? 0 : Math.max(-3, Math.min(5, w.weight));
+      const ang = k * 2 * Math.PI / used.length + (j + 1) / (list.length + 1) * 2 * Math.PI / used.length;
+      const rad = 6 + (j % 3) * 2.6 + (w.verdict === "trigger" ? 0 : 2.5);
+      nodes.push({ id: n.id, label: n.label, p: [Math.cos(ang) * rad, -1 - st * 1.1 + ((j * 7) % 5) * 0.35, Math.sin(ang) * rad], w: st, trig: w.verdict === "trigger" }); }); });
+  const idx = {}; nodes.forEach((n, i) => { idx[n.id] = i; });
+  const links = [];
+  nodes.forEach((n, i) => { if (n.id !== target && n.trig && idx[target] !== undefined) links.push([idx[target], i]); });
+  A.edges(a).forEach(e => { if (idx[e.a] !== undefined && idx[e.b] !== undefined) links.push([idx[e.a], idx[e.b]]); });
+  nodes.forEach((n, i) => { const near = nodes.map((m, j) => [j, Math.hypot(m.p[0] - n.p[0], m.p[1] - n.p[1], m.p[2] - n.p[2])]).filter(x => x[0] !== i).sort((p, q) => p[1] - q[1]).slice(0, 2);
+    near.forEach(([j]) => { if (!links.some(l => (l[0] === i && l[1] === j) || (l[0] === j && l[1] === i))) links.push([i, j]); }); });
+  const dust = []; let sx = 12345; const rnd = () => { sx = (1664525 * sx + 1013904223) % 4294967296; return sx / 4294967296; };
+  for (let i = 0; i < 420; i++) dust.push([(rnd() - 0.5) * 60, (rnd() - 0.5) * 34, (rnd() - 0.5) * 60, 0.4 + rnd() * 1.2]);
+  return { nodes, links, target: idx[target], dust, label: target ? (a.nodes.find(n => n.id === target) || {}).label : "" };
+}
+function mkGL(canvas) {
+  const gl = canvas.getContext("webgl", { premultipliedAlpha: false, antialias: true }); if (!gl) return null;
+  const vs = "attribute vec2 p;attribute float s;attribute vec4 c;varying vec4 vc;void main(){gl_Position=vec4(p,0.,1.);gl_PointSize=s;vc=c;}";
+  const fsP = "precision mediump float;varying vec4 vc;void main(){float d=length(gl_PointCoord-.5)*2.;float a=smoothstep(1.,0.,d);a=a*a*.85+smoothstep(.35,0.,d)*.6;gl_FragColor=vec4(vc.rgb,vc.a*a);}";
+  const fsL = "precision mediump float;varying vec4 vc;void main(){gl_FragColor=vc;}";
+  const prog = fs => { const p = gl.createProgram(); [[gl.VERTEX_SHADER, vs], [gl.FRAGMENT_SHADER, fs]].forEach(([t, src]) => { const sh = gl.createShader(t); gl.shaderSource(sh, src); gl.compileShader(sh); gl.attachShader(p, sh); }); gl.linkProgram(p); return p; };
+  const P = prog(fsP), L = prog(fsL), buf = gl.createBuffer();
+  gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+  function draw(program, mode, data) {
+    if (!data.length) return; gl.useProgram(program); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.DYNAMIC_DRAW);
+    const st = 7 * 4; [["p", 2, 0], ["s", 1, 2], ["c", 4, 3]].forEach(([n, k, o]) => { const l = gl.getAttribLocation(program, n); if (l < 0) return; gl.enableVertexAttribArray(l); gl.vertexAttribPointer(l, k, gl.FLOAT, false, st, o * 4); });
+    gl.drawArrays(mode, 0, data.length / 7);
+  }
+  return { clear() { gl.viewport(0, 0, canvas.width, canvas.height); gl.clearColor(0.055, 0.075, 0.14, 1); gl.clear(gl.COLOR_BUFFER_BIT); },
+    points: d => draw(P, gl.POINTS, d), lines: d => draw(L, gl.LINES, d) };
+}
+function mk2D(canvas) {
+  const x = canvas.getContext("2d");
+  return { clear() { x.globalCompositeOperation = "source-over"; x.fillStyle = "#0e1324"; x.fillRect(0, 0, canvas.width, canvas.height); x.globalCompositeOperation = "lighter"; },
+    points(d) { for (let i = 0; i < d.length; i += 7) { const px = (d[i] + 1) / 2 * canvas.width, py = (1 - d[i + 1]) / 2 * canvas.height, r = d[i + 2] / 2;
+      const g = x.createRadialGradient(px, py, 0, px, py, r), c = "rgba(" + Math.round(d[i + 3] * 255) + "," + Math.round(d[i + 4] * 255) + "," + Math.round(d[i + 5] * 255) + ",";
+      g.addColorStop(0, c + d[i + 6] + ")"); g.addColorStop(1, c + "0)"); x.fillStyle = g; x.beginPath(); x.arc(px, py, r, 0, 7); x.fill(); } },
+    lines(d) { for (let i = 0; i < d.length; i += 14) { x.strokeStyle = "rgba(" + Math.round(d[i + 3] * 255) + "," + Math.round(d[i + 4] * 255) + "," + Math.round(d[i + 5] * 255) + "," + d[i + 6] + ")";
+      x.beginPath(); x.moveTo((d[i] + 1) / 2 * canvas.width, (1 - d[i + 1]) / 2 * canvas.height); x.lineTo((d[i + 7] + 1) / 2 * canvas.width, (1 - d[i + 8]) / 2 * canvas.height); x.stroke(); } } };
+}
+const lerp = (p, q, t) => p.map((v, i) => v + (q[i] - v) * t), ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+function sub(p, q) { return [p[0] - q[0], p[1] - q[1], p[2] - q[2]]; } function nrm(v) { const l = Math.hypot(...v) || 1; return v.map(x => x / l); }
+function cross(p, q) { return [p[1] * q[2] - p[2] * q[1], p[2] * q[0] - p[0] * q[2], p[0] * q[1] - p[1] * q[0]]; } function dot(p, q) { return p[0] * q[0] + p[1] * q[1] + p[2] * q[2]; }
+function startDescent() {
+  const cv = $("gl"), stage = $("stage"), dpr = Math.min(2, window.devicePixelRatio || 1);
+  if (!D) { cv.width = stage.clientWidth * dpr; cv.height = stage.clientHeight * dpr; D = { R: mkGL(cv) || mk2D(cv), sc: scene(), step: -1, t: 0, heal: 0, spread: 0, beam: 0, cam: [0, 8, 22], look: [0, -5.5, 0], from: null, running: false, ratings: {} }; }
+  return D;
+}
+function camTarget(st) {
+  const tg = D.sc.nodes[D.sc.target]; const tp = tg ? tg.p : [0, -2, 0];
+  return { cam: st.cam === "near" ? [tp[0] * 1.6 + 2, tp[1] + 5, tp[2] * 1.6 + 7] : st.cam, look: st.look === "target" ? [tp[0], tp[1] - 2.5, tp[2]] : st.look };
+}
+function frame(ts) {
+  if (!D) return; const cv = $("gl"), dpr = Math.min(2, window.devicePixelRatio || 1);
+  if (cv.width !== Math.round($("stage").clientWidth * dpr)) { cv.width = $("stage").clientWidth * dpr; cv.height = $("stage").clientHeight * dpr; }
+  const dt = D.last ? Math.min(0.1, (ts - D.last) / 1000) : 0; D.last = ts; const time = ts / 1000;
+  if (D.running && D.step >= 0) {
+    const st = STEPS[D.step]; D.t += dt; const k = Math.min(1, D.t / (REDUCED ? 0.01 : Math.min(6, st.dur * 0.6))), e = ease(k), goal = camTarget(st);
+    D.cam = lerp(D.from.cam, goal.cam, e); D.look = lerp(D.from.look, goal.look, e);
+    D.beam += ((st.beam || st.heal ? 1 : 0) - D.beam) * Math.min(1, dt * 1.2); D.heal += ((st.heal ? 1 : 0) - D.heal) * Math.min(1, dt * 0.5); D.spread += ((st.spread ? 1 : 0) - D.spread) * Math.min(1, dt * 0.25);
+    if (D.t >= st.dur) next();
+  }
+  if (!REDUCED && D.step < 0) { const a = time * 0.05; D.cam = [Math.sin(a) * 22, 8, Math.cos(a) * 22]; }
+  const f = nrm(sub(D.look, D.cam)), r = nrm(cross(f, [0, 1, 0])), u = cross(r, f), asp = cv.width / cv.height, fov = (1 / Math.tan(0.5)) * (asp < 1 ? Math.max(0.55, asp) * 1.15 : 1);
+  const px = fov * cv.height / 2;
+  const proj = p => { const v = sub(p, D.cam), z = dot(v, f); if (z < 2.5) return null; return [dot(v, r) * fov / asp / z, dot(v, u) * fov / z, z]; };
+  D.R.clear(); const pts = [], lns = [], tags = [];
+  D.sc.dust.forEach(([x, y, z, s], i) => { const q = proj([x + Math.sin(time * 0.1 + i) * 0.3, y, z]); if (q) pts.push(q[0], q[1], s * 0.09 * px / q[2] + 1.5 * dpr, 0.64, 0.67, 0.78, 0.4); });
+  const heal = (i) => { if (i === D.sc.target) return D.heal; const n = D.sc.nodes[i]; return n.trig ? D.spread * 0.6 : D.spread * 0.3; };
+  const colour = (n, i) => { const h = heal(i), warm = n.trig ? [0.94, 0.49, 0.43] : n.w < 0 ? [0.56, 0.82, 0.62] : [0.64, 0.67, 0.78]; return lerp(warm, [0.97, 0.85, 0.58], h); };
+  D.sc.links.forEach(([i, j]) => { const p = proj(D.sc.nodes[i].p), q = proj(D.sc.nodes[j].p); if (!p || !q) return; const c = lerp([0.64, 0.67, 0.78], [0.97, 0.85, 0.58], D.spread); const al = 0.18 + 0.3 * D.spread;
+    lns.push(p[0], p[1], 1, c[0], c[1], c[2], al, q[0], q[1], 1, c[0], c[1], c[2], al);
+    if (D.spread > 0.02 && (i === D.sc.target || j === D.sc.target)) { const o = i === D.sc.target ? D.sc.nodes[i].p : D.sc.nodes[j].p, e = i === D.sc.target ? D.sc.nodes[j].p : D.sc.nodes[i].p;
+      for (let k = 0; k < 3; k++) { const tt = ((time * 0.35 + k / 3) % 1), m = proj(lerp(o, e, tt)); if (m) pts.push(m[0], m[1], 0.5 * px / m[2], 0.97, 0.85, 0.58, 0.85 * D.spread); } } });
+  D.sc.nodes.forEach((n, i) => { const q = proj(n.p); if (!q) return; const c = colour(n, i), breathe = REDUCED ? 1 : 1 + 0.08 * Math.sin(time * 1.2 + i);
+    const size = (0.7 + Math.max(0, n.w) * 0.32 * (1 - 0.35 * heal(i))) * px / q[2] * breathe;
+    pts.push(q[0], q[1], size * 2.6, c[0], c[1], c[2], 0.22, q[0], q[1], size, c[0], c[1], c[2], 0.95);
+    if (i === D.sc.target || (n.trig && D.step >= 1)) tags.push([q, n.label, i === D.sc.target]); });
+  if (D.beam > 0.01 && D.sc.nodes[D.sc.target]) { const tp = D.sc.nodes[D.sc.target].p, top = [tp[0], tp[1] + 9, tp[2]], a = proj(top);
+    if (a) pts.push(a[0], a[1], 2.6 * px / a[2], 0.97, 0.85, 0.58, 0.9 * D.beam);
+    for (let k = 0; k < 14; k++) { const tt = ((time * 0.5 + k / 14) % 1), m = proj(lerp(top, tp, tt)); if (m) pts.push(m[0], m[1], 0.45 * px / m[2], 0.97, 0.85, 0.58, 0.7 * D.beam); } }
+  D.R.lines(lns); D.R.points(pts);
+  const T = $("tags"); T.textContent = ""; const placed = [], sw = $("stage").clientWidth, sh = $("stage").clientHeight;
+  tags.sort((p, q) => (q[2] ? 1 : 0) - (p[2] ? 1 : 0)).forEach(([q, l, main]) => { const X = (q[0] + 1) / 2 * sw, Y = (1 - q[1]) / 2 * sh;
+    if (placed.some(([x, y]) => Math.abs(x - X) < 110 && Math.abs(y - Y) < 26) || placed.length >= 7) return; placed.push([X, Y]); const s = el("span", "tag", l); s.style.left = ((q[0] + 1) / 2 * 100) + "%"; s.style.top = ((1 - q[1]) / 2 * 100) + "%"; if (main) s.style.borderColor = "#e8b04a"; T.append(s); });
+  requestAnimationFrame(frame);
+}
+function stepsBar() { const S = $("steps"); S.textContent = ""; STEPS.forEach((_, i) => { const b = el("i"); if (i <= D.step) b.className = "on"; S.append(b); }); }
+function say(t) { $("cap").textContent = t; try { if ($("voice") && $("voice").checked && window.speechSynthesis) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.rate = 0.85; speechSynthesis.speak(u); } } catch (e) { /* no voice */ } }
+function next() {
+  D.step++; D.t = 0; D.from = { cam: D.cam.slice(), look: D.look.slice() }; stepsBar();
+  if (D.step >= STEPS.length) { D.running = false; D.step = STEPS.length - 1; rateUntreated("after"); return; }
+  say(STEPS[D.step].say.replace("$node", D.sc.label || "the strongest node"));
+  if (D.step === 3) { const a = cur(), tg = a.nodes.find(n => n.label === D.sc.label); try { if (tg) UGCL.feel(".-.", {}); } catch (e) { /* no vibration */ } }
+}
+function controls(kind) {
+  const C = $("ctl"); C.textContent = "";
+  if (kind === "idle") { const go = el("button", "btn main", "Start the descent"); go.addEventListener("click", () => rateUntreated("before"));
+    const v = el("label"); v.style.display = "inline-flex"; v.style.gap = "6px"; v.style.margin = "0 0 0 8px"; const cb = el("input"); cb.type = "checkbox"; cb.id = "voice"; v.append(cb, document.createTextNode("Speak the words")); C.append(go, v); }
+  if (kind === "running") { const p = el("button", "btn", "Pause"); p.addEventListener("click", () => { D.running = !D.running; p.textContent = D.running ? "Pause" : "Continue"; try { speechSynthesis.cancel(); } catch (e) { /* none */ } });
+    const s = el("button", "btn", "Stop"); s.addEventListener("click", () => { D.running = false; D.step = -1; D.heal = D.spread = D.beam = 0; stepsBar(); say("Stopped. Breathe, look around the room, and come back when you like."); controls("idle"); }); C.append(p, s); }
+}
+function rateUntreated(when) {
+  const a = cur(), W = A.weights(a), others = a.nodes.filter(n => n.sense !== "combo" && W[n.id].verdict === "trigger" && n.label !== D.sc.label);
+  const pick = D.untreated || (others[0] || a.nodes.find(n => n.label !== D.sc.label) || {}); D.untreated = pick;
+  $("cap").textContent = (when === "before" ? "Before you start: picture " : "Now picture ") + "“" + (pick.label || "one trigger") + "”, which you will not work on. How strongly does it move you?";
+  const C = $("ctl"); C.textContent = ""; const row = el("div", "rate"), r = el("input"); r.type = "range"; r.min = 0; r.max = 10; r.value = 5; r.setAttribute("aria-label", "How strongly, 0 to 10");
+  const v = el("b", "", "5"); r.addEventListener("input", () => { v.textContent = r.value; }); const ok = el("button", "btn main", when === "before" ? "Begin" : "Save");
+  ok.addEventListener("click", () => { D.ratings[when] = parseInt(r.value, 10);
+    if (when === "before") { D.step = -1; D.heal = D.spread = D.beam = 0; D.running = true; controls("running"); next(); }
+    else { const d = D.ratings.after - D.ratings.before; if (!sim && D.sc.target !== undefined) { A.addTreatment(atlas, now(), D.sc.nodes[D.sc.target].id, "network", "untreated " + pick.label + ": " + D.ratings.before + " to " + D.ratings.after); save(); }
+      say("Untreated “" + pick.label + "”: " + D.ratings.before + " before, " + D.ratings.after + " after (" + (d > 0 ? "+" : "") + d + "). One session is a hint, not a result: map again over the coming weeks, as “After treatment”, to measure the transfer.");
+      controls("idle"); drawTransfer(); } });
+  row.append(r, v, ok); C.append(row);
+}
+function initDescent() { startDescent(); stepsBar(); controls("idle"); requestAnimationFrame(frame); }
+
+/* ---------- simulated person ---------- */
+$("simAdd").addEventListener("click", () => {
+  const S = new A.SimWorld(4), a = S.atlas(), labels = ["Unread messages", "Raised voices", "Hospital smell", "Coffee", "Cold hands", "The office", "\"I'm behind\"", "A red notification dot", "The manager", "Rain on the window", "A door slamming", "Fresh bread"];
+  a.nodes.forEach((n, i) => { if (n.sense !== "combo") n.label = labels[i]; else n.label = labels[S.pair[0]] + " with " + labels[S.pair[1]]; });
+  a.state = "Stress";
+  S.sample(a, 14); S.sample(a, 14, 10, "map2", 20 * 86400, Array(S.n).fill(0.85));
+  const k = parseInt(A.chooseNode(a).slice(1), 10);
+  S.sample(a, 14, 10, "after", 40 * 86400, S.w.map((w, i) => 0.72 * (i === k ? 0.2 : w > 0 ? 0.6 : 1)));
+  A.addTreatment(a, 35 * 86400, "n" + k, "network");
+  const rng = new RSOSPeak.Rng(4); A.HIGHER.forEach(h => { for (let j = 0; j < 8; j++) A.addSweep(a, 0, h.id, -((h.dim === "abstraction" ? 2 - 0.6 * Math.abs(h.rank - 3) : 1) + rng.gauss() * 0.6)); });
+  for (let w = 0; w < 4; w++) A.addRouteWalk(a, w * 86400, 0, 8, Array.from({ length: 7 }, (_, j) => ({ pos: j, ok: rng.u() < 0.35 + 0.18 * w, ms: Math.round(1800 - w * 250 + rng.u() * 500) })));
+  sim = { atlas: a };
+  $("simTruth").textContent = "The truth: " + S.w.map((w, i) => [labels[i], w]).filter(x => x[1] > 0).map(x => x[0] + " +" + (Math.round(x[1] * 10) / 10)).join(", ") +
+    "; " + labels[S.pair[0]] + " with " + labels[S.pair[1]] + " +3, only together; everything else nothing. Between mappings every trigger fades by 15% by itself; on top of that, treatment leaves the treated node at 20% of its strength and the other triggers at 60%. By abstraction the benefit peaks at level 3; by scope it is the same at every level.";
+  sel = null; phase = "map"; D = null; initDescent(); drawAll(); $("mapTitle").scrollIntoView({ block: "start" });
+});
+$("simClear").addEventListener("click", () => { sim = null; sel = null; $("simTruth").textContent = ""; D = null; initDescent(); drawAll(); });
+
+function drawAll() { drawPhase(); drawMap(); drawDetail(); drawPresent(); drawReady(); drawReroute(); drawTransfer(); drawSweep(); drawRoute(); }
+fetch("ugcl/originals.json?v=1.10.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => d)).then(d => {
+  GLYPHS = d.glyphs.filter(g => g.char); const S = $("gStart"); for (let i = 0; i < GLYPHS.length - 6; i += 4) S.append(new Option("Glyph " + (i + 1) + " (" + GLYPHS[i].name + ")", i)); drawRoute();
+}).catch(() => { $("gOut").textContent = "The glyphs could not be loaded. Open this page online once to keep it for offline use."; });
+drawAll(); initDescent();
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { drawTransfer(); drawSweep(); }, 150); });
+</script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
+</body>
+</html>

@@ -36,6 +36,9 @@ An entry here is a reference point, never a reason to drop an item: knowing what
 | Chartrand & Bargh, *J Pers Soc Psychol* 76:893, 1999 | The chameleon effect: people mimic interaction partners without intending to, and more empathic people mimic more | 54 | checked |
 | Dilts, logical (neurological) levels | Environment, behaviour, capabilities, beliefs and values, identity and a level beyond identity as a model for change | 23 | to verify |
 | Andreas & Andreas, *Core Transformation*, 1994 | A process that follows a part's intentions down to a core state and returns it through the old reaction | 51, 52 | to verify |
+| Borsboom & Cramer, *Annual Review of Clinical Psychology* 9:91, 2013 (doi:10.1146/annurev-clinpsy-050212-185608) | Network approach to psychopathology: symptoms as a causal network; which symptom is most central in a person's network; simulation of symptom dynamics | 57, 60, 63 | checked |
+| Shiffman, Stone & Hufford, *Annual Review of Clinical Psychology* 4:1, 2008 (doi:10.1146/annurev.clinpsy.3.022806.091415) | Ecological momentary assessment: repeated real-time sampling of experience in daily life, often at random times | 57, 61 | checked |
+| James & Woodsmall, *Time Line Therapy and the Basis of Personality*, 1988 | Releasing emotions by revisiting the first event on an imagined timeline | 60 | to verify |
 | Bouton (reviews of extinction learning) | Extinction is tied to the context in which it was learned; it may not transfer | 60, 63 | to verify |
 | Meichenbaum, stress inoculation training | Graded exposure to stressors while practising coping | 26 | to verify |
 | Imagery rescripting (meta-analyses) | Benefits over passive controls; no established advantage over other active treatments | 17, 63, 64 | to verify |

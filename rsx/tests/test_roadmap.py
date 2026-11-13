@@ -70,7 +70,7 @@ class Framing(unittest.TestCase):
 
 class Site(unittest.TestCase):
     def test_every_page_has_the_full_menu(self):
-        want = ["Protocol", "RSX", "Model", "Player", "Nodes", "Anchors", "Identity", "Trials", "Therapist", "Devices", "Contribute", "Safety",
+        want = ["Protocol", "RSX", "Model", "Player", "Nodes", "Anchors", "Identity", "Atlas", "Trials", "Therapist", "Devices", "Contribute", "Safety",
                 "Tier ledger", "Metrics", "System", "Glyphs", "Roadmap", "GitHub"]
         for f in sorted((REPO / "docs").glob("*.html")):
             m = re.search(r"<nav(?: class=\"site\"[^>]*)?>(.*?)</nav>", f.read_text(encoding="utf-8"), re.S)

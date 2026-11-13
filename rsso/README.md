@@ -26,6 +26,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 | `rsso/checks.py` | CHECKS, built-in cognitive tests ([spec](../spec/CHECKS.md)): seeded task sequences and scoring for 2-back, digit span, reaction time, word recall, reading and dot-probe. Identical to `docs/js/checks.js`. |
 | `rsso/gate.py` | The autonomy gate, part of CONTAIN ([spec](../spec/GATE.md)): stages per anchor (manual, suggest, automatic, under pressure) earned from PEAK evidence, offers and wear-out, closing again when evidence weakens; consent records, flags for anything below awareness, and the audit log of automatic decisions (`python -m rsso.gate --evaluate` writes [results](results/gate.md)). Identical to `docs/js/gate.js`. |
 | `rsso/identity.py` | IDENTITY, identity profiles level by level ([spec](../spec/IDENTITY.md)): a symbol and login code over seven levels with images and codes, environment, language, versions, coherence and its trend, drift while mirroring others, generalisation, anchor-tree recall walks, value-conflict rehearsals, switching, programs (day, night, four steps, the prepared week, dose) and a library (`python -m rsso.identity --evaluate` writes [results](results/identity.md)). Identical to `docs/js/identity.js`. |
+| `rsso/atlas.py` | ATLAS, the trigger atlas and the transfer engine ([spec](../spec/ATLAS.md)): weights for every node and combination by least squares over sampled moments, readiness, leave-one-out prediction, rerouting through the autonomy gate, transfer to untreated triggers against a repeat mapping, the level sweep and the glyph route (`python -m rsso.atlas --evaluate` writes [results](results/atlas.md)). Identical to `docs/js/atlas.js`. |
 | `rsso/board.py` | Board kit check ([kit](../firmware/BOARD_KIT.md)): B1–B7 on a real wristband over USB serial (`python -m rsso.board --port …`), the whole conformance suite in real time (`--full`), or the firmware core in real time without a board (`--sim`). The browser version is `docs/js/rdp.js` on the Wristband page (tested to match). |
 | `rsso/eeg.py` | EEG input: one stream interface with replay, synthetic and Lab Streaming Layer sources (Muse, OpenBCI, Emotiv via LSL), band powers and an arousal detector. |
 | `rsso/participants.py`, `rsso/study.py` | Virtual participants who live with RSOS for weeks, and synthetic studies that write files in the same format as real studies. |
@@ -33,7 +34,7 @@ The operating layer of RSOS (RSSO subsystems **MICRO**, **AUG** and **CONTAIN**)
 
 ```bash
 cd rsso
-python -m unittest discover -s tests                     # 136 tests
+python -m unittest discover -s tests                     # 145 tests
 python -m rsso.conformance                               # conformance report for the virtual rig
 python -m rsso.conformance --firmware                    # the same checks on the C++ firmware core
 python -m rsso.study long --people 40 --out out/long     # a synthetic 4-week study

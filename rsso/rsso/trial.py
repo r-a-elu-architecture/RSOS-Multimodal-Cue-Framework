@@ -53,6 +53,11 @@ DESIGNS = {
                                         "own": "Practise the identity in your first language"},
                           "outcome": "How true the identity feels, 0-10", "items": [24, 51], "claims": ["C82"],
                           "do": "Run the identity session in the language given, then rate how true the identity feels."},
+    "network_vs_timeline": {"title": "Network trance or a timeline", "arms": ["network", "timeline"], "reference": "timeline",
+                            "arm_names": {"network": "The network trance: descend to the strongest trigger and transform it",
+                                          "timeline": "A timeline session: float back above the first event and release it"},
+                            "outcome": "Calm while picturing an untreated trigger, 0-10", "items": [60, 63], "claims": ["C94", "C95"],
+                            "do": "Run the session given, then picture one trigger you did not work on and rate how calm you feel, before and after."},
 }
 COVARIATES = ("sleep_h", "caffeine", "exercise", "hour")
 ADJUST = ("sleep_h",)          # pre-specified: session order and sleep; the others are checked for balance only

@@ -38,6 +38,11 @@
         own: "Practise the identity in your first language" },
       outcome: "How true the identity feels, 0-10", items: [24, 51], claims: ["C82"],
       do: "Run the identity session in the language given, then rate how true the identity feels." },
+    network_vs_timeline: { title: "Network trance or a timeline", arms: ["network", "timeline"], reference: "timeline",
+      arm_names: { network: "The network trance: descend to the strongest trigger and transform it",
+        timeline: "A timeline session: float back above the first event and release it" },
+      outcome: "Calm while picturing an untreated trigger, 0-10", items: [60, 63], claims: ["C94", "C95"],
+      do: "Run the session given, then picture one trigger you did not work on and rate how calm you feel, before and after." },
   };
   const COVARIATES = ["sleep_h", "caffeine", "exercise", "hour"], ADJUST = ["sleep_h"], PERMUTATIONS = 1000;
   const T95 = [12.706, 4.303, 3.182, 2.776, 2.571, 2.447, 2.365, 2.306, 2.262, 2.228, 2.201, 2.179, 2.160, 2.145, 2.131,

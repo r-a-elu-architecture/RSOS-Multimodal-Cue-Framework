@@ -141,7 +141,7 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html" aria-current="page">Identity</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html" aria-current="page">Identity</a><a href="atlas.html">Atlas</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Identity, level by level</h1>
@@ -285,7 +285,7 @@ input[type=range]{width:100%;accent-color:var(--gold)}
 <footer>IDENTITY is <code>rsso/rsso/identity.py</code>, identically <code>docs/js/identity.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/IDENTITY.md">spec/IDENTITY.md</a>. A profile is a practice you design, not a treatment; if something feels wrong, stop and use the <a href="safety.html">Safety page</a>.</footer>
 <script src="js/ugcl.js?v=1.14.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
-<script src="js/trial.js?v=1.17.0"></script>
+<script src="js/trial.js?v=1.18.0"></script>
 <script src="js/ppg.js?v=1.14.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script src="js/identity.js?v=1.17.0"></script>
@@ -597,5 +597,6 @@ function drawAll() { if (cur && !P()) cur = profiles.length ? profiles[0].id : n
 drawAll();
 let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (P()) chart(); }, 150); });
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

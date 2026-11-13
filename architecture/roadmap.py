@@ -40,7 +40,7 @@ ITEMS = [
      "An outside sensor reports a success (a ball through the rim, a correct answer) and a reward code plays within a fraction of a second; it can be replayed at night."),
     (4, "Cue wear-out from overuse", "new", "MEMSTACK, CONTAIN", 3, "built in simulation", "R18, 2025-04-11",
      "Every appearance of a cue outside training is counted, its loss of strength modelled, and CONTAIN warns before a cue stops working."),
-    (5, "Generalisation score and an ordered glyph route", "extension", "MEMSTACK, UGCL", 4, "mostly built", "R02–R07, 2023",
+    (5, "Generalisation score and an ordered glyph route", "extension", "MEMSTACK, UGCL", 4, "built in simulation", "R02–R07, 2023",
      "Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route."),
     (6, "A code family per learning area", "extension", "UGCL", 6, "mostly built", "R11, 2025-04-10",
      "Each learning area gets its own family of vibration codes, marked by a code prefix."),
@@ -144,27 +144,27 @@ ITEMS = [
      "One level a day for seven days with future-pacing, then the symbol installed in trance and three future situations."),
     (56, "Dual-use governance", "new", "CONTAIN", 3, "built in simulation", "R38, 2025-05-28",
      "A consent record for any profiling, an audit log, and a visible flag on anything that works below awareness."),
-    (57, "Trigger atlas", "new", "ATLAS", 5, "idea", "R39, 2025-07-03",
+    (57, "Trigger atlas", "new", "ATLAS", 5, "built in simulation", "R39, 2025-07-03",
      "A week of mapping which objects, sounds, smells, places and thoughts shift state, as a weighted graph with baselines, repeats, controls and statistics on each link."),
-    (58, "Real-time rerouting", "extension", "ATLAS, PEAK, CONTAIN", 5, "idea", "R40, 2025-07-03",
+    (58, "Real-time rerouting", "extension", "ATLAS, PEAK, CONTAIN", 5, "built in simulation", "R40, 2025-07-03",
      "When a high-weight trigger appears, the good-state anchor fires as vibration and scent, through the gate."),
-    (59, "Smell sensor and combined trigger nodes", "new", "Devices, ATLAS", 5, "idea", "R41, 2025-07-03",
+    (59, "Smell sensor and combined trigger nodes", "new", "Devices, ATLAS", 5, "mostly built", "R41, 2025-07-03",
      "Gas sensors that classify smells; a sound with one object may trigger a state while the same sound with another may not, so the graph models combinations."),
-    (60, "Network trance with a transfer test", "new", "THERA", 5, "idea", "R42, 2025-07-04",
+    (60, "Network trance with a transfer test", "new", "THERA", 5, "built in simulation", "R42, 2025-07-04",
      "Every way one feeling arrives across the senses; in trance, transform the biggest node and watch the change spread; reactivity on untreated nodes is the test; compared with Time Line Therapy."),
-    (61, "Whole-day sampling and map readiness", "extension", "ATLAS", 5, "idea", "R43, 2025-07-04",
+    (61, "Whole-day sampling and map readiness", "extension", "ATLAS", 5, "built in simulation", "R43, 2025-07-04",
      "Smells, tastes, thoughts, symbols, objects and feelings sampled across the day; how many exposures each node needs before its weight is stable."),
     (62, "Genealogy timeline in four eras", "new", "LIA", 0, "idea", "Record review",
      "2023 mnemonic images; April 2025 EEG, vibration and senses; May 2025 identity trees and sequences; July 2025 the atlas and the network trance."),
-    (63, "The transfer engine", "new", "THERA, ATLAS, IDENTITY", 5, "idea", "Later review (SSIT)",
+    (63, "The transfer engine", "new", "THERA, ATLAS, IDENTITY", 5, "built in simulation", "Later review (SSIT)",
      "Choose the node to work on by weight (across the senses) or by level (above the problem), then measure transfer to nodes never treated."),
     (64, "SSIT three-arm trial", "new", "TRIAL, CHECKS", 2, "built in simulation", "Later review (SSIT)",
      "Imagery about the activity, imagery about a higher node flowing down, and general calming imagery; transfer to untrained activities as the outcome."),
-    (65, "Library of higher nodes and a level sweep", "new", "IDENTITY, CM1", 5, "idea", "Later review (SSIT)",
+    (65, "Library of higher nodes and a level sweep", "new", "IDENTITY, CM1", 5, "built in simulation", "Later review (SSIT)",
      "Ten candidate nodes above language; does transfer rise, peak or fall as the node gets more abstract, per person."),
     (66, "Anchor contamination and restoration", "new", "PEAK, MEMSTACK, CONTAIN", 1, "built in simulation", "Framework design, 2026",
      "An anchor used during an ongoing stressor can take on the stress; detect when its effect turns negative and restore it by pairing with a higher-order resource."),
-    (67, "Two kinds of higher: abstraction and scope", "extension", "THERA, ATLAS", 5, "idea", "Framework design, 2026",
+    (67, "Two kinds of higher: abstraction and scope", "extension", "THERA, ATLAS", 5, "built in simulation", "Framework design, 2026",
      "Higher by abstraction (language, agency, identity) and higher by scope (a city, a country), tested side by side."),
     (68, "A two-symbol anchor", "extension", "UGCL, PEAK", 1, "built in simulation", "Framework design, 2026",
      "Two symbols held together as one anchor, the same form as the Tier 013 composite."),
@@ -313,7 +313,8 @@ CLAIMS = [
 TEST_BUILT = {"C2", "C10", "C11", "C12", "C15", "C24", "C32",          # step 1, PEAK
               "C1", "C26", "C34", "C40", "C58", "C70", "C77", "C78", "C85", "C86", "C88", "C97", "C101",   # step 2, TRIAL and CHECKS
               "C13", "C63",   # step 3, the autonomy gate (wear-out, dose)
-              "C16", "C17", "C41", "C61", "C62", "C82", "C89"}   # step 4, IDENTITY
+              "C16", "C17", "C41", "C61", "C62", "C82", "C89",   # step 4, IDENTITY
+              "C92", "C93", "C94", "C95", "C99", "C100"}   # step 5, ATLAS
 WHO = {"assistant": "Assistant (design records)", "records": "Design records", "report": "Record review", "review": "Later review"}
 
 

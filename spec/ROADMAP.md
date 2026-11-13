@@ -75,7 +75,7 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 5 | **Generalisation score and an ordered glyph route**. Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route. | extension | MEMSTACK, UGCL | mostly built | R02–R07, 2023 |
+| 5 | **Generalisation score and an ordered glyph route**. Does a reaction start in many real contexts, not only the trained one; glyphs walked in ledger order as a memory route. | extension | MEMSTACK, UGCL | built in simulation | R02–R07, 2023 |
 | 11 | **Anchor tree with attachment points**. A central image with three context images fixed to its parts, each with its own code; a guided recall walk with recall timed per part. | extension | UGCL, nodes | built in simulation | R21, R27, 2025-04 |
 | 23 | **Identity profiles, level by level**. A symbol heads a tree of mission, identity, values, beliefs, skills, behaviour and environment, each level with an image and a code; the symbol by day, the whole chain at night. | new | IDENTITY | built in simulation | R33–R35, 2025-05 |
 | 24 | **A language for each identity**. Each identity learned and recalled in its own language, as a context switch between identities. | new | IDENTITY, LINX | built in simulation | R34, 2025-05-22 |
@@ -92,14 +92,14 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 57 | **Trigger atlas**. A week of mapping which objects, sounds, smells, places and thoughts shift state, as a weighted graph with baselines, repeats, controls and statistics on each link. | new | ATLAS | idea | R39, 2025-07-03 |
-| 58 | **Real-time rerouting**. When a high-weight trigger appears, the good-state anchor fires as vibration and scent, through the gate. | extension | ATLAS, PEAK, CONTAIN | idea | R40, 2025-07-03 |
-| 59 | **Smell sensor and combined trigger nodes**. Gas sensors that classify smells; a sound with one object may trigger a state while the same sound with another may not, so the graph models combinations. | new | Devices, ATLAS | idea | R41, 2025-07-03 |
-| 60 | **Network trance with a transfer test**. Every way one feeling arrives across the senses; in trance, transform the biggest node and watch the change spread; reactivity on untreated nodes is the test; compared with Time Line Therapy. | new | THERA | idea | R42, 2025-07-04 |
-| 61 | **Whole-day sampling and map readiness**. Smells, tastes, thoughts, symbols, objects and feelings sampled across the day; how many exposures each node needs before its weight is stable. | extension | ATLAS | idea | R43, 2025-07-04 |
-| 63 | **The transfer engine**. Choose the node to work on by weight (across the senses) or by level (above the problem), then measure transfer to nodes never treated. | new | THERA, ATLAS, IDENTITY | idea | Later review (SSIT) |
-| 65 | **Library of higher nodes and a level sweep**. Ten candidate nodes above language; does transfer rise, peak or fall as the node gets more abstract, per person. | new | IDENTITY, CM1 | idea | Later review (SSIT) |
-| 67 | **Two kinds of higher: abstraction and scope**. Higher by abstraction (language, agency, identity) and higher by scope (a city, a country), tested side by side. | extension | THERA, ATLAS | idea | Framework design, 2026 |
+| 57 | **Trigger atlas**. A week of mapping which objects, sounds, smells, places and thoughts shift state, as a weighted graph with baselines, repeats, controls and statistics on each link. | new | ATLAS | built in simulation | R39, 2025-07-03 |
+| 58 | **Real-time rerouting**. When a high-weight trigger appears, the good-state anchor fires as vibration and scent, through the gate. | extension | ATLAS, PEAK, CONTAIN | built in simulation | R40, 2025-07-03 |
+| 59 | **Smell sensor and combined trigger nodes**. Gas sensors that classify smells; a sound with one object may trigger a state while the same sound with another may not, so the graph models combinations. | new | Devices, ATLAS | mostly built | R41, 2025-07-03 |
+| 60 | **Network trance with a transfer test**. Every way one feeling arrives across the senses; in trance, transform the biggest node and watch the change spread; reactivity on untreated nodes is the test; compared with Time Line Therapy. | new | THERA | built in simulation | R42, 2025-07-04 |
+| 61 | **Whole-day sampling and map readiness**. Smells, tastes, thoughts, symbols, objects and feelings sampled across the day; how many exposures each node needs before its weight is stable. | extension | ATLAS | built in simulation | R43, 2025-07-04 |
+| 63 | **The transfer engine**. Choose the node to work on by weight (across the senses) or by level (above the problem), then measure transfer to nodes never treated. | new | THERA, ATLAS, IDENTITY | built in simulation | Later review (SSIT) |
+| 65 | **Library of higher nodes and a level sweep**. Ten candidate nodes above language; does transfer rise, peak or fall as the node gets more abstract, per person. | new | IDENTITY, CM1 | built in simulation | Later review (SSIT) |
+| 67 | **Two kinds of higher: abstraction and scope**. Higher by abstraction (language, agency, identity) and higher by scope (a city, a country), tested side by side. | extension | THERA, ATLAS | built in simulation | Framework design, 2026 |
 
 ### Step 6: SLEEP and REWARD in simulation
 

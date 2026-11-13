@@ -6,6 +6,8 @@
 <title>Safety — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="description" content="CONTAIN, the safety layer of RSOS: the device safety envelope, programs paused when they stop helping, practice paused when it needs a therapist, and every decision with its reason.">
 <style>
 :root{
@@ -187,5 +189,6 @@ $("rollback").addEventListener("click", () => {
 });
 draw();
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

@@ -6,6 +6,8 @@
 <title>Phones and wristbands — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="description" content="Use RSOS on your phone (Android set-up in a few steps), see what works on Android and iPhone, and connect an RSOS wristband over USB or Bluetooth.">
 <style>
 :root{
@@ -228,5 +230,6 @@ $("run").addEventListener("click", async () => {
   } catch (e) { say("Could not play it: " + e.message); }
 });
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

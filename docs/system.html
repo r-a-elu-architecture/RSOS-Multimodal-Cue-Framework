@@ -6,6 +6,8 @@
 <title>How RSOS fits together — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="description" content="How the parts of RSOS connect: senses, body sensors, EEG and BCI, the AI layer, safety, the RSX program, devices, memory and glyphs, and where every tier of the ledger lives.">
 <style>
 :root{
@@ -222,5 +224,6 @@ function tables() {
 fetch("data/tier_map.json").then(r => r.json()).then(m => { MAP = m; draw(); tables(); show("gate"); })
   .catch(() => { $("panel").textContent = "The tier data could not be loaded. Open this page from the published site or a local web server."; draw(); });
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

@@ -6,6 +6,8 @@
 <title>Glyphs — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
 <meta name="description" content="Every glyph of the RSOS tier ledger, exactly as recorded, each with a vibration rhythm and a melody derived from its shape, and its ancestry in the ledger.">
@@ -214,5 +216,6 @@ fetch("ugcl/library.json?v=1.8.0").then(r => r.json()).then(lib => {
   for (const g of lib.glyphs) $("grid").appendChild(cellFor(g, g.id, ""));
 }).catch(() => { $("facts").textContent = "The generated library could not be loaded."; });
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

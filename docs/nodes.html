@@ -6,6 +6,8 @@
 <title>Node studio — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="description" content="Design personal nodes: a state held as one unit, with cues on every sense, a vibration code, a glyph and the mental frame of that state. From symptoms and desired states to a practice plan the player runs.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
@@ -487,5 +489,6 @@ fetch("ugcl/originals.json?v=1.13.0").then(r => r.json()).then(d => UGCL.prepare
   update();
 });
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

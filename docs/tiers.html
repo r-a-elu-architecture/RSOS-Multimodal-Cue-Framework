@@ -6,6 +6,8 @@
 <title>Tier ledger — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="description" content="Every tier of the RSOS tier ledger as recorded, with where it lives in the architecture: subsystem, senses, role, and the system behaviour it defines.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+Symbols+2&display=swap">
@@ -259,5 +261,6 @@ Promise.all([fetch("data/ledger.json").then(r => r.json()), fetch("data/tier_map
 }).catch(() => { $("detail").innerHTML = ""; $("detail").appendChild(el("p", "empty", "The ledger data could not be loaded. Open this page from the published site or a local web server.")); });
 ["q", "layer", "channel"].forEach(id => $(id).addEventListener("input", render));
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

@@ -6,6 +6,8 @@
 <title>Contribute your data — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="description" content="Contribute de-identified RSOS data to research: practice runs, heart rate, node plans, questionnaires, clinician sessions, EEG and BCI recordings. You choose every part; nothing leaves your browser until you send the file.">
 <style>
 :root{
@@ -491,5 +493,6 @@ $("peek").addEventListener("click", () => {
 $("form").addEventListener("input", update); $("form").addEventListener("change", update);
 drawTables(); onDevice(); update();
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

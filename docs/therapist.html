@@ -6,6 +6,8 @@
 <title>Therapist sessions — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="description" content="Therapist mode for RSOS: structured, measured sessions with the client's own nodes, stop rules, homework and a session record for research.">
 <style>
 :root{
@@ -274,5 +276,6 @@ $("dl").addEventListener("click", () => {
 });
 $("again").addEventListener("click", () => { cur = null; store.set("rsos.thera.current", null); $("done").hidden = true; $("setup").hidden = false; setup(); });
 </script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

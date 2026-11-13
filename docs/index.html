@@ -65,6 +65,9 @@ footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);f
   nav{gap:4px 14px;justify-content:flex-start}
 }
 </style>
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 </head>
 <body>
 <div class="wrap">
@@ -165,5 +168,6 @@ footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);f
 
 <footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Archived on Zenodo: <a href="https://doi.org/10.5281/zenodo.24143731">doi:10.5281/zenodo.24143731</a>.</footer>
 </div>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+RSX/2 TIER 8 :: {DRAGON} :: (OVERRIDE)
+INTENT "steady identity under pressure" <- V1 V8 V14
+GOAL agency>=+1 AND distress<=-1 AND drift<=+0
+SENSE EEG HRV DISTRESS
+LAWS InteractionMatrix ChronoGate GhostPass ConsentStack MultiSessionContinuity TemporalSymmetry Contingency ResonanceAudit
+RESCUE {SHIELD} {ANCHOR_MAX} {MIRROR_RESET}
+WINDOW 07:00-22:00
+@Vector0:NullSafe
+GATE
+  @Vector7:EthicsContain(CONTAIN)
+  @Vector13:SymbolicDriftCheck
+PHASE settle UNTIL arousal<=0.4 AND distress<=-1 MIN 45s MAX 150s
+  @Vector3:BreathOverride(6/min)
+  @Vector4:PostureShift
+  @Vector6:EmotionalLock(Calm)
+PHASE expand IF arousal<=0.55 ELSE settle UNTIL C2>=0.5 AND C3>=0.5 MIN 20s MAX 90s
+  @Vector5:MemoryRecall(Archetype=LION)
+  @Vector18:AssociativeExpand(LION, 10)
+  @Vector8:CompressionRun(CM1)
+  @Vector10:ArchetypeMerge(LION+DRAGON)
+PHASE rebuild IF arousal<=0.6 AND distress<=6 ELSE settle UNTIL C7>=0.5 AND C4>=0.5 MIN 20s MAX 120s
+  @Vector1:IdentityRebuild
+  @Vector9:FutureProjection(3Years)
+  @Vector11:DeviceOutput(AR, symbol=dragon)
+PHASE integrate UNTIL C9>=0.4 AND C10>=0.4 AND C11>=0.4 MIN 20s MAX 90s
+  @Vector19:MetaObserve
+  @Vector21:SelfRevise
+  @Vector20:IntegrateAll
+  @Vector14:RecursiveLawApply
+CLOSE
+  @Vector15:MemoryUpdate(MEMSTACK)
+  @Vector17:EchoPropagationStop
+  @Vector16:SymbolicCommandExport(RSX) -> NEXT

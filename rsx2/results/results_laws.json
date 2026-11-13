@@ -1,0 +1,42 @@
+{
+ "five session laws on": {
+  "sessions": 960,
+  "mean_CSI": 3.654,
+  "goal_rate": 0.804,
+  "refused": 0,
+  "moved_by_TemporalSymmetry": 1,
+  "continuity_boosters": 420,
+  "ECR": 0.988,
+  "SEP-L": 0.553,
+  "true_retain": 0.553,
+  "STC": 0.967,
+  "IEC": 1.0,
+  "RSI": 0.032
+ },
+ "session laws off": {
+  "sessions": 960,
+  "mean_CSI": 3.21,
+  "goal_rate": 0.7,
+  "refused": 4,
+  "moved_by_TemporalSymmetry": 0,
+  "continuity_boosters": 0,
+  "ECR": 0.988,
+  "SEP-L": 0.553,
+  "true_retain": 0.553,
+  "STC": 0.955,
+  "IEC": 1.0,
+  "RSI": 0.035
+ },
+ "risky program, Contingency on": {
+  "stopped": 56,
+  "completed": 64,
+  "rescues": 103,
+  "mean_STC": 0.567
+ },
+ "risky program, Contingency off": {
+  "stopped": 115,
+  "completed": 5,
+  "rescues": 0,
+  "mean_STC": 0.471
+ }
+}

@@ -1,0 +1,68 @@
+check: {"errors": [], "warnings": [], "vectors": 20, "deep_ops": 9, "layers_covered": ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11"], "layers_missing": []}
+
+status: done
+ghost pass: 30 runs, predicted stop 0%, predicted goal 80%
+  0s gate: 5 s, ended by max
+  5s settle: 45 s, ended by UNTIL met
+  50s expand: 74 s, ended by UNTIL met
+  124s rebuild: 80 s, ended by UNTIL met
+  204s integrate: 90 s, ended by max
+  294s close: 20 s, ended by max
+
+outcome: agency +2.11, distress -0.99, arousal -0.04, drift -0.113, 10/11 layers ≥0.3, 314 s, goal met: False
+audit: MCI 1.0, VEC 1.0, conflicts []
+
+  k  operator               block      s   agency  distress  drift   layer
+  1  IdentityRebuild        rebuild     80  +0.67   +0.00   +0.000  0.51
+  3  BreathOverride         settle      45  +0.00   -0.39   +0.000  0.24
+  4  PostureShift           settle      45  +0.12   +0.00   +0.000  0.20
+  5  MemoryRecall           expand      74  +0.00   +0.00   +0.000  0.56
+  6  EmotionalLock          settle      45  +0.00   -0.29   +0.000  0.20
+  7  EthicsContain          gate         5  +0.00   +0.00   +0.000  0.00
+  8  CompressionRun         expand      74  +0.11   +0.00   +0.000  0.51
+  9  FutureProjection       rebuild     80  +0.34   +0.00   +0.000  0.54
+  10 ArchetypeMerge         expand      74  +0.22   +0.00   +0.000  0.45
+  11 DeviceOutput           rebuild     80  +0.00   +0.00   +0.000  0.35
+  13 SymbolicDriftCheck     gate         5  +0.00   +0.00   +0.000  0.00
+  14 RecursiveLawApply      integrate   90  +0.12   +0.00   +0.000  0.36
+  15 MemoryUpdate           close       20  +0.04   +0.00   +0.000  0.06
+  16 SymbolicCommandExport  close       20  +0.00   +0.00   +0.000  0.00
+  17 EchoPropagationStop    close       20  +0.00   +0.00   -0.061  0.00
+  18 AssociativeExpand      expand      74  +0.00   +0.00   +0.000  0.51
+  19 MetaObserve            integrate   90  +0.00   -0.14   +0.000  0.51
+  20 IntegrateAll           integrate   90  +0.18   +0.00   -0.061  0.36
+  21 SelfRevise             integrate   90  +0.30   +0.00   +0.000  0.36
+
+firmware lines:
+  HF 5000 4000 6000 4 0.3 170 0 chest
+  HF 5000 300 200 2 0.4 170 0 upper_back
+  T 5000 45000 1
+  D 50000 8000 dragon
+  D 124000 8000 dragon
+firmware errors: none
+firmware output:
+  OK LOAD
+  OK START
+  THERMAL 5000 1.00
+  SITE 5000 chest 0.30 170 0
+  SITE 5000 upper_back 0.40 170 0
+  SITE 5300 upper_back 0.00 0 0
+  SITE 5500 upper_back 0.40 170 0
+  SITE 5800 upper_back 0.00 0 0
+  SITE 9000 chest 0.00 0 0
+  SITE 15000 chest 0.30 170 0
+  SITE 19000 chest 0.00 0 0
+  SITE 25000 chest 0.30 170 0
+  SITE 29000 chest 0.00 0 0
+  SITE 35000 chest 0.30 170 0
+  SITE 39000 chest 0.00 0 0
+  THERMAL 50000 0.00
+  DISPLAY 50000 dragon 1
+  DISPLAY 58000 dragon 0
+  DISPLAY 124000 dragon 1
+  DISPLAY 132000 dragon 0
+  DONE 132000
+  OK STOP
+
+NEXT:
+  - integrate: UNTIL not reached, MAX raised to 135s

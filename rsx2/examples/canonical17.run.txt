@@ -1,0 +1,37 @@
+check: {"errors": [], "warnings": ["legacy: ArchetypeMerge + IdentityRebuild: identity rebuilt while two archetypes are still merging", "legacy: EmotionalLock + MemoryRecall: calm locked while an archetype memory is activated", "legacy: EchoPropagationStop + SymbolicEcho: echo started and stopped together", "legacy command: open loop, no gate, no stop rules"], "vectors": 17, "deep_ops": 8, "layers_covered": ["C1", "C3", "C4", "C5", "C6", "C7", "C8"], "layers_missing": ["C2", "C9", "C10", "C11"]}
+
+status: done
+  0s legacy: 120 s, ended by max
+
+outcome: agency +1.01, distress +1.84, arousal -0.26, drift -0.036, 6/11 layers ≥0.3, 120 s, goal met: None
+audit: MCI 0.647, VEC 0.824, conflicts [['IdentityRebuild', 'ArchetypeMerge', 'legacy'], ['SymbolicEcho', 'EchoPropagationStop', 'legacy'], ['MemoryRecall', 'EmotionalLock', 'legacy']]
+
+  k  operator               block      s   agency  distress  drift   layer
+  1  IdentityRebuild        legacy     120  +0.24   +0.48   +0.000  0.18
+  2  SymbolicEcho           legacy     120  +0.00   +0.48   +0.036  0.14
+  3  BreathOverride         legacy     120  +0.00   -0.49   +0.000  0.29
+  4  PostureShift           legacy     120  +0.15   +0.00   +0.000  0.24
+  5  MemoryRecall           legacy     120  +0.00   +0.48   +0.000  0.24
+  6  EmotionalLock          legacy     120  +0.00   +0.30   +0.000  0.12
+  7  EthicsContain          legacy     120  +0.00   +0.00   +0.000  0.00
+  8  CompressionRun         legacy     120  +0.10   +0.00   +0.000  0.43
+  9  FutureProjection       legacy     120  +0.24   +0.00   +0.000  0.38
+  10 ArchetypeMerge         legacy     120  +0.10   +0.48   +0.000  0.19
+  11 DeviceOutput           legacy     120  +0.00   +0.00   +0.000  0.24
+  12 DeviceOutput           legacy     120  +0.00   +0.00   +0.000  0.24
+  13 SymbolicDriftCheck     legacy     120  +0.00   +0.00   +0.000  0.00
+  14 RecursiveLawApply      legacy     120  +0.10   +0.00   +0.000  0.29
+  15 MemoryUpdate           legacy     120  +0.10   +0.00   +0.000  0.14
+  16 SymbolicCommandExport  legacy     120  +0.00   +0.00   +0.000  0.00
+  17 EchoPropagationStop    legacy     120  +0.00   +0.48   -0.072  0.00
+
+NEXT:
+  - added Vector 0 NullSafe
+  - legacy single phase staged into gate → settle → expand → rebuild → integrate → close
+  - laws added: InteractionMatrix, GhostPass, ConsentStack
+  - goal added
+  - EEG moved from output to SENSE
+  - added AssociativeExpand to expand for uncovered layer C2
+  - added MetaObserve to integrate for uncovered layer C9
+  - added SelfRevise to integrate for uncovered layer C10
+  - added IntegrateAll to integrate for uncovered layer C11

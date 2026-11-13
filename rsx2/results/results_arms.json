@@ -1,0 +1,1070 @@
+{
+ "full model": {
+  "v1 canonical (120 s, as written)": {
+   "agency": [
+    1.21,
+    0.07
+   ],
+   "distress": [
+    2.107,
+    0.095
+   ],
+   "coverage": [
+    5.085,
+    0.201
+   ],
+   "seconds": [
+    120.0,
+    0.0
+   ],
+   "spike_rate": 0.255,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.0
+  },
+  "v1 canonical, time-matched (200 s)": {
+   "agency": [
+    2.155,
+    0.109
+   ],
+   "distress": [
+    3.071,
+    0.094
+   ],
+   "coverage": [
+    6.265,
+    0.103
+   ],
+   "seconds": [
+    200.0,
+    0.0
+   ],
+   "spike_rate": 0.8,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.0
+  },
+  "v1 canonical, time-matched (300 s)": {
+   "agency": [
+    3.298,
+    0.146
+   ],
+   "distress": [
+    3.909,
+    0.117
+   ],
+   "coverage": [
+    6.82,
+    0.063
+   ],
+   "seconds": [
+    300.0,
+    0.0
+   ],
+   "spike_rate": 0.95,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.0
+  },
+  "v1 auto-upgraded by NEXT": {
+   "agency": [
+    2.036,
+    0.054
+   ],
+   "distress": [
+    -1.412,
+    0.119
+   ],
+   "coverage": [
+    9.565,
+    0.25
+   ],
+   "seconds": [
+    291.915,
+    10.811
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.765
+  },
+  "RSX/2": {
+   "agency": [
+    2.06,
+    0.053
+   ],
+   "distress": [
+    -1.455,
+    0.109
+   ],
+   "coverage": [
+    9.45,
+    0.27
+   ],
+   "seconds": [
+    288.685,
+    11.091
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.78
+  },
+  "RSX/2 without closed loop (no UNTIL/IF)": {
+   "agency": [
+    2.993,
+    0.106
+   ],
+   "distress": [
+    -3.355,
+    0.156
+   ],
+   "coverage": [
+    9.22,
+    0.247
+   ],
+   "seconds": [
+    470.25,
+    6.567
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.97
+  },
+  "RSX/2 all vectors in one phase": {
+   "agency": [
+    1.984,
+    0.232
+   ],
+   "distress": [
+    0.793,
+    0.112
+   ],
+   "coverage": [
+    6.575,
+    0.693
+   ],
+   "seconds": [
+    130.0,
+    13.61
+   ],
+   "spike_rate": 0.02,
+   "stop_rate": 0.03,
+   "refused_rate": 0.36,
+   "goal_rate": 0.0
+  },
+  "sham (RSX/2 timeline, no content)": {
+   "agency": [
+    0.0,
+    0.0
+   ],
+   "distress": [
+    -0.571,
+    0.112
+   ],
+   "coverage": [
+    0.0,
+    0.0
+   ],
+   "seconds": [
+    657.775,
+    27.887
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.015,
+   "goal_rate": 0.0
+  }
+ },
+ "neutral model": {
+  "v1 canonical (120 s, as written)": {
+   "agency": [
+    5.201,
+    0.121
+   ],
+   "distress": [
+    -4.155,
+    0.141
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    120.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 1.0
+  },
+  "v1 canonical, time-matched (200 s)": {
+   "agency": [
+    5.476,
+    0.123
+   ],
+   "distress": [
+    -5.222,
+    0.15
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    200.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 1.0
+  },
+  "v1 canonical, time-matched (300 s)": {
+   "agency": [
+    5.502,
+    0.124
+   ],
+   "distress": [
+    -5.46,
+    0.16
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    300.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 1.0
+  },
+  "v1 auto-upgraded by NEXT": {
+   "agency": [
+    2.404,
+    0.04
+   ],
+   "distress": [
+    -1.992,
+    0.093
+   ],
+   "coverage": [
+    10.835,
+    0.155
+   ],
+   "seconds": [
+    169.795,
+    5.547
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.945
+  },
+  "RSX/2": {
+   "agency": [
+    2.404,
+    0.04
+   ],
+   "distress": [
+    -1.992,
+    0.093
+   ],
+   "coverage": [
+    10.835,
+    0.155
+   ],
+   "seconds": [
+    169.795,
+    5.547
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.945
+  },
+  "RSX/2 without closed loop (no UNTIL/IF)": {
+   "agency": [
+    5.251,
+    0.14
+   ],
+   "distress": [
+    -4.785,
+    0.162
+   ],
+   "coverage": [
+    10.89,
+    0.152
+   ],
+   "seconds": [
+    470.25,
+    6.567
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.99
+  },
+  "RSX/2 all vectors in one phase": {
+   "agency": [
+    5.432,
+    0.144
+   ],
+   "distress": [
+    -5.266,
+    0.167
+   ],
+   "coverage": [
+    10.89,
+    0.152
+   ],
+   "seconds": [
+    202.95,
+    2.834
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.99
+  },
+  "sham (RSX/2 timeline, no content)": {
+   "agency": [
+    0.0,
+    0.0
+   ],
+   "distress": [
+    -0.571,
+    0.112
+   ],
+   "coverage": [
+    0.0,
+    0.0
+   ],
+   "seconds": [
+    657.775,
+    27.887
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.015,
+   "goal_rate": 0.0
+  }
+ },
+ "only dilution": {
+  "v1 canonical (120 s, as written)": {
+   "agency": [
+    1.915,
+    0.078
+   ],
+   "distress": [
+    -1.296,
+    0.071
+   ],
+   "coverage": [
+    6.595,
+    0.086
+   ],
+   "seconds": [
+    120.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.71
+  },
+  "v1 canonical, time-matched (200 s)": {
+   "agency": [
+    3.171,
+    0.125
+   ],
+   "distress": [
+    -2.156,
+    0.104
+   ],
+   "coverage": [
+    6.98,
+    0.019
+   ],
+   "seconds": [
+    200.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.95
+  },
+  "v1 canonical, time-matched (300 s)": {
+   "agency": [
+    4.39,
+    0.137
+   ],
+   "distress": [
+    -3.166,
+    0.139
+   ],
+   "coverage": [
+    6.995,
+    0.01
+   ],
+   "seconds": [
+    300.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.975
+  },
+  "v1 auto-upgraded by NEXT": {
+   "agency": [
+    2.235,
+    0.035
+   ],
+   "distress": [
+    -1.587,
+    0.083
+   ],
+   "coverage": [
+    10.425,
+    0.174
+   ],
+   "seconds": [
+    272.13,
+    10.142
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.85
+  },
+  "RSX/2": {
+   "agency": [
+    2.248,
+    0.035
+   ],
+   "distress": [
+    -1.589,
+    0.082
+   ],
+   "coverage": [
+    10.45,
+    0.175
+   ],
+   "seconds": [
+    266.51,
+    10.291
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.87
+  },
+  "RSX/2 without closed loop (no UNTIL/IF)": {
+   "agency": [
+    4.073,
+    0.147
+   ],
+   "distress": [
+    -3.599,
+    0.16
+   ],
+   "coverage": [
+    10.82,
+    0.167
+   ],
+   "seconds": [
+    470.25,
+    6.567
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.985
+  },
+  "RSX/2 all vectors in one phase": {
+   "agency": [
+    3.689,
+    0.144
+   ],
+   "distress": [
+    -2.224,
+    0.111
+   ],
+   "coverage": [
+    10.825,
+    0.168
+   ],
+   "seconds": [
+    202.95,
+    2.834
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.945
+  },
+  "sham (RSX/2 timeline, no content)": {
+   "agency": [
+    0.0,
+    0.0
+   ],
+   "distress": [
+    -0.571,
+    0.112
+   ],
+   "coverage": [
+    0.0,
+    0.0
+   ],
+   "seconds": [
+    657.775,
+    27.887
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.015,
+   "goal_rate": 0.0
+  }
+ },
+ "only readiness": {
+  "v1 canonical (120 s, as written)": {
+   "agency": [
+    5.09,
+    0.13
+   ],
+   "distress": [
+    -4.155,
+    0.141
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    120.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 1.0
+  },
+  "v1 canonical, time-matched (200 s)": {
+   "agency": [
+    5.463,
+    0.123
+   ],
+   "distress": [
+    -5.222,
+    0.15
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    200.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 1.0
+  },
+  "v1 canonical, time-matched (300 s)": {
+   "agency": [
+    5.5,
+    0.123
+   ],
+   "distress": [
+    -5.46,
+    0.16
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    300.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 1.0
+  },
+  "v1 auto-upgraded by NEXT": {
+   "agency": [
+    2.364,
+    0.044
+   ],
+   "distress": [
+    -2.016,
+    0.092
+   ],
+   "coverage": [
+    10.695,
+    0.175
+   ],
+   "seconds": [
+    180.55,
+    7.547
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.935
+  },
+  "RSX/2": {
+   "agency": [
+    2.364,
+    0.044
+   ],
+   "distress": [
+    -2.016,
+    0.092
+   ],
+   "coverage": [
+    10.64,
+    0.19
+   ],
+   "seconds": [
+    180.545,
+    7.546
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.94
+  },
+  "RSX/2 without closed loop (no UNTIL/IF)": {
+   "agency": [
+    3.258,
+    0.112
+   ],
+   "distress": [
+    -4.785,
+    0.162
+   ],
+   "coverage": [
+    9.035,
+    0.304
+   ],
+   "seconds": [
+    470.25,
+    6.567
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.99
+  },
+  "RSX/2 all vectors in one phase": {
+   "agency": [
+    5.423,
+    0.144
+   ],
+   "distress": [
+    -5.266,
+    0.167
+   ],
+   "coverage": [
+    10.89,
+    0.152
+   ],
+   "seconds": [
+    202.95,
+    2.834
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.99
+  },
+  "sham (RSX/2 timeline, no content)": {
+   "agency": [
+    0.0,
+    0.0
+   ],
+   "distress": [
+    -0.571,
+    0.112
+   ],
+   "coverage": [
+    0.0,
+    0.0
+   ],
+   "seconds": [
+    657.775,
+    27.887
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.015,
+   "goal_rate": 0.0
+  }
+ },
+ "only backfire": {
+  "v1 canonical (120 s, as written)": {
+   "agency": [
+    5.201,
+    0.121
+   ],
+   "distress": [
+    -3.996,
+    0.158
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    120.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.995
+  },
+  "v1 canonical, time-matched (200 s)": {
+   "agency": [
+    5.476,
+    0.123
+   ],
+   "distress": [
+    -5.115,
+    0.155
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    200.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.995
+  },
+  "v1 canonical, time-matched (300 s)": {
+   "agency": [
+    5.502,
+    0.124
+   ],
+   "distress": [
+    -5.426,
+    0.159
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    300.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 1.0
+  },
+  "v1 auto-upgraded by NEXT": {
+   "agency": [
+    2.404,
+    0.04
+   ],
+   "distress": [
+    -1.958,
+    0.1
+   ],
+   "coverage": [
+    10.835,
+    0.155
+   ],
+   "seconds": [
+    169.795,
+    5.547
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.92
+  },
+  "RSX/2": {
+   "agency": [
+    2.404,
+    0.04
+   ],
+   "distress": [
+    -1.964,
+    0.098
+   ],
+   "coverage": [
+    10.835,
+    0.155
+   ],
+   "seconds": [
+    169.795,
+    5.547
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.925
+  },
+  "RSX/2 without closed loop (no UNTIL/IF)": {
+   "agency": [
+    2.161,
+    0.357
+   ],
+   "distress": [
+    -0.559,
+    0.192
+   ],
+   "coverage": [
+    4.675,
+    0.756
+   ],
+   "seconds": [
+    201.745,
+    32.605
+   ],
+   "spike_rate": 0.005,
+   "stop_rate": 0.005,
+   "refused_rate": 0.575,
+   "goal_rate": 0.24
+  },
+  "RSX/2 all vectors in one phase": {
+   "agency": [
+    5.382,
+    0.162
+   ],
+   "distress": [
+    -5.096,
+    0.186
+   ],
+   "coverage": [
+    10.78,
+    0.214
+   ],
+   "seconds": [
+    200.9,
+    3.988
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.02,
+   "goal_rate": 0.975
+  },
+  "sham (RSX/2 timeline, no content)": {
+   "agency": [
+    0.0,
+    0.0
+   ],
+   "distress": [
+    -0.571,
+    0.112
+   ],
+   "coverage": [
+    0.0,
+    0.0
+   ],
+   "seconds": [
+    657.775,
+    27.887
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.015,
+   "goal_rate": 0.0
+  }
+ },
+ "only conflict": {
+  "v1 canonical (120 s, as written)": {
+   "agency": [
+    4.701,
+    0.135
+   ],
+   "distress": [
+    -0.737,
+    0.156
+   ],
+   "coverage": [
+    6.99,
+    0.014
+   ],
+   "seconds": [
+    120.0,
+    0.0
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.35
+  },
+  "v1 canonical, time-matched (200 s)": {
+   "agency": [
+    5.396,
+    0.121
+   ],
+   "distress": [
+    -1.188,
+    0.242
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    200.0,
+    0.0
+   ],
+   "spike_rate": 0.02,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.48
+  },
+  "v1 canonical, time-matched (300 s)": {
+   "agency": [
+    5.487,
+    0.123
+   ],
+   "distress": [
+    -1.617,
+    0.322
+   ],
+   "coverage": [
+    7.0,
+    0.0
+   ],
+   "seconds": [
+    300.0,
+    0.0
+   ],
+   "spike_rate": 0.025,
+   "stop_rate": 0.0,
+   "refused_rate": 0.0,
+   "goal_rate": 0.615
+  },
+  "v1 auto-upgraded by NEXT": {
+   "agency": [
+    2.404,
+    0.04
+   ],
+   "distress": [
+    -1.992,
+    0.093
+   ],
+   "coverage": [
+    10.835,
+    0.155
+   ],
+   "seconds": [
+    169.795,
+    5.547
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.945
+  },
+  "RSX/2": {
+   "agency": [
+    2.404,
+    0.04
+   ],
+   "distress": [
+    -1.992,
+    0.093
+   ],
+   "coverage": [
+    10.835,
+    0.155
+   ],
+   "seconds": [
+    169.795,
+    5.547
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.945
+  },
+  "RSX/2 without closed loop (no UNTIL/IF)": {
+   "agency": [
+    5.251,
+    0.14
+   ],
+   "distress": [
+    -4.785,
+    0.162
+   ],
+   "coverage": [
+    10.89,
+    0.152
+   ],
+   "seconds": [
+    470.25,
+    6.567
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.99
+  },
+  "RSX/2 all vectors in one phase": {
+   "agency": [
+    5.416,
+    0.144
+   ],
+   "distress": [
+    -3.253,
+    0.219
+   ],
+   "coverage": [
+    10.89,
+    0.152
+   ],
+   "seconds": [
+    202.95,
+    2.834
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.01,
+   "goal_rate": 0.935
+  },
+  "sham (RSX/2 timeline, no content)": {
+   "agency": [
+    0.0,
+    0.0
+   ],
+   "distress": [
+    -0.571,
+    0.112
+   ],
+   "coverage": [
+    0.0,
+    0.0
+   ],
+   "seconds": [
+    657.775,
+    27.887
+   ],
+   "spike_rate": 0.0,
+   "stop_rate": 0.0,
+   "refused_rate": 0.015,
+   "goal_rate": 0.0
+  }
+ }
+}

@@ -12,12 +12,12 @@ The research each RSOS module builds on, and what RSOS adds. References are list
 | THERA | Yes | Measured, protocolised therapy sessions; fidelity and global improvement ratings | Sessions run with the client's own nodes, checked by CONTAIN |
 | CM1 | Yes | Clustering of response profiles | A short signature per person and a device bundle of about 40 bytes |
 | LINX | Yes | Language models with structured output | A containment router: nothing a model proposes is applied unless it passes |
-| PEAK (step 1) | Planned | State-dependent learning; NLP anchoring; camera photoplethysmography | Anchors as measured objects, with probe trials and contamination detection |
-| TRIAL and CHECKS (step 2) | Planned | N-of-1 trials; standard cognitive tasks (n-back, digit span, reaction time, attention bias) | Personal randomised trials as the default way to use the system, pooled across people |
-| Autonomy gate (step 3) | Planned | Stress inoculation training; human oversight of automation | A device that earns the right to act, one anchor at a time |
-| IDENTITY (step 4) | Planned | Neurological levels (Dilts), logical levels (Hall); language-dependent memory | Identity profiles with a login, an interrupt, policies and a coherence score |
-| ATLAS (step 5) | Planned | Experience sampling; context-aware phone sensing; extinction and generalisation research | A person's trigger graph, and transfer measured on untreated nodes |
-| SLEEP (step 6) | Planned | Targeted memory reactivation; closed-loop stimulation in slow-wave sleep | The day's own code replayed at night inside safety limits |
-| REWARD (step 6) | Planned | Immediate feedback in motor and skill learning | An events bridge from any outside success to a reward code |
-| THERA extensions (step 7) | Planned | Core Transformation; imagery rescripting; memory specificity training | Protocols run with anchors, codes and measurement |
+| PEAK (step 1) | Simulation | Classical conditioning; state-dependent learning; anchoring (from NLP); camera photoplethysmography | Anchors as measured objects, with probe trials and contamination detection |
+| TRIAL and CHECKS (step 2) | Simulation | N-of-1 trials; standard cognitive tasks (n-back, digit span, reaction time, attention bias) | Personal randomised trials as the default way to use the system, pooled across people |
+| Autonomy gate (step 3) | Simulation | Stress inoculation training; human oversight of automation | A device that earns the right to act, one anchor at a time |
+| IDENTITY (step 4) | Simulation | Neurological levels (Dilts, from NLP), logical levels (Hall); language-dependent memory | Identity profiles with a login, an interrupt, policies and a coherence score |
+| ATLAS (step 5) | Simulation | Experience sampling; the network approach to psychopathology; context-aware phone sensing; extinction and generalisation research | A person's trigger graph, and transfer measured on untreated nodes |
+| SLEEP (step 6) | Simulation | Targeted memory reactivation; closed-loop stimulation in slow-wave sleep | The day's own code replayed at night inside safety limits |
+| REWARD (step 6) | Simulation | Immediate feedback in motor and skill learning | An events bridge from any outside success to a reward code |
+| THERA extensions (step 7) | Simulation | Core Transformation (from NLP); imagery rescripting; memory specificity training; Cohen's kappa for agreement | Protocols run with anchors, codes and measurement |
 | Machine identity (step 8) | Planned | Written principles for AI models; error-related EEG for robot correction | One profile format for people and agents, with glyphs as a shared language |

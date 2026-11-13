@@ -132,16 +132,16 @@ One operator holds across three years of the design records: change a central no
 
 | # | Item | Kind | Module | Status | Source |
 |---|---|---|---|---|---|
-| 9 | **Temperature and posture channels**. A wrist cooling device and a motion sensor for posture as cue channels. | new channel | Devices | idea | R17, 2025-04-11 |
-| 10 | **Pronunciation feedback from the camera**. Face and lip tracking compared with a native template; moving the muscles to match is kept as a specification only. | adjacent | Devices | idea | R19–R20, 2025-04-12 |
-| 15 | **Display output: AR glasses and the lock screen**. A state image conditioned at peaks and shown on a trigger, in smart glasses or on the phone's lock screen. | new channel | Devices | idea | R25, 2025-04-23 |
-| 19 | **Content packs for any rule set**. The anchor tree as a format: any rule set, value system or skill becomes a pack. | new | UGCL | idea | R21 (assistant suggestion), 2025-04-19 |
-| 29 | **Carrier frequency for vibration**. Vibration settings that take a carrier frequency, to test whether a frequency shifts EEG at that frequency. | extension | Devices | idea | R31, 2025-05-18 |
-| 36 | **A layer that works on any hardware**. Programs, anchors and profiles sit above the hardware; an implant device class is written as a specification only. | new | Device protocol | idea | Design records, 2025-05 |
-| 38 | **Anchors on parts of the body**. Attachment points placed on the body; vibration motors at several places. | extension | UGCL, Devices | idea | Design records, 2025-05 |
-| 42 | **An identity layer for AI agents and robots**. An agent loads a profile, simulates an action against its values before acting, overrides on a conflict and logs whether each action matched its values; CONTAIN enforces it. | new | IDENTITY, LINX, CONTAIN | idea | Design records, 2025-05 |
-| 43 | **People and machines signalling through glyphs**. An agent reports its state as a glyph's code on the wristband; the person replies with a code. | new | UGCL, Devices | idea | Design records, 2025-05 |
-| 44 | **Human error and stress signals feeding the agent**. A person's error-related or stress signal sharpens the agent's conflict detector. | new | AUG, LINX | idea | Design records, 2025-05 |
+| 9 | **Temperature and posture channels**. A wrist cooling device and a motion sensor for posture as cue channels. | new channel | Devices | built in simulation | R17, 2025-04-11 |
+| 10 | **Pronunciation feedback from the camera**. Face and lip tracking compared with a native template; moving the muscles to match is kept as a specification only. | adjacent | Devices | specified | R19–R20, 2025-04-12 |
+| 15 | **Display output: AR glasses and the lock screen**. A state image conditioned at peaks and shown on a trigger, in smart glasses or on the phone's lock screen. | new channel | Devices | built in simulation | R25, 2025-04-23 |
+| 19 | **Content packs for any rule set**. The anchor tree as a format: any rule set, value system or skill becomes a pack. | new | UGCL | built in simulation | R21 (assistant suggestion), 2025-04-19 |
+| 29 | **Carrier frequency for vibration**. Vibration settings that take a carrier frequency, to test whether a frequency shifts EEG at that frequency. | extension | Devices | built in simulation | R31, 2025-05-18 |
+| 36 | **A layer that works on any hardware**. Programs, anchors and profiles sit above the hardware; an implant device class is written as a specification only. | new | Device protocol | partly built | Design records, 2025-05 |
+| 38 | **Anchors on parts of the body**. Attachment points placed on the body; vibration motors at several places. | extension | UGCL, Devices | built in simulation | Design records, 2025-05 |
+| 42 | **An identity layer for AI agents and robots**. An agent loads a profile, simulates an action against its values before acting, overrides on a conflict and logs whether each action matched its values; CONTAIN enforces it. | new | IDENTITY, LINX, CONTAIN | built in simulation | Design records, 2025-05 |
+| 43 | **People and machines signalling through glyphs**. An agent reports its state as a glyph's code on the wristband; the person replies with a code. | new | UGCL, Devices | built in simulation | Design records, 2025-05 |
+| 44 | **Human error and stress signals feeding the agent**. A person's error-related or stress signal sharpens the agent's conflict detector. | new | AUG, LINX | built in simulation | Design records, 2025-05 |
 
 ### Later: lineage of the design
 

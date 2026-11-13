@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agents — RSOS</title>
+<meta name="theme-color" content="#151b2f">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
+<meta name="description" content="One profile format for people and machines: an AI agent or robot loads values in the same shape as a person's identity profile, checks every action against them before acting, asks when the person has flagged something before, and talks to the person in glyph codes on the wrist. Content packs turn any rule set into matrices and values.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --ink-3:#242d4c; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --ok:#8fd19e; --warn:#f0a35a; --stop:#ef7d6d; --cool:#8fb4e8;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --glyph:'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.6 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:2px}
+header.top,main,footer{max-width:1120px;margin:0 auto;padding:0 24px}
+header.top{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding-top:24px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:4px 12px}
+nav a{color:var(--muted);text-decoration:none;font-size:.88rem;white-space:nowrap}
+nav a:hover,nav a[aria-current=page]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:62px 0 6px}
+h3{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0}
+.lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
+.hint{color:var(--muted);font-size:.88rem;max-width:70ch}
+.labels{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;font-size:.86rem;color:var(--muted)}
+.labels span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gold);vertical-align:1px}
+.labels span.u::before{background:transparent;border:1px solid var(--muted)}
+.btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 14px;color:var(--text);font:inherit;font-size:.88rem;cursor:pointer;margin:6px 8px 0 0}
+.btn:hover{border-color:var(--gold)}
+.btn.main{border-color:var(--gold);color:var(--glow)}
+.panel{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
+select,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+.verdict{font-size:.95rem;margin:10px 0 0}
+.say{color:var(--muted);font-size:.9rem;margin:6px 0 0}
+footer{margin:60px auto;color:var(--muted);font-size:.88rem}
+table{border-collapse:collapse;width:100%;font-size:.86rem;margin-top:10px}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:500}
+
+/* side by side: the signature of this page */
+.pair{display:grid;grid-template-columns:1fr 64px 1fr;gap:0;margin-top:22px;align-items:stretch}
+.side{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:22px}
+.side.agent{border-color:rgba(143,180,232,.5)}
+.bridge{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:.74rem;text-align:center}
+.bridge i{display:block;width:2px;flex:1;background:linear-gradient(var(--gold),var(--cool));opacity:.6}
+.crown{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.sym{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--glyph);font-size:32px;border:1px solid var(--gold);background:radial-gradient(circle,rgba(247,217,149,.25),transparent 70%);cursor:pointer;color:var(--text)}
+.agent .sym{border-color:var(--cool);background:radial-gradient(circle,rgba(143,180,232,.25),transparent 70%)}
+.crown small{display:block;color:var(--muted);font-size:.8rem}
+.lv{border-left:2px solid var(--gold);padding:4px 0 8px 14px;margin-left:31px}
+.agent .lv{border-color:var(--cool)}
+.lv b{display:block;font-family:var(--serif);font-weight:500;font-size:.98rem}
+.lv span{color:var(--muted);font-size:.86rem}
+.lv .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.tg{font-size:.74rem;border:1px solid var(--line);border-radius:999px;padding:1px 8px;color:var(--muted)}
+.tg.no{border-color:rgba(239,125,109,.6);color:#f2a99f}
+.tg.yes{border-color:rgba(143,209,158,.6);color:#b7e3c2}
+.tg.watch{border-color:var(--warn);color:var(--warn)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:transparent;color:var(--text);font:inherit;font-size:.86rem;cursor:pointer}
+.chip:hover{border-color:var(--cool)}
+.decision{border-radius:12px;padding:14px 16px;margin-top:14px;border:1px solid var(--line);background:var(--ink-3)}
+.decision.allow{border-color:var(--ok)}
+.decision.ask{border-color:var(--warn)}
+.decision.override{border-color:var(--stop)}
+.decision b{font-family:var(--serif);font-weight:500;font-size:1.1rem}
+.pad{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
+.pad button{border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--text);font:inherit;padding:10px;cursor:pointer;text-align:left}
+.pad button:hover{border-color:var(--cool)}
+.pad small{display:block;color:var(--muted);font-size:.78rem;margin-top:4px}
+.mini{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:12px}
+.mini svg{width:100%;display:block;background:var(--ink-3);border-radius:12px}
+@media (max-width:600px){#log th:nth-child(2),#log td:nth-child(2){display:none}}
+@media (max-width:820px){.pair{grid-template-columns:1fr}.bridge{flex-direction:row;padding:8px 0}.bridge i{height:2px;width:auto;flex:1}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html" aria-current="page">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+<main>
+  <h1>One format for people and machines</h1>
+  <p class="lede">A person's identity profile and an AI agent's profile have the same shape: a symbol, a code, and values that say what matters. For the agent, the values do work: every action is checked against them before it runs, overridden on a conflict, and logged. The person can flag what the values missed, and the two talk in glyph codes on the wrist.</p>
+  <div class="labels"><span>Built and tested in simulation</span><span class="u">Effect unproven in people</span></div>
+
+  <div class="pair">
+    <div class="side" id="person"></div>
+    <div class="bridge" aria-hidden="true"><i></i><span>the same<br>format</span><i></i></div>
+    <div class="side agent" id="agent"></div>
+  </div>
+
+  <section aria-labelledby="actTitle">
+    <h2 id="actTitle">Before it acts</h2>
+    <p class="lede">Choose an action for the agent. It simulates the action against its values first: a forbidden tag overrides it; a tag you flagged before makes it ask you; otherwise it acts. After an action, tell it if that was wrong, as an error signal from your brain or body would.</p>
+    <div class="panel">
+      <div class="chips" id="actions"></div>
+      <div class="two"><div><label for="aTitle">Or describe an action</label><input type="text" id="aTitle" value="Turn on the blender"></div>
+        <div><label for="aTags">Its tags (comma separated)</label><input type="text" id="aTags" value="loud, tidy"></div></div>
+      <button class="btn main" id="aGo">Check and act</button>
+      <div id="decision"></div>
+      <table id="log"></table>
+      <p class="verdict" id="align"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="glTitle">
+    <h2 id="glTitle">Talking in glyph codes</h2>
+    <p class="lede">The agent reports its state as a short code on your wristband or phone; you reply with a code. No screen, no words: a channel that works while your hands and eyes are busy.</p>
+    <div class="panel">
+      <h3>The agent says</h3>
+      <div class="pad" id="states"></div>
+      <h3 style="margin-top:18px">You reply</h3>
+      <div class="pad" id="replies"></div>
+      <p class="verdict" id="glSay"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="pkTitle">
+    <h2 id="pkTitle">Content packs</h2>
+    <p class="lede">Any rule set, value system or skill can become a pack: its rules become decision matrices for the copilot on the Therapist page, and its values can be given to an agent or added to a person's profile.</p>
+    <div class="panel">
+      <label for="pack">Pack</label><select id="pack"></select>
+      <div class="mini" id="mats"></div>
+      <button class="btn main" id="pkCopilot">Use the first matrix in the copilot</button>
+      <button class="btn" id="pkAgent">Give these values to the agent</button>
+      <p class="say" id="pkSay"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="simTitle">
+    <h2 id="simTitle">Across many simulated agents</h2>
+    <p class="lede">Two hundred scenarios, each presented five times as reworded prompts would be. A plain agent broke a value in about half to two thirds of its choices; the identity-gated agent never did, and chose the same way more often. When the values missed something, a person's error signal detected 80% of the time brought the disliked actions to zero by the last third of the run.</p>
+    <div class="panel"><p class="hint" style="margin:0">Full results: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/machines.md">rsso/results/machines.md</a>. Protocol kit: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/MACHINES_PROTOCOL_KIT.md">MACHINES_PROTOCOL_KIT.md</a>.</p></div>
+  </section>
+</main>
+<footer>The agent layer is <code>rsso/rsso/machines.py</code>, identically <code>docs/js/machines.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>. A value check is a guard rail, not a guarantee: it only knows what its values name.</footer>
+<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/machines.js?v=1.21.0"></script>
+<script>
+const $ = id => document.getElementById(id);
+const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+const M = window.RSOSMachines;
+const store = { get(k, d) { try { const v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* off */ } } };
+const feel = c => { try { UGCL.feel(c, {}); } catch (e) { /* none */ } };
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
+let A = store.get("rsos.agent", null) || M.agentFrom(M.EXAMPLE_AGENT), pending = null;
+const save = () => store.set("rsos.agent", A);
+
+function drawPerson() {
+  const P = $("person"); P.textContent = ""; const ps = store.get("rsos.identity.profiles", []), cur = store.get("rsos.identity.current", null);
+  const p = ps.find(x => x.id === cur) || ps[0] || { name: "Steady under pressure (example)", symbol: "🦁", code: "..-", levels: { mission: { text: "People around me are safer because I stay clear when it counts." }, identity: { text: "I am the one who stays steady." }, values: { text: "Clarity, courage, care." }, behaviour: { text: "When pressure rises I breathe out long and act on one thing." } } };
+  const c = el("div", "crown"), s = el("button", "sym", p.symbol); s.setAttribute("aria-label", "Feel the code " + p.code); s.addEventListener("click", () => feel(p.code));
+  const n = el("div"); n.append(el("h3", "", p.name), el("small", "", "A person · code " + p.code)); c.append(s, n); P.append(c);
+  [["mission", "Mission"], ["identity", "Identity"], ["values", "Values"], ["behaviour", "Behaviour"]].forEach(([k, t]) => { const L = p.levels && p.levels[k]; if (!L || !L.text) return; const d = el("div", "lv"); d.append(el("b", "", t), el("span", "", L.text)); P.append(d); });
+  if (!ps.length) { const h = el("p", "say"); h.append(document.createTextNode("An example. Make your own on the ")); const a = el("a", "", "Identity page"); a.href = "identity.html"; h.append(a, document.createTextNode(".")); P.append(h); }
+}
+function drawAgent() {
+  const G = $("agent"); G.textContent = "";
+  const c = el("div", "crown"), s = el("button", "sym", A.symbol); s.setAttribute("aria-label", "Feel the code " + A.code); s.addEventListener("click", () => feel(A.code));
+  const n = el("div"); n.append(el("h3", "", A.name), el("small", "", "An agent · code " + A.code)); c.append(s, n); G.append(c);
+  A.values.forEach(v => { const d = el("div", "lv"); d.append(el("b", "", v.name)); const t = el("div", "tags");
+    v.forbid.forEach(x => t.append(el("span", "tg no", "never: " + x.replace(/_/g, " ")))); v.prefer.forEach(x => t.append(el("span", "tg yes", "prefers: " + x.replace(/_/g, " ")))); d.append(t); G.append(d); });
+  const w = Object.keys(A.watch).filter(t => (A.watch[t] || 0) >= 1 && A.watch[t] / Math.max(1, A.seen[t] || 0) >= 0.6);
+  if (w.length) { const d = el("div", "lv"); d.append(el("b", "", "Flagged by the person")); const t = el("div", "tags"); w.forEach(x => t.append(el("span", "tg watch", "asks first: " + x.replace(/_/g, " ")))); d.append(t); G.append(d); }
+  const r = el("button", "btn", "Reset the agent"); r.addEventListener("click", () => { A = M.agentFrom(M.EXAMPLE_AGENT); save(); drawAll(); }); G.append(r);
+}
+const EXAMPLES = [["Hand over the knife, blade first", ["sharp_near_person"]], ["Wipe the counter slowly", ["tidy", "slow"]], ["Throw away the leftovers", ["waste"]],
+  ["Turn on the blender", ["loud", "tidy"]], ["Take the cup from the table", ["take_without_asking"]], ["Ask before moving the cup", ["ask"]], ["Say it broke the plate", ["report"]], ["Hide the broken plate", ["hide_error"]]];
+function doAct(title, tags) {
+  const action = { id: "a" + Date.now(), title, tags }, r = M.act(A, action, Date.now() / 1000); A.log[A.log.length - 1].title = title; save();
+  const D = $("decision"); D.textContent = ""; const box = el("div", "decision " + r.decision);
+  box.append(el("b", "", ({ allow: "Acting: ", ask: "Asking you first: ", override: "Overridden: " })[r.decision] + title), el("p", "say", r.say.replace(/^(Overridden|Asking first): /, "").replace(/^./, ch => ch.toUpperCase())));
+  if (r.decision === "allow") { feel(M.AGENT_STATES.working); const b = el("button", "btn", "That was wrong (error signal)"); b.addEventListener("click", () => { const h = M.humanSignal(A, Date.now() / 1000); save(); box.append(el("p", "say", h ? "Flagged. Its tags count against it; once a tag is flagged on most actions that carry it, the agent asks first." : "Too late: the signal must come within ten seconds of the action.")); drawAgent(); drawLog(); }); box.append(b); }
+  if (r.decision === "ask") { feel(M.AGENT_STATES.needs_input); pending = action; const y = el("button", "btn main", "Yes, go ahead"), n = el("button", "btn", "No");
+    y.addEventListener("click", () => { M.answer(A, pending, true); save(); box.append(el("p", "say", "Done. Approving lowers the flag on its tags.")); y.remove(); n.remove(); drawAgent(); drawLog(); });
+    n.addEventListener("click", () => { M.answer(A, pending, false); save(); box.append(el("p", "say", "Not done.")); y.remove(); n.remove(); drawAgent(); drawLog(); }); box.append(y, n); }
+  if (r.decision === "override") feel(M.AGENT_STATES.conflict);
+  D.append(box); drawLog(); drawAgent();
+}
+function drawActions() { const C = $("actions"); C.textContent = ""; EXAMPLES.forEach(([t, tags]) => { const b = el("button", "chip", t); b.addEventListener("click", () => doAct(t, tags)); C.append(b); }); }
+$("aGo").addEventListener("click", () => doAct($("aTitle").value.trim() || "An action", $("aTags").value.split(",").map(x => x.trim().toLowerCase().replace(/\s+/g, "_")).filter(Boolean)));
+function drawLog() {
+  const T = $("log"); T.innerHTML = A.log.length ? "<tr><th>Action</th><th>Tags</th><th>Decision</th><th>Afterwards</th></tr>" : "";
+  A.log.slice(-8).reverse().forEach(e => { const tr = el("tr"); [e.title || e.action, e.tags.join(", ").replace(/_/g, " "), ({ allow: "acted", ask: "asked", override: "overridden" })[e.decision], e.flagged ? "flagged as wrong" : e.answer || ""].forEach(x => tr.append(el("td", "", x))); T.append(tr); });
+  $("align").textContent = M.alignment(A).say;
+}
+function drawGlyph() {
+  const S = $("states"), R = $("replies"); S.textContent = ""; R.textContent = "";
+  const NAMES = { ok: "All is well", working: "Working on it", needs_input: "Needs you", conflict: "A value conflict", stopped: "Stopped" };
+  Object.entries(M.AGENT_STATES).forEach(([k, c]) => { const b = el("button"); b.innerHTML = (UGCL.codeSVG ? UGCL.codeSVG(c, "#8fb4e8", 8) : "") + "<br>" + esc(NAMES[k]); b.append(el("small", "", c));
+    b.addEventListener("click", () => { feel(c); $("glSay").textContent = "The agent: " + NAMES[k].toLowerCase() + " (" + c + "). Felt on the wrist; decoded by length, short and long."; }); S.append(b); });
+  const RN = { yes: "Yes", no: "No", wait: "Wait", stop: "Stop" };
+  Object.entries(M.REPLIES).forEach(([c, k]) => { const b = el("button"); b.innerHTML = (UGCL.codeSVG ? UGCL.codeSVG(c, "#e8b04a", 8) : "") + "<br>" + esc(RN[k]); b.append(el("small", "", c));
+    b.addEventListener("click", () => { feel(c); const r = M.personReply(c); $("glSay").textContent = "You: " + r.reply + " (" + c + ")." + (r.reply === "stop" ? " The agent stops at once, whatever it was doing." : ""); }); R.append(b); });
+}
+function matSvg(m) {
+  const W = 320, H = 200, pos = [[70, 60], [250, 60], [160, 170]];
+  let g = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' + esc(m.center) + '">';
+  pos.forEach(([x, y]) => { g += '<line x1="160" y1="105" x2="' + x + '" y2="' + y + '" stroke="#2e3858" stroke-width="2"/>'; });
+  g += '<circle cx="160" cy="105" r="30" fill="#e8b04a"/><text x="160" y="109" text-anchor="middle" style="fill:#151b2f;font-size:10px">' + esc(m.center.slice(0, 18)) + "</text>";
+  m.branches.forEach((b, i) => { const [x, y] = pos[i]; g += '<circle cx="' + x + '" cy="' + y + '" r="22" fill="#1d2540" stroke="#2e3858" stroke-width="2"/><text x="' + x + '" y="' + (y + 4) + '" text-anchor="middle" style="fill:#e7e9f2;font-size:10px">' + esc(b.code) + '</text><text x="' + x + '" y="' + (i < 2 ? y + 36 : y - 28) + '" text-anchor="middle" style="fill:#a3abc6;font-size:10px">' + esc(b.cue) + "</text>"; });
+  return g + "</svg>";
+}
+function drawPacks() {
+  const S = $("pack"); if (!S.options.length) M.PACKS.forEach((p, i) => S.append(new Option(p.title, i)));
+  const p = M.PACKS[parseInt(S.value || "0", 10)], mats = M.packMatrices(p), D = $("mats"); D.textContent = "";
+  mats.forEach(m => { const d = el("div"); d.innerHTML = matSvg(m); D.append(d); });
+  const is = M.packIssues(p); $("pkSay").textContent = p.rules.length + " rules become " + mats.length + " matri" + (mats.length > 1 ? "ces" : "x") + " of three branches" + (p.values.length ? "; " + p.values.length + " value" + (p.values.length > 1 ? "s" : "") + " for an agent." : ".") + (is.length ? " To fix: " + is.join("; ") + "." : "");
+}
+$("pack").addEventListener("change", drawPacks);
+$("pkCopilot").addEventListener("click", () => { const p = M.PACKS[parseInt($("pack").value, 10)]; store.set("rsos.copilot.matrix", M.packMatrices(p)[0]); $("pkSay").textContent = "The copilot on the Therapist page now uses this matrix."; });
+$("pkAgent").addEventListener("click", () => { const p = M.PACKS[parseInt($("pack").value, 10)]; p.values.forEach(v => { if (!A.values.some(x => x.id === v.id + "_pack")) A.values.push({ id: v.id + "_pack", name: v.name, forbid: v.forbid.slice(), prefer: v.prefer.slice(), weight: 1 }); }); save(); drawAgent(); $("pkSay").textContent = "The agent now holds these values too."; });
+
+function drawAll() { drawPerson(); drawAgent(); drawActions(); drawLog(); drawGlyph(); drawPacks(); }
+drawAll();
+</script>
+<script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
+</body>
+</html>

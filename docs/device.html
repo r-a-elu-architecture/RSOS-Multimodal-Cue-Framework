@@ -60,6 +60,22 @@ th{color:var(--muted);font-weight:600;font-size:.84rem}
 .setup li{margin:0 0 10px;max-width:72ch}
 .setup b{font-weight:600}
 .setup i{font-style:normal;color:var(--glow)}
+.cls{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px}
+.cls div{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.cls div.spec{border-style:dashed}
+.cls b{font-family:var(--serif);font-weight:500;display:block}
+.cls span{font-size:.82rem;color:var(--muted)}
+.cls em{display:table;font-style:normal;font-size:.76rem;border-radius:999px;padding:1px 8px;display:inline-block;margin-top:6px}
+.cls em.y{color:var(--ok);border:1px solid rgba(143,209,158,.5)} .cls em.n{color:var(--muted);border:1px solid var(--line)} .cls em.s{color:var(--warn);border:1px dashed var(--warn)}
+.chart{width:100%;display:block;background:var(--ink);border:1px solid var(--line);border-radius:8px;margin-top:10px}
+.big{font-family:var(--serif);font-size:2.2rem;line-height:1}
+.sites{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.sites label{display:inline-flex;gap:6px;align-items:center;margin:0;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--text);cursor:pointer}
+.body{max-width:150px;margin:8px auto 0;display:block}
+canvas.lock{width:180px;border-radius:18px;border:1px solid var(--line);display:block;margin-top:10px}
+input[type=number]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
+.f3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+code.line{display:block;margin-top:10px;font:13px ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--glow);overflow-x:auto}
 .msg{font-size:.9rem;margin:10px 0 0;min-height:1.2em}
 .msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
 footer{margin:60px auto;color:var(--muted);font-size:.88rem}
@@ -72,7 +88,7 @@ header.top nav a{font-size:.88rem}
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html" aria-current="page">Devices</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html" aria-current="page">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Your phone, and a wristband if you have one</h1>
@@ -167,12 +183,64 @@ header.top nav a{font-size:.88rem}
     <h2>What the band says</h2>
     <div class="log" id="log" aria-live="off"></div>
   </section>
+
+  <h2 style="margin-top:56px" id="channels">More channels</h2>
+  <p class="lede">The same programs and codes can reach a person through more than a phone and a band. Each class of device below carries some channels; the ones not built yet have a draft protocol line and safety limits, so a builder can start from them.</p>
+  <div class="cls" id="classes"></div>
+  <div class="grid" style="align-items:start">
+    <section class="panel" id="posture">
+      <h2>Posture</h2>
+      <p class="hint">Hold the phone upright against your chest or clip it on. Leaning forward past 25 degrees for five seconds is one slouch, cued once; it ends when you are back under 15 degrees.</p>
+      <div class="row"><span class="big" id="tiltNow">–</span><span class="hint" id="tiltSay" style="margin:0">degrees from upright</span></div>
+      <div class="row"><button class="btn" id="tiltGo">Use the motion sensor</button></div>
+      <svg class="chart" id="postChart" viewBox="0 0 600 220" role="img" aria-label="Ten simulated minutes of trunk angle"></svg>
+      <p class="hint" id="postSay"></p>
+    </section>
+    <section class="panel" id="lock">
+      <h2>Lock screen</h2>
+      <p class="hint">An image with a profile's symbol and phrase, to set as the lock screen: the cue is there each time the phone is picked up.</p>
+      <label for="lkSym">Symbol</label><input type="text" id="lkSym" value="🦁">
+      <label for="lkTxt">Phrase</label><input type="text" id="lkTxt" value="I am the one who stays steady.">
+      <canvas class="lock" id="lkCan" width="540" height="1170" aria-label="Lock screen image"></canvas>
+      <div class="row"><a class="btn" id="lkGet" download="rsos-lock-screen.png">Download the image</a></div>
+    </section>
+    <section class="panel" id="sites">
+      <h2>On several body sites</h2>
+      <p class="hint">With motors in more than one place, each part of a code goes to the next site, so a two-part code is felt in two places. Up to three at once.</p>
+      <label for="stCode">Code</label><input type="text" id="stCode" value="..- -.">
+      <div class="sites" id="stPick"></div>
+      <svg class="body" id="stBody" viewBox="0 0 120 220" role="img" aria-label="Body sites"></svg>
+      <code class="line" id="stLines"></code>
+    </section>
+    <section class="panel" id="carrier">
+      <h2>Carrier and rhythm</h2>
+      <p class="hint">A vibration has a carrier (how fast it buzzes, 20-300 Hz) and can pulse at a slower rhythm (1-40 Hz). Hear it here on the speaker. A rhythm does not entrain the brain by being felt: that claim (C35) is untested and nothing here relies on it.</p>
+      <div class="f3"><div><label for="cfC">Carrier, Hz</label><input type="number" id="cfC" value="170" min="20" max="300"></div><div><label for="cfM">Rhythm, Hz</label><input type="number" id="cfM" value="6" min="1" max="40"></div><div><label for="cfA">Strength, 0-1</label><input type="number" id="cfA" value="0.5" step="0.1" min="0" max="1"></div></div>
+      <div class="row"><button class="btn" id="cfPlay">Play two seconds</button></div>
+      <code class="line" id="cfLine"></code><p class="msg" id="cfMsg"></p>
+    </section>
+    <section class="panel" id="thermal">
+      <h2>Warm and cool</h2>
+      <p class="hint">For a wrist module that cools or warms (not built yet). The limits: at most 4 °C either way, at most two minutes, four times a session.</p>
+      <div class="f3"><div><label for="thD">Change, °C</label><input type="number" id="thD" value="-2" step="0.5"></div><div><label for="thS">Seconds</label><input type="number" id="thS" value="30"></div><div><label for="thT">Start, s</label><input type="number" id="thT" value="0"></div></div>
+      <code class="line" id="thLine"></code><p class="msg" id="thMsg"></p>
+    </section>
+    <section class="panel" id="lines">
+      <h2>Read a protocol line</h2>
+      <p class="hint">Paste a draft RDP/1.1 line: T for temperature, D for an image, HF for vibration with carrier, rhythm and site.</p>
+      <label for="lnIn">Line</label><input type="text" id="lnIn" value="HF 0 100 100 3 0.5 170 6 chest">
+      <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="lnNight"> At night</label>
+      <p class="msg" id="lnMsg"></p>
+    </section>
+  </div>
 </main>
-<footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent.</footer>
+<footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent. The new channels use <code>docs/js/machines.js</code>, identical to <code>rsso/rsso/machines.py</code> (tested); draft lines in <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>.</footer>
 <script src="js/ugcl.js?v=1.14.0"></script>
 <script src="js/rsx.js?v=1.14.0"></script>
 <script src="js/contain.js?v=1.14.0"></script>
 <script src="js/rdp.js?v=1.14.0"></script>
+<script src="js/peak.js?v=1.16.0"></script>
+<script src="js/machines.js?v=1.21.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id), R = RSOSRdp;
@@ -233,6 +301,91 @@ $("run").addEventListener("click", async () => {
     say("Playing " + $("prog").selectedOptions[0].textContent + " (" + Math.round(tl.duration_ms / 1000) + " s). Stop at any time.", true);
   } catch (e) { say("Could not play it: " + e.message); }
 });
+</script>
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id), X = RSOSMachines, E = X.ENVELOPE_X;
+const mk = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+// device classes
+const C = $("classes");
+Object.values(X.CLASSES).forEach(k => { const d = mk("div", k.spec_only ? "spec" : ""); d.append(mk("b", "", k.title), mk("span", "", k.channels.length ? k.channels.join(", ") : "no channels driven"));
+  d.append(mk("em", k.spec_only ? "s" : k.built ? "y" : "n", k.spec_only ? "specification only" : k.built ? "works now" : "draft protocol")); if (k.note) d.title = k.note; C.append(d); });
+// posture
+const NS = "http://www.w3.org/2000/svg";
+function drawPost() {
+  const [ang, truth] = X.simPosture(3), r = X.posture(ang), S = $("postChart"), W = 600, H = 220, n = ang.length, y = a => H - 14 - Math.max(0, Math.min(45, a)) / 45 * (H - 28);
+  let g = "";
+  truth.forEach(([a, b]) => { g += '<rect x="' + (a / n * W) + '" y="8" width="' + ((b - a) / n * W) + '" height="' + (H - 22) + '" fill="rgba(240,163,90,.16)"/>'; });
+  [15, 25].forEach(v => { g += '<line x1="0" x2="' + W + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#2e3858" stroke-dasharray="3 4"/><text x="4" y="' + (y(v) - 3) + '" style="fill:#a3abc6;font-size:14px">' + v + "°</text>"; });
+  let d = ""; for (let i = 0; i < n; i += 5) d += (i ? "L" : "M") + (i / n * W).toFixed(1) + " " + y(ang[i]).toFixed(1);
+  g += '<path d="' + d + '" fill="none" stroke="#e8b04a" stroke-width="1.5"/>';
+  r.episodes.forEach(e => { const x = e.cue_s * 10 / n * W; g += '<circle cx="' + x + '" cy="' + y(32) + '" r="8" fill="#8fd19e" stroke="#151b2f" stroke-width="3"/>'; });
+  g += '<text x="' + (W - 4) + '" y="' + (H - 2) + '" text-anchor="end" style="fill:#a3abc6;font-size:14px">10 simulated minutes</text>';
+  S.innerHTML = g;
+  $("postSay").textContent = "Simulated: " + truth.length + " slouches (shaded), " + r.episodes.length + " cued (green), each about five seconds after it began; slouched " + r.share + "% of the time.";
+}
+drawPost();
+let buf = [], live = false, lastCue = 0;
+$("tiltGo").addEventListener("click", async () => {
+  try { if (typeof DeviceMotionEvent !== "undefined" && DeviceMotionEvent.requestPermission) await DeviceMotionEvent.requestPermission(); } catch (e) { /* refused */ }
+  if (live) return; live = true; $("tiltSay").textContent = "degrees from upright; waiting for the sensor";
+  window.addEventListener("devicemotion", ev => { const a = ev.accelerationIncludingGravity; if (!a || a.y == null) return;
+    const t = X.tilt(a.x || 0, a.y || 0, a.z || 0); $("tiltNow").textContent = Math.round(t); buf.push(t); if (buf.length > 600) buf.shift();
+    const r = X.posture(buf.filter((_, i) => i % 6 === 0)), on = r.episodes.length && r.episodes[r.episodes.length - 1].end_s == null;
+    $("tiltSay").textContent = on ? "slouching: sit tall" : "degrees from upright";
+    if (on && Date.now() - lastCue > 20000) { lastCue = Date.now(); try { navigator.vibrate && navigator.vibrate([300, 100, 300]); } catch (e) { /* none */ } } });
+  setTimeout(() => { if (!buf.length) $("tiltSay").textContent = "No motion sensor here; open this page on a phone."; }, 2500);
+});
+// lock screen
+function drawLock() {
+  const c = $("lkCan"), x = c.getContext("2d"), W = c.width, H = c.height;
+  const gr = x.createRadialGradient(W / 2, H * .42, 10, W / 2, H * .42, W * .9); gr.addColorStop(0, "#2a3355"); gr.addColorStop(1, "#151b2f"); x.fillStyle = gr; x.fillRect(0, 0, W, H);
+  x.strokeStyle = "rgba(232,176,74,.8)"; x.lineWidth = 3; x.beginPath(); x.arc(W / 2, H * .42, 110, 0, Math.PI * 2); x.stroke();
+  x.textAlign = "center"; x.textBaseline = "middle"; x.font = "120px 'Noto Color Emoji','Apple Color Emoji','Segoe UI Emoji',sans-serif"; x.fillStyle = "#e7e9f2"; x.fillText($("lkSym").value.trim() || "◯", W / 2, H * .42 + 6);
+  x.font = "50px 'Iowan Old Style','Palatino Linotype',Georgia,serif"; x.fillStyle = "#f7d995";
+  const words = $("lkTxt").value.trim().split(/\s+/), lines = []; let cur = "";
+  words.forEach(w => { const t = cur ? cur + " " + w : w; if (x.measureText(t).width > W - 100 && cur) { lines.push(cur); cur = w; } else cur = t; }); if (cur) lines.push(cur);
+  lines.slice(0, 4).forEach((l, i) => x.fillText(l, W / 2, H * .6 + i * 64));
+  try { $("lkGet").href = c.toDataURL("image/png"); } catch (e) { /* tainted */ }
+}
+["lkSym", "lkTxt"].forEach(i => $(i).addEventListener("input", drawLock)); drawLock();
+// body sites
+const POS = { wrist_left: [22, 120], wrist_right: [98, 120], upper_arm: [28, 62], chest: [60, 58], upper_back: [60, 80], ankle: [50, 206] };
+let picked = ["wrist_left", "chest"];
+X.SITES.forEach(s => { const l = mk("label"), b = document.createElement("input"); b.type = "checkbox"; b.checked = picked.includes(s);
+  b.addEventListener("change", () => { picked = X.SITES.filter(k => k === s ? b.checked : picked.includes(k)); drawSites(); }); l.append(b, document.createTextNode(X.SITE_NAMES[s])); $("stPick").append(l); });
+function drawSites() {
+  let g = '<g fill="none" stroke="#2e3858" stroke-width="2"><circle cx="60" cy="20" r="13"/><path d="M42 38h36l8 70-10 0-4-40v60l6 66h-12l-6-56-6 56H38l6-66V68l-4 40-10 0z"/><path d="M42 40 22 118M78 40l20 78"/></g>';
+  let out = "";
+  try {
+    const p = X.spread($("stCode").value.trim() || ".", picked), used = {};
+    p.forEach(x => { used[x.site] = (used[x.site] || 0) + 1; });
+    X.SITES.forEach(s => { const [cx, cy] = POS[s], on = used[s]; g += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (on ? 8 : 4) + '" fill="' + (on ? "#e8b04a" : "#2e3858") + '"' + (picked.includes(s) ? ' stroke="#f7d995" stroke-width="2"' : "") + "/>"; });
+    out = p.map(x => X.encode({ kind: "haptic", t: x.t, on: x.on, off: 0, count: 1, amp: 0.5, carrier_hz: 0, mod_hz: 0, site: x.site })).join("\n");
+  } catch (e) { out = "Choose one to three sites."; X.SITES.forEach(s => { const [cx, cy] = POS[s]; g += '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="#2e3858"/>'; }); }
+  $("stBody").innerHTML = g; $("stLines").textContent = out; $("stLines").style.whiteSpace = "pre";
+}
+$("stCode").addEventListener("input", drawSites); drawSites();
+// carrier
+function cfCmd() { return { kind: "haptic", t: 0, on: 2000, off: 0, count: 1, amp: parseFloat($("cfA").value) || 0, carrier_hz: parseInt($("cfC").value, 10) || 0, mod_hz: parseInt($("cfM").value, 10) || 0, site: "wrist_left" }; }
+function cfShow() { const c = cfCmd(), p = X.check(c); $("cfLine").textContent = X.encode(c); $("cfMsg").className = "msg " + (p.length ? "err" : "ok"); $("cfMsg").textContent = p.length ? "Will not play: " + p.join("; ") + "." : "Inside the limits."; return p; }
+["cfC", "cfM", "cfA"].forEach(i => $(i).addEventListener("input", cfShow)); cfShow();
+$("cfPlay").addEventListener("click", () => { if (cfShow().length) return; const c = cfCmd();
+  let ac; try { ac = UGCL.audioCtx ? UGCL.audioCtx() : new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; }
+  const o = ac.createOscillator(), g = ac.createGain(), lfo = ac.createOscillator(), lg = ac.createGain(), t = ac.currentTime;
+  o.frequency.value = c.carrier_hz; g.gain.value = c.amp * 0.15; lfo.frequency.value = c.mod_hz; lg.gain.value = c.amp * 0.15;
+  lfo.connect(lg); lg.connect(g.gain); o.connect(g); g.connect(ac.destination); o.start(t); lfo.start(t); o.stop(t + 2); lfo.stop(t + 2); });
+// thermal
+function thShow() { const c = { kind: "thermal", t: (parseInt($("thT").value, 10) || 0) * 1000, dur: (parseFloat($("thS").value) || 0) * 1000, delta_c: parseFloat($("thD").value) || 0 }, p = X.check(c);
+  $("thLine").textContent = X.encode(c); $("thMsg").className = "msg " + (p.length ? "err" : "ok"); $("thMsg").textContent = p.length ? "Will not play: " + p.join("; ") + "." : "Inside the limits."; }
+["thD", "thS", "thT"].forEach(i => $(i).addEventListener("input", thShow)); thShow();
+// any line
+function lnShow() { let c; try { c = X.parse($("lnIn").value); } catch (e) { $("lnMsg").className = "msg err"; $("lnMsg").textContent = "Not a channel line: T, D or HF with all its fields."; return; }
+  const p = X.check(c, $("lnNight").checked, $("lnNight").checked ? 0.5 : 1), what = { thermal: "Temperature change of " + c.delta_c + " °C for " + c.dur / 1000 + " s", display: "Image " + c.image + " for " + c.dur / 1000 + " s", haptic: c.count + " pulses on the " + (X.SITE_NAMES[c.site] || c.site).toLowerCase() + (c.carrier_hz ? " at " + c.carrier_hz + " Hz" : "") + (c.mod_hz ? ", pulsing " + c.mod_hz + " times a second" : "") }[c.kind];
+  $("lnMsg").className = "msg " + (p.length ? "err" : "ok"); $("lnMsg").textContent = what + ". " + (p.length ? "Will not play: " + p.join("; ") + "." : "Inside the limits."); }
+["lnIn", "lnNight"].forEach(i => $(i).addEventListener("input", lnShow)); $("lnNight").addEventListener("change", lnShow); lnShow();
+})();
 </script>
 <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>

@@ -42,7 +42,7 @@ pip install -r requirements.txt          # Python 3.10+; Node.js 18+ and a C++ c
 
 The script runs:
 
-- the RSX, RSSO and toolkit test suites (219 tests);
+- the RSX, RSSO and toolkit test suites (227 tests);
 - the conformance suite on the virtual rig and on the firmware core;
 - the board check against the firmware core in real time;
 - a regeneration of every generated file, checking that nothing changed.
@@ -50,7 +50,7 @@ The script runs:
 The same script runs on GitHub on every push (`.github/workflows/checks.yml`).
 
 Wherever a module exists in both languages, Python and JavaScript are tested to give identical results. This
-covers 22 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, PEAK, TRIAL, CHECKS, the autonomy gate, IDENTITY, ATLAS, SLEEP and REWARD, the copilot, the
+covers 23 modules: the RSX compiler, memory, glyphs, metrics, consent, nodes, LINX, CONTAIN, THERA, CM1, PEAK, TRIAL, CHECKS, the autonomy gate, IDENTITY, ATLAS, SLEEP and REWARD, the copilot, MACHINES, the
 contribution format, the device protocol with its board check, the heart-rate driver and camera heart rate.
 
 ## 4. Evidence register: every number, and what kind of evidence it is
@@ -73,6 +73,7 @@ contribution format, the device protocol with its board check, the heart-rate dr
 | ATLAS | Real triggers found in 98% of simulated people after two weeks (3% of null nodes called triggers); map predicts unseen moments in 100%; transfer found in 67% with a repeat mapping (7% false; 14% false without it); level-sweep peak found in 66% with eight sessions per level (2% false) | Simulated people with known triggers | `rsso/results/atlas.md` |
 | SLEEP and REWARD | Closed-loop cueing put 99% of cues in deep sleep with under one cue-caused arousal a night (random cueing: 16%, about 15 arousals); a memory benefit found in all groups of 20 and 15% of single people; a good move recognised in 90% (0% of poor moves) with the code about 190 ms after release | Simulated sleepers and athletes with known answers | `rsso/results/night.md` |
 | Copilot | Copilot right on 90% of simulated session lines, kappa 0.74 with a 90%-accurate therapist; level classifier 85.4% on 48 sentences written for the test; typology right in 98% at 500 words (3% named with no lean); cue-reactivity fall found in 96% within three months | Simulated sessions and people; a written sentence set | `rsso/results/copilot.md` |
+| Machines and agents | Value-gated agent: same choice in five rewordings 38.8% against 29.8%, value-breaking choices 0% against 64%; error signal detected 80%: disliked actions 13.4% to 0%; posture: every slouch cued, no false cues, 6.2 s; agent-state codes read 98% at 40 ms jitter | Simulated agents and people with known answers | `rsso/results/machines.md` |
 | Original glyphs | 146 + 1 joined pair; 147 unique vibration codes | Measured on the ledger | `rsso/results/ugcl_originals.md` |
 | Effect of the Override Protocol or nodes on people | **None measured** | — | Study kit ready: `toolkit/study_kit/` |
 

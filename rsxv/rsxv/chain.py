@@ -96,7 +96,10 @@ def _boost(prog):
     return Lg.parse(Lg.to_text(q))
 
 
-def run_chain(prog, person, hours, ctx=None, store=None, adaptive=True, subject=None, reschedule=True):
+def run_chain(prog, person, hours, ctx=None, store=None, adaptive=True, subject=None, reschedule=True, world=None,
+              start_ts=1_800_000_000, gap_s=86400):
+    """world: the person's subsystem state (rsxv.subsystems.new_world()); when given, CONTAIN gates every
+    session, MEMSTACK keeps the run log and CM1 compresses it."""
     """Run one session per entry in `hours`, carrying state over and applying the session laws."""
     ctx = dict(ctx or {})
     store = store or Store()
@@ -107,6 +110,9 @@ def run_chain(prog, person, hours, ctx=None, store=None, adaptive=True, subject=
     out = []
     for i, h in enumerate(hours):
         hist = store.subjects.get(subject, {}).get("history", [])
+        ts = start_ts + i * gap_s
+        if world is not None:
+            ctx = {**ctx, "world": world, "now": ts}
         R = run(cur, p, {**ctx, "seed": ctx.get("seed", 1) * 100 + i, "hour": h, "history": hist})
         if reschedule and R["status"] == "refused" and R.get("reschedule_to") is not None:
             moved = R["reschedule_to"]
@@ -117,6 +123,11 @@ def run_chain(prog, person, hours, ctx=None, store=None, adaptive=True, subject=
         R["start"] = {k: p["base"][k] for k in ("agency", "distress", "arousal", "drift")}
         R["end"] = _end_state(R)
         R["csi"] = _csi(R)
+        if world is not None:
+            from . import subsystems as SS
+            if cur["archetype"] and any(v["op"] == "MemoryRecall" for b in cur["blocks"] for v in b["vectors"]):
+                R["memstack_recall"] = SS.recall(world, cur["archetype"])
+            R["subsystems"] = SS.after_session(cur, R, world, subject, ts)
         R["interventions"] = []
         prev = [x["csi"] for x in hist if x.get("csi") is not None and x["status"] != "refused"][-CSI_WINDOW:]
         breach = "MultiSessionContinuity" in laws and R["status"] != "refused" and prev and R["csi"] < CSI_FLOOR * max(prev)

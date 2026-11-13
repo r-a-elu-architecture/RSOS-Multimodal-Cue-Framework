@@ -158,6 +158,12 @@ def run(prog: dict, p: dict, ctx: dict | None = None) -> dict:
         if b["kind"] == "PHASE" and b["if"] and not _holds(b["if"], _sense(body), base):
             rec["ran"] = False; rec["ended"] = "skipped (IF false)"; R["blocks"].append(rec)
             R["log"].append(f"{body.t}s {b['name']} skipped: IF {Lg.cond_text(b['if'])} is false"); continue
+        if b["kind"] == "GATE" and ctx.get("world") is not None and not ctx.get("ghost") and any(v["op"] == "EthicsContain" for v in b["vectors"]):
+            from . import subsystems as SS
+            d = SS.contain_gate(prog, ctx["world"], ctx.get("now", 0.0), ctx)
+            R["contain"] = d
+            if d["decision"] == "block":
+                stop("CONTAIN: " + "; ".join(d["reasons"])); rec["ended"] = "refused"; R["blocks"].append(rec); break
         if b["kind"] == "GATE":
             if any(v["op"] == "EthicsContain" for v in b["vectors"]) and (base_true["distress"] >= 8.5):
                 stop("EthicsContain: screening failed (distress at start ≥ 8.5)"); rec["ended"] = "refused"; R["blocks"].append(rec); break

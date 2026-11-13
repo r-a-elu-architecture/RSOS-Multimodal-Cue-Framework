@@ -260,5 +260,10 @@
    ]
   }
  ],
- "cycle_s": 10
+ "cycle_s": 10,
+ "haptic_budget": {
+  "planned_ms": 24000,
+  "final_ms": 18000,
+  "limit_ms": 18000
+ }
 }

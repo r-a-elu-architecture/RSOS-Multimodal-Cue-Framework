@@ -149,7 +149,42 @@ def to_cue(prog: dict, lineage: dict | None = None, seconds: dict | None = None,
                                    "repeats": reps if b["kind"] != "GATE" else 1, "until": b.get("until"), "if": b.get("if"),
                                    "vectors": [{"k": v["k"], "op": v["op"], "clauses": lineage.get(v["op"], [])} for v in b["vectors"]]})
     src = "\n".join(L) + "\n"
+    src, manifest["haptic_budget"] = _fit_haptic_budget(src)
     return {"source": src, "manifest": manifest}
+
+
+HAPTIC_BUDGET_MS = 18000      # 90% of CONTAIN's haptic_on_ms_per_run (20 s): vibration per run stays inside the envelope
+
+
+def _fit_haptic_budget(src: str) -> tuple[str, dict]:
+    """Thin the haptic pulses so that, at full dose, the total vibration of one run stays inside the envelope.
+    Pulses are shortened first (not below 150 ms), then their count is reduced (not below 1)."""
+    def total(s):
+        tot, mult, stack = 0, 1, []
+        for line in s.splitlines():
+            t = line.strip()
+            m = re.match(r"REPEAT (\d+) \{", t)
+            if m:
+                stack.append(int(m.group(1))); mult *= int(m.group(1)); continue
+            if t == "}" and stack and not re.match(r"\s{4}", line):
+                if line.startswith("}"):
+                    mult //= stack.pop()
+                continue
+            m = re.match(r"HAPTIC on=(\d+)ms off=(\d+)ms x=(\d+) amp=", t)
+            if m:
+                tot += mult * int(m.group(1)) * int(m.group(3))
+        return tot
+    before = total(src)
+    s = src
+    for on in (400, 300, 250, 200, 150):
+        if total(s) <= HAPTIC_BUDGET_MS:
+            break
+        s = re.sub(r"HAPTIC on=(\d+)ms", lambda m: f"HAPTIC on={min(int(m.group(1)), on)}ms", s)
+    for x in (3, 2, 1):
+        if total(s) <= HAPTIC_BUDGET_MS:
+            break
+        s = re.sub(r"(HAPTIC on=\d+ms off=\d+ms) x=(\d+)", lambda m: f"{m.group(1)} x={min(int(m.group(2)), x)}", s)
+    return s, {"planned_ms": before, "final_ms": total(s), "limit_ms": HAPTIC_BUDGET_MS}
 
 
 def compile_cue(source: str) -> dict:

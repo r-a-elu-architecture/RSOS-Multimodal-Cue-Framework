@@ -23,7 +23,7 @@ PHASE gate dur=5s {
 REPEAT 15 {
   PHASE settle_in breath=inhale {
     MARK "lin:-|v3:BreathOverride"
-    HAPTIC on=400ms off=600ms x=4 amp=0.3
+    HAPTIC on=300ms off=600ms x=4 amp=0.3
     FEEL "Breathe in slowly, out longer"
     MARK "lin:-|v4:PostureShift"
     GESTURE "Spine tall, shoulders soft"

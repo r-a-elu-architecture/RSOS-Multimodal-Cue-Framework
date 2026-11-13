@@ -154,8 +154,18 @@ These are operational definitions; the RSOS metric log names these metrics but g
 
 `ledger_recovery.py` plants known per-clause effects, with operators made inert so the planted effects are the whole truth, and checks that the ledger recovers them.
 
-## 10. Status
+## 10. On the real subsystems: CONTAIN, MEMSTACK, CM1
 
-- **Language, runtime, all ten laws, the six metrics, the audit chain, NEXT and the firmware path:** prototype, with 44 tests.
+`rsxv/subsystems.py` connects RSX-V to the repository's own safety, memory and pattern modules in `rsso/`. A person's state is one portable dict: `world = {contain, runs, memstack, cm1}`.
+
+- **CONTAIN** (`rsso.contain`). The gate's EthicsContain calls `contain.decide`. It checks the command, compiled to its RSX cue timeline at full dose (every phase at MAX), against the device safety envelope, the program's quarantine state and the escalation state. A block stops the session at the gate, with CONTAIN's reasons. After each session, `contain.review` updates the state from the run log, so a program that stops helping is quarantined and later sessions are refused. The bridge budgets vibration so that a full-dose run stays inside the envelope's 20 s of vibration per run: it shortens pulses first, then reduces their count.
+- **MEMSTACK** (`rsso.memstack`). `MemoryUpdate(MEMSTACK)` appends each session to the run log in the shared format (rsx `LOG_FIELDS`, protocol `rsxv_<tier>_<archetype>`) and keeps a checksummed snapshot. `MemoryRecall(Archetype=X)` reads tier X's summary: bundle strength, distress drop and the reflex criterion.
+- **CM1** (`rsso.cm1`). `CompressionRun(CM1)` compresses the run log to a signature, assigns a response profile (fitted on the repository's synthetic population) and returns where to start.
+
+`chain.run_chain(..., world=...)` applies all three in every session. The no-electrical scope rule (§8) applies throughout.
+
+## 11. Status
+
+- **Language, runtime, all ten laws, the six metrics, the audit chain, NEXT and the firmware path:** prototype, with 48 tests.
 - **The person model used by GhostPass and the arm comparison:** a stated model, not data. Its assumptions (dilution, readiness, backfire, conflict, plus circadian and carry-over for sessions) can each be switched off.
 - **Human effectiveness:** untested. It needs the three-arm study (canonical v1, RSX-V, sham) with the same per-vector audit.

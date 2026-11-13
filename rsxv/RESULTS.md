@@ -112,7 +112,14 @@ The translator's vector counts were compared with hand counts on a private valid
 - In the full model with no planted effects ([`examples/ledger_demo.txt`](examples/ledger_demo.txt)), most clause effects on distress are near zero. One of nine was flagged even though the model gives its operator no distress effect, which is a false flag at about the expected rate.
 - All of this is simulation. In people, the outcomes would come from sensed HRV, EEG and short ratings.
 
-## 7. Prior art
+## 7. On the real subsystems
+
+- **CONTAIN found a real problem in the first check.** At full dose, the example command asked for 24 s of vibration in one run, and the device safety envelope allows 20 s. The bridge now budgets vibration to 18 s by shortening pulses; the program passes CONTAIN, and every session is allowed.
+- **CONTAIN quarantines.** When a program's run log shows distress rising after runs, `contain.review` quarantines it and the next session is stopped at the gate with CONTAIN's reason (tested).
+- **MEMSTACK.** Over 8 sessions of the example, the DRAGON tier's modelled bundle strength rose from 0.43 to 0.98. The snapshot's checksum verifies.
+- **CM1.** From the third session on, the person is assigned to a response profile with starting recommendations. With few sessions these mostly reflect the profile, not the person's own data.
+
+## 8. Prior art
 
 See [PRIOR_ART.md](PRIOR_ART.md).
 

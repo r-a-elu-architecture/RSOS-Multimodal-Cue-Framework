@@ -70,7 +70,7 @@
   // Camera capture (browser only). opts: { seconds = 30, onProgress(fraction, covered) }
   async function measure(opts) {
     opts = opts || {};
-    const seconds = opts.seconds || 30;
+    const seconds = (opts.seconds || 30) + 3;
     if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) throw new Error("This browser cannot use the camera.");
     const stream = await navigator.mediaDevices.getUserMedia({ audio: false,
       video: { facingMode: { ideal: "environment" }, width: { ideal: 160 }, height: { ideal: 120 }, frameRate: { ideal: 30 } } });
@@ -82,7 +82,7 @@
     await video.play();
     const cv = document.createElement("canvas"); cv.width = 40; cv.height = 30;
     const ctx = cv.getContext("2d", { willReadFrequently: true });
-    const samples = []; const t0 = performance.now(); let frames = 0, coveredFrames = 0, sumR = 0, sumG = 0, sumB = 0;
+    const samples = [], greens = []; const t0 = performance.now(); let frames = 0, coveredFrames = 0, sumR = 0, sumG = 0, sumB = 0;
     await new Promise(resolve => {
       const step = () => {
         const now = performance.now();
@@ -94,7 +94,8 @@
           // a fingertip lit from behind glows red: red clearly above green and blue. A screen, a room or a face does not.
           const covered = red > 60 && red >= 1.15 * green && red >= 1.3 * blue;
           frames++; if (covered) coveredFrames++; sumR += red; sumG += green; sumB += blue;
-          samples.push([Math.round((now - t0) * 10) / 10, Math.round(red * 1000) / 1000]);
+          const tt = Math.round((now - t0) * 10) / 10;
+          samples.push([tt, Math.round(red * 1000) / 1000]); greens.push([tt, Math.round(green * 1000) / 1000]);
           if (opts.onProgress) opts.onProgress(Math.min(1, (now - t0) / (seconds * 1000)), covered);
         } catch (e) { /* frame not ready */ }
         if (now - t0 >= seconds * 1000) return resolve();
@@ -103,7 +104,12 @@
       step();
     });
     track.stop(); stream.getTracks().forEach(t => t.stop());
-    const res = analyze(samples); res.torch = torch;
+    // skip the first 3 s (exposure settling, finger moving into place); analyse red and green, keep the cleaner one
+    // (red often saturates with the flash right behind the fingertip, flattening the pulse)
+    const settle = x => x.filter(p => p[0] >= 3000);
+    const rr = analyze(settle(samples)), rg = analyze(settle(greens));
+    const score = r => (r.ok ? 1000 : 0) + (r.quality || 0);
+    const res = score(rg) > score(rr) ? rg : rr; res.channel = res === rg ? "green" : "red"; res.torch = torch;
     res.covered = frames ? Math.round(coveredFrames / frames * 1000) / 10 : 0;
     res.colour = frames ? [Math.round(sumR / frames), Math.round(sumG / frames), Math.round(sumB / frames)] : [0, 0, 0];
     if (res.covered < 60) {   // no fingertip: whatever rhythm was found is not a pulse

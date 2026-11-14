@@ -142,6 +142,10 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | H-CFIT under the mission score | **Pass** | Beats rule, rotation, fixed and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score) |
 | W3b, role-based transfer (AGENTS.md §11.3) | **Fail** | Roles were read correctly in 12 of 12 runs, but the gate starved on a uniform pilot and per-context policies flickered; "restore always" reaches near-oracle on the person and agents v1 but not on agents v2 ([`results/w3b.md`](results/w3b.md)) |
 | W3c, policy-level transfer tested as deployed (AGENTS.md §11.4, fourth attempt) | **Fail** | Safe in every case; useful in one direction of four (person → agents v1: at 16 pilot targets adopted 13/20 times against 1/20 for pilot-only, +0.047 per tick); the best policy differs by substrate ([`results/w3c.md`](results/w3c.md)) |
+| W5, transfer through the R4 layers (AGENTS.md §11.5, fifth attempt) | **Fail** | Certificates were accurate (0 false of 27), but the failure-driven pilot starved the gate; alternating in every context did better ([`results/w5.md`](results/w5.md)) |
+| W5-R, failure repurposing vs repair (§11.5) | **Fail** on both substrates | Agents: beats repair and random change in 2 of 3 held-out regimes, more spikes in the trigger storm; persons: no mechanism admitted. 34,000 failure nodes, none closed silently ([`results/w5r.md`](results/w5r.md)) |
+| LIA-G, genealogy recovery (§11.5) | **Fail** | F1 0.12; beats temporal proximity but not random; causes diagnosed ([`results/lia_g.md`](results/lia_g.md)) |
+| C1–C6, corpus lineage (§11.5) | C4 **pass**, C3 **fail**, C1/C2/C5 not testable, C6 inconclusive | Output re-entering as the next prompt is the strong signal ([`results/corpus_lineage.md`](results/corpus_lineage.md); summary [`results/r6_summary.md`](results/r6_summary.md)) |
 
 ## 9. Prior art
 

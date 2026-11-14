@@ -1,0 +1,157 @@
+{
+ "main": {
+  "C1": {
+   "corrected_claims": 3,
+   "lost": 0,
+   "loss_rate": 0.0,
+   "loss_lo": 0.0,
+   "uncorrected_values": 3,
+   "uncorrected_recur_rate": 0.0,
+   "detector_recall": null,
+   "detector_false_flag_rate": 0.0,
+   "pass": false
+  },
+  "C2": {
+   "families": 0,
+   "pairs": 0,
+   "rho": null,
+   "p": null,
+   "pass": false,
+   "note": "fewer than 3 generation pairs: not testable"
+  },
+  "C3": {
+   "instructions": 39,
+   "slope": 0.002211278485901894,
+   "intercept": 0.890421011973735,
+   "ci": [
+    -0.02167346971411209,
+    0.013698336574163889
+   ],
+   "half_life_turns": null,
+   "pass": false
+  },
+  "C4": {
+   "terms": 2014,
+   "adopted_any": 58,
+   "fast_adopted": 40,
+   "assistant_to_user": 32,
+   "user_to_assistant": 8,
+   "null_mean": 2.432,
+   "p": 0.000999000999000999,
+   "pass": true
+  },
+  "C5": {
+   "events": 3,
+   "dev": 3,
+   "heldout": 0,
+   "flip_rate_by_type_dev": {
+    "reframe": 0.9,
+    "context": 0.8,
+    "insist": 0.8,
+    "none": 0.9333333333333332
+   },
+   "types_heldout": {},
+   "number_of_flips": 3,
+   "mean_turn_of_flip": 1.0,
+   "auc_heldout": null,
+   "auc_lo": null,
+   "pass": false
+  },
+  "C6": {
+   "failure_nodes": 258,
+   "followed_by_mechanism": 181,
+   "rate": 0.7015503875968992,
+   "baseline_mean": 0.7537868217054264,
+   "p": 0.981018981018981,
+   "pass": false
+  }
+ },
+ "main_heldout_half": {
+  "C1": {
+   "corrected_claims": 0,
+   "lost": 0,
+   "loss_rate": null,
+   "loss_lo": null,
+   "uncorrected_values": 0,
+   "uncorrected_recur_rate": null,
+   "detector_recall": null,
+   "detector_false_flag_rate": null,
+   "pass": false
+  },
+  "C2": {
+   "families": 0,
+   "pairs": 0,
+   "rho": null,
+   "p": null,
+   "pass": false,
+   "note": "fewer than 3 generation pairs: not testable"
+  },
+  "C3": {
+   "instructions": 13,
+   "slope": -0.00859633421950813,
+   "intercept": 0.9869574372877787,
+   "ci": [
+    -0.030715865674643076,
+    0.0023821740937406406
+   ],
+   "half_life_turns": 57.4057157438122,
+   "pass": false
+  },
+  "C4": {
+   "terms": 1323,
+   "adopted_any": 20,
+   "fast_adopted": 14,
+   "assistant_to_user": 12,
+   "user_to_assistant": 2,
+   "null_mean": 1.497,
+   "p": 0.000999000999000999,
+   "pass": true
+  },
+  "C5": {
+   "events": 0,
+   "dev": 0,
+   "heldout": 0,
+   "flip_rate_by_type_dev": {
+    "reframe": 0.5,
+    "context": 0.5,
+    "insist": 0.5,
+    "none": 0.5
+   },
+   "types_heldout": {},
+   "number_of_flips": 0,
+   "mean_turn_of_flip": 0.0,
+   "auc_heldout": null,
+   "auc_lo": null,
+   "pass": false
+  },
+  "C6": {
+   "failure_nodes": 116,
+   "followed_by_mechanism": 87,
+   "rate": 0.75,
+   "baseline_mean": 0.8024741379310344,
+   "p": 0.936063936063936,
+   "pass": false
+  }
+ },
+ "predecessor": {
+  "C1": {
+   "corrected_claims": 2,
+   "lost": 1,
+   "loss_rate": 0.5,
+   "loss_lo": 0.0,
+   "uncorrected_values": 2,
+   "uncorrected_recur_rate": 0.0,
+   "detector_recall": 1.0,
+   "detector_false_flag_rate": 0.0,
+   "pass": false
+  },
+  "C2": {
+   "families": 0,
+   "pairs": 0,
+   "rho": null,
+   "p": null,
+   "pass": false,
+   "note": "fewer than 3 generation pairs: not testable"
+  }
+ }
+}

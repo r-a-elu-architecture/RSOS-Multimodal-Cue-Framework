@@ -1,0 +1,473 @@
+{
+ "design": "AGENTS.md \u00a711.5 W5-R",
+ "level": 0.9833333333333333,
+ "subs": {
+  "agent": {
+   "table": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "TIGER",
+    "crisis": "LION"
+   },
+   "roles": {
+    "RESTORE": "LEOPARD",
+    "DRIVE": "TIGER",
+    "STABILISE": "BEAR"
+   },
+   "regimes": {
+    "E1": {
+     "means": {
+      "REPURPOSE": -0.25224368148148146,
+      "REPAIR": -0.2469099592592592,
+      "RANDOM-MECH": -0.23878929999999998,
+      "NONE": -0.25263988888888883
+     },
+     "spikes": {
+      "REPURPOSE": 6.29,
+      "REPAIR": 5.565,
+      "RANDOM-MECH": 6.655,
+      "NONE": 6.3
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": -0.0053337222222222015,
+       "lo": -0.019125314814814783,
+       "hi": 0.009357303703703723
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": -0.013454381481481476,
+       "lo": -0.02747304814814814,
+       "hi": 0.0020906592592592615
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0003962074074074082,
+       "lo": -0.001377307407407407,
+       "hi": 0.0022165000000000015
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.725,
+       "lo": 0.37,
+       "hi": 1.075
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": -0.365,
+       "lo": -0.645,
+       "hi": -0.11
+      },
+      "REPURPOSE-NONE": {
+       "diff": -0.01,
+       "lo": -0.05,
+       "hi": 0.02
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": false,
+     "mission_v2_means": {},
+     "open_old": 0,
+     "unresolved_end": 1649,
+     "nodes": 7762,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 424,
+      "updated_mechanism": 0,
+      "no_change": 5689
+     },
+     "changes": 424
+    },
+    "E2": {
+     "means": {
+      "REPURPOSE": -0.03505354074074071,
+      "REPAIR": -0.09012821111111108,
+      "RANDOM-MECH": -0.04753813703703701,
+      "NONE": -0.03505354074074071
+     },
+     "spikes": {
+      "REPURPOSE": 3.155,
+      "REPAIR": 3.16,
+      "RANDOM-MECH": 3.25,
+      "NONE": 3.155
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.05507467037037037,
+       "lo": 0.050643655555555556,
+       "hi": 0.05928501851851852
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.012484596296296295,
+       "lo": 0.006359066666666667,
+       "hi": 0.018544429629629627
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": -0.005,
+       "lo": -0.105,
+       "hi": 0.09
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": -0.095,
+       "lo": -0.2,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": true,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {},
+     "open_old": 0,
+     "unresolved_end": 1152,
+     "nodes": 5278,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 343,
+      "updated_mechanism": 0,
+      "no_change": 3783
+     },
+     "changes": 343
+    },
+    "E3": {
+     "means": {
+      "REPURPOSE": -0.006793833333333305,
+      "REPAIR": -0.05570407407407405,
+      "RANDOM-MECH": -0.014045840740740714,
+      "NONE": -0.006793833333333305
+     },
+     "spikes": {
+      "REPURPOSE": 2.125,
+      "REPAIR": 2.03,
+      "RANDOM-MECH": 2.155,
+      "NONE": 2.125
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.04891024074074075,
+       "lo": 0.04270482962962963,
+       "hi": 0.05498904814814815
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.007252007407407408,
+       "lo": 0.001388211111111112,
+       "hi": 0.013292996296296298
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.095,
+       "lo": -0.005,
+       "hi": 0.2
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": -0.03,
+       "lo": -0.125,
+       "hi": 0.055
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": true,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {},
+     "open_old": 0,
+     "unresolved_end": 1099,
+     "nodes": 5185,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 335,
+      "updated_mechanism": 0,
+      "no_change": 3751
+     },
+     "changes": 335
+    }
+   },
+   "pass": false
+  },
+  "person": {
+   "table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "regimes": {
+    "E1": {
+     "means": {
+      "REPURPOSE": 0.12923036839429025,
+      "REPAIR": 0.12228903428770907,
+      "RANDOM-MECH": 0.12923036839429025,
+      "NONE": 0.12923036839429025
+     },
+     "spikes": {
+      "REPURPOSE": 0.795,
+      "REPAIR": 0.795,
+      "RANDOM-MECH": 0.795,
+      "NONE": 0.795
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.00694133410658119,
+       "lo": 0.006129825050288619,
+       "hi": 0.007727625284952953
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.39,
+       3.05,
+       9.9171
+      ],
+      "REPAIR": [
+       -1.39,
+       3.05,
+       9.9223
+      ],
+      "RANDOM-MECH": [
+       -1.39,
+       3.05,
+       9.9171
+      ],
+      "NONE": [
+       -1.39,
+       3.05,
+       9.9171
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 352,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 0,
+      "updated_mechanism": 0,
+      "no_change": 352
+     },
+     "changes": 0
+    },
+    "E2": {
+     "means": {
+      "REPURPOSE": 0.1289521641140441,
+      "REPAIR": 0.12202100184921036,
+      "RANDOM-MECH": 0.1289521641140441,
+      "NONE": 0.1289521641140441
+     },
+     "spikes": {
+      "REPURPOSE": 0.815,
+      "REPAIR": 0.815,
+      "RANDOM-MECH": 0.815,
+      "NONE": 0.815
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.006931162264833718,
+       "lo": 0.006167817587840371,
+       "hi": 0.007700347807454297
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.29,
+       3.55,
+       9.8944
+      ],
+      "REPAIR": [
+       -1.29,
+       3.55,
+       9.8972
+      ],
+      "RANDOM-MECH": [
+       -1.29,
+       3.55,
+       9.8944
+      ],
+      "NONE": [
+       -1.29,
+       3.55,
+       9.8944
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 344,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 0,
+      "updated_mechanism": 0,
+      "no_change": 344
+     },
+     "changes": 0
+    },
+    "E3": {
+     "means": {
+      "REPURPOSE": 0.13434555612198912,
+      "REPAIR": 0.1342114714617228,
+      "RANDOM-MECH": 0.13434555612198912,
+      "NONE": 0.13434555612198912
+     },
+     "spikes": {
+      "REPURPOSE": 0.01,
+      "REPAIR": 0.01,
+      "RANDOM-MECH": 0.01,
+      "NONE": 0.01
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0001340846602663049,
+       "lo": 0.0,
+       "hi": 0.0004022539807989147
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.03,
+       4.85,
+       9.8938
+      ],
+      "REPAIR": [
+       -1.03,
+       4.85,
+       9.8938
+      ],
+      "RANDOM-MECH": [
+       -1.03,
+       4.85,
+       9.8938
+      ],
+      "NONE": [
+       -1.03,
+       4.85,
+       9.8938
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 4,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 0,
+      "updated_mechanism": 0,
+      "no_change": 4
+     },
+     "changes": 0
+    }
+   },
+   "pass": false
+  }
+ }
+}

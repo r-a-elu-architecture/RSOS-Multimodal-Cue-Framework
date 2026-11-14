@@ -165,6 +165,7 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | Round 7 person model v3 and safety recall on the owner's record (§11.12) | **V3 fails, SR-ORACLE passes, SR-LEXICAL fails** | Neither hand-set nor fitted dynamics beat "next state = current"; the safety rules are right given a perfect reading, but a keyword reader catches 13% of the moments that call for them ([`results/r7.md`](results/r7.md)) |
 | SR-2 meaning-based reader for the safety layer (§11.13) | **Fail** | Any-screen recall 0.81 (from 0.13) with no false alarms, but not every critical turn: the misses are references to past states, a definition gap the labels themselves are inconsistent on ([`results/sr2.md`](results/sr2.md)) |
 | SR-3 past-crisis check-in and fixed definition (§11.14) | **Fail (one turn)** | Recall 0.95, 1 false alarm in 270, every past-crisis reference checked in; the one missed crisis was read correctly but the §3.1 rule needs hopelessness and arrangements together ([`results/sr3.md`](results/sr3.md)) |
+| LIA-WW lineage attribution on real multi-agent failure logs, Who&When (§11.15) | **Fail** | Same model, same logs: the first-failure rule finds the responsible agent as well as all-at-once judging (69.6% vs 67.4%) but the decisive step slightly less often (41.8% vs 45.1%); it helps on long hand-crafted logs ([`results/lia_ww.md`](results/lia_ww.md)) |
 
 ## 9. Prior art
 

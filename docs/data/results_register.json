@@ -192,6 +192,12 @@
    "result": "<b>Fail (one turn)</b>",
    "meaning": "Recall 0.95, 1 false alarm in 270, every past-crisis reference checked in; the one missed crisis was read correctly but the \u00a73.1 rule needs hopelessness and arrangements together (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/sr3.md\">results/sr3.md</a>)",
    "status": "fail"
+  },
+  {
+   "test": "LIA-WW lineage attribution on real multi-agent failure logs, Who&When (\u00a711.15)",
+   "result": "<b>Fail</b>",
+   "meaning": "Same model, same logs: the first-failure rule finds the responsible agent as well as all-at-once judging (69.6% vs 67.4%) but the decisive step slightly less often (41.8% vs 45.1%); it helps on long hand-crafted logs (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/lia_ww.md\">results/lia_ww.md</a>)",
+   "status": "fail"
   }
  ]
 }

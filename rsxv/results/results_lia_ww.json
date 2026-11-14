@@ -1,0 +1,101 @@
+{
+ "tasks": 184,
+ "answered": {
+  "lia": 184,
+  "aao": 184
+ },
+ "pooled": {
+  "lia": {
+   "agent": 0.6956521739130435,
+   "step": 0.41847826086956524
+  },
+  "aao": {
+   "agent": 0.6739130434782609,
+   "step": 0.45108695652173914
+  }
+ },
+ "by_subset": {
+  "alg": {
+   "lia": {
+    "agent": 0.6507936507936508,
+    "step": 0.4603174603174603
+   },
+   "aao": {
+    "agent": 0.6666666666666666,
+    "step": 0.5158730158730159
+   }
+  },
+  "hand": {
+   "lia": {
+    "agent": 0.7931034482758621,
+    "step": 0.3275862068965517
+   },
+   "aao": {
+    "agent": 0.6896551724137931,
+    "step": 0.3103448275862069
+   }
+  }
+ },
+ "random": {
+  "agent": 0.3432228260866522,
+  "step": 0.09424456521742469
+ },
+ "step_mcnemar": {
+  "lia_only": 10,
+  "aao_only": 16,
+  "p_one_sided": 0.9156812280416489
+ },
+ "agent_diff": {
+  "mean": 0.021739130434782608,
+  "ci95": [
+   -0.043478260869565216,
+   0.08695652173913043
+  ]
+ },
+ "annotated_step_beyond_log": 3,
+ "published_gpt4o_with_gt": {
+  "all_at_once": {
+   "alg": [
+    54.33,
+    12.5
+   ],
+   "hand": [
+    55.17,
+    5.26
+   ]
+  },
+  "step_by_step": {
+   "alg": [
+    35.2,
+    25.51
+   ],
+   "hand": [
+    34.48,
+    7.02
+   ]
+  },
+  "binary_search": {
+   "alg": [
+    44.13,
+    23.98
+   ],
+   "hand": [
+    51.72,
+    6.9
+   ]
+  },
+  "random": {
+   "alg": [
+    29.1,
+    19.06
+   ],
+   "hand": [
+    12.0,
+    4.16
+   ]
+  }
+ },
+ "status": "FAIL",
+ "dataset": "Who&When (Zhang et al., ICML 2025), 184 failure logs; file SHA-256: alg 1d1720f4\u20263cf8, hand d28ffe10\u202662f",
+ "model_note": "Both arms use the same model (a separate instance per batch); the published numbers are GPT-4o and are context, not a comparator."
+}

@@ -167,3 +167,19 @@ Sources (update 2):
 - Synthetic persuasion paradox: https://export.arxiv.org/pdf/2503.02067
 - Causal fidelity of LLM behavioural simulation: https://arxiv.org/pdf/2604.02458
 - ACT-R and Soar: https://arxiv.org/pdf/2201.09305
+
+## Update 3 (14 November 2026): memory, failure-driven evolution, safe transfer
+
+Searched before building the next layers. Findings:
+
+| Topic | Closest published work | Consequence for us |
+|---|---|---|
+| Corrections lost when memory is compressed | "Reclaim Evaluation: A Lossy Memory Is Worse Than an Empty One" (arXiv 2606.25449, Reclaim Rate metric); provenance-aware tiered memory (arXiv 2602.17913); Eywa; PROV-AGENT; surveys naming lineage-preserving consolidation as open (arXiv 2606.30306, 2606.04990) | The mechanism is published. We adopt the Reclaim Rate idea and W3C PROV-style derivation records; no novelty claim on the memory mechanism alone. |
+| Multi-turn sycophancy (refuse, then comply under pressure) | SYCON Bench, Turn-of-Flip / Number-of-Flip (arXiv 2505.23840); TRUTH DECAY; SPINE (sustained pressure up to 25 turns) | Known phenomenon. We use ToF/NoF as metrics on our own record. |
+| Failures turned into gated system updates | "Agentic Evolution" position paper (arXiv 2602.00359, evolver with validation gate); POLARIS; Co-Evolving Agents (failure agent, arXiv 2511.22254) | Failure-driven, gated self-update is published. No novelty claim on that alone. |
+| Safe use of simulator or offline knowledge for people | High-confidence off-policy evaluation (Radi et al.); offline policy evaluation of an LLM health coach with real users (arXiv 2510.17173); provably safe sim-to-real (arXiv 2609.01418) | Gate statistics are standard. |
+
+Remaining candidate (unchanged from update 2): one executable architecture run on agents and on a person with the same
+mission score and ledger, where knowledge crosses between them only through a non-harm gate on the person's own score,
+with a per-context validity map and calibrated sealed predictions for each self-improvement. Not found in this search.
+Status: candidate.

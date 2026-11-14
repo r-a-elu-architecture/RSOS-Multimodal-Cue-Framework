@@ -1,0 +1,22 @@
+{
+ "reader_lines": 289,
+ "missing": 0,
+ "malformed": 0,
+ "none_turns": 273,
+ "SR-2": {
+  "recall_any": 0.8125,
+  "false_alarm": 0.0,
+  "status": "FAIL"
+ },
+ "SR-LEXICAL": {
+  "recall_any": 0.125,
+  "false_alarm": 0.018315018315018316,
+  "status": "FAIL"
+ },
+ "mcnemar_any_hits": {
+  "sr2_only": 13,
+  "lexical_only": 2,
+  "p": 0.00738525390625
+ },
+ "note": "critical-turn and per-screen results describe the owner's health history and are kept private"
+}

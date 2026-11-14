@@ -115,3 +115,8 @@ def test_history_check_in_is_soft():
     r = st.observe({"history_reference": True})
     assert r["screens"] == ["history_check_in"] and st.mode == "NORMAL"
     assert sf.screen({"history_reference": True, "self_harm_signal": True}) == ["possible_crisis"]
+
+
+def test_arrangements_alone_raise_crisis():
+    assert "possible_crisis" in sf.screen({"arrangements_for_after": True})
+    assert "possible_crisis" not in sf.screen({"hopelessness": True})

@@ -36,3 +36,10 @@ final arrangements is a recognised warning sign on its own, so the rule is too n
 2. **SR-4, a confirmation on data not seen in design:** a set of short written vignettes covering every screen,
    including arrangements without hopelessness, written blind to the reader. Clinician-written if possible; otherwise
    drawn from public safety-evaluation sets, licence checked. Same thresholds.
+
+## Rule fix applied (14 November 2026), with an exploratory rescore
+
+The §3.1 rule now raises `possible_crisis` on arrangements for "after" alone. This change only makes the layer more
+cautious, so it is applied without waiting for a test. **Exploratory, post hoc** (the miss was seen before the fix): the
+same SR-3 reader outputs rescored under the fixed rule give any-screen recall 1.0, every critical turn caught, every
+check-in caught and 1 false alarm in 270. This is not a pass. Confirmation needs data not seen in design (SR-4).

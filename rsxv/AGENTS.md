@@ -105,7 +105,7 @@ choice. Allowed action categories per mode are fixed in `MODE_ALLOWED`; the Spin
 
 | Screen | Trigger (structured event) | Mode | Fixed response |
 |---|---|---|---|
-| possible_crisis | hopelessness with arrangements for "after", or a self-harm signal | CRISIS | ask about safety directly, crisis contacts for the country, notify clinician view, pause module work |
+| possible_crisis | arrangements for "after" (alone, since the §11.14 fix; previously only with hopelessness), or a self-harm signal | CRISIS | ask about safety directly, crisis contacts for the country, notify clinician view, pause module work |
 | sedative_combination | substances together with a prescribed sedative | CRISIS | state the breathing risk plainly, route to prescriber or emergency services if symptoms, notify clinician view, pause module work |
 | practical_crisis | job loss, housing risk or no income | PRACTICAL_CRISIS | concrete next steps, human services, pause module work |
 | intensity_protocol | a protocol using an intensity mechanism | — | block it, offer ordinary regulation |

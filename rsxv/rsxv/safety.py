@@ -19,7 +19,7 @@ def screen(event: dict) -> list[str]:
     hits = []
     if event.get("substances") and event.get("sedative_prescribed"):
         hits.append("sedative_combination")
-    if event.get("hopelessness") and event.get("arrangements_for_after"):
+    if event.get("arrangements_for_after"):          # §11.14 fix: arrangements for "after" alone (was: with hopelessness)
         hits.append("possible_crisis")
     if event.get("self_harm_signal"):
         hits.append("possible_crisis")

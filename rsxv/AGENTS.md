@@ -311,6 +311,47 @@ that is not; it is not evidence that such transfer exists outside these models.
 
 **Validity map.** Reported for every gate decision with pilot estimate, bound, truth estimate and false-admit flag.
 
+
+### 11.3 W3b, role-based transfer, and the gate fix: designs fixed before any code (14 November 2026)
+
+**Origin, disclosed.** The hypothesis comes from an exploratory look at the floor-3 truth cohorts
+([`results/floor3_truth_exploratory.json`](results/floor3_truth_exploratory.json)): the restoring archetype dominates on
+both substrates (Bear for a person, Leopard for agents). Everything below uses fresh seeds.
+
+**Gate v2** (replaces §11.2's gate for everything below; §11.2 results stand). As before, plus: a context is tested only when
+both cells hold at least 5 ticks (otherwise "reject: too few data"), and each cell's variance is floored at 0.01 before the
+Welch bound is computed.
+
+**Roles.** An archetype's role on a substrate is read from its signature against Lion, pooled over all contexts:
+`RESTORE` = largest reduction in harm rise; `DRIVE` = largest increase in gain (if the same archetype has both, it is
+`RESTORE` and `DRIVE` goes to the next best gain). Every other archetype has no role. Source roles come from a uniformly
+randomised source cohort (persons 6300–6349, agents v1 6400–6449, agents v2 6500–6549; 60 ticks). Source tables are learned
+under the mission score (`WATCHDOG`, 300 ticks): persons 6100–6149, agents v1 6200–6249, agents v2 6000–6049. The source
+table becomes a *role table*: context → role of the source's chosen archetype, or baseline if it has no role.
+
+**Pilot.** Uniformly random archetype each tick, 30 ticks per target, the same pilot for every arm. Sizes 5, 10 and 20
+targets (first N of persons 10000–10019, agents v1 10100–10119, agents v2 10200–10219). Odd-indexed pilot targets form half A,
+even-indexed half B.
+
+**Arms** (deployment: 200 fresh targets, 60 ticks; persons 11000–11199, agents v1 11200–11399, agents v2 11400–11599):
+- `ROLE`: target roles read from half A; each context's role mapped to the target archetype holding it; gate v2 on half B
+  (one test per context, level 0.05 / 4).
+- `PILOT-BONF`: per context, the archetype with the best mean on the whole pilot; gate v2 on the whole pilot at 0.05 / 20.
+- `PILOT-SPLIT`: per context, the best archetype on half A; gate v2 on half B at 0.05 / 4.
+- `NAME-GATED`: the source table by name through gate v2 on the whole pilot (as G2).
+- `ROLE-RANDOM`: as `ROLE`, with the role table replaced by a uniformly random role table (RESTORE, DRIVE or baseline per
+  context); 20 random tables (seeds 0–19), averaged.
+- `ROLE-SHUFFLED`: as `ROLE`, with the role table's contexts permuted; all 23 non-identity permutations, averaged.
+- `NONE`: Lion. `ORACLE`: per context the best archetype on the truth cohort (§11.2), an upper bound, not a competitor.
+
+**Directions:** agents v1 → person, person → agents v1, agents v2 → person, person → agents v2.
+
+**Passes** at pilot size 10, in at least two of the four directions, when `ROLE` beats each of `NONE`, `PILOT-BONF`,
+`PILOT-SPLIT` and `ROLE-RANDOM` (paired 95% interval above zero); **and** in all four directions `ROLE` is non-inferior to
+`NONE` (margin 0.01). **Strong pass:** the same at pilot size 5. `ROLE-SHUFFLED`, `NAME-GATED`, `ORACLE`, pilot size 20 and
+false admits (against the §11.2 truth cohorts) are reported whatever the result. If `ROLE` does not beat both pilot-only arms,
+the conclusion is that transfer adds nothing beyond a pilot of that size.
+
 External check: the Observer's fault location is also run on a public failure-attribution benchmark where the data allow.
 Baselines are reimplemented and labelled as reimplementations.
 

@@ -279,7 +279,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
-| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–5 in §11.6–11.9 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–6 in §11.6–11.10 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -988,6 +988,35 @@ Confirmation as §11.6. Seeds: training persons 240000–240049, agents 240100�
 241000 + 1000k + (0..199), agents 241500 + 1000k + (0..199).
 
 **Sealed prediction:** P(pass) = 0.30 on agents, 0.10 on persons.
+
+### 11.10 Round 6: W5-R6, the snapshot forge with re-verification — design fixed before any code (14 November 2026)
+
+**Origin, disclosed.** W5-R5 (§11.9) beat repair, random change and doing nothing on agents in E1 and E2 but fell below
+doing nothing in E3, where the world shifts at tick 121 and mechanisms forged before the shift stayed active
+([`results/r6e_summary.md`](results/r6e_summary.md)). §6 of this file already requires that a reflex be *re-verified when
+conditions change*; W5-R6 implements that. No threshold, margin or safety rule is loosened. Global rules as §11.5; smoke
+runs only on unregistered seeds.
+
+**Design:** exactly W5-R5, plus at every maintenance window, before new forging:
+1. **Re-verification.** Every committed mechanism is re-tested from the six most recent snapshots of its context (taken
+   under current conditions): the policy with the mechanism against the same policy without it, common random numbers,
+   10 ticks, at least 10 visits to the context on each side. When the one-sided lower bound at 0.0125 of (with − without) is
+   not above zero, the mechanism is decommissioned (HEAL lineage edge) and a failure node of kind `person_setback` /
+   `agent_fault` is opened in that context; with too few visits it stays and is re-tested at the next window.
+2. **Score-drop guard.** A committed mechanism whose context's mean mission score over the last cycle is more than 0.05 below
+   that context's mean over the cycle before the commit (≥ 5 ticks in each) is decommissioned the same way. The spike guard
+   stays.
+Decommissioned mechanisms may be forged again later from new snapshots.
+
+**Arms:** `FORGE6`, `FORGE6-NOISY` (wrong model, reported), `FORGE5` (no re-verification; ablation, reported), `REPAIR`,
+`RANDOM-FORGE` (matched commits), `NONE`. Regimes E1–E3, 240 ticks, E3 shift at tick 121. Level 0.05 / 6 / 3 (two-sided
+99.72%). **Passes** per substrate when in at least two of three regimes `FORGE6` beats `REPAIR`, `RANDOM-FORGE` and `NONE`; it is
+non-inferior to `NONE` in all three; the safety gate holds against every comparator; zero silent closes; **and** the
+confirmation run (every seed + 100000; persons with `calm_better` where the regime sets none) meets the same conditions.
+Seeds: training persons 250000–250049, agents 250100–250149; held-out regime k = 1..3: persons 251000 + 1000k + (0..199),
+agents 251500 + 1000k + (0..199).
+
+**Sealed prediction:** P(pass including confirmation) = 0.35 on agents, 0.05 on persons.
 
 ## 12. Prior art
 

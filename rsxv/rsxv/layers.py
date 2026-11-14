@@ -16,7 +16,7 @@ from . import agents as ag
 ROLES = ("daily", "emergency", "retired")
 PROVENANCE = ("direct", "temporal")
 FAILURE_KINDS = ("agent_fault", "silent_fault", "contaminated_anchor", "propagating_cue", "refused_transfer",
-                 "lost_correction", "flicker", "person_setback", "summary_drift")
+                 "lost_correction", "flicker", "person_setback", "summary_drift", "model_disagreement")
 RESOLUTIONS = ("new_mechanism", "updated_mechanism", "no_change")
 
 

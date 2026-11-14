@@ -162,6 +162,7 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | **W5-R5, snapshot forge (§11.9)** | **Fail** (agents: beats repair, random and doing nothing in 2 of 3 regimes; below doing nothing after the mid-run shift) | First time repurposing improves on doing nothing; the mechanisms the failures shaped carried it ([`results/w5r5.md`](results/w5r5.md); summary [`results/r6e_summary.md`](results/r6e_summary.md)) |
 | W5-R6, snapshot forge with re-verification (§11.10) | **Fail** | Agents: beats every comparator in the fault storm only; re-verification lifts the shift regime by +0.016 but stays just below doing nothing; round 5's E2 gain did not replicate ([`results/w5r6.md`](results/w5r6.md); summary [`results/r6f_summary.md`](results/r6f_summary.md)) |
 | Phase 9 public-data replication, WildChat-1M shards 0–2 (§11.11) | **5 of 7 pass** | R1, R3, MSE notes, MSE phrases and C2 pass; MSE melody fails as a scale (carry-forward does not clear, as at the origin); C5 fails. First LSGPA result replicated outside the private record ([`results/p9.md`](results/p9.md); summary [`results/p9_summary.md`](results/p9_summary.md)) |
+| Round 7 person model v3 and safety recall on the owner's record (§11.12) | **V3 fails, SR-ORACLE passes, SR-LEXICAL fails** | Neither hand-set nor fitted dynamics beat "next state = current"; the safety rules are right given a perfect reading, but a keyword reader catches 13% of the moments that call for them ([`results/r7.md`](results/r7.md)) |
 
 ## 9. Prior art
 

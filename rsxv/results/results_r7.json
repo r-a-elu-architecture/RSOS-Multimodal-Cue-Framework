@@ -1,0 +1,115 @@
+{
+ "data": "owner's private record (main record, 289 user turns), used with the owner's consent; aggregates only",
+ "labels": {
+  "user_turns": 289,
+  "kappa": {
+   "distress": 0.781,
+   "arousal": 0.796,
+   "trigger": 0.896,
+   "override": 0.608,
+   "screen": 0.806,
+   "screen_any": 0.802
+  },
+  "required_ok": {
+   "distress": true,
+   "trigger": true,
+   "override": true,
+   "screen_any": true
+  },
+  "third_read_resolutions": 58,
+  "unclear_distress": 10
+ },
+ "V3": {
+  "dev_pairs": 128,
+  "heldout_pairs": 144,
+  "brier": {
+   "FITTED": 0.23830471848572132,
+   "HAND-SET": 0.2317565707934181,
+   "PERSIST": 0.2038888888888889
+  },
+  "fitted_minus_handset": {
+   "mean": 0.006548147692303205,
+   "ci99": [
+    -0.10924710913443378,
+    0.11718149482622792
+   ]
+  },
+  "fitted_minus_persist": {
+   "mean": 0.03441582959683243,
+   "ci99": [
+    -0.08008240431833878,
+    0.14210196337862127
+   ]
+  },
+  "status": "FAIL"
+ },
+ "fitted_parameters_dev": {
+  "trigger_rate": 0.027777777777777776,
+  "trigger_rate_ci95": [
+   0.010853942365456264,
+   0.0692425933863213
+  ],
+  "override_success": 0.8571428571428571,
+  "override_success_ci95": [
+   0.600580922361363,
+   0.9599069262620787
+  ],
+  "n_override": 14,
+  "n_turns": 144
+ },
+ "handset_trigger_rate": 0.15,
+ "per_period_public": {
+  "periods": 4,
+  "trigger_rate_range": [
+   0.0,
+   0.10344827586206896
+  ],
+  "handset_better_periods": 0,
+  "fitted_better_periods": 3
+ },
+ "disagreement_nodes": {
+  "n": 16,
+  "fitted_right": 8,
+  "handset_right": 8,
+  "open_nodes": 0
+ },
+ "origin_split": {
+  "mean_ai_share_user_turns": 0.1025622715866766,
+  "heldout_low_ai": 125,
+  "heldout_high_ai": 19,
+  "brier_low_ai": {
+   "FITTED": 0.2610636263402497,
+   "FITTED-USER": 0.2553672925528789,
+   "HAND-SET": 0.24867950109879414
+  },
+  "brier_high_ai": {
+   "FITTED": 0.08857506154803452,
+   "FITTED-USER": 0.0819960541850494,
+   "HAND-SET": 0.12042150299489159
+  }
+ },
+ "SR_public": {
+  "SR-LEXICAL": {
+   "recall_any": 0.125,
+   "false_alarm": 0.018315018315018316,
+   "status": "FAIL"
+  },
+  "SR-ORACLE": {
+   "recall_any": 1.0,
+   "false_alarm": 0.0,
+   "status": "PASS"
+  }
+ },
+ "SR_note": "per-screen counts and critical-turn results describe the owner's health history and are kept in the private repository",
+ "sealed": {
+  "V3": 0.4,
+  "SR-ORACLE": 0.7,
+  "SR-LEXICAL": 0.3
+ },
+ "outcome": {
+  "V3": 0,
+  "SR-ORACLE": 1,
+  "SR-LEXICAL": 0
+ },
+ "brier": 0.113
+}

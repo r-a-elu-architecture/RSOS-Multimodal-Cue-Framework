@@ -1,0 +1,566 @@
+{
+ "design": "AGENTS.md \u00a711.10 W5-R6",
+ "level": 0.9972222222222222,
+ "subs": {
+  "agent": {
+   "table": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "TIGER",
+    "crisis": "TIGER"
+   },
+   "roles": {
+    "RESTORE": "LEOPARD",
+    "DRIVE": "TIGER",
+    "STABILISE": "BEAR"
+   },
+   "regimes": {
+    "E1": {
+     "means": {
+      "FORGE6": -0.09816894629629626,
+      "FORGE6-NOISY": -0.10193524259259255,
+      "FORGE5": -0.09225870555555553,
+      "REPAIR": -0.2716719592592592,
+      "RANDOM-FORGE": -0.11430038333333331,
+      "NONE": -0.10496739629629627
+     },
+     "spikes": {
+      "FORGE6": 11.305,
+      "FORGE6-NOISY": 11.49,
+      "FORGE5": 11.335,
+      "REPAIR": 11.605,
+      "RANDOM-FORGE": 11.6,
+      "NONE": 11.385
+     },
+     "ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.17350301296296294,
+       "lo": 0.15776009259259258,
+       "hi": 0.1921890962962963
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.01613143703703703,
+       "lo": 0.008737425925925925,
+       "hi": 0.024876488888888888
+      },
+      "FORGE6-NONE": {
+       "diff": 0.00679845,
+       "lo": 0.0008683759259259288,
+       "hi": 0.01355157222222222
+      }
+     },
+     "spike_ci": {
+      "FORGE6-REPAIR": {
+       "diff": -0.3,
+       "lo": -1.135,
+       "hi": 0.46
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": -0.295,
+       "lo": -0.715,
+       "hi": 0.09
+      },
+      "FORGE6-NONE": {
+       "diff": -0.08,
+       "lo": -0.49,
+       "hi": 0.315
+      }
+     },
+     "beats": true,
+     "noninferior_none": true,
+     "safe": true,
+     "ablation_6_minus_5": {
+      "diff": -0.00591024074074074,
+      "lo": -0.012519583333333332,
+      "hi": 0.0008526203703703716
+     },
+     "noisy_vs_none": {
+      "diff": 0.003032153703703702,
+      "lo": -0.00269377592592593,
+      "hi": 0.008939727777777778
+     },
+     "brier": 0.2215629233738837,
+     "brier_base_rate": 0.24347608024691356,
+     "stats": {
+      "forecasts_high": 9371,
+      "forges": 9371,
+      "no_snapshots": 2272,
+      "too_few_visits": 356,
+      "commits": 216,
+      "commits_swap": 205,
+      "rejected": 6527,
+      "rollback": 3,
+      "reverified": 256,
+      "decommissioned_reverify": 120,
+      "decommissioned_scoredrop": 44,
+      "reverify_too_few": 1
+     },
+     "open_old": 0,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 151,
+      "updated_mechanism": 0,
+      "no_change": 9269
+     }
+    },
+    "E2": {
+     "means": {
+      "FORGE6": 0.011586042592592613,
+      "FORGE6-NOISY": 0.012227403703703725,
+      "FORGE5": 0.00920680925925928,
+      "REPAIR": -0.09100899999999998,
+      "RANDOM-FORGE": 0.005594764814814837,
+      "NONE": 0.010238385185185208
+     },
+     "spikes": {
+      "FORGE6": 5.885,
+      "FORGE6-NOISY": 5.91,
+      "FORGE5": 5.93,
+      "REPAIR": 6.095,
+      "RANDOM-FORGE": 5.995,
+      "NONE": 5.86
+     },
+     "ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.1025950425925926,
+       "lo": 0.09309752037037036,
+       "hi": 0.11245047777777777
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.005991277777777777,
+       "lo": 0.0010884666666666667,
+       "hi": 0.011764194444444442
+      },
+      "FORGE6-NONE": {
+       "diff": 0.001347657407407406,
+       "lo": -0.002661287037037038,
+       "hi": 0.005673392592592592
+      }
+     },
+     "spike_ci": {
+      "FORGE6-REPAIR": {
+       "diff": -0.21,
+       "lo": -0.64,
+       "hi": 0.215
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": -0.11,
+       "lo": -0.295,
+       "hi": 0.1
+      },
+      "FORGE6-NONE": {
+       "diff": 0.025,
+       "lo": -0.13,
+       "hi": 0.21
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "ablation_6_minus_5": {
+      "diff": 0.0023792333333333333,
+      "lo": -0.002403059259259259,
+      "hi": 0.0077024907407407415
+     },
+     "noisy_vs_none": {
+      "diff": 0.001989018518518518,
+      "lo": -0.0019644796296296304,
+      "hi": 0.005667725925925925
+     },
+     "brier": 0.14662117491593915,
+     "brier_base_rate": 0.20664866255144035,
+     "stats": {
+      "forecasts_high": 4806,
+      "forges": 4806,
+      "no_snapshots": 651,
+      "too_few_visits": 160,
+      "commits": 114,
+      "commits_swap": 113,
+      "rejected": 3881,
+      "rollback": 0,
+      "reverified": 46,
+      "decommissioned_reverify": 36,
+      "decommissioned_scoredrop": 59,
+      "reverify_too_few": 0
+     },
+     "open_old": 0,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 102,
+      "updated_mechanism": 0,
+      "no_change": 6285
+     }
+    },
+    "E3": {
+     "means": {
+      "FORGE6": 0.08171917592592594,
+      "FORGE6-NOISY": 0.08150883703703705,
+      "FORGE5": 0.06547744074074076,
+      "REPAIR": -0.05081675740740739,
+      "RANDOM-FORGE": 0.07530415185185187,
+      "NONE": 0.09086406481481482
+     },
+     "spikes": {
+      "FORGE6": 3.55,
+      "FORGE6-NOISY": 3.505,
+      "FORGE5": 3.505,
+      "REPAIR": 3.83,
+      "RANDOM-FORGE": 3.725,
+      "NONE": 3.51
+     },
+     "ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.13253593333333333,
+       "lo": 0.12369096111111111,
+       "hi": 0.1400582925925926
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.0064150240740740725,
+       "lo": -0.000836374074074075,
+       "hi": 0.013006777777777779
+      },
+      "FORGE6-NONE": {
+       "diff": -0.00914488888888889,
+       "lo": -0.013105305555555556,
+       "hi": -0.004932420370370371
+      }
+     },
+     "spike_ci": {
+      "FORGE6-REPAIR": {
+       "diff": -0.28,
+       "lo": -0.53,
+       "hi": -0.03
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": -0.175,
+       "lo": -0.39,
+       "hi": 0.025
+      },
+      "FORGE6-NONE": {
+       "diff": 0.04,
+       "lo": -0.09,
+       "hi": 0.175
+      }
+     },
+     "beats": false,
+     "noninferior_none": false,
+     "safe": true,
+     "ablation_6_minus_5": {
+      "diff": 0.016241735185185187,
+      "lo": 0.011380662962962964,
+      "hi": 0.020846009259259262
+     },
+     "noisy_vs_none": {
+      "diff": -0.009355227777777779,
+      "lo": -0.013185024074074075,
+      "hi": -0.005765709259259261
+     },
+     "brier": 0.14367952471696685,
+     "brier_base_rate": 0.18077203360768174,
+     "stats": {
+      "forecasts_high": 4782,
+      "forges": 4782,
+      "no_snapshots": 829,
+      "too_few_visits": 2,
+      "commits": 252,
+      "commits_swap": 242,
+      "rejected": 3699,
+      "rollback": 0,
+      "reverified": 141,
+      "decommissioned_reverify": 73,
+      "decommissioned_scoredrop": 117,
+      "reverify_too_few": 1
+     },
+     "open_old": 0,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 208,
+      "updated_mechanism": 0,
+      "no_change": 5200
+     }
+    }
+   },
+   "pass": false
+  },
+  "person": {
+   "table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "regimes": {
+    "E1": {
+     "means": {
+      "FORGE6": 0.06504993259501064,
+      "FORGE6-NOISY": 0.06504993259501064,
+      "FORGE5": 0.06504993259501064,
+      "REPAIR": 0.06143098098971093,
+      "RANDOM-FORGE": 0.06504993259501064,
+      "NONE": 0.06504993259501064
+     },
+     "spikes": {
+      "FORGE6": 0.82,
+      "FORGE6-NOISY": 0.82,
+      "FORGE5": 0.82,
+      "REPAIR": 0.82,
+      "RANDOM-FORGE": 0.82,
+      "NONE": 0.82
+     },
+     "ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.003618951605299722,
+       "lo": 0.0031836162226517267,
+       "hi": 0.0040515726958251855
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "ablation_6_minus_5": {
+      "diff": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     },
+     "noisy_vs_none": {
+      "diff": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     },
+     "brier": 0.04188382193096561,
+     "brier_base_rate": 0.0,
+     "stats": {
+      "forecasts_high": 358,
+      "forges": 358,
+      "no_snapshots": 213,
+      "too_few_visits": 0,
+      "commits": 0,
+      "commits_swap": 0,
+      "rejected": 145,
+      "rollback": 0,
+      "reverified": 0,
+      "decommissioned_reverify": 0,
+      "decommissioned_scoredrop": 0,
+      "reverify_too_few": 0
+     },
+     "open_old": 0,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 0,
+      "updated_mechanism": 0,
+      "no_change": 179
+     }
+    },
+    "E2": {
+     "means": {
+      "FORGE6": 0.0649581341192659,
+      "FORGE6-NOISY": 0.0649581341192659,
+      "FORGE5": 0.0649581341192659,
+      "REPAIR": 0.06152492220079825,
+      "RANDOM-FORGE": 0.0649581341192659,
+      "NONE": 0.0649581341192659
+     },
+     "spikes": {
+      "FORGE6": 0.84,
+      "FORGE6-NOISY": 0.84,
+      "FORGE5": 0.84,
+      "REPAIR": 0.84,
+      "RANDOM-FORGE": 0.84,
+      "NONE": 0.84
+     },
+     "ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.003433211918467652,
+       "lo": 0.0029825708020254442,
+       "hi": 0.00390970954956654
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "ablation_6_minus_5": {
+      "diff": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     },
+     "noisy_vs_none": {
+      "diff": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     },
+     "brier": 0.04188382193096561,
+     "brier_base_rate": 0.0,
+     "stats": {
+      "forecasts_high": 358,
+      "forges": 358,
+      "no_snapshots": 161,
+      "too_few_visits": 0,
+      "commits": 0,
+      "commits_swap": 0,
+      "rejected": 197,
+      "rollback": 0,
+      "reverified": 0,
+      "decommissioned_reverify": 0,
+      "decommissioned_scoredrop": 0,
+      "reverify_too_few": 0
+     },
+     "open_old": 0,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 0,
+      "updated_mechanism": 0,
+      "no_change": 179
+     }
+    },
+    "E3": {
+     "means": {
+      "FORGE6": 0.06835909965156356,
+      "FORGE6-NOISY": 0.06835909965156356,
+      "FORGE5": 0.06835909965156356,
+      "REPAIR": 0.06824183281937224,
+      "RANDOM-FORGE": 0.06835909965156356,
+      "NONE": 0.06835909965156356
+     },
+     "spikes": {
+      "FORGE6": 0.015,
+      "FORGE6-NOISY": 0.015,
+      "FORGE5": 0.015,
+      "REPAIR": 0.015,
+      "RANDOM-FORGE": 0.015,
+      "NONE": 0.015
+     },
+     "ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.00011726683219132793,
+       "lo": 0.0,
+       "hi": 0.00035536021148994235
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "FORGE6-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-RANDOM-FORGE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "FORGE6-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "ablation_6_minus_5": {
+      "diff": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     },
+     "noisy_vs_none": {
+      "diff": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     },
+     "brier": 0.034354146078207755,
+     "brier_base_rate": 0.0,
+     "stats": {
+      "forecasts_high": 6,
+      "forges": 6,
+      "no_snapshots": 0,
+      "too_few_visits": 0,
+      "commits": 0,
+      "commits_swap": 0,
+      "rejected": 6,
+      "rollback": 0,
+      "reverified": 0,
+      "decommissioned_reverify": 0,
+      "decommissioned_scoredrop": 0,
+      "reverify_too_few": 0
+     },
+     "open_old": 0,
+     "audit_fail": 0,
+     "resolutions": {
+      "new_mechanism": 0,
+      "updated_mechanism": 0,
+      "no_change": 3
+     }
+    }
+   },
+   "pass": false
+  }
+ }
+}

@@ -160,6 +160,7 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | J1, jam predictor (§11.9) | **Accepted** | 0.754 accuracy on fresh seeds ([`results/j1.md`](results/j1.md)) |
 | W5e (§11.9) | **Fail** | Two directions beat every comparator; person → agents v1 adds spikes again ([`results/w5e.md`](results/w5e.md)) |
 | **W5-R5, snapshot forge (§11.9)** | **Fail** (agents: beats repair, random and doing nothing in 2 of 3 regimes; below doing nothing after the mid-run shift) | First time repurposing improves on doing nothing; the mechanisms the failures shaped carried it ([`results/w5r5.md`](results/w5r5.md); summary [`results/r6e_summary.md`](results/r6e_summary.md)) |
+| W5-R6, snapshot forge with re-verification (§11.10) | **Fail** | Agents: beats every comparator in the fault storm only; re-verification lifts the shift regime by +0.016 but stays just below doing nothing; round 5's E2 gain did not replicate ([`results/w5r6.md`](results/w5r6.md); summary [`results/r6f_summary.md`](results/r6f_summary.md)) |
 
 ## 9. Prior art
 

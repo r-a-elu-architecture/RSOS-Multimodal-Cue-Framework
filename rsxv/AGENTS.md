@@ -280,7 +280,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
-| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–6 in §11.6–11.10; public data §11.11; person model v3 and safety recall §11.12; meaning-based reader §11.13; check-in §11.14 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–6 in §11.6–11.10; public data §11.11; person model v3 and safety recall §11.12; meaning-based reader §11.13; check-in §11.14; real multi-agent failures §11.15 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -1192,6 +1192,37 @@ not testable* if fewer than 3 critical turns remain, in which case SR-3 can pass
 the count is reported. Check-in recall is reported beside it.
 
 **Sealed prediction:** P(pass, including a testable critical condition) = 0.35; P(critical not testable) = 0.40.
+
+### 11.15 LIA-WW, root-cause attribution on real multi-agent failure logs (Who&When) — design fixed before the data is read (14 November 2026)
+
+**Origin and purpose.** The cheaper first step before any shadow deployment: does the architecture's attribution
+principle — the Observer's upstream walk to the first faulty agent (§6) and LIA's first-failure parent rule (§11.6) —
+work on real LLM multi-agent failures, not only in the simulated agent system?
+
+**Data.** Who&When (Zhang et al., ICML 2025; `Kevin355/Who_and_When` on Hugging Face; code MIT-licensed; no dataset
+licence stated, so only aggregates are published and the dataset is cited): 184 failure logs from 127 systems —
+Algorithm-Generated (126) and Hand-Crafted (58) — each annotated with the responsible agent and the decisive error step.
+SHA-256 of the files is recorded before reading. Annotations and explanations are never shown to a judge.
+
+**Judges** (separate model instances, the same model for both arms, run once, no re-run or prompt change after outputs
+are seen; setting "with ground truth": the correct answer is given, as in the paper's main table):
+- `LIA-UPSTREAM`: [`rsxv/ww_lia_prompt.md`](rsxv/ww_lia_prompt.md) — walk upstream from the wrong answer; the decisive
+  error is the earliest mistake carried forward into it.
+- `ALL-AT-ONCE`: [`rsxv/ww_allatonce_prompt.md`](rsxv/ww_allatonce_prompt.md) — a reimplementation of the paper's best
+  agent-level method, with the same model, so that any gain is the method's and not the model's.
+- `RANDOM`: uniform over the log's agents and steps (seeds 0–999), as the paper's random baseline.
+
+**Measures.** Agent-level and step-level accuracy (exact match of agent name; exact step index) per subset and pooled.
+**Passes** when, pooled over 184 tasks, `LIA-UPSTREAM` beats `ALL-AT-ONCE` on step-level accuracy (McNemar exact,
+one-sided p < 0.025) and is not worse on agent-level accuracy (the two-sided 95% interval of the paired difference, 2000
+bootstrap resamples, seed 12345, has its lower bound above −0.05). Reported beside it: each subset, the paper's published
+GPT-4o numbers (a different model; context only), and the share of steps the judge could not place.
+
+**Sealed prediction:** P(pass) = 0.35. Step-level attribution is hard: the paper's best method placed 14–26% of steps.
+
+**What a pass would show:** that the architecture's first-failure lineage rule locates the decisive error in real
+multi-agent systems better than judging the whole log at once, with the same model. It would say nothing about repair or
+about people.
 
 ## 12. Prior art
 

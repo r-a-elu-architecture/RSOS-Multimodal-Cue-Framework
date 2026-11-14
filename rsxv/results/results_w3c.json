@@ -1,0 +1,5385 @@
+{
+ "confirmation": [],
+ "pass": false,
+ "primary_pass": false,
+ "runs": [
+  {
+   "arms": {
+    "NONE": -0.09661143739727601,
+    "PILOT-ONLY": -0.09661143739727601,
+    "RANDOM-POLICY": -0.07677606616579323,
+    "TRANSFER": -0.09661143739727601
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": -6.25584653524136e-19,
+     "hi": 2.0599841277224583e-19,
+     "lo": -1.4409046872332353e-18
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.01983537123148278,
+     "hi": -0.019327527895345146,
+     "lo": -0.02029736860027631
+    }
+   },
+   "label": "S>D",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 0,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6411976802801563
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6493556046906173
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 2,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.604895703508523
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 3,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -3.1125393397980505
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 4,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.32009251745413353
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.870579560460289
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4482969101527383
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.9305966720447048
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.7080380546884
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 9,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.1255680449853238
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 10,
+     "roles": {
+      "DRIVE": "EAGLE",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -4.957702054036143
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 11,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -3.2695018769902
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.485839740114569
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 13,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.1431901855020503
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 14,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.363724993669251
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 15,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.9268929696738926
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 16,
+     "roles": {
+      "DRIVE": "EAGLE",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.2104349557486282
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 17,
+     "roles": {
+      "DRIVE": "EAGLE",
+      "RESTORE": "RAVEN",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.95801713394243
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 18,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -11.872271704778832
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 19,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.877422738310467
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.23397808312743695,
+   "oracle_policies": {
+    "BASE": -0.09661143739727601,
+    "D": -0.15912199483836922,
+    "R": 0.23397808312743695,
+    "S": 0.23397808312743695,
+    "S>D": -0.06858003646499727,
+    "S>R": 0.23397808312743695
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 4,
+   "source": "agent",
+   "target": "person",
+   "transfer_adopted": "0/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.09661143739727601,
+    "PILOT-ONLY": -0.09661143739727601,
+    "RANDOM-POLICY": 0.10218592357153355,
+    "TRANSFER": -0.0943931941273671
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": 0.002218243269908911,
+     "hi": 0.0031329645411241154,
+     "lo": 0.0013647519952173603
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.002218243269908912,
+     "hi": 0.0031329645411241162,
+     "lo": 0.0013647519952173616
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.19657911769890066,
+     "hi": -0.19150385986802015,
+     "lo": -0.2010102192309061
+    }
+   },
+   "label": "S>D",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.1233429578847558
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "split",
+      "BEAR",
+      "TIGER"
+     ],
+     "transfer_bound": 0.04608455373581577
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.27268653896264905
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4048866948036151
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.30784727154882247
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.21980616637649303
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.04446618067210248
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4178822401745421
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.15328364168312497
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.13337808166575182
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.12348289228454151
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.1500295020426541
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.37199739685205524
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.19107129816104046
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.2804785778890867
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.02678731661634623
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.43966581834016116
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.23628746026163036
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.8879843531962179
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5378487394866841
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.23397808312743695,
+   "oracle_policies": {
+    "BASE": -0.09661143739727601,
+    "D": -0.15912199483836922,
+    "R": 0.23397808312743695,
+    "S": 0.23397808312743695,
+    "S>D": -0.06858003646499727,
+    "S>R": 0.23397808312743695
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 8,
+   "source": "agent",
+   "target": "person",
+   "transfer_adopted": "1/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.09661143739727601,
+    "PILOT-ONLY": -0.047023009318569065,
+    "RANDOM-POLICY": 0.10274655159017913,
+    "TRANSFER": -0.09159005403413924
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": 0.0050213833631367845,
+     "hi": 0.007761305329253509,
+     "lo": 0.0025299031743965883
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": -0.04456704471557016,
+     "hi": -0.04196855194509519,
+     "lo": -0.047072162013534105
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.19433660562431837,
+     "hi": -0.18941071915104268,
+     "lo": -0.19870626905059652
+    }
+   },
+   "label": "S>D",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.018709460383899063
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "split",
+      "BEAR",
+      "TIGER"
+     ],
+     "transfer_bound": 0.09627205830201246
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.03408928152036106
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.08752144403807816
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.04990333269770689
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.027249745794482916
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.14420059657201034
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "BEAR",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.0423760164338991
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.025313887492186993
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "BEAR",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "split",
+      "BEAR",
+      "LEOPARD"
+     ],
+     "transfer_bound": 0.059912471837379355
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "split",
+      "BEAR",
+      "LEOPARD"
+     ],
+     "transfer_bound": 0.18002817574454
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.14760814319117987
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "BEAR",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.08777758491792273
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.034570673155363496
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.16245602450416868
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.03860464697628754
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.11752354967128487
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.07981722252296311
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4272362930064567
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.1911222164908227
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.23397808312743695,
+   "oracle_policies": {
+    "BASE": -0.09661143739727601,
+    "D": -0.15912199483836922,
+    "R": 0.23397808312743695,
+    "S": 0.23397808312743695,
+    "S>D": -0.06858003646499727,
+    "S>R": 0.23397808312743695
+   },
+   "pilot_only_adopted": "3/20",
+   "size": 16,
+   "source": "agent",
+   "target": "person",
+   "transfer_adopted": "3/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.07782778518518517,
+    "PILOT-ONLY": -0.07782778518518517,
+    "RANDOM-POLICY": -0.07782778518518517,
+    "TRANSFER": -0.07782778518518517
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": -1.8106176280507923e-19,
+     "hi": 8.521829075736065e-19,
+     "lo": -1.3042952135000618e-18
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    }
+   },
+   "label": "R",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 0,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.1751874814999481
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5458258228172626
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 2,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.2389856652725926
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 3,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -8.008467728206323
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 4,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.5623779578558994
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.9377104235282001
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.1229706118654827
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "EAGLE"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -5.5343351909207525
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.3988964543301043
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 9,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.1943519474164543
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.437409302276332
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 11,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3738807751431316
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.9913010073187147
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 13,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.9880205447583312
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 14,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "EAGLE"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.7604744928851341
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7261758767237099
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 16,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "EAGLE"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.1861192590292631
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 17,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.7017215192631916
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 18,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.8014871578387285
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 19,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.15100918977086533
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.0948965703703704,
+   "oracle_policies": {
+    "BASE": -0.07782778518518517,
+    "D": -0.05795379259259257,
+    "R": -0.005593925925925926,
+    "S": -0.005593925925925926,
+    "S>D": 0.0948965703703704,
+    "S>R": -0.005593925925925926
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 4,
+   "source": "person",
+   "target": "agent",
+   "transfer_adopted": "0/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.07782778518518517,
+    "PILOT-ONLY": -0.07782778518518517,
+    "RANDOM-POLICY": -0.0700392665185185,
+    "TRANSFER": -0.07060439925925924
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": 0.007223385925925925,
+     "hi": 0.008451762962962963,
+     "lo": 0.005941856296296294
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.007223385925925925,
+     "hi": 0.008451762962962963,
+     "lo": 0.005941856296296294
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.0005651327407407406,
+     "hi": -0.00023827970370370318,
+     "lo": -0.0008837816296296293
+    }
+   },
+   "label": "R",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.11493753236940063
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.03298271531383043
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.1304883144998191
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.46228280097554053
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.05610166279890107
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.10373717231126148
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.117081621797677
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4100579024801342
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.04022811622525274
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.16135658349648707
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.07109848592736095
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.05982764685463576
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.18481983119408382
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.10152166830126824
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.0704135599022146
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.08065937298964301
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.06020945955348489
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.10777911903419421
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.0467406648000529
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.04654274384864676
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.0948965703703704,
+   "oracle_policies": {
+    "BASE": -0.07782778518518517,
+    "D": -0.05795379259259257,
+    "R": -0.005593925925925926,
+    "S": -0.005593925925925926,
+    "S>D": 0.0948965703703704,
+    "S>R": -0.005593925925925926
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 8,
+   "source": "person",
+   "target": "agent",
+   "transfer_adopted": "2/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.07782778518518517,
+    "PILOT-ONLY": -0.0742160922222222,
+    "RANDOM-POLICY": -0.03371390822222221,
+    "TRANSFER": -0.03087577666666666
+   },
+   "beats_all": true,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": 0.0469520085185185,
+     "hi": 0.05493645925925925,
+     "lo": 0.03862206592592591
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.043340315555555536,
+     "hi": 0.05071057777777777,
+     "lo": 0.035651137777777765
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": 0.00283813155555555,
+     "hi": 0.005200524074074069,
+     "lo": 0.00045762740740740306
+    }
+   },
+   "label": "R",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.006480423697828364
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.002886817612773679
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.1887260282633043
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.013607788526636494
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.03746048839027949
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.03638519426619494
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.019065903703313486
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.04313021953203708
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>D",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.032692227211785274
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>D",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.16257231148876827
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.02040371565789864
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>D",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.011230915210832748
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>D",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.040259189829669556
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.02027906842057034
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>D",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.008304794187325923
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.007915965431499555
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.05900956137130528
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.06811314869671398
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.08145536026487557
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>D",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "LEOPARD"
+     },
+     "transfer": [
+      "hold",
+      "LEOPARD",
+      null
+     ],
+     "transfer_bound": 0.0681358295638119
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.0948965703703704,
+   "oracle_policies": {
+    "BASE": -0.07782778518518517,
+    "D": -0.05795379259259257,
+    "R": -0.005593925925925926,
+    "S": -0.005593925925925926,
+    "S>D": 0.0948965703703704,
+    "S>R": -0.005593925925925926
+   },
+   "pilot_only_adopted": "1/20",
+   "size": 16,
+   "source": "person",
+   "target": "agent",
+   "transfer_adopted": "13/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.09661143739727601,
+    "PILOT-ONLY": -0.09661143739727601,
+    "RANDOM-POLICY": -0.07677606616579323,
+    "TRANSFER": -0.09661143739727601
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": -6.25584653524136e-19,
+     "hi": 2.0599841277224583e-19,
+     "lo": -1.4409046872332353e-18
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.01983537123148278,
+     "hi": -0.019327527895345146,
+     "lo": -0.02029736860027631
+    }
+   },
+   "label": "D",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 0,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.1388034838254766
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.0631400345305624
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 2,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.827380692294721
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 3,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.5518427010759428
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 4,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -4.612438700581009
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.763423968832136
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.8443230729680105
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -3.195639211260002
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -4.251804671430934
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 9,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -4.038220244281751
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 10,
+     "roles": {
+      "DRIVE": "EAGLE",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.9142574457634343
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 11,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.5260401056853934
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.0280140945967526
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 13,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.4185141180844123
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 14,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.078951371112613
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 15,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.2828437921088525
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 16,
+     "roles": {
+      "DRIVE": "EAGLE",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.0706883841609607
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 17,
+     "roles": {
+      "DRIVE": "EAGLE",
+      "RESTORE": "RAVEN",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.3015140635241698
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 18,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.470053173108837
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 19,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -3.5011003769891316
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.23397808312743695,
+   "oracle_policies": {
+    "BASE": -0.09661143739727601,
+    "D": -0.15912199483836922,
+    "R": 0.23397808312743695,
+    "S": 0.23397808312743695,
+    "S>D": -0.06858003646499727,
+    "S>R": 0.23397808312743695
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 4,
+   "source": "agent_v2",
+   "target": "person",
+   "transfer_adopted": "0/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.09661143739727601,
+    "PILOT-ONLY": -0.09661143739727601,
+    "RANDOM-POLICY": 0.10218592357153355,
+    "TRANSFER": -0.09661143739727601
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": -6.25584653524136e-19,
+     "hi": 2.0599841277224583e-19,
+     "lo": -1.4409046872332353e-18
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.19879736096880957,
+     "hi": -0.19363384025725744,
+     "lo": -0.2033995401105706
+    }
+   },
+   "label": "D",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7377810867559131
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6307542561401563
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.8104371053197685
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.9998091478634035
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7401953083886945
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.329288374198815
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5887930761714035
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7061907715670728
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7694722882535472
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7933967227411429
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4769776442644594
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.9833766356286546
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7620609773448342
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7454971367365891
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7991088246337827
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6965289320956678
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.0271591498293502
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7264112279666772
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7666827968036068
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5624836340081583
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.23397808312743695,
+   "oracle_policies": {
+    "BASE": -0.09661143739727601,
+    "D": -0.15912199483836922,
+    "R": 0.23397808312743695,
+    "S": 0.23397808312743695,
+    "S>D": -0.06858003646499727,
+    "S>R": 0.23397808312743695
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 8,
+   "source": "agent_v2",
+   "target": "person",
+   "transfer_adopted": "0/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.09661143739727601,
+    "PILOT-ONLY": -0.047023009318569065,
+    "RANDOM-POLICY": 0.10274655159017913,
+    "TRANSFER": -0.09661143739727601
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": -6.25584653524136e-19,
+     "hi": 2.0599841277224583e-19,
+     "lo": -1.4409046872332353e-18
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": -0.04958842807870695,
+     "hi": -0.04831881973836286,
+     "lo": -0.05074342150069078
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.19935798898745513,
+     "hi": -0.19412257009293504,
+     "lo": -0.20403044501301829
+    }
+   },
+   "label": "D",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3977105944977421
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.38367091436613526
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5785799629087992
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6616721172026292
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.45434228442375724
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3755455025511385
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5104935464686464
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "BEAR",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.35518292721718087
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6140204163728145
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "BEAR",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3811824283563454
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.14581088199409256
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5701078299973553
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "BEAR",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5261535303733369
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.47008350412132843
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4683504317422995
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.5210600690294348
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.571738766257969
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6461811672987028
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7289249862902946
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "LEOPARD",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.37003660782777836
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.23397808312743695,
+   "oracle_policies": {
+    "BASE": -0.09661143739727601,
+    "D": -0.15912199483836922,
+    "R": 0.23397808312743695,
+    "S": 0.23397808312743695,
+    "S>D": -0.06858003646499727,
+    "S>R": 0.23397808312743695
+   },
+   "pilot_only_adopted": "3/20",
+   "size": 16,
+   "source": "agent_v2",
+   "target": "person",
+   "transfer_adopted": "0/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.0781286148148148,
+    "PILOT-ONLY": -0.0781286148148148,
+    "RANDOM-POLICY": -0.0781286148148148,
+    "TRANSFER": -0.0781286148148148
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": 1.7564075194265173e-19,
+     "hi": 1.1514227071796056e-18,
+     "lo": -8.521829075736065e-19
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    }
+   },
+   "label": "R",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 0,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.9420759910871027
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.9042991047457933
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 2,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.646556346844828
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 3,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.4245361544952573
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 4,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "RAVEN",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.9370107958774816
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 5,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.2045408133738978
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.8600963418158271
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.1245531489565126
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.7869915831207817
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 9,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -1.6534437975203997
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -4.669927196098229
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 11,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -3.233878280809707
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6500020917611599
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 13,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4288580441018675
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 14,
+     "roles": {
+      "DRIVE": "EAGLE",
+      "RESTORE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -3.3955342102777304
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "RAVEN",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.6665481464540366
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 16,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.6174398011031784
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 17,
+     "roles": {
+      "DRIVE": "RAVEN",
+      "RESTORE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.8488562229321219
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 18,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.025778404618941694
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": null,
+     "rep": 19,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -2.2434667157717594
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.012954925925925951,
+   "oracle_policies": {
+    "BASE": -0.0781286148148148,
+    "D": 0.012954925925925951,
+    "R": -0.13938146666666665,
+    "S": -0.12952286666666665,
+    "S>D": -0.05284099999999998,
+    "S>R": -0.005650577777777772
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 4,
+   "source": "person",
+   "target": "agent_v2",
+   "transfer_adopted": "0/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.0781286148148148,
+    "PILOT-ONLY": -0.0781286148148148,
+    "RANDOM-POLICY": -0.07539610859259258,
+    "TRANSFER": -0.07357443777777775
+   },
+   "beats_all": true,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": 0.004554177037037036,
+     "hi": 0.004648670000000001,
+     "lo": 0.0044468896296296296
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.004554177037037036,
+     "hi": 0.004648670000000001,
+     "lo": 0.00444688962962963
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": 0.0018216708148148133,
+     "hi": 0.0018594679999999998,
+     "lo": 0.0017787558518518511
+    }
+   },
+   "label": "R",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.47020206784502205
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.365856938710048
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.29670493873259113
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.35257841610280666
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3145998876911578
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "RAVEN",
+      "RESTORE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.07026011197976614
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.25550495906055526
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.2025911126758967
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.10199935525997887
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.24223878623469497
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3343326207668646
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.49997569738873326
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3813605902790711
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.21138700319513423
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.43485227492431466
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.2276229865726847
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4017343349416209
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "RAVEN",
+      "RESTORE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "TIGER",
+      null
+     ],
+     "transfer_bound": 0.018591509679366777
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.500726043998903
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.28030649088437737
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.012954925925925951,
+   "oracle_policies": {
+    "BASE": -0.0781286148148148,
+    "D": 0.012954925925925951,
+    "R": -0.13938146666666665,
+    "S": -0.12952286666666665,
+    "S>D": -0.05284099999999998,
+    "S>R": -0.005650577777777772
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 8,
+   "source": "person",
+   "target": "agent_v2",
+   "transfer_adopted": "1/20"
+  },
+  {
+   "arms": {
+    "NONE": -0.0781286148148148,
+    "PILOT-ONLY": -0.0781286148148148,
+    "RANDOM-POLICY": -0.07013659096296294,
+    "TRANSFER": -0.07357443777777775
+   },
+   "beats_all": false,
+   "contrasts": {
+    "TRANSFER-NONE": {
+     "diff": 0.004554177037037036,
+     "hi": 0.004648670000000001,
+     "lo": 0.0044468896296296296
+    },
+    "TRANSFER-PILOT-ONLY": {
+     "diff": 0.004554177037037036,
+     "hi": 0.004648670000000001,
+     "lo": 0.00444688962962963
+    },
+    "TRANSFER-RANDOM-POLICY": {
+     "diff": -0.0034378468148148146,
+     "hi": -0.0026674388888888886,
+     "lo": -0.004235590666666666
+    }
+   },
+   "label": "R",
+   "log": [
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 0,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.2072677247133028
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "D",
+     "rep": 1,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.26303558520264314
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 2,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.18401917219125566
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 3,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3087134188128545
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "D",
+     "rep": 4,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.34602647344338666
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "R",
+     "rep": 5,
+     "roles": {
+      "DRIVE": "RAVEN",
+      "RESTORE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "TIGER",
+      null
+     ],
+     "transfer_bound": 0.04910754107986873
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 6,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.12748942399437654
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 7,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.14225438465660922
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "D",
+     "rep": 8,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.06089307198848852
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 9,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.18613067121673113
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "D",
+     "rep": 10,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.17768316366525916
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S",
+     "rep": 11,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "BEAR",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.4324119311114777
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 12,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.3839802204616642
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 13,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.22462599519904528
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 14,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.20295394539987238
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 15,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.20792089861110127
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 16,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.24017689056241187
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 17,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.22351855051721614
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>D",
+     "rep": 18,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.28440080393772504
+    },
+    {
+     "pilot_only": [
+      "hold",
+      "LION",
+      null
+     ],
+     "pilot_only_choice": "S>R",
+     "rep": 19,
+     "roles": {
+      "DRIVE": "TIGER",
+      "RESTORE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "transfer": [
+      "hold",
+      "LION",
+      null
+     ],
+     "transfer_bound": -0.223066427377566
+    }
+   ],
+   "noninferior": true,
+   "oracle": 0.012954925925925951,
+   "oracle_policies": {
+    "BASE": -0.0781286148148148,
+    "D": 0.012954925925925951,
+    "R": -0.13938146666666665,
+    "S": -0.12952286666666665,
+    "S>D": -0.05284099999999998,
+    "S>R": -0.005650577777777772
+   },
+   "pilot_only_adopted": "0/20",
+   "size": 16,
+   "source": "person",
+   "target": "agent_v2",
+   "transfer_adopted": "1/20"
+  }
+ ],
+ "source": {
+  "agent": {
+   "label": "S>D",
+   "roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD",
+    "STABILISE": "LEOPARD"
+   },
+   "values": {
+    "BASE": -0.08131685925925923,
+    "D": -0.056469303703703684,
+    "R": -0.0056296296296296285,
+    "S": -0.0056296296296296285,
+    "S>D": 0.09801682962962964,
+    "S>R": -0.0056296296296296285
+   }
+  },
+  "agent_v2": {
+   "label": "D",
+   "roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "values": {
+    "BASE": -0.08891958518518515,
+    "D": 0.0017909037037037265,
+    "R": -0.13526888888888888,
+    "S": -0.1365879407407407,
+    "S>D": -0.0619977185185185,
+    "S>R": -0.0028556148148148066
+   }
+  },
+  "person": {
+   "label": "R",
+   "roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR",
+    "STABILISE": "BEAR"
+   },
+   "values": {
+    "BASE": -0.08767084809086904,
+    "D": -0.14982125757652548,
+    "R": 0.23873102273125305,
+    "S": 0.23873102273125305,
+    "S>D": -0.04740695319692549,
+    "S>R": 0.23873102273125305
+   }
+  }
+ }
+}

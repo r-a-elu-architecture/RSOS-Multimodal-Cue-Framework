@@ -61,6 +61,7 @@ python3 -m rsxv.ledger_recovery results/results_ledger.json         # planted-ef
 | [`rsxv/world_experiments.py`](rsxv/world_experiments.py) | Step 5E experiments as registered in AGENTS.md §11.1 (W1, W4, H-CFIT/H-SWITCH, W3); `python3 -m rsxv.world_experiments` writes `results/results_world.json` and `results/world.md` (about 2 minutes) |
 | [`rsxv/gate.py`](rsxv/gate.py), [`rsxv/floor3_experiments.py`](rsxv/floor3_experiments.py) | Floor 3 (prototype, tested): cross-substrate transfer gate with a validity map; experiments G1, G2 and H-CFIT under the mission score as registered in AGENTS.md §11.2; `python3 -m rsxv.floor3_experiments` (under a minute) |
 | [`rsxv/w3b_experiments.py`](rsxv/w3b_experiments.py) | W3b, role-based transfer through gate v2, as registered in AGENTS.md §11.3; `python3 -m rsxv.w3b_experiments` (under a minute) |
+| [`rsxv/w3c_experiments.py`](rsxv/w3c_experiments.py) | W3c, policy-level transfer with a policy-randomised pilot, as registered in AGENTS.md §11.4; `python3 -m rsxv.w3c_experiments` (about 2 minutes) |
 | `rsxv/` | `ops` (operator table) · `lang` (parser) · `run` (runtime, NEXT) · `sim` (simulated person) · `metrics` · `chain` (sessions, audit log, purge) · `translate` · `bridge` · `ledger`, `ledger_recovery` · `subsystems` · `arms` · `evaluate_laws` |
 | `examples/` | The canonical 17-vector command, its RSX-V forms, compiled cue programs and run logs |
 | `results/` | Arm comparison, session laws, ledger recovery and translator validation (aggregates only) |

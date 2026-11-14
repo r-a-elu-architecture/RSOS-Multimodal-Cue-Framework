@@ -10,7 +10,8 @@ designs in §11.1 were fixed and committed before any of them was run; results a
 [`results/world.md`](results/world.md): W1, W4 and H-CFIT pass as registered, W3 fails in both directions. Floor 3 (§11.2, [`rsxv/gate.py`](rsxv/gate.py),
 [`results/floor3.md`](results/floor3.md)): the gate blocks all harmful transfer (G1 passes) but admitted no useful transfer
 (G2 fails); H-CFIT under the mission score passes. W3b (§11.3, [`results/w3b.md`](results/w3b.md)) fails: roles transfer,
-but the gate starves on a uniform pilot and per-context policies flicker. Version 0.7, 14 November 2026.
+but the gate starves on a uniform pilot and per-context policies flicker. W3c (§11.4, [`results/w3c.md`](results/w3c.md)),
+the fourth attempt, fails: transfer is safe everywhere but useful in one direction of four. Version 0.8, 14 November 2026.
 
 The agents run the RSIA identity architecture (Meta-Architect, Spine, Watchdog, archetypes) as software, inside the same
 runtime that runs RSX-V programs for a person. The person-side architecture is defined in the RSIA estate

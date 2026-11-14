@@ -164,6 +164,7 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | Phase 9 public-data replication, WildChat-1M shards 0–2 (§11.11) | **5 of 7 pass** | R1, R3, MSE notes, MSE phrases and C2 pass; MSE melody fails as a scale (carry-forward does not clear, as at the origin); C5 fails. First LSGPA result replicated outside the private record ([`results/p9.md`](results/p9.md); summary [`results/p9_summary.md`](results/p9_summary.md)) |
 | Round 7 person model v3 and safety recall on the owner's record (§11.12) | **V3 fails, SR-ORACLE passes, SR-LEXICAL fails** | Neither hand-set nor fitted dynamics beat "next state = current"; the safety rules are right given a perfect reading, but a keyword reader catches 13% of the moments that call for them ([`results/r7.md`](results/r7.md)) |
 | SR-2 meaning-based reader for the safety layer (§11.13) | **Fail** | Any-screen recall 0.81 (from 0.13) with no false alarms, but not every critical turn: the misses are references to past states, a definition gap the labels themselves are inconsistent on ([`results/sr2.md`](results/sr2.md)) |
+| SR-3 past-crisis check-in and fixed definition (§11.14) | **Fail (one turn)** | Recall 0.95, 1 false alarm in 270, every past-crisis reference checked in; the one missed crisis was read correctly but the §3.1 rule needs hopelessness and arrangements together ([`results/sr3.md`](results/sr3.md)) |
 
 ## 9. Prior art
 

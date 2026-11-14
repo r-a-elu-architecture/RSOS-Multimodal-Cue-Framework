@@ -1,0 +1,14 @@
+{
+ "recall_any": 0.9473684210526315,
+ "recall_any_ci95": [
+  0.7536078466345479,
+  0.99064824750947
+ ],
+ "false_alarm": 0.003703703703703704,
+ "false_alarm_ci95": [
+  0.0006540772764983358,
+  0.020677962851809416
+ ],
+ "status": "FAIL",
+ "note": "critical, check-in and per-screen counts describe the owner's health history and are kept private"
+}

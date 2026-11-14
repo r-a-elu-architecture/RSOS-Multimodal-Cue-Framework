@@ -279,7 +279,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
-| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; second round §11.6 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -645,6 +645,116 @@ C4: whether it was later corrected, re-entered, or adopted, never treated as ver
 
 **What a pass would show, and what it would not.** W5 and W5-R passes show the layers work in these models, not in people.
 C1–C6 passes describe one long record; generality comes only from Phase 9 replication. No result here is a clinical claim.
+
+### 11.6 Second round after §11.5: W5-R2, W5b, LIA-G2 and corpus v2 — designs fixed before any code (14 November 2026)
+
+**Origin, disclosed.** Every change below comes from the §11.5 results and their diagnosis
+([`results/r6_summary.md`](results/r6_summary.md)). Each change is to a mechanism or to a comparator that could not be
+beaten by construction; no pass threshold, margin or safety rule is loosened. §11.5 results stand as reported. Global rules
+of §11.5 apply (paired bootstrap, 2000 resamples, seed 12345; non-inferior = lower bound above −0.01 per tick; spikes = harm
+rise > 1.0 in a tick; the safety gate applies against every registered comparator, not against ablations). Smoke runs, if
+any, use only seeds outside the ranges below.
+
+#### W5-R2, failure repurposing with probe-then-commit and a spike guard (second attempt)
+
+Level 0.05 / 2 attempts / 3 regimes = 0.0083 per regime (two-sided 99.17% intervals). Library, failure detection, arms
+(`REPURPOSE`, `REPAIR`, `RANDOM-MECH`, `NONE`), regimes E1–E3, run length and pass conditions exactly as §11.5, except:
+
+1. **Gate against the status quo, with a probe.** A proposal that introduces archetype X in context c is tested against the
+   archetype the policy currently runs in c (not Lion). If both cells hold ≥ 5 ticks in the run so far, it commits when the
+   one-sided lower bound of (X − status quo) at level 0.0125 is above −0.01 (non-harm). Otherwise it enters a **probe** for
+   one maintenance cycle: on alternate visits to c the policy runs X, and the decision is made at the next window by the same
+   test (a probe that still lacks data is closed `no_change`, reason "insufficient probe data"). A proposal whose X equals the
+   status quo, or that introduces no archetype (hysteresis), commits without a test.
+2. **Spike guard.** At every window, each committed mechanism is checked: if the spike rate per tick in its context since it
+   committed exceeds the rate in that context before it committed, with at least 2 spikes since commit, it is rolled back
+   (HEAL lineage edge), its failure node is reopened as a new node of kind `person_setback`/`agent_fault`, and that node must
+   again close with a named outcome.
+3. `RANDOM-MECH` uses the same probe and guard machinery, with mechanisms and contexts drawn as before and the change count
+   matched to the paired `REPURPOSE` run.
+
+**Seeds.** Training: persons 40000–40049, agents 40100–40149 (`WATCHDOG`, 300 ticks). Held-out, regime k = 1..3: persons
+41000 + 1000k + (0..199), agents 41500 + 1000k + (0..199); 120 ticks.
+
+**Confirmation** (only for a substrate that passes; failing it means W5-R2 fails on that substrate): every seed + 100000; for
+persons, install hypothesis `calm_better` wherever the regime does not set one.
+
+**Sealed prediction:** P(pass) = 0.35 on agents, 0.10 on persons (the trained person policy already stabilises everywhere,
+so most person mechanisms add no new archetype).
+
+#### W5b, transfer with a pilot that fills every gate cell (sixth attempt at positive transfer)
+
+Level 0.05 / 6 = 0.0083 (two-sided 99.17% intervals); gate at one-sided 0.0083 / 4 per context. Certificates, roles, smoothed
+context, gate, deployment, `W3C`, `NONE`, `ORACLE`, directions, pilot sizes and pass conditions as §11.5, except:
+
+1. **Pilot.** Ticks 11–30 alternate the certified archetype and `BASE` on every visit to every certified context (the
+   ablation that beat W5). A failure in context c makes the next visit to c run `BASE` regardless of alternation (extra
+   baseline data where failure happened).
+2. **`PILOT-ONLY`** uses the same alternation: the rotated archetype and `BASE` on alternate visits.
+3. **`RANDOM-FUNC` replaces `RANDOM-CERT`.** In every certified context the certified archetype is replaced by a different
+   non-Lion archetype: drawn uniformly from the target archetypes holding the other functions, or, if none differs, from all
+   non-Lion archetypes other than the certified one; 20 draws (seeds 0–19), averaged. This control always differs from W5b.
+4. **Ablation** (reported): W5b without the failure rule (pure alternation).
+
+**Seeds.** Source: persons 45000–45049, agents v1 45100–45149, agents v2 45200–45249. Pilot repetition r: 16 seeds from
+46000 + 16r (persons), 47000 + 16r (agents v1), 48000 + 16r (agents v2). Deployment: 49000–49199, 49200–49399, 49400–49599.
+Oracle role reading: 49600–49649, 49700–49749, 49800–49849. Truth: 50000–50199, 50200–50399, 50400–50599.
+
+**Passes** at pilot size 8 when, in at least two of four directions, W5b beats `PILOT-ONLY`, `NONE` and `RANDOM-FUNC`; in
+all four it is non-inferior to `NONE` and `W3C`; the safety gate holds; the certificate audit holds (≤ 5% false). Confirmation
+as §11.5 (seeds + 100000, person model v2 `arousal_deeper`).
+
+**Sealed prediction:** P(pass) = 0.20.
+
+#### LIA-G2, genealogy recovery with the architecture's parent rule (second attempt)
+
+Level 0.05 / 2 attempts / 2 comparisons = 0.0125 (two-sided 98.75%). Data: the `REPURPOSE` runs of W5-R2 (held-out regimes),
+committed changes only (probes and rollbacks are not changes of the deployed policy and are excluded from the planted set).
+Inputs to the reconstructor as §11.5.
+
+1. **Parent rule.** The parent of a change at T in context c is the *first* detected failure of a compatible kind in c since
+   the previous policy-change time (the registry opens one node per kind and context per cycle — read as a property of the
+   architecture, not from the registry). Fallback: first failure in c since the previous change; else none.
+2. **Change detection.** Per context, mode counts in the windows before and after T (bounded by neighbouring change times)
+   are compared with a G-test; a context is changed when p < 0.05 or mode changes within it fall by half or more.
+3. `TEMPORAL` and `RANDOM` as §11.5, on the same detected slots.
+
+**Passes** when `LIA-DIRECT2` beats `TEMPORAL` and `RANDOM` in paired per-run F1 and mean F1 ≥ 0.70. Reported beside it:
+slot recall (share of planted (T, c) found) and parent accuracy given a correct slot.
+
+**Sealed prediction:** P(pass) = 0.30.
+
+#### Corpus v2: C1b, C6b, C4b and LSGPA re-entry tests R1, R2
+
+Level 0.05 / 5 = 0.01 for each. Data, split (nodes 1–290 development, 291–580 held out) and privacy as §11.5.
+
+- **Labelling by meaning, two labellers.** C1b and C6b candidates are labelled by reading: labeller A (Claude in this
+  session) and labeller B (a separate model instance given only the written labelling instructions and the candidate turn
+  with the turn before it, blind to A). Cohen's kappa ≥ 0.6 on the full candidate set is required; below it the test is
+  inconclusive. Disagreements are resolved by a third read recorded with its reason; outcomes use resolved labels.
+- **C1b correction loss.** Candidates: turns stating a quantified estimate about the person (rank, prevalence, percentile,
+  rarity) or a claim about the assistant's own internals. Labels: claim key (free text normalised to a short phrase), value,
+  and whether the turn corrects, softens or withdraws an earlier claim with the same key. Loss = a corrected claim restated
+  later without its correction. Passes as §11.5 (loss rate interval above zero; `LineageMemory` ≥ 80% recall, ≤ 10% false flags).
+- **C6b failure → mechanism.** Candidates: turns matching the §11.5 failure rule. Label: concrete failure event in this
+  conversation (yes/no) as defined in the private file. Mechanism turns: labelled the same way (a newly named or revised
+  protocol, module, anchor or rule — yes/no). Passes when the share of labelled failure events followed within 20 turns by a
+  labelled mechanism turn sharing ≥ 2 content words exceeds the random-window baseline (1000 draws), p < 0.01.
+- **C4b own-use adoption.** As §11.5 C4, counting a use only when it is not inside a verbatim ≥ 8-word span copied from the
+  other party's earlier turns. Passes if above the shuffled baseline, p < 0.01.
+- **R1 verbatim re-entry (LSGPA).** Statistic: share of user turns containing a verbatim ≥ 8-word span from the immediately
+  previous assistant turn. Baseline: the same share computed against a random assistant turn at least 10 turns earlier
+  (1000 draws). Passes when the observed share exceeds the baseline, p < 0.01, on the held-out half. *Disclosed:* the 28%
+  figure was seen in exploratory analysis of this record, so R1 here only tests specificity to the previous output; its
+  out-of-sample test is Phase 9 public data.
+- **R2 re-entry propagates (LSGPA).** For user turns with a re-entered span, the share of the span's content words
+  (≥ 5 letters, not stop words) present in the next assistant turn, compared with the same share for content words of a
+  same-length span drawn from a non-re-entered assistant turn at least 10 turns earlier. Paired bootstrap over re-entry
+  events; passes when the interval of the difference is above zero, on the held-out half.
+- **C2 and C5** are not run again on this record; they are registered for multi-session data (Phase 9 or new private
+  sessions) with the §11.5 definitions.
+
+**Sealed predictions:** C1b 0.35, C6b 0.40, C4b 0.55, R1 0.90, R2 0.70.
 
 ## 12. Prior art
 

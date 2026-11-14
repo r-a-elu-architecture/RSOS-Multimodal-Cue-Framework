@@ -253,6 +253,62 @@ control tests whether the *mapping* matters; it cannot remove a similarity the m
 the transfer machinery works; whether transfer holds in the world needs agent traces from real systems and a pilot with
 people.
 
+
+### 11.2 Floor 3, certified cross-substrate transfer: designs fixed before any code (14 November 2026)
+
+Background: [`PRIOR_ART_WORLD.md`](PRIOR_ART_WORLD.md), update 2. The claim under test: knowledge learned on one substrate
+reaches the other only through a high-confidence non-harm test on the *target's* own mission score, and the gate records
+where transfer held and where it did not. Same rules as §11.1: fixed seeds, all results reported, W3 kept unchanged.
+
+**Mission score** (replaces the reward of §11.1 for everything below; §11.1 results stand as reported). Per tick:
+`gain − 2 × harm_rise − 1 × spike`, ranked as the law order puts safety first.
+- Person: gain = change in agency; harm_rise = change in distress (0–10 scale); spike = 1 if distress rose by more than 1.0.
+- Agents: gain = 0.2 × progress; harm_rise = 10 × change in (1 − health); spike = 1 if that exceeds 1.0.
+
+**The gate.** Input: a candidate table (context → archetype) from the source, a baseline (Lion) and a *pilot* data set from
+the target in which every tick runs a uniformly random archetype (a micro-randomised pilot). For each context the gate
+admits the table's archetype only if the one-sided lower confidence bound of (mean mission score of that archetype − mean of
+the baseline), Welch t, family level 0.05 split over the four contexts (0.0125 each), is above zero; otherwise the baseline
+runs in that context. A context whose archetype is already Lion is admitted without a test. The gate's output is the gated
+table and a validity map (context, decision, estimate, bound, cell sizes). Ticks are treated as independent within a cell,
+a simplification that is disclosed in the results.
+
+**Cohorts and seeds.**
+
+| Use | Persons | Agents (v1) | Agents (v2) | Ticks |
+|---|---|---|---|---|
+| Pilot (uniform random archetype) | 7000–7019 | 7100–7119 | 7200–7219 | 30 |
+| Deployment | 8000–8199 | 8200–8399 | 8400–8599 | 60 |
+| Truth (uniform random, large) | 9000–9199 | 9200–9399 | 9400–9599 | 60 |
+
+The truth cohort estimates each archetype's true effect in each context against Lion; an admitted context whose truth
+estimate is below zero counts as a **false admit**.
+
+**G1, the gate on the W3 tables.** Tables: exactly those of W3 (§11.1 seeds and reward; agents → person was Leopard in every
+context, person → agents was Lion when calm and Bear otherwise). Deployment arms: `GATED`, `UNGATED` (the W3 table),
+`NONE` (Lion), `SHUFFLED-GATED` (each of the 23 non-identity context permutations of the table through the same gate, averaged).
+**Passes** in a direction when `GATED − UNGATED` has a 95% paired interval above zero **or** the gate admitted the full table
+(then the two are identical and the criterion is vacuous, reported as such), **and** `GATED` is non-inferior to `NONE` with
+margin 0.01 (lower bound of `GATED − NONE` above −0.01).
+
+**G2, a case where transfer can be valid.** `AgentEnvV2` separates traffic pressure from faults, following standard
+site-reliability practice (shed load and freeze changes during an incident before repairing). Pressure P in [0, 1] is the
+agent context's load. Every tick P rises by 0.05 (incoming traffic). Tiger: progress 1.0, P + 0.2. Bear: progress 0.2,
+P − 0.3, snapshot as before. Leopard: repair succeeds with probability 0.85 × (1 − P) and damages a healthy module with
+probability 0.10 × (1 + 2P). Lion: progress 0.5. Eagle and Raven as in v1. Source tables are learned under the mission score
+(`WATCHDOG`, 300 ticks): agents v2 seeds 6000–6049, persons 6100–6149. Arms and criteria as G1, plus: in at least one
+direction `GATED − NONE` has a lower bound above zero (transfer admitted and useful), and in that direction `GATED` beats
+`SHUFFLED-GATED` (interval above zero).
+
+*Disclosure.* AgentEnvV2 was written by someone who knows the person model; its pressure rules give it the person model's
+"stabilise before deep work" structure on purpose. G2 shows whether the gate admits a transfer that is valid and blocks one
+that is not; it is not evidence that such transfer exists outside these models.
+
+**H-CFIT-M**, the rerun of H-CFIT under the mission score: as §11.1 (arms, 120 ticks, passes when `WATCHDOG` beats `RULE`,
+`ROTATION` and `FIXED`), fresh seeds 5000–5199. Final distress is reported for every arm.
+
+**Validity map.** Reported for every gate decision with pilot estimate, bound, truth estimate and false-admit flag.
+
 External check: the Observer's fault location is also run on a public failure-attribution benchmark where the data allow.
 Baselines are reimplemented and labelled as reimplementations.
 

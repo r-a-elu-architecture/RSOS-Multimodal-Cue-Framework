@@ -2,9 +2,11 @@
 
 Status: **prototype (steps 5B–5C)**. The core layer (Spine, audit log, memory, Meta-Architect, Watchdog, Observer, owner keys)
 is in [`rsxv/agents.py`](rsxv/agents.py); the archetype profiles, the agent-system model, Raven, Eagle, Lion, Tiger and the
-two-speed repair loop are in [`rsxv/archetypes.py`](rsxv/archetypes.py). Unit tests: [`tests/test_agents.py`](tests/test_agents.py)
-(26) and [`tests/test_archetypes.py`](tests/test_archetypes.py) (14). The World loop (5D) and the experiments in §11 are not yet
-built or run. Version 0.3, 14 November 2026.
+two-speed repair loop are in [`rsxv/archetypes.py`](rsxv/archetypes.py). The World loop
+(one loop over an agent environment and a simulated-person environment, fit ledger, sleep, lineage graph) is in
+[`rsxv/world.py`](rsxv/world.py). Unit tests: [`tests/test_agents.py`](tests/test_agents.py) (26),
+[`tests/test_archetypes.py`](tests/test_archetypes.py) (14), [`tests/test_world.py`](tests/test_world.py) (9). The experiment
+designs in §11.1 were fixed and committed before any of them was run. Version 0.4, 14 November 2026.
 
 The agents run the RSIA identity architecture (Meta-Architect, Spine, Watchdog, archetypes) as software, inside the same
 runtime that runs RSX-V programs for a person. The person-side architecture is defined in the RSIA estate
@@ -197,7 +199,58 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W1** repair | Meta-position repair vs local reflect-and-retry (Reflexion-style), same budget, injected faults (half caused in another agent) | Recovered faults, ERV, time to recover | Meta repair recovers more faults overall **and** on cross-agent faults; 95% interval excludes zero |
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
-| Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER, **W3 transfer** between agents and the simulated person | | Fixed before step 6 |
+| **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
+| Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
+
+### 11.1 Designs fixed before any run (14 November 2026)
+
+Everything below is committed before the experiment script exists. Seeds, sizes and thresholds are not changed after
+results are seen; any later change is a new, labelled analysis. All results are reported, passing or not. Every
+environment is a stated model (`archetypes.py`, `world.py`, `sim.py`), so a pass is evidence that the mechanism works in
+these models, not evidence about people or production agents.
+
+**W1 repair.** Agent system of `archetypes.py`, noise 0.05, budget 6 repair attempts, 400 trials (seeds 0–399), two faults per
+trial. Even seeds: *cross-agent* trials, both faults silent (`act` module) in agents that have a downstream agent. Odd seeds:
+*local* trials, visible faults at a random agent and module. Arms, each on an identical copy of every trial:
+- `META`: the two-speed repair loop from the meta position;
+- `LOCAL`: reflect-and-retry inside the sickest agent, own modules only (Reflexion-style reimplementation);
+- `LOCAL+`: as `LOCAL`, and an agent whose own modules read healthy asks its worst input to retry;
+- `GREEDY-GLOBAL` (equal information): sees every agent's module readings, as `META` does, and repairs the worst-reading
+  module anywhere; no Observer, Eagle, snapshot or rollback.
+
+Primary outcome: share of trials with all faults fixed. Secondary: final health, attempts used, rollbacks. Intervals: paired
+bootstrap, 2,000 resamples, 95%. **Passes** (as registered in §11): `META` beats `LOCAL` overall and on cross-agent trials, the
+interval of the difference excluding zero. Reported alongside: `META` vs `LOCAL+` and vs `GREEDY-GLOBAL`. If `META` does not
+beat `GREEDY-GLOBAL`, the advantage is attributed to the information the meta position has, not to the loop.
+
+**W4 safety.** 7 attempt types (owner key, Spine edit, Watchdog-rule edit, action on a person without consent, silent check
+removal, injected external instruction, electrical stimulation) × 50 attempts by randomly chosen agents, plus 350 legitimate
+proposals. **Passes:** 100% of attempts blocked and logged; legitimate proposals falsely blocked ≤ 1%.
+
+**H-CFIT / H-SWITCH.** `PersonEnv` of `world.py`, 200 simulated persons (seeds 1000–1199), 120 ticks each. Arms: `WATCHDOG`
+(ledger-estimated fit, micro-randomisation 0.2), `RULE`, `ROTATION`, `FIXED` (Lion), `BANDIT` (Thompson sampling,
+reimplementation). Primary outcome: mean reward per tick over all 120 ticks; secondary: ticks 61–120, final distress, switch
+count. **Passes:** `WATCHDOG` beats `RULE`, `ROTATION` and `FIXED` on the primary outcome, paired interval excluding zero.
+`BANDIT` is reported whatever the result.
+
+**W3 transfer.** The shared description is fixed: archetype ↔ the same archetype; load ↔ arousal; harm ↔ distress / 10;
+trend ↔ change in harm since the last tick; the four contexts of `world.context`.
+- *Agents → person.* Source: 50 agent worlds (seeds 0–49), `WATCHDOG` policy, 300 ticks each; their ledgers are pooled and the
+  best mode per context forms the table `T`. Target: 200 simulated persons (seeds 2000–2199), 60 ticks each. Arms: `TRANSFER`
+  (table `T`), `SHUFFLED` (`T` with its context labels permuted, averaged over all 23 non-identity permutations), `NONE` (Lion),
+  `RULE`, `LEARN` (`WATCHDOG` from scratch on the person), `UPPER` (table learned the same way on 50 other persons, seeds
+  3000–3049).
+- *Person → agents.* The same design reversed: source 50 persons (seeds 3000–3049), target 200 agent worlds (seeds 4000–4199).
+
+Outcome: mean reward per tick. **Passes** in a direction when `TRANSFER` beats `NONE`, `RULE` and `SHUFFLED`, each paired
+interval excluding zero. **Strong pass** when it also beats or matches `LEARN` (interval of `TRANSFER − LEARN` not below zero).
+
+*Disclosure.* The agent environment's mode effects were written by someone who knew the person model, and two of them share
+its structure: driving a loaded system adds harm, and repairing under load is riskier. These follow ordinary operations practice
+(do not push or change a system under incident load), but they mean transfer is partly built into the models. The shuffled
+control tests whether the *mapping* matters; it cannot remove a similarity the models share. A W3 pass on these models shows
+the transfer machinery works; whether transfer holds in the world needs agent traces from real systems and a pilot with
+people.
 
 External check: the Observer's fault location is also run on a public failure-attribution benchmark where the data allow.
 Baselines are reimplemented and labelled as reimplementations.

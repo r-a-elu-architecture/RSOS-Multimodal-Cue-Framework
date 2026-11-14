@@ -1,0 +1,411 @@
+{
+ "dataset": "allenai/WildChat-1M (ODC-BY; Zhao et al., ICLR 2024), shards train-00000..00002 of 14",
+ "shard_sha256": {
+  "train-00000-of-00014.parquet": "abec2a13129db8c0e6a2d3a51ff12644873c748205a6fdf6551fbcb34430e51c",
+  "train-00001-of-00014.parquet": "f10fa35bb52703baad5e3177d3382d63b855fce9e9d1b9ab1fe2f0e762464f2a",
+  "train-00002-of-00014.parquet": "9a4912ec14c1012970f57b6710518dda17dbf6cdfb9b6e694880f5456b0b031f"
+ },
+ "filters": {
+  "conv_all": 179571,
+  "turns_all": 959308,
+  "conv_english": 85430,
+  "conv_english_3u": 23130,
+  "duplicates_dropped": 1541,
+  "conv_included": 22369,
+  "turns_included": 260258,
+  "user_turns_included": 130129,
+  "included_by_model": {
+   "gpt-3.5-turbo-0301": 17486,
+   "gpt-4-0314": 4883
+  }
+ },
+ "P9-R1": {
+  "n_events": 107760,
+  "observed": 0.04869153674832962,
+  "baseline": 1.2527839643652561e-05,
+  "baseline_max": 4.639940608760208e-05,
+  "redraws": 200,
+  "p": 0.004975124378109453,
+  "p_200": 0.004975124378109453,
+  "per_conversation": {
+   "conversations": 22369,
+   "share_above_baseline": 0.15391836917162144,
+   "median_diff": 0.0
+  },
+  "model": {
+   "gpt-3.5-turbo-0301": {
+    "observed": 0.038632902825559756,
+    "baseline": 1.0997687665670296e-05,
+    "n": 88655
+   },
+   "gpt-4-0314": {
+    "observed": 0.09536770478932216,
+    "baseline": 1.962836953677048e-05,
+    "n": 19105
+   }
+  },
+  "length_band": {
+   "10+": {
+    "observed": 0.036842958241045866,
+    "baseline": 9.723947922856679e-06,
+    "n": 37022
+   },
+   "3-4": {
+    "observed": 0.0587536651449356,
+    "baseline": 1.614519541253758e-05,
+    "n": 26943
+   },
+   "5-9": {
+    "observed": 0.05251741066331773,
+    "baseline": 1.267267952962667e-05,
+    "n": 43795
+   }
+  },
+  "status": "PASS"
+ },
+ "P9-R3": {
+  "events": 4823,
+  "conversations": 3211,
+  "mean_diff": 0.21782252249566303,
+  "ci99": [
+   0.20105136928793488,
+   0.23723986626270152
+  ],
+  "status": "PASS"
+ },
+ "P9-MSE": {
+  "notes": {
+   "reentry": {
+    "n_events": 100930,
+    "observed": 0.25897831439182223,
+    "baseline": 0.01618887157978798,
+    "baseline_max": 0.016876846896327565,
+    "redraws": 2000,
+    "p": 0.0004997501249375312,
+    "p_200": 0.004975124378109453,
+    "per_conversation": {
+     "conversations": 22106,
+     "share_above_baseline": 0.8626617207997829,
+     "median_diff": 0.21324330357142857
+    },
+    "model": {
+     "gpt-3.5-turbo-0301": {
+      "observed": 0.2551619076010782,
+      "baseline": 0.016026789930595607,
+      "n": 82503
+     },
+     "gpt-4-0314": {
+      "observed": 0.2760654696236425,
+      "baseline": 0.016914557926090656,
+      "n": 18427
+     }
+    },
+    "length_band": {
+     "10+": {
+      "observed": 0.24899874374471498,
+      "baseline": 0.016025744941195325,
+      "n": 34517
+     },
+     "3-4": {
+      "observed": 0.2598679764921036,
+      "baseline": 0.01619101647480667,
+      "n": 25216
+     },
+     "5-9": {
+      "observed": 0.26679517291320737,
+      "baseline": 0.01632423474971571,
+      "n": 41197
+     }
+    },
+    "clears": true
+   },
+   "carry_forward": {
+    "events": 58549,
+    "conversations": 18603,
+    "mean_diff": 0.3766213798224735,
+    "ci": [
+     0.3697583228015685,
+     0.3839496477871088
+    ],
+    "clears": true
+   }
+  },
+  "phrases": {
+   "reentry": {
+    "n_events": 101181,
+    "observed": 0.03423980632442183,
+    "baseline": 8.626890407165438e-05,
+    "baseline_max": 0.00013225745312544406,
+    "redraws": 2000,
+    "p": 0.0004997501249375312,
+    "p_200": 0.004975124378109453,
+    "per_conversation": {
+     "conversations": 22102,
+     "share_above_baseline": 0.5337978463487467,
+     "median_diff": 0.0008946185161884316
+    },
+    "model": {
+     "gpt-3.5-turbo-0301": {
+      "observed": 0.031588666729458106,
+      "baseline": 8.966251264298771e-05,
+      "n": 82675
+     },
+     "gpt-4-0314": {
+      "observed": 0.04608369295652094,
+      "baseline": 7.110805955447168e-05,
+      "n": 18506
+     }
+    },
+    "length_band": {
+     "10+": {
+      "observed": 0.03154585343394563,
+      "baseline": 9.488185509975194e-05,
+      "n": 34364
+     },
+     "3-4": {
+      "observed": 0.03712670258783317,
+      "baseline": 8.206152842817905e-05,
+      "n": 25401
+     },
+     "5-9": {
+      "observed": 0.03470448048758131,
+      "baseline": 8.170294163178505e-05,
+      "n": 41416
+     }
+    },
+    "clears": true
+   },
+   "carry_forward": {
+    "events": 24577,
+    "conversations": 11734,
+    "mean_diff": 0.518279895351984,
+    "ci": [
+     0.5090662737163907,
+     0.5272272590582587
+    ],
+    "clears": true
+   }
+  },
+  "melody": {
+   "reentry": {
+    "n_events": 107760,
+    "observed": 0.7057533020802857,
+    "baseline": 0.6905939116616198,
+    "baseline_max": 0.6943855148369598,
+    "redraws": 2000,
+    "p": 0.0004997501249375312,
+    "p_200": 0.004975124378109453,
+    "per_conversation": {
+     "conversations": 22369,
+     "share_above_baseline": 0.5756180428271268,
+     "median_diff": 0.11453137561277814
+    },
+    "model": {
+     "gpt-3.5-turbo-0301": {
+      "observed": 0.7411380348527712,
+      "baseline": 0.6945552307316084,
+      "n": 88655
+     },
+     "gpt-4-0314": {
+      "observed": 0.5415536954880483,
+      "baseline": 0.6722117738887922,
+      "n": 19105
+     }
+    },
+    "length_band": {
+     "10+": {
+      "observed": 0.7454051056422528,
+      "baseline": 0.6948955830402453,
+      "n": 37022
+     },
+     "3-4": {
+      "observed": 0.6969026699963794,
+      "baseline": 0.6872331408492217,
+      "n": 26943
+     },
+     "5-9": {
+      "observed": 0.6776787161404648,
+      "baseline": 0.6890250743564237,
+      "n": 43795
+     }
+    },
+    "clears": true
+   },
+   "carry_forward": {
+    "events": 2710,
+    "conversations": 1725,
+    "mean_diff": -0.004197098229474395,
+    "ci": [
+     -0.018353274660320044,
+     0.010213962679102207
+    ],
+    "clears": false
+   },
+   "inheritance": {
+    "n_events": 107760,
+    "observed": 0.7966437880024847,
+    "baseline": 0.5398228000839591,
+    "baseline_max": 0.543162374979542,
+    "redraws": 2000,
+    "p": 0.0004997501249375312,
+    "p_200": 0.004975124378109453,
+    "per_conversation": {
+     "conversations": 22369,
+     "share_above_baseline": 0.894094505789262,
+     "median_diff": 0.29352261596562573
+    },
+    "model": {
+     "gpt-3.5-turbo-0301": {
+      "observed": 0.8127126509063213,
+      "baseline": 0.559629510098273,
+      "n": 88655
+     },
+     "gpt-4-0314": {
+      "observed": 0.7220777036926375,
+      "baseline": 0.44791157913033536,
+      "n": 19105
+     }
+    },
+    "length_band": {
+     "10+": {
+      "observed": 0.8307864565442388,
+      "baseline": 0.5696260499943545,
+      "n": 37022
+     },
+     "3-4": {
+      "observed": 0.7744258520915817,
+      "baseline": 0.5253840513633977,
+      "n": 26943
+     },
+     "5-9": {
+      "observed": 0.7814499981290892,
+      "baseline": 0.5235115154303558,
+      "n": 43795
+     }
+    },
+    "clears": true
+   }
+  }
+ },
+ "P9-C2": {
+  "users_with_3_conversations": 1720,
+  "families": 553,
+  "generations": {
+   "3": 183,
+   "4": 101,
+   "5": 64,
+   "6": 39,
+   "7": 38,
+   "8": 22,
+   "9": 16,
+   "10": 16,
+   "11": 17,
+   "12": 8,
+   "13": 10,
+   "14": 7,
+   "16": 4,
+   "17": 3,
+   "18": 1,
+   "19": 3,
+   "20": 1,
+   "21": 2,
+   "22": 2,
+   "23": 1,
+   "24": 3,
+   "27": 2,
+   "32": 2,
+   "36": 2,
+   "37": 1,
+   "42": 1,
+   "48": 1,
+   "60": 1,
+   "70": 1,
+   "87": 1
+  },
+  "pairs": 25212,
+  "rho": 0.2765527708887199,
+  "p": 0.000999000999000999,
+  "mean_drift_adjacent": 0.2995601787865413,
+  "status": "PASS"
+ },
+ "P9-C5": {
+  "events": 992,
+  "dev": 450,
+  "heldout": 542,
+  "flip_rate_by_type_dev": {
+   "reframe": 0.911504424778761,
+   "context": 0.6927939317319848,
+   "insist": 0.9323269130661114,
+   "none": 0.8485600899811125
+  },
+  "types_heldout": {
+   "none": 484,
+   "reframe": 21,
+   "context": 9,
+   "insist": 28
+  },
+  "flip_share_all": 0.8508064516129032,
+  "auc_heldout": 0.492608660721459,
+  "ci99": [
+   0.44070660522273425,
+   0.5394467601364153
+  ],
+  "status": "FAIL"
+ },
+ "units": {
+  "n_turns": 260258,
+  "n_conv": 22369,
+  "r1": {
+   "user_units": 7206630,
+   "queries": 1649699,
+   "asst_keys": 1430116
+  },
+  "phrases": {
+   "user_units": 36671629,
+   "queries": 12364080,
+   "asst_keys": 17396437
+  },
+  "notes": {
+   "user_units": 2344119,
+   "queries": 2237298,
+   "asst_keys": 6813913
+  }
+ },
+ "exploratory_not_pass_conditions": {
+  "C2_per_family_rho": {
+   "families_with_rho": 467,
+   "mean": 0.378,
+   "median": 0.5,
+   "share_positive": 0.835,
+   "sign_test_p_one_sided": 1e-51
+  },
+  "C2_excluding_families_over_20_members": {
+   "families": 533,
+   "pairs": 9714,
+   "rho": 0.17
+  },
+  "implementation_checks": {
+   "hashed_vs_plain_python_mismatches_3000_true_pairs": 0,
+   "hashed_vs_plain_python_mismatches_3000_random_pairs": 0
+  }
+ },
+ "sealed_predictions": {
+  "P9-R1": 0.95,
+  "P9-R3": 0.75,
+  "MSE notes": 0.8,
+  "MSE phrases": 0.75,
+  "MSE melody": 0.6,
+  "P9-C2": 0.25,
+  "P9-C5": 0.35
+ },
+ "outcomes_for_brier": {
+  "P9-R1": 1,
+  "P9-R3": 1,
+  "MSE notes": 1,
+  "MSE phrases": 1,
+  "MSE melody": 0,
+  "P9-C2": 1,
+  "P9-C5": 0
+ },
+ "brier": 0.173
+}

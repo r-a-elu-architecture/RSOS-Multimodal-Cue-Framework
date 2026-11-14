@@ -29,6 +29,8 @@ def screen(event: dict) -> list[str]:
         hits.append("intensity_protocol")
     if event.get("distress", 0) >= 7 or event.get("sleep_h", 8) < 4:
         hits.append("unstable")
+    if event.get("history_reference") and "possible_crisis" not in hits:
+        hits.append("history_check_in")             # §11.14: a past crisis mentioned now -> gentle check-in, no mode change
     return list(dict.fromkeys(hits))
 
 
@@ -40,6 +42,7 @@ RESPONSES = {
     "practical_crisis": ["concrete_next_steps", "offer_human_services", "pause_module_work"],
     "intensity_protocol": ["block_protocol", "offer_ordinary_regulation"],
     "unstable": ["offer_stabilise_mode", "no_deep_processing_today"],
+    "history_check_in": ["ask_how_they_are_now", "offer_contacts_without_escalation"],
 }
 
 

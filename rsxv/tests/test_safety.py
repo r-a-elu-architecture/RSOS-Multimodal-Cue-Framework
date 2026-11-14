@@ -108,3 +108,10 @@ class TestCovariates(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_history_check_in_is_soft():
+    st = sf.SafetyState()
+    r = st.observe({"history_reference": True})
+    assert r["screens"] == ["history_check_in"] and st.mode == "NORMAL"
+    assert sf.screen({"history_reference": True, "self_harm_signal": True}) == ["possible_crisis"]

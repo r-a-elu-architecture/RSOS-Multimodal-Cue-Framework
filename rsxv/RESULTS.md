@@ -156,6 +156,10 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | **T-AP, transfer agents v1 → person (§11.8)** | **PASS, confirmed** | The first confirmed cross-substrate transfer: beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model ([`results/tap.md`](results/tap.md)) |
 | W5d, negative certificates + fail-safe tube (§11.8) | **Fail** | Two directions beat every comparator; one has slightly more spikes than pilot-only; the jam predictor is near chance ([`results/w5d.md`](results/w5d.md)) |
 | W5-R4, anticipatory forge (§11.8) | **Fail** on both substrates | The Lion's failure forecasts beat the base rate on agents; the 10-tick ghost passes carry too little evidence ([`results/w5r4.md`](results/w5r4.md); summary [`results/r6d_summary.md`](results/r6d_summary.md)) |
+| T-AP-4 / T-AP-V2, reach of the confirmed transfer (§11.9) | **Fail** | Pilot 4 passes on person model v1, not on v2; agents v2 → person does not transfer ([`results/tapr.md`](results/tapr.md)) |
+| J1, jam predictor (§11.9) | **Accepted** | 0.754 accuracy on fresh seeds ([`results/j1.md`](results/j1.md)) |
+| W5e (§11.9) | **Fail** | Two directions beat every comparator; person → agents v1 adds spikes again ([`results/w5e.md`](results/w5e.md)) |
+| **W5-R5, snapshot forge (§11.9)** | **Fail** (agents: beats repair, random and doing nothing in 2 of 3 regimes; below doing nothing after the mid-run shift) | First time repurposing improves on doing nothing; the mechanisms the failures shaped carried it ([`results/w5r5.md`](results/w5r5.md); summary [`results/r6e_summary.md`](results/r6e_summary.md)) |
 
 ## 9. Prior art
 

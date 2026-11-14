@@ -1,0 +1,19 @@
+{
+ "n": 260,
+ "accuracy": 0.7538461538461538,
+ "always_jam": 0.3153846153846154,
+ "never_jam": 0.6846153846153846,
+ "accepted": true,
+ "by_direction": {
+  "agent->person": 0.9375,
+  "person->agent": 0.475,
+  "agent_v2->person": 0.95,
+  "person->agent_v2": 0.8
+ },
+ "confusion": {
+  "tp": 65,
+  "fp": 47,
+  "fn": 17,
+  "tn": 131
+ }
+}

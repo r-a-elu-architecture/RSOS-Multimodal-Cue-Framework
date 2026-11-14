@@ -1,0 +1,2748 @@
+{
+ "T-AP-4": {
+  "claim": "T-AP-4",
+  "primary": {
+   "source": "agent",
+   "target": "person",
+   "size": 4,
+   "arms": {
+    "W5": -0.028391213356499207,
+    "PILOT-ONLY-ADAPTIVE": -0.03312524384555996,
+    "W3C": -0.09665854433294882,
+    "RANDOM-CERT": -0.09665854433294882,
+    "W5-NO-ADAPT": -0.02817269219762846,
+    "NONE": -0.09665854433294882
+   },
+   "spikes": {
+    "W5": 2.1605000000000003,
+    "PILOT-ONLY-ADAPTIVE": 2.2144999999999997,
+    "W3C": 2.42,
+    "RANDOM-CERT": 2.42,
+    "W5-NO-ADAPT": 2.2125,
+    "NONE": 2.42
+   },
+   "oracle": 0.23907977644870826,
+   "oracle_policies": {
+    "BASE": -0.09665854433294882,
+    "R": 0.23907977644870826,
+    "D": -0.15990630352615834,
+    "S": 0.23907977644870826,
+    "S>R": 0.23907977644870826,
+    "S>D": -0.06469079058468273
+   },
+   "contrasts": {
+    "W5-PILOT-ONLY-ADAPTIVE": {
+     "diff": 0.004734030489060755,
+     "lo": 0.0033526493597069063,
+     "hi": 0.006164081603728885
+    },
+    "W5-NONE": {
+     "diff": 0.06826733097644962,
+     "lo": 0.055115903082204085,
+     "hi": 0.08168096501193704
+    },
+    "W5-RANDOM-CERT": {
+     "diff": 0.0682673309764496,
+     "lo": 0.055115903082204085,
+     "hi": 0.08168096501193704
+    }
+   },
+   "beats_all": true,
+   "noninferior": {
+    "NONE": true,
+    "W3C": true
+   },
+   "safe": true,
+   "spike_contrasts": {
+    "W5-PILOT-ONLY-ADAPTIVE": {
+     "diff": -0.05399999999999999,
+     "lo": -0.07549999999999998,
+     "hi": -0.032499999999999994
+    },
+    "W5-NONE": {
+     "diff": -0.2595,
+     "lo": -0.40175,
+     "hi": -0.14575
+    },
+    "W5-RANDOM-CERT": {
+     "diff": -0.2595,
+     "lo": -0.40175,
+     "hi": -0.14575
+    },
+    "W5-W3C": {
+     "diff": -0.2595,
+     "lo": -0.40175,
+     "hi": -0.14575
+    }
+   },
+   "extra": {
+    "W5-W3C": {
+     "diff": 0.0682673309764496,
+     "lo": 0.055115903082204085,
+     "hi": 0.08168096501193704
+    },
+    "W5-W5-NO-ADAPT": {
+     "diff": -0.0002185211588707442,
+     "lo": -0.0023457637451192235,
+     "hi": 0.002276210501541007
+    }
+   },
+   "adopted": "11/20",
+   "adopted_ctx": [
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "crisis",
+     "BEAR"
+    ]
+   ],
+   "log": [
+    {
+     "rep": 0,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 31,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 1,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 32,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 2,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 28,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 3,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 33,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 4,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 32,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 5,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 31,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 6,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "RAVEN",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 37,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 7,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 38,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 8,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 31,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 9,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 33,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 10,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 29,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 11,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 35,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 12,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 33,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 13,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 43,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "BEAR",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 14,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "RAVEN",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 35,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 15,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 34,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 16,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 38,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 17,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 35,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 18,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 30,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 19,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "BEAR"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 30,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "BEAR"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    }
+   ],
+   "false_certificates": {
+    "adopted": 15,
+    "false": 0
+   }
+  },
+  "primary_pass": true,
+  "audit": {
+   "adopted": 15,
+   "false": 0
+  },
+  "pass": false,
+  "confirmation": {
+   "source": "agent",
+   "target": "person_v2",
+   "size": 4,
+   "arms": {
+    "W5": 0.0503146913040496,
+    "PILOT-ONLY-ADAPTIVE": 0.04899993872594102,
+    "W3C": 0.06455527018356041,
+    "RANDOM-CERT": 0.06455527018356041,
+    "W5-NO-ADAPT": 0.05018517314846618,
+    "NONE": 0.06455527018356041
+   },
+   "spikes": {
+    "W5": 0.9245,
+    "PILOT-ONLY-ADAPTIVE": 0.9255,
+    "W3C": 0.945,
+    "RANDOM-CERT": 0.945,
+    "W5-NO-ADAPT": 0.93325,
+    "NONE": 0.945
+   },
+   "oracle": 0.22306519811255854,
+   "oracle_policies": {
+    "BASE": 0.06455527018356041,
+    "R": 0.22306519811255854,
+    "D": 0.060702328203570605,
+    "S": 0.22306519811255854,
+    "S>R": 0.22306519811255854,
+    "S>D": 0.06205360048002545
+   },
+   "contrasts": {
+    "W5-PILOT-ONLY-ADAPTIVE": {
+     "diff": 0.0013147525781085814,
+     "lo": 0.0005434998228697251,
+     "hi": 0.002131144389392422
+    },
+    "W5-NONE": {
+     "diff": -0.014240578879510817,
+     "lo": -0.021797302480922532,
+     "hi": -0.007212354099011427
+    },
+    "W5-RANDOM-CERT": {
+     "diff": -0.014240578879510817,
+     "lo": -0.021797302480922532,
+     "hi": -0.007212354099011429
+    }
+   },
+   "beats_all": false,
+   "noninferior": {
+    "NONE": false,
+    "W3C": false
+   },
+   "safe": true,
+   "spike_contrasts": {
+    "W5-PILOT-ONLY-ADAPTIVE": {
+     "diff": -0.0009999999999999983,
+     "lo": -0.0034999999999999953,
+     "hi": 0.0017499999999999985
+    },
+    "W5-NONE": {
+     "diff": -0.020499999999999997,
+     "lo": -0.044,
+     "hi": -0.003999999999999999
+    },
+    "W5-RANDOM-CERT": {
+     "diff": -0.020499999999999997,
+     "lo": -0.044,
+     "hi": -0.003999999999999999
+    },
+    "W5-W3C": {
+     "diff": -0.020499999999999997,
+     "lo": -0.044,
+     "hi": -0.003999999999999999
+    }
+   },
+   "extra": {
+    "W5-W3C": {
+     "diff": -0.014240578879510817,
+     "lo": -0.021797302480922532,
+     "hi": -0.007212354099011429
+    },
+    "W5-W5-NO-ADAPT": {
+     "diff": 0.00012951815558342032,
+     "lo": -0.0019305365733473714,
+     "hi": 0.002119714936197003
+    }
+   },
+   "adopted": "15/20",
+   "adopted_ctx": [
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ]
+   ],
+   "log": [
+    {
+     "rep": 0,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 22,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 1,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 19,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 2,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 12,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 3,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 10,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 4,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 18,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 5,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 16,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 6,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 14,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 7,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 6,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 8,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "RAVEN",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 6,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 9,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 14,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 10,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 7,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 11,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 34,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 12,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 30,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 13,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 30,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 14,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 5,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 15,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 8,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 16,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 20,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 17,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 25,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 18,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "EAGLE",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 19,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 19,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 13,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    }
+   ],
+   "false_certificates": {
+    "adopted": 17,
+    "false": 0
+   }
+  }
+ },
+ "T-AP-V2": {
+  "claim": "T-AP-V2",
+  "primary": {
+   "source": "agent_v2",
+   "target": "person",
+   "size": 8,
+   "arms": {
+    "W5": 0.005248604972918823,
+    "PILOT-ONLY-ADAPTIVE": 0.035978764647520735,
+    "W3C": -0.09381447656300215,
+    "RANDOM-CERT": -0.09381447656300215,
+    "W5-NO-ADAPT": 0.0039253014375654795,
+    "NONE": -0.09381447656300215
+   },
+   "spikes": {
+    "W5": 1.95425,
+    "PILOT-ONLY-ADAPTIVE": 1.932,
+    "W3C": 2.39,
+    "RANDOM-CERT": 2.39,
+    "W5-NO-ADAPT": 1.91875,
+    "NONE": 2.39
+   },
+   "oracle": 0.24165634047024093,
+   "oracle_policies": {
+    "BASE": -0.09381447656300215,
+    "R": 0.24165634047024093,
+    "D": -0.1548102843737692,
+    "S": 0.24165634047024093,
+    "S>R": 0.24165634047024093,
+    "S>D": -0.052988256029807196
+   },
+   "contrasts": {
+    "W5-PILOT-ONLY-ADAPTIVE": {
+     "diff": -0.030730159674601912,
+     "lo": -0.0363764673892854,
+     "hi": -0.02561407770919921
+    },
+    "W5-NONE": {
+     "diff": 0.09906308153592099,
+     "lo": 0.08154221549919662,
+     "hi": 0.11732741265737491
+    },
+    "W5-RANDOM-CERT": {
+     "diff": 0.09906308153592099,
+     "lo": 0.08154221549919662,
+     "hi": 0.11732741265737491
+    }
+   },
+   "beats_all": false,
+   "noninferior": {
+    "NONE": true,
+    "W3C": true
+   },
+   "safe": true,
+   "spike_contrasts": {
+    "W5-PILOT-ONLY-ADAPTIVE": {
+     "diff": 0.022250000000000006,
+     "lo": -0.053500000000000006,
+     "hi": 0.10125
+    },
+    "W5-NONE": {
+     "diff": -0.43575,
+     "lo": -0.627,
+     "hi": -0.24225000000000002
+    },
+    "W5-RANDOM-CERT": {
+     "diff": -0.43575,
+     "lo": -0.627,
+     "hi": -0.24225000000000002
+    },
+    "W5-W3C": {
+     "diff": -0.43575,
+     "lo": -0.627,
+     "hi": -0.24225000000000002
+    }
+   },
+   "extra": {
+    "W5-W3C": {
+     "diff": 0.09906308153592099,
+     "lo": 0.08154221549919662,
+     "hi": 0.11732741265737491
+    },
+    "W5-W5-NO-ADAPT": {
+     "diff": 0.001323303535353343,
+     "lo": -0.0012806437374044107,
+     "hi": 0.00349411404015421
+    }
+   },
+   "adopted": "15/20",
+   "adopted_ctx": [
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "calm",
+     "BEAR"
+    ],
+    [
+     "rising",
+     "BEAR"
+    ]
+   ],
+   "log": [
+    {
+     "rep": 0,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 42,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 1,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 48,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 2,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 39,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 3,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 46,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 4,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 40,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "BEAR"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 5,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 37,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 6,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 48,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 7,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 58,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "BEAR"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 8,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 57,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 9,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 43,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "BEAR"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 10,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 60,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 11,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 45,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 12,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 54,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "BEAR"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 13,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 50,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 14,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 45,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 15,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 48,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 16,
+     "W5": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 59,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "BEAR"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 17,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 58,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 18,
+     "W5": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "LEOPARD",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 43,
+     "pilot_only": {
+      "calm": "BEAR",
+      "rising": "BEAR",
+      "loaded": "BEAR",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "BEAR",
+      "rising": "LION",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    },
+    {
+     "rep": 19,
+     "W5": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "cand": {
+      "calm": "BEAR",
+      "rising": "BEAR"
+     },
+     "roles": {
+      "RESTORE": "BEAR",
+      "DRIVE": "TIGER",
+      "STABILISE": "BEAR"
+     },
+     "pilot_failures": 55,
+     "pilot_only": {
+      "calm": "LION",
+      "rising": "LION",
+      "loaded": "BEAR",
+      "crisis": "LION"
+     },
+     "no_adapt": {
+      "calm": "LION",
+      "rising": "BEAR",
+      "loaded": "LION",
+      "crisis": "LION"
+     },
+     "w3c": [
+      "hold",
+      "LION",
+      null
+     ]
+    }
+   ],
+   "false_certificates": {
+    "adopted": 18,
+    "false": 0
+   }
+  },
+  "primary_pass": false,
+  "audit": {
+   "adopted": 18,
+   "false": 0
+  },
+  "pass": false
+ }
+}

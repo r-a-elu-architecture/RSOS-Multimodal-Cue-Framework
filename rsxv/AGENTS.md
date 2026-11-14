@@ -1047,6 +1047,21 @@ bands (3–4, 5–9, ≥ 10 user turns); the private record's numbers as the ori
 **Sealed predictions:** P9-R1 0.95; P9-R3 0.75; MSE notes 0.80, phrases 0.75, melody 0.60 (as sealed in §11.8); P9-C2 0.25;
 P9-C5 0.35.
 
+**Amendment, 14 November 2026 — committed after the Parquet reader was checked on the file structure (field names, row
+counts) and before any outcome was computed.** (1) With 200 redraws the smallest +1-corrected p is 1/201 = 0.005, above the
+MSE level of 0.01 / 3 = 0.0033, so the MSE permutation measures (notes and phrases re-entry, melody re-entry and inheritance)
+could not pass by construction. They use 2000 redraws (seeds 0–1999); their 200-redraw p is reported beside it. P9-R1 keeps
+200 redraws (floor 0.005 < 0.01). No threshold, level or pass condition changes. (2) Operational choices left open above,
+fixed now: English = the top-level `language` field equal to "English"; conversations with a repeated `conversation_hash`
+are kept once; a user is the pair (top-level `hashed_ip`, top-level user-agent) and a user's conversations are ordered by
+top-level `timestamp`; a cross-conversation draw is uniform over the assistant turns of all other included conversations;
+the R3 and carry-forward bootstraps resample conversations and take the mean over the events in the resample; an R3 event
+needs both span content words and own content words; MSE notes include coined terms (`terms_of`), as on the record; C2
+families are formed per user by the §11.5 chaining rule (overlap with the family's last member ≥ 0.6), need ≥ 3 members in ≥
+2 conversations, and use 1000 within-family shuffles (seed 4242); C5 applies the §11.5 lexical procedure within each
+conversation, splits users by the SHA-256 of the user pair (lower half = development), and bootstraps held-out events (2000
+resamples, seed 12345, 99%).
+
 **What a pass would show:** that the output-becomes-input structure found in one long private record is a general property
 of human–AI conversation in a large public sample. It would say nothing about the agents or the models of §11.1–11.10.
 

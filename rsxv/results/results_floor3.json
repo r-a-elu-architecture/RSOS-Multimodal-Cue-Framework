@@ -1,0 +1,455 @@
+{
+ "floor3": {
+  "G1": {
+   "agents_to_person": {
+    "arms": {
+     "GATED": -0.09955585036320581,
+     "NONE": -0.09955585036320581,
+     "SHUFFLED-GATED": -0.09955585036320581,
+     "UNGATED": -0.16037980621797057
+    },
+    "beats_shuffled": false,
+    "contrasts": {
+     "GATED-NONE": {
+      "diff": 0.0,
+      "hi": 0.0,
+      "lo": 0.0
+     },
+     "GATED-SHUFFLED-GATED": {
+      "diff": -2.5587171270657903e-19,
+      "hi": 5.247538514829841e-19,
+      "lo": -1.0928757898653885e-18
+     },
+     "GATED-UNGATED": {
+      "diff": 0.06082395585476478,
+      "hi": 0.06475889659531013,
+      "lo": 0.05677719559607986
+     }
+    },
+    "crit_noninferior": true,
+    "crit_vs_ungated": true,
+    "full_table_admitted": false,
+    "gated": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "n": 200,
+    "name": "G1 agents \u2192 person",
+    "pass": true,
+    "table": {
+     "calm": "LEOPARD",
+     "crisis": "LEOPARD",
+     "loaded": "LEOPARD",
+     "rising": "LEOPARD"
+    },
+    "useful": false,
+    "validity_map": [
+     {
+      "bound": -2.1359249929057844,
+      "candidate": "LEOPARD",
+      "context": "calm",
+      "decision": "reject",
+      "estimate": -1.0018204117701064,
+      "false_admit": false,
+      "n_baseline": 17,
+      "n_candidate": 13,
+      "truth": 0.04939831491931944
+     },
+     {
+      "bound": -0.6321512194756433,
+      "candidate": "LEOPARD",
+      "context": "rising",
+      "decision": "reject",
+      "estimate": 0.28291019122655503,
+      "false_admit": false,
+      "n_baseline": 7,
+      "n_candidate": 9,
+      "truth": -0.09931130620466622
+     },
+     {
+      "bound": -1.2197148995391442,
+      "candidate": "LEOPARD",
+      "context": "loaded",
+      "decision": "reject",
+      "estimate": -0.630589620920033,
+      "false_admit": false,
+      "n_baseline": 28,
+      "n_candidate": 40,
+      "truth": -0.2130440236438888
+     },
+     {
+      "bound": -1.4038451819307445,
+      "candidate": "LEOPARD",
+      "context": "crisis",
+      "decision": "reject",
+      "estimate": -0.7002378168292859,
+      "false_admit": false,
+      "n_baseline": 34,
+      "n_candidate": 33,
+      "truth": -0.35529286097348267
+     }
+    ]
+   },
+   "person_to_agents": {
+    "arms": {
+     "GATED": -0.07997497037037035,
+     "NONE": -0.07997497037037035,
+     "SHUFFLED-GATED": -0.07997497037037035,
+     "UNGATED": -0.1025196222222222
+    },
+    "beats_shuffled": true,
+    "contrasts": {
+     "GATED-NONE": {
+      "diff": 0.0,
+      "hi": 0.0,
+      "lo": 0.0
+     },
+     "GATED-SHUFFLED-GATED": {
+      "diff": 9.985502008591497e-19,
+      "hi": 1.752070710736575e-18,
+      "lo": 3.165870343657673e-19
+     },
+     "GATED-UNGATED": {
+      "diff": 0.022544651851851852,
+      "hi": 0.025077903703703705,
+      "lo": 0.019843629629629635
+     }
+    },
+    "crit_noninferior": true,
+    "crit_vs_ungated": true,
+    "full_table_admitted": false,
+    "gated": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "n": 200,
+    "name": "G1 person \u2192 agents",
+    "pass": true,
+    "table": {
+     "calm": "LION",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "useful": false,
+    "validity_map": [
+     {
+      "bound": null,
+      "candidate": "LION",
+      "context": "calm",
+      "decision": "admit (already baseline)",
+      "estimate": 0.0,
+      "false_admit": false,
+      "n_baseline": 79,
+      "n_candidate": 79,
+      "truth": 0.0
+     },
+     {
+      "bound": -0.06,
+      "candidate": "BEAR",
+      "context": "rising",
+      "decision": "reject",
+      "estimate": -0.06,
+      "false_admit": false,
+      "n_baseline": 4,
+      "n_candidate": 10,
+      "truth": -0.04157586295810495
+     },
+     {
+      "bound": -0.5105185938521684,
+      "candidate": "BEAR",
+      "context": "loaded",
+      "decision": "reject",
+      "estimate": 0.2726599326599325,
+      "false_admit": false,
+      "n_baseline": 6,
+      "n_candidate": 11,
+      "truth": -0.04708266135193494
+     },
+     {
+      "bound": null,
+      "candidate": "BEAR",
+      "context": "crisis",
+      "decision": "reject: too few data",
+      "estimate": null,
+      "false_admit": false,
+      "n_baseline": 0,
+      "n_candidate": 2,
+      "truth": 0.025225620915032665
+     }
+    ]
+   }
+  },
+  "G1_pass": true,
+  "G2": {
+   "agents_to_person": {
+    "arms": {
+     "GATED": -0.09955585036320581,
+     "NONE": -0.09955585036320581,
+     "SHUFFLED-GATED": -0.09955585036320581,
+     "UNGATED": -0.24625637767282796
+    },
+    "beats_shuffled": false,
+    "contrasts": {
+     "GATED-NONE": {
+      "diff": 0.0,
+      "hi": 0.0,
+      "lo": 0.0
+     },
+     "GATED-SHUFFLED-GATED": {
+      "diff": -2.5587171270657903e-19,
+      "hi": 5.247538514829841e-19,
+      "lo": -1.0928757898653885e-18
+     },
+     "GATED-UNGATED": {
+      "diff": 0.14670052730962216,
+      "hi": 0.15634741766209848,
+      "lo": 0.1360665219352297
+     }
+    },
+    "crit_noninferior": true,
+    "crit_vs_ungated": true,
+    "full_table_admitted": false,
+    "gated": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "n": 200,
+    "name": "G2 agents(v2) \u2192 person",
+    "pass": true,
+    "table": {
+     "calm": "LEOPARD",
+     "crisis": "LION",
+     "loaded": "TIGER",
+     "rising": "LEOPARD"
+    },
+    "useful": false,
+    "validity_map": [
+     {
+      "bound": -2.1359249929057844,
+      "candidate": "LEOPARD",
+      "context": "calm",
+      "decision": "reject",
+      "estimate": -1.0018204117701064,
+      "false_admit": false,
+      "n_baseline": 17,
+      "n_candidate": 13,
+      "truth": 0.04939831491931944
+     },
+     {
+      "bound": -0.6321512194756433,
+      "candidate": "LEOPARD",
+      "context": "rising",
+      "decision": "reject",
+      "estimate": 0.28291019122655503,
+      "false_admit": false,
+      "n_baseline": 7,
+      "n_candidate": 9,
+      "truth": -0.09931130620466622
+     },
+     {
+      "bound": -0.5526004356615252,
+      "candidate": "TIGER",
+      "context": "loaded",
+      "decision": "reject",
+      "estimate": -0.12431568294618667,
+      "false_admit": false,
+      "n_baseline": 28,
+      "n_candidate": 46,
+      "truth": -0.1439027215015543
+     },
+     {
+      "bound": null,
+      "candidate": "LION",
+      "context": "crisis",
+      "decision": "admit (already baseline)",
+      "estimate": 0.0,
+      "false_admit": false,
+      "n_baseline": 34,
+      "n_candidate": 34,
+      "truth": 0.0
+     }
+    ]
+   },
+   "person_to_agents": {
+    "arms": {
+     "GATED": -0.0808150222222222,
+     "NONE": -0.0808150222222222,
+     "SHUFFLED-GATED": -0.0808150222222222,
+     "UNGATED": -0.13067816296296295
+    },
+    "beats_shuffled": false,
+    "contrasts": {
+     "GATED-NONE": {
+      "diff": 0.0,
+      "hi": 0.0,
+      "lo": 0.0
+     },
+     "GATED-SHUFFLED-GATED": {
+      "diff": 2.553296116203363e-19,
+      "hi": 1.2430377907546308e-18,
+      "lo": -7.052735132018206e-19
+     },
+     "GATED-UNGATED": {
+      "diff": 0.04986314074074074,
+      "hi": 0.0516231925925926,
+      "lo": 0.047996340740740745
+     }
+    },
+    "crit_noninferior": true,
+    "crit_vs_ungated": true,
+    "full_table_admitted": false,
+    "gated": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "n": 200,
+    "name": "G2 person \u2192 agents(v2)",
+    "pass": true,
+    "table": {
+     "calm": "BEAR",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "useful": false,
+    "validity_map": [
+     {
+      "bound": -0.8022523468391436,
+      "candidate": "BEAR",
+      "context": "calm",
+      "decision": "reject",
+      "estimate": -0.31735247208931416,
+      "false_admit": false,
+      "n_baseline": 38,
+      "n_candidate": 22,
+      "truth": -0.007274536603670501
+     },
+     {
+      "bound": -0.06000000000000026,
+      "candidate": "BEAR",
+      "context": "rising",
+      "decision": "reject",
+      "estimate": -0.06000000000000001,
+      "false_admit": false,
+      "n_baseline": 3,
+      "n_candidate": 2,
+      "truth": 0.03046435185185182
+     },
+     {
+      "bound": -0.16571903681118128,
+      "candidate": "BEAR",
+      "context": "loaded",
+      "decision": "reject",
+      "estimate": 0.024599647266313897,
+      "false_admit": false,
+      "n_baseline": 72,
+      "n_candidate": 56,
+      "truth": -0.1053002689170992
+     },
+     {
+      "bound": -0.45209203751794713,
+      "candidate": "BEAR",
+      "context": "crisis",
+      "decision": "reject",
+      "estimate": 0.29836581196581213,
+      "false_admit": false,
+      "n_baseline": 13,
+      "n_candidate": 8,
+      "truth": -0.08167817054405285
+     }
+    ]
+   }
+  },
+  "G2_pass": false,
+  "admitted_changes": 0,
+  "false_admits": 0
+ },
+ "hcfit_m": {
+  "arms": {
+   "bandit": {
+    "all": -0.04977570555037392,
+    "distress": 1.1668587791718712,
+    "late": -0.07693142798415284,
+    "switches": 69.47
+   },
+   "fixed": {
+    "all": -0.04966237028571565,
+    "distress": 9.766676485013084,
+    "late": -0.0027319236098085537,
+    "switches": 0.01
+   },
+   "rotation": {
+    "all": -0.1100606168364715,
+    "distress": 7.69152782754231,
+    "late": -0.15360783312982318,
+    "switches": 30.0
+   },
+   "rule": {
+    "all": -0.09939158319953213,
+    "distress": 2.4689065950800333,
+    "late": -0.15947820675868177,
+    "switches": 67.04
+   },
+   "watchdog": {
+    "all": 0.04473175661630185,
+    "distress": 3.582161566467531,
+    "late": 0.0860720348543878,
+    "switches": 2.0
+   }
+  },
+  "contrasts": {
+   "watchdog-bandit:all": {
+    "diff": 0.09450746216667577,
+    "hi": 0.10639586501245468,
+    "lo": 0.08260928598234146
+   },
+   "watchdog-bandit:late": {
+    "diff": 0.16300346283854064,
+    "hi": 0.1834021408059451,
+    "lo": 0.143169785333974
+   },
+   "watchdog-fixed:all": {
+    "diff": 0.09439412690201751,
+    "hi": 0.10544700584002592,
+    "lo": 0.08310381908245863
+   },
+   "watchdog-fixed:late": {
+    "diff": 0.08880395846419635,
+    "hi": 0.10568848806571206,
+    "lo": 0.0723473882493082
+   },
+   "watchdog-rotation:all": {
+    "diff": 0.15479237345277336,
+    "hi": 0.16783894122770582,
+    "lo": 0.14167653250252668
+   },
+   "watchdog-rotation:late": {
+    "diff": 0.23967986798421098,
+    "hi": 0.2641956694404046,
+    "lo": 0.21656517382232734
+   },
+   "watchdog-rule:all": {
+    "diff": 0.14412333981583397,
+    "hi": 0.15810152532794255,
+    "lo": 0.13073429667607528
+   },
+   "watchdog-rule:late": {
+    "diff": 0.24555024161306957,
+    "hi": 0.2655195972772663,
+    "lo": 0.22625549491774735
+   }
+  },
+  "n": 200,
+  "pass": true,
+  "ticks": 120
+ }
+}

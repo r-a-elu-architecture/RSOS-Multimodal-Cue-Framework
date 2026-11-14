@@ -131,6 +131,16 @@ intervals are in [`results/world.md`](results/world.md).
 | H-CFIT / H-SWITCH | **Pass**: ledger-estimated switching beats rule, rotation, fixed and the bandit on the registered reward | Small margins; final distress is worse than under the rule, so the reward needs re-weighting for a healing goal |
 | W3 transfer | **Fail** in both directions | Same-named archetypes do different jobs on agents and on people; a function-based mapping (W3b) is a new hypothesis |
 
+### Floor 3: certified cross-substrate transfer (registered in AGENTS.md §11.2)
+
+Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.md).
+
+| Test | Registered result | What it means |
+|---|---|---|
+| G1, the gate on the W3 tables | **Pass** in both directions | Every harmful entry was blocked; gated transfer is never worse than none and beats ungated transfer by +0.023 to +0.061 per tick |
+| G2, a case where transfer can be valid | **Fail** | Still no harm (gated beats ungated by +0.050 to +0.147), but nothing was admitted, so no gain; the sources proposed archetypes by name, and the substrates share roles instead |
+| H-CFIT under the mission score | **Pass** | Beats rule, rotation, fixed and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score) |
+
 ## 9. Prior art
 
 See [PRIOR_ART.md](PRIOR_ART.md).

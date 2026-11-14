@@ -1,0 +1,107 @@
+{
+ "label": "EXPLORATORY: computed after the registered floor-3 results were seen; truth cohorts of AGENTS.md 11.2; effect of each archetype vs Lion on the mission score",
+ "effects": {
+  "person": {
+   "calm": {
+    "LION": 0.0,
+    "EAGLE": 0.0361,
+    "BEAR": 0.9079,
+    "LEOPARD": 0.0494,
+    "RAVEN": 0.051,
+    "TIGER": -0.1298
+   },
+   "rising": {
+    "LION": 0.0,
+    "EAGLE": 0.0643,
+    "BEAR": 0.8125,
+    "LEOPARD": -0.0993,
+    "RAVEN": -0.0026,
+    "TIGER": 0.0013
+   },
+   "loaded": {
+    "LION": 0.0,
+    "EAGLE": -0.1186,
+    "BEAR": 0.852,
+    "LEOPARD": -0.213,
+    "RAVEN": 0.126,
+    "TIGER": -0.1439
+   },
+   "crisis": {
+    "LION": 0.0,
+    "EAGLE": -0.22,
+    "BEAR": 0.9458,
+    "LEOPARD": -0.3553,
+    "RAVEN": 0.2211,
+    "TIGER": -0.2972
+   }
+  },
+  "agent": {
+   "calm": {
+    "LION": 0.0,
+    "EAGLE": 0.0003,
+    "BEAR": -0.0214,
+    "LEOPARD": 0.872,
+    "RAVEN": -0.318,
+    "TIGER": 0.0857
+   },
+   "rising": {
+    "LION": 0.0,
+    "EAGLE": -0.0354,
+    "BEAR": -0.0416,
+    "LEOPARD": 1.4618,
+    "RAVEN": -0.4137,
+    "TIGER": 0.0843
+   },
+   "loaded": {
+    "LION": 0.0,
+    "EAGLE": -0.0128,
+    "BEAR": -0.0471,
+    "LEOPARD": 1.5885,
+    "RAVEN": -0.5902,
+    "TIGER": -0.1642
+   },
+   "crisis": {
+    "LION": 0.0,
+    "EAGLE": 0.0127,
+    "BEAR": 0.0252,
+    "LEOPARD": 1.7915,
+    "RAVEN": -0.4582,
+    "TIGER": -0.1156
+   }
+  },
+  "agent_v2": {
+   "calm": {
+    "LION": 0.0,
+    "EAGLE": 0.0252,
+    "BEAR": -0.0073,
+    "LEOPARD": 0.5616,
+    "RAVEN": -0.3578,
+    "TIGER": 0.1203
+   },
+   "rising": {
+    "LION": 0.0,
+    "EAGLE": -0.1379,
+    "BEAR": 0.0305,
+    "LEOPARD": 0.8702,
+    "RAVEN": -0.755,
+    "TIGER": 0.0745
+   },
+   "loaded": {
+    "LION": 0.0,
+    "EAGLE": -0.0368,
+    "BEAR": -0.1053,
+    "LEOPARD": 0.0227,
+    "RAVEN": -0.3761,
+    "TIGER": 0.0856
+   },
+   "crisis": {
+    "LION": 0.0,
+    "EAGLE": -0.1091,
+    "BEAR": -0.0817,
+    "LEOPARD": 0.1089,
+    "RAVEN": -0.4886,
+    "TIGER": 0.0822
+   }
+  }
+ }
+}

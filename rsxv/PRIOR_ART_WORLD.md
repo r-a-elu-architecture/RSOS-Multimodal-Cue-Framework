@@ -116,3 +116,54 @@ Sources (update):
 - AgenTracer: https://www.emergentmind.com/papers/2509.03312
 - AgentDebugX: https://www.alphaxiv.org/abs/2607.18754.md
 - Actor-observer asymmetry: https://www.alphaxiv.org/abs/2604.19548.md
+
+## Update 2, 14 November 2026: after the step 5E results
+
+The step 5E results (W1, W4, H-CFIT pass; W3 transfer fails) led to four proposed additions: a mission score ranked by
+the law order, a "ratchet" that accepts a self-change only if it does not lower that score, predictions sealed before each
+self-test, and warm-starting a person's policy from agents. Each was searched.
+
+| Proposed component | Closest prior art | Status |
+|---|---|---|
+| Self-evolving agents with an archive and empirical checks | Darwin Gödel Machine (Zhang, Hu, Lu, Lange, Clune; ICLR 2026): a coding agent rewrites its own code, validates each change on benchmarks and keeps an archive of all variants | **Exists** |
+| Constitution with a protected core over self-modification | Ouroboros (2026): self-developing agent, protected constitutional principles, independent review before merge, emergency stop; AgentΩ (governed self-improvement control plane, immutable audit); ArbiterOS "Adaptive Core" | **Exists** |
+| Gate that accepts a change only with a guarantee | Safe policy improvement and Seldonian algorithms (Thomas et al.), multi-objective SPI with safety constraints (MO-SPIBB, NeurIPS 2021); Self-Evolving Agents with Anytime-Valid Certificates (2026); Two-Gate guardrail and statistical limits of self-improving agents (Wang, Dorchen, Jin) | **Exists** (the ratchet is SPI / Seldonian) |
+| Agents that pre-register predictions before testing | "Preregister experiments with AI agents" (Vaccaro, ICML 2026, position); Science Superpowers (K-Dense, 2026): research agents must pre-register hypotheses and decision rules before seeing outcomes | **Exists** |
+| Warm-starting a person's adaptive policy | Informative priors from earlier studies (reBandit, MiWaves); priors from a data-driven behavioural simulator (Wang et al., 2021); warm-start actor-critic for mHealth | **Exists** (priors come from human data or simulators of people) |
+| Safe transfer from a source domain | Safe sim-to-real with guarantees (SPiDR, NeurIPS 2025; Sim-to-Lab-to-Real with PAC-Bayes certificates) | **Exists** for robots, where the simulator models the same physical system |
+| Agents standing in for people when pre-testing interventions | LLM-agent simulations of public-health and behaviour-change interventions; documented gap between descriptive fit and causal fidelity ("synthetic persuasion paradox": simulated agents shift, people barely do) | **Exists, with a known open problem** |
+| One architecture for human models and for agents | ACT-R and Soar have each been used for both cognitive models of people and AI agents; HLSR compiled one model to both | **Exists** as cognitive architecture practice |
+
+**Reading.** Everything proposed after step 5E is the first floor: each part is published. Not found in this search:
+
+1. **Certified cross-substrate transfer.** Knowledge learned on software agents enters a person's policy only through a
+   high-confidence non-harm test on that person's own mission score, with a per-context map of where agent knowledge has
+   been valid for people and where it has not. Nearest work transfers from a simulator *of the same system* (robotics) or
+   from *human* data (mHealth priors); here the source is a different substrate running the same architecture. It
+   addresses the causal-fidelity gap that the agent-simulation literature names as open.
+2. **Self-improvement that must earn the right to reach a person.** The system evolves on agents, seals a prediction of
+   each change's effect on the person side, tracks how well such predictions have held (the calibration of agent-to-person
+   transfer), and licenses a change for a person only when the gate passes. Self-improving systems in the literature are
+   validated on their own task; none found gates their changes for a different substrate.
+
+Both are candidates, not claims. The W3 failure is relevant evidence: a correct gate must have blocked the harmful
+agent-derived table in W3. That can be tested on the existing results.
+
+Sources (update 2):
+- Darwin Gödel Machine: https://arxiv.org/abs/2505.22954v2 , https://iclr.cc/virtual/2026/poster/10007327
+- Ouroboros: https://arxiv.org/pdf/2608.08311
+- AgentΩ: https://gh.r-mj.com/fredm23579/Agent-Omega
+- ArbiterOS: https://arxiv.org/pdf/2510.13857
+- MO-SPIBB: https://arxiv.org/pdf/2106.00099
+- Self-Evolving Agents with Anytime-Valid Certificates: https://www.alphaxiv.org/abs/2607.00871.md
+- Statistical limits of self-improving agents: https://arxiv.org/pdf/2510.04399
+- Preregister experiments with AI agents: https://proceedings.mlr.press/v306/vaccaro26a.html
+- Science Superpowers: https://www.k-dense.ai/blog/introducing-science-superpowers
+- reBandit: https://ijcai.org/proceedings/2024/0805.pdf
+- mHealth simulator priors: https://pmc.ncbi.nlm.nih.gov/articles/PMC8523513/
+- Warm start actor-critic mHealth: https://arxiv.org/pdf/1704.04866
+- SPiDR: https://arxiv.org/pdf/2509.18648
+- Sim-to-Lab-to-Real: https://par.nsf.gov/servlets/purl/10421709
+- Synthetic persuasion paradox: https://export.arxiv.org/pdf/2503.02067
+- Causal fidelity of LLM behavioural simulation: https://arxiv.org/pdf/2604.02458
+- ACT-R and Soar: https://arxiv.org/pdf/2201.09305

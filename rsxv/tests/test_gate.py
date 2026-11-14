@@ -71,3 +71,20 @@ class TestGateV2Roles(unittest.TestCase):
         self.assertEqual(rt["loaded"], "BASELINE")
         self.assertEqual(G.from_roles(rt, r)["calm"], "BEAR")
         self.assertEqual(G.from_roles(rt, r)["rising"], "TIGER")
+
+
+class TestRolePolicy(unittest.TestCase):
+    def test_hold_split_hysteresis_and_roles3(self):
+        w = W.World(W.PersonEnv(1), "fixed", seed=1)
+        p = W.RolePolicy("split", "BEAR", "LION")
+        seq = [p(w, {"load": x}) for x in (0.3, 0.9, 0.9, 0.9, 0.5, 0.5, 0.1, 0.1, 0.1, 0.1)]
+        self.assertEqual(seq[0], "LION")
+        self.assertIn("BEAR", seq)
+        self.assertEqual(seq[-1], "LION")
+        self.assertEqual(W.RolePolicy("split", "BEAR", "BEAR").key, ("hold", "BEAR", None))
+        c = [("calm", "LION", 0.1, 0.0, 0.0)] * 3 + [("calm", "BEAR", 0.0, -0.5, -0.2)] * 3 + \
+            [("calm", "TIGER", 0.5, 0.1, 0.3)] * 3
+        self.assertEqual(G.roles3(c), {"RESTORE": "BEAR", "DRIVE": "TIGER", "STABILISE": "BEAR"})
+        w2 = W.World(W.PersonEnv(2), W.RolePolicy("hold", "BEAR"), seed=2, score="mission")
+        w2.run(5)
+        self.assertEqual({t[1] for t in w2.trace[1:]}, {"BEAR"})

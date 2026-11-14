@@ -70,6 +70,7 @@ class AgentEnv:
 
     def step(self, mode: str) -> float:
         before = self.sys.health()
+        l0 = max(self.sys.errors().values())
         self._maybe_fault(self.fault_rate)
         load = max(self.sys.observe().values())
         progress = {"LION": 0.5, "TIGER": 1.0, "BEAR": 0.2, "LEOPARD": 0.0, "EAGLE": 0.3, "RAVEN": 0.3}[mode]
@@ -102,6 +103,7 @@ class AgentEnv:
         rise = 10 * (harm - (1 - before))
         self.mission = 0.2 * progress - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
         self.comp = (0.2 * progress, rise)
+        self.comp3 = (0.2 * progress, rise, max(self.sys.errors().values()) - l0)
         return 0.2 * progress - 2.0 * harm
 
     def override(self):
@@ -130,6 +132,7 @@ class AgentEnvV2(AgentEnv):
 
     def step(self, mode: str) -> float:
         before = self.sys.health()
+        p0 = self.P
         self.P = min(1.0, self.P + 0.05)
         self._maybe_fault(self.fault_rate)
         progress = {"LION": 0.5, "TIGER": 1.0, "BEAR": 0.2, "LEOPARD": 0.0, "EAGLE": 0.3, "RAVEN": 0.3}[mode]
@@ -162,6 +165,7 @@ class AgentEnvV2(AgentEnv):
         rise = 10 * (harm - (1 - before))
         self.mission = 0.2 * progress - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
         self.comp = (0.2 * progress, rise)
+        self.comp3 = (0.2 * progress, rise, self.P - p0)
         return 0.2 * progress - 2.0 * harm
 
 
@@ -182,12 +186,12 @@ class PersonEnv:
 
     side = "person"
 
-    def __init__(self, seed: int, pid: int = 1):
+    def __init__(self, seed: int, pid: int = 1, model: dict | None = None):
         from . import sim
         self.rng = random.Random(seed)
         p = sim.person(self.rng, pid)
         p["base"]["arousal"] = min(0.95, p["base"]["arousal"] + 0.1)
-        self.body = sim.Body(p, self.rng)
+        self.body = sim.Body(p, self.rng, model)
         self.prev_harm = self.body.s["distress"] / 10
 
     def sense(self) -> dict:
@@ -198,7 +202,7 @@ class PersonEnv:
 
     def step(self, mode: str) -> float:
         s = self.body.s
-        a0, d0 = s["agency"], s["distress"]
+        a0, d0, u0 = s["agency"], s["distress"], s["arousal"]
         self.prev_harm = d0 / 10
         if self.rng.random() < 0.15:                      # life events: a stress spike
             s["arousal"] = min(1.0, s["arousal"] + 0.2)
@@ -208,6 +212,7 @@ class PersonEnv:
         rise = s["distress"] - d0
         self.mission = (s["agency"] - a0) - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
         self.comp = (s["agency"] - a0, rise)
+        self.comp3 = (s["agency"] - a0, rise, s["arousal"] - u0)
         return (s["agency"] - a0) - 2.0 * (s["distress"] - d0) / 10
 
     def override(self):
@@ -299,6 +304,8 @@ class World:
         self.score = score
         self.trace: list[tuple] = []          # (context, mode, score) per tick
         self.comps: list[tuple] = []          # (context, mode, gain, harm rise) per tick
+        self.comps3: list[tuple] = []         # (context, mode, gain, harm rise, load change) per tick
+        self.pstate: dict = {}                # state of a callable policy
         self.env, self.policy, self.rng = env, policy, random.Random(seed * 31 + 7)
         self.explore, self.fixed_mode = explore, fixed_mode
         self.log = ag.AuditLog()
@@ -374,7 +381,9 @@ class World:
             self._switch(act["to"], "misfit")
         # non-Watchdog policies choose directly (still through the Watchdog's handover and Spine)
         if self.policy not in ("watchdog", "random") and act["action"] == "HOLD":
-            if isinstance(self.policy, dict):
+            if callable(self.policy):
+                want = self.policy(self, sense)
+            elif isinstance(self.policy, dict):
                 want = self.policy.get(ctx, self.active)
             else:
                 want = {"rule": lambda: self._rule(ctx), "rotation": lambda: MODES[self.t // 4 % len(MODES)],
@@ -391,6 +400,7 @@ class World:
             r = self.env.mission
         self.trace.append((ctx, mode, r))
         self.comps.append((ctx, mode) + tuple(getattr(self.env, "comp", (0.0, 0.0))))
+        self.comps3.append((ctx, mode) + tuple(getattr(self.env, "comp3", (0.0, 0.0, 0.0))))
         self.ledger.add(ctx, mode, r)
         mu, n = self.beta.get((ctx, mode), (0.0, 0))
         self.beta[(ctx, mode)] = ((mu * n + r) / (n + 1), n + 1)
@@ -448,3 +458,29 @@ class World:
                 "edges": {k: sum(1 for e in self.lineage.edges if e["kind"] == k) for k in Lineage.EDGES},
                 "pending": [p["kind"] for p in self.meta.pending if p["status"] == "pending"],
                 "audit_ok": self.log.verify()}
+
+
+class RolePolicy:
+    """A whole policy (AGENTS.md §11.4): ("hold", archetype) or ("split", archetype while loaded, archetype otherwise).
+    Loaded uses a smoothed load (weight 0.3 on the newest tick) with hysteresis 0.55 / 0.45."""
+
+    def __init__(self, kind: str, a: str, b: str | None = None):
+        self.kind, self.a, self.b = kind, a, b
+        self.key = (kind, a, b) if kind == "split" and a != b else ("hold", a, None)
+
+    def __call__(self, world, sense):
+        if self.key[0] == "hold":
+            return self.a
+        st = world.pstate
+        st["ema"] = sense["load"] if "ema" not in st else 0.7 * st["ema"] + 0.3 * sense["load"]
+        if st.get("loaded"):
+            st["loaded"] = st["ema"] > 0.45
+        else:
+            st["loaded"] = st["ema"] >= 0.55
+        return self.a if st["loaded"] else self.b
+
+    def __eq__(self, other):
+        return isinstance(other, RolePolicy) and self.key == other.key
+
+    def __hash__(self):
+        return hash(self.key)

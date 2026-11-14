@@ -109,3 +109,17 @@ def role_table(table: dict, source_roles: dict) -> dict:
 
 def from_roles(rtable: dict, target_roles: dict, baseline=BASELINE) -> dict:
     return {c: target_roles.get(r, baseline) if r != "BASELINE" else baseline for c, r in rtable.items()}
+
+
+def roles3(comps3, baseline=BASELINE) -> dict:
+    """Roles of §11.4: RESTORE, DRIVE as in roles(); STABILISE = largest reduction in load (may equal RESTORE)."""
+    comps3 = list(comps3)
+    out = roles([(c, m, g, h) for c, m, g, h, _ in comps3], baseline)
+    l = {}
+    for _, m, _, _, dl in comps3:
+        l.setdefault(m, []).append(dl)
+    if baseline in l and out:
+        ml = {m: sum(v) / len(v) - sum(l[baseline]) / len(l[baseline]) for m, v in l.items() if m != baseline}
+        if ml:
+            out["STABILISE"] = min(ml, key=ml.get)
+    return out

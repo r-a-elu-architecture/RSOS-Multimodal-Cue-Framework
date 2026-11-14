@@ -275,8 +275,10 @@ class FitLedger:
 
 # ------------------------------------------------------------------------------------------------------------ lineage
 class Lineage:
-    EDGES = {"SWITCH", "COOL", "MERGE", "SPLIT", "BAN", "SLEEP", "PROMOTE", "DEMOTE"}
-    WATCHDOG_MAY = {"SWITCH", "COOL", "SLEEP", "PROMOTE", "DEMOTE"}
+    EDGES = {"SWITCH", "COOL", "MERGE", "SPLIT", "BAN", "SLEEP", "PROMOTE", "DEMOTE",
+             "FAILURE", "META", "REPURPOSE", "HEAL"}                 # R4: failure nodes and their repurposing
+    WATCHDOG_MAY = {"SWITCH", "COOL", "SLEEP", "PROMOTE", "DEMOTE", "FAILURE", "META"}
+    MAINTENANCE_MAY = {"REPURPOSE", "HEAL"}                          # applied only in the maintenance window
 
     def __init__(self, log: ag.AuditLog):
         self.edges: list[dict] = []
@@ -284,7 +286,7 @@ class Lineage:
 
     def add(self, kind, src, dst, by, t, rationale="", **deltas):
         assert kind in self.EDGES, kind
-        if kind not in self.WATCHDOG_MAY and by != "owner":
+        if kind not in self.WATCHDOG_MAY and by != "owner" and not (kind in self.MAINTENANCE_MAY and by == "MAINTENANCE"):
             raise PermissionError(f"{kind} needs owner ratification")
         e = {"t": t, "kind": kind, "from": src, "to": dst, "by": by, "rationale": rationale, "deltas": deltas,
              "rollback": f"edge {len(self.edges)} reversible from snapshot"}
@@ -449,6 +451,9 @@ class World:
                 loop.mem.store["reflex:" + str(k)] = loop.reflexes.pop(k)
                 loop.mem.archive_entry("reflex:" + str(k), "stale after change")
                 archived += 1
+        maint = getattr(self, "maint", None)
+        if maint is not None:                                        # R4: queued changes apply only here
+            maint.apply(self)
         seal = self.log.sealed(SLEEP_EVERY)
         self.lineage.add("SLEEP", self.active, self.active, "WATCHDOG", self.t, "consolidate", archived=archived,
                          seal=seal["seal"][:12])

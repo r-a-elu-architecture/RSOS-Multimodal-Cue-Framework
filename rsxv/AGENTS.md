@@ -142,6 +142,26 @@ Tests: `tests/test_person2.py`. A stated model, not data.
 - **Mission score v2:** a tuple (safety, depth, agency), compared lexicographically with tolerances — a run that is safer
   beyond tolerance wins whatever its depth or agency.
 
+### 3.3 Architecture layers (step R4) — `rsxv/layers.py`
+
+- **Node cards.** Every module, anchor or cue has a card: function, capabilities, role (daily / emergency / retired),
+  activation history with provenance (direct vs temporal), and a contamination index that counts only *direct*
+  failure-context activations. Temporal co-occurrence is interpretive spread and does not count. Cards with crisis
+  history route to the clinician view. Transfer between substrates is keyed by function, not by name. The system only
+  recommends keep-and-reweight or retire-and-replace; the person (or owner / clinician) decides, and the decision is logged.
+- **Failure nodes (failure repurposing).** Any failure in the system — agent fault, silent fault, contaminated anchor,
+  propagating cue, refused transfer, lost correction, flicker, person setback, summary drift — is registered as a failure
+  node with a FAILURE lineage edge. Each node must be closed as `new_mechanism`, `updated_mechanism` (both naming the
+  mechanism) or `no_change` (with a reason). Silent closes raise. Open nodes past an age limit are audited. The registry
+  exports the genealogy failure → mechanism.
+- **Maintenance window.** Proposed changes are queued and applied only in `World.sleep`, each through the Spine and an
+  optional gate (e.g. the floor-3 transfer gate). Applied changes get a REPURPOSE lineage edge, which only the maintenance
+  actor may write; rejected changes are audited. Nothing changes mid-activation.
+- **Lineage memory.** Claims carry source pointers. Corrections are stored and carried forward in every summary capsule.
+  A corrected claim re-entering from an old capsule is refused and flagged (`corrected_claim_reentry`); unsourced claims
+  are flagged; `diff_summaries` reports added (and unsourced-added), dropped, changed and moved items between summaries.
+- Earlier results are unchanged: a World without `maint` behaves exactly as before.
+
 ## 4. Watchdog
 
 `watchdog_tick` runs every World tick.

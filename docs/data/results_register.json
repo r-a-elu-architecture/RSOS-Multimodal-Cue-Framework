@@ -1,0 +1,197 @@
+{
+ "source": "rsxv/RESULTS.md \u00a78",
+ "rows": [
+  {
+   "test": "W1 repair",
+   "result": "<b>Pass</b>: meta repair fixes 100% of trials vs 50% for local reflect-and-retry (0% vs 100% on cross-agent faults)",
+   "meaning": "The gain comes from the global view: an equal-information greedy baseline also fixes 100%",
+   "status": "pass"
+  },
+  {
+   "test": "W4 safety",
+   "result": "<b>Pass</b>: 350/350 attempts blocked and logged, 0/350 legitimate proposals blocked",
+   "meaning": "Rules are wired in; not a test against an adaptive adversary",
+   "status": "pass"
+  },
+  {
+   "test": "H-CFIT / H-SWITCH",
+   "result": "<b>Pass</b>: ledger-estimated switching beats rule, rotation, fixed and the bandit on the registered reward",
+   "meaning": "Small margins; final distress is worse than under the rule, so the reward needs re-weighting for a healing goal",
+   "status": "pass"
+  },
+  {
+   "test": "W3 transfer",
+   "result": "<b>Fail</b> in both directions",
+   "meaning": "Same-named archetypes do different jobs on agents and on people; a function-based mapping (W3b) is a new hypothesis",
+   "status": "fail"
+  },
+  {
+   "test": "G1, the gate on the W3 tables",
+   "result": "<b>Pass</b> in both directions",
+   "meaning": "Every harmful entry was blocked; gated transfer is never worse than none and beats ungated transfer by +0.023 to +0.061 per tick",
+   "status": "pass"
+  },
+  {
+   "test": "G2, a case where transfer can be valid",
+   "result": "<b>Fail</b>",
+   "meaning": "Still no harm (gated beats ungated by +0.050 to +0.147), but nothing was admitted, so no gain; the sources proposed archetypes by name, and the substrates share roles instead",
+   "status": "fail"
+  },
+  {
+   "test": "H-CFIT under the mission score",
+   "result": "<b>Pass</b>",
+   "meaning": "Beats rule, rotation, fixed and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score)",
+   "status": "pass"
+  },
+  {
+   "test": "W3b, role-based transfer (AGENTS.md \u00a711.3)",
+   "result": "<b>Fail</b>",
+   "meaning": "Roles were read correctly in 12 of 12 runs, but the gate starved on a uniform pilot and per-context policies flickered; \"restore always\" reaches near-oracle on the person and agents v1 but not on agents v2 (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w3b.md\">results/w3b.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "W3c, policy-level transfer tested as deployed (AGENTS.md \u00a711.4, fourth attempt)",
+   "result": "<b>Fail</b>",
+   "meaning": "Safe in every case; useful in one direction of four (person \u2192 agents v1: at 16 pilot targets adopted 13/20 times against 1/20 for pilot-only, +0.047 per tick); the best policy differs by substrate (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w3c.md\">results/w3c.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "W5, transfer through the R4 layers (AGENTS.md \u00a711.5, fifth attempt)",
+   "result": "<b>Fail</b>",
+   "meaning": "Certificates were accurate (0 false of 27), but the failure-driven pilot starved the gate; alternating in every context did better (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5.md\">results/w5.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "W5-R, failure repurposing vs repair (\u00a711.5)",
+   "result": "<b>Fail</b> on both substrates",
+   "meaning": "Agents: beats repair and random change in 2 of 3 held-out regimes, more spikes in the trigger storm; persons: no mechanism admitted. 34,000 failure nodes, none closed silently (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5r.md\">results/w5r.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "LIA-G, genealogy recovery (\u00a711.5)",
+   "result": "<b>Fail</b>",
+   "meaning": "F1 0.12; beats temporal proximity but not random; causes diagnosed (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/lia_g.md\">results/lia_g.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "C1\u2013C6, corpus lineage (\u00a711.5)",
+   "result": "C4 <b>pass</b>, C3 <b>fail</b>, C1/C2/C5 not testable, C6 inconclusive",
+   "meaning": "Output re-entering as the next prompt is the strong signal (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/corpus_lineage.md\">results/corpus_lineage.md</a>; summary <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r6_summary.md\">results/r6_summary.md</a>)",
+   "status": "mixed"
+  },
+  {
+   "test": "W5b, transfer with a full pilot (\u00a711.6, sixth attempt)",
+   "result": "<b>Fail</b> (safety gate only)",
+   "meaning": "Two directions beat pilot-only, no transfer and random functions for the first time; 0.06 more spikes per target than pilot-only in one direction blocked the pass (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5b.md\">results/w5b.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "W5-R2, repurposing with probe and spike guard (\u00a711.6)",
+   "result": "Persons <b>pass, confirmed</b>; agents <b>fail</b>",
+   "meaning": "Persons: equal to doing nothing, better than repair and random change (a do-no-harm pass); agents: untested commits hurt (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5r2.md\">results/w5r2.md</a>)",
+   "status": "mixed"
+  },
+  {
+   "test": "LIA-G2 (\u00a711.6)",
+   "result": "<b>Fail</b>",
+   "meaning": "F1 0.12; beats temporal and random (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/lia_g2.md\">results/lia_g2.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "Corpus v2 (\u00a711.6)",
+   "result": "R1, R2, C4b <b>pass</b>; C1b, C6b inconclusive",
+   "meaning": "Output re-enters as input and carries forward more than the person's own words (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/corpus_v2.md\">results/corpus_v2.md</a>; summary <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r6b_summary.md\">results/r6b_summary.md</a>)",
+   "status": "mixed"
+  },
+  {
+   "test": "W5c, transfer with pilot spike guard (\u00a711.7, seventh attempt)",
+   "result": "<b>Fail</b>",
+   "meaning": "Agents v1 \u2192 person meets every condition including safety; a second direction is needed (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5c.md\">results/w5c.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "W5-R3, every change probed (\u00a711.7)",
+   "result": "<b>Fail</b> on both substrates",
+   "meaning": "The non-harm probe rejects almost every library mechanism; the trained policies leave the fixed library nothing to improve (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5r3.md\">results/w5r3.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "LIA-G3 (\u00a711.7)",
+   "result": "<b>Fail</b>",
+   "meaning": "8 committed changes in 1,200 runs; not a meaningful test (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/lia_g3.md\">results/lia_g3.md</a>; summary <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r6c_summary.md\">results/r6c_summary.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "<b>T-AP, transfer agents v1 \u2192 person (\u00a711.8)</b>",
+   "result": "<b>PASS, confirmed</b>",
+   "meaning": "The first confirmed cross-substrate transfer: beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/tap.md\">results/tap.md</a>)",
+   "status": "pass"
+  },
+  {
+   "test": "W5d, negative certificates + fail-safe tube (\u00a711.8)",
+   "result": "<b>Fail</b>",
+   "meaning": "Two directions beat every comparator; one has slightly more spikes than pilot-only; the jam predictor is near chance (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5d.md\">results/w5d.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "W5-R4, anticipatory forge (\u00a711.8)",
+   "result": "<b>Fail</b> on both substrates",
+   "meaning": "The Lion's failure forecasts beat the base rate on agents; the 10-tick ghost passes carry too little evidence (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5r4.md\">results/w5r4.md</a>; summary <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r6d_summary.md\">results/r6d_summary.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "T-AP-4 / T-AP-V2, reach of the confirmed transfer (\u00a711.9)",
+   "result": "<b>Fail</b>",
+   "meaning": "Pilot 4 passes on person model v1, not on v2; agents v2 \u2192 person does not transfer (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/tapr.md\">results/tapr.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "J1, jam predictor (\u00a711.9)",
+   "result": "<b>Accepted</b>",
+   "meaning": "0.754 accuracy on fresh seeds (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/j1.md\">results/j1.md</a>)",
+   "status": "pass"
+  },
+  {
+   "test": "W5e (\u00a711.9)",
+   "result": "<b>Fail</b>",
+   "meaning": "Two directions beat every comparator; person \u2192 agents v1 adds spikes again (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5e.md\">results/w5e.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "<b>W5-R5, snapshot forge (\u00a711.9)</b>",
+   "result": "<b>Fail</b> (agents: beats repair, random and doing nothing in 2 of 3 regimes; below doing nothing after the mid-run shift)",
+   "meaning": "First time repurposing improves on doing nothing; the mechanisms the failures shaped carried it (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5r5.md\">results/w5r5.md</a>; summary <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r6e_summary.md\">results/r6e_summary.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "W5-R6, snapshot forge with re-verification (\u00a711.10)",
+   "result": "<b>Fail</b>",
+   "meaning": "Agents: beats every comparator in the fault storm only; re-verification lifts the shift regime by +0.016 but stays just below doing nothing; round 5's E2 gain did not replicate (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/w5r6.md\">results/w5r6.md</a>; summary <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r6f_summary.md\">results/r6f_summary.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "Phase 9 public-data replication, WildChat-1M shards 0\u20132 (\u00a711.11)",
+   "result": "<b>5 of 7 pass</b>",
+   "meaning": "R1, R3, MSE notes, MSE phrases and C2 pass; MSE melody fails as a scale (carry-forward does not clear, as at the origin); C5 fails. First LSGPA result replicated outside the private record (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/p9.md\">results/p9.md</a>; summary <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/p9_summary.md\">results/p9_summary.md</a>)",
+   "status": "mixed"
+  },
+  {
+   "test": "Round 7 person model v3 and safety recall on the owner's record (\u00a711.12)",
+   "result": "<b>V3 fails, SR-ORACLE passes, SR-LEXICAL fails</b>",
+   "meaning": "Neither hand-set nor fitted dynamics beat \"next state = current\"; the safety rules are right given a perfect reading, but a keyword reader catches 13% of the moments that call for them (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r7.md\">results/r7.md</a>)",
+   "status": "mixed"
+  },
+  {
+   "test": "SR-2 meaning-based reader for the safety layer (\u00a711.13)",
+   "result": "<b>Fail</b>",
+   "meaning": "Any-screen recall 0.81 (from 0.13) with no false alarms, but not every critical turn: the misses are references to past states, a definition gap the labels themselves are inconsistent on (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/sr2.md\">results/sr2.md</a>)",
+   "status": "fail"
+  },
+  {
+   "test": "SR-3 past-crisis check-in and fixed definition (\u00a711.14)",
+   "result": "<b>Fail (one turn)</b>",
+   "meaning": "Recall 0.95, 1 false alarm in 270, every past-crisis reference checked in; the one missed crisis was read correctly but the \u00a73.1 rule needs hopelessness and arrangements together (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/sr3.md\">results/sr3.md</a>)",
+   "status": "fail"
+  }
+ ]
+}

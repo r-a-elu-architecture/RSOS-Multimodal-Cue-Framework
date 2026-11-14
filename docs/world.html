@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>World — agents and a simulated person under one architecture · RSOS</title>
+<meta name="description" content="Replays of real runs of the tested RSX-V code: six software agents and a simulated person, each switched by the Watchdog under the Spine. Intervene, then see why each decision was made.">
+<style>
+:root{
+  --ink:#151b2f; --ink-2:#1d2540; --line:#2e3858; --text:#e7e9f2; --muted:#a3abc6;
+  --gold:#e8b04a; --glow:#f7d995; --calm:#7fb7a4; --warn:#e8b04a; --hot:#e0745a;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font:16px/1.55 var(--sans)}
+a{color:var(--glow)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0;gap:20px}
+.mark{font-family:var(--serif);font-size:1.25rem;color:var(--text);text-decoration:none}
+nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 14px}
+nav a{color:var(--muted);text-decoration:none;font-size:.86rem}
+nav a:hover,nav a[aria-current]{color:var(--text)}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.06;margin:26px 0 14px;max-width:18em}
+.lede{color:#cfd3e4;max-width:40em;margin:0 0 10px;font-size:1.08rem}
+.note{color:var(--muted);font-size:.9rem;max-width:52em}
+h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:0 0 10px}
+.controls{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:end;margin:30px 0 18px;padding:16px 18px;background:var(--ink-2);border:1px solid var(--line);border-radius:12px}
+.controls label{display:flex;flex-direction:column;gap:5px;font-size:.8rem;color:var(--muted);min-width:0;max-width:100%}
+.controls select{max-width:100%}
+select,button{font:inherit;font-size:.92rem;background:var(--ink);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 11px}
+button{cursor:pointer}
+button.play{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650;min-width:6.5em}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;border-radius:0;background:transparent;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--line);color:var(--text)}
+.stage{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}
+@media (max-width:860px){.stage{grid-template-columns:1fr}}
+.pane{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.pane h3{margin:0 0 2px;font-family:var(--serif);font-weight:500;font-size:1.15rem}
+.pane .sub{color:var(--muted);font-size:.84rem;margin:0 0 8px}
+.now{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:.92rem;margin-top:6px}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.82rem;color:var(--text)}
+.chip.mode{border-color:var(--gold);color:var(--glow)}
+.chip.safe-STABILISE{border-color:var(--warn);color:var(--warn)}
+.chip.safe-CRISIS,.chip.safe-PRACTICAL_CRISIS{border-color:var(--hot);color:var(--hot)}
+svg text{font-family:var(--sans)}
+.gauge{margin:10px 0}
+.gauge .row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted)}
+.bar{height:12px;background:var(--ink);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin-top:4px}
+.bar i{display:block;height:100%;background:var(--calm);transition:width .25s,background .25s}
+.cue{font-size:.85rem;color:var(--hot);min-height:1.3em}
+.timeline{margin-top:18px}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+@media (max-width:860px){.why{grid-template-columns:1fr}}
+.chain{list-style:none;margin:0;padding:0;counter-reset:s}
+.chain li{position:relative;padding:6px 0 6px 30px;border-left:1px solid var(--line);margin-left:10px;font-size:.92rem}
+.chain li::before{counter-increment:s;content:counter(s);position:absolute;left:-11px;top:6px;width:22px;height:22px;border-radius:50%;background:var(--ink);border:1px solid var(--gold);color:var(--glow);font-size:.75rem;display:grid;place-items:center}
+.chain b{color:var(--text);font-weight:600}
+.chain .dim{color:var(--muted)}
+.side{margin:14px 0 6px;font-size:.82rem;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.log{font:13px/1.5 var(--mono);color:#cfd3e4;max-height:240px;overflow:auto;margin:0;padding:0;list-style:none}
+.log li{padding:3px 0;border-bottom:1px solid #263052}
+.log .k{color:var(--glow)}
+section{padding:40px 0;border-top:1px solid var(--line);margin-top:34px}
+footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px solid var(--line);margin-top:40px}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <a class="mark" href="./">RSOS</a>
+  <nav><a href="world.html" aria-current="page">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html" aria-current="page">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+</header>
+
+<h1>Software agents and a simulated person, run by one architecture.</h1>
+<p class="lede">On the left, six software agents depend on each other and fail. On the right, a simulated person meets cues that raise distress. The same Watchdog chooses each side's working mode every tick, and the Spine and the safety layer can overrule it.</p>
+<p class="note">These are replays of real runs of the tested code (<code>rsxv</code>: <code>World</code>, <code>AgentEnvV2</code>, <code>PersonEnvV2</code>), recorded tick by tick. Both sides are stated models, not people and not production systems. Choose an intervention and a run, press play, and click the timeline to see why any decision was made.</p>
+
+<div class="controls" role="group" aria-label="Run controls">
+  <label>What happens<select id="ev"><option value="none">Nothing: an ordinary run</option><option value="storm">A storm: faults and a cue for 20 ticks</option><option value="shift">A shift: conditions change and stay changed</option></select></label>
+  <label>When<select id="t0"><option value="40">At tick 40</option><option value="90">At tick 90</option></select></label>
+  <label>Run<select id="seed"><option value="11">Run A</option><option value="12">Run B</option><option value="13">Run C</option></select></label>
+  <label>Speed<select id="speed"><option value="260">Slow</option><option value="120" selected>Normal</option><option value="45">Fast</option></select></label>
+  <label>Names<span class="seg" role="group"><button type="button" id="nmF" aria-pressed="true">Functions</button><button type="button" id="nmS" aria-pressed="false">Symbols</button></span></label>
+  <button class="play" id="play" type="button">Play</button>
+  <button id="reset" type="button">Restart</button>
+</div>
+
+<div class="stage">
+  <div class="pane">
+    <h3>Agent system</h3>
+    <p class="sub">Each circle is an agent; its ring shows how wrong its output is. Arrows point from an agent to the agents it depends on, so one agent's fault spreads downstream.</p>
+    <svg id="graph" viewBox="0 0 560 300" width="100%" role="img" aria-label="Agent dependency graph"></svg>
+    <div class="now" id="aNow"></div>
+  </div>
+  <div class="pane">
+    <h3>Simulated person</h3>
+    <p class="sub">Distress, arousal and agency of the simulated person, with the safety mode in force.</p>
+    <div class="gauge"><div class="row"><span>Distress</span><span id="dV"></span></div><div class="bar"><i id="dB"></i></div></div>
+    <div class="gauge"><div class="row"><span>Arousal</span><span id="uV"></span></div><div class="bar"><i id="uB"></i></div></div>
+    <div class="gauge"><div class="row"><span>Agency</span><span id="gV"></span></div><div class="bar"><i id="gB"></i></div></div>
+    <div class="cue" id="cue" aria-live="polite"></div>
+    <div class="now" id="pNow"></div>
+  </div>
+</div>
+
+<div class="pane timeline">
+  <h3>Timeline</h3>
+  <p class="sub">Gold line: agent system health. Coral line: the person's distress. Coral dots: cues reaching the person. Gold marks: the safety layer overruling the Watchdog. The shaded band is the intervention. Click anywhere to jump to that tick.</p>
+  <svg id="tl" viewBox="0 0 1100 150" width="100%" role="img" aria-label="Timeline; click to seek"></svg>
+</div>
+
+<div class="why">
+  <div class="pane">
+    <h3>Why, at tick <span id="tNow">0</span></h3>
+    <p class="sub">The decision chain for the person this tick, then for the agents.</p>
+    <h4 class="side">Person</h4>
+    <ol class="chain" id="chainP"></ol>
+    <h4 class="side">Agents</h4>
+    <ol class="chain" id="chainA"></ol>
+  </div>
+  <div class="pane">
+    <h3>Lineage</h3>
+    <p class="sub">Every switch, cool-down, promotion and sleep is a typed edge with a reason; any edge can be rolled back from a snapshot.</p>
+    <ul class="log" id="log"></ul>
+  </div>
+</div>
+
+<section>
+  <h2>What you are looking at</h2>
+  <p class="lede">The Watchdog estimates, from what it has seen so far, which mode fits each context, and switches through a two-phase handover. It also micro-randomises some ticks to keep learning. On the person side, a safety mode such as STABILISE blocks deep work whatever the Watchdog wants, and the run falls back to stabilising. Each block shows as a small gold mark on the timeline and as a step in the decision chain for that tick.</p>
+  <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The confirmed result most relevant here is T-AP: a policy learned on agents, certified and gated, helps the simulated person.</p>
+</section>
+
+<footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>.</footer>
+</div>
+
+<script>
+(() => {
+"use strict";
+const NAMES = {
+  F: {LION:"Baseline", EAGLE:"Plan", BEAR:"Stabilise", LEOPARD:"Repair", RAVEN:"Monitor", TIGER:"Drive"},
+  S: {LION:"Lion", EAGLE:"Eagle", BEAR:"Bear", LEOPARD:"Leopard", RAVEN:"Raven", TIGER:"Tiger"}
+};
+const CTX = {calm:"calm", rising:"rising", loaded:"loaded", crisis:"in crisis"};
+const ACT = {HOLD:"held the current mode", SWITCH:"switched mode (fit was low)", OVERRIDE:"ran the repair loop (overload)", RE_ENTRY:"re-entered from the last good snapshot"};
+const POS = {RAVEN:[90,70], BEAR:[90,230], EAGLE:[230,150], LEOPARD:[350,70], TIGER:[400,230], LION:[505,150]};
+let D = null, run = null, t = 0, timer = null, names = "F";
+const $ = id => document.getElementById(id);
+const nm = m => NAMES[names][m] || m;
+const el = (tag, attrs, parent) => { const e = document.createElementNS("http://www.w3.org/2000/svg", tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const heat = x => x < 0.2 ? "var(--calm)" : x < 0.45 ? "var(--warn)" : "var(--hot)";
+
+function pick() {
+  const ev = $("ev").value, seed = +$("seed").value, t0 = +$("t0").value;
+  $("t0").disabled = ev === "none";
+  run = D.runs.find(r => r.seed === seed && (ev === "none" ? r.event === null : r.event === ev && r.t0 === t0));
+  t = 0; drawTimeline(); show();
+}
+
+function drawGraph(tick) {
+  const g = $("graph"); g.textContent = "";
+  const defs = el("defs", {}, g);
+  const mk = el("marker", {id:"ar", viewBox:"0 0 10 10", refX:"9", refY:"5", markerWidth:"7", markerHeight:"7", orient:"auto"}, defs);
+  el("path", {d:"M0,0 L10,5 L0,10 z", fill:"#5b6790"}, mk);
+  for (const [a, deps] of Object.entries(D.graph)) for (const b of deps) {
+    const [x1,y1] = POS[a], [x2,y2] = POS[b]; const dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy);
+    el("line", {x1:x1+dx/L*34, y1:y1+dy/L*34, x2:x2-dx/L*36, y2:y2-dy/L*36, stroke:"#5b6790", "stroke-width":"1.5", "marker-end":"url(#ar)"}, g);
+  }
+  const a = tick ? tick.a : null;
+  for (const [k,[x,y]] of Object.entries(POS)) {
+    const err = a ? a.err[k] : 0, on = a && a.mode === k;
+    el("circle", {cx:x, cy:y, r:30, fill:"var(--ink)", stroke:on ? "var(--glow)" : "var(--line)", "stroke-width":on ? 3 : 1.5}, g);
+    const C = 2*Math.PI*24;
+    el("circle", {cx:x, cy:y, r:24, fill:"none", stroke:heat(err), "stroke-width":6, "stroke-dasharray":`${C*Math.min(1,err)} ${C}`, transform:`rotate(-90 ${x} ${y})`}, g);
+    const tx = el("text", {x, y:y+50, "text-anchor":"middle", fill:on ? "var(--glow)" : "var(--muted)", "font-size":"13"}, g); tx.textContent = nm(k);
+    const v = el("text", {x, y:y+5, "text-anchor":"middle", fill:"var(--text)", "font-size":"12"}, g); v.textContent = Math.round(err*100) + "%";
+  }
+}
+
+function drawTimeline() {
+  const s = $("tl"); s.textContent = ""; if (!run) return;
+  const N = run.ticks.length, W = 1100, H = 150, X = i => 30 + i*(W-50)/(N-1);
+  if (run.event) { const a = run.t0-1, b = run.event === "storm" ? run.t0+19 : N-1;
+    el("rect", {x:X(a), y:8, width:X(b)-X(a), height:H-30, fill:"rgba(232,176,74,.10)"}, s); }
+  el("line", {x1:30, y1:H-22, x2:W-20, y2:H-22, stroke:"var(--line)"}, s);
+  const path = f => run.ticks.map((tk,i) => (i?"L":"M") + X(i).toFixed(1) + "," + (8 + (1-f(tk))*(H-30)).toFixed(1)).join(" ");
+  el("path", {d:path(tk => tk.a.health), fill:"none", stroke:"var(--gold)", "stroke-width":2}, s);
+  el("path", {d:path(tk => tk.p.d/10), fill:"none", stroke:"var(--hot)", "stroke-width":2}, s);
+  run.ticks.forEach((tk,i) => { if (tk.p.trig) el("circle", {cx:X(i), cy:H-12, r:3, fill:"var(--hot)"}, s);
+                                if (tk.p.blk) el("rect", {x:X(i)-2, y:H-20, width:4, height:6, fill:"var(--glow)"}, s); });
+  for (let k = 0; k < N; k += 20) { const tx = el("text", {x:X(k), y:H-1, fill:"var(--muted)", "font-size":"11", "text-anchor":"middle"}, s); tx.textContent = k; }
+  el("line", {id:"ph", x1:X(0), x2:X(0), y1:6, y2:H-22, stroke:"var(--glow)", "stroke-width":1.5}, s);
+  s.onclick = e => { const r = s.getBoundingClientRect(), x = (e.clientX - r.left) * W / r.width;
+                     t = Math.max(0, Math.min(N-1, Math.round((x-30)/((W-50)/(N-1))))); show(); };
+}
+
+function show() {
+  if (!run) return;
+  const N = run.ticks.length, tk = run.ticks[t];
+  const ph = document.getElementById("ph"); if (ph) { const X = 30 + t*(1100-50)/(N-1); ph.setAttribute("x1", X); ph.setAttribute("x2", X); }
+  $("tNow").textContent = t + 1;
+  drawGraph(tk);
+  $("aNow").innerHTML = `<span class="chip mode">${nm(tk.a.mode)}</span><span class="chip">${CTX[tk.a.ctx]||tk.a.ctx}</span><span class="chip">health ${Math.round(tk.a.health*100)}%</span><span class="chip">traffic ${Math.round(tk.a.p*100)}%</span>`;
+  const p = tk.p;
+  const setBar = (id, v, max, fmt, colour) => { $(id+"B").style.width = Math.max(0, Math.min(100, v/max*100)) + "%"; $(id+"B").style.background = colour; $(id+"V").textContent = fmt; };
+  setBar("d", p.d, 10, p.d.toFixed(1) + " / 10", p.d >= 7 ? "var(--hot)" : p.d >= 4 ? "var(--warn)" : "var(--calm)");
+  setBar("u", p.u, 1, Math.round(p.u*100) + "%", p.u >= 0.8 ? "var(--hot)" : p.u >= 0.6 ? "var(--warn)" : "var(--calm)");
+  setBar("g", p.g, 10, p.g.toFixed(1) + " / 10", "var(--gold)");
+  $("cue").textContent = p.trig ? "A cue arrived this tick: distress and arousal rise." : "";
+  $("pNow").innerHTML = `<span class="chip mode">${nm(p.mode)}</span><span class="chip">${CTX[p.ctx]||p.ctx}</span><span class="chip safe-${p.safe}">safety: ${p.safe.toLowerCase().replace("_"," ")}</span>`;
+  const chain = (side, x, isP) => {
+    const li = [];
+    li.push(`<li><b>Sensed</b> <span class="dim">the context is ${CTX[x.ctx]||x.ctx}.</span></li>`);
+    li.push(`<li><b>Watchdog</b> <span class="dim">${ACT[x.act]||x.act}.</span></li>`);
+    if (isP && x.blk) li.push(`<li><b>Spine and safety layer</b> <span class="dim">blocked the chosen mode in safety mode ${x.safe.toLowerCase().replace("_"," ")}; fell back to ${nm("BEAR")}.</span></li>`);
+    li.push(`<li><b>Ran</b> <span class="dim">${nm(x.mode)}; mission score this tick ${x.r >= 0 ? "+" : ""}${x.r.toFixed(3)}.</span></li>`);
+    return li.join("");
+  };
+  $("chainP").innerHTML = chain("Person", p, true);
+  $("chainA").innerHTML = chain("Agents", tk.a, false);
+  const items = [];
+  for (let i = 0; i <= t; i++) for (const side of ["p","a"]) for (const e of run.ticks[i][side].lin)
+    items.push(`<li><span class="k">${String(i+1).padStart(3," ")}</span> ${side === "p" ? "person" : "agents"} · ${e[0]} ${e[1] === e[2] ? nm(e[1]) : nm(e[1]) + " → " + nm(e[2])}${e[3] ? " — " + e[3] : ""}</li>`);
+  $("log").innerHTML = items.slice(-40).reverse().join("") || "<li>No lineage edges yet.</li>";
+}
+
+function play() {
+  if (timer) { clearInterval(timer); timer = null; $("play").textContent = "Play"; return; }
+  if (t >= run.ticks.length - 1) t = 0;
+  $("play").textContent = "Pause";
+  timer = setInterval(() => { if (t >= run.ticks.length - 1) { play(); return; } t++; show(); }, +$("speed").value);
+}
+function setNames(n) { names = n; $("nmF").setAttribute("aria-pressed", n === "F"); $("nmS").setAttribute("aria-pressed", n === "S"); show(); }
+
+["ev","t0","seed"].forEach(id => $(id).addEventListener("change", () => { if (timer) play(); pick(); }));
+$("speed").addEventListener("change", () => { if (timer) { play(); play(); } });
+$("play").addEventListener("click", play);
+$("reset").addEventListener("click", () => { if (timer) play(); t = 0; show(); });
+$("nmF").addEventListener("click", () => setNames("F"));
+$("nmS").addEventListener("click", () => setNames("S"));
+fetch("data/world_runs.json").then(r => r.json()).then(d => { D = d; pick(); })
+  .catch(() => { $("aNow").textContent = "The recorded runs could not be loaded. Open this page from the website, not as a local file."; });
+})();
+</script>
+</body>
+</html>

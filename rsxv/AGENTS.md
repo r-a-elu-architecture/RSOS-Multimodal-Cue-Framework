@@ -353,6 +353,54 @@ even-indexed half B.
 false admits (against the §11.2 truth cohorts) are reported whatever the result. If `ROLE` does not beat both pilot-only arms,
 the conclusion is that transfer adds nothing beyond a pilot of that size.
 
+
+### 11.4 W3c, policy-level transfer tested as deployed: designs fixed before any code (14 November 2026)
+
+**Origin, disclosed.** W3, G2 and W3b failed; W3c follows from W3b's exploratory diagnostics
+([`results/w3b_diagnostics_exploratory.json`](results/w3b_diagnostics_exploratory.json)). This is the **fourth attempt** at
+positive transfer, so every confirmatory test below uses level 0.05 / 4 = 0.0125, and a pass counts only after the
+confirmation run passes too. W3, G2 and W3b stay on record.
+
+**Roles** as §11.3, plus `STABILISE` = largest reduction in load (person: arousal; agents v1: largest true agent error;
+agents v2: traffic pressure), which may be the same archetype as `RESTORE`. Load change is computed without drawing random
+numbers, so earlier results are unchanged.
+
+**Policies** (six, in role terms): `BASE` (Lion always), `R` (RESTORE always), `D` (DRIVE always), `S` (STABILISE always),
+`S>R` (STABILISE while loaded, else RESTORE) and `S>D` (STABILISE while loaded, else DRIVE). "Loaded" uses a smoothed load
+(exponential average, weight 0.3 on the newest tick) with hysteresis: loaded from 0.55 upwards, unloaded from 0.45
+downwards. Policies run through the Watchdog and its interlocks unchanged.
+
+**Source.** Source roles from a uniformly random cohort (persons 12300–12349, agents v1 12400–12449, agents v2 12500–12549;
+60 ticks). Every policy is deployed on 50 source targets (persons 12000–12049, agents v1 12100–12149, agents v2
+12200–12249; 60 ticks); the best by mean mission score is the transferred policy, as a role label.
+
+**Pilot** (N targets, 30 ticks each): ticks 1–10 run a uniformly random archetype (pooled over the pilot to read the
+target's roles); ticks 11–30 run a policy, and the mean mission score over those 20 ticks is the target's pilot score.
+- `TRANSFER`: pilot targets alternate between the transferred policy (mapped to target archetypes) and `BASE`; the policy is
+  adopted if the one-sided Welch lower bound of (policy − BASE) at level 0.0125 is above zero, otherwise `BASE`.
+- `PILOT-ONLY` (same budget, no source): pilot targets are assigned round-robin to all six policies; the best non-base
+  policy by mean is adopted if its lower bound against `BASE` at 0.0125 / 5 is above zero, otherwise `BASE`. Groups with
+  fewer than two targets cannot be tested.
+- `RANDOM-POLICY`: as `TRANSFER`, with the source's choice replaced by each of the five non-base policies in turn, averaged.
+
+Each arm's pilot is repeated 20 times with different pilot targets (repetition r uses the 16 seeds starting at
+13000 + 16r for persons, 14000 + 16r for agents v1, 15000 + 16r for agents v2; a pilot of N takes the first N). An arm's value
+for a deployment target is its deployed score averaged over the 20 repetitions. Pilot sizes 4, 8 and 16.
+
+**Deployment:** 200 fresh targets, 60 ticks (persons 16000–16199, agents v1 16200–16399, agents v2 16400–16599). `NONE` = `BASE`.
+`ORACLE` = the best of the six policies on the deployment targets with roles read from 50 targets of a random cohort
+(persons 17000–17049, agents v1 17100–17149, agents v2 17200–17249), an upper bound, not a competitor.
+
+**Directions:** agents v1 → person, person → agents v1, agents v2 → person, person → agents v2.
+
+**Passes** at pilot size 8, in at least two of the four directions, when `TRANSFER` beats `PILOT-ONLY`, `NONE` and
+`RANDOM-POLICY` (paired interval at level 0.0125 two-sided above zero, i.e. 98.75%), and in all four directions `TRANSFER` is
+non-inferior to `NONE` (margin 0.01).
+
+**Confirmation** (run only if the primary passes; failing it means W3c fails): the directions that passed are rerun with every
+seed above shifted by +100000 and with a second person model, the simulated person with attention dilution switched off
+(`sim.py`, assumption 1), wherever a person is the source or the target. Same criteria in each of those directions.
+
 External check: the Observer's fault location is also run on a public failure-attribution benchmark where the data allow.
 Baselines are reimplemented and labelled as reimplementations.
 

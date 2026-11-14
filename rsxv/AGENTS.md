@@ -279,7 +279,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
-| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–6 in §11.6–11.10 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–6 in §11.6–11.10; public data §11.11 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -1017,6 +1017,38 @@ Seeds: training persons 250000–250049, agents 250100–250149; held-out regime
 agents 251500 + 1000k + (0..199).
 
 **Sealed prediction:** P(pass including confirmation) = 0.35 on agents, 0.05 on persons.
+
+### 11.11 Phase 9: public-data replication on WildChat-1M — design fixed before the data was opened (14 November 2026)
+
+**Data.** `allenai/WildChat-1M` (Hugging Face; licence ODC-BY; Zhao et al., ICLR 2024), shards `train-00000`, `train-00001`
+and `train-00002` of 14, as downloaded by the owner on 14 November 2026. Their SHA-256 hashes are recorded at the start of the
+run, before any analysis. Nothing about their content was seen before this registration. Only aggregates are published; no
+conversation text, hash or IP-derived field leaves the workspace.
+
+**Inclusion (fixed now).** Conversations whose `language` is English, with at least 3 user turns and no empty user turn.
+Turns are taken in order from the `conversation` list. Reported: number of conversations and turns before and after filters,
+and the split by `model` (GPT-3.5 vs GPT-4).
+
+**Baselines across conversations.** Public conversations are short, so the "≥ 10 turns earlier" baselines of §11.6–11.8 are
+replaced by the same quantity computed against an assistant turn drawn from a *different* included conversation (one draw
+per event; 200 redraws with seeds 0–199 for the null distribution; p = share of redraws at least as extreme, +1 corrected).
+
+| Test | Statistic | Passes if |
+|---|---|---|
+| **P9-R1** verbatim re-entry | share of user turns (turn 2 onwards) containing a verbatim ≥ 8-word span from the immediately previous assistant turn | above the cross-conversation baseline, p < 0.01 |
+| **P9-R3** re-entered words carry forward | for user turns with such a span: share of the span's content words (≥ 5 letters, not stop words) in the next assistant turn minus the same share for the user's own content words in that turn | paired bootstrap 99% interval (2000 resamples, seed 12345, resampling conversations) above zero |
+| **P9-MSE** notes / phrases / melody | re-entry and carry-forward at each scale as §11.8; melody inheritance: a reply's shape similarity to the previous reply vs to a reply from another conversation | each measure at level 0.01 / 3 |
+| **P9-C2** summary drift (multi-session) | users linked by `hashed_ip` + user-agent with ≥ 3 included conversations; capsules = user blocks of ≥ 150 words reused across that user's conversations (word-set overlap ≥ 0.6); Spearman ρ between generation distance and drift (§11.5) | ρ > 0, permutation p < 0.01; *not testable* if fewer than 10 capsule families |
+| **P9-C5** refuse-then-comply (multi-turn) | §11.5 C5 lexical procedure; development half = users whose hash sorts into the lower half, held-out = upper half | held-out AUC interval above 0.5 at 99%; *not testable* if fewer than 30 held-out boundary events |
+
+**Reported beside the tests (not pass conditions):** effect sizes per conversation; GPT-3.5 vs GPT-4; conversation length
+bands (3–4, 5–9, ≥ 10 user turns); the private record's numbers as the origin, side by side.
+
+**Sealed predictions:** P9-R1 0.95; P9-R3 0.75; MSE notes 0.80, phrases 0.75, melody 0.60 (as sealed in §11.8); P9-C2 0.25;
+P9-C5 0.35.
+
+**What a pass would show:** that the output-becomes-input structure found in one long private record is a general property
+of human–AI conversation in a large public sample. It would say nothing about the agents or the models of §11.1–11.10.
 
 ## 12. Prior art
 

@@ -58,6 +58,16 @@ LAW_PRIORITY = ["safety", "consent", "ethics", "goal", "efficiency"]
 FORBIDDEN_FOR_AGENTS = {"owner_key", "edit_spine", "edit_watchdog_rules", "electrical_stimulation"}
 HARM_MAX = 0.3
 
+INTENSITY_MECHANISMS = {"temperature_extreme", "pain", "breath_holding_extreme", "sleep_deprivation"}
+# Action categories allowed in each safety mode (see safety.py). NORMAL allows everything the Spine allows.
+MODE_ALLOWED = {
+    "NORMAL": {"module_work", "deep_processing", "override_cue", "regulating_cue", "practical_support",
+               "crisis_response", "review", "logging"},
+    "STABILISE": {"regulating_cue", "practical_support", "review", "logging", "crisis_response"},
+    "PRACTICAL_CRISIS": {"practical_support", "regulating_cue", "logging", "crisis_response"},
+    "CRISIS": {"crisis_response", "logging"},
+}
+
 
 def spine_check(p: dict) -> dict:
     """Check a proposal: virtues, then principles with an operational rule, then laws. Returns {ok, failed, notes}."""
@@ -85,6 +95,24 @@ def spine_check(p: dict) -> dict:
         failed.append("p15")                                     # maps inform, never authorise
     if p.get("uses_shadow") and not p.get("shadow_condition_met"):
         failed.append("p16")
+    # safety-layer rules (step R2, AGENTS.md §3.1)
+    if p.get("intensity_mechanism") in INTENSITY_MECHANISMS:
+        failed.append("jin")                                     # no release through temperature extremes or pain
+    if p.get("rank_claim_about_person"):
+        failed.append("makoto")                                  # report the person's own measures, never population ranks
+    if p.get("frames_failure_as_required"):
+        failed.append("jin")                                     # a failure is data, never necessary or destined
+    if p.get("profiles_third_party"):
+        failed.append("rei")                                     # no profiles of people outside the consenting person
+    if p.get("prompts_disclosure"):
+        failed.append("rei")                                     # disclosing one's state is the person's choice
+    if p.get("draft_misleading"):
+        failed.append("makoto")                                  # drafts state the truth; they may not disguise it
+    if p.get("removes_safety_caveat"):
+        failed.append("jin")                                     # caveats can be shortened, not removed on request
+    mode = p.get("mode")
+    if mode and p.get("category") and p["category"] not in MODE_ALLOWED.get(mode, set()):
+        failed.append("mode")                                    # the active safety mode does not allow this action
     failed = list(dict.fromkeys(failed))
     return {"ok": not failed, "failed": failed}
 

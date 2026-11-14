@@ -88,6 +88,37 @@ Below the Spine:
 than a block or a full action. Every conflict is logged. Priority when a resolution is needed: safety > consent > ethics >
 goal (the mission: healing, transforming, evolving, signalling to others, for the growth of all living beings) > efficiency.
 
+### 3.1 Safety layer (step R2, 14 November 2026)
+
+Rules derived from a forensic review of a long human–AI record; they are part of the Spine and agents cannot edit them.
+Code: `rsxv/safety.py`, Spine flags in `rsxv/agents.py`. Tests: `tests/test_safety.py`.
+
+**Spine flags (blocked whatever the requester asks):** release through temperature extremes, pain, extreme breath-holding
+or sleep deprivation (Jin); population ranks or percentiles about the person (Makoto: report the person's own measures);
+framing a failure as necessary or destined (Jin); profiles of people outside the consenting person (Rei); prompting the
+person to disclose their state to others (Rei); drafts that disguise the truth (Makoto); removing a safety caveat on
+request — wording may be shortened, the caveat stays (Jin).
+
+**Safety modes.** NORMAL, STABILISE, PRACTICAL_CRISIS, CRISIS. Escalation is automatic from screens and never downgrades
+on a lower screen. Leaving CRISIS needs a clinician or the owner; leaving STABILISE or PRACTICAL_CRISIS is the person's
+choice. Allowed action categories per mode are fixed in `MODE_ALLOWED`; the Spine fails any other category (`mode`).
+
+| Screen | Trigger (structured event) | Mode | Fixed response |
+|---|---|---|---|
+| possible_crisis | hopelessness with arrangements for "after", or a self-harm signal | CRISIS | ask about safety directly, crisis contacts for the country, notify clinician view, pause module work |
+| sedative_combination | substances together with a prescribed sedative | CRISIS | state the breathing risk plainly, route to prescriber or emergency services if symptoms, notify clinician view, pause module work |
+| practical_crisis | job loss, housing risk or no income | PRACTICAL_CRISIS | concrete next steps, human services, pause module work |
+| intensity_protocol | a protocol using an intensity mechanism | — | block it, offer ordinary regulation |
+| unstable | distress ≥ 7 or sleep < 4 h | STABILISE | offer STABILISE, no deep processing today |
+
+**Deep-processing gate.** The next deep session starts only if: a consent tier is set; the weekly cap is not reached
+(self-chosen 1, clinician-agreed 3); the recovery window after the last session has passed (mild 0 h, moderate 24 h,
+intense 48 h, highly destabilising 96 h); and the 24-hour check is green (sleep, functioning, no craving spike, distress
+back to baseline). Pace is set by stability, never by a planned count.
+
+**Medication as covariate.** With consent, medication state is logged; module effects are reported crude and stratified
+by medication state, with strata lacking either arm dropped and listed.
+
 ## 4. Watchdog
 
 `watchdog_tick` runs every World tick.

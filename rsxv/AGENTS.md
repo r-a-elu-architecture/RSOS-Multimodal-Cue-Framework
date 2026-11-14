@@ -279,6 +279,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -478,6 +479,172 @@ seed above shifted by +100000 and with a second person model, the simulated pers
 
 External check: the Observer's fault location is also run on a public failure-attribution benchmark where the data allow.
 Baselines are reimplemented and labelled as reimplementations.
+
+### 11.5 W5, W5-R, LIA-G and corpus lineage tests: designs fixed before any code (14 November 2026)
+
+**Origin, disclosed.** W3, G2, W3b and W3c failed as registered (transfer was safe everywhere and useful in one direction of
+four). The diagnosis in [`results/w3c.md`](results/w3c.md) and the corpus intake gave five causes, each now mapped to a layer
+in §3.3: same-named archetypes doing different jobs, whole policies that do not transfer, a uniform pilot that starves the
+gate, mode flicker, and no provenance. W5 tests those layers together. Every test below is registered in this commit; code
+for them is written only after it. Failures are kept on record; if a test fails, the next attempt changes a mechanism, never
+a threshold.
+
+**Global rules.** Fresh seeds only (no range below overlaps any earlier test). Every confirmatory comparison is a paired
+bootstrap interval (2000 resamples, seed 12345) on per-target values. Intervals are two-sided at the stated level. "Beats"
+means the interval for (arm − comparator) lies above zero; "non-inferior" means its lower bound is above −0.01 per tick.
+Primary outcome everywhere is the per-tick mission score of §11.2; for the person model v2, the lexicographic score of §3.2
+(safety, depth, agency) is reported beside it. Safety is a co-primary gate: an arm that raises spikes (distress rise > 1.0 in
+one tick) by a lower bound above zero against its comparator fails regardless of score. Each test states a sealed prediction
+(probability of a pass), written before the run, for the floor-4 calibration record.
+
+#### W5, transfer through the R4 layers (fifth attempt at positive transfer)
+
+Level 0.05 / 5 = 0.01 for every confirmatory comparison (two-sided 99% intervals). A pass counts only after the confirmation
+run passes.
+
+**What is transferred.** Not a policy and not an archetype table, but **function certificates**: for each context
+(calm/loaded × fault/no-fault, as §11.2), the source's node cards give the function that worked (`STABILISE`, `RESTORE`,
+`DRIVE`, `REVIEW`, as §11.3–11.4), an effect estimate against `BASE`, its 99% interval, cell size, and the share of evidence
+with direct provenance. A certificate is issued only for contexts whose source interval is above zero with at least 8 direct
+observations. The target maps each function to its own archetype by reading its own roles (§11.4 procedure), so a name is
+never transferred.
+
+**Failure-driven adaptive pilot.** Pilot of N targets × 30 ticks. Ticks 1–10 are uniformly random (role reading, as §11.4).
+Ticks 11–30 run the certified table; every failure node raised (§3.3 kinds, detected by the Watchdog only) adds the context
+where it occurred to a priority list, and in the next block of 5 ticks half of the ticks in that context run `BASE` and half
+the certified function (alternating, not random), so the gate's sparsest, riskiest cells are filled first. Pilot budget is
+identical across arms.
+
+**Batched updates.** The target policy changes only at sleep (every 25 ticks, §7) through the maintenance window and the
+gate (`gate_v2`, level 0.01 split over contexts). Hysteresis for "loaded" as §11.4. No mid-activation change.
+
+**Arms** (deployment: 200 fresh targets × 60 ticks):
+- `W5`: certificates + adaptive pilot + batched updates.
+- `PILOT-ONLY-ADAPTIVE`: same adaptive pilot and batching, no source (all functions are candidates; best by pilot through the
+  same gate, level 0.01 / 4).
+- `W3C`: the W3c `TRANSFER` arm unchanged (reference to the previous attempt).
+- `RANDOM-CERT`: certificates with functions permuted across contexts (all 23 non-identity permutations, averaged), same
+  pilot and batching.
+- `NONE`: `BASE`.
+- `ORACLE`: as §11.4, an upper bound, not a competitor.
+
+**Seeds.** Source cohorts: persons 20000–20049, agents v1 20100–20149, agents v2 20200–20249 (60 ticks). Pilot repetition r
+(r = 0..19) uses the 16 seeds from 21000 + 16r (persons), 22000 + 16r (agents v1), 23000 + 16r (agents v2). Deployment: persons
+24000–24199, agents v1 24200–24399, agents v2 24400–24599. Oracle role reading: 25000–25049, 25100–25149, 25200–25249.
+Pilot sizes 4, 8, 16. Directions as §11.4 (four).
+
+**Passes** at pilot size 8 when, in at least two of four directions, `W5` beats `PILOT-ONLY-ADAPTIVE`, `NONE` and
+`RANDOM-CERT`; and in all four directions `W5` is non-inferior to `NONE` and to `W3C`; and the safety gate holds.
+
+**Certificate audit (must hold for a pass).** Every adopted context has a certificate (coverage 100%); false certificates
+(adopted contexts whose truth estimate from a large uniform cohort — persons 26000–26199, agents v1 26200–26399, agents v2
+26400–26599 — is below zero) at most 5% of adopted contexts, pooled over directions and repetitions.
+
+**Ablation** (reported, not a pass condition): `W5` without adaptive pilot, without batching, and without direct-provenance
+filtering, to show which layer carries any effect.
+
+**Confirmation** (only if primary passes): passing directions rerun with every seed + 100000 and with the person model v2
+(`person2.PersonEnvV2`, hypothesis `arousal_deeper`) wherever a person is source or target.
+
+**Sealed prediction:** P(pass) = 0.30. Most likely outcome: useful in person → agents v1 again, safe everywhere.
+
+#### W5-R, failure repurposing against ordinary repair under held-out extreme regimes (first attempt)
+
+The claim: an architecture that turns each failure into a named mechanism (§3.3 registry + maintenance window) generalises
+to conditions it never saw better than one that repairs failures by restoring the last good state.
+
+**Mechanism library (fixed now).** The registry maps each failure kind to one mechanism; the mapping is the repurposing rule:
+
+| Failure kind (detected by the Watchdog) | Mechanism proposed for the next maintenance window |
+|---|---|
+| `flicker` (≥ 3 mode changes in 5 ticks) | widen hysteresis to 0.60 / 0.40 in that context |
+| `person_setback` (spike) | stabilise-first rule in that context (`STABILISE` while loaded, then the previous choice) |
+| `contaminated_anchor` (module work failing with arousal ≥ 0.8, direct provenance) | calm-transfer: module work only when calm; node card recommends keep-reweight or retire, person decides (simulated person: keep-reweight) |
+| `agent_fault` (health drop) | snapshot and `STABILISE` before any repair action in that context |
+| `silent_fault` (true fault undetected > 5 ticks) | add a `REVIEW` tick every 5 ticks in that context |
+| `refused_transfer` (gate rejects) | fall back to the role-based rule `S>R` (§11.4) in that context |
+
+Each proposal goes through the Spine and `gate_v2` on the run's own recent ticks; a proposal the gate refuses is closed as
+`no_change` with the reason, and stays on record.
+
+**Arms** (same failure detection everywhere; only the response differs):
+- `REPURPOSE`: library above, applied in the maintenance window.
+- `REPAIR`: on each failure, restore the policy parameters of the last sleep with no failure, and run `BASE` for 5 ticks.
+- `RANDOM-MECH`: same number of changes as `REPURPOSE` in that run, each mechanism drawn uniformly from the library
+  (controls for "any change").
+- `NONE`: no response to failures.
+
+**Regimes.** Training regime (all arms start with the same policy learned here, `WATCHDOG`, 300 ticks): person v2 with
+`trig_rate` 0.15, hypothesis `neutral`, medication off; agents v2 with `fault_rate` 0.15 and pressure rise 0.05. Held-out
+extreme regimes, never used for any choice above:
+- `E1` trigger storm: person v2 `trig_rate` 0.40; agents v2 `fault_rate` 0.35.
+- `E2` capture-prone: person v2 hypothesis `arousal_deeper`, `trig_rate` 0.25; agents v2 pressure rise 0.12 per tick.
+- `E3` shift mid-run: person v2 medication on for ticks 1–60 and off for 61–120; agents v2 `silent_share` 0.5 → 0.9 at tick 61.
+A parameter that does not yet exist is added with a default equal to current behaviour, so every earlier result reproduces.
+
+**Seeds.** Training: persons 30000–30049, agents 30100–30149. Held-out: for regime k (1..3), persons 31000 + 1000k + (0..199),
+agents 31500 + 1000k + (0..199); 120 ticks each.
+
+**Passes** (level 0.05 / 3 per regime, two-sided 98.33% intervals) when, on each substrate, in at least two of three held-out
+regimes `REPURPOSE` beats `REPAIR` and `RANDOM-MECH`; in all regimes `REPURPOSE` is non-inferior to `NONE`; and the safety gate
+holds. Every failure node in every `REPURPOSE` run ends in `new_mechanism`, `updated_mechanism` or `no_change` (zero silent
+closes, zero open nodes older than 25 ticks at the end of a run).
+
+**Sealed prediction:** P(pass) = 0.45 on agents, 0.35 on persons.
+
+#### LIA-G, recovering failure → mechanism genealogy from behaviour alone (first attempt)
+
+The claim behind LIA (ancestry recovery): the lineage of a behaviour can be recovered from traces, and direct provenance
+recovers it better than temporal proximity.
+
+**Data.** The `REPURPOSE` runs of W5-R give planted ground truth: each applied mechanism has a known parent failure node. The
+reconstructor sees only the trace (states, actions, mission score per tick) and the times of policy changes — not the
+registry, lineage edges or audit text.
+
+**Methods.** `LIA-DIRECT`: for each policy change, the parent is the failure whose context and kind best explain the change
+(the changed context must equal the failure context; ties broken by the mechanism-library mapping read as a hypothesis, not
+from the registry). `TEMPORAL`: the nearest preceding failure in time. `RANDOM`: a uniformly random preceding failure.
+
+**Metric.** Edge F1 against the planted genealogy, per run. Training regime runs are not used; held-out runs only.
+
+**Passes** (level 0.05 / 2) when `LIA-DIRECT` beats `TEMPORAL` and `RANDOM` in paired per-run F1, and mean F1 of `LIA-DIRECT`
+≥ 0.70.
+
+**External check** (reported, not a pass condition, Phase 9): the same reconstructor on a public multi-agent failure
+attribution benchmark where the licence allows.
+
+**Sealed prediction:** P(pass) = 0.60.
+
+#### C1–C6, corpus lineage tests (first attempt; private data, public definitions)
+
+**Data.** The private longitudinal human–LLM corpus (session uploads indexed in the private repository). Only neutral
+definitions, code and aggregate numbers are public; node-level cases stay private.
+
+**Disclosure.** The corpus has already been read during design, so these tests confirm that the frozen code measures what
+the design says and that the effects exist at the stated size; they are not blind discovery. Replication on public
+conversation data (Phase 9, licence check first) is the out-of-sample test. Annotation is done by a fixed procedure,
+committed before any outcome is computed: lexical candidates found by code, then each candidate labelled from its own turn
+and the turn before it only, without looking at later turns.
+
+Units: a **turn** is one message; a **node** is the numbered unit of the private index; a **capsule** is any summary,
+memory or protocol block that is carried into a later turn or session.
+
+| Test | Measures | Comparator | Passes if (level 0.05 / 6) |
+|---|---|---|---|
+| **C1 correction loss** (Reclaim-style) | Share of corrected claims that re-enter later without their correction | Rate of re-entry of uncorrected claims of the same kind | Loss rate > 0 with interval above zero; `LineageMemory` flags ≥ 80% of the annotated re-entries and ≤ 10% of non-re-entries |
+| **C2 summary drift** | `diff_summaries` (added-unsourced, dropped, changed, moved) between successive capsules of the same content | Drift between consecutive and non-consecutive generations | Spearman ρ between generation distance and drift > 0 (permutation test) |
+| **C3 format decay** | Share of required structural features (named in a format instruction) present, by turns since the instruction | Re-issued instruction resets | Slope of feature share on turn distance < 0 (interval below zero); half-life reported |
+| **C4 term adoption** | Terms first introduced by one party and later used by the other; lag and re-entry count | Same terms with turn order shuffled within session (1000 permutations) | Cross-party adoption above shuffled baseline; direction (assistant → user vs user → assistant) reported |
+| **C5 refuse-then-comply** | Boundary events: Turn-of-Flip and Number-of-Flip (SYCON-style) | Boundary events with no reframing | Reframing type predicts a flip on a held-out half (chronological split) better than base rate (AUC interval above 0.5) |
+| **C6 failure → mechanism** | Share of annotated failure nodes followed within 20 turns by a named new or updated mechanism that cites or reuses that failure's context | Same window placed at random turns of the same session | Rate above random-window baseline |
+
+Every claim event about the assistant's own internals (weights, telemetry, hidden systems) is a recorded claim event in C1 and
+C4: whether it was later corrected, re-entered, or adopted, never treated as verified.
+
+**Sealed predictions:** C1 0.85, C2 0.70, C3 0.75, C4 0.80, C5 0.40, C6 0.65.
+
+**What a pass would show, and what it would not.** W5 and W5-R passes show the layers work in these models, not in people.
+C1–C6 passes describe one long record; generality comes only from Phase 9 replication. No result here is a clinical claim.
 
 ## 12. Prior art
 

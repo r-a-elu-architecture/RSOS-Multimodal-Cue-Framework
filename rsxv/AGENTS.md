@@ -279,7 +279,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
-| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; second round §11.6; third round §11.7 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–4 in §11.6–11.8 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -819,6 +819,104 @@ above zero at level 0.01. **Run on public multi-session data only** (Phase 9, li
 first seen in this record (73% vs 30%, exploratory, §11.6 results). On this record it is reported as the origin, not a test.
 
 **Sealed prediction:** P(pass on public data) = 0.75.
+
+### 11.8 Round 4: T-AP, W5d, W5-R4 and multi-scale echo — designs fixed before any code (14 November 2026)
+
+**Origin, disclosed.** From the §11.7 results ([`results/r6c_summary.md`](results/r6c_summary.md)) and the owner's design
+images (fail-safe tube, echo as notes and melody, the Lion who forges before the fire), translated into mechanisms. No
+threshold, margin or safety rule is loosened; one stronger target is added. All earlier results stand, including every
+failure. Global rules as §11.5; smoke runs only on seeds outside the ranges below.
+
+#### T-AP, directional transfer agents v1 → person (a new, narrower claim; eighth transfer test)
+
+*Origin:* agents v1 → person met every comparison in W5b and every condition in W5c. This is a separate claim registered
+after seeing that pattern; it does not change the verdict of any earlier test.
+
+Design exactly as W5c (§11.7) for the single direction agents v1 → person at pilot size 8. Level 0.05 / 8 (two-sided 99.375%);
+gate at one-sided 0.05 / 8 / 4. **Passes** when T-AP beats `PILOT-ONLY`, `NONE` and `RANDOM-FUNC`, is non-inferior to `NONE`
+and `W3C`, the safety gate holds against every comparator, and false certificates ≤ 5%; **and** the confirmation run (every
+seed + 100000, target person model v2 `arousal_deeper`) meets the same conditions.
+
+**Seeds.** Source agents v1 70100–70149. Pilot repetition r: 16 seeds from 72000 + 16r. Deployment persons 74000–74199.
+Oracle role reading 75000–75049. Truth persons 76000–76199.
+
+**Sealed prediction:** P(pass including confirmation) = 0.45.
+
+#### W5d, negative certificates and a fail-safe tube (ninth transfer test; all four directions)
+
+Everything as W5c, plus:
+
+1. **Negative certificates.** On the source cohort, a non-Lion archetype a in context c gets a warning when its spike rate
+   in c exceeds Lion's and the two-sided 99% upper bound of its mission effect against Lion is below zero, with ≥ 8
+   observations. The warning travels as a function (the role a holds on the source; archetypes without a role travel as
+   "unassigned"), never as a name. On the target, archetypes holding a warned function in c — or, for "unassigned", every
+   target archetype without a role — are excluded from the uniformly random role-reading ticks in c (replaced by `BASE`),
+   from the candidate in c, and from the fallback.
+2. **Fail-safe tube.** Before deployment, each context's transfer is predicted to jam when the gate rejects it, the pilot
+   spike guard removes it, or its candidate cell holds < 5 ticks. A jammed context runs the pre-staged fallback: the target's
+   own best non-warned archetype from the pilot with ≥ 5 ticks whose one-sided lower bound against `BASE` at the gate level
+   is above −0.01, else `BASE`. The jam prediction is scored against the truth cohort (jam correct when the candidate's
+   truth effect is ≤ 0 or its truth spike rate exceeds `BASE`'s).
+3. Comparators unchanged from W5c (no warnings, no tube).
+
+**Level** 0.05 / 9 (two-sided 99.44%); gate at one-sided 0.05 / 9 / 4. **Passes** under the W5b/W5c conditions (two of four
+directions beat `PILOT-ONLY`, `NONE` and `RANDOM-FUNC`; all four non-inferior to `NONE` and `W3C`; safety gate against every
+comparator; certificate audit) plus confirmation. **Strong pass:** the same in three of four directions. Jam-prediction
+accuracy is reported.
+
+**Seeds.** Source persons 80000–80049, agents v1 80100–80149, agents v2 80200–80249. Pilot r: 16 seeds from 81000 + 16r,
+82000 + 16r, 83000 + 16r. Deployment 84000–84199, 84200–84399, 84400–84599. Oracle 84600–84649, 84700–84749, 84800–84849.
+Truth 85000–85199, 85200–85399, 85400–85599.
+
+**Sealed prediction:** P(pass) = 0.25; P(strong pass) = 0.10.
+
+#### W5-R4, the anticipatory forge (fourth repurposing test)
+
+The claim: forecasting a failure and forging and testing its mechanism *before* it arrives beats reacting after it.
+
+1. **Lion (forecast).** At every maintenance window, for each context c and failure kind k, the probability that k occurs
+   in c during the next cycle, estimated from the run so far (add-one smoothed share of past cycles in which k occurred in c).
+   Every forecast is sealed in the log before the cycle runs and scored afterwards (Brier, against the constant base rate).
+2. **Eagle (ghost passes).** For each (k, c) with forecast ≥ 0.5 whose library mechanism is not active, three candidates: the
+   library mechanism for k and those for the two other most frequent kinds in c. Each candidate and "no change" run on six
+   copies of the current World (different random streams) for 10 ticks, with the candidate active in c.
+3. **Bear (commit in calm).** The candidate with the highest mean (candidate − no change) commits if its one-sided lower bound
+   at 0.0125 over the six copies is above −0.01 and it produced no more spikes than "no change" across the copies. No live
+   probing. Spike guard as W5-R2 stays live.
+4. **Disclosure and ablation.** Ghost passes use a copy of the true simulator, i.e. a perfect world model. Reported beside the
+   result (not a pass condition): `FORGE-NOISY`, the same with copies whose trigger or fault rate is multiplied by 1.5 (a
+   wrong model).
+
+**Arms:** `FORGE`, `REACTIVE` (W5-R3 probing), `REPAIR`, `RANDOM-FORGE` (the same number of commits at the same windows,
+mechanism and context drawn at random, no ghost pass), `NONE`. Regimes E1–E3, 240 ticks, E3 shift at tick 121.
+
+**Level** 0.05 / 4 attempts / 3 regimes (two-sided 99.58%). **Passes** per substrate when in at least two of three regimes
+`FORGE` beats `REPAIR`, `RANDOM-FORGE` **and `NONE`** (raised bar: equal to doing nothing is no longer enough); in all regimes
+it is non-inferior to `NONE`; the safety gate holds against every comparator; zero silent closes. Confirmation as §11.6.
+
+**Seeds.** Training persons 90000–90049, agents 90100–90149 (`WATCHDOG`, 300 ticks). Held-out, regime k = 1..3: persons
+91000 + 1000k + (0..199), agents 91500 + 1000k + (0..199).
+
+**Sealed prediction:** P(pass) = 0.35 on agents, 0.20 on persons.
+
+#### MSE, multi-scale echo: notes, phrases, melody (LSGPA; replaces R3 for Phase 9)
+
+Three scales of re-entry between turns:
+- **notes:** content words (≥ 5 letters, not stop words) and coined terms;
+- **phrases:** word spans of 3 to 7 words;
+- **melody:** a turn's shape string — its sequence of line types (heading level, numbered item, bullet, table row, quote,
+  code, plain) — compared by normalised edit distance.
+
+Measures at each scale: (a) **re-entry** — the user turn's overlap with the immediately previous assistant turn against a
+random assistant turn at least 10 turns earlier; (b) **carry-forward** — in the next assistant turn, re-entered material
+against the user's own material in the same turn; (c) **inheritance** (melody only) — a reply's shape similarity to the
+previous reply against a random reply at least 10 turns earlier. Level 0.01 / 3 scales for each measure.
+
+**On this record:** reported as the origin (it was read during design), on the held-out half. **Registered test:** public
+multi-session conversation data in Phase 9, licence checked first; passes per measure and scale when the paired interval or
+permutation p clears the level.
+
+**Sealed prediction (public data):** notes 0.80, phrases 0.75, melody 0.60.
 
 ## 12. Prior art
 

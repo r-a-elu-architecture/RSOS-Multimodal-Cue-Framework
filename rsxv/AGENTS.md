@@ -279,7 +279,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
-| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–4 in §11.6–11.8 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; rounds 2–5 in §11.6–11.9 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -917,6 +917,77 @@ multi-session conversation data in Phase 9, licence checked first; passes per me
 permutation p clears the level.
 
 **Sealed prediction (public data):** notes 0.80, phrases 0.75, melody 0.60.
+
+### 11.9 Round 5: T-AP reach, jam-predictor calibration, W5e and the snapshot forge — designs fixed before any code (14 November 2026)
+
+**Origin, disclosed.** From the §11.8 results ([`results/r6d_summary.md`](results/r6d_summary.md)). Strategy: build only on
+parts that have been shown to work (T-AP's certified transfer; the Lion's forecasts on agents), and fix the specific
+weaknesses measured (a jam predictor near chance; ghost passes that never reach the context; mechanisms that do not fit the
+failure). No threshold, margin or safety rule is loosened; one bar is raised (W5-R5 commits only on shown improvement).
+Global rules as §11.5; smoke runs only on unregistered seeds.
+
+#### T-AP-R, how far the confirmed transfer reaches (two new claims; tenth and eleventh transfer tests)
+
+Each is the T-AP design (§11.8: W5c procedure, one direction, all conditions, confirmation on + 100000 seeds and the person
+model v2 `arousal_deeper`, `W3C` included in the confirmation), at level 0.05 / 11 (two-sided 99.55%), gate 0.05 / 11 / 4.
+- **T-AP-4:** agents v1 → person at pilot size **4**. Seeds: source agents v1 201100–201149; pilot r: 16 seeds from
+  202000 + 16r; deployment persons 204000–204199; oracle 205000–205049; truth 206000–206199.
+- **T-AP-V2:** agents **v2** → person at pilot size 8. Seeds: source agents v2 211200–211249; pilot r: 212000 + 16r;
+  deployment persons 214000–214199; oracle 215000–215049; truth 216000–216199.
+
+**Sealed predictions:** T-AP-4 0.50; T-AP-V2 0.15 (agents v2 → person never met the comparisons in W5b–W5d).
+
+#### J1, jam-predictor calibration (scored before use)
+
+The fail-safe tube's predictor is rebuilt from the pilot's own evidence and scored on fresh seeds *before* any test uses it.
+**Rule (fixed now):** a certified context jams when, in the pooled pilot, the candidate's spike rate per tick exceeds
+`BASE`'s, or the candidate's mean mission score is not above `BASE`'s, or either cell holds fewer than 5 ticks.
+**Truth label:** jam is correct when the candidate's truth effect against `BASE` is ≤ 0 or its truth spike rate exceeds
+`BASE`'s (truth cohorts as §11.8). **Calibration:** the W5d procedure (warnings on) at pilot 8, 20 repetitions, all four
+directions; source 221000–221049 (persons), 221100–221149 (agents v1), 221200–221249 (agents v2); pilot r: 16 seeds from
+222000 + 16r, 223000 + 16r, 224000 + 16r; truth 225000–225199, 225200–225399, 225400–225599.
+**Accepted for use** when pooled accuracy ≥ 0.70 and above both trivial predictors (always jam, never jam); otherwise W5e is
+not run and that is the result.
+
+**Sealed prediction:** P(accepted) = 0.55.
+
+#### W5e, W5d with the calibrated predictor in the tube (twelfth transfer test; all four directions)
+
+As W5d (§11.8), except: a certified context that the gate admits and the spike guard keeps is still routed to the fallback
+when J1 predicts a jam; the fallback archetype must also have a pilot spike rate no higher than `BASE`'s. Comparators
+unchanged (no warnings, no tube). Level 0.05 / 12 (two-sided 99.58%), gate 0.05 / 12 / 4. **Passes** under the W5b–W5d
+conditions plus confirmation; **strong pass** in three of four directions. Seeds: source 231000–231049, 231100–231149,
+231200–231249; pilot r: 232000 + 16r, 233000 + 16r, 234000 + 16r; deployment 235000–235199, 235200–235399, 235400–235599;
+oracle 235600–235649, 235700–235749, 235800–235849; truth 236000–236199, 236200–236399, 236400–236599.
+
+**Sealed prediction:** P(pass) = 0.25 (conditional on J1 accepted).
+
+#### W5-R5, the snapshot forge (fifth repurposing test)
+
+1. **Lion schedules** (as W5-R4; its forecasts beat the base rate on agents): a (kind, context) pair is forged at a window when
+   its forecast is ≥ 0.5.
+2. **Memory of the fire (snapshots).** During the run, on every third visit to a context the environment and policy are
+   copied; the six most recent copies per context are kept. Ghost passes start from these real snapshots, so they begin in
+   the context in question.
+3. **The failure shapes the candidate.** Two candidates per forged pair: the library mechanism for the kind, and a
+   *data-generated swap* — in that context, run the mode with the lowest observed rate of that failure kind in this run (at
+   least 3 visits), if it differs from the mode the policy runs there.
+4. **Evidence that reaches the context.** Each candidate and "no change" run from each of the six snapshots for 10 ticks with
+   common random numbers; a decision needs at least 10 visits to the context on each side; otherwise no commit.
+5. **Raised bar.** Commit only when the one-sided lower bound at 0.0125 of (candidate − no change) is **above zero** (shown
+   improvement, not just no harm) and the candidate produced no more spikes. Spike guard stays live. Failure nodes close at
+   each window: `new_mechanism` when a mechanism committed for their (kind, context), otherwise `no_change` with the reason.
+6. **Disclosure:** snapshots are copies of the true simulator (a perfect model); `FORGE5-NOISY` (trigger or fault rate × 1.5
+   in the copies) is reported, not a pass condition.
+
+**Arms:** `FORGE5`, `REPAIR`, `RANDOM-FORGE` (the same number of commits at the same windows, drawn from the library and from
+swaps to random modes, no ghost pass), `NONE`. Regimes E1–E3, 240 ticks, E3 shift at tick 121. Level 0.05 / 5 / 3
+(two-sided 99.67%). **Passes** per substrate when in at least two of three regimes `FORGE5` beats `REPAIR`, `RANDOM-FORGE`
+and `NONE`; it is non-inferior to `NONE` in all; the safety gate holds against every comparator; zero silent closes.
+Confirmation as §11.6. Seeds: training persons 240000–240049, agents 240100–240149; held-out regime k = 1..3: persons
+241000 + 1000k + (0..199), agents 241500 + 1000k + (0..199).
+
+**Sealed prediction:** P(pass) = 0.30 on agents, 0.10 on persons.
 
 ## 12. Prior art
 

@@ -150,6 +150,9 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | W5-R2, repurposing with probe and spike guard (§11.6) | Persons **pass, confirmed**; agents **fail** | Persons: equal to doing nothing, better than repair and random change (a do-no-harm pass); agents: untested commits hurt ([`results/w5r2.md`](results/w5r2.md)) |
 | LIA-G2 (§11.6) | **Fail** | F1 0.12; beats temporal and random ([`results/lia_g2.md`](results/lia_g2.md)) |
 | Corpus v2 (§11.6) | R1, R2, C4b **pass**; C1b, C6b inconclusive | Output re-enters as input and carries forward more than the person's own words ([`results/corpus_v2.md`](results/corpus_v2.md); summary [`results/r6b_summary.md`](results/r6b_summary.md)) |
+| W5c, transfer with pilot spike guard (§11.7, seventh attempt) | **Fail** | Agents v1 → person meets every condition including safety; a second direction is needed ([`results/w5c.md`](results/w5c.md)) |
+| W5-R3, every change probed (§11.7) | **Fail** on both substrates | The non-harm probe rejects almost every library mechanism; the trained policies leave the fixed library nothing to improve ([`results/w5r3.md`](results/w5r3.md)) |
+| LIA-G3 (§11.7) | **Fail** | 8 committed changes in 1,200 runs; not a meaningful test ([`results/lia_g3.md`](results/lia_g3.md); summary [`results/r6c_summary.md`](results/r6c_summary.md)) |
 
 ## 9. Prior art
 

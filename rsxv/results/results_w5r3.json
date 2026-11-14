@@ -1,0 +1,515 @@
+{
+ "design": "AGENTS.md \u00a711.5 W5-R",
+ "level": 0.9944444444444445,
+ "subs": {
+  "agent": {
+   "table": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "TIGER",
+    "crisis": "TIGER"
+   },
+   "roles": {
+    "RESTORE": "LEOPARD",
+    "DRIVE": "TIGER",
+    "STABILISE": "BEAR"
+   },
+   "regimes": {
+    "E1": {
+     "means": {
+      "REPURPOSE": -0.1075524796296296,
+      "REPAIR": -0.27152016111111105,
+      "RANDOM-MECH": -0.15516752962962962,
+      "NONE": -0.09996354444444443
+     },
+     "spikes": {
+      "REPURPOSE": 12.595,
+      "REPAIR": 11.59,
+      "RANDOM-MECH": 12.13,
+      "NONE": 11.175
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.16396768148148147,
+       "lo": 0.14734679444444443,
+       "hi": 0.18004820740740737
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.04761505,
+       "lo": 0.032608627777777774,
+       "hi": 0.06190479629629629
+      },
+      "REPURPOSE-NONE": {
+       "diff": -0.007588935185185191,
+       "lo": -0.018772612962962967,
+       "hi": 0.0032379481481481396
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 1.005,
+       "lo": 0.37,
+       "hi": 1.7
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.465,
+       "lo": -0.145,
+       "hi": 1.115
+      },
+      "REPURPOSE-NONE": {
+       "diff": 1.42,
+       "lo": 0.915,
+       "hi": 2.04
+      }
+     },
+     "beats": true,
+     "noninferior_none": false,
+     "safe": false,
+     "mission_v2_means": {},
+     "open_old": 0,
+     "unresolved_end": 873,
+     "nodes": 9978,
+     "audit_fail": 0,
+     "r2": {
+      "probe_start": 2808,
+      "probe_commit": 4,
+      "probe_not_noninferior": 1386,
+      "probe_timeout": 785,
+      "rollback": 3
+     },
+     "resolutions": {
+      "new_mechanism": 2808,
+      "updated_mechanism": 0,
+      "no_change": 6297
+     },
+     "changes": 4
+    },
+    "E2": {
+     "means": {
+      "REPURPOSE": -0.04171168333333331,
+      "REPAIR": -0.09538478888888885,
+      "RANDOM-MECH": -0.03095353703703701,
+      "NONE": -0.0009752666666666416
+     },
+     "spikes": {
+      "REPURPOSE": 7.675,
+      "REPAIR": 6.245,
+      "RANDOM-MECH": 6.695,
+      "NONE": 6.26
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.05367310555555555,
+       "lo": 0.04518594444444444,
+       "hi": 0.06188289259259259
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": -0.010758146296296303,
+       "lo": -0.01882588518518519,
+       "hi": -0.0018644685185185267
+      },
+      "REPURPOSE-NONE": {
+       "diff": -0.04073641666666667,
+       "lo": -0.04793075925925926,
+       "hi": -0.03324872592592593
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 1.43,
+       "lo": 1.02,
+       "hi": 1.815
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.98,
+       "lo": 0.555,
+       "hi": 1.37
+      },
+      "REPURPOSE-NONE": {
+       "diff": 1.415,
+       "lo": 1.08,
+       "hi": 1.765
+      }
+     },
+     "beats": false,
+     "noninferior_none": false,
+     "safe": false,
+     "mission_v2_means": {},
+     "open_old": 0,
+     "unresolved_end": 665,
+     "nodes": 7536,
+     "audit_fail": 0,
+     "r2": {
+      "probe_start": 2733,
+      "probe_commit": 1,
+      "probe_not_noninferior": 1531,
+      "probe_timeout": 626,
+      "rollback": 0
+     },
+     "resolutions": {
+      "new_mechanism": 2733,
+      "updated_mechanism": 0,
+      "no_change": 4138
+     },
+     "changes": 1
+    },
+    "E3": {
+     "means": {
+      "REPURPOSE": 0.03818440740740742,
+      "REPAIR": -0.05027024629629628,
+      "RANDOM-MECH": 0.029544277777777805,
+      "NONE": 0.09635846666666667
+     },
+     "spikes": {
+      "REPURPOSE": 5.385,
+      "REPAIR": 3.69,
+      "RANDOM-MECH": 3.91,
+      "NONE": 3.22
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0884546537037037,
+       "lo": 0.07901856481481481,
+       "hi": 0.09677282777777776
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.00864012962962962,
+       "lo": -0.0022964222222222317,
+       "hi": 0.019083531481481474
+      },
+      "REPURPOSE-NONE": {
+       "diff": -0.05817405925925926,
+       "lo": -0.06551725925925926,
+       "hi": -0.05131244074074075
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 1.695,
+       "lo": 1.335,
+       "hi": 2.07
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 1.475,
+       "lo": 1.135,
+       "hi": 1.81
+      },
+      "REPURPOSE-NONE": {
+       "diff": 2.165,
+       "lo": 1.945,
+       "hi": 2.405
+      }
+     },
+     "beats": false,
+     "noninferior_none": false,
+     "safe": false,
+     "mission_v2_means": {},
+     "open_old": 0,
+     "unresolved_end": 437,
+     "nodes": 5940,
+     "audit_fail": 0,
+     "r2": {
+      "probe_start": 2549,
+      "probe_commit": 0,
+      "probe_not_noninferior": 1586,
+      "probe_timeout": 532,
+      "rollback": 0
+     },
+     "resolutions": {
+      "new_mechanism": 2549,
+      "updated_mechanism": 0,
+      "no_change": 2954
+     },
+     "changes": 0
+    }
+   },
+   "pass": false
+  },
+  "person": {
+   "table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "regimes": {
+    "E1": {
+     "means": {
+      "REPURPOSE": 0.06439365856512697,
+      "REPAIR": 0.060745026152738815,
+      "RANDOM-MECH": 0.0643006718026818,
+      "NONE": 0.06439365856512697
+     },
+     "spikes": {
+      "REPURPOSE": 0.84,
+      "REPAIR": 0.84,
+      "RANDOM-MECH": 0.84,
+      "NONE": 0.84
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.003648632412388145,
+       "lo": 0.0032348778544343255,
+       "hi": 0.0040921629923855755
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 9.298676244515656e-05,
+       "lo": 0.0,
+       "hi": 0.00021878624421015424
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.41,
+       2.95,
+       10.0
+      ],
+      "REPAIR": [
+       -1.41,
+       2.95,
+       10.0
+      ],
+      "RANDOM-MECH": [
+       -1.41,
+       2.95,
+       10.0
+      ],
+      "NONE": [
+       -1.41,
+       2.95,
+       10.0
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 178,
+     "audit_fail": 0,
+     "r2": {
+      "probe_start": 178,
+      "probe_commit": 2,
+      "probe_not_noninferior": 84,
+      "probe_timeout": 92,
+      "rollback": 0
+     },
+     "resolutions": {
+      "new_mechanism": 178,
+      "updated_mechanism": 0,
+      "no_change": 0
+     },
+     "changes": 2
+    },
+    "E2": {
+     "means": {
+      "REPURPOSE": 0.06422867095568943,
+      "REPAIR": 0.06076987516404115,
+      "RANDOM-MECH": 0.06416130552991564,
+      "NONE": 0.06422867095568943
+     },
+     "spikes": {
+      "REPURPOSE": 0.81,
+      "REPAIR": 0.81,
+      "RANDOM-MECH": 0.81,
+      "NONE": 0.81
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0034587957916482827,
+       "lo": 0.003026433957011243,
+       "hi": 0.003910329639944533
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 6.736542577379944e-05,
+       "lo": 0.0,
+       "hi": 0.00019475270579003673
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.27,
+       3.65,
+       10.0
+      ],
+      "REPAIR": [
+       -1.27,
+       3.65,
+       10.0
+      ],
+      "RANDOM-MECH": [
+       -1.27,
+       3.65,
+       10.0
+      ],
+      "NONE": [
+       -1.27,
+       3.65,
+       10.0
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 177,
+     "audit_fail": 0,
+     "r2": {
+      "probe_start": 177,
+      "probe_commit": 1,
+      "probe_not_noninferior": 104,
+      "probe_timeout": 72,
+      "rollback": 0
+     },
+     "resolutions": {
+      "new_mechanism": 177,
+      "updated_mechanism": 0,
+      "no_change": 0
+     },
+     "changes": 1
+    },
+    "E3": {
+     "means": {
+      "REPURPOSE": 0.06717079114770887,
+      "REPAIR": 0.06699310184673497,
+      "RANDOM-MECH": 0.06717079114770887,
+      "NONE": 0.06717079114770887
+     },
+     "spikes": {
+      "REPURPOSE": 0.025,
+      "REPAIR": 0.025,
+      "RANDOM-MECH": 0.025,
+      "NONE": 0.025
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.00017768930097389183,
+       "lo": 0.0,
+       "hi": 0.00041077655814867096
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.035,
+       4.825,
+       10.0
+      ],
+      "REPAIR": [
+       -1.035,
+       4.825,
+       10.0
+      ],
+      "RANDOM-MECH": [
+       -1.035,
+       4.825,
+       10.0
+      ],
+      "NONE": [
+       -1.035,
+       4.825,
+       10.0
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 5,
+     "audit_fail": 0,
+     "r2": {
+      "probe_start": 5,
+      "probe_commit": 0,
+      "probe_not_noninferior": 5,
+      "probe_timeout": 0,
+      "rollback": 0
+     },
+     "resolutions": {
+      "new_mechanism": 5,
+      "updated_mechanism": 0,
+      "no_change": 0
+     },
+     "changes": 0
+    }
+   },
+   "pass": false
+  }
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "design": "AGENTS.md \u00a711.7 LIA-G3",
+ "level": 0.9916666666666667,
+ "n_runs": 8,
+ "excluded_empty": 1192,
+ "planted": 8,
+ "fingerprint_recall": 0.125,
+ "parent_accuracy_given_fingerprint": 0.0,
+ "all": {
+  "n": 8,
+  "mean_f1": {
+   "LIA-DIRECT3": 0.0,
+   "TEMPORAL": 0.0,
+   "RANDOM": 0.0
+  },
+  "ci": {
+   "LIA-DIRECT3-TEMPORAL": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   },
+   "LIA-DIRECT3-RANDOM": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   }
+  }
+ },
+ "agent": {
+  "n": 5,
+  "mean_f1": {
+   "LIA-DIRECT3": 0.0,
+   "TEMPORAL": 0.0,
+   "RANDOM": 0.0
+  },
+  "ci": {
+   "LIA-DIRECT3-TEMPORAL": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   },
+   "LIA-DIRECT3-RANDOM": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   }
+  }
+ },
+ "person": {
+  "n": 3,
+  "mean_f1": {
+   "LIA-DIRECT3": 0.0,
+   "TEMPORAL": 0.0,
+   "RANDOM": 0.0
+  },
+  "ci": {
+   "LIA-DIRECT3-TEMPORAL": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   },
+   "LIA-DIRECT3-RANDOM": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   }
+  }
+ },
+ "pass": false
+}

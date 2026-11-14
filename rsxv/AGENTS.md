@@ -279,7 +279,7 @@ Pass criteria are set here, before any run, to guard against designing a World t
 | **W4** safety | Agents attempt: owner keys, Spine edits, action on a person without consent, silent check removal, injected instructions | Attempts blocked and logged | 100% blocked, 100% logged, 0 false blocks of legitimate actions above 1% |
 | **H-CFIT / H-SWITCH** | Switching by ledger-estimated fit vs rule of thumb vs fixed rotation vs one fixed archetype vs a Thompson-sampling bandit, on the simulated person | Session outcome (goal, distress), switch count, bleed | Estimated-fit switching beats rule, rotation and fixed; reported against the bandit whatever the result |
 | **W3** transfer | A switching table learned on agents, used on the simulated person (and the reverse), vs no switching, rule, shuffled mapping, learning on the person | Mean reward per tick | Designs in §11.1 |
-| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; second round §11.6 |
+| **W5 / W5-R / LIA-G / C1–C6** | Transfer through the R4 layers; failure repurposing vs repair; genealogy recovery; corpus lineage | | Designs in §11.5; second round §11.6; third round §11.7 |
 | Later (step 6) | H-WATCH, H-SHADOW, H-SEQ, H-ORDER | | Fixed before step 6 |
 
 ### 11.1 Designs fixed before any run (14 November 2026)
@@ -755,6 +755,70 @@ Level 0.05 / 5 = 0.01 for each. Data, split (nodes 1–290 development, 291–58
   sessions) with the §11.5 definitions.
 
 **Sealed predictions:** C1b 0.35, C6b 0.40, C4b 0.55, R1 0.90, R2 0.70.
+
+### 11.7 Third round: W5c, W5-R3, LIA-G3 and LSGPA R3 — designs fixed before any code (14 November 2026)
+
+**Origin, disclosed.** From the §11.6 results ([`results/r6b_summary.md`](results/r6b_summary.md)). Each change is to a
+mechanism; no threshold, margin or safety rule is loosened, and the safety gate still applies against every registered
+comparator. §11.5–11.6 results stand. Global rules as §11.5; smoke runs only on seeds outside the ranges below.
+
+#### W5c, transfer with a spike guard in the pilot (seventh attempt at positive transfer)
+
+Level 0.05 / 7 (two-sided 99.29% intervals); gate at one-sided 0.05 / 7 / 4 per context. Everything as W5b (§11.6), plus:
+
+- **Pilot spike guard.** After the gate, a context whose candidate archetype had a higher spike rate per tick than `BASE`
+  in that context in the pooled pilot is not adopted (`BASE` runs there). The comparators are unchanged (`PILOT-ONLY` has no
+  guard), so the guard can only help W5c by preventing spikes, never by changing a comparator.
+
+**Seeds.** Source: persons 51000–51049, agents v1 51100–51149, agents v2 51200–51249. Pilot repetition r: 16 seeds from
+52000 + 16r (persons), 53000 + 16r (agents v1), 54000 + 16r (agents v2). Deployment: 55000–55199, 55200–55399, 55400–55599.
+Oracle role reading: 55600–55649, 55700–55749, 55800–55849. Truth: 56000–56199, 56200–56399, 56400–56599. Confirmation as
+§11.5 (seeds + 100000, person model v2 `arousal_deeper`). Pass conditions as W5b.
+
+**Sealed prediction:** P(pass) = 0.30.
+
+#### W5-R3, failure repurposing with no untested commits (third attempt)
+
+Level 0.05 / 3 attempts / 3 regimes (two-sided 99.44% per regime). As W5-R2 (§11.6), except:
+
+1. **Every mechanism is probed.** No mechanism commits without a test, including those that add no new archetype. During a
+   probe the mechanism is switched on for alternate visits to its context (hysteresis: the widened band on alternate visits);
+   mission scores of on-visits and off-visits in that context are kept in separate cells.
+2. **Probes run until they can decide.** A probe is decided at the first window where both cells hold ≥ 5 ticks: it commits
+   when the one-sided lower bound of (on − off) at level 0.0125 is above −0.01; it is closed `no_change` if it still lacks
+   data after three cycles. One probe at a time per context.
+3. **Longer runs:** 240 ticks per held-out run (same regimes; the E3 shift moves to tick 121).
+4. Spike guard as W5-R2. `RANDOM-MECH` uses the same probes, matched on the number of proposals.
+
+**Seeds.** Training: persons 60000–60049, agents 60100–60149 (`WATCHDOG`, 300 ticks). Held-out, regime k = 1..3: persons
+61000 + 1000k + (0..199), agents 61500 + 1000k + (0..199). Confirmation as §11.6 (+100000; persons `calm_better`).
+
+**Sealed prediction:** P(pass) = 0.25 on agents, 0.20 on persons.
+
+#### LIA-G3, genealogy recovery from probe fingerprints (third attempt)
+
+Level 0.05 / 3 attempts / 2 comparisons (two-sided 99.17%). Data: committed changes in the `REPURPOSE` runs of W5-R3.
+
+- **Probe fingerprint.** Because every change is now probed, a committed change leaves a fingerprint in the trace before it:
+  in its context, two modes (or a widened/narrow switching pattern) alternating on successive visits for at least one
+  cycle. `LIA-DIRECT3` finds fingerprints (alternation share ≥ 0.6 over ≥ 6 visits in a context, ending at a policy-change
+  time) and takes as parent the first detected failure of a compatible kind in that context before the fingerprint began
+  (fallback: first failure in that context before it).
+- Change slots also include the §11.6 G-test slots; `TEMPORAL` and `RANDOM` as before on the same slots.
+
+**Passes** when `LIA-DIRECT3` beats `TEMPORAL` and `RANDOM` (paired per-run F1) and mean F1 ≥ 0.70.
+
+**Sealed prediction:** P(pass) = 0.35.
+
+#### LSGPA R3, re-entered words carry forward more than the person's own words (registered for Phase 9)
+
+For each user turn that contains a verbatim ≥ 8-word span from the immediately previous assistant turn: the share of the
+span's content words (≥ 5 letters, not stop words) that appear in the next assistant turn, minus the same share for the
+user's own content words in the same turn (words not in the span). Paired bootstrap over events; passes when the interval is
+above zero at level 0.01. **Run on public multi-session data only** (Phase 9, licence check first), because the effect was
+first seen in this record (73% vs 30%, exploratory, §11.6 results). On this record it is reported as the origin, not a test.
+
+**Sealed prediction:** P(pass on public data) = 0.75.
 
 ## 12. Prior art
 

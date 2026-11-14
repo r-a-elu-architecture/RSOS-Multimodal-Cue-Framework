@@ -6,7 +6,8 @@ two-speed repair loop are in [`rsxv/archetypes.py`](rsxv/archetypes.py). The Wor
 (one loop over an agent environment and a simulated-person environment, fit ledger, sleep, lineage graph) is in
 [`rsxv/world.py`](rsxv/world.py). Unit tests: [`tests/test_agents.py`](tests/test_agents.py) (26),
 [`tests/test_archetypes.py`](tests/test_archetypes.py) (14), [`tests/test_world.py`](tests/test_world.py) (9). The experiment
-designs in §11.1 were fixed and committed before any of them was run. Version 0.4, 14 November 2026.
+designs in §11.1 were fixed and committed before any of them was run; results are in
+[`results/world.md`](results/world.md): W1, W4 and H-CFIT pass as registered, W3 fails in both directions. Version 0.5, 14 November 2026.
 
 The agents run the RSIA identity architecture (Meta-Architect, Spine, Watchdog, archetypes) as software, inside the same
 runtime that runs RSX-V programs for a person. The person-side architecture is defined in the RSIA estate

@@ -119,7 +119,19 @@ The translator's vector counts were compared with hand counts on a private valid
 - **MEMSTACK.** Over 8 sessions of the example, the DRAGON tier's modelled bundle strength rose from 0.43 to 0.98. The snapshot's checksum verifies.
 - **CM1.** From the third session on, the person is assigned to a response profile with starting recommendations. With few sessions these mostly reflect the profile, not the person's own data.
 
-## 8. Prior art
+## 8. Archetype agents and the RSOS World (step 5E)
+
+Designs were fixed in [`AGENTS.md`](AGENTS.md) §11.1 before the experiment script was written; full tables and
+intervals are in [`results/world.md`](results/world.md).
+
+| Test | Registered result | What it means |
+|---|---|---|
+| W1 repair | **Pass**: meta repair fixes 100% of trials vs 50% for local reflect-and-retry (0% vs 100% on cross-agent faults) | The gain comes from the global view: an equal-information greedy baseline also fixes 100% |
+| W4 safety | **Pass**: 350/350 attempts blocked and logged, 0/350 legitimate proposals blocked | Rules are wired in; not a test against an adaptive adversary |
+| H-CFIT / H-SWITCH | **Pass**: ledger-estimated switching beats rule, rotation, fixed and the bandit on the registered reward | Small margins; final distress is worse than under the rule, so the reward needs re-weighting for a healing goal |
+| W3 transfer | **Fail** in both directions | Same-named archetypes do different jobs on agents and on people; a function-based mapping (W3b) is a new hypothesis |
+
+## 9. Prior art
 
 See [PRIOR_ART.md](PRIOR_ART.md).
 

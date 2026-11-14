@@ -280,7 +280,11 @@ def main(argv=None):
     if not quick:
         out = pathlib.Path(__file__).resolve().parents[1] / "results"
         (out / "results_world.json").write_text(json.dumps(R, indent=1, sort_keys=True) + "\n")
-        (out / "world.md").write_text(report(R))
+        md = out / "world.md"
+        keep = ""
+        if md.exists() and "## What these results show" in md.read_text():
+            keep = md.read_text()[md.read_text().index("## What these results show"):]   # hand-written reading
+        md.write_text(report(R) + keep)
     return R
 
 

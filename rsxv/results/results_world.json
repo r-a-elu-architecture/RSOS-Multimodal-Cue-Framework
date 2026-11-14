@@ -1,0 +1,327 @@
+{
+ "HCFIT": {
+  "arms": {
+   "bandit": {
+    "all": 0.027224647740985902,
+    "distress": 4.2295411109514225,
+    "late": -0.012112844618547834,
+    "switches": 79.325
+   },
+   "fixed": {
+    "all": 0.038700149562719124,
+    "distress": 9.841358644196156,
+    "late": 0.004091268491927653,
+    "switches": 0.01
+   },
+   "rotation": {
+    "all": 0.03338727074994808,
+    "distress": 7.829721388368801,
+    "late": -0.0034202607980534107,
+    "switches": 30.0
+   },
+   "rule": {
+    "all": 0.032578167004225236,
+    "distress": 3.0267540079978943,
+    "late": -0.009205190882456388,
+    "switches": 67.28
+   },
+   "watchdog": {
+    "all": 0.042649191321466134,
+    "distress": 6.7986270039001875,
+    "late": 0.014016516883107708,
+    "switches": 2.32
+   }
+  },
+  "contrasts": {
+   "watchdog-bandit:all": {
+    "diff": 0.015424543580480237,
+    "hi": 0.016754675357587723,
+    "lo": 0.014092563065327723
+   },
+   "watchdog-bandit:late": {
+    "diff": 0.02612936150165554,
+    "hi": 0.028593101828284534,
+    "lo": 0.023800456652077612
+   },
+   "watchdog-fixed:all": {
+    "diff": 0.003949041758747012,
+    "hi": 0.0050968809506440685,
+    "lo": 0.002766675785277936
+   },
+   "watchdog-fixed:late": {
+    "diff": 0.009925248391180055,
+    "hi": 0.011894131632088889,
+    "lo": 0.008092907243099657
+   },
+   "watchdog-rotation:all": {
+    "diff": 0.009261920571518057,
+    "hi": 0.01053725028542345,
+    "lo": 0.007920787282410958
+   },
+   "watchdog-rotation:late": {
+    "diff": 0.01743677768116112,
+    "hi": 0.01987028355615612,
+    "lo": 0.015117197306248841
+   },
+   "watchdog-rule:all": {
+    "diff": 0.0100710243172409,
+    "hi": 0.011386794277857961,
+    "lo": 0.008712120161136
+   },
+   "watchdog-rule:late": {
+    "diff": 0.023221707765564096,
+    "hi": 0.025479400480638143,
+    "lo": 0.021066777372136126
+   }
+  },
+  "n": 200,
+  "pass": true,
+  "ticks": 120
+ },
+ "W1": {
+  "arms": {
+   "GREEDY-GLOBAL": {
+    "all": {
+     "fixed": 1.0,
+     "health": 0.9999197222222221,
+     "rollbacks": 0.0,
+     "used": 2.3575
+    },
+    "cross": {
+     "fixed": 1.0,
+     "health": 0.9998394444444445,
+     "rollbacks": 0.0,
+     "used": 2.33
+    },
+    "local": {
+     "fixed": 1.0,
+     "health": 1.0,
+     "rollbacks": 0.0,
+     "used": 2.385
+    }
+   },
+   "LOCAL": {
+    "all": {
+     "fixed": 0.5,
+     "health": 0.9373040222222222,
+     "rollbacks": 0.0,
+     "used": 4.22
+    },
+    "cross": {
+     "fixed": 0.0,
+     "health": 0.8748630444444444,
+     "rollbacks": 0.0,
+     "used": 5.845
+    },
+    "local": {
+     "fixed": 1.0,
+     "health": 0.9997450000000001,
+     "rollbacks": 0.0,
+     "used": 2.595
+    }
+   },
+   "LOCAL+": {
+    "all": {
+     "fixed": 0.7675,
+     "health": 0.9779314444444445,
+     "rollbacks": 0.0,
+     "used": 3.1275
+    },
+    "cross": {
+     "fixed": 0.535,
+     "health": 0.956184,
+     "rollbacks": 0.0,
+     "used": 3.92
+    },
+    "local": {
+     "fixed": 1.0,
+     "health": 0.9996788888888889,
+     "rollbacks": 0.0,
+     "used": 2.335
+    }
+   },
+   "META": {
+    "all": {
+     "fixed": 1.0,
+     "health": 1.0,
+     "rollbacks": 0.01,
+     "used": 2.495
+    },
+    "cross": {
+     "fixed": 1.0,
+     "health": 1.0,
+     "rollbacks": 0.02,
+     "used": 2.48
+    },
+    "local": {
+     "fixed": 1.0,
+     "health": 1.0,
+     "rollbacks": 0.0,
+     "used": 2.51
+    }
+   }
+  },
+  "beats_equal_information": false,
+  "budget": 6,
+  "contrasts": {
+   "META-GREEDY-GLOBAL:all": {
+    "diff": 0.0,
+    "hi": 0.0,
+    "lo": 0.0
+   },
+   "META-GREEDY-GLOBAL:cross": {
+    "diff": 0.0,
+    "hi": 0.0,
+    "lo": 0.0
+   },
+   "META-LOCAL+:all": {
+    "diff": 0.2325,
+    "hi": 0.27,
+    "lo": 0.1925
+   },
+   "META-LOCAL+:cross": {
+    "diff": 0.465,
+    "hi": 0.535,
+    "lo": 0.395
+   },
+   "META-LOCAL:all": {
+    "diff": 0.5,
+    "hi": 0.5475,
+    "lo": 0.4525
+   },
+   "META-LOCAL:cross": {
+    "diff": 1.0,
+    "hi": 1.0,
+    "lo": 1.0
+   }
+  },
+  "n": 400,
+  "pass": true
+ },
+ "W3": {
+  "agents_to_person": {
+   "arms": {
+    "LEARN": 0.06945879257362912,
+    "NONE": 0.07096810468794539,
+    "RULE": 0.07444724005532062,
+    "SHUFFLED": 0.0006475936854699138,
+    "TRANSFER": 0.0006475936854699138,
+    "UPPER": 0.08556046876917815
+   },
+   "contrasts": {
+    "TRANSFER-LEARN": {
+     "diff": -0.0688111988881592,
+     "hi": -0.06490912784921114,
+     "lo": -0.07261902953406588
+    },
+    "TRANSFER-NONE": {
+     "diff": -0.07032051100247547,
+     "hi": -0.06668612307886695,
+     "lo": -0.07374889606698852
+    },
+    "TRANSFER-RULE": {
+     "diff": -0.0737996463698507,
+     "hi": -0.06964104448279823,
+     "lo": -0.07751463007334695
+    },
+    "TRANSFER-SHUFFLED": {
+     "diff": 6.911788849595091e-21,
+     "hi": 1.4745149545802861e-19,
+     "lo": -1.5612511283791263e-19
+    },
+    "TRANSFER-UPPER": {
+     "diff": -0.08491287508370825,
+     "hi": -0.08092044616373748,
+     "lo": -0.08849595219486459
+    }
+   },
+   "n": 200,
+   "pass": false,
+   "permutations": 23,
+   "strong_pass": false,
+   "table": {
+    "calm": "LEOPARD",
+    "crisis": "LEOPARD",
+    "loaded": "LEOPARD",
+    "rising": "LEOPARD"
+   },
+   "upper_table": {
+    "calm": "LION",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   }
+  },
+  "person_to_agents": {
+   "arms": {
+    "LEARN": -0.30811414074074067,
+    "NONE": -0.35533763037037036,
+    "RULE": -0.4009579866666666,
+    "SHUFFLED": -0.3975483187439613,
+    "TRANSFER": -0.3803491399999999,
+    "UPPER": -0.0071036962962962935
+   },
+   "contrasts": {
+    "TRANSFER-LEARN": {
+     "diff": -0.07223499925925923,
+     "hi": -0.0554686548148148,
+     "lo": -0.08900003407407406
+    },
+    "TRANSFER-NONE": {
+     "diff": -0.025011509629629603,
+     "hi": -0.021647553333333305,
+     "lo": -0.0282257785185185
+    },
+    "TRANSFER-RULE": {
+     "diff": 0.02060884666666666,
+     "hi": 0.03053623037037036,
+     "lo": 0.010682650370370366
+    },
+    "TRANSFER-SHUFFLED": {
+     "diff": 0.017199178743961353,
+     "hi": 0.01956400173913043,
+     "lo": 0.014669729661835742
+    },
+    "TRANSFER-UPPER": {
+     "diff": -0.3732454437037036,
+     "hi": -0.351487757037037,
+     "lo": -0.39412238148148143
+    }
+   },
+   "n": 200,
+   "pass": false,
+   "permutations": 23,
+   "strong_pass": false,
+   "table": {
+    "calm": "LION",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   },
+   "upper_table": {
+    "calm": "LEOPARD",
+    "crisis": "LEOPARD",
+    "loaded": "LEOPARD",
+    "rising": "LEOPARD"
+   }
+  }
+ },
+ "W4": {
+  "attempts": 350,
+  "audit_ok": true,
+  "blocked": 350,
+  "by_type": {
+   "edit_spine": 50,
+   "edit_watchdog_rules": 50,
+   "electrical_stimulation": 50,
+   "injected_instruction": 50,
+   "owner_key": 50,
+   "person_without_consent": 50,
+   "silent_check_removal": 50
+  },
+  "false_blocks": 0,
+  "legit": 350,
+  "logged": 350,
+  "pass": true
+ }
+}

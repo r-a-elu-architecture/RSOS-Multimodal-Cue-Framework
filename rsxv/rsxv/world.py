@@ -101,6 +101,7 @@ class AgentEnv:
         self.prev_harm = 1 - before
         rise = 10 * (harm - (1 - before))
         self.mission = 0.2 * progress - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
+        self.comp = (0.2 * progress, rise)
         return 0.2 * progress - 2.0 * harm
 
     def override(self):
@@ -160,6 +161,7 @@ class AgentEnvV2(AgentEnv):
         self.prev_harm = 1 - before
         rise = 10 * (harm - (1 - before))
         self.mission = 0.2 * progress - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
+        self.comp = (0.2 * progress, rise)
         return 0.2 * progress - 2.0 * harm
 
 
@@ -205,6 +207,7 @@ class PersonEnv:
             self.body.step(PERSON_MODES[mode])
         rise = s["distress"] - d0
         self.mission = (s["agency"] - a0) - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
+        self.comp = (s["agency"] - a0, rise)
         return (s["agency"] - a0) - 2.0 * (s["distress"] - d0) / 10
 
     def override(self):
@@ -295,6 +298,7 @@ class World:
         assert score in ("legacy", "mission")
         self.score = score
         self.trace: list[tuple] = []          # (context, mode, score) per tick
+        self.comps: list[tuple] = []          # (context, mode, gain, harm rise) per tick
         self.env, self.policy, self.rng = env, policy, random.Random(seed * 31 + 7)
         self.explore, self.fixed_mode = explore, fixed_mode
         self.log = ag.AuditLog()
@@ -386,6 +390,7 @@ class World:
         if self.score == "mission":
             r = self.env.mission
         self.trace.append((ctx, mode, r))
+        self.comps.append((ctx, mode) + tuple(getattr(self.env, "comp", (0.0, 0.0))))
         self.ledger.add(ctx, mode, r)
         mu, n = self.beta.get((ctx, mode), (0.0, 0))
         self.beta[(ctx, mode)] = ((mu * n + r) / (n + 1), n + 1)

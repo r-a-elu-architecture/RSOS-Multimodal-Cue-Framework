@@ -48,3 +48,26 @@ class TestGate(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestGateV2Roles(unittest.TestCase):
+    def test_min_cells_and_variance_floor(self):
+        p = {("calm", "LION"): [0.0] * 4, ("calm", "BEAR"): [0.1] * 4}
+        g, v = G.gate_v2({"calm": "BEAR"}, p)
+        self.assertEqual(g["calm"], "LION")
+        self.assertEqual(v[0]["decision"], "reject: too few data")
+        p = {("calm", "LION"): [0.0] * 6, ("calm", "BEAR"): [0.05] * 6}
+        g, _ = G.gate_v2({"calm": "BEAR"}, p)
+        self.assertEqual(g["calm"], "LION")            # zero variance no longer admits a small gain
+        g0, _ = G.gate({"calm": "BEAR"}, p)
+        self.assertEqual(g0["calm"], "BEAR")           # the v1 weakness, kept for the record
+
+    def test_roles_and_mapping(self):
+        comps = [("calm", "LION", 0.1, 0.0)] * 3 + [("calm", "BEAR", 0.0, -0.5)] * 3 + [("calm", "TIGER", 0.5, 0.1)] * 3
+        r = G.roles(comps)
+        self.assertEqual(r, {"RESTORE": "BEAR", "DRIVE": "TIGER"})
+        rt = G.role_table({"calm": "LEOPARD", "rising": "EAGLE"}, {"RESTORE": "LEOPARD", "DRIVE": "EAGLE"})
+        self.assertEqual(rt["calm"], "RESTORE")
+        self.assertEqual(rt["loaded"], "BASELINE")
+        self.assertEqual(G.from_roles(rt, r)["calm"], "BEAR")
+        self.assertEqual(G.from_roles(rt, r)["rising"], "TIGER")

@@ -50,3 +50,15 @@ Adopted a non-baseline table in 20/20 repetitions; adopted contexts 41, false ce
 Beats all: True; non-inferior: {'NONE': True}; safety gate: True.
 
 **T-AP overall (primary and confirmation): PASS.**
+
+## Confirmation completed with the W3C comparator on person model v2
+
+W3C mean +0.0692; T-AP − W3C +0.0180 [+0.0109, +0.0240]; spikes T-AP − W3C -0.008 [-0.030, +0.012]. Non-inferior: {'NONE': True, 'W3C': True}; safety gate against every comparator: True; beats PILOT-ONLY, NONE, RANDOM-FUNC: True.
+
+**T-AP confirmation with every registered comparator: PASS.**
+
+## Confirmation completed with the W3C comparator on person model v2
+
+W3C mean +0.0692; T-AP − W3C +0.0180 [+0.0109, +0.0240]; spikes T-AP − W3C -0.008 [-0.030, +0.012]. Non-inferior: {'NONE': True, 'W3C': True}; safety gate against every comparator: True; beats PILOT-ONLY, NONE, RANDOM-FUNC: True.
+
+**T-AP confirmation with every registered comparator: PASS.**

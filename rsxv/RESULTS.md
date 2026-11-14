@@ -153,6 +153,9 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | W5c, transfer with pilot spike guard (§11.7, seventh attempt) | **Fail** | Agents v1 → person meets every condition including safety; a second direction is needed ([`results/w5c.md`](results/w5c.md)) |
 | W5-R3, every change probed (§11.7) | **Fail** on both substrates | The non-harm probe rejects almost every library mechanism; the trained policies leave the fixed library nothing to improve ([`results/w5r3.md`](results/w5r3.md)) |
 | LIA-G3 (§11.7) | **Fail** | 8 committed changes in 1,200 runs; not a meaningful test ([`results/lia_g3.md`](results/lia_g3.md); summary [`results/r6c_summary.md`](results/r6c_summary.md)) |
+| **T-AP, transfer agents v1 → person (§11.8)** | **PASS, confirmed** | The first confirmed cross-substrate transfer: beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model ([`results/tap.md`](results/tap.md)) |
+| W5d, negative certificates + fail-safe tube (§11.8) | **Fail** | Two directions beat every comparator; one has slightly more spikes than pilot-only; the jam predictor is near chance ([`results/w5d.md`](results/w5d.md)) |
+| W5-R4, anticipatory forge (§11.8) | **Fail** on both substrates | The Lion's failure forecasts beat the base rate on agents; the 10-tick ghost passes carry too little evidence ([`results/w5r4.md`](results/w5r4.md); summary [`results/r6d_summary.md`](results/r6d_summary.md)) |
 
 ## 9. Prior art
 

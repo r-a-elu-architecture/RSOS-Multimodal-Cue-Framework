@@ -1,0 +1,49 @@
+{
+ "label": "EXPLORATORY diagnostics after the registered W3b results were seen; deployment seeds 11000-11199 (person), 11200-11399 (agent v1), 11400-11599 (agent v2); 60 ticks; mission score",
+ "person": {
+  "NONE": {
+   "mean": -0.0902,
+   "switches_per_target": 0.01,
+   "re_entries_per_target": 0.0
+  },
+  "BEAR in crisis only": {
+   "mean": -0.1081,
+   "switches_per_target": 10.14,
+   "re_entries_per_target": 3.0
+  },
+  "BEAR always": {
+   "mean": 0.2366,
+   "switches_per_target": 1.0,
+   "re_entries_per_target": 0.0
+  }
+ },
+ "agent": {
+  "NONE": {
+   "mean": -0.0798,
+   "switches_per_target": 2.55,
+   "re_entries_per_target": 0.64
+  },
+  "LEOPARD in calm only": {
+   "mean": 0.0066,
+   "switches_per_target": 4.28,
+   "re_entries_per_target": 0.89
+  },
+  "LEOPARD always": {
+   "mean": -0.0078,
+   "switches_per_target": 1.0,
+   "re_entries_per_target": 0.0
+  }
+ },
+ "agent_v2": {
+  "NONE": {
+   "mean": -0.0792,
+   "switches_per_target": 2.54,
+   "re_entries_per_target": 0.6
+  },
+  "LEOPARD always": {
+   "mean": -0.1381,
+   "switches_per_target": 2.56,
+   "re_entries_per_target": 0.34
+  }
+ }
+}

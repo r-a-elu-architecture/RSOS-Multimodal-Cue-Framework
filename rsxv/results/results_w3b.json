@@ -1,0 +1,1922 @@
+{
+ "admitted": 2,
+ "false_admits": 0,
+ "oracle": {
+  "agent": {
+   "calm": "LEOPARD",
+   "crisis": "LEOPARD",
+   "loaded": "LEOPARD",
+   "rising": "LEOPARD"
+  },
+  "agent_v2": {
+   "calm": "LEOPARD",
+   "crisis": "LEOPARD",
+   "loaded": "TIGER",
+   "rising": "LEOPARD"
+  },
+  "person": {
+   "calm": "BEAR",
+   "crisis": "BEAR",
+   "loaded": "BEAR",
+   "rising": "BEAR"
+  }
+ },
+ "pass": false,
+ "runs": [
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.0902124642190755,
+    "NONE": -0.0902124642190755,
+    "ORACLE": 0.23659497806452812,
+    "PILOT-BONF": -0.0902124642190755,
+    "PILOT-SPLIT": -0.0902124642190755,
+    "ROLE": -0.0902124642190755,
+    "ROLE-RANDOM": -0.0902124642190755,
+    "ROLE-SHUFFLED": -0.0902124642190755
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.3268074422836036,
+     "hi": -0.319327760776635,
+     "lo": -0.33303950357652384
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 1.7347234759768072e-19,
+     "hi": 8.326672684688674e-19,
+     "lo": -4.336808689942018e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": -1.8214596497756474e-19,
+     "hi": 4.9439619065339e-19,
+     "lo": -8.760353553682876e-19
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 5,
+   "source": "agent",
+   "source_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "source_table": {
+    "calm": "LEOPARD",
+    "crisis": "LEOPARD",
+    "loaded": "LEOPARD",
+    "rising": "LEOPARD"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "BEAR",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "person",
+   "target_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "validity_map_role": [
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "calm",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 4,
+     "n_candidate": 1,
+     "truth": 0.9079180033086589
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 1,
+     "truth": 0.8125443704502158
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "loaded",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 6,
+     "n_candidate": 4,
+     "truth": 0.8520099008936435
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "crisis",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 3,
+     "n_candidate": 6,
+     "truth": 0.9458366235647663
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.0902124642190755,
+    "NONE": -0.0902124642190755,
+    "ORACLE": 0.23659497806452812,
+    "PILOT-BONF": -0.0902124642190755,
+    "PILOT-SPLIT": -0.0902124642190755,
+    "ROLE": -0.0902124642190755,
+    "ROLE-RANDOM": -0.0902124642190755,
+    "ROLE-SHUFFLED": -0.0902124642190755
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.3268074422836036,
+     "hi": -0.319327760776635,
+     "lo": -0.33303950357652384
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 1.7347234759768072e-19,
+     "hi": 8.326672684688674e-19,
+     "lo": -4.336808689942018e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": -1.8214596497756474e-19,
+     "hi": 4.9439619065339e-19,
+     "lo": -8.760353553682876e-19
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 10,
+   "source": "agent",
+   "source_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "source_table": {
+    "calm": "LEOPARD",
+    "crisis": "LEOPARD",
+    "loaded": "LEOPARD",
+    "rising": "LEOPARD"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "BEAR",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "person",
+   "target_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "validity_map_role": [
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "calm",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 7,
+     "n_candidate": 2,
+     "truth": 0.9079180033086589
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 2,
+     "truth": 0.8125443704502158
+    },
+    {
+     "bound": -2.2248268923860044,
+     "candidate": "BEAR",
+     "context": "loaded",
+     "decision": "reject",
+     "estimate": 0.3561407405744266,
+     "false_admit": false,
+     "n_baseline": 10,
+     "n_candidate": 5,
+     "truth": 0.8520099008936435
+    },
+    {
+     "bound": -0.7210478880667361,
+     "candidate": "BEAR",
+     "context": "crisis",
+     "decision": "reject",
+     "estimate": 1.2984800787433404,
+     "false_admit": false,
+     "n_baseline": 7,
+     "n_candidate": 8,
+     "truth": 0.9458366235647663
+    }
+   ]
+  },
+  {
+   "admitted": 1,
+   "arms": {
+    "NAME-GATED": -0.0902124642190755,
+    "NONE": -0.0902124642190755,
+    "ORACLE": 0.23659497806452812,
+    "PILOT-BONF": -0.09670747574093848,
+    "PILOT-SPLIT": -0.10813782616288452,
+    "ROLE": -0.10813782616288452,
+    "ROLE-RANDOM": -0.09290126851064684,
+    "ROLE-SHUFFLED": -0.10813782616288452
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": -0.017925361943809007,
+     "hi": -0.008815953170035747,
+     "lo": -0.027198288050221862
+    },
+    "ROLE-NONE": {
+     "diff": -0.017925361943809007,
+     "hi": -0.008815953170035747,
+     "lo": -0.027198288050221862
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.3447328042274126,
+     "hi": -0.33331160506369145,
+     "lo": -0.3555211181071543
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": -0.011430350421946027,
+     "hi": -0.004858538610578244,
+     "lo": -0.017744977993275474
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": -0.015236557652237658,
+     "hi": -0.0074935601945303855,
+     "lo": -0.023118544842688583
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 1.9949319973733282e-19,
+     "hi": 1.4051260155412138e-18,
+     "lo": -9.71445146547012e-19
+    }
+   },
+   "false_admits": 0,
+   "noninferior": false,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 20,
+   "source": "agent",
+   "source_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "source_table": {
+    "calm": "LEOPARD",
+    "crisis": "LEOPARD",
+    "loaded": "LEOPARD",
+    "rising": "LEOPARD"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "BEAR",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "BEAR",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "BEAR",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "person",
+   "target_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "validity_map_role": [
+    {
+     "bound": -0.7717636001546642,
+     "candidate": "BEAR",
+     "context": "calm",
+     "decision": "reject",
+     "estimate": 0.6631930869625882,
+     "false_admit": false,
+     "n_baseline": 12,
+     "n_candidate": 8,
+     "truth": 0.9079180033086589
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 7,
+     "n_candidate": 4,
+     "truth": 0.8125443704502158
+    },
+    {
+     "bound": -0.3912331828293375,
+     "candidate": "BEAR",
+     "context": "loaded",
+     "decision": "reject",
+     "estimate": 0.8101828367428571,
+     "false_admit": false,
+     "n_baseline": 18,
+     "n_candidate": 10,
+     "truth": 0.8520099008936435
+    },
+    {
+     "bound": 0.016550646477192732,
+     "candidate": "BEAR",
+     "context": "crisis",
+     "decision": "admit",
+     "estimate": 0.8256464824819025,
+     "false_admit": false,
+     "n_baseline": 17,
+     "n_candidate": 15,
+     "truth": 0.9458366235647663
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.0797605259259259,
+    "NONE": -0.0797605259259259,
+    "ORACLE": -0.007785925925925925,
+    "PILOT-BONF": -0.0797605259259259,
+    "PILOT-SPLIT": -0.0797605259259259,
+    "ROLE": -0.0797605259259259,
+    "ROLE-RANDOM": -0.0797605259259259,
+    "ROLE-SHUFFLED": -0.0797605259259259
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.07197459999999997,
+     "hi": -0.06233058518518517,
+     "lo": -0.08133596296296293
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 2.8189256484623116e-20,
+     "hi": 7.643625316022806e-19,
+     "lo": -5.898059818321145e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 4.683753385137379e-19,
+     "hi": 1.188285581044113e-18,
+     "lo": -1.8214596497756474e-19
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 5,
+   "source": "person",
+   "source_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "source_table": {
+    "calm": "BEAR",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "LEOPARD",
+     "crisis": "LEOPARD",
+     "loaded": "LEOPARD",
+     "rising": "LEOPARD"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "agent",
+   "target_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "validity_map_role": [
+    {
+     "bound": -0.10984664457342713,
+     "candidate": "LEOPARD",
+     "context": "calm",
+     "decision": "reject",
+     "estimate": 0.40148380537400136,
+     "false_admit": false,
+     "n_baseline": 9,
+     "n_candidate": 17,
+     "truth": 0.8720387752540195
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 2,
+     "n_candidate": 1,
+     "truth": 1.4617814786520666
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 0,
+     "truth": 1.5885400195207182
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "crisis",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 0,
+     "truth": 1.791469633418585
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.0797605259259259,
+    "NONE": -0.0797605259259259,
+    "ORACLE": -0.007785925925925925,
+    "PILOT-BONF": 0.006618874074074076,
+    "PILOT-SPLIT": -0.0797605259259259,
+    "ROLE": -0.0797605259259259,
+    "ROLE-RANDOM": -0.0797605259259259,
+    "ROLE-SHUFFLED": -0.0797605259259259
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.07197459999999997,
+     "hi": -0.06233058518518517,
+     "lo": -0.08133596296296293
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": -0.08637939999999997,
+     "hi": -0.07587600740740738,
+     "lo": -0.09702678518518516
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 2.8189256484623116e-20,
+     "hi": 7.643625316022806e-19,
+     "lo": -5.898059818321145e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 4.683753385137379e-19,
+     "hi": 1.188285581044113e-18,
+     "lo": -1.8214596497756474e-19
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 10,
+   "source": "person",
+   "source_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "source_table": {
+    "calm": "BEAR",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "LEOPARD",
+     "crisis": "LEOPARD",
+     "loaded": "LEOPARD",
+     "rising": "LEOPARD"
+    },
+    "PILOT-BONF": {
+     "calm": "LEOPARD",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "agent",
+   "target_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "validity_map_role": [
+    {
+     "bound": -0.0027743038850792656,
+     "candidate": "LEOPARD",
+     "context": "calm",
+     "decision": "reject",
+     "estimate": 0.6534613333333332,
+     "false_admit": false,
+     "n_baseline": 17,
+     "n_candidate": 25,
+     "truth": 0.8720387752540195
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 2,
+     "n_candidate": 2,
+     "truth": 1.4617814786520666
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 2,
+     "truth": 1.5885400195207182
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "crisis",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 1,
+     "truth": 1.791469633418585
+    }
+   ]
+  },
+  {
+   "admitted": 1,
+   "arms": {
+    "NAME-GATED": -0.0797605259259259,
+    "NONE": -0.0797605259259259,
+    "ORACLE": -0.007785925925925925,
+    "PILOT-BONF": -0.007785925925925925,
+    "PILOT-SPLIT": 0.006618874074074076,
+    "ROLE": 0.006618874074074076,
+    "ROLE-RANDOM": -0.04520876592592591,
+    "ROLE-SHUFFLED": 0.006618874074074076
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.08637939999999997,
+     "hi": 0.09702678518518516,
+     "lo": 0.07587600740740738
+    },
+    "ROLE-NONE": {
+     "diff": 0.08637939999999997,
+     "hi": 0.09702678518518516,
+     "lo": 0.07587600740740738
+    },
+    "ROLE-ORACLE": {
+     "diff": 0.0144048,
+     "hi": 0.01888486666666667,
+     "lo": 0.009549659259259258
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0144048,
+     "hi": 0.01888486666666667,
+     "lo": 0.009549659259259258
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 0.05182763999999999,
+     "hi": 0.0582160711111111,
+     "lo": 0.04552560444444443
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 1.1817803680092e-19,
+     "hi": 3.0466081046842675e-19,
+     "lo": -5.0957502106818706e-20
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 20,
+   "source": "person",
+   "source_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "source_table": {
+    "calm": "BEAR",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "LEOPARD",
+     "crisis": "LEOPARD",
+     "loaded": "LEOPARD",
+     "rising": "LEOPARD"
+    },
+    "PILOT-BONF": {
+     "calm": "LEOPARD",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LEOPARD"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LEOPARD",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LEOPARD",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "agent",
+   "target_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "validity_map_role": [
+    {
+     "bound": 0.1263577424138791,
+     "candidate": "LEOPARD",
+     "context": "calm",
+     "decision": "admit",
+     "estimate": 0.5056444027517197,
+     "false_admit": false,
+     "n_baseline": 41,
+     "n_candidate": 52,
+     "truth": 0.8720387752540195
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 4,
+     "n_candidate": 7,
+     "truth": 1.4617814786520666
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 2,
+     "truth": 1.5885400195207182
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "crisis",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 1,
+     "truth": 1.791469633418585
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.0902124642190755,
+    "NONE": -0.0902124642190755,
+    "ORACLE": 0.23659497806452812,
+    "PILOT-BONF": -0.0902124642190755,
+    "PILOT-SPLIT": -0.0902124642190755,
+    "ROLE": -0.0902124642190755,
+    "ROLE-RANDOM": -0.0902124642190755,
+    "ROLE-SHUFFLED": -0.0902124642190755
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.3268074422836036,
+     "hi": -0.319327760776635,
+     "lo": -0.33303950357652384
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 1.7347234759768072e-19,
+     "hi": 8.326672684688674e-19,
+     "lo": -4.336808689942018e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": -1.8214596497756474e-19,
+     "hi": 4.9439619065339e-19,
+     "lo": -8.760353553682876e-19
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "BASELINE",
+    "loaded": "DRIVE",
+    "rising": "RESTORE"
+   },
+   "size": 5,
+   "source": "agent_v2",
+   "source_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "source_table": {
+    "calm": "LEOPARD",
+    "crisis": "LION",
+    "loaded": "TIGER",
+    "rising": "LEOPARD"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "BEAR",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "person",
+   "target_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "validity_map_role": [
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "calm",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 4,
+     "n_candidate": 1,
+     "truth": 0.9079180033086589
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 1,
+     "truth": 0.8125443704502158
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 6,
+     "n_candidate": 1,
+     "truth": -0.2130440236438888
+    },
+    {
+     "bound": null,
+     "candidate": "LION",
+     "context": "crisis",
+     "decision": "admit (already baseline)",
+     "estimate": 0.0,
+     "false_admit": false,
+     "n_baseline": 3,
+     "n_candidate": 3,
+     "truth": 0.0
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.0902124642190755,
+    "NONE": -0.0902124642190755,
+    "ORACLE": 0.23659497806452812,
+    "PILOT-BONF": -0.0902124642190755,
+    "PILOT-SPLIT": -0.0902124642190755,
+    "ROLE": -0.0902124642190755,
+    "ROLE-RANDOM": -0.0902124642190755,
+    "ROLE-SHUFFLED": -0.0902124642190755
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.3268074422836036,
+     "hi": -0.319327760776635,
+     "lo": -0.33303950357652384
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 1.7347234759768072e-19,
+     "hi": 8.326672684688674e-19,
+     "lo": -4.336808689942018e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": -1.8214596497756474e-19,
+     "hi": 4.9439619065339e-19,
+     "lo": -8.760353553682876e-19
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "BASELINE",
+    "loaded": "DRIVE",
+    "rising": "RESTORE"
+   },
+   "size": 10,
+   "source": "agent_v2",
+   "source_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "source_table": {
+    "calm": "LEOPARD",
+    "crisis": "LION",
+    "loaded": "TIGER",
+    "rising": "LEOPARD"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "BEAR",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "person",
+   "target_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "validity_map_role": [
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "calm",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 7,
+     "n_candidate": 2,
+     "truth": 0.9079180033086589
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 0,
+     "n_candidate": 2,
+     "truth": 0.8125443704502158
+    },
+    {
+     "bound": -2.4540419630939647,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject",
+     "estimate": -0.28357678593805574,
+     "false_admit": false,
+     "n_baseline": 10,
+     "n_candidate": 6,
+     "truth": -0.2130440236438888
+    },
+    {
+     "bound": null,
+     "candidate": "LION",
+     "context": "crisis",
+     "decision": "admit (already baseline)",
+     "estimate": 0.0,
+     "false_admit": false,
+     "n_baseline": 7,
+     "n_candidate": 7,
+     "truth": 0.0
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.0902124642190755,
+    "NONE": -0.0902124642190755,
+    "ORACLE": 0.23659497806452812,
+    "PILOT-BONF": -0.09670747574093848,
+    "PILOT-SPLIT": -0.10813782616288452,
+    "ROLE": -0.0902124642190755,
+    "ROLE-RANDOM": -0.09290126851064684,
+    "ROLE-SHUFFLED": -0.09956482697236715
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.3268074422836036,
+     "hi": -0.319327760776635,
+     "lo": -0.33303950357652384
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.006495011521862982,
+     "hi": 0.015445744432598593,
+     "lo": -0.0025392887431786863
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.017925361943809007,
+     "hi": 0.027198288050221862,
+     "lo": 0.008815953170035747
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": 0.0026888042915713516,
+     "hi": 0.004079743207533279,
+     "lo": 0.0013223929755053626
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 0.009352362753291656,
+     "hi": 0.014190411156637493,
+     "lo": 0.004599627740888216
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "BASELINE",
+    "loaded": "DRIVE",
+    "rising": "RESTORE"
+   },
+   "size": 20,
+   "source": "agent_v2",
+   "source_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "source_table": {
+    "calm": "LEOPARD",
+    "crisis": "LION",
+    "loaded": "TIGER",
+    "rising": "LEOPARD"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "BEAR",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "BEAR"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "BEAR",
+     "loaded": "BEAR",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "BEAR",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "person",
+   "target_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "validity_map_role": [
+    {
+     "bound": -0.7717636001546642,
+     "candidate": "BEAR",
+     "context": "calm",
+     "decision": "reject",
+     "estimate": 0.6631930869625882,
+     "false_admit": false,
+     "n_baseline": 12,
+     "n_candidate": 8,
+     "truth": 0.9079180033086589
+    },
+    {
+     "bound": null,
+     "candidate": "BEAR",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 7,
+     "n_candidate": 4,
+     "truth": 0.8125443704502158
+    },
+    {
+     "bound": -0.9696401112876891,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject",
+     "estimate": -0.0126069803390369,
+     "false_admit": false,
+     "n_baseline": 18,
+     "n_candidate": 15,
+     "truth": -0.2130440236438888
+    },
+    {
+     "bound": null,
+     "candidate": "LION",
+     "context": "crisis",
+     "decision": "admit (already baseline)",
+     "estimate": 0.0,
+     "false_admit": false,
+     "n_baseline": 17,
+     "n_candidate": 17,
+     "truth": 0.0
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.07916698518518517,
+    "NONE": -0.07916698518518517,
+    "ORACLE": 0.00042117777777780175,
+    "PILOT-BONF": -0.07916698518518517,
+    "PILOT-SPLIT": -0.07916698518518517,
+    "ROLE": -0.07916698518518517,
+    "ROLE-RANDOM": -0.07916698518518517,
+    "ROLE-SHUFFLED": -0.07916698518518517
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.07958816296296296,
+     "hi": -0.07487490370370371,
+     "lo": -0.08501186666666667
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": -2.211772431870429e-19,
+     "hi": 4.336808689942018e-19,
+     "lo": -8.630249292984615e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 4.942606653818293e-19,
+     "hi": 1.09910995235718e-18,
+     "lo": -5.027987574901527e-20
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 5,
+   "source": "person",
+   "source_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "source_table": {
+    "calm": "BEAR",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "LEOPARD",
+     "crisis": "LEOPARD",
+     "loaded": "TIGER",
+     "rising": "LEOPARD"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "agent_v2",
+   "target_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "validity_map_role": [
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "calm",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 3,
+     "n_candidate": 6,
+     "truth": 0.5615560153686291
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 2,
+     "n_candidate": 2,
+     "truth": 0.8701961257309941
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 7,
+     "n_candidate": 3,
+     "truth": 0.022662430045178344
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "crisis",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 1,
+     "n_candidate": 1,
+     "truth": 0.10892223889324318
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.07916698518518517,
+    "NONE": -0.07916698518518517,
+    "ORACLE": 0.00042117777777780175,
+    "PILOT-BONF": -0.07916698518518517,
+    "PILOT-SPLIT": -0.07916698518518517,
+    "ROLE": -0.07916698518518517,
+    "ROLE-RANDOM": -0.07916698518518517,
+    "ROLE-SHUFFLED": -0.07916698518518517
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.07958816296296296,
+     "hi": -0.07487490370370371,
+     "lo": -0.08501186666666667
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": -2.211772431870429e-19,
+     "hi": 4.336808689942018e-19,
+     "lo": -8.630249292984615e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 4.942606653818293e-19,
+     "hi": 1.09910995235718e-18,
+     "lo": -5.027987574901527e-20
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 10,
+   "source": "person",
+   "source_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "source_table": {
+    "calm": "BEAR",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "LEOPARD",
+     "crisis": "LEOPARD",
+     "loaded": "TIGER",
+     "rising": "LEOPARD"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "agent_v2",
+   "target_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "validity_map_role": [
+    {
+     "bound": -0.7920308355590813,
+     "candidate": "LEOPARD",
+     "context": "calm",
+     "decision": "reject",
+     "estimate": 0.3789629629629632,
+     "false_admit": false,
+     "n_baseline": 6,
+     "n_candidate": 6,
+     "truth": 0.5615560153686291
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 2,
+     "n_candidate": 3,
+     "truth": 0.8701961257309941
+    },
+    {
+     "bound": -0.9760750729358707,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject",
+     "estimate": 0.776,
+     "false_admit": false,
+     "n_baseline": 13,
+     "n_candidate": 6,
+     "truth": 0.022662430045178344
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "crisis",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 1,
+     "n_candidate": 1,
+     "truth": 0.10892223889324318
+    }
+   ]
+  },
+  {
+   "admitted": 0,
+   "arms": {
+    "NAME-GATED": -0.07916698518518517,
+    "NONE": -0.07916698518518517,
+    "ORACLE": 0.00042117777777780175,
+    "PILOT-BONF": -0.07916698518518517,
+    "PILOT-SPLIT": -0.07916698518518517,
+    "ROLE": -0.07916698518518517,
+    "ROLE-RANDOM": -0.07916698518518517,
+    "ROLE-SHUFFLED": -0.07916698518518517
+   },
+   "beats_all": false,
+   "contrasts": {
+    "ROLE-NAME-GATED": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-NONE": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ORACLE": {
+     "diff": -0.07958816296296296,
+     "hi": -0.07487490370370371,
+     "lo": -0.08501186666666667
+    },
+    "ROLE-PILOT-BONF": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-PILOT-SPLIT": {
+     "diff": 0.0,
+     "hi": 0.0,
+     "lo": 0.0
+    },
+    "ROLE-ROLE-RANDOM": {
+     "diff": -2.211772431870429e-19,
+     "hi": 4.336808689942018e-19,
+     "lo": -8.630249292984615e-19
+    },
+    "ROLE-ROLE-SHUFFLED": {
+     "diff": 4.942606653818293e-19,
+     "hi": 1.09910995235718e-18,
+     "lo": -5.027987574901527e-20
+    }
+   },
+   "false_admits": 0,
+   "noninferior": true,
+   "role_table": {
+    "calm": "RESTORE",
+    "crisis": "RESTORE",
+    "loaded": "RESTORE",
+    "rising": "RESTORE"
+   },
+   "size": 20,
+   "source": "person",
+   "source_roles": {
+    "DRIVE": "LEOPARD",
+    "RESTORE": "BEAR"
+   },
+   "source_table": {
+    "calm": "BEAR",
+    "crisis": "BEAR",
+    "loaded": "BEAR",
+    "rising": "BEAR"
+   },
+   "tables": {
+    "NAME-GATED": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "NONE": "fixed",
+    "ORACLE": {
+     "calm": "LEOPARD",
+     "crisis": "LEOPARD",
+     "loaded": "TIGER",
+     "rising": "LEOPARD"
+    },
+    "PILOT-BONF": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "PILOT-SPLIT": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    },
+    "ROLE": {
+     "calm": "LION",
+     "crisis": "LION",
+     "loaded": "LION",
+     "rising": "LION"
+    }
+   },
+   "target": "agent_v2",
+   "target_roles": {
+    "DRIVE": "TIGER",
+    "RESTORE": "LEOPARD"
+   },
+   "validity_map_role": [
+    {
+     "bound": -0.19719140708217342,
+     "candidate": "LEOPARD",
+     "context": "calm",
+     "decision": "reject",
+     "estimate": 0.5556613756613757,
+     "false_admit": false,
+     "n_baseline": 18,
+     "n_candidate": 14,
+     "truth": 0.5615560153686291
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "rising",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 2,
+     "n_candidate": 4,
+     "truth": 0.8701961257309941
+    },
+    {
+     "bound": -0.687821347067921,
+     "candidate": "LEOPARD",
+     "context": "loaded",
+     "decision": "reject",
+     "estimate": 0.07745301379811187,
+     "false_admit": false,
+     "n_baseline": 27,
+     "n_candidate": 17,
+     "truth": 0.022662430045178344
+    },
+    {
+     "bound": null,
+     "candidate": "LEOPARD",
+     "context": "crisis",
+     "decision": "reject: too few data",
+     "estimate": null,
+     "false_admit": false,
+     "n_baseline": 4,
+     "n_candidate": 2,
+     "truth": 0.10892223889324318
+    }
+   ]
+  }
+ ],
+ "source_roles": {
+  "agent": {
+   "DRIVE": "TIGER",
+   "RESTORE": "LEOPARD"
+  },
+  "agent_v2": {
+   "DRIVE": "TIGER",
+   "RESTORE": "LEOPARD"
+  },
+  "person": {
+   "DRIVE": "LEOPARD",
+   "RESTORE": "BEAR"
+  }
+ },
+ "source_tables": {
+  "agent": {
+   "calm": "LEOPARD",
+   "crisis": "LEOPARD",
+   "loaded": "LEOPARD",
+   "rising": "LEOPARD"
+  },
+  "agent_v2": {
+   "calm": "LEOPARD",
+   "crisis": "LION",
+   "loaded": "TIGER",
+   "rising": "LEOPARD"
+  },
+  "person": {
+   "calm": "BEAR",
+   "crisis": "BEAR",
+   "loaded": "BEAR",
+   "rising": "BEAR"
+  }
+ },
+ "strong_pass": false
+}

@@ -140,6 +140,7 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | G1, the gate on the W3 tables | **Pass** in both directions | Every harmful entry was blocked; gated transfer is never worse than none and beats ungated transfer by +0.023 to +0.061 per tick |
 | G2, a case where transfer can be valid | **Fail** | Still no harm (gated beats ungated by +0.050 to +0.147), but nothing was admitted, so no gain; the sources proposed archetypes by name, and the substrates share roles instead |
 | H-CFIT under the mission score | **Pass** | Beats rule, rotation, fixed and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score) |
+| W3b, role-based transfer (AGENTS.md §11.3) | **Fail** | Roles were read correctly in 12 of 12 runs, but the gate starved on a uniform pilot and per-context policies flickered; "restore always" reaches near-oracle on the person and agents v1 but not on agents v2 ([`results/w3b.md`](results/w3b.md)) |
 
 ## 9. Prior art
 

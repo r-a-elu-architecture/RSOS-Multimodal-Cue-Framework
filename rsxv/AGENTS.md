@@ -119,6 +119,29 @@ back to baseline). Pace is set by stability, never by a planned count.
 **Medication as covariate.** With consent, medication state is logged; module effects are reported crude and stratified
 by medication state, with strata lacking either arm dropped and listed.
 
+### 3.2 Person model v2 and mission score v2 (step R3, 14 November 2026)
+
+Code: `rsxv/person2.py` (`PersonEnvV2`, `Module`, `mission_v2`, `mission_better`); safety gating in `world.World._safe_mode`.
+Tests: `tests/test_person2.py`. A stated model, not data.
+
+- **Triggers and two-way gain.** Cue events raise distress and arousal in proportion to the person's sensitivity gain;
+  the same gain scales the benefit when a module interrupts a chain.
+- **Capture or coexistence.** A trigger captures the person when arousal reaches 0.8; otherwise the old pattern and the
+  task coexist.
+- **Chains.** While a trigger is unresolved, each tick adds one propagation hop and some distress unless a module fires.
+- **State-dependent module.** Activation probability = strength × (match + 0.3 × (1 − match)), where match is the share of
+  training done in the current state (calm or activated). Install hypothesis is a switch: `neutral`, `arousal_deeper`
+  (activated reps count 1.5×), `calm_better` (calm reps count 1.5×). Calm-transfer criterion: installed only if it works
+  from calm.
+- **Medication covariate.** Halves trigger impact and lowers baseline arousal — a deliberate confound for the analysis
+  tools in §3.1.
+- **Safety in the loop.** The person's `SafetyState` observes every tick; the World checks each mode's action category
+  (`MODE_CATEGORY`) through the Spine against the mode in force and falls back to regulation (BEAR); blocks are audited.
+- **Outcome measures:** return latency, chain length before interruption, unresolved triggers, coexistence share,
+  calm-transfer, activation probability calm/activated, rumination seconds, vividness, agency, distress, crisis count.
+- **Mission score v2:** a tuple (safety, depth, agency), compared lexicographically with tolerances — a run that is safer
+  beyond tolerance wins whatever its depth or agency.
+
 ## 4. Watchdog
 
 `watchdog_tick` runs every World tick.

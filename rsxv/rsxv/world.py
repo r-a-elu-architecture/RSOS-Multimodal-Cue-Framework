@@ -178,6 +178,9 @@ PERSON_MODES = {   # operator sets, defined from the archetype roles
     "RAVEN": ["MetaObserve", "SymbolicDriftCheck", "DriftLock"],
 }
 SEGMENT_S = 20
+# Action category of each mode on the person side, for the safety modes (agents.MODE_ALLOWED).
+MODE_CATEGORY = {"LION": "module_work", "EAGLE": "module_work", "LEOPARD": "deep_processing",
+                 "TIGER": "override_cue", "BEAR": "regulating_cue", "RAVEN": "review"}
 
 
 class PersonEnv:
@@ -355,6 +358,19 @@ class World:
             self.switches += 1
         return r["ok"]
 
+    def _safe_mode(self, mode: str) -> str:
+        """Check the chosen mode's action category against the person's safety mode through the Spine; if blocked, fall
+        back to BEAR as regulation (or as crisis response in CRISIS). Blocks are audited."""
+        smode = self.env.safety.mode
+        p = {"actor": mode, "action": "mode_tick", "target": "person", "consent": True, "disclosed": True,
+             "measured": True, "serves_mission": True, "mode": smode, "category": MODE_CATEGORY[mode]}
+        if ag.spine_check(p)["ok"]:
+            return mode
+        fb = "crisis_response" if smode == "CRISIS" else "regulating_cue"
+        self.log.append("SPINE", "safety_block", aligned=True, blocked=mode, safety_mode=smode, fallback=fb, t=self.t)
+        self.safety_blocks = getattr(self, "safety_blocks", 0) + 1
+        return "BEAR"
+
     # --- one tick
     def tick(self) -> dict:
         self.t += 1
@@ -395,6 +411,8 @@ class World:
         randomised = (self.policy == "watchdog" and self.rng.random() < self.explore) or self.policy == "random"
         if randomised:
             mode = self.rng.choice(self._allowed())
+        if getattr(self.env, "safety", None) is not None:      # R3: safety modes gate the action category
+            mode = self._safe_mode(mode)
         r = self.env.step(mode)
         if self.score == "mission":
             r = self.env.mission

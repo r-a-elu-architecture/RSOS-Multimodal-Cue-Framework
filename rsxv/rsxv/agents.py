@@ -89,6 +89,14 @@ def spine_check(p: dict) -> dict:
     return {"ok": not failed, "failed": failed}
 
 
+def submit(p: dict, log: "AuditLog") -> dict:
+    """The one entry point for a proposal: Spine check, then an audit record whether it passes or not."""
+    chk = spine_check(p)
+    log.append(p.get("actor", "unknown"), p.get("action", "?"), aligned=chk["ok"], blocked=not chk["ok"],
+               failed=chk["failed"], target=p.get("target"))
+    return chk
+
+
 def resolve_conflict(law_a: str, law_b: str, action: dict) -> dict:
     """Two laws pull in opposite directions: default is a delayed, softened action; the higher-priority law wins otherwise."""
     winner = min((law_a, law_b), key=LAW_PRIORITY.index)

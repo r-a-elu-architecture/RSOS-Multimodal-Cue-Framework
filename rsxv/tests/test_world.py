@@ -91,3 +91,15 @@ class TestWorld(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestExperimentHarness(unittest.TestCase):
+    def test_small_runs(self):
+        from rsxv import world_experiments as X
+        self.assertTrue(X.w4()["pass"])
+        r = X.w1(n=8)
+        self.assertEqual(set(r["arms"]), {"META", "LOCAL", "LOCAL+", "GREEDY-GLOBAL"})
+        ci = X.paired_ci([1, 1, 1, 0], [0, 0, 1, 0])
+        self.assertAlmostEqual(ci["diff"], 0.5)
+        perm = X.permuted({"calm": "TIGER", "crisis": "BEAR"}, (3, 1, 2, 0))
+        self.assertEqual(perm, {"calm": "BEAR", "crisis": "TIGER"})

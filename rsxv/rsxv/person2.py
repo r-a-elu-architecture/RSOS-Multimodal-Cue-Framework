@@ -94,7 +94,7 @@ class PersonEnvV2(W.PersonEnv):
         self.ticks += 1
         self.mode_counts[mode] = self.mode_counts.get(mode, 0) + 1
         s = self.body.s
-        a0, d0 = s["agency"], s["distress"]
+        a0, d0, u0 = s["agency"], s["distress"], s["arousal"]
         if self.open is None and self.rng.random() < self.trig_rate:
             self._trigger()
         st = self._state()
@@ -126,7 +126,7 @@ class PersonEnvV2(W.PersonEnv):
         rise = s["distress"] - d0
         self.mission = (s["agency"] - a0) - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
         self.comp = (s["agency"] - a0, rise)
-        self.comp3 = (s["agency"] - a0, rise, 0.0)
+        self.comp3 = (s["agency"] - a0, rise, s["arousal"] - u0)        # load change = arousal change (R6, for roles3)
         self.prev_harm = d0 / 10
         return self.mission
 

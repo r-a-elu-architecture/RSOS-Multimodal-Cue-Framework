@@ -121,9 +121,10 @@ class AgentEnvV2(AgentEnv):
 
     side = "agent_v2"
 
-    def __init__(self, seed: int, fault_rate=0.15, silent_share=0.5):
+    def __init__(self, seed: int, fault_rate=0.15, silent_share=0.5, p_rise=0.05):
         super().__init__(seed, fault_rate, silent_share)
         self.P = 0.3
+        self.p_rise = p_rise                     # R6 (W5-R regime E2); default keeps every earlier result
 
     def sense(self) -> dict:
         out = super().sense()
@@ -133,7 +134,7 @@ class AgentEnvV2(AgentEnv):
     def step(self, mode: str) -> float:
         before = self.sys.health()
         p0 = self.P
-        self.P = min(1.0, self.P + 0.05)
+        self.P = min(1.0, self.P + self.p_rise)
         self._maybe_fault(self.fault_rate)
         progress = {"LION": 0.5, "TIGER": 1.0, "BEAR": 0.2, "LEOPARD": 0.0, "EAGLE": 0.3, "RAVEN": 0.3}[mode]
         if mode == "TIGER":

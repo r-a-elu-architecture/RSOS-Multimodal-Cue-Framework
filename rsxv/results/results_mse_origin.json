@@ -1,0 +1,67 @@
+{
+ "scope": "held-out half (nodes > 290)",
+ "status": "origin (record read during design); registered test is Phase 9 public data",
+ "results": {
+  "notes": {
+   "reentry": {
+    "n": 145,
+    "observed": 0.31364156437275537,
+    "baseline": 0.1349661134968381,
+    "p": 0.000999000999000999,
+    "clears": true
+   },
+   "carry_forward": {
+    "n": 115,
+    "mean_diff": 0.5062972602332348,
+    "ci": [
+     0.4028193445781596,
+     0.5892150533330448
+    ],
+    "clears": true
+   }
+  },
+  "phrases": {
+   "reentry": {
+    "n": 145,
+    "observed": 0.08179973208067835,
+    "baseline": 0.000533007291658263,
+    "p": 0.000999000999000999,
+    "clears": true
+   },
+   "carry_forward": {
+    "n": 46,
+    "mean_diff": 0.2366377245608879,
+    "ci": [
+     0.10118420939696583,
+     0.4065044934684321
+    ],
+    "clears": true
+   }
+  },
+  "melody": {
+   "reentry": {
+    "n": 145,
+    "observed": 0.038168773029869485,
+    "baseline": 0.029245956399698382,
+    "p": 0.0939060939060939,
+    "clears": false
+   },
+   "carry_forward": {
+    "n": 24,
+    "mean_diff": -0.005935577811348731,
+    "ci": [
+     -0.012924600189522045,
+     -0.0007507507507507477
+    ],
+    "clears": false
+   },
+   "inheritance": {
+    "n": 143,
+    "observed": 0.5525941417695043,
+    "baseline": 0.4926713607513045,
+    "p": 0.000999000999000999,
+    "clears": true
+   }
+  }
+ }
+}

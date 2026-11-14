@@ -99,6 +99,8 @@ class AgentEnv:
             self.sys.noise = A.NOISE
         harm = 1 - self.sys.health()
         self.prev_harm = 1 - before
+        rise = 10 * (harm - (1 - before))
+        self.mission = 0.2 * progress - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
         return 0.2 * progress - 2.0 * harm
 
     def override(self):
@@ -108,6 +110,57 @@ class AgentEnv:
         sid = self.loop.mem.last_good("system")
         if sid:
             self.sys.load(self.loop.mem.restore(sid))
+
+
+class AgentEnvV2(AgentEnv):
+    """Agent side with traffic pressure P separate from faults (registered in AGENTS.md §11.2, from site-reliability
+    practice: shed load and freeze changes during an incident before repairing). Load = P."""
+
+    side = "agent_v2"
+
+    def __init__(self, seed: int, fault_rate=0.15, silent_share=0.5):
+        super().__init__(seed, fault_rate, silent_share)
+        self.P = 0.3
+
+    def sense(self) -> dict:
+        out = super().sense()
+        out["load"] = self.P
+        return out
+
+    def step(self, mode: str) -> float:
+        before = self.sys.health()
+        self.P = min(1.0, self.P + 0.05)
+        self._maybe_fault(self.fault_rate)
+        progress = {"LION": 0.5, "TIGER": 1.0, "BEAR": 0.2, "LEOPARD": 0.0, "EAGLE": 0.3, "RAVEN": 0.3}[mode]
+        if mode == "TIGER":
+            self.P = min(1.0, self.P + 0.2)
+        elif mode == "BEAR":
+            self.P = max(0.0, self.P - 0.3)
+            self.sys.noise = A.NOISE / 2
+            sid = self.loop.mem.snapshot("bear", self.sys.state())
+            if self.sys.health() < before:
+                self.sys.load(self.loop.mem.restore(sid))
+        elif mode == "LEOPARD":
+            old = (A.P_FIX, A.P_DAMAGE, self.sys.noise)
+            A.P_FIX, A.P_DAMAGE = 0.85 * (1 - self.P), 0.10 * (1 + 2 * self.P)
+            if self.precise:
+                self.sys.noise = 0.0
+            try:
+                self.loop.step(now=0, budget=1)
+            finally:
+                A.P_FIX, A.P_DAMAGE, self.sys.noise = old
+            self.precise = False
+        elif mode == "EAGLE":
+            self.precise = True
+        elif mode == "RAVEN":
+            self.sys.silent.clear()
+        if mode != "BEAR":
+            self.sys.noise = A.NOISE
+        harm = 1 - self.sys.health()
+        self.prev_harm = 1 - before
+        rise = 10 * (harm - (1 - before))
+        self.mission = 0.2 * progress - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
+        return 0.2 * progress - 2.0 * harm
 
 
 PERSON_MODES = {   # operator sets, defined from the archetype roles
@@ -150,6 +203,8 @@ class PersonEnv:
             s["distress"] = min(10.0, s["distress"] + 1.0)
         for _ in range(SEGMENT_S):
             self.body.step(PERSON_MODES[mode])
+        rise = s["distress"] - d0
+        self.mission = (s["agency"] - a0) - 2.0 * rise - (1.0 if rise > 1.0 else 0.0)
         return (s["agency"] - a0) - 2.0 * (s["distress"] - d0) / 10
 
     def override(self):
@@ -235,7 +290,11 @@ class World:
     """policy: 'watchdog' (ledger-estimated fit), 'rule', 'rotation', 'fixed', 'bandit', or a dict {context: mode}
     (a transferred table, used with the Watchdog's safety actions)."""
 
-    def __init__(self, env, policy="watchdog", seed=0, explore=0.2, fixed_mode="LION", rules=None, ledger=None):
+    def __init__(self, env, policy="watchdog", seed=0, explore=0.2, fixed_mode="LION", rules=None, ledger=None,
+                 score="legacy"):
+        assert score in ("legacy", "mission")
+        self.score = score
+        self.trace: list[tuple] = []          # (context, mode, score) per tick
         self.env, self.policy, self.rng = env, policy, random.Random(seed * 31 + 7)
         self.explore, self.fixed_mode = explore, fixed_mode
         self.log = ag.AuditLog()
@@ -310,7 +369,7 @@ class World:
         elif act["action"] == "SWITCH":
             self._switch(act["to"], "misfit")
         # non-Watchdog policies choose directly (still through the Watchdog's handover and Spine)
-        if self.policy != "watchdog" and act["action"] == "HOLD":
+        if self.policy not in ("watchdog", "random") and act["action"] == "HOLD":
             if isinstance(self.policy, dict):
                 want = self.policy.get(ctx, self.active)
             else:
@@ -320,10 +379,13 @@ class World:
                 self._switch(want, "policy")
         # micro-randomisation for the ledger (watchdog policy only): run a random allowed mode this tick, disclosed
         mode = self.active
-        randomised = self.policy == "watchdog" and self.rng.random() < self.explore
+        randomised = (self.policy == "watchdog" and self.rng.random() < self.explore) or self.policy == "random"
         if randomised:
             mode = self.rng.choice(self._allowed())
         r = self.env.step(mode)
+        if self.score == "mission":
+            r = self.env.mission
+        self.trace.append((ctx, mode, r))
         self.ledger.add(ctx, mode, r)
         mu, n = self.beta.get((ctx, mode), (0.0, 0))
         self.beta[(ctx, mode)] = ((mu * n + r) / (n + 1), n + 1)

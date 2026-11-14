@@ -1,0 +1,295 @@
+{
+ "design": "AGENTS.md \u00a711.5 W5-R",
+ "level": 0.9916666666666667,
+ "subs": {
+  "person": {
+   "table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "regimes": {
+    "E1": {
+     "means": {
+      "REPURPOSE": 0.12568404844682893,
+      "REPAIR": 0.11930866065448853,
+      "RANDOM-MECH": 0.12352360040917697,
+      "NONE": 0.12568404844682893
+     },
+     "spikes": {
+      "REPURPOSE": 0.795,
+      "REPAIR": 0.795,
+      "RANDOM-MECH": 0.795,
+      "NONE": 0.795
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.00637538779234039,
+       "lo": 0.00555958041406088,
+       "hi": 0.007223011194776105
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0021604480376519477,
+       "lo": 0.0009180497278854124,
+       "hi": 0.0036385319331749847
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": true,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.305,
+       3.475,
+       9.9271
+      ],
+      "REPAIR": [
+       -1.305,
+       3.475,
+       9.9333
+      ],
+      "RANDOM-MECH": [
+       -1.305,
+       3.475,
+       9.9271
+      ],
+      "NONE": [
+       -1.305,
+       3.475,
+       9.9271
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 173,
+     "audit_fail": 0,
+     "r2": {
+      "commit_direct": 173,
+      "probe_start": 0,
+      "probe_commit": 0,
+      "probe_end": 0,
+      "rollback": 0,
+      "refused": 0
+     },
+     "resolutions": {
+      "new_mechanism": 173,
+      "updated_mechanism": 0,
+      "no_change": 0
+     },
+     "changes": 173
+    },
+    "E2": {
+     "means": {
+      "REPURPOSE": 0.12820392210412968,
+      "REPAIR": 0.12109860843007413,
+      "RANDOM-MECH": 0.12618892300397946,
+      "NONE": 0.12820392210412968
+     },
+     "spikes": {
+      "REPURPOSE": 0.81,
+      "REPAIR": 0.81,
+      "RANDOM-MECH": 0.81,
+      "NONE": 0.81
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.007105313674055528,
+       "lo": 0.006302497448979614,
+       "hi": 0.007927121737311811
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.002014999100150192,
+       "lo": 0.000645256271738599,
+       "hi": 0.003699333342438765
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": true,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.245,
+       3.775,
+       9.8743
+      ],
+      "REPAIR": [
+       -1.245,
+       3.775,
+       9.8829
+      ],
+      "RANDOM-MECH": [
+       -1.245,
+       3.775,
+       9.8743
+      ],
+      "NONE": [
+       -1.245,
+       3.775,
+       9.8743
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 172,
+     "audit_fail": 0,
+     "r2": {
+      "commit_direct": 172,
+      "probe_start": 0,
+      "probe_commit": 0,
+      "probe_end": 0,
+      "rollback": 0,
+      "refused": 0
+     },
+     "resolutions": {
+      "new_mechanism": 172,
+      "updated_mechanism": 0,
+      "no_change": 0
+     },
+     "changes": 172
+    },
+    "E3": {
+     "means": {
+      "REPURPOSE": 0.1376806167539366,
+      "REPAIR": 0.13727056724160072,
+      "RANDOM-MECH": 0.1376806167539366,
+      "NONE": 0.1376806167539366
+     },
+     "spikes": {
+      "REPURPOSE": 0.025,
+      "REPAIR": 0.025,
+      "RANDOM-MECH": 0.025,
+      "NONE": 0.025
+     },
+     "ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0004100495123358836,
+       "lo": 0.0,
+       "hi": 0.0009226931329899334
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "spike_ci": {
+      "REPURPOSE-REPAIR": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-RANDOM-MECH": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      },
+      "REPURPOSE-NONE": {
+       "diff": 0.0,
+       "lo": 0.0,
+       "hi": 0.0
+      }
+     },
+     "beats": false,
+     "noninferior_none": true,
+     "safe": true,
+     "mission_v2_means": {
+      "REPURPOSE": [
+       -1.065,
+       4.675,
+       9.8901
+      ],
+      "REPAIR": [
+       -1.065,
+       4.675,
+       9.8901
+      ],
+      "RANDOM-MECH": [
+       -1.065,
+       4.675,
+       9.8901
+      ],
+      "NONE": [
+       -1.065,
+       4.675,
+       9.8901
+      ]
+     },
+     "open_old": 0,
+     "unresolved_end": 0,
+     "nodes": 5,
+     "audit_fail": 0,
+     "r2": {
+      "commit_direct": 5,
+      "probe_start": 0,
+      "probe_commit": 0,
+      "probe_end": 0,
+      "rollback": 0,
+      "refused": 0
+     },
+     "resolutions": {
+      "new_mechanism": 5,
+      "updated_mechanism": 0,
+      "no_change": 0
+     },
+     "changes": 5
+    }
+   },
+   "pass": true
+  }
+ }
+}

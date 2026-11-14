@@ -1,0 +1,45 @@
+{
+ "C1b": {
+  "kappa": 0.4957264957264932,
+  "agree": 0.9887005649717514,
+  "corrections": 2,
+  "status": "INCONCLUSIVE (kappa < 0.6)"
+ },
+ "C6b": {
+  "kappa_failure_event": 0.9138392228635788,
+  "agree_failure_event": 0.9669117647058824,
+  "kappa_mechanism_turn": 0.593387266971509,
+  "agree_mechanism_turn": 0.9375,
+  "failure_events": 70,
+  "mechanism_turns": 22,
+  "followed": 22,
+  "rate": 0.3142857142857143,
+  "baseline_mean": 0.3572714285714286,
+  "p": 0.8191808191808192,
+  "status": "INCONCLUSIVE (kappa < 0.6)"
+ },
+ "C4b": {
+  "fast_adopted_own_use": 13,
+  "assistant_to_user": 5,
+  "user_to_assistant": 8,
+  "null_mean": 0.469,
+  "p": 0.000999000999000999,
+  "status": "PASS"
+ },
+ "R1": {
+  "heldout_user_turns": 145,
+  "share_with_reentry": 0.1793103448275862,
+  "baseline_mean": 2.0689655172413793e-05,
+  "p": 0.000999000999000999,
+  "status": "PASS"
+ },
+ "R2": {
+  "events": 26,
+  "mean_diff": 0.52357062673443,
+  "ci": [
+   0.4250992895044324,
+   0.6443145911962997
+  ],
+  "status": "PASS"
+ }
+}

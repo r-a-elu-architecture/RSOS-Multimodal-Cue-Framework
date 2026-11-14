@@ -11,7 +11,7 @@ designs in §11.1 were fixed and committed before any of them was run; results a
 [`results/floor3.md`](results/floor3.md)): the gate blocks all harmful transfer (G1 passes) but admitted no useful transfer
 (G2 fails); H-CFIT under the mission score passes. W3b (§11.3, [`results/w3b.md`](results/w3b.md)) fails: roles transfer,
 but the gate starves on a uniform pilot and per-context policies flicker. W3c (§11.4, [`results/w3c.md`](results/w3c.md)),
-the fourth attempt, fails: transfer is safe everywhere but useful in one direction of four. §11.5 (R6–R7): W5, W5-R and LIA-G fail as registered, C4 passes, C3 fails, C1/C2/C5 are not testable on one conversation and C6 is inconclusive ([`results/r6_summary.md`](results/r6_summary.md)). Version 0.9, 14 November 2026.
+the fourth attempt, fails: transfer is safe everywhere but useful in one direction of four. §11.5 (R6–R7): W5, W5-R and LIA-G fail as registered, C4 passes, C3 fails, C1/C2/C5 are not testable on one conversation and C6 is inconclusive ([`results/r6_summary.md`](results/r6_summary.md)). §11.6 (R6b): W5-R2 passes on persons (confirmed, a do-no-harm pass) and fails on agents; W5b beats every comparator in two directions but fails the safety gate; LIA-G2 fails; R1, R2 and C4b pass ([`results/r6b_summary.md`](results/r6b_summary.md)). Version 0.10, 14 November 2026.
 
 The agents run the RSIA identity architecture (Meta-Architect, Spine, Watchdog, archetypes) as software, inside the same
 runtime that runs RSX-V programs for a person. The person-side architecture is defined in the RSIA estate

@@ -1,0 +1,70 @@
+{
+ "design": "AGENTS.md \u00a711.6 LIA-G2",
+ "level": 0.9875,
+ "n_runs": 941,
+ "excluded_empty": 259,
+ "planted": 3391,
+ "slot_recall": 0.3981126511353583,
+ "parent_accuracy_given_slot": 0.3844444444444444,
+ "all": {
+  "n": 941,
+  "mean_f1": {
+   "LIA-DIRECT2": 0.12344290078865312,
+   "TEMPORAL": 0.012105570660299672,
+   "RANDOM": 0.03731342837737787
+  },
+  "ci": {
+   "LIA-DIRECT2-TEMPORAL": {
+    "diff": 0.11133733012835345,
+    "lo": 0.09719671811313994,
+    "hi": 0.12606358273983453
+   },
+   "LIA-DIRECT2-RANDOM": {
+    "diff": 0.08612947241127525,
+    "lo": 0.07129315746869039,
+    "hi": 0.10146687441180159
+   }
+  }
+ },
+ "agent": {
+  "n": 600,
+  "mean_f1": {
+   "LIA-DIRECT2": 0.19359961607020432,
+   "TEMPORAL": 0.018985569985569987,
+   "RANDOM": 0.058519893505187624
+  },
+  "ci": {
+   "LIA-DIRECT2-TEMPORAL": {
+    "diff": 0.17461404608463432,
+    "lo": 0.15435021460021459,
+    "hi": 0.1945413197913198
+   },
+   "LIA-DIRECT2-RANDOM": {
+    "diff": 0.13507972256501669,
+    "lo": 0.11370997793056617,
+    "hi": 0.1563728956228956
+   }
+  }
+ },
+ "person": {
+  "n": 341,
+  "mean_f1": {
+   "LIA-DIRECT2": 0.0,
+   "TEMPORAL": 0.0,
+   "RANDOM": 0.0
+  },
+  "ci": {
+   "LIA-DIRECT2-TEMPORAL": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   },
+   "LIA-DIRECT2-RANDOM": {
+    "diff": 0.0,
+    "lo": 0.0,
+    "hi": 0.0
+   }
+  }
+ },
+ "pass": false
+}

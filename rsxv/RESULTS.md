@@ -146,6 +146,10 @@ Full tables, validity maps and intervals: [`results/floor3.md`](results/floor3.m
 | W5-R, failure repurposing vs repair (§11.5) | **Fail** on both substrates | Agents: beats repair and random change in 2 of 3 held-out regimes, more spikes in the trigger storm; persons: no mechanism admitted. 34,000 failure nodes, none closed silently ([`results/w5r.md`](results/w5r.md)) |
 | LIA-G, genealogy recovery (§11.5) | **Fail** | F1 0.12; beats temporal proximity but not random; causes diagnosed ([`results/lia_g.md`](results/lia_g.md)) |
 | C1–C6, corpus lineage (§11.5) | C4 **pass**, C3 **fail**, C1/C2/C5 not testable, C6 inconclusive | Output re-entering as the next prompt is the strong signal ([`results/corpus_lineage.md`](results/corpus_lineage.md); summary [`results/r6_summary.md`](results/r6_summary.md)) |
+| W5b, transfer with a full pilot (§11.6, sixth attempt) | **Fail** (safety gate only) | Two directions beat pilot-only, no transfer and random functions for the first time; 0.06 more spikes per target than pilot-only in one direction blocked the pass ([`results/w5b.md`](results/w5b.md)) |
+| W5-R2, repurposing with probe and spike guard (§11.6) | Persons **pass, confirmed**; agents **fail** | Persons: equal to doing nothing, better than repair and random change (a do-no-harm pass); agents: untested commits hurt ([`results/w5r2.md`](results/w5r2.md)) |
+| LIA-G2 (§11.6) | **Fail** | F1 0.12; beats temporal and random ([`results/lia_g2.md`](results/lia_g2.md)) |
+| Corpus v2 (§11.6) | R1, R2, C4b **pass**; C1b, C6b inconclusive | Output re-enters as input and carries forward more than the person's own words ([`results/corpus_v2.md`](results/corpus_v2.md); summary [`results/r6b_summary.md`](results/r6b_summary.md)) |
 
 ## 9. Prior art
 

@@ -74,3 +74,18 @@ the parallel ESP32_TOOLS work (`firmware/`, `firmware/BOARD_KIT.md`, `architectu
 - The repository's menu test (`rsx/tests/test_roadmap.py`) now lists RSX-V after RSX on all 20 pages with a menu.
   `check_profiles.py` exits 0. `check_all.sh` all passed. `rsso`: 286 passed, 1 expected failure, and 2 skipped (the
   parallel ESP32_TOOLS tests, which need the ESP32 tools).
+
+### Step 8 (code 7bc669f)
+- `docs/data/results_register.json`: 33 rows, all in a family (none in "other").
+  - Counts: transfer 12 (2 pass, 10 fail); repurposing 6 (1 mixed, 5 fail); lineage 6 (2 mixed, 4 fail); person
+    model 4 (2 mixed, 2 fail); agents 5 (5 pass).
+  - Series: W3 → W3b → W3c; W5 → W5b → W5c → W5d → W5e; W5-R → W5-R2 → … → W5-R6; LIA-G → LIA-G2 → LIA-G3 →
+    LIA-WW; T-AP → T-AP-4 / T-AP-V2.
+  - Two rows (T-AP v1 and W5-R5) are bold in RESULTS.md. A first version of the rule read the markup and put them in
+    "other". The rules now read the plain ID; this was caught before the commit.
+- `test_site_catchup.py` (Step 8): 2 passed. Every row has a family, each parent is earlier and in the same family and
+  series, the counts match the rows, and "past-crisis" appears nowhere.
+- `scripts/check_site_catchup.py` (Step 8): no failures, no page errors. Five families are shown and they hold every
+  test in the table; the repurposing chain is in register order; the context line is shown.
+- `check_profiles.py` exits 0; `check_all.sh` all passed; `rsso`: 288 passed, 1 expected failure, 2 skipped
+  (ESP32_TOOLS).

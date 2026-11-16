@@ -43,3 +43,18 @@ the parallel ESP32_TOOLS work (`firmware/`, `firmware/BOARD_KIT.md`, `architectu
 - A repository test, `rsso/tests/test_site_catchup.py`, checks S6.4, S6.5, S7.3 and S8.6.
 - `scripts/check_all.sh`, all suites and the existing browser checks pass. Neutral wording: no excluded term of
   `rsx/tests/test_roadmap.py`, and none of "hotline" or "crisis help", on the changed pages.
+
+## Results
+
+### Step 6 (code 8ed086f)
+- `rsso/tests/test_site_catchup.py` (Step 6 part): 3 passed. Every box's status matches the architecture map; RSX-V
+  and RSX are Built; the 10 boxes lie inside the 900 × 640 map and none overlap.
+- `scripts/check_site_catchup.py` (Step 6): no failures, no page errors.
+  - Every box and edge is drawn.
+  - The RSX-V panel states that none of its results comes from people, and shows no "0 tier records" line.
+  - The Safety panel names the Watchdog, the session states and the output gate.
+  - The Devices panel names the pairing window.
+  - The map fits a 390 px phone screen.
+- `check_profiles.py` exits 0; `check_all.sh` all passed.
+- Noted: the RSX-V box's arrow goes to the RSX program as registered (S6.2), not through Safety. The panel says that
+  RSX-V has its own gate, and the compiled program is still gated when it plays.

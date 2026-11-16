@@ -37,7 +37,7 @@ git checkout dev
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
   rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
-  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py
+  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py rsso/tests/test_arch_refresh.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -274,6 +274,14 @@ screen). New hosts pair only within 120 s of power-on or USB `PAIR`; 3 failures 
 Tests: `rsso/tests/test_ble_pairing.py`; sketch compile check (10 builds). **Not run on a board.**
 Review status: **awaiting review**.
 
+### Step 5 — architecture map covers RSX-V and Steps 1–4 (spec/ARCH_REFRESH.md)
+
+Registered 388f443 (B2 wording amended in 1703c61, before code); code 9cafcdb. New page `architecture/rsx/rsx-v/`; the
+top-level table, RSIA Watchdog, CONTAIN, MICRO and cross-system pages describe the person-side Watchdog, session
+states, guidance levels, domain profiles, output gate, level lineage, wristband pairing and the trial loop. Generated
+by `architecture/build.py`. Test: `rsso/tests/test_arch_refresh.py`. Documentation only; no site page changed.
+Review status: **awaiting review**.
+
 ## 5. Review findings
 
 Reviewer: add one block per review.
@@ -290,4 +298,3 @@ Verdict:         ready for the owner | changes needed
 ## 6. Open items
 
 - Step 4 on a board: flash, pair from Android Chrome and a computer, check the window, the failure limit and USB-only commands (BOARD_KIT §4 Pairing).
-- Step 5: refresh `architecture/` pages for RSX-V.

@@ -1,6 +1,6 @@
 # FIXES_R4 — fixes from the fourth independent review
 
-Status: registered 2026-11-16, before code. Review: branch `review/r4`, commit 48d3aff (reviewed dev at 451a4df).
+Status: registered 2026-11-16 (c7a8e39), before code; implemented in fea4ef6; results below. Review: branch `review/r4`, commit 48d3aff (reviewed dev at 451a4df).
 This registration commit also amends CONTAIN A4 (advisory wording) and LOW_MOOD §2 (3 different days).
 Two design choices of FIXES_R3 were wrong and are replaced: the gate fell back to the page's own session when a
 program was held, and text the person can edit carried a program's level.
@@ -55,3 +55,16 @@ program was held, and text the person can edit carried a program's level.
   exit), including the reviewer's adversarial sources.
 - Q3 All suites and browser checks pass; built-in programs keep their levels and have no Spine flags; no threshold
   changes.
+
+## 5. Results (recorded after the code commit fea4ef6)
+
+- Q1 met. `scripts/check_fixes_r4.py` on 451a4df: 16 failures (G1, G2, G3, G4, G5 ×3, G7, G9, L1, L2, L3, L4,
+  LM1/LM2, C1, R1). On fea4ef6: 0 failures, 0 page errors. G3/G4/G9 could not run on 451a4df because the read-only
+  test accessors (`RSOSOutlet.gains`, `RSOSRdp.gate`) did not exist; they are counted as failures.
+- Q2 met. `rsso/tests/test_fixes_r4.py`: 4 passed (adversarial sources, Spine strings, check answers, states; Python
+  and JavaScript identical).
+- Q3 met. `rsso` suite: 249 passed, 1 expected failure (TRIAL_LOOP T4 power, unchanged). `scripts/check_all.sh`: all
+  checks passed, generated files unchanged. Browser checks check_outlet, check_low_mood, check_profiles,
+  check_watchdog, check_trial_loop, check_fixes_r1, check_fixes_r2, check_fixes_r4: all exit 0. No threshold changed.
+- Not changed by this pass, still recorded limits: a static site cannot authenticate; the clinician PIN is advisory on
+  a person's own device; page code is trusted.

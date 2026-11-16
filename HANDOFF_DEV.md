@@ -26,7 +26,7 @@ history.
 | Development site (from `dev`) | https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/dev/ |
 | Backup of the state before this work | branch `backup/pre-claude-2026-11-16` (32f49bb), protected by the ruleset "Protect backup" |
 | `main` | identical in files to the backup (one revert commit, 059a58f). The S1 code (6394a70) was on `main` and the live site for about ten minutes (00:13–00:23, 16 November) before that revert. |
-| Deploy | `.github/workflows/pages.yml` builds `main/docs` at `/` and `dev/docs` at `/dev/` |
+| Deploy | `.github/workflows/pages.yml` (on `dev`; reaches `main` only at a merge) builds `main/docs` at `/` and `dev/docs` at `/dev/` |
 | Dev site isolation | `docs/js/devmode.js`: saved data under `/dev/` is prefixed `dev.`; a "DEVELOPMENT VERSION" banner; a separate offline cache |
 
 ### How to verify
@@ -36,7 +36,8 @@ git checkout dev
 ./scripts/check_all.sh                     # every suite, conformance, generated files unchanged
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
-  rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py
+  rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
+  rsso/tests/test_fixes_r4.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -44,6 +45,7 @@ python3 scripts/check_fixes_r1.py docs
 python3 scripts/check_fixes_r2.py docs
 python3 scripts/check_outlet.py docs      # the output gate (FIXES_R3)
 python3 scripts/check_low_mood.py docs    # spec/LOW_MOOD.md
+python3 scripts/check_fixes_r4.py docs    # spec/FIXES_R4.md
 ```
 
 ## 3. Review checklist (every step)
@@ -209,6 +211,21 @@ clinician-led in the player and on the device page. Self-checks are kept (`rsos.
 3 or more checks of intensity 7 or more in 7 days recommend involving a practitioner (recorded on the plan).
 Test: `scripts/check_low_mood.py` (L1–L4). Built after review 4 started, so review 4 does not cover it.
 Review status: **awaiting review**.
+
+### Fix pass R4 (spec/FIXES_R4.md)
+
+Review: branch `review/r4`, commit 48d3aff (reviewed 451a4df; no blockers, 13 should-fix). Registration c7a8e39
+(also amends CONTAIN A4 and LOW_MOOD §2); code fea4ef6.
+- **Gate**: no fallback to the page session once a session is held; domain re-read on storage events; a hold stops
+  running sound, speech, media and vibration, ends the run and sends STOP to the band; speaker connections pass a
+  per-context gate gain; device- and agent-triggered outputs follow the firing rules; typed codes inherit the plan
+  node's flags; any START line is gated; ugcl and voice fail closed.
+- **Level from origin**: plan, saved program or cue sets the level; the same text keeps the same level; every quoted
+  string goes to the Spine check; re-living counts as memory work.
+- Smaller: a diagnosed low-mood plan is clinician-led, not memory work; escalation counts distinct days; the advisory
+  sentence is always shown; therapist copilot outputs work in Standard; malformed check answers are dropped.
+Tests: `rsso/tests/test_fixes_r4.py`; `scripts/check_fixes_r4.py` (16 failures on 451a4df, 0 now).
+Review status: **awaiting the fifth review** (covers R4 and Low mood).
 
 ## 5. Review findings
 

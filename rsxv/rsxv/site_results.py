@@ -20,7 +20,7 @@ def md(s):
 
 def status(r):
     x = re.sub(r"<[^>]+>", "", r).lower()
-    if x.lstrip().startswith("analysis"):   # spec/FIXES_P2.md C3: an analysis, not evidence for or against
+    if x.lstrip(" *_").startswith("analysis"):   # spec/FIXES_P2.md C3: an analysis, not evidence for or against
         return "analysis"
     if "pass" in x and ("fail" in x or "of 7" in x or "not testable" in x or "inconclusive" in x):
         return "mixed"

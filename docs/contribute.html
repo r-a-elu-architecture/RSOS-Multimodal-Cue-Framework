@@ -258,7 +258,9 @@ header.top nav a{font-size:.88rem}
 <script src="js/memstack.js?v=1.11.0"></script>
 <script src="js/metrics.js?v=1.11.0"></script>
 <script src="js/ugcl.js?v=1.11.0"></script>
-<script src="js/contribution.js?v=1.11.0"></script>
+<script src="js/peak.js?v=1.15.0"></script>
+<script src="js/trial.js?v=1.19.0"></script>
+<script src="js/contribution.js?v=1.12.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id), C = RSOSContribution;
@@ -283,12 +285,13 @@ const WHY = {
   profile: "Whether results hold across ages, genders, regions and prior practice.",
   health: "What RSOS is used for and for whom it helps most. Sensitive: share only if you are comfortable.",
   clinical: "How RSOS works inside therapy: sessions, fidelity, clinician ratings.",
-  lab: "Brain and body signals aligned with every cue: what happens before a state is noticed."
+  lab: "Brain and body signals aligned with every cue: what happens before a state is noticed.",
+  trials: "Your own randomised trials are the strongest personal evidence; pooled across people they answer moderate effects."
 };
-const DEFAULT_ON = ["runs", "physiology", "plan", "calibration", "recognition", "outcomes", "safety"];
+const DEFAULT_ON = ["runs", "physiology", "plan", "calibration", "recognition", "outcomes", "safety", "trials"];
 const SENSITIVE = ["texts", "health"];
 const LABEL = { runs: "Practice runs", physiology: "Heart rate", plan: "Node plans and cues", texts: "Your own words", calibration: "Glyph and colour choices",
-  recognition: "Vibration-code check", outcomes: "Questionnaires", safety: "Safety", profile: "About you", health: "Health information", clinical: "Clinician sessions", lab: "Lab and recordings" };
+  recognition: "Vibration-code check", outcomes: "Questionnaires", safety: "Safety", profile: "About you", health: "Health information", clinical: "Clinician sessions", lab: "Lab and recordings", trials: "Personal trials" };
 for (const [k, what] of Object.entries(C.SCOPES)) {
   if (k === "clinical" || k === "lab") continue;
   const l = el("label", "scope" + (SENSITIVE.includes(k) ? " sensitive" : "")); const i = el("input"); i.type = "checkbox"; i.value = k; i.checked = DEFAULT_ON.includes(k);
@@ -410,6 +413,7 @@ function inputs(ids) {
   const plan = store.get("rsos.plan", null);
   return {
     role, ids, runs, srbai, plan, cues: store.get("rsos.cues", []), ugcl: store.get("rsos.ugcl", null), recognition,
+    trials: store.get("rsos.trials.done", []).concat(store.get("rsos.trial", null) ? [store.get("rsos.trial", null)] : []),
     settings: store.get("rsos.settings", {}), now: Date.now() / 1000,
     outcomes: draft.outcomes, adverse: draft.adverse.concat(store.get("rsos.adverse", [])),
     profile: { age_band: $("age").value, gender: $("gender").value, handedness: $("hand").value, region: $("region").value, experience: exp,

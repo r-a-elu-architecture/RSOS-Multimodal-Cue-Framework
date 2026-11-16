@@ -7,6 +7,7 @@
   "use strict";
   const M = typeof module !== "undefined" && module.exports ? require("./metrics.js") : root.RSOSMetrics;
   const MS = typeof module !== "undefined" && module.exports ? require("./memstack.js") : root.RSOSMemstack;
+  const TR = typeof module !== "undefined" && module.exports ? require("./trial.js") : root.RSOSTrial;
   const SCHEMA = "rsos-contribution/1", CONSENT_VERSION = "rsos-data-consent/1";
   const ROLES = ["person", "clinician", "lab"];
   const SCOPES = {
@@ -21,11 +22,12 @@
     profile: "Age band, gender, handedness, world region, prior practice",
     health: "Health information: what the plan is for, self-reported conditions, diagnosis categories",
     clinical: "Clinician sessions and ratings",
-    lab: "Lab, device and recording descriptions (EEG, BCI, heart rate)"
+    lab: "Lab, device and recording descriptions (EEG, BCI, heart rate)",
+    trials: "Your personal trials: design, the arm of each session, ratings before and after, background factors, and the result"
   };
   const REQUIRED = ["runs"];
   const KNOWN_PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_tier8", "paced_breathing", "tier003_command_stack",
-    "tier012_breath_anchor", "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
+    "tier012_breath_anchor", "tier013_lion_dragon", "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "ssit_higher", "ssit_local", "ssit_calm", "node_lion", "node_observer"];
   const RUN_CORE = ["program_kind", "program_hash", "trigger", "trigger_channel", "sud_before", "sud_after", "agency_before",
     "agency_after", "latency_s", "completed", "stopped_at_phase", "tier", "voice", "outputs", "inhale_s", "exhale_s", "glyph", "tacton",
     "node_mode", "duration_s", "planned_s"];
@@ -184,6 +186,26 @@
     if (scopes.has("texts") && l.notes) out.notes = String(l.notes);
     return out;
   }
+  function trials(items, t0) {
+    const out = [];
+    for (const t of items || []) {
+      const d = TR.DESIGNS[(t || {}).design]; if (!d) continue;
+      const ses = [];
+      for (const x of t.sessions || []) {
+        const b = num(x.before), a = num(x.after);
+        if (b === null || a === null || !(b >= 0 && b <= 10 && a >= 0 && a <= 10) || !d.arms.includes(x.arm)) continue;
+        const y = { day: day(x.ts, t0), arm: x.arm, before: b, after: a, change: num(Math.floor((a - b) * 10 + 0.5) / 10) };
+        const cov = x.cov || {};
+        for (const k of ["hour", "sleep_h", "caffeine", "exercise"]) if (num(cov[k]) !== null) y[k] = num(cov[k]);
+        ses.push(y);
+      }
+      const an = TR.analyze(t);
+      out.push({ design: t.design, arms: d.arms.slice(), reference: d.reference, blocks: num(t.blocks), planned: (t.schedule || []).length, sessions: ses,
+        result: an.contrasts.map(c => { const o = {}; for (const k of ["arm", "against", "diff", "lo", "hi", "p", "verdict"]) o[k] = c[k] === undefined ? null : c[k]; return o; }) });
+    }
+    return out;
+  }
+
   function build(inp) {
     const role = inp.role;
     if (!ROLES.includes(role)) throw new Error("role must be person, clinician or lab");
@@ -207,6 +229,7 @@
     if (scopes.has("recognition")) body.recognition = (inp.recognition || []).map(x => Object.assign(pick(x, ["code", "chosen", "modality"]),
       { correct: !!x.correct, rt_ms: num(x.rt_ms), options: (x.options || []).slice() }));
     if (scopes.has("outcomes")) body.outcomes = outcomes(inp.outcomes, t0);
+    if (scopes.has("trials")) body.trials = trials(inp.trials, t0);
     if (scopes.has("safety")) body.safety = { adverse: adverse(inp.adverse, t0, texts), stopped_runs: rs.filter(r => r.completed === 0).length, runs: rs.length };
     const prof = profile(inp.profile, scopes); if (prof) body.profile = prof;
     if (role === "clinician") body.clinical = clinical(inp.clinical, scopes, t0);

@@ -144,8 +144,9 @@ def new_trial(design: str, blocks: int, seed: int, id="t1", created=0):
             "schedule": schedule(design, blocks, seed), "sessions": []}
 
 
-def record(trial: dict, before, after, cov: dict | None = None, ts=0):
-    """Record the next scheduled session. Returns the session, or None when the schedule is complete."""
+def record(trial: dict, before, after, cov: dict | None = None, ts=0, detail: dict | None = None):
+    """Record the next scheduled session. Returns the session, or None when the schedule is complete.
+    detail: {code_kind: anchor | sham, code} for a session that plays a code (spec/TRIAL_LOOP.md §3)."""
     i = len(trial["sessions"])
     if i >= len(trial["schedule"]):
         return None
@@ -154,8 +155,36 @@ def record(trial: dict, before, after, cov: dict | None = None, ts=0):
         x = _num((cov or {}).get(k))
         if x is not None:
             s["cov"][k] = _v(x)
+    d = {k: (detail or {})[k] for k in ("code_kind", "code") if isinstance((detail or {}).get(k), str) and (detail or {})[k]}
+    if d:
+        s["detail"] = d
     trial["sessions"].append(s)
     return s
+
+
+# ---------------------------------------------------------------- the bridge to PEAK and GATE (spec/TRIAL_LOOP.md)
+
+SHAM_POOL = ("-..-", ".-.-", "--..", "-.-.", "..--")
+
+
+def sham_code(trial: dict, i: int, anchor_code=None) -> str:
+    """The sham code for session i: seeded by the trial's seed and the session index, never the anchor's code."""
+    pool = [c for c in SHAM_POOL if c != anchor_code]
+    rng = Rng((int(trial.get("seed") or 0) + 7919 * (int(i) + 1)) % 4294967296)
+    rng.u()
+    return pool[math.floor(rng.u() * len(pool))]
+
+
+def evidence(trial: dict, session: dict) -> dict:
+    """What a session adds to the trial's anchor in PEAK: a probe (anchor or sham code alone, calm before and after),
+    a use outside training (the anchor played when stress starts, or fired by hand or by the device), or nothing."""
+    d, arm = trial.get("design"), session.get("arm")
+    if d == "anchor_vs_sham":
+        return {"probe": {"ts": session.get("ts", 0), "kind": "cue" if arm == "anchor" else "sham",
+                          "calm_before": session.get("before"), "calm_after": session.get("after")}, "use": None}
+    if (d == "cue_vs_none" and arm == "cue") or d == "auto_vs_manual":
+        return {"probe": None, "use": {"ts": session.get("ts", 0), "during_stress": True}}
+    return {"probe": None, "use": None}
 
 
 # ---------------------------------------------------------------- analysis

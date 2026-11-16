@@ -124,6 +124,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
       <optgroup label="From the tier ledger">
         <option value="tier003_command_stack">Tier 003: Recursive Command Stack</option>
         <option value="tier012_breath_anchor">Tier 012: Breath Anchor</option>
+        <option value="tier013_lion_dragon">Tier 013: Lion and Dragon (🦁+🐉)</option>
         <option value="tier014_seal">Tier 014: Lion Seal</option>
         <option value="tier016_stillness">Tier 016: Stillness, then interrupt</option>
         <option value="tier406_release">Tier 406: Release what was never yours</option>
@@ -132,6 +133,11 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
       <optgroup label="Nodes">
         <option value="node_lion">Lion node (associated)</option>
         <option value="node_observer">Observer node (no ego)</option>
+      </optgroup>
+      <optgroup label="Imagery (SSIT trial, 5 min)">
+        <option value="ssit_higher">Higher-level imagery</option>
+        <option value="ssit_local">Imagery of the activity</option>
+        <option value="ssit_calm">General calming imagery</option>
       </optgroup>
       <optgroup label="Your node plan" id="planGroup" hidden></optgroup>
       <optgroup label="Your identity" id="identityGroup" hidden></optgroup>
@@ -341,7 +347,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 const BUILD = "1.15.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
-  "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
+  "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer", "tier013_lion_dragon", "ssit_higher", "ssit_local", "ssit_calm"];
 const sources = {};
 let timeline = null, run = null, audio = null;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;

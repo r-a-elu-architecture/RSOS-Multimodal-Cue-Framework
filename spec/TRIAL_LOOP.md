@@ -1,6 +1,7 @@
 # TRIAL_LOOP — trials feed the evidence chain
 
-Status: registered 2026-11-16, before code. Code: `rsso/rsso/trial.py` and `docs/js/trial.js` (the bridge),
+Status: registered 2026-11-16, before code (2f6d654); built and tested; **one acceptance criterion not met (T4 power,
+§7)**. Tests: `rsso/tests/test_trial_loop.py`, `scripts/check_trial_loop.py`. Code: `rsso/rsso/trial.py` and `docs/js/trial.js` (the bridge),
 `rsso/rsso/contribution.py` and `docs/js/contribution.js` (the `trials` scope), `docs/trials.html`, four RSX
 programs in `docs/protocols/`. Python and JavaScript identical, tested.
 
@@ -69,3 +70,24 @@ No anchor names, codes or free text. Ratings outside 0–10 are dropped. Only co
 - T7 Programs: the four programs compile in both languages with identical output and pass the safety limits.
 - T8 Browser: an anchor_vs_sham session on the trials page adds one probe to the anchor, shows the seeded sham code
   after saving, asks the Watchdog, and the page has no errors.
+
+## 7. Results at build time
+
+| Criterion | Result | Met |
+|---|---|---|
+| T1 parity (sham codes, record with detail, evidence, `trials` scope) | identical | yes |
+| T2 sham codes | deterministic, from the pool, never the anchor's code, recorded | yes |
+| T3 mapping | exactly as §3 for every design | yes |
+| T4 power: `strong` with a true effect of 2.0 after 6 blocks | **158 of 200 (79%)**; registered at least 80% | **no** |
+| T4 GATE: every `strong` anchor meets GATE's strength checks | 158 of 158 | yes |
+| T4 false positives: `strong` with no true effect | 4 of 200 (2%); registered at most 5% | yes |
+| T5 run log, MEMSTACK, CM1 unchanged | trials never write the run log | yes |
+| T6 contribution scope | only when consented; no codes, names or text; out-of-range dropped; unchanged without the scope | yes |
+| T7 programs | four programs compile identically in both languages; the SSIT programs are 300 s with identical timing | yes |
+| T8 browser | probes added, seeded sham code recorded, Watchdog asked, no page errors | yes |
+
+The threshold is not changed. T4's power test stays in the suite as a registered expected failure. What the miss
+means: six blocks of anchor-versus-sham with an effect of 2 points and noise of 1 point fall just short of the
+registered 80% for PEAK's "strong" status, so a person may need a seventh or eighth block before PEAK (and through it
+GATE) calls an anchor strong. Any change to the default number of blocks, or to PEAK's rules, needs its own
+registration.

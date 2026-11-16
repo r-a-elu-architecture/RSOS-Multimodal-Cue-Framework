@@ -127,6 +127,28 @@ Interpretation to review: the therapist session's own required screening step co
 Not in this step: the world simulation.
 Review status: **awaiting review**.
 
+### Step 3 — trials feed the evidence chain
+
+Spec: `spec/TRIAL_LOOP.md` (registered 2f6d654). Code: the commit after it.
+
+- Trial module bridge (`trial.py` / `trial.js`): `sham_code` (seeded by the trial seed and session index, never the
+  anchor's code), `record(..., detail)` (the code played is recorded), `evidence` (anchor_vs_sham → one PEAK probe;
+  cue arm and automatic/manual → one use). The trials page applies it to the anchor, shows PEAK strength and the
+  device permission stage (GATE), and asks the Watchdog before each session.
+- Deliberate change from the original roadmap line: trials do **not** write the run log; MEMSTACK and CM1 model
+  practice, a trial is a measurement (spec §2).
+- Contribution scope `trials` (Python and JS identical): no codes, names or text.
+- Programs: `ssit_higher`, `ssit_local`, `ssit_calm` (300 s each, identical timing) and `tier013_lion_dragon`
+  (🦁+🐉), in `rsx/protocols` and `docs/protocols`, in the player list and the contribution's known protocols; the
+  SSIT trial session links to its arm's program.
+
+Tests: `rsso/tests/test_trial_loop.py`; `scripts/check_trial_loop.py` (T8 in Chrome).
+**Registered criterion not met:** T4 power, 158/200 (79%) against at least 80%. Kept as an expected failure; threshold
+unchanged (spec §7). Reviewer: please check the simulation matches the registered wording.
+Click: `/dev/trials.html` (start Real anchor or sham with an anchor from the Anchors page; after saving, the message
+shows the code and the anchor's strength), `/dev/player.html?program=ssit_higher`, `?program=tier013_lion_dragon`.
+Review status: **awaiting review**.
+
 ## 5. Review findings
 
 Reviewer: add one block per review.
@@ -142,7 +164,5 @@ Verdict:         ready for the owner | changes needed
 
 ## 6. Open items
 
-- Step 3: trials → run log → PEAK → MEMSTACK → CM1 → GATE; seed the sham code; SSIT and 🦁+🐉 RSX programs;
-  trials in the contribution format.
 - Step 4: BLE pairing with a passkey (`rsos_esp32.ino`, open NUS characteristic around lines 274–279).
 - Step 5: refresh `architecture/` pages for RSX-V.

@@ -1,9 +1,9 @@
 /* RSOS player service worker: works offline, never serves a stale version when online.
  * Network first for everything; the cache is only a fallback when there is no connection. */
-const CACHE = (/\/dev\//.test(self.location.pathname) ? "rsos-dev-" : "rsos-player-") + "v31";
+const CACHE = (/\/dev\//.test(self.location.pathname) ? "rsos-dev-" : "rsos-player-") + "v32";
 const SHELL = ["js/devmode.js", "player.html", "agents.html", "js/machines.js", "js/pron.js", "data/parts.json", "js/rsx.js", "js/hrs.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png",
   "protocols/override.rsx", "protocols/interrupt_only.rsx", "protocols/swish.rsx", "protocols/legacy_vector.rsx",
-  "protocols/paced_breathing.rsx", "data/demo_rr.json", "js/memstack.js",
+  "protocols/paced_breathing.rsx", "protocols/tier013_lion_dragon.rsx", "protocols/ssit_higher.rsx", "protocols/ssit_local.rsx", "protocols/ssit_calm.rsx", "data/demo_rr.json", "js/memstack.js",
   "js/ugcl.js", "ugcl/library.json", "ugcl/originals.json", "glyphs.html",
   "js/metrics.js", "js/consent.js", "tiers.html", "metrics.html", "system.html", "data/tier_map.json", "nodes.html", "contribute.html", "js/contribution.js", "js/nodes.js", "js/linx.js", "js/contain.js", "js/safety.js", "js/watchdog.js", "js/guard.js", "js/profiles.js", "safety.html", "js/thera.js", "js/cm1.js", "js/rdp.js", "device.html", "data/cm1.json", "therapist.html", "roadmap.html", "world.html", "results.html", "data/world_runs.json", "data/results_register.json", "data/roadmap.json", "anchors.html", "js/peak.js", "js/ppg.js", "trials.html", "js/trial.js", "js/checks.js", "js/gate.js", "identity.html", "js/identity.js", "atlas.html", "js/atlas.js", "night.html", "js/night.js", "js/copilot.js", "data/thera.json", "safety.html", "protocols/node_lion.rsx", "protocols/node_observer.rsx",
   "protocols/tier003_command_stack.rsx", "protocols/tier012_breath_anchor.rsx", "protocols/tier014_seal.rsx",

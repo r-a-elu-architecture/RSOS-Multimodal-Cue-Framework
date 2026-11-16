@@ -1,6 +1,6 @@
 # AGENTS_PROVEN — the passing RSX-V agent results, shown working on the Agents page (phase 2, Step 10)
 
-Status: registered 2026-11-16, before code.
+Status: registered 2026-11-16 (5f25a1f), before code; code 305dc39; results in §3.
 
 ## 0. Problem
 
@@ -45,3 +45,28 @@ the result.
   - Spies below the gate record no sound, speech or vibration.
   - No page errors.
 - Q3 `scripts/check_all.sh`, all suites and the browser checks pass. Neutral wording on the page.
+
+## 3. Results (recorded after the code commit 305dc39)
+
+- The sample, from the real code:
+  - **W1:** meta repair fixed 40 of 40 trials and local retry 20 of 40. On the 20 trials whose faults pass between
+    agents, meta repair fixed 20 and local retry 0. This matches the registered W1 result (n = 400), which remains the
+    authority.
+  - **H-SWITCH:** mean reward per tick was watchdog 0.043, fixed 0.038, rotation 0.032, rule 0.032 and bandit 0.027.
+    Final distress was watchdog 6.30 against rule 2.84, which is the register's own caveat. The page shows both.
+- Q1 met. `rsxv/tests/test_site_agents.py`: 3 passed (deterministic and current; every trial's counts agree with its
+  repairs; the 40-trial sums agree; five policies; six register rows byte-equal to the register). The RSX-V suite has
+  145 passed.
+- Q2 met. `scripts/check_site_catchup.py` (Step 10): no failures, no page errors.
+  - Trial stepping, the arm switch and 6 agent boxes work.
+  - The repair list matches the file.
+  - The counts shown match the file.
+  - There are 5 bars and 3 cards.
+  - Spies below the gate recorded no sound, speech or vibration.
+- Q3 met. `scripts/check_all.sh` all passed (data regenerated unchanged). `check_profiles.py` exits 0 and
+  `test_profiles.py` has 7 passed.
+  - On the first run both flagged "symptom" in the repair panel's sentence, as a clinical word. It now reads "where the
+    error shows".
+  - `rsso`: 288 passed, 1 expected failure, 2 skipped (ESP32_TOOLS).
+- In the Personal domain the page's display vocabulary shows "distress" as "intensity", as on every page
+  (spec/PROFILES.md).

@@ -311,7 +311,7 @@ Tests: `rsso/tests/test_site_catchup.py` (7), `scripts/check_site_catchup.py`.
   ceiling still needs its own registered design.
 Phase 2 (Steps 6–11) is complete and checked (review P2, branch `review/p2`, commit 3248364).
 
-### Fix pass P2 (spec/FIXES_P2.md; registered c586a03, code 0c512e4 and 84adbbf)
+### Fix pass P2 (spec/FIXES_P2.md; registered c586a03, code c17b0b4 and e6fbc73)
 - E1/E2 (blocker P2-2): the sketch makes no library encryption request; the only `esp_ble_set_encryption` call sits under
   `linkPolicy.accept_request(...)`. A test checks the code with comments removed. BOARD_TEST T5 says why it matters.
 - L1: memory work is read from the command's words too (folded, so look-alike letters do not hide them); `MEMORY no`

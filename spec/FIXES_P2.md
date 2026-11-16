@@ -58,7 +58,7 @@ recorded as open. Changing the guard without a real compiler here could break bu
   - Step 8 checks that W5-CEILING shows as an analysis.
 - Q4 All suites, `scripts/check_all.sh` and the browser checks pass. No threshold changes.
 
-## 7. Results (recorded after the code commits 0c512e4 and 84adbbf)
+## 7. Results (recorded after the code commits c17b0b4 and e6fbc73)
 
 - Q1: `rsso/tests/test_ble_pairing.py` 29 passed, including `FixesP2.test_no_library_encryption_request`. All 10 stub
   builds compile.
@@ -69,5 +69,5 @@ recorded as open. Changing the guard without a real compiler here could break bu
   exit 0. No threshold changed.
 - C1: the regenerated `rsxv/results/results_ceiling.json` has the same numbers as before. Only the decision text changed.
 - A deviation from the plan: the register first read the status from the raw markdown, so `**Analysis**` showed as
-  "other". The fix is in its own code commit (84adbbf).
+  "other". The fix is in its own code commit (e6fbc73).
 - P2-10 and P2-11 stay open (§5).

@@ -11,6 +11,8 @@
 | [Device bridge](device-bridge/) | AR, EEG and haptic output | `HAPTIC`, `TONE`, `DeviceOutput(…)` events |
 | [Memory and compression](memory-compression/) | Memory and compression commands | Recorded; runtime effect specified (MEMSTACK, CM1) |
 
+**Layer above RSX:** [RSX-V](rsx-v/), typed, staged and audited vector commands that compile into RSX programs.
+
 ## Sources in the archive
 
 | Source file | What it is | SHA-256 (first 16) |

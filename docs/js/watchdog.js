@@ -23,6 +23,18 @@
     if (["plan", "session"].includes(a.kind) || a.programmed || ["device", "agent"].includes(a.trigger) || ["practitioner", "agent"].includes(a.source)) return "structured";
     return "self_guided";
   }
+  const TIER_RX = /PROTOCOL\s+tier(414|420|439|440)(?!\d)|^\s*#.*\bTier\s+(414|420|439|440)\b/im;
+  const CUE_RX = /MARK\s+"programmed:([\w-]+)"/g, OBSERVER_RX = /\bMODE\s+"observer"/i;
+  const TEXT_RX = /^\s*(?:SAY|SEE|FEEL|GESTURE|WORD|FRAME|V|A|K|O|G)\s+"((?:[^"\\]|\\.)*)"/gm;
+  function levelOfProgram(source, opts) {   // FIXES_R3 §2: the level a program's own content calls for
+    const src = source || "", o = opts || {}, tiers = {};
+    for (const c of o.cues || []) tiers[String(c.id)] = String(c.tier || "");
+    let led = TIER_RX.test(src) || src.includes("# rsos-level: clinician_led");
+    for (const m of src.matchAll(CUE_RX)) if (CLINICIAN_TIERS.includes(tiers[m[1]] || "")) led = true;
+    let memory = src.includes("# rsos-memory: yes");
+    if (o.edited && OBSERVER_RX.test(src)) { led = true; memory = true; }
+    return { therapist_led: led, memory_work: memory, text: Array.from(src.matchAll(TEXT_RX), m => m[1]).join(" ") };
+  }
   const consent = (cs, scope, now) => (cs || []).some(c => c.scope === scope && (c.given || 0) <= now && (c.withdrawn === null || c.withdrawn === undefined || c.withdrawn > now));
   const state = (v, key, allowed) => (v && typeof v === "object" && !Array.isArray(v) && key in v && (!allowed || allowed.includes(v[key])) ? v : null);   // FIXES_R1 W-10
   const R = (rule, virtue, text, resolve) => ({ rule, virtue, text, resolve });
@@ -62,7 +74,8 @@
   }
 
   function link(contain, safety, now) {
-    let st = clone(safety || S.newState());
+    let st = safety && typeof safety === "object" && S.MODES.includes(safety.mode) ? clone(safety) : S.newState();   // FIXES_R3 R3-c
+    if (!Array.isArray(st.history)) st.history = [];
     const esc = (contain || {}).escalation || {};
     if (esc.active && S.SEVERITY[st.mode] < S.SEVERITY.STABILISE) {
       st = S.enterStabilise(st, "contain", now || 0)[0];
@@ -127,6 +140,6 @@
     });
   }
 
-  const api = { LEVEL_RANK, LEVEL_NAME, CLINICIAN_TIERS, LOG_MAX, level, watch, link, canonical, sha256, record, trim, verify };
+  const api = { LEVEL_RANK, LEVEL_NAME, CLINICIAN_TIERS, LOG_MAX, level, levelOfProgram, watch, link, canonical, sha256, record, trim, verify };
   if (node) module.exports = api; else root.RSOSWatchdog = api;
 })(typeof window !== "undefined" ? window : globalThis);

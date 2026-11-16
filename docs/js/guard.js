@@ -11,11 +11,11 @@
   const set = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
 
   function ask(action, extra) {
-    const x = extra || {};
+    const x = extra || {}, D = root.RSOSDomain || {};   // the domain context published by profiles.js (FIXES_R3 §1)
     const ctx = { contain: x.contain || get("rsos.contain", K.newState()), safety: get("rsos.safety", null), timeline: x.timeline || null,
-      now: Date.now() / 1000, max_level: x.max_level || null, clinician_present: !!x.clinician_present, screening_recorded: !!x.screening_recorded,
+      now: Date.now() / 1000, max_level: x.max_level || D.max_level || null, clinician_present: !!x.clinician_present, screening_recorded: !!x.screening_recorded,
       consents: get("rsos.consents", []), plan_protocols: x.plan_protocols === undefined ? null : x.plan_protocols,
-      memory_work_allowed: x.memory_work_allowed === undefined ? null : x.memory_work_allowed };   // FIXES_R2 R2-2: every key the Watchdog reads
+      memory_work_allowed: x.memory_work_allowed !== undefined ? x.memory_work_allowed : (D.memory_work_allowed === undefined ? null : D.memory_work_allowed) };   // FIXES_R2 R2-2: every key the Watchdog reads
     const r = W.watch(action, ctx);
     const log = get("rsos.watchdog.log", []);
     W.record(log, action, r, Date.now());

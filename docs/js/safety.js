@@ -106,7 +106,8 @@
     return rec;
   }
   function observe(state, ev, now) {
-    now = now || 0; const st = clone(state || newState()), hits = screen(ev);
+    now = now || 0; const st = state && typeof state === "object" && MODES.includes(state.mode) ? clone(state) : newState(), hits = screen(ev);   // FIXES_R3 R3-c
+    if (!Array.isArray(st.history)) st.history = [];
     let target = "NORMAL";
     if (hits.includes("possible_crisis") || hits.includes("sedative_combination") || hits.includes("clinical_high")) target = "CRISIS";
     else if (hits.includes("practical_crisis")) target = "PRACTICAL_CRISIS";

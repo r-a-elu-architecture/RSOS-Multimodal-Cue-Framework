@@ -119,6 +119,8 @@
   }
   function clinicalOn() { try { return !!(JSON.parse(localStorage.getItem("rsos.clinical") || "{}") || {}).on; } catch (e) { return false; } }
   const P = current();
+  // The domain context every gate reads (FIXES_R3 §1): pages no longer compute it.
+  root.RSOSDomain = Object.freeze({ profile: P, max_level: maxLevel(P, clinicalOn()), memory_work_allowed: get(P).memory_work, clinical_vocab: clinicalVocab(P, clinicalOn()) });
   const page = (root.location.pathname.split("/").pop() || "index.html");
   const translating = !clinicalVocab(P, clinicalOn()) && !EXEMPT_PAGES.includes(page);
   const SKIP = "script,style,textarea,pre,code,nav,[data-raw],.profilebar";

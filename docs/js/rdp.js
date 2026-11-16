@@ -23,6 +23,9 @@
     return ["LOAD " + L.length + " " + a2(amp)].concat(L);
   }
 
+  /* The output gate (spec/FIXES_R3.md §1): a START that would play on the band needs an allowed session; STOP, HELLO,
+   * LOAD, CONSENT and status lines always pass. In a browser without the gate loaded, START is refused (fails closed). */
+  const gate = send => line => (typeof window !== "undefined" && /^\s*START\b/i.test(line) && !(window.RSOSOutlet && window.RSOSOutlet.permit("wristband"))) ? Promise.resolve() : send(line);
   /* A line transport: send(line), and lines arriving in a buffer that readFor() drains. */
   function lineBuffer() {
     const buf = [], waiters = [];
@@ -40,7 +43,7 @@
     (async () => { try { while (open) { const { value, done } = await reader.read(); if (done) break; rest += value; let i; while ((i = rest.indexOf("\n")) >= 0) { const l = rest.slice(0, i).trim(); rest = rest.slice(i + 1); lines.push(l); if (l && onLine) onLine(l); } } } catch (e) {} })();
     await sleep(1500);   // many ESP32 boards reset when the port opens
     lines.buf.splice(0);
-    return { kind: "USB", lines, send: line => writer.write(enc.encode(line + "\n")), close: async () => { open = false; try { reader.cancel(); writer.releaseLock(); await port.close(); } catch (e) {} } };
+    return { kind: "USB", lines, send: gate(line => writer.write(enc.encode(line + "\n"))), close: async () => { open = false; try { reader.cancel(); writer.releaseLock(); await port.close(); } catch (e) {} } };
   }
   async function connectBle(onLine) {
     const dev = await navigator.bluetooth.requestDevice({ filters: [{ services: [NUS] }, { namePrefix: "RSOS" }], optionalServices: [NUS] });
@@ -51,7 +54,7 @@
     txc.addEventListener("characteristicvaluechanged", e => { rest += dec.decode(e.target.value); let i; while ((i = rest.indexOf("\n")) >= 0) { const l = rest.slice(0, i).trim(); rest = rest.slice(i + 1); lines.push(l); if (l && onLine) onLine(l); } });
     let q = Promise.resolve();
     const send = line => { const b = enc.encode(line + "\n"); q = q.then(async () => { for (let i = 0; i < b.length; i += 20) await rx.writeValueWithoutResponse(b.slice(i, i + 20)); }); return q; };
-    return { kind: "Bluetooth", name: dev.name, lines, send, close: async () => { try { gatt.disconnect(); } catch (e) {} } };
+    return { kind: "Bluetooth", name: dev.name, lines, send: gate(send), close: async () => { try { gatt.disconnect(); } catch (e) {} } };
   }
   const motor = lines => lines.map(x => x.split(" ")).filter(f => f[0] === "MOTOR").map(f => [Number(f[1]), Number(f[2])]);
   function pulses(m) { const out = []; let on = null; for (const [t, a] of m) { if (a > 0 && on === null) on = t; else if (a === 0 && on !== null) { out.push([on, t - on]); on = null; } } return out; }

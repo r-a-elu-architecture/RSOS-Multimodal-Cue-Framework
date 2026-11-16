@@ -3,6 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.0.0"></script>
+<script src="js/outlet.js?v=1.0.0"></script>
 <script src="js/voice.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -106,7 +107,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 @media (prefers-reduced-motion:reduce){.orb{transition:none}}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="player:preview">
 <div class="app" id="app">
 <aside aria-label="Settings">
   <div class="top"><a class="home" href="./">RSOS</a>
@@ -624,6 +625,7 @@ async function start(trigger) {
   // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
   const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
   if (verdict.decision !== "allow") { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(verdict.watchdog); return; }
+  RSOSOutlet.adopt(verdict.action, verdict.extra, { seconds: timeline.duration_ms / 1000 + 120 });   // the run's output session (FIXES_R3 §1)
   pendingTrigger = trigger;
   const deviceLatency = trigger === "device" && offerShownAt ? (performance.now() - offerShownAt) / 1000 : null;
   $("offer").hidden = true;
@@ -641,6 +643,7 @@ async function start(trigger) {
 }
 async function finish(completed) {
   if (!run) return;
+  RSOSOutlet.close();
   cancelAnimationFrame(run.raf);
   const stoppedAt = completed ? "" : (run.phase ? run.phase.name : "");
   const ended = runEnd(pending);
@@ -693,9 +696,14 @@ function runFlags() {
   const p = $("program").value, plan = store.get("rsos.plan", null), f = {};
   if (p.startsWith("plan:") && plan && plan.nodes) {
     const n = plan.nodes[+p.slice(5)], memory = !!plan.therapist_led || (((plan.intake || {}).concerns) || []).includes("ptsd");
-    if (n && n.mode === "observer" && memory) { f.memory_work = true; if (plan.therapist_led) f.therapist_led = true; }
+    if (n && memory) { f.memory_work = true; if (plan.therapist_led && n.mode === "observer") f.therapist_led = true; }   // FIXES_R3 §2: every node of a memory plan
   }
   if (timeline && (sources[p] !== $("source").value || (PROTOCOLS.includes(p) && timeline.protocol !== p))) f.edited = true;
+  // Level and words from the program's own content (FIXES_R3 §2): clinician tiers, programmed cues, markers, edited observer text.
+  const lv = RSOSWatchdog.levelOfProgram($("source").value, { cues: store.get("rsos.cues", []), edited: !!f.edited });
+  if (lv.therapist_led) f.therapist_led = true;
+  if (lv.memory_work) f.memory_work = true;
+  if (lv.text) f.text = lv.text;
   return f;
 }
 const clinLedRun = () => !!timeline && RSOSWatchdog.level(Object.assign({ kind: "run", protocol: timeline.protocol }, runFlags())) === "clinician_led";
@@ -707,9 +715,10 @@ const planProtocols = () => { const pl = store.get("rsos.plan", null); return pl
 function safetyDecide(action, extra) {
   const led = action.kind === "run" && clinLedRun(), scr = (document.querySelector('input[name="clinRunScreen"]:checked') || {}).value;
   const a = Object.assign({ source: "person" }, action.kind === "run" ? runFlags() : {}, action);
-  const r = RSOSGuard.ask(a, Object.assign({ timeline: action.kind === "run" ? timeline : null, clinician_present: led && $("clinRunHere").checked,
-    screening_recorded: led && CLINV && scr === "no" }, DOMAIN(), extra || {}));
-  return { decision: RSOSGuard.ok(r) ? "allow" : "block", reasons: r.reasons.map(t => t.text), watchdog: r };
+  const x = Object.assign({ timeline: action.kind === "run" ? timeline : null, clinician_present: led && $("clinRunHere").checked,
+    screening_recorded: led && CLINV && scr === "no" }, DOMAIN(), extra || {});
+  const r = RSOSGuard.ask(a, x);
+  return { decision: RSOSGuard.ok(r) ? "allow" : "block", reasons: r.reasons.map(t => t.text), watchdog: r, action: a, extra: x };
 }
 function safetyReview() {
   const [st, changes] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), records, store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
@@ -922,12 +931,16 @@ function anchorOffer() {
   };
   const play = () => UGCL.feel(best.a.code, {});
   if (best.mode === "auto") {
+    RSOSOutlet.adopt({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: true }, DOMAIN(), { seconds: 30 });
     play(); txt.textContent = "Your heart rate suggests a stress response, so the device played " + best.a.glyph + " " + best.a.name + " by itself. It may, because this anchor has earned automatic use and you consented; change that on the Safety page.";
     box.hidden = false; setTimeout(feedback, 4000);
   } else {
     txt.textContent = "Your heart rate suggests a stress response. Play " + best.a.glyph + " " + best.a.name + "?";
     const go = document.createElement("button"); go.className = "btn go"; go.type = "button"; go.textContent = "Play it";
-    go.addEventListener("click", () => { play(); setTimeout(feedback, 3000); });
+    go.addEventListener("click", () => {   // the person confirms; the gate asks again now (FIXES_R3 §1)
+      const r = RSOSOutlet.open({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person" }, DOMAIN(), { confirmed: true, seconds: 30 });
+      if (!r.opened) { txt.textContent = "Held by the Watchdog: " + RSOSGuard.say(r); acts.innerHTML = ""; return; }
+      play(); setTimeout(feedback, 3000); });
     const no = document.createElement("button"); no.className = "btn quiet"; no.type = "button"; no.textContent = "Not needed";
     no.addEventListener("click", () => { const offs = store.get("rsos.gate.offers", []); RSOSGate.recordOffer(offs, best.a.id, Date.now() / 1000, "not_needed", "suggest", false); store.set("rsos.gate.offers", offs.slice(-500)); box.hidden = true; });
     const later = document.createElement("button"); later.className = "btn quiet"; later.type = "button"; later.textContent = "Not now";

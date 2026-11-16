@@ -41,6 +41,25 @@ def level(action: dict) -> str:
     return "self_guided"
 
 
+_TIER_RX = re.compile(r"PROTOCOL\s+tier(414|420|439|440)(?!\d)|^\s*#.*\bTier\s+(414|420|439|440)\b", re.M | re.I)
+_CUE_RX = re.compile(r'MARK\s+"programmed:([\w-]+)"')
+_OBSERVER_RX = re.compile(r'\bMODE\s+"observer"', re.I)
+_TEXT_RX = re.compile(r'^\s*(?:SAY|SEE|FEEL|GESTURE|WORD|FRAME|V|A|K|O|G)\s+"((?:[^"\\]|\\.)*)"', re.M)
+
+
+def level_of_program(source: str, opts: dict | None = None) -> dict:
+    """The level a program's own content calls for (spec/FIXES_R3.md §2): {therapist_led, memory_work, text}.
+    opts: {cues: [consent records], edited: bool}. text is the program's spoken and shown words, for Spine flags."""
+    src, o = source or "", opts or {}
+    tiers = {str(c.get("id")): str(c.get("tier") or "") for c in o.get("cues") or []}
+    led = bool(_TIER_RX.search(src)) or "# rsos-level: clinician_led" in src
+    led = led or any(tiers.get(i, "") in CLINICIAN_TIERS for i in _CUE_RX.findall(src))
+    memory = "# rsos-memory: yes" in src
+    if o.get("edited") and _OBSERVER_RX.search(src):
+        led, memory = True, True
+    return {"therapist_led": led, "memory_work": memory, "text": " ".join(_TEXT_RX.findall(src))}
+
+
 def _consent(consents, scope, now) -> bool:
     return any(c.get("scope") == scope and (c.get("given") or 0) <= now and (c.get("withdrawn") is None or c["withdrawn"] > now)
                for c in consents or [])
@@ -110,7 +129,8 @@ def watch(action: dict, ctx: dict | None = None) -> dict:
 
 def link(contain: dict | None, safety: dict | None, now: float = 0) -> tuple[dict, bool]:
     """While CONTAIN's practice pause is active, the session state is at least Stabilisation. Never lowers a state."""
-    st = copy.deepcopy(safety or S.new_state())
+    st = copy.deepcopy(safety) if isinstance(safety, dict) and safety.get("mode") in S.MODES else S.new_state()   # FIXES_R3 R3-c
+    st.setdefault("history", [])
     esc = (contain or {}).get("escalation") or {}
     if esc.get("active") and S.SEVERITY[st["mode"]] < S.SEVERITY["STABILISE"]:
         st, _ = S.enter_stabilise(st, "contain", now)

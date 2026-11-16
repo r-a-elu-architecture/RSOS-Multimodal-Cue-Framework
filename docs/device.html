@@ -3,6 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.0.0"></script>
+<script src="js/outlet.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Phones and wristbands — RSOS</title>
@@ -115,7 +116,7 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 </head>
-<body>
+<body data-outlet-kind="cue" data-outlet-protocol="device:manual">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
   <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html" aria-current="page">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
@@ -347,18 +348,23 @@ $("check").addEventListener("click", async () => {
   const n = res.filter(r => r[2]).length; say(n + " of " + res.length + " checks passed." + (n < res.length ? " See firmware/BOARD_KIT.md, troubleshooting." : ""), n === res.length);
   $("check").disabled = false;
 });
-async function playCode(code) {
+async function playCode(code, flags) {
   if (!tx) return say("Connect the band first.");
   if (!UGCL.TACTON_RE.test(code)) return say("A code is 1 to 6 dots and dashes, up to three joined by spaces.");
+  // Every code sent to the band asks the Watchdog (FIXES_R3 §1); a plan's codes carry its level.
+  const r = RSOSOutlet.open(Object.assign({ kind: "cue", protocol: "device:code", trigger: "self", source: "person" }, flags || {}), {}, { confirmed: true, seconds: 30 });
+  if (!r.opened) return say("Held by the Watchdog: " + RSOSGuard.say(r));
   await tx.send("STOP"); for (const l of R.codeEvents(UGCL.tactonPulses(code), 0.4)) await tx.send(l); await tx.send("START");
 }
 $("play").addEventListener("click", () => playCode($("code").value.trim()));
 function drawCodes() {
   const plan = store.get("rsos.plan", null), box = $("codes"); box.innerHTML = "";
-  const items = (plan && plan.nodes ? plan.nodes.map(n => [n.name, n.tacton]) : []).concat([["Lion", "..-"], ["Dragon", "---"], ["Observer", "-"], ["Lion + Dragon", "..- ---"]]);
+  const memory = !!plan && (!!plan.therapist_led || (((plan.intake || {}).concerns) || []).includes("ptsd"));
+  const fl = n => memory ? Object.assign({ memory_work: true }, plan.therapist_led && n.mode === "observer" ? { therapist_led: true } : {}) : {};
+  const items = (plan && plan.nodes ? plan.nodes.map(n => [n.name, n.tacton, fl(n)]) : []).concat([["Lion", "..-", {}], ["Dragon", "---", {}], ["Observer", "-", {}], ["Lion + Dragon", "..- ---", {}]]);
   const seen = new Set();
-  for (const [name, code] of items) { if (seen.has(name + code)) continue; seen.add(name + code);
-    const b = document.createElement("button"); b.type = "button"; b.innerHTML = UGCL.codeSVG(code, "#f7d995", 8); b.append(name); b.addEventListener("click", () => playCode(code)); box.appendChild(b); }
+  for (const [name, code, flags] of items) { if (seen.has(name + code)) continue; seen.add(name + code);
+    const b = document.createElement("button"); b.type = "button"; b.innerHTML = UGCL.codeSVG(code, "#f7d995", 8); b.append(name); b.addEventListener("click", () => playCode(code, flags)); box.appendChild(b); }
 }
 drawCodes();
 $("run").addEventListener("click", async () => {
@@ -367,6 +373,7 @@ $("run").addEventListener("click", async () => {
     const tl = RSX.compile(await (await fetch("protocols/" + p + ".rsx")).text());
     const r = RSOSGuard.ask({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person" }, Object.assign({ timeline: tl }, window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {}));
     if (!RSOSGuard.ok(r)) return say("Held by the Watchdog: " + RSOSGuard.say(r));
+    RSOSOutlet.adopt({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person" }, { timeline: tl }, { seconds: tl.duration_ms / 1000 + 60 });
     await tx.send("STOP"); await tx.send("CONSENT 0"); for (const l of R.encode(tl)) await tx.send(l); await tx.send("START");
     say("Playing " + $("prog").selectedOptions[0].textContent + " (" + Math.round(tl.duration_ms / 1000) + " s). Stop at any time.", true);
   } catch (e) { say("Could not play it: " + e.message); }

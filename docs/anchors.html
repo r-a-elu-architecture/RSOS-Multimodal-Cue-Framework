@@ -3,6 +3,11 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.0.0"></script>
+<script src="js/outlet.js?v=1.0.0"></script>
+<script src="js/safety.js?v=1.17.0"></script>
+<script src="js/contain.js?v=1.17.0"></script>
+<script src="js/watchdog.js?v=1.17.0"></script>
+<script src="js/guard.js?v=1.17.0"></script>
 <script src="js/voice.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -103,7 +108,7 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 </head>
-<body>
+<body data-outlet-kind="cue" data-outlet-protocol="anchor">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
   <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html" aria-current="page">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
@@ -278,10 +283,12 @@ async function cameraReading(msgEl) {
 
 function capture(a, flow) {
   if (busy) return; flow.textContent = "";
+  if (!RSOSOutlet.ensure()) { flow.textContent = "Held by the Watchdog: the session state or domain does not allow playing anchors now. See the safety page."; return; }   // FIXES_R3 §1
   const f = el("div", "flow");
   f.append(el("p", "", "Pair the anchor with a peak: a moment of calm strength, after a run or a cold shower, at the peak of a hypnosis track."));
   const tap = el("button", "btn main", "I'm there now"), cam = el("button", "btn", "Measure first with the camera");
   tap.addEventListener("click", () => f.replaceChildren(scale("How strong is the state now (0–10)?", k => {
+    if (!RSOSOutlet.ensure()) { f.replaceChildren(el("p", "", "Held by the Watchdog: nothing was played or stored.")); return; }
     P.addCapture(a, { source: "self_tap", intensity: k }, null, now()); save(); play(a); speak(a.channels.phrase);
     f.replaceChildren(el("p", "", "Paired. Breathe it in while the code and the light play.")); setTimeout(draw, 2500);
   })));
@@ -289,6 +296,7 @@ function capture(a, flow) {
     busy = true; f.replaceChildren(el("p", "", "Fingertip on the camera, keep still…")); const r = await cameraReading(f); busy = false;
     if (!r.ok) { f.replaceChildren(el("p", "", r.say)); return; }
     const base = store.get(BASE, null), sample = { source: base && r.rmssd_ok ? "hrv" : "self_tap", hr: r.hr, rmssd: r.rmssd_ok ? r.rmssd : null };
+    if (!RSOSOutlet.ensure()) { f.replaceChildren(el("p", "", "Held by the Watchdog: nothing was played or stored.")); return; }
     const c = P.addCapture(a, sample, base, now()); save();
     if (c.ok) { play(a); speak(a.channels.phrase); f.replaceChildren(el("p", "", "Paired at " + r.hr + " bpm (" + c.reason + ").")); setTimeout(draw, 2500); }
     else f.replaceChildren(el("p", "", "Not paired: " + c.reason + ". Try again at a stronger moment, or mark it yourself."));
@@ -304,10 +312,11 @@ function shamCode(a) {
 }
 function probe(a, flow) {
   if (busy) return; flow.textContent = "";
+  if (!RSOSOutlet.ensure()) { flow.textContent = "Held by the Watchdog: the session state or domain does not allow playing anchors now. See the safety page."; return; }   // FIXES_R3 §1
   const f = el("div", "flow"), rec = { ts: now(), kind: Math.random() < 1 / 3 ? "sham" : "cue" };
   const useCam = el("button", "btn main", "With the camera (30 s before, 30 s after)"), rateOnly = el("button", "btn", "Calm rating only");
   f.append(el("p", "", "A probe plays either this anchor's code alone or a sham code, chosen at random. You find out which afterwards."), useCam, rateOnly);
-  const finish = () => { P.addProbe(a, rec); save(); f.replaceChildren(el("p", "", "Done. That was " + (rec.kind === "cue" ? "the anchor's code." : "a sham code, never paired with any state."))); setTimeout(draw, 2200); };
+  const finish = () => { if (!RSOSOutlet.ensure()) { f.replaceChildren(el("p", "", "Held by the Watchdog: the probe was not stored.")); return; } P.addProbe(a, rec); save(); f.replaceChildren(el("p", "", "Done. That was " + (rec.kind === "cue" ? "the anchor's code." : "a sham code, never paired with any state."))); setTimeout(draw, 2200); };
   const cue = () => { const code = rec.kind === "cue" ? a.code : shamCode(a); flash(rec.kind === "cue" ? (a.channels.light || "#e8b04a") : "#a3abc6"); return UGCL.feel(code, {}); };
   rateOnly.addEventListener("click", () => f.replaceChildren(scale("Calm right now (0–10)?", b => {
     rec.calm_before = b; f.replaceChildren(el("p", "", "Close your eyes. The code plays now; stay with whatever comes for 30 seconds."));
@@ -349,6 +358,7 @@ function drawChain() {
 $("chainPlay").addEventListener("click", () => {
   const list = anchors.filter(a => !a.sim), ph = P.chain(list), F = $("chainFlow"); F.textContent = "";
   if (!ph.length) return;
+  if (!RSOSOutlet.ensure()) { F.textContent = "Held by the Watchdog: the session state or domain does not allow playing anchors now. See the safety page."; return; }   // FIXES_R3 §1
   const results = []; let k = 0, before = null;
   const box = el("div", "flow"); F.append(box);
   const next = () => {

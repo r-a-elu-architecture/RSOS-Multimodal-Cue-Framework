@@ -36,12 +36,13 @@ git checkout dev
 ./scripts/check_all.sh                     # every suite, conformance, generated files unchanged
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
-  rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py
+  rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
 python3 scripts/check_fixes_r1.py docs
 python3 scripts/check_fixes_r2.py docs
+python3 scripts/check_outlet.py docs      # the output gate (FIXES_R3)
 ```
 
 ## 3. Review checklist (every step)
@@ -183,6 +184,21 @@ amends WATCHDOG §2 and W3.
 Tests: `rsso/tests/test_fixes_r2.py`, `scripts/check_fixes_r2.py`; the Watchdog and R1 browser checks now set a
 clinician PIN first, as a clinician would.
 Review status: **awaiting review**.
+
+### Fix pass R3 — structural (after the third review)
+
+Review: branch `review/r3`, commit 15256fa (reviewed 14d096c). Registration: `spec/FIXES_R3.md` (25ea88d).
+- **Output gate** `docs/js/outlet.js` on every page: sound starts, unmuted media, speech, vibration and the wristband
+  START pass only inside an allowed session; the Watchdog is asked again at every output; stop always works; pages
+  declare their action on `<body>` or open sessions. Without the safety scripts nothing plays.
+- **Level from content**: `level_of_program` (Python and JS) reads clinician tiers, programmed cues' tiers, markers and
+  edited observer text; program words go to the Spine check.
+- **Honest clinician control**: no PIN can be set during the clinician-led protocol, by any path; the Safety page and
+  specs say the control is advisory on a person's own device.
+- Smaller: Lion and Dragon codes 5 s apart; therapist sessions re-checked on resume; malformed saved states alike in
+  both languages; night memory column hidden in Workplace; hold rows marked; CONTAIN §9 note.
+Tests: `rsso/tests/test_fixes_r3.py`; `scripts/check_outlet.py` (14 failures on 14d096c, 0 now).
+Review status: **awaiting the fourth review**.
 
 ## 5. Review findings
 

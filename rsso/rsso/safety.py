@@ -163,7 +163,8 @@ def _go(st: dict, mode: str, why: str, by: str, now: float) -> dict:
 
 def observe(state: dict | None, event: dict, now: float = 0.0) -> tuple[dict, dict]:
     """Screen an event and escalate if it calls for a higher mode. Returns (state, result)."""
-    st = copy.deepcopy(state or new_state())
+    st = copy.deepcopy(state) if isinstance(state, dict) and state.get("mode") in MODES else new_state()   # FIXES_R3 R3-c
+    st.setdefault("history", [])
     hits = screen(event)
     target = "NORMAL"
     if "possible_crisis" in hits or "sedative_combination" in hits or "clinical_high" in hits:

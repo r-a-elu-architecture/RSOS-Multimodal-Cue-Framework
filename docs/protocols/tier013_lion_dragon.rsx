@@ -1,5 +1,6 @@
 # Tier 013: the lion and the dragon held as one composite anchor (spec/TRIAL_LOOP.md §5; PEAK composite()).
-# Two TIER blocks activated together; glyphs joined with +, vibration codes joined with a pause (..-  then  ---).
+# Two TIER blocks; glyphs joined with +, vibration codes played one after the other with a pause (FIXES_R3 R3-a),
+# so each code stays readable on one motor.
 # The archive v1 command ran this as ArchetypeMerge (legacy_vector.rsx); this is the RSX v2 program.
 PROTOCOL tier013_lion_dragon "Tier 013: Lion and Dragon"
 VERSION 1.0
@@ -27,14 +28,19 @@ PHASE interrupt dur=2s {
   SAY "I move, I act"
   GESTURE "Spine straight, clench your fist"
 }
-PHASE inhale breath=inhale {
+PHASE lion breath=inhale {
   ACTIVATE LION
+  SEE "🦁 The lion"
+}
+PHASE pause dur=1s {
+  FEEL "Hold"
+}
+PHASE dragon breath=exhale {
   ACTIVATE DRAGON
-  SEE "🦁+🐉 The lion and the dragon as one"
+  SEE "🐉 The dragon, held with the lion as one"
 }
 PHASE seal breath=exhale {
   SAY "I hold my strength and my shadow in one breath"
-  HAPTIC on=150ms off=150ms x=2 amp=0.3
 }
 REPEAT 3 {
   PHASE breathe_in breath=inhale {

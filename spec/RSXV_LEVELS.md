@@ -1,6 +1,6 @@
 # RSXV_LEVELS — RSX-V commands carry guidance levels, keep them through NEXT and ask the Watchdog (phase 2, Step 9)
 
-Status: registered 2026-11-16, before code.
+Status: registered 2026-11-16 (86edfd5), before code; code 0d91a09; results in §3.
 
 ## 0. Problem
 
@@ -41,3 +41,26 @@ domain or consent does not allow it (spec/WATCHDOG.md, spec/FIXES_R4.md to spec/
   - **V7:** `examples/dragon.rsxv` runs exactly as before.
 - Q2 All 130 existing RSX-V tests pass unchanged. `scripts/check_all.sh` passes, including the regenerated
   `docs/data/rsxv_example.json`. All `rsso` suites and the browser checks pass.
+
+## 3. Results (recorded after the code commit 0d91a09)
+
+- Q1 met. `rsxv/tests/test_levels.py`: 12 passed.
+  - V1: parsing, the round trip and refusals.
+  - V2: a `LEVEL self_guided` command for ledger tier 414 is clinician-led.
+  - V3: both markers are present, and `level_of_program` agrees.
+  - V4: NEXT carries a content-only level with the note "level carried from the parent", and carries `MEMORY yes`.
+  - V5: `MEMORY yes` is refused in Workplace and runs in Personal. A clinician-led command is refused in Personal, and
+    in Clinical without a clinician; it runs in Clinical with the module on, a clinician present and screening
+    recorded. A run in CRISIS is refused.
+  - V6: "ice bath" in INTENT is refused, also with a Cyrillic "і".
+  - V7: the bridged dragon program is byte-identical to `examples/dragon.cue.rsx`; the plain command runs with status
+    `done` and no Watchdog entry.
+- Q2 met. The RSX-V suite has 142 passed: the 130 existing tests unchanged, plus 12. `scripts/check_all.sh` all passed,
+  with `docs/data/rsxv_example.json` regenerated unchanged. `rsso`: 288 passed, 1 expected failure, 2 skipped
+  (ESP32_TOOLS). `scripts/check_site_catchup.py` exits 0.
+- Implementation detail, recorded: V2's content level also reads the command's own `TIER` number with the same
+  clinician-tier pattern (`PROTOCOL tier<nnn>`). The bridged program is named `rsxv`, so its text alone cannot show
+  the ledger tier. Because of this a `TIER 414` command is clinician-led.
+- Found, not changed: `rsxv/examples/dragon.run.txt` was already out of date before this step.
+  `python3 -m rsxv examples/dragon.rsxv` gives drift −0.122 and NEXT notes instead of the file's −0.113 and firmware
+  lines, both on the unchanged code (stash check) and with this step. Regenerating it belongs to a separate record.

@@ -37,7 +37,7 @@ git checkout dev
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
   rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
-  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_ble_pairing.py
+  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -47,6 +47,7 @@ python3 scripts/check_outlet.py docs      # the output gate (FIXES_R3)
 python3 scripts/check_low_mood.py docs    # spec/LOW_MOOD.md
 python3 scripts/check_fixes_r4.py docs    # spec/FIXES_R4.md (synthetic sessions; see FIXES_R5)
 python3 scripts/check_fixes_r5.py docs    # spec/FIXES_R5.md: real page paths
+python3 scripts/check_fixes_r6.py docs    # spec/FIXES_R6.md: changes after Begin, lineage, held pages
 ```
 
 ## 3. Review checklist (every step)
@@ -243,7 +244,25 @@ count, owner's decision); code 9ab5f78.
 - Smaller: direct sound paths fail closed without the gate; two memory-work sentences hidden in Workplace; the
   escalation count restored; FIXES_R4's "No threshold changed" and Q1 claims corrected in its record.
 Tests: `rsso/tests/test_fixes_r5.py`; `scripts/check_fixes_r5.py` (16 failures on 4f4b6d8, 0 now).
-Review status: **awaiting the sixth review** (covers R5 and Step 4).
+Review status: reviewed in review 6 (`review/r6`, b423035): 1 blocker, 7 should fix → fix pass R6.
+
+### Fix pass R6 (spec/FIXES_R6.md)
+
+Review: branch `review/r6`, commit b423035 (reviewed c3b1a55). Registration 3966b05 (amends FIXES_R5 §2/§3 and
+BLE_PAIRING P3/P4/§4); code dbb393c.
+- **Blocker R6-1**: the run plays the timeline decided at Start; menu, editor, futures and breath fields are locked
+  while it plays; a program that changes anyway stops the run.
+- **Lineage**: share = shared / |origin|; `$future` removed, not skipped; joined text catches split sentences; texts that
+  a built-in also has count only exactly; strict mode explained. Consequence: with a diagnosed-depression plan the
+  built-in Lion/Observer nodes are held too.
+- **Folding pinned** to Unicode 15.1 by a generated table (`scripts/gen_fold_table.py`), the same in Python and every
+  browser; accents and more look-alikes folded.
+- **Held pages**: device page, automatic anchor and trials close their held sessions and say so.
+- **Wristband**: pairing requests answered only in the window; passkey shown only in it; no-key authentication only
+  for bonded hosts; receive line portable to 3.x (stubs now catch the old error); ring emptied on link loss; the page
+  writes with response.
+Tests: `rsso/tests/test_fixes_r6.py`; `scripts/check_fixes_r6.py` (8 failures on c3b1a55, 0 now); link_test 52.
+Review status: **awaiting a targeted check** (R6 only).
 
 ### Step 4 — paired, encrypted wristband Bluetooth (spec/BLE_PAIRING.md)
 

@@ -1,6 +1,6 @@
 # FIXES_R6 — fixes from the sixth independent review
 
-Status: registered 2026-11-16, before code. Review: branch `review/r6`, commit b423035 (reviewed dev at c3b1a55;
+Status: registered 2026-11-16 (3966b05), before code; code dbb393c; results in §7. Review: branch `review/r6`, commit b423035 (reviewed dev at c3b1a55;
 1 blocker, 7 should fix, 3 notes). This registration amends FIXES_R5 §2 and §3 and BLE_PAIRING P3, P4 and §4 as stated
 below.
 
@@ -69,3 +69,27 @@ below.
   failure limit, and the passkey is shown only in the window. The stubs give the 3.x `getValue` type, and the sketch
   compiles in all 10 builds.
 - Q3 All suites and browser checks pass. No threshold changes.
+
+## 7. Results (recorded after the code commit dbb393c)
+
+- Q1 met. `scripts/check_fixes_r6.py` (real page paths; the program changed after Begin) on c3b1a55: 8 failures (C1a, C1b,
+  C2, C3-C5, C6, C7, C8, and the recorded Lion-node consequence). On dbb393c: 0 failures, 0 page errors. Controls pass:
+  CRISIS during a run stops it; with no plan every built-in is allowed and the built-in Observer plays on the band; with
+  a short frame "I am steady" the built-in `ssit_higher` and an own "I am steady today" are allowed, and an own "I am
+  steady" (exact) is held.
+- Q2 met. `rsso/tests/test_fixes_r6.py`: 5 passed (every table entry and mark range, the Unicode 16 outlined letters and
+  digits, and accents/look-alike samples: fold, levels and Spine identical in Python and JavaScript; newer code points
+  kept as they are). `review/r5/parity.py`: 0 differences. `link_test`: 52 checks (5 new: requests and the passkey
+  screen only in the window, none after the failure limit, 50 attempts outside the window refused). The new stubs give
+  `String` for 3.x: the c3b1a55 sketch fails on 3.x with the reviewer's error ("conversion from 'String' to non-scalar
+  type 'std::string'") and compiles on 2.x; the fixed sketch compiles in all 10 builds. `test_ble_pairing.py`: 12 passed.
+- Q3 met. `rsso` suite 273 passed, 1 expected failure (TRIAL_LOOP T4, unchanged); `rsxv` 130 passed;
+  `scripts/check_all.sh` all passed; the 10 browser checks exit 0. No threshold changed.
+- Recorded:
+  - The fold table is pinned to Unicode 15.1 (Python 3.13). `check_all.sh` regenerates it only with a matching Python.
+    Characters newer than the table are kept as they are in both languages, so they never match a wording or level
+    pattern.
+  - B5 and B7 rest on Bluedroid raising `ESP_GAP_BLE_SEC_REQ_EVT` for each pairing request on the peripheral, and on
+    `AUTH_CMPL` carrying an address that the bond list has. Both are to be confirmed on a board. If the address is a
+    private one, a bonded host that reconnects without new keys is refused (fails closed).
+  - Within an open window, 3 passkey guesses remain possible per power-on or `PAIR`.

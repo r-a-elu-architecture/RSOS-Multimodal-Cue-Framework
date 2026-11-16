@@ -174,7 +174,8 @@ For the first board, follow the step-by-step test sheet [`BOARD_TEST.md`](BOARD_
 pairing, the pairing window, reconnects after a phone changes its address, link loss) and send its report.
 
 
-Add the report to `rsso/results/board_<board>.md` (the `--out` file). Include the board, the motor, the driver,
+The easiest way to send it: open an issue with the **Board report** form (Issues → New issue → Board report), which
+holds the report block. Or add the report to `rsso/results/board_<board>.md` (the `--out` file). Include the board, the motor, the driver,
 the Arduino-ESP32 version and the date, then open a pull request or an issue. The first real-board report moves
 MICRO and AUG from "complete in simulation" to "built and checked on hardware" on the system map.
 

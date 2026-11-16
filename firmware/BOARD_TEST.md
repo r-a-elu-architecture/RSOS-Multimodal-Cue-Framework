@@ -178,7 +178,8 @@ This is the result that decides the next code change.
 
 ## Report
 
-Copy this block, fill it in, and send it back.
+Copy this block, fill it in, and send it back: the easiest way is a GitHub issue with the **Board report** form
+(Issues → New issue → Board report), which already holds this block. Leave the passkey itself out.
 
 ```
 Board:                      (model)

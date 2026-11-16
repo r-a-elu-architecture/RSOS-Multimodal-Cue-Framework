@@ -1,6 +1,6 @@
 # ARCH_REFRESH — the architecture map describes RSX-V and what Steps 1 to 4 built (roadmap Step 5)
 
-Status: registered 2026-11-16, before code.
+Status: registered 2026-11-16 (388f443; B2 wording amended in a second registration commit), before code; code 9cafcdb; results in §3.
 
 ## 0. Problem
 
@@ -36,3 +36,14 @@ Status: registered 2026-11-16, before code.
   - No `architecture/` page contains "crisis help", "hotline", "112" or any excluded term of
     `rsx/tests/test_roadmap.py` (the test imports that list).
 - B3 `scripts/check_all.sh` and all suites pass.
+
+## 3. Results (recorded after the code commit 9cafcdb)
+
+- B1 met. `python3 architecture/build.py` writes the pages. 8 pages changed and one is new (`architecture/rsx/rsx-v/`).
+  `rsx/tests/test_repository.py` passes (committed pages equal the generated ones; links resolve), and `check_all.sh`
+  reports the generated files unchanged.
+- B2 met. `rsso/tests/test_arch_refresh.py`: 3 passed.
+- B3 met. `scripts/check_all.sh` all passed; `rsso` suite 276 passed, 1 expected failure (TRIAL_LOOP T4, unchanged).
+  No page under `docs/` changed, so the browser checks are unaffected.
+- Process note: the first registration listed the excluded terms literally, which the repository's own
+  excluded-terms test rejects. The B2 wording was amended in a registration commit before the code.

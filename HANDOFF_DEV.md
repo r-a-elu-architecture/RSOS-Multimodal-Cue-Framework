@@ -303,8 +303,8 @@ Tests: `rsso/tests/test_site_catchup.py` (7), `scripts/check_site_catchup.py`.
 - **Step 10** (305dc39, spec/AGENTS_PROVEN.md): the Agents page shows the passing RSX-V agent results working, from the real
   code (`rsxv/rsxv/site_agents.py` → `docs/data/agents_proven.json`): W1 trials step by step, the H-SWITCH policy comparison
   with its distress caveat, and W4, J1, T-AP cards. Tests: `rsxv/tests/test_site_agents.py`, `check_site_catchup.py` Step 10.
-Next in phase 2: Step 10 done; (passing
-results as automation on the Agents page), Step 11 (ceiling test for the transfer and repurposing families).
+Next in phase 2: Step 11 (a ceiling test for the transfer and repurposing families, registered with its threshold fixed in
+advance; if it fails, those test lines stop).
 Review status: **awaiting a targeted check**.
 
 ## 5. Review findings

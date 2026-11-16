@@ -1,7 +1,8 @@
 # REVIEW_R6_CHECK — targeted check of fix pass R6
 
 Reviewer: independent agent (R6 check). Own clone `/home/claude/review-r6c`, branch `review/r6-check` from `dev` at 0304a0c
-(`origin/dev` was 0304a0c when checked). No author code changed. This is a short, targeted check, not a full review.
+(`origin/dev` was 0304a0c at clone time; by the time this file was pushed `origin/dev` had moved to 23d145a, which is not
+reviewed here). No author code changed. This is a short, targeted check, not a full review.
 
 ```
 Step:            Fix pass R6 (spec/FIXES_R6.md; registration 3966b05, code dbb393c, records 0304a0c) against REVIEW_R6.md

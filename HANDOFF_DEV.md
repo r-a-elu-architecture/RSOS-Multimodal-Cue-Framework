@@ -37,7 +37,7 @@ git checkout dev
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
   rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
-  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py rsso/tests/test_arch_refresh.py
+  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py rsso/tests/test_arch_refresh.py rsso/tests/test_site_catchup.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -48,6 +48,7 @@ python3 scripts/check_low_mood.py docs    # spec/LOW_MOOD.md
 python3 scripts/check_fixes_r4.py docs    # spec/FIXES_R4.md (synthetic sessions; see FIXES_R5)
 python3 scripts/check_fixes_r5.py docs    # spec/FIXES_R5.md: real page paths
 python3 scripts/check_fixes_r6.py docs    # spec/FIXES_R6.md: changes after Begin, lineage, held pages
+python3 scripts/check_site_catchup.py docs # spec/SITE_CATCHUP.md: System page, RSX-V page, results families
 ```
 
 ## 3. Review checklist (every step)
@@ -284,6 +285,21 @@ top-level table, RSIA Watchdog, CONTAIN, MICRO and cross-system pages describe t
 states, guidance levels, domain profiles, output gate, level lineage, wristband pairing and the trial loop. Generated
 by `architecture/build.py`. Test: `rsso/tests/test_arch_refresh.py`. Documentation only; no site page changed.
 Review status: **awaiting review**.
+
+### Phase 2, Steps 6–8 — the site shows the system as it now is (spec/SITE_CATCHUP.md)
+
+Registered ecac2ee. Built alongside the ESP32_TOOLS work without touching its files.
+- **Step 6** (bfbc265): the System page's Safety box becomes "Watchdog and CONTAIN" (session states, guidance levels,
+  domain profiles, output gate, level lineage); a new RSX-V box (AI → RSX-V → RSX program); Devices names pairing.
+  A test keeps each box's status equal to the architecture map.
+- **Step 7** (6686fff): new page `docs/rsxv.html` with one program in three forms (RSX-V command → RSX cue program →
+  device lines), generated with the real bridge (`rsxv/rsxv/site_example.py`); RSX-V in every menu and on the home page.
+- **Step 8** (7bc669f): the results page groups the 33 tests by family, shows each series as a chain coloured by
+  outcome, and reads a new pass against the number of tests; "past-crisis" shown as "past high-distress".
+Tests: `rsso/tests/test_site_catchup.py` (7), `scripts/check_site_catchup.py`.
+Next in phase 2: Step 9 (RSX-V language: guidance levels, level lineage, domain cap, shared folding), Step 10 (passing
+results as automation on the Agents page), Step 11 (ceiling test for the transfer and repurposing families).
+Review status: **awaiting a targeted check**.
 
 ## 5. Review findings
 

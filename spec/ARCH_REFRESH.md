@@ -33,6 +33,6 @@ Status: registered 2026-11-16, before code.
   - The RSIA Watchdog page names `spec/WATCHDOG.md`.
   - CONTAIN names the four session states and the output gate.
   - MICRO names `spec/BLE_PAIRING.md`.
-  - No `architecture/` page contains "crisis help", "hotline", "112" or the banned words ("Fox", "48 Laws", "cunning",
-    "Tribit").
+  - No `architecture/` page contains "crisis help", "hotline", "112" or any excluded term of
+    `rsx/tests/test_roadmap.py` (the test imports that list).
 - B3 `scripts/check_all.sh` and all suites pass.

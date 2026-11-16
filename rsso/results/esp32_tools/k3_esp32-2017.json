@@ -1,0 +1,97 @@
+{
+ "boot": [
+  "ets Jul 29 2019 12:21:46",
+  "rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)",
+  "configsip: 0, SPIWP:0xee",
+  "clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00",
+  "mode:DIO, clock div:1",
+  "load:0x3fff0030,len:1184",
+  "load:0x40078000,len:13260",
+  "load:0x40080400,len:3028",
+  "entry 0x400805e4",
+  "NOTE emulator build: Bluetooth off"
+ ],
+ "results": [
+  [
+   "K3a",
+   "only 0% from boot to the first command",
+   true,
+   "2 events, levels [0]"
+  ],
+  [
+   "K3b",
+   "three pulses: 0->40, 40->0 three times",
+   true,
+   "[(0, 40), (40, 0), (0, 40), (40, 0), (0, 40), (40, 0)]; on-times (host) [298, 302, 304] ms"
+  ],
+  [
+   "K3c",
+   "0.9 under a program limit of 0.4: 0->40, 40->0",
+   true,
+   "[(0, 40), (40, 0)]; on-times (host) [200] ms"
+  ],
+  [
+   "K3d",
+   "0.9 under the device envelope 0.6: 0->60, 60->0",
+   true,
+   "[(0, 60), (60, 0)]; on-times (host) [302] ms"
+  ],
+  [
+   "K3e",
+   "STOP during a 5 s pulse: 0->40, 40->0, STOPPED",
+   true,
+   "[(0, 40), (40, 0)]; STOPPED 354; on-time (host) [354] ms"
+  ]
+ ],
+ "transcript": [
+  "< ets Jul 29 2019 12:21:46",
+  "< rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)",
+  "< configsip: 0, SPIWP:0xee",
+  "< clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00",
+  "< mode:DIO, clock div:1",
+  "< load:0x3fff0030,len:1184",
+  "< load:0x40078000,len:13260",
+  "< load:0x40080400,len:3028",
+  "< entry 0x400805e4",
+  "< NOTE emulator build: Bluetooth off",
+  "> LOAD 1 0.40",
+  "< OK LOAD",
+  "> H 0 300 300 3 0.40",
+  "> START",
+  "< OK START",
+  "< MOTOR 0 0.40",
+  "< MOTOR 300 0.00",
+  "< MOTOR 600 0.40",
+  "< MOTOR 900 0.00",
+  "< MOTOR 1200 0.40",
+  "< MOTOR 1500 0.00",
+  "< DONE 1800",
+  "> LOAD 1 0.40",
+  "< OK LOAD",
+  "> H 0 200 100 1 0.90",
+  "< CLAMPED 0 0.90 0.40",
+  "> START",
+  "< OK START",
+  "< MOTOR 0 0.40",
+  "< MOTOR 200 0.00",
+  "< DONE 300",
+  "> LOAD 1 0.90",
+  "< OK LOAD",
+  "> H 0 300 100 1 0.90",
+  "< CLAMPED 0 0.90 0.60",
+  "> START",
+  "< OK START",
+  "< MOTOR 0 0.60",
+  "< MOTOR 300 0.00",
+  "< DONE 400",
+  "> LOAD 1 0.40",
+  "< OK LOAD",
+  "> H 0 5000 0 1 0.40",
+  "> START",
+  "< OK START",
+  "< MOTOR 0 0.40",
+  "> STOP",
+  "< MOTOR 354 0.00",
+  "< STOPPED 354"
+ ]
+}

@@ -1,6 +1,6 @@
 # BOARD_PENDING — what can be checked and prepared while no board is available
 
-Status: registered 2026-11-16, before code. Results in §5, in a separate "Record results" commit. No threshold
+Status: registered 2026-11-16 (4f32dc2), before code; code 9cb1d8a and 6041243; results in §5. Results in §5, in a separate "Record results" commit. No threshold
 changes after results. Follows spec/ESP32_TOOLS.md (results fb684a5). The owner has no ESP32 board; this step does
 everything that does not need one and prepares the first board run by someone else.
 
@@ -66,4 +66,47 @@ duty 153 → 60%.
 
 ## 5. Results
 
-(recorded after the runs, in a separate commit)
+### K3 in the workspace (code 9cb1d8a; emulator images of ESP32_TOOLS A2, 74fa4b2)
+
+| Check | ESP32, 3.3.12 | ESP32, 2.0.17 |
+|---|---|---|
+| K3a only 0% before the first command | pass (2 writes, both 0%) | pass (2 writes, both 0%) |
+| K3b 0→40, 40→0 three times | pass; on-times (host) 295, 299, 296 ms | pass; 298, 302, 304 ms |
+| K3c 0.9 under the program limit 0.4 | pass: 0→40, 40→0; 200 ms | pass; 200 ms |
+| K3d 0.9 under the device envelope 0.6 | pass: 0→60, 60→0; 297 ms | pass; 302 ms |
+| K3e `STOP` during a 5 s pulse | pass: 0→40, 40→0, `STOPPED 355` | pass: `STOPPED 354` |
+
+Transcripts: `rsso/results/esp32_tools/k3_*.json`. The levels are what the firmware writes to the PWM controller's duty
+register (8-bit: 102 → 40%, 153 → 60%). The intensity cap and the envelope therefore hold at the hardware register,
+not only in the `MOTOR` lines the firmware prints. The on-times are host-clock readings, recorded, not judged.
+
+### K1 on GitHub
+
+- The first run (9cb1d8a, run 43940799260) was cancelled by the next push to `dev`: the workflow had
+  `cancel-in-progress: true`. Code 6041243 sets it to false, so every run completes.
+- Run 43941331355 on c586a03 (the code of 9cb1d8a plus a spec file from the parallel session):
+  https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/actions/runs/43941331355
+  - **compile: success**, 19 min. `K1-P pass: 40 builds`: 30 compiled, and each of the ten ESP32-C3/-S3 builds on 3.3.12
+    stopped at the NimBLE guard. The ESP32-S3 2.0.17 display builds compiled with GFX 1.6.0 (1,015,997 and 1,041,765 bytes).
+  - **emulator: success.** In QEMU esp_develop_9.2.2_20260417 on GitHub's runner: U1, U2, U3b, U4–U8 pass, and U3 fails
+    as expected (`OK STOP`); U9 passkey 345751 kept across a restart; board check 7/7; K3a–K3e pass. K3 on-times
+    (host): 300, 302, 298 / 196 / 294 / 352 ms.
+
+### K2
+
+- Issue form `.github/ISSUE_TEMPLATE/board_report.md`; label "board report".
+- Issue #5, "First board report wanted: RSOS wristband on an ESP32":
+  https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/issues/5
+
+### Observed while running (for the parallel FIXES_P2 work, not changed here)
+
+FIXES_P2 E1 (registered c586a03 by the parallel session) says `setEncryptionLevel` makes the library request
+encryption on every connection. In the library sources installed for this work:
+- 2.0.17 `BLEDevice.cpp` lines 107–110 and 3.2.1 lines 101–105, `ESP_GATTS_CONNECT_EVT`: if `m_securityLevel` is set,
+  `esp_ble_set_encryption(remote_bda, m_securityLevel)`. This confirms the finding for those cores.
+- 3.3.12 `BLEDevice.cpp` lines 1218–1222: security starts at connection only if `BLESecurity::m_securityEnabled &&
+  m_forceSecurity`. `BLESecurity::setEncryptionLevel` (BLESecurity.cpp 356–358) only stores the level, so on
+  3.3.12 the call does not by itself start security.
+
+ESP32_TOOLS A1 F2 kept the call on every core without noticing this. Once FIXES_P2 changes the sketch, the K1
+workflow compiles it with all three cores.

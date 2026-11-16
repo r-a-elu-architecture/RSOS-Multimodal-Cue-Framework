@@ -158,6 +158,10 @@ player asks for). Keep the atomiser away from the face. The firmware caps every 
 
 ## 6. Record the result
 
+For the first board, follow the step-by-step test sheet [`BOARD_TEST.md`](BOARD_TEST.md) (flashing, the board check,
+pairing, the pairing window, reconnects after a phone changes its address, link loss) and send its report.
+
+
 Add the report to `rsso/results/board_<board>.md` (the `--out` file). Include the board, the motor, the driver,
 the Arduino-ESP32 version and the date, then open a pull request or an issue. The first real-board report moves
 MICRO and AUG from "complete in simulation" to "built and checked on hardware" on the system map.

@@ -57,3 +57,27 @@ FIXES_R6 B5 answered `ESP_GAP_BLE_SEC_REQ_EVT` in the sketch's own GAP handler. 
   `scripts/check_all.sh` all passed; the 10 browser checks exit 0. No threshold changed.
 - Not run on a board: S1 and S2 rest on the ESP-IDF and Arduino sources the check read (`smp_proc_pair_cmd`,
   `BLEDevice` SEC_REQ handling). R6c-2 (private addresses in B7) remains the first board test.
+
+## 5. R6c-2 read from the ESP-IDF v5.1.4 sources (recorded 2026-11-16; no board available)
+
+Question: does `ESP_GAP_BLE_AUTH_CMPL_EVT` carry an address that `esp_ble_get_bond_device_list` holds, when a bonded
+phone reconnects with a new resolvable private address?
+
+1. **Reconnect.** The phone starts encryption with its stored key. `btm_sec_encrypt_change` calls
+   `btm_ble_link_encrypted(p_dev_rec->ble.pseudo_addr, …)` (`stack/btm/btm_sec.c` 4133). `smp_link_encrypted` sets
+   `smp_cb.pairing_bda` to that address when the phone started encryption (`stack/smp/smp_act.c` 2013–2022). The
+   completion event is reported with `pairing_bda` (`stack/smp/smp_utils.c` 1038 → `bta/dm/bta_dm_act.c` 4856 →
+   `btc/core/btc_dm.c` 871). So the event carries the device record's `pseudo_addr`.
+2. **Changed address.** On connection, a new private address that resolves with the stored IRK does not replace
+   `pseudo_addr`. `btm_ble_init_pseudo_addr` writes it only when it is empty, and otherwise "the original address" is
+   reported (`stack/btm/btm_ble.c` 1924–1929; `btm_ble_addr.c` 273–281).
+3. **Bond list.** The keys are stored under `pairing_cb.bd_addr`, which is the pairing's `AUTH_CMPL` address
+   (`btc/core/btc_dm.c` 255 and 192–197). For a first pairing that is the record's first `pseudo_addr`. The list is read
+   from that storage (`btc/core/btc_ble_storage.c` 954).
+4. **After the band restarts.** The records are rebuilt from storage, and `pseudo_addr` is set to the stored address
+   (`stack/btm/btm_ble.c` 128).
+
+**Conclusion (source reading, not a radio test):** B7's `bonded()` finds a reconnecting bonded phone after its address
+changes. This holds while the phone's IRK resolves the address. Both sides distribute identity keys
+(`ESP_BLE_ID_KEY_MASK` in the init and response keys). R6c-2 is resolved by reading. A board test (BOARD_TEST.md T7)
+would confirm it on a real radio.

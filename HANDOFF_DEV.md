@@ -265,7 +265,7 @@ Tests: `rsso/tests/test_fixes_r6.py`; `scripts/check_fixes_r6.py` (8 failures on
 Review status: targeted check `review/r6-check` (1ae33e3, 7171f77): R6-1–R6-7, R6-9, R6-11 confirmed fixed; R6c-1 (B5 had no
 effect) → fix pass R6C (registration 0ab05ea, code 69bfb2f): the library's security callback answers host-started
 pairing with the window rule, the band requests encryption only in the window, and the player compiles at Start.
-**Open, needs a board:** R6c-2, whether `AUTH_CMPL` carries a phone's identity address (B7); confirm S1/S2 on hardware.
+R6c-2 resolved by reading ESP-IDF v5.1.4 (FIXES_R6C §5): a reconnect reports the record's original address, the same one the bond list holds. **Still only on hardware:** radio behaviour, phone pairing prompts and motor timing (`firmware/BOARD_TEST.md`).
 
 ### Step 4 — paired, encrypted wristband Bluetooth (spec/BLE_PAIRING.md)
 

@@ -1,0 +1,762 @@
+{
+ "test": "W5-CEILING",
+ "spec": "spec/CEILING.md",
+ "quick": false,
+ "directions": [
+  {
+   "source": "agent",
+   "target": "person",
+   "source_roles": {
+    "RESTORE": "LEOPARD",
+    "DRIVE": "TIGER",
+    "STABILISE": "LEOPARD"
+   },
+   "target_roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "source_true_table": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "LEOPARD",
+    "crisis": "LEOPARD"
+   },
+   "src_true_mapped": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "target_true_table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "pilot_tables": [
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "BEAR",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "BEAR"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "BEAR",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    }
+   ],
+   "arms": {
+    "SRC-TRUE": 0.2402448106799533,
+    "TGT-TRUE": 0.2402448106799533,
+    "NONE": -0.09307586940570023,
+    "PILOT-8": 0.027021239624571022
+   },
+   "contrasts": {
+    "SRC-TRUE − NONE": {
+     "diff": 0.3333206800856535,
+     "lo": 0.32605915134143104,
+     "hi": 0.340471518449395
+    },
+    "SRC-TRUE − PILOT-8": {
+     "diff": 0.21322357105538223,
+     "lo": 0.198828771950884,
+     "hi": 0.22750288417323333
+    },
+    "TGT-TRUE − NONE": {
+     "diff": 0.3333206800856535,
+     "lo": 0.32605915134143104,
+     "hi": 0.340471518449395
+    },
+    "PILOT-8 − NONE": {
+     "diff": 0.12009710903027125,
+     "lo": 0.10472981129681937,
+     "hi": 0.13577348540461176
+    }
+   },
+   "share": 1.0,
+   "verdict": {
+    "value": true,
+    "room": true
+   }
+  },
+  {
+   "source": "person",
+   "target": "agent",
+   "source_roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "target_roles": {
+    "RESTORE": "LEOPARD",
+    "DRIVE": "TIGER",
+    "STABILISE": "LEOPARD"
+   },
+   "source_true_table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "src_true_mapped": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "LEOPARD",
+    "crisis": "LEOPARD"
+   },
+   "target_true_table": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "LEOPARD",
+    "crisis": "LEOPARD"
+   },
+   "pilot_tables": [
+    {
+     "calm": "LEOPARD",
+     "rising": "LEOPARD",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LEOPARD",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LEOPARD",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LEOPARD",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LEOPARD",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    }
+   ],
+   "arms": {
+    "SRC-TRUE": -0.004854444444444444,
+    "TGT-TRUE": -0.004854444444444444,
+    "NONE": -0.07644106666666665,
+    "PILOT-8": -0.0017126533333333303
+   },
+   "contrasts": {
+    "SRC-TRUE − NONE": {
+     "diff": 0.0715866222222222,
+     "lo": 0.0596866222222222,
+     "hi": 0.08292314074074073
+    },
+    "SRC-TRUE − PILOT-8": {
+     "diff": -0.0031417911111111135,
+     "lo": -0.007492627407407411,
+     "hi": 0.0011589407407407366
+    },
+    "TGT-TRUE − NONE": {
+     "diff": 0.0715866222222222,
+     "lo": 0.0596866222222222,
+     "hi": 0.08292314074074073
+    },
+    "PILOT-8 − NONE": {
+     "diff": 0.07472841333333331,
+     "lo": 0.06279508296296295,
+     "hi": 0.086884677037037
+    }
+   },
+   "share": 1.0,
+   "verdict": {
+    "value": true,
+    "room": false
+   }
+  },
+  {
+   "source": "agent_v2",
+   "target": "person",
+   "source_roles": {
+    "RESTORE": "LEOPARD",
+    "DRIVE": "TIGER",
+    "STABILISE": "BEAR"
+   },
+   "target_roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "source_true_table": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "TIGER",
+    "crisis": "TIGER"
+   },
+   "src_true_mapped": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "LEOPARD",
+    "crisis": "LEOPARD"
+   },
+   "target_true_table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "pilot_tables": [
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "BEAR",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "BEAR"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "BEAR",
+     "loaded": "BEAR",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "BEAR",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    }
+   ],
+   "arms": {
+    "SRC-TRUE": -0.06316402024568966,
+    "TGT-TRUE": 0.2402448106799533,
+    "NONE": -0.09307586940570023,
+    "PILOT-8": 0.027021239624571022
+   },
+   "contrasts": {
+    "SRC-TRUE − NONE": {
+     "diff": 0.02991184916001056,
+     "lo": -0.0007380883119632101,
+     "hi": 0.06269207922933902
+    },
+    "SRC-TRUE − PILOT-8": {
+     "diff": -0.09018525987026069,
+     "lo": -0.11488290319351795,
+     "hi": -0.06188357105386803
+    },
+    "TGT-TRUE − NONE": {
+     "diff": 0.3333206800856535,
+     "lo": 0.32605915134143104,
+     "hi": 0.340471518449395
+    },
+    "PILOT-8 − NONE": {
+     "diff": 0.12009710903027125,
+     "lo": 0.10472981129681937,
+     "hi": 0.13577348540461176
+    }
+   },
+   "share": 0.08973895394766418,
+   "verdict": {
+    "value": false,
+    "room": false
+   }
+  },
+  {
+   "source": "person",
+   "target": "agent_v2",
+   "source_roles": {
+    "RESTORE": "BEAR",
+    "DRIVE": "LEOPARD",
+    "STABILISE": "BEAR"
+   },
+   "target_roles": {
+    "RESTORE": "LEOPARD",
+    "DRIVE": "TIGER",
+    "STABILISE": "BEAR"
+   },
+   "source_true_table": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "src_true_mapped": {
+    "calm": "BEAR",
+    "rising": "BEAR",
+    "loaded": "BEAR",
+    "crisis": "BEAR"
+   },
+   "target_true_table": {
+    "calm": "LEOPARD",
+    "rising": "LEOPARD",
+    "loaded": "TIGER",
+    "crisis": "TIGER"
+   },
+   "pilot_tables": [
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "TIGER",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    },
+    {
+     "calm": "LION",
+     "rising": "LION",
+     "loaded": "LION",
+     "crisis": "LION"
+    }
+   ],
+   "arms": {
+    "SRC-TRUE": -0.12941765925925922,
+    "TGT-TRUE": 0.009109711111111132,
+    "NONE": -0.07968139999999997,
+    "PILOT-8": -0.07633569888888886
+   },
+   "contrasts": {
+    "SRC-TRUE − NONE": {
+     "diff": -0.049736259259259265,
+     "lo": -0.05270413333333334,
+     "hi": -0.04613964444444444
+    },
+    "SRC-TRUE − PILOT-8": {
+     "diff": -0.05308196037037037,
+     "lo": -0.05612102555555556,
+     "hi": -0.049436045925925924
+    },
+    "TGT-TRUE − NONE": {
+     "diff": 0.08879111111111111,
+     "lo": 0.08283342222222222,
+     "hi": 0.09559093333333334
+    },
+    "PILOT-8 − NONE": {
+     "diff": 0.0033457011111111107,
+     "lo": 0.003164947037037037,
+     "hi": 0.0035204262962962958
+    }
+   },
+   "share": -0.5601490806553875,
+   "verdict": {
+    "value": false,
+    "room": false
+   }
+  }
+ ],
+ "line": {
+  "pass": true,
+  "room_in": [
+   "agent → person"
+  ],
+  "decision": "Pass for agent → person: the method is the bottleneck there; one new registered method allowed for those directions only."
+ }
+}

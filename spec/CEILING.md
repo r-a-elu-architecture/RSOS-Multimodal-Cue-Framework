@@ -1,6 +1,6 @@
 # CEILING — is perfect source knowledge worth anything to the target? (phase 2, Step 11)
 
-Status: registered 2026-11-16, before any code or run. Test ID in the register: **W5-CEILING** (transfer family, W5
+Status: registered 2026-11-16 (a45ff0d), before any code or run; code 3a055c7; run and results in §5. Test ID in the register: **W5-CEILING** (transfer family, W5
 series).
 
 ## 0. Question
@@ -68,3 +68,35 @@ No threshold is changed after the run. The result is recorded as it is.
 
 The repurposing family (W5-R) has no ceiling in its records. A ceiling for it needs its own design around the
 mechanism library, so it will be registered separately rather than improvised here.
+
+## 5. Results (full run after the code commit 3a055c7; `rsxv/results/ceiling.md`)
+
+The run took 44 s. Deployment: 200 seeds per direction; PILOT-8: 20 repetitions; intervals at 99%.
+
+| Direction | SRC-TRUE − NONE | SRC-TRUE − PILOT-8 | Share | VALUE | ROOM |
+|---|---|---|---|---|---|
+| agent → person | +0.333 [+0.326, +0.341] | +0.213 [+0.199, +0.228] | 1.00 | yes | **yes** |
+| person → agent | +0.072 [+0.060, +0.083] | −0.003 [−0.008, +0.001] | 1.00 | yes | no |
+| agent v2 → person | +0.030 [−0.001, +0.063] | −0.090 [−0.115, −0.062] | 0.09 | no | no |
+| person → agent v2 | −0.050 [−0.053, −0.046] | −0.053 [−0.056, −0.049] | −0.56 | no | no |
+
+**Verdict, as registered (§2):** W5-CEILING passes for agent → person only.
+- agent → person may get one new registered method.
+- person → agent, agent v2 → person and person → agent v2 stop.
+- The register records it as "mixed".
+
+**Caveat, recorded with the result and not part of the rule:**
+- In agent → person, the source's true table says only "the stabilising function in every context". It reaches the
+  target's own optimum (Bear everywhere) because the target's roles were read with full information: 50 target seeds ×
+  60 ticks, about 3,000 ticks, against the pilot's 8 × 30.
+- The room is real, but a method reaches it only if it reads the target's roles well. That is the design question for
+  the one permitted successor. The source contributes the function ("stabilise"); the target data contributes which
+  archetype carries it.
+- In person → agent v2, perfect source knowledge is harmful: the person's optimum (Bear) is not the v2 agent's
+  (Leopard, Tiger).
+
+**Checks after the run:**
+- RSX-V suite: 149 passed (including `tests/test_ceiling.py`, 4).
+- `rsso/tests/test_site_catchup.py`: 7 passed. W5-CEILING is in the transfer family with parent W5e.
+- `scripts/check_all.sh`: all passed.
+- `scripts/check_site_catchup.py`: exits 0. The results page shows 34 tests and the chain W5 → … → W5e → W5-CEILING.

@@ -37,7 +37,7 @@ git checkout dev
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
   rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
-  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py rsso/tests/test_arch_refresh.py rsso/tests/test_site_catchup.py rsxv/tests/test_levels.py rsxv/tests/test_site_agents.py
+  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py rsso/tests/test_arch_refresh.py rsso/tests/test_site_catchup.py rsxv/tests/test_levels.py rsxv/tests/test_site_agents.py rsxv/tests/test_ceiling.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -303,8 +303,13 @@ Tests: `rsso/tests/test_site_catchup.py` (7), `scripts/check_site_catchup.py`.
 - **Step 10** (305dc39, spec/AGENTS_PROVEN.md): the Agents page shows the passing RSX-V agent results working, from the real
   code (`rsxv/rsxv/site_agents.py` → `docs/data/agents_proven.json`): W1 trials step by step, the H-SWITCH policy comparison
   with its distress caveat, and W4, J1, T-AP cards. Tests: `rsxv/tests/test_site_agents.py`, `check_site_catchup.py` Step 10.
-Next in phase 2: Step 11 (a ceiling test for the transfer and repurposing families, registered with its threshold fixed in
-advance; if it fails, those test lines stop).
+- **Step 11** (spec/CEILING.md; registered a45ff0d, code 3a055c7): W5-CEILING. Perfect source knowledge, mapped through
+  fully read roles, against an 8-target pilot. **Pass for agent → person only** (+0.213 per tick over the pilot); the other
+  three directions stop (no W5f there). Caveat: the room depends on reading the target's roles well (3,000 target ticks
+  in the ceiling, against 240 in the pilot). One registered successor is allowed for agent → person. The repurposing
+  family's ceiling still needs its own registered design.
+Phase 2 (Steps 6–11) is complete. Open: a targeted check of Steps 6–11; the repurposing ceiling; the one agent → person
+successor; ESP32_TOOLS (the parallel chat).
 Review status: **awaiting a targeted check**.
 
 ## 5. Review findings

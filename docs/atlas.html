@@ -3,6 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.0.0"></script>
+<script src="js/voice.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Atlas — RSOS</title>
@@ -511,7 +512,7 @@ function frame(ts) {
   requestAnimationFrame(frame);
 }
 function stepsBar() { const S = $("steps"); S.textContent = ""; STEPS.forEach((_, i) => { const b = el("i"); if (i <= D.step) b.className = "on"; S.append(b); }); }
-function say(t) { $("cap").textContent = t; try { if ($("voice") && $("voice").checked && window.speechSynthesis) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t); u.rate = 0.85; speechSynthesis.speak(u); } } catch (e) { /* no voice */ } }
+function say(t) { $("cap").textContent = t; try { if ($("voice") && $("voice").checked && window.speechSynthesis) { RSOSVoice.speak(t, { rate: 0.85, cancel: true }); } } catch (e) { /* no voice */ } }
 function next() {
   D.step++; D.t = 0; D.from = { cam: D.cam.slice(), look: D.look.slice() }; stepsBar();
   if (D.step >= STEPS.length) { D.running = false; D.step = STEPS.length - 1; rateUntreated("after"); return; }

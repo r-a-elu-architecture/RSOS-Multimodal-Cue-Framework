@@ -3,6 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.0.0"></script>
+<script src="js/voice.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Protocol player — RSOS</title>
@@ -442,7 +443,7 @@ function saveSettings() {
   const s = {}; for (const k of ["f0", "f1", "f2", "inhale", "exhale"]) s[k] = $(k).value;
   s.futuresEdited = futuresEdited;
   for (const k of ["optVoice", "optTone", "optVib"]) s[k] = $(k).checked;
-  if ($("voice").value) s.voice = $("voice").value;
+  if ($("voice").value) { s.voice = $("voice").value; s.voice_v = 2; }   // voice_v 2: chosen after American became the default
   store.set("rsos.settings", s);
 }
 function drawTrack() {
@@ -468,7 +469,7 @@ const FEMALE = /\b(female|samantha|victoria|karen|moira|tessa|serena|kate|susan|
 let voices = [];
 function voiceScore(v) {
   let s = 0;
-  if (/^en[-_](GB|US)/i.test(v.lang)) s += 2; else if (/^en/i.test(v.lang)) s += 1;
+  if (/^en[-_]US/i.test(v.lang)) s += 4; else if (/^en[-_]GB/i.test(v.lang)) s += 2; else if (/^en/i.test(v.lang)) s += 1;   // default: American English
   if (/natural|neural|online|premium|enhanced/i.test(v.name)) s += 3;
   if (MALE.test(v.name)) s += 2;           // default: a calm, low male voice
   if (v.localService) s += 0.5;
@@ -485,7 +486,7 @@ function loadVoices() {
     o.textContent = v.name.replace(/^(Microsoft|Google)\s+/, "") + " (" + v.lang + (g ? ", " + g : "") + ")";
     sel.appendChild(o);
   }
-  const saved = store.get("rsos.settings", {}).voice;
+  const st = store.get("rsos.settings", {}), saved = st.voice_v === 2 ? st.voice : null;   // a voice saved before voice_v 2 was the old automatic pick
   sel.value = saved && voices.some(v => v.name === saved) ? saved : voices[0].name;
 }
 function currentVoice() { return voices.find(v => v.name === $("voice").value) || voices[0] || null; }

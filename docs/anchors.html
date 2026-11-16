@@ -3,6 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.0.0"></script>
+<script src="js/voice.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Anchors — RSOS</title>
@@ -190,7 +191,7 @@ function flash(color) {
   const f = $("flash"); f.style.background = "radial-gradient(circle at 50% 45%, " + color + "55, transparent 60%)";
   f.style.opacity = 1; setTimeout(() => { f.style.opacity = 0; }, 900);
 }
-function speak(text) { try { if (text && window.speechSynthesis) { const u = new SpeechSynthesisUtterance(text); u.rate = 0.9; speechSynthesis.speak(u); } } catch (e) { /* no voice */ } }
+function speak(text) { RSOSVoice.speak(text, { rate: 0.9 }); }
 function play(a, marks) { flash(a.channels.light || "#e8b04a"); return UGCL.feel(a.code, { marks }); }
 
 function curve(s, light) {

@@ -150,7 +150,40 @@ def to_cue(prog: dict, lineage: dict | None = None, seconds: dict | None = None,
                                    "vectors": [{"k": v["k"], "op": v["op"], "clauses": lineage.get(v["op"], [])} for v in b["vectors"]]})
     src = "\n".join(L) + "\n"
     src, manifest["haptic_budget"] = _fit_haptic_budget(src)
+    # spec/RSXV_LEVELS.md V2, V3: the effective level (declared or from the content, whichever is higher) travels with
+    # the program as the markers the person side reads.
+    lv = _watchdog().level_of_program(src)
+    tier = _watchdog().level_of_program(f"PROTOCOL tier{int(prog.get('tier') or 0):03d}")   # the command's ledger tier, by the same pattern
+    led = bool(lv["therapist_led"] or tier["therapist_led"]) or prog.get("level") == "clinician_led"
+    mem = bool(lv["memory_work"]) or prog.get("memory") is True
+    marks = (["# rsos-level: clinician_led"] if led else []) + (["# rsos-memory: yes"] if mem else [])
+    if marks:
+        src = "\n".join(marks) + "\n" + src
+    manifest["level"] = "clinician_led" if led else (prog.get("level") or "self_guided")
+    manifest["memory"] = mem
     return {"source": src, "manifest": manifest}
+
+
+_EFFECTIVE: dict = {}
+
+
+def _watchdog():
+    if REPO_RSSO not in sys.path:
+        sys.path.insert(0, REPO_RSSO)
+    from rsso import watchdog
+    return watchdog
+
+
+def effective(prog: dict) -> dict:
+    """The command's effective level, memory work and words for the Spine check (V2, V6), computed once per command text."""
+    from .lang import to_text
+    key = to_text(prog)
+    if key not in _EFFECTIVE:
+        cue = to_cue(prog)
+        args = " ".join(str(v.get("args") or "") for b in prog["blocks"] for v in b["vectors"])
+        text = " ".join(x for x in (prog["intent"]["text"], args, _watchdog().level_of_program(cue["source"])["text"]) if x)
+        _EFFECTIVE[key] = {"level": cue["manifest"]["level"], "memory": cue["manifest"]["memory"], "text": text}
+    return _EFFECTIVE[key]
 
 
 HAPTIC_BUDGET_MS = 18000      # 90% of CONTAIN's haptic_on_ms_per_run (20 s): vibration per run stays inside the envelope

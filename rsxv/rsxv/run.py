@@ -104,6 +104,27 @@ def _device_lines(v, t_ms, dur_ms, arche):
     return []
 
 
+def _watch(prog: dict, ctx: dict):
+    """The Watchdog's decision on running this command (V5); None when it may run. Without a level, Spine flags or a domain
+    nothing changes (V7)."""
+    from .bridge import effective, _watchdog
+    e = effective(prog)
+    W = _watchdog()
+    action = {"kind": "run", "protocol": f"rsxv:tier{prog['tier']}", "trigger": "self", "source": ctx.get("source", "person"),
+              "therapist_led": e["level"] == "clinician_led", "memory_work": e["memory"], "text": e["text"],
+              "programmed": e["level"] == "structured"}
+    wctx = {"safety": ctx.get("safety"), "clinician_present": ctx.get("clinician_present"), "screening_recorded": ctx.get("screening_recorded"),
+            "max_level": ctx.get("max_level")}
+    if ctx.get("domain"):
+        from rsso import profiles as Pr
+        wctx["max_level"] = Pr.max_level(ctx["domain"], ctx.get("clinical", False))
+        wctx["memory_work_allowed"] = Pr.get(ctx["domain"])["memory_work"]
+    d = W.watch(action, wctx)
+    if d["decision"] == "hold" or (d["decision"] == "ask" and not ctx.get("confirmed")):
+        return d
+    return None
+
+
 def run(prog: dict, p: dict, ctx: dict | None = None) -> dict:
     ctx = dict(ctx or {})
     rng = random.Random(ctx.get("seed", 1))
@@ -121,6 +142,12 @@ def run(prog: dict, p: dict, ctx: dict | None = None) -> dict:
         R["status"] = "stopped"; R["stopped"] = {"t": body.t, "why": why}
         R["log"].append(f"{body.t}s NullSafe: {why}; all output halted, state locked")
 
+    # ---- the Watchdog decides first (spec/RSXV_LEVELS.md V5)
+    wd = _watch(prog, ctx)
+    if wd is not None:
+        R["status"] = "refused"; R["watchdog"] = wd
+        R["log"].append("Watchdog: " + "; ".join(r["text"] for r in wd["reasons"]))
+        return _finish(R, prog, body, base_true)
     # ---- laws before anything runs
     if "ChronoGate" in laws and prog["window"] and "now_min" in ctx:
         a, b = prog["window"]
@@ -328,6 +355,12 @@ def next_program(prog, R):
     n = copy.deepcopy(prog)
     n["legacy"] = False
     notes = []
+    from .bridge import effective   # spec/RSXV_LEVELS.md V4: a successor's level is never lower than its parent's
+    e = effective(prog)
+    if e["level"] == "clinician_led" and n.get("level") != "clinician_led":
+        n["level"] = "clinician_led"; notes.append("level carried from the parent")
+    if e["memory"] and not n.get("memory"):
+        n["memory"] = True; notes.append("memory work carried from the parent")
     if not n["nullsafe"]:
         n["nullsafe"] = True; notes.append("added Vector 0 NullSafe")
     if prog["legacy"]:

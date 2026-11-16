@@ -1,6 +1,6 @@
 # LOW_MOOD — everyday low energy and clinical depression, kept apart
 
-Status: registered 2026-11-16, before code. Owner's decision: keep the node studio's "low energy or mood" structured,
+Status: registered 2026-11-16, before code (1ec57e4); code 5878bc5; results in §4. Owner's decision: keep the node studio's "low energy or mood" structured,
 with two safeguards.
 
 ## 1. Rule
@@ -31,3 +31,12 @@ says the ratings have stayed high on several days and recommends involving a pra
 - L4 Escalation: with a low-mood plan, 3 high self-checks in 7 days show the recommendation and record it; 2 do not;
   without the concern, none do.
 - L5 All suites and browser checks pass; no threshold changes.
+
+## 4. Results (record)
+
+- L1: the diagnosed choice is shown in Clinical only (hidden in Personal, Performance, Workplace).
+- L2: held without a clinician; saved with the clinician present, a recorded screening and a PIN (`plan.dx` =
+  `["depression"]`); its node is clinician-led in the player and held without a clinician.
+- L3: an everyday low-mood plan is saved in Personal without a clinician and is not clinician-led.
+- L4: 2 high checks: no recommendation; 3: the recommendation is shown and recorded; without the concern, none.
+- L5: all suites and seven browser checks pass; no threshold changed.

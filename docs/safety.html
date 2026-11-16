@@ -174,11 +174,14 @@ header.top nav a{font-size:.88rem}
 
   <h2>Every decision</h2>
   <p class="hint">The last decisions in this browser, newest first.</p>
+  <p class="hint" id="wdSay"></p>
   <div class="panel log"><table id="log"><thead><tr><th>When</th><th>What</th><th>Decision</th><th>Why</th></tr></thead><tbody></tbody></table></div>
 </main>
 <footer>CONTAIN is <code>rsso/rsso/contain.py</code>, identically <code>docs/js/contain.js</code> (tested); the runtime refuses what it blocks, and the conformance suite checks it (C14, C15). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CONTAIN.md">spec/CONTAIN.md</a>.</footer>
 <script src="js/safety.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.0.0"></script>
+<script src="js/guard.js?v=1.0.0"></script>
 <script src="js/ugcl.js?v=1.14.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
@@ -190,7 +193,7 @@ function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.
 const now = () => Date.now() / 1000;
 function state() {
   const [st] = K.review(store.get("rsos.contain", K.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), now());
-  store.set("rsos.contain", st); return st;
+  store.set("rsos.contain", st); RSOSGuard.link(); return st;
 }
 function log(action, decision, reasons) { const l = store.get("rsos.contain.log", []); l.push({ at: Date.now(), action, decision, reasons }); store.set("rsos.contain.log", l.slice(-200)); }
 const ENV = [["Vibration strength", "haptic_amp_max", v => Math.round(v * 100) + "% of the motor", "Strong vibration is unpleasant and can numb the skin"],
@@ -276,6 +279,9 @@ function draw() {
   $("rollback").hidden = !prev;
   drawAutonomy();
   const L = $("log").tBodies[0]; L.innerHTML = "";
+  { const wl = store.get("rsos.watchdog.log", []), ok = RSOSWatchdog.verify(wl);
+    $("wdSay").textContent = "Watchdog: " + wl.length + (wl.length === 1 ? " decision" : " decisions") + " in a hash-chained log; " + (wl.length ? (ok ? "the chain verifies (no record edited, removed or reordered)." : "the chain does NOT verify: a record was changed.") : "none yet.") +
+      (wl.length ? " Latest: " + wl.slice(-5).reverse().map(r => r.decision + " " + (r.kind || "") + (r.virtues.length ? " [" + r.virtues.join(", ") + "]" : "")).join("; ") + "." : ""); }
   for (const x of store.get("rsos.contain.log", []).slice().reverse().slice(0, 40)) {
     const tr = el("tr");
     tr.append(el("td", "num", new Date(x.at).toLocaleString()), el("td", "", x.action), el("td", x.decision === "allow" ? "allow" : x.decision === "block" ? "block" : "other", x.decision), el("td", "", (x.reasons || []).join("; ") || "—"));

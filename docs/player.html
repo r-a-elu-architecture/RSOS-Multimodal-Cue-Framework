@@ -332,6 +332,8 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/safety.js?v=1.16.0"></script>
 <script src="js/linx.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.0.0"></script>
+<script src="js/guard.js?v=1.0.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -601,7 +603,7 @@ async function start(trigger) {
   trigger = trigger === "device" ? "device" : "self";
   // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
   const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
-  if (verdict.decision !== "allow") { $("compileMsg").className = "err"; $("compileMsg").textContent = "CONTAIN stopped this start: " + verdict.reasons.join("; ") + "."; return; }
+  if (verdict.decision !== "allow") { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(verdict.watchdog); return; }
   pendingTrigger = trigger;
   const deviceLatency = trigger === "device" && offerShownAt ? (performance.now() - offerShownAt) / 1000 : null;
   $("offer").hidden = true;
@@ -661,13 +663,17 @@ function safetyLog(action, d) {
   log.push({ at: Date.now(), action: action.kind + (action.protocol ? " " + action.protocol : ""), decision: d.decision, reasons: d.reasons });
   store.set("rsos.contain.log", log.slice(-200));
 }
+const MAXL = window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null;  // the domain's highest guidance level (spec/PROFILES.md)
+// The Watchdog (spec/WATCHDOG.md) decides; CONTAIN is asked inside it. "ask" proceeds here because the person confirms
+// by pressing start or by accepting the offer; "hold" never proceeds.
 function safetyDecide(action) {
-  const d = RSOSContain.decide(action, store.get("rsos.contain", RSOSContain.newState()), action.kind === "run" ? timeline : null, Date.now() / 1000, store.get("rsos.safety", null));
-  safetyLog(action, d); return d;
+  const r = RSOSGuard.ask(Object.assign({ source: "person" }, action), { timeline: action.kind === "run" ? timeline : null, max_level: MAXL });
+  return { decision: RSOSGuard.ok(r) ? "allow" : "block", reasons: r.reasons.map(t => t.text), watchdog: r };
 }
 function safetyReview() {
   const [st, changes] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), records, store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
   store.set("rsos.contain", st);
+  RSOSGuard.link();   // while practice is paused, the session state is at least Stabilisation (spec/WATCHDOG.md §3)
   for (const c of changes) safetyLog({ kind: c.kind, protocol: c.protocol }, { decision: c.kind, reasons: [c.text] });
   drawSafety(changes);
 }

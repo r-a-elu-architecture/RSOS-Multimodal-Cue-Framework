@@ -305,6 +305,8 @@ header.top nav a{font-size:.88rem}
 <script src="js/rsx.js?v=1.14.0"></script>
 <script src="js/safety.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.0.0"></script>
+<script src="js/guard.js?v=1.0.0"></script>
 <script src="js/rdp.js?v=1.14.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/machines.js?v=1.21.0"></script>
@@ -363,8 +365,8 @@ $("run").addEventListener("click", async () => {
   const p = $("prog").value;
   try {
     const tl = RSX.compile(await (await fetch("protocols/" + p + ".rsx")).text());
-    const st = store.get("rsos.contain", RSOSContain.newState()), d = RSOSContain.decide({ kind: "run", protocol: tl.protocol, trigger: "self" }, st, tl, Date.now() / 1000, store.get("rsos.safety", null));
-    if (d.decision !== "allow") return say("CONTAIN: " + d.reasons.join("; ") + ".");
+    const r = RSOSGuard.ask({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person" }, { timeline: tl, max_level: window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null });
+    if (!RSOSGuard.ok(r)) return say("Held by the Watchdog: " + RSOSGuard.say(r));
     await tx.send("STOP"); await tx.send("CONSENT 0"); for (const l of R.encode(tl)) await tx.send(l); await tx.send("START");
     say("Playing " + $("prog").selectedOptions[0].textContent + " (" + Math.round(tl.duration_ms / 1000) + " s). Stop at any time.", true);
   } catch (e) { say("Could not play it: " + e.message); }

@@ -223,6 +223,8 @@ header.top nav a{font-size:.88rem}
 <script src="js/safety.js?v=1.16.0"></script>
 <script src="js/linx.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.0.0"></script>
+<script src="js/guard.js?v=1.0.0"></script>
 <script src="js/cm1.js?v=1.14.0"></script>
 <script>
 "use strict";
@@ -413,9 +415,11 @@ $("save").addEventListener("click", () => {
   if (!$("consent").checked) return say("A plan is saved only with consent: tick the box once you have read every node.");
   // CONTAIN: while practice is paused, a new plan needs a therapist present (rsso/rsso/contain.py decide)
   const [cst] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
-  const verdict = RSOSContain.decide({ kind: "plan", therapist_led: p.therapist_led, therapist_present: $("therapistHere").checked }, cst, null, Date.now() / 1000, store.get("rsos.safety", null));
-  const clog = store.get("rsos.contain.log", []); clog.push({ at: Date.now(), action: "plan approval", decision: verdict.decision, reasons: verdict.reasons }); store.set("rsos.contain.log", clog.slice(-200));
-  if (verdict.decision !== "allow") return say("CONTAIN held this plan: " + verdict.reasons.join("; ") + ". See the safety page.");
+  // The Watchdog (spec/WATCHDOG.md): CONTAIN, the session state, the domain's highest guidance level and the clinician rule
+  const verdict = RSOSGuard.ask({ kind: "plan", protocol: "plan", therapist_led: p.therapist_led, source: $("author").value === "therapist" ? "practitioner" : "person" },
+    { contain: cst, clinician_present: $("therapistHere").checked, screening_recorded: !$("ledBox").hidden && (document.querySelector('input[name="screen"]:checked') || {}).value === "no",
+      max_level: window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null });
+  if (!RSOSGuard.ok(verdict)) return say("Held by the Watchdog: " + RSOSGuard.say(verdict) + " See the safety page.");
   const approvedPlan = Object.assign({}, p, { approved: true, approved_at: new Date().toISOString(), intake: current.intake });
   store.set("rsos.plan", approvedPlan);
   const hist = store.get("rsos.plan.history", []); hist.push(approvedPlan); store.set("rsos.plan.history", hist.slice(-6));

@@ -1,6 +1,7 @@
 # WATCHDOG — the RSIA Watchdog on the person side
 
-Status: registered 2026-11-16, before code. Code: `rsso/rsso/watchdog.py` and `docs/js/watchdog.js` (identical
+Status: registered 2026-11-16, before code (1dc4ea6); built and tested. W1–W8 and the static part of W9:
+`rsso/tests/test_watchdog.py` (parity over 2,500 generated cases); W9 in Chrome: `scripts/check_watchdog.py`. Code: `rsso/rsso/watchdog.py` and `docs/js/watchdog.js` (identical
 results, tested).
 
 ## 1. Purpose
@@ -67,7 +68,14 @@ SHA-256 is synchronous and equal to Python's.
 Player, device, nodes and therapist ask the Watchdog instead of CONTAIN directly; the safety page shows the recent
 decisions and whether the log verifies. The world simulation is not part of this step.
 
-## 6. Acceptance
+## 6. Interpretation recorded at build time
+
+On the therapist page a clinician-led THERA session counts as having its screening recorded, because the session
+itself contains a required screening step before any processing, and a "yes" there stops the session (THERA `check`).
+On the node studio the screening answer given before saving counts. Where the person confirms by pressing start or
+accepting an offer, an "ask" proceeds; a "hold" never does.
+
+## 7. Acceptance
 
 - W1 Parity: Python and JS identical over a generated grid of actions, states and contexts (decisions, reasons,
   levels, link results, hashes).

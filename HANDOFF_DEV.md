@@ -102,7 +102,30 @@ Review status: **awaiting review**.
 
 ### Step 2 — RSIA Watchdog on the person side
 
-Status: next. See the section added when it is registered.
+Spec: `spec/WATCHDOG.md` (registered 1dc4ea6). Code: see the commit after it.
+
+- `rsso/rsso/watchdog.py` and `docs/js/watchdog.js`: `watch(action, ctx)` gives allow / ask / hold; every reason
+  names a Spine virtue or precept and who can resolve it. It asks CONTAIN (and through it the session state) and
+  adds: Spine wording flags, the domain's highest guidance level, the clinician rule (present + screening),
+  plan membership for device and agent offers, consent and two signals for automatic firing (precept 3), agents
+  never start a run, population maps only advise (precept 15). Stop is always allowed; the Watchdog's own rules
+  never hold a regulating program.
+- `link(contain, safety, now)`: while CONTAIN's practice pause is active, the session state is at least
+  Stabilisation; never lowers a state.
+- Hash-chained audit log (SHA-256, synchronous in JS, equal to Python) in `rsos.watchdog.log`; the safety page
+  shows whether the chain verifies.
+- `docs/js/guard.js`: page glue. Player, device, nodes and therapist ask the Watchdog; no page calls CONTAIN
+  `decide` directly. Pages pass the domain's highest guidance level.
+
+Tests: `rsso/tests/test_watchdog.py` (W1–W8, W9 static), `scripts/check_watchdog.py` (W9 in Chrome).
+Click: `/dev/nodes.html?profile=performance` (build a plan with difficult memories + the Observer node, clinician
+present, screening no → held: clinician-led work, Gi); the same in `?profile=clinical` → saved;
+`/dev/therapist.html?profile=workplace` → the observer session is held; `?profile=clinical` → it starts;
+`/dev/safety.html` → "the chain verifies".
+Interpretation to review: the therapist session's own required screening step counts as the recorded screening
+(spec/WATCHDOG.md §6).
+Not in this step: the world simulation.
+Review status: **awaiting review**.
 
 ## 5. Review findings
 
@@ -119,8 +142,6 @@ Verdict:         ready for the owner | changes needed
 
 ## 6. Open items
 
-- Step 2: Watchdog and Spine govern the person side; enforce each profile's highest guidance level; link session
-  states to CONTAIN's practice pause.
 - Step 3: trials → run log → PEAK → MEMSTACK → CM1 → GATE; seed the sham code; SSIT and 🦁+🐉 RSX programs;
   trials in the contribution format.
 - Step 4: BLE pairing with a passkey (`rsos_esp32.ino`, open NUS characteristic around lines 274–279).

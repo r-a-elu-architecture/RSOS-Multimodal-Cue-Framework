@@ -24,8 +24,10 @@ from __future__ import annotations
 
 import copy
 import math
+import bisect
 import re
-import unicodedata
+
+from . import foldtable as FT
 
 MODES = ("NORMAL", "STABILISE", "PRACTICAL_CRISIS", "CRISIS")
 SEVERITY = {"NORMAL": 0, "STABILISE": 1, "PRACTICAL_CRISIS": 2, "CRISIS": 3}
@@ -251,20 +253,23 @@ CLINICAL_FLAGS = {"medication": "Medication interaction (substances with a presc
 
 
 # ------------------------------------------------------------------------------------------------- text folding
-# fold(text), identical in both languages (spec/FIXES_R5.md §3): line ends, NFKC, zero-width characters removed,
-# listed look-alike letters to ASCII, JavaScript's \s whitespace and C0 controls (not the newline) to a space, runs of
-# spaces collapsed, A-Z lowercased. Wording and level patterns match folded text.
-CONFUSABLES_FROM = "авеорсухіјѕԁһӏԛԝАВЕКМНОРСТХУІЈЅԚԜαοινκρτυχΑΒΕΖΗΙΚΜΝΟΡΤΥΧıİ"
-CONFUSABLES_TO = "abeopcyxijsdhlqwABEKMHOPCTXYIJSQWaoivkptuxABEZHIKMNOPTYXiI"
-_CONF = str.maketrans(CONFUSABLES_FROM, CONFUSABLES_TO)
+# fold(text), identical in both languages (spec/FIXES_R5.md §3, FIXES_R6 §3): line ends, zero-width characters removed,
+# each code point through the generated table (foldtable.py, pinned to one Unicode version: compatibility forms and
+# look-alike letters to ASCII, nonspacing marks removed), whitespace and controls to a space, spaces collapsed, A-Z lowercased.
 _LOWER = str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")
 _ZW = re.compile("[\u00ad\u200b-\u200d\u2060\ufeff]")
 _WS = re.compile("[\x00-\x09\x0b-\x1f \u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]")
+_MARK_STARTS = [r[0] for r in FT.MARKS]
+
+
+def _is_mark(cp: int) -> bool:
+    i = bisect.bisect_right(_MARK_STARTS, cp) - 1
+    return i >= 0 and cp <= FT.MARKS[i][1]
 
 
 def fold(text) -> str:
-    s = re.sub("\r\n?|\u2028|\u2029", "\n", "" if text is None else str(text))
-    s = _ZW.sub("", unicodedata.normalize("NFKC", s)).translate(_CONF)
+    s = _ZW.sub("", re.sub("\r\n?|\u2028|\u2029", "\n", "" if text is None else str(text)))
+    s = "".join(c if ord(c) < 128 else "" if _is_mark(ord(c)) else FT.MAP.get(ord(c), c) for c in s)
     return re.sub(" {2,}", " ", _WS.sub(" ", s)).translate(_LOWER)
 
 

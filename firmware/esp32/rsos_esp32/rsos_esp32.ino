@@ -271,7 +271,7 @@ class ServerCB : public BLEServerCallbacks {
 class RxCB : public BLECharacteristicCallbacks {
   void onWrite(BLECharacteristic* c) override {
     if (!linkAuthed) return;                                   // P1: dropped, never reaches the core
-    std::string v = c->getValue();
+    String v = c->getValue().c_str();   // std::string on 2.x, Arduino String on 3.x (FIXES_R6 B8)
     for (size_t i = 0; i < v.length(); i++) {
       int next = (rxHead + 1) % RX_RING;
       if (next == rxTail) return;                              // full: the rest is dropped; the line will be too long or malformed
@@ -281,6 +281,13 @@ class RxCB : public BLECharacteristicCallbacks {
 };
 
 int bondCount() { return esp_ble_get_bond_device_num(); }
+bool bonded(const uint8_t* addr) {   // FIXES_R6 B7
+  int n = bondCount(); if (n <= 0) return false;
+  esp_ble_bond_dev_t list[16]; if (n > 16) n = 16;
+  esp_ble_get_bond_device_list(&n, list);
+  for (int i = 0; i < n; i++) if (memcmp(list[i].bd_addr, addr, 6) == 0) return true;
+  return false;
+}
 void removeAllBonds() {
   int n = bondCount(); if (n <= 0) return;
   esp_ble_bond_dev_t list[16]; if (n > 16) n = 16;
@@ -300,14 +307,19 @@ void showPasskey(bool on) {
 // GAP events from the Bluetooth task: decide new pairings with the policy (P3-P5).
 void gapEvent(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param) {
   switch (event) {
+    case ESP_GAP_BLE_SEC_REQ_EVT:   // FIXES_R6 B5: a pairing request is answered only inside the window
+      esp_ble_gap_security_rsp(param->ble_security.ble_req.bd_addr, link.accept_request(millis()));
+      break;
     case ESP_GAP_BLE_KEY_EVT: newKeys = true; break;
-    case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: keyScreen = 1; break;
+    case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: if (link.show_passkey(millis())) keyScreen = 1; break;   // B6
     case ESP_GAP_BLE_AUTH_CMPL_EVT: {
       keyScreen = 0;
       if (!param->ble_security.auth_cmpl.success) { link.on_auth_fail(millis()); linkAuthed = false; dropLink = true; break; }
       if (newKeys) {
         rsos::LinkPolicy::Decision d = link.on_new_bond(millis(), bondCount() - 1);   // the new bond is already stored
         if (d != rsos::LinkPolicy::kAccept) { esp_ble_remove_bond_device(param->ble_security.auth_cmpl.bd_addr); linkAuthed = false; dropLink = true; break; }
+      } else if (!bonded(param->ble_security.auth_cmpl.bd_addr)) {   // B7: no keys exchanged and not a known host
+        linkAuthed = false; dropLink = true; break;
       }
       linkAuthed = true;
       break;
@@ -415,7 +427,7 @@ void loop() {
   if (keyScreen >= 0) { showPasskey(keyScreen == 1); keyScreen = -1; }
 #endif
   if (dropLink) { dropLink = false; if (bleServer && bleConnected) bleServer->disconnect(bleConnId); }
-  if (bleWasConnected && !bleConnected) { core.link_lost(now); bleBuf = rsos::LineBuffer(); }   // spec §4.6: stop on link loss
+  if (bleWasConnected && !bleConnected) { core.link_lost(now); bleBuf = rsos::LineBuffer(); rxTail = rxHead; }   // B9: nothing carries over   // spec §4.6: stop on link loss
   bleWasConnected = bleConnected;
   core.update(now);
 #ifdef RSOS_THERMAL

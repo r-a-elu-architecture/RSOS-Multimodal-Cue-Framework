@@ -19,6 +19,10 @@ class LinkPolicy {
   void open_window(uint32_t now) { until_ = now + kWindowMs; open_ = true; fails_ = 0; }   // power-on or USB PAIR
   bool window_open(uint32_t now) const { return open_ && (int32_t)(now - until_) < 0; }
   Decision on_new_bond(uint32_t now, int bonds_before) const;   // keys were exchanged: a new host
+  // FIXES_R6 B5/B6: a pairing request is answered, and the passkey shown, only while the window is open (it closes
+  // after kMaxFails failures), so passkey guesses are limited to the window too.
+  bool accept_request(uint32_t now) const { return window_open(now); }
+  bool show_passkey(uint32_t now) const { return window_open(now); }
   void on_auth_fail(uint32_t now);
   int fails() const { return fails_; }
 

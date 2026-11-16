@@ -53,7 +53,7 @@
     await txc.startNotifications();
     txc.addEventListener("characteristicvaluechanged", e => { rest += dec.decode(e.target.value); let i; while ((i = rest.indexOf("\n")) >= 0) { const l = rest.slice(0, i).trim(); rest = rest.slice(i + 1); lines.push(l); if (l && onLine) onLine(l); } });
     let q = Promise.resolve();
-    const send = line => { const b = enc.encode(line + "\n"); q = q.then(async () => { for (let i = 0; i < b.length; i += 20) await rx.writeValueWithoutResponse(b.slice(i, i + 20)); }); return q; };
+    const send = line => { const b = enc.encode(line + "\n"); q = q.then(async () => { for (let i = 0; i < b.length; i += 20) await (rx.writeValueWithResponse ? rx.writeValueWithResponse(b.slice(i, i + 20)) : rx.writeValue(b.slice(i, i + 20))); /* a refused write is reported (FIXES_R6 B9) */ }); return q; };
     return { kind: "Bluetooth", name: dev.name, lines, send: gate(send), close: async () => { try { gatt.disconnect(); } catch (e) {} } };
   }
   const motor = lines => lines.map(x => x.split(" ")).filter(f => f[0] === "MOTOR").map(f => [Number(f[1]), Number(f[2])]);

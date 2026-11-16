@@ -1,7 +1,8 @@
-/* Level from content, wherever it goes (spec/FIXES_R5.md §2). A saved program with a level above self-guided (a plan
- * node, a saved therapist program, a programmed cue) is an origin. A run inherits an origin's flags when it has one of
- * the origin's distinctive elements (an element no built-in program has), or when its elements are at least 80% the
- * same as the origin's. Elements are read from the compiled program, so comments, separators, spacing and look-alike
+/* Level from content, wherever it goes (spec/FIXES_R5.md §2, amended by FIXES_R6 §2). A saved program with a level above
+ * self-guided (a plan node, a saved therapist program, a programmed cue) is an origin. A run inherits an origin's flags
+ * when it has one of the origin's distinctive elements (an element no built-in program has; a distinctive text also as
+ * whole words in the run's joined text, unless a built-in's joined text has it too), or when it contains at least 80%
+ * of the origin's elements. Elements are read from the compiled program, so comments, separators, spacing and look-alike
  * letters do not change them. Used by the player and the device page. Browser: window.RSOSLineage.
  * Needs rsx.js, safety.js (fold), watchdog.js and consent.js.
  */
@@ -22,7 +23,7 @@
     const s = new Set(); if (!tl) return s;
     const text = t => { const k = key(t); if (k) s.add("t:" + k); };
     for (const e of tl.events || []) {
-      if (TEXT_KINDS.has(e.kind) && e.text && !/\$future/.test(e.text)) text(e.text);
+      if (TEXT_KINDS.has(e.kind) && e.text) text(String(e.text).replace(/\$future/g, " "));   // FIXES_R6 §2: removed, not skipped
       if (e.kind === "tier") { s.add("tier:" + key(e.tier) + ":" + key(e.mode || "")); if (e.word) text(e.word); for (const f of e.frames || []) text(f); if (e.tacton) s.add("code:" + e.tacton); }
       if (e.kind === "pulse") s.add("p:" + e.on + "/" + e.off + "/" + e.count);
     }
@@ -30,10 +31,23 @@
     return s;
   }
   // Built-in elements: loaded once; until then every element of an origin counts as distinctive (stricter).
-  let builtin = null;
+  let builtin = null, builtinTexts = [];
   const ready = (typeof fetch === "function" ? Promise.all(BUILTINS.map(p => fetch("protocols/" + p + ".rsx").then(r => (r.ok ? r.text() : "")).catch(() => "")))
-    .then(srcs => { const u = new Set(); for (const s of srcs) for (const e of elements(compile(s))) u.add(e); if (srcs.every(Boolean)) builtin = u; }) : Promise.resolve())
+    .then(srcs => {
+      const u = new Set(); for (const s of srcs) { const tl = compile(s); for (const e of elements(tl)) u.add(e); builtinTexts.push(joined(tl)); }
+      if (srcs.every(Boolean)) builtin = u; else api.strict = true;   // FIXES_R6 §2 (R6-9): strict, and the page says so
+    }) : Promise.resolve())
     .then(() => { api.loaded = true; });
+  // The run's texts joined in event order, as keys (FIXES_R6 §2: a sentence split over events still counts).
+  function joined(tl) {
+    const out = []; if (!tl) return "";
+    for (const e of tl.events || []) {
+      if (TEXT_KINDS.has(e.kind) && e.text) out.push(key(String(e.text).replace(/\$future/g, " ")));
+      if (e.kind === "tier") { if (e.word) out.push(key(e.word)); for (const f of e.frames || []) out.push(key(f)); }
+    }
+    for (const f of tl.futures || []) out.push(key(f));
+    return " " + out.filter(Boolean).join(" ") + " ";
+  }
 
   // A plan node's flags (FIXES_R4 LM1, spec/LOW_MOOD.md).
   function planFlags(plan, i) {
@@ -61,18 +75,20 @@
     if (C && W) for (const c of cues) { const src = C.cueProgram(c); out.push(origin("cue:" + c.id, W.levelOfProgram(src, { cues: [c] }), src)); }
     return out.filter(Boolean);
   }
-  const share = (a, b) => { if (!a.size || !b.size) return 0; let n = 0; for (const x of a) if (b.has(x)) n++; return n / (a.size + b.size - n); };
-  function has(E, texts, d) {
+  // Share of the origin's elements the run contains (FIXES_R6 §2: shared / |origin|).
+  const share = (run, o) => { if (!o.size) return 0; let n = 0; for (const x of o) if (run.has(x)) n++; return n / o.size; };
+  function has(E, all, d) {
     if (E.has(d)) return true;
     if (!d.startsWith("t:") || d.length - 2 < LONG) return false;
     const w = " " + d.slice(2) + " ";
-    return texts.some(t => (" " + t + " ").includes(w));
+    if (builtinTexts.some(b => b.includes(w))) return false;   // inside a built-in's text: exact only (R6-4)
+    return all.includes(w);
   }
   // The flags a source inherits (FIXES_R5 §2); opts.edited: the text differs from its slot's built-in.
   function flags(source, opts) {
-    const o = opts || {}, tl = compile(source), E = elements(tl), texts = Array.from(E).filter(e => e.startsWith("t:")).map(e => e.slice(2));
+    const o = opts || {}, tl = compile(source), E = elements(tl), all = joined(tl);
     const f = { from: [] };
-    for (const g of origins()) if (g.distinct.some(d => has(E, texts, d)) || share(E, g.els) >= SHARE) { unite(f, g.flags); f.from.push(g.id); }
+    for (const g of origins()) if (g.distinct.some(d => has(E, all, d)) || share(E, g.els) >= SHARE) { unite(f, g.flags); f.from.push(g.id); }
     if (o.edited && tl && (tl.events || []).some(e => e.kind === "tier" && key(e.mode || "") === "observer")) { f.therapist_led = true; f.memory_work = true; }
     return f;
   }
@@ -89,6 +105,6 @@
     for (const f of tl.futures || []) out.push(f);
     return out.join(" ");
   }
-  const api = { BUILTINS, ready, loaded: false, elements, compile, texts, planFlags, origins, flags, codeFlags, unite };
+  const api = { BUILTINS, ready, loaded: false, strict: false, joined, elements, compile, texts, planFlags, origins, flags, codeFlags, unite };
   root.RSOSLineage = api;
 })(typeof window !== "undefined" ? window : globalThis);

@@ -139,13 +139,18 @@
   const CLINICAL_RESULTS = ["none", "low", "moderate", "high"];
   const CLINICAL_FLAGS = { medication: "Medication interaction (substances with a prescribed sedative)",
     practical: "Practical circumstances (work, housing, income)" };
-  // fold(text), identical in both languages (spec/FIXES_R5.md §3)
-  const CONFUSABLES_FROM = "авеорсухіјѕԁһӏԛԝАВЕКМНОРСТХУІЈЅԚԜαοινκρτυχΑΒΕΖΗΙΚΜΝΟΡΤΥΧıİ", CONFUSABLES_TO = "abeopcyxijsdhlqwABEKMHOPCTXYIJSQWaoivkptuxABEZHIKMNOPTYXiI";
-  const CONF = new Map(); for (let i = 0; i < CONFUSABLES_FROM.length; i++) CONF.set(CONFUSABLES_FROM[i], CONFUSABLES_TO[i]);
+  // fold(text), identical in both languages (spec/FIXES_R5.md §3, FIXES_R6 §3): line ends, zero-width characters removed,
+  // each code point through the generated table (js/foldtable.js, pinned to one Unicode version: compatibility forms and
+  // look-alike letters to ASCII, nonspacing marks removed), whitespace and controls to a space, spaces collapsed, A-Z lowercased.
+  const FT = root.RSOSFoldTable || (typeof require === "function" ? require("./foldtable.js") : null);
+  const isMark = cp => { if (!FT) return false; let lo = 0, hi = FT.MARKS.length - 1;
+    while (lo <= hi) { const m = (lo + hi) >> 1, r = FT.MARKS[m]; if (cp < r[0]) hi = m - 1; else if (cp > r[1]) lo = m + 1; else return true; } return false; };
   function fold(text) {
-    let s = String(text === null || text === undefined ? "" : text).replace(/\r\n?|\u2028|\u2029/g, "\n").normalize("NFKC").replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "");
-    s = s.replace(/[^\x00-\x7f]/g, c => CONF.get(c) || c).replace(/[\x00-\x09\x0b-\x1f \u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]/g, " ");
-    return s.replace(/ {2,}/g, " ").replace(/[A-Z]/g, c => c.toLowerCase());
+    let s = String(text === null || text === undefined ? "" : text).replace(/\r\n?|\u2028|\u2029/g, "\n").replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "");
+    let out = "";
+    for (const ch of s) { const cp = ch.codePointAt(0); out += cp < 128 ? ch : isMark(cp) ? "" : FT && Object.prototype.hasOwnProperty.call(FT.MAP, cp) ? FT.MAP[cp] : ch; }
+    out = out.replace(/[\x00-\x09\x0b-\x1f \u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]/g, " ");
+    return out.replace(/ {2,}/g, " ").replace(/[A-Z]/g, c => c.toLowerCase());
   }
   const NUM = /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/;
   function eventFromCheck(ans) {

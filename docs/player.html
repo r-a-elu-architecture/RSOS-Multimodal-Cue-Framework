@@ -3,7 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.19.0"></script>
-<script src="js/outlet.js?v=1.20.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <script src="js/voice.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -339,15 +339,16 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/rsx.js?v=1.13.0"></script>
 <script src="js/hrs.js?v=1.13.0"></script>
 <script src="js/memstack.js?v=1.13.0"></script>
-<script src="js/ugcl.js?v=1.20.0"></script>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script src="js/consent.js?v=1.16.0"></script>
 <script src="js/nodes.js?v=1.16.0"></script>
-<script src="js/safety.js?v=1.20.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
 <script src="js/linx.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.20.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
 <script src="js/guard.js?v=1.19.0"></script>
-<script src="js/lineage.js?v=1.20.0"></script>
+<script src="js/lineage.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -574,9 +575,19 @@ function fire(ev) {
     case "marker": if (ev.kind === "tier") showGlyph(ev); break;
   }
 }
-function phaseAt(t) { const ps = timeline.phases; for (let i = ps.length - 1; i >= 0; i--) if (t >= ps[i].t) return ps[i]; return ps[0]; }
+function phaseAt(t) { const ps = run.tl.phases; for (let i = ps.length - 1; i >= 0; i--) if (t >= ps[i].t) return ps[i]; return ps[0]; }
+const LOCKED = ["program", "source", "f0", "f1", "f2", "inhale", "exhale"];   // disabled while a run plays (FIXES_R6 F2)
+const lock = on => LOCKED.forEach(id => { const e = $(id); if (e) e.disabled = on; });
 function frame(now) {
   if (!run) return;
+  // The run plays the timeline decided at Start (F1). A different program reaching the editor stops it (F3).
+  if (timeline !== run.tl && timeline !== run.same) {
+    if (!timeline || JSON.stringify(timeline.events) !== JSON.stringify(run.tl.events)) {
+      $("compileMsg").className = "err"; $("compileMsg").textContent = "The program changed while running; start it again."; return finish(false);
+    }
+    run.same = timeline;
+  }
+  const tl = run.tl;
   const t = now - run.t0;
   const p = phaseAt(t);
   if (p !== run.phase) {
@@ -585,10 +596,10 @@ function frame(now) {
     $("phase").textContent = p.name.replace(/[-_]/g, " ") + ("future_index" in p ? " " + (p.future_index + 1) : "");
     $("breathLabel").textContent = p.breath === "inhale" ? "Breathe in" : p.breath === "exhale" ? "Breathe out" : p.breath === "hold" ? "Hold" : "";
   }
-  while (run.next < timeline.events.length && timeline.events[run.next].t <= t) fire(timeline.events[run.next++]);
+  while (run.next < tl.events.length && tl.events[run.next].t <= t) fire(tl.events[run.next++]);
   const segs = $("track").children;
-  timeline.phases.forEach((ph, i) => { const f = Math.max(0, Math.min(1, (t - ph.t) / ph.dur)); segs[i].firstChild.style.transform = "scaleX(" + f + ")"; });
-  const f = Math.max(0, Math.min(1, (t - p.t) / Math.max(1, (p.breath === "none" ? p.dur : timeline.breath[p.breath] || p.dur))));
+  tl.phases.forEach((ph, i) => { const f = Math.max(0, Math.min(1, (t - ph.t) / ph.dur)); segs[i].firstChild.style.transform = "scaleX(" + f + ")"; });
+  const f = Math.max(0, Math.min(1, (t - p.t) / Math.max(1, (p.breath === "none" ? p.dur : tl.breath[p.breath] || p.dur))));
   const ease = 0.5 - 0.5 * Math.cos(Math.PI * f);
   if (p !== run.scaleFor) { run.scaleFor = p; run.from = run.scale; }
   let s = run.scale;
@@ -597,7 +608,7 @@ function frame(now) {
   else if (!reduceMotion) s = run.from + 0.03 * Math.sin(t / 260);
   run.scale = s;
   const orb = $("orb"); orb.style.transform = "scale(" + (reduceMotion ? 0.8 : s).toFixed(3) + ")"; orb.style.opacity = (0.45 + 0.55 * (s - 0.55) / 0.45).toFixed(3);
-  if (t >= timeline.duration_ms) return finish(true);
+  if (t >= tl.duration_ms) return finish(true);
   run.raf = requestAnimationFrame(frame);
 }
 let pending = null;
@@ -612,7 +623,7 @@ function askCheckin(after) {
     d.returnValue = ""; d.showModal();
   });
 }
-let pendingTrigger = "self", offerShownAt = 0, runHandle = null;
+let pendingTrigger = "self", offerShownAt = 0, runHandle = null, anchorHandle = null;
 $("trig").addEventListener("change", () => { $("latBox").hidden = !$("trig").value || pendingTrigger === "device"; });
 async function start(trigger) {
   if (!timeline || run) return;
@@ -626,7 +637,8 @@ async function start(trigger) {
   }
   // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
   if (!RSOSLineage.loaded) await RSOSLineage.ready;
-  const held = v => { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(v.watchdog); };
+  const held = v => { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(v.watchdog)
+    + (RSOSLineage.strict ? " Some built-in programs could not be loaded, so the content check is strict on this page." : ""); };
   const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
   if (verdict.decision !== "allow") return held(verdict);
   pendingTrigger = trigger;
@@ -645,10 +657,12 @@ async function start(trigger) {
   const latency = deviceLatency !== null ? Math.round(deviceLatency * 10) / 10 : (before && before.trig && before.lat ? +before.lat : "");
   pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice, trigger, latency, extra: runContext(firstTier) };
   $("main").classList.add("running"); $("start").disabled = true;
-  run = { t0: performance.now(), next: 0, phase: null, scale: 0.55, from: 0.55, scaleFor: null, nodes: [], seen: "", felt: "", spoken: {} };
+  run = { tl: timeline, same: null, t0: performance.now(), next: 0, phase: null, scale: 0.55, from: 0.55, scaleFor: null, nodes: [], seen: "", felt: "", spoken: {} };
+  lock(true);
   setCue("", ""); run.raf = requestAnimationFrame(frame);
   $("stop").focus();
 }
+window.addEventListener("rsos-outlet-hold", () => { if (anchorHandle !== null) { RSOSOutlet.close(anchorHandle); anchorHandle = null; } });   // FIXES_R6 H1
 window.addEventListener("rsos-outlet-hold", () => { if (run) { $("compileMsg").className = "err"; $("compileMsg").textContent = "Stopped by the Watchdog: the session state or domain no longer allows this program."; finish(false); } });
 async function finish(completed) {
   if (!run) return;
@@ -659,7 +673,7 @@ async function finish(completed) {
   run.nodes.forEach(n => { try { n.stop(); } catch (e) {} });
   if ("speechSynthesis" in window) speechSynthesis.cancel();
   if (navigator.vibrate) navigator.vibrate(0);
-  run = null; $("main").classList.remove("running"); $("start").disabled = !timeline;
+  run = null; lock(false); $("main").classList.remove("running"); $("start").disabled = !timeline;
   $("phase").textContent = completed ? "Complete" : "Stopped";
   $("breathLabel").textContent = ""; $("say").textContent = ""; $("glyph").style.opacity = 0;
   setCue(completed ? "Notice how you feel now." : "You stopped. That is always fine.", "");
@@ -954,7 +968,8 @@ function anchorOffer() {
   };
   const play = () => UGCL.feel(best.a.code, {});
   if (best.mode === "auto") {
-    RSOSOutlet.adopt({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: true }, DOMAIN(), { seconds: 30 });
+    if (anchorHandle !== null) RSOSOutlet.close(anchorHandle);
+    anchorHandle = RSOSOutlet.adopt({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: true }, DOMAIN(), { seconds: 30 });
     play(); txt.textContent = "Your heart rate suggests a stress response, so the device played " + best.a.glyph + " " + best.a.name + " by itself. It may, because this anchor has earned automatic use and you consented; change that on the Safety page.";
     box.hidden = false; setTimeout(feedback, 4000);
   } else {

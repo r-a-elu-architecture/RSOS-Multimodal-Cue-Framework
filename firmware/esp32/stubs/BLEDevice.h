@@ -16,7 +16,11 @@ class BLECharacteristic {
   void setAccessPermissions(esp_gatt_perm_t) {}
   void setValue(uint8_t*, size_t) {}
   void notify() {}
-  std::string getValue() { return ""; }
+#if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+  String getValue() { return String(); }        // Arduino-ESP32 3.x (FIXES_R6 B8)
+#else
+  std::string getValue() { return ""; }       // Arduino-ESP32 2.x
+#endif
 };
 struct BLEAdvertising { void start() {} void addServiceUUID(const char*) {} };
 struct BLEService { BLECharacteristic* createCharacteristic(const char*, int) { return new BLECharacteristic(); } void start() {} };

@@ -46,6 +46,16 @@ int main() {
   CHECK(f.on_new_bond(40, 0) == LinkPolicy::kRefuseClosed);
   f.open_window(50);
   CHECK(f.window_open(60) && f.fails() == 0);
+  // FIXES_R6 B5/B6: requests and the passkey screen only in the window, and not after the failure limit
+  LinkPolicy q; q.begin(0);
+  CHECK(q.accept_request(1000) && q.show_passkey(1000));
+  CHECK(!q.accept_request(120000) && !q.show_passkey(120000));
+  q.open_window(200000); q.on_auth_fail(200001); q.on_auth_fail(200002);
+  CHECK(q.accept_request(200003));
+  q.on_auth_fail(200003);
+  CHECK(!q.accept_request(200004) && !q.show_passkey(200004));
+  for (int i = 0; i < 50; i++) q.on_auth_fail(300000 + i);   // 50 more attempts outside the window change nothing
+  CHECK(!q.accept_request(300100));
   // P5 bond limit
   LinkPolicy b; b.begin(0);
   for (int i = 0; i < 4; i++) CHECK(b.on_new_bond(10, i) == LinkPolicy::kAccept);

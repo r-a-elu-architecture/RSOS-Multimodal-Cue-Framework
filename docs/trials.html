@@ -3,7 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.19.0"></script>
-<script src="js/outlet.js?v=1.20.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Trials — RSOS</title>
@@ -109,13 +109,14 @@ header.top nav a{font-size:.88rem}
   </div>
 </main>
 <footer>TRIAL is <code>rsso/rsso/trial.py</code>, identically <code>docs/js/trial.js</code>; the tasks are <code>rsso/rsso/checks.py</code>, identically <code>docs/js/checks.js</code> (tested). Specifications: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/TRIAL.md">TRIAL</a>, <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CHECKS.md">CHECKS</a>. Everything stays in this browser until you export it. <span class="mdline">Research and development framework; not a medical device.</span></footer>
-<script src="js/ugcl.js?v=1.20.0"></script>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.15.0"></script>
 <script src="js/trial.js?v=1.19.0"></script>
 <script src="js/gate.js?v=1.15.0"></script>
-<script src="js/safety.js?v=1.20.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.20.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
 <script src="js/guard.js?v=1.19.0"></script>
 <script src="js/checks.js?v=1.15.0"></script>
 <script>
@@ -200,13 +201,16 @@ function drawTrial() {
   const end = el("button", "btn quiet", "End this trial"); end.addEventListener("click", () => { if (end.dataset.sure) { const done = store.get("rsos.trials.done", []); done.push(trial); store.set("rsos.trials.done", done); trial = null; saveTrial(); drawTrial(); } else { end.dataset.sure = 1; end.textContent = "End it for good (results are kept)"; } });
   P.append(ex, end); A.append(P);
 }
+let trialHandle = null;   // FIXES_R6 H1: closed on a hold, with a message; the next session is decided afresh
+window.addEventListener("rsos-outlet-hold", () => { if (trialHandle !== null) { RSOSOutlet.close(trialHandle); trialHandle = null; const b = document.querySelector(".stage"); if (b) b.prepend(Object.assign(document.createElement("p"), { className: "hint", textContent: "Stopped by the Watchdog." })); } });
 function session(box) {
   box.textContent = ""; const d = T.DESIGNS[trial.design], arm = trial.schedule[trial.sessions.length], blind = trial.design === "anchor_vs_sham";
   // Every action on a person asks the Watchdog first (spec/WATCHDOG.md, spec/TRIAL_LOOP.md §3).
   const wd = RSOSGuard.ask({ kind: "run", protocol: "trial_" + trial.design, trigger: "self", source: "person" },
     window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()) } : {});
   if (!RSOSGuard.ok(wd)) { box.append(el("p", "hint", "Held by the Watchdog: " + RSOSGuard.say(wd))); return; }
-  RSOSOutlet.adopt({ kind: "run", protocol: "trial_" + trial.design, trigger: "self", source: "person" }, {}, { seconds: 1800 });   // FIXES_R3 §1
+  if (trialHandle !== null) RSOSOutlet.close(trialHandle);
+  trialHandle = RSOSOutlet.adopt({ kind: "run", protocol: "trial_" + trial.design, trigger: "self", source: "person" }, {}, { seconds: 1800 });   // FIXES_R3 §1
   let played = null;
   const F = el("div", "stage"); F.style.alignItems = "stretch"; F.style.textAlign = "left"; box.append(F);
   const rec = { cov: { hour: new Date().getHours() } };

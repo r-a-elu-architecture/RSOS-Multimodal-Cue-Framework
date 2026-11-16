@@ -12,12 +12,11 @@ class String {
  public:
   String() {}
   String(const char* s) : s_(s) {}
-  String(const std::string& s) : s_(s) {}
   size_t length() const { return s_.size(); }
   const char* c_str() const { return s_.c_str(); }
   char operator[](size_t i) const { return s_[i]; }
   String& operator+=(char c) { s_ += c; return *this; }
-  String operator+(const char* o) const { return String(s_ + o); }
+  String operator+(const char* o) const { return String((s_ + o).c_str()); }   // no std::string constructor, as in Arduino
   String& operator=(const char* o) { s_ = o; return *this; }
  private:
   std::string s_;

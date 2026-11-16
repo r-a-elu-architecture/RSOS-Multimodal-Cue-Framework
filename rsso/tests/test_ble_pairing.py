@@ -56,3 +56,27 @@ class Sketch(unittest.TestCase):   # B3
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FixesR6(unittest.TestCase):   # spec/FIXES_R6.md §5
+    def test_requests_answered_only_in_the_window(self):   # B5
+        self.assertIn("case ESP_GAP_BLE_SEC_REQ_EVT:", SKETCH)
+        self.assertIn("esp_ble_gap_security_rsp(param->ble_security.ble_req.bd_addr, link.accept_request(millis()));", SKETCH)
+
+    def test_passkey_shown_only_in_the_window(self):   # B6
+        self.assertIn("if (link.show_passkey(millis())) keyScreen = 1;", SKETCH)
+        self.assertNotIn("case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: keyScreen = 1;", SKETCH)
+
+    def test_no_key_exchange_only_for_known_hosts(self):   # B7
+        self.assertIn("} else if (!bonded(param->ble_security.auth_cmpl.bd_addr)) {", SKETCH)
+
+    def test_receive_line_works_on_2x_and_3x(self):   # B8
+        self.assertIn("String v = c->getValue().c_str();", SKETCH)
+        stub = (REPO / "firmware/esp32/stubs/BLEDevice.h").read_text(encoding="utf-8")
+        self.assertIn("String getValue()", stub)
+        self.assertIn("std::string getValue()", stub)
+        self.assertNotIn("String(const std::string", (REPO / "firmware/esp32/stubs/Arduino.h").read_text(encoding="utf-8"))
+
+    def test_ring_emptied_on_link_loss(self):   # B9
+        self.assertIn("rxTail = rxHead; }", SKETCH)
+        self.assertIn("writeValueWithResponse", (REPO / "docs/js/rdp.js").read_text(encoding="utf-8"))

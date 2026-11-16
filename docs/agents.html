@@ -201,6 +201,7 @@ th{color:var(--muted);font-weight:500}
         <p class="hint" style="margin:0">The Watchdog picks a mode from what the ledger has measured, against four other policies, on the same simulated people. Mean reward per tick:</p>
         <div class="pv-bars" id="pvBars"></div>
         <p class="hint" id="pvCaveat" style="margin:10px 0 0"></p>
+        <p class="hint" id="pvHsMeaning" style="margin:6px 0 0"></p>
         <p class="hint" style="margin:6px 0 0"><a href="world.html">Watch it switch, tick by tick, on the World page</a>.</p>
       </div>
     </div>
@@ -330,6 +331,8 @@ drawAll();
   draw();
   // FIXES_P2 A1: the register's own caveat for W1, beside the counts.
   if (D.register["W1 repair"]) $("pvW1Meaning").innerHTML = "What the register says this means: " + D.register["W1 repair"].meaning;
+  // BASELINE_AUDIT Q3: the H-SWITCH row's own meaning, from the register.
+  if (D.register["H-CFIT / H-SWITCH"]) $("pvHsMeaning").innerHTML = "What the register says this means: " + D.register["H-CFIT / H-SWITCH"].meaning;
   const P = D.hswitch.policies, top = Math.max(...P.map(p => p.reward));
   $("pvBars").innerHTML = P.map(p => `<span>${p.policy[0].toUpperCase() + p.policy.slice(1)}</span><i class="${p.reward === top ? "best" : ""}" style="width:${Math.round(100 * p.reward / top)}%" title="${p.reward}"></i><span>${p.reward.toFixed(3)} · distress ${p.distress.toFixed(1)}</span>`).join("");
   const R = D.register;

@@ -115,6 +115,8 @@ def main():
             import re as _re
             expect("FIXES_P2 A1/A2 W1 caveat and heading", [_re.sub(r"<[^>]+>", "", w1m)[:40] in pg.inner_text("#pvW1Meaning"), pg.inner_text("#pvTitle")],
                    [True, "Passed in simulation: the RSX-V agents"])
+            hsm = _re.sub(r"<[^>]+>", "", d["register"]["H-CFIT / H-SWITCH"]["meaning"])[:40]
+            expect("BASELINE_AUDIT Q3 H-SWITCH meaning shown", hsm in pg.inner_text("#pvHsMeaning"), True)
             expect("S10 five bars, three cards", [pg.evaluate("document.querySelectorAll('#pvBars i').length"), pg.evaluate("document.querySelectorAll('#pvCards .pv-box').length")], [5, 3])
             expect("S10 no output to the person", pg.evaluate("window.__out.length"), 0)
             if SHOTS:

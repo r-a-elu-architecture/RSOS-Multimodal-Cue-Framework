@@ -357,6 +357,22 @@ Docs: BOARD_KIT status and version table, BOARD_TEST T0/T1, firmware README, the
 architecture map (status stays "complete in simulation").
 Review status: **awaiting review**.
 
+### BOARD_PENDING — checks and preparation while no board is available (spec/BOARD_PENDING.md)
+
+Registered 4f32dc2; code 9cb1d8a, 6041243; results da31d1f.
+- **K1 firmware CI** (`.github/workflows/firmware.yml`, separate from `checks` and Pages; deploys nothing). Job `compile`:
+  the 40-build matrix on Arduino-ESP32 2.0.17, 3.2.1 and 3.3.12, passing when 30 compile and the ten C3/S3 builds on
+  3.3.12 stop at the NimBLE guard. Job `emulator`: the ESP32 3.3.12 emulator build in QEMU runs U1–U9, U3b (U3
+  expected to fail), board check B1–B7 and K3. First complete run 43941331355: both jobs passed, compile in 19 min.
+  Any sketch change, from either session, is now compiled with the real toolchains on every push.
+- **K2** issue form "Board report" and public issue #5 asking for the first board report (parts, 1.5 h, T5 and T7 first).
+- **K3** the motor's PWM duty at the emulated ESP32's LEDC register (QEMU trace): 40% for 0.4, 60% for a 0.9 request
+  under the 0.6 envelope, 0% after STOP and at boot, on 2.0.17 and 3.3.12, locally and on GitHub. Not shown: routing to
+  the pin, the 20 kHz carrier, the MOSFET and motor.
+- Observed for FIXES_P2 E1: the 2.0.17 and 3.2.1 library sources do call `esp_ble_set_encryption` on every connection
+  when `setEncryptionLevel` was used; on 3.3.12 the call only stores the level. ESP32_TOOLS F2 had kept the call.
+Review status: **awaiting review**.
+
 ## 5. Review findings
 
 Reviewer: add one block per review.
@@ -374,4 +390,4 @@ Verdict:         ready for the owner | changes needed
 
 - Step 4 on a board: flash, pair from Android Chrome and a computer, check the window, the failure limit and USB-only commands (BOARD_KIT §4 Pairing); first, whether a bonded phone reconnects after its private address changes (R6c-2), and that a phone outside the window cannot start pairing (FIXES_R6C S1/S2).
 - Wristband on Arduino-ESP32 3.3+ for the ESP32-C3/-S3: the pairing rules (window, failure limit, bond limit, refusal before keys are exchanged, bonded-host check) need a NimBLE implementation, registered and reviewed on its own (ESP32_TOOLS A1 F3). Until then those chips build with 3.2.1 or 2.0.17.
-- First board run (BOARD_TEST.md): the firmware now compiles with the real toolchains and passes the USB checks in QEMU, so a failure on a board points at the radio, the pins or the motor rather than the build.
+- First board run (BOARD_TEST.md): the firmware now compiles with the real toolchains and passes the USB checks in QEMU, so a failure on a board points at the radio, the pins or the motor rather than the build. Call for a tester: issue #5.

@@ -139,13 +139,23 @@
   const CLINICAL_RESULTS = ["none", "low", "moderate", "high"];
   const CLINICAL_FLAGS = { medication: "Medication interaction (substances with a prescribed sedative)",
     practical: "Practical circumstances (work, housing, income)" };
+  // fold(text), identical in both languages (spec/FIXES_R5.md §3)
+  const CONFUSABLES_FROM = "авеорсухіјѕԁһӏԛԝАВЕКМНОРСТХУІЈЅԚԜαοινκρτυχΑΒΕΖΗΙΚΜΝΟΡΤΥΧıİ", CONFUSABLES_TO = "abeopcyxijsdhlqwABEKMHOPCTXYIJSQWaoivkptuxABEZHIKMNOPTYXiI";
+  const CONF = new Map(); for (let i = 0; i < CONFUSABLES_FROM.length; i++) CONF.set(CONFUSABLES_FROM[i], CONFUSABLES_TO[i]);
+  function fold(text) {
+    let s = String(text === null || text === undefined ? "" : text).replace(/\r\n?|\u2028|\u2029/g, "\n").normalize("NFKC").replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "");
+    s = s.replace(/[^\x00-\x7f]/g, c => CONF.get(c) || c).replace(/[\x00-\x09\x0b-\x1f \u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]/g, " ");
+    return s.replace(/ {2,}/g, " ").replace(/[A-Z]/g, c => c.toLowerCase());
+  }
+  const NUM = /^[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)$/;
   function eventFromCheck(ans) {
     const flags = new Set(ans.flags || []);
     const ev = { substances: flags.has("medication"), sedative_prescribed: flags.has("medication"), job_loss: flags.has("practical"),
       history_reference: !!ans.history };
     if (CLINICAL_RESULTS.includes(ans.clinical_result)) ev.clinical_result = ans.clinical_result;
     // a non-numeric answer is omitted (FIXES_R4 P1)
-    const fin = v => (v === null || v === undefined || typeof v === "boolean" || (typeof v === "string" && !v.trim())) ? null : (Number.isFinite(Number(v)) ? Number(v) : null);
+    const fin = v => typeof v === "number" ? (Number.isFinite(v) ? v : null)   // FIXES_R5 §3: numbers, or plain ASCII decimal strings
+      : typeof v === "string" && NUM.test(v.replace(/^[ \t\n\r]+|[ \t\n\r]+$/g, "")) ? Number(v.replace(/^[ \t\n\r]+|[ \t\n\r]+$/g, "")) : null;
     if (fin(ans.intensity) !== null) ev.distress = fin(ans.intensity);
     if (fin(ans.sleep_h) !== null) ev.sleep_h = fin(ans.sleep_h);
     return ev;
@@ -172,10 +182,10 @@
     rank_claim: "no population ranks about the person (Makoto): RSOS reports your own measures",
   };
   const SPINE_RE = {};
-  for (const k of Object.keys(SPINE_WORDS)) SPINE_RE[k] = new RegExp(SPINE_WORDS[k].join("|"), "i");
+  for (const k of Object.keys(SPINE_WORDS)) SPINE_RE[k] = new RegExp(SPINE_WORDS[k].join("|"));   // on folded text (FIXES_R5 §3)
   function spineFlags(text) {
-    const t = String(has(text) ? text : "");
-    return Object.keys(SPINE_WORDS).filter(k => SPINE_RE[k].test(t)).map(k => ({ flag: k, virtue: SPINE_VIRTUE[k], text: SPINE_TEXT[k] }));
+    const t = fold(text), u = t.replace(/\\./g, " ").replace(/[^a-z0-9%. -]+/g, " ").replace(/ {2,}/g, " ");   // escapes and punctuation as spaces too
+    return Object.keys(SPINE_WORDS).filter(k => SPINE_RE[k].test(t) || SPINE_RE[k].test(u)).map(k => ({ flag: k, virtue: SPINE_VIRTUE[k], text: SPINE_TEXT[k] }));
   }
 
   function mayStartDeepSession(nowH, last, check, done7d, tier) {
@@ -207,7 +217,7 @@
   }
 
   const api = { regulating, MODES, SEVERITY, RECOVERY_H, WEEKLY_CAP, FOOTER, RESPONSES, MESSAGES, MODE_ALLOWED, MODE_NAME, MODE_TEXT, LEVELS, REGULATING,
-    SELF_CHECK, CLINICAL_RESULTS, CLINICAL_FLAGS, screen, category, newState, allowed, observe, enterStabilise, exit, eventFromCheck, spineFlags,
+    SELF_CHECK, CLINICAL_RESULTS, CLINICAL_FLAGS, screen, category, newState, allowed, observe, enterStabilise, exit, eventFromCheck, spineFlags, fold,
     mayStartDeepSession, adjustedEffect };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.RSOSSafety = api;

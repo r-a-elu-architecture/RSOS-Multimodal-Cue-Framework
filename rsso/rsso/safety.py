@@ -25,6 +25,7 @@ from __future__ import annotations
 import copy
 import math
 import re
+import unicodedata
 
 MODES = ("NORMAL", "STABILISE", "PRACTICAL_CRISIS", "CRISIS")
 SEVERITY = {"NORMAL": 0, "STABILISE": 1, "PRACTICAL_CRISIS": 2, "CRISIS": 3}
@@ -192,7 +193,8 @@ def enter_stabilise(state: dict | None, by: str = "person", now: float = 0.0) ->
 
 def exit(state: dict | None, by: str, now: float = 0.0) -> tuple[dict, dict]:  # noqa: A001 (mirrors the agent API)
     st = copy.deepcopy(state) if isinstance(state, dict) and state.get("mode") in MODES else new_state()   # FIXES_R4 P1
-    st.setdefault("history", [])
+    if not isinstance(st.get("history"), list):   # FIXES_R5 §3, as in JavaScript
+        st["history"] = []
     if st["mode"] == "NORMAL":
         return st, {"ok": False, "why": "not_in_safety_mode"}
     if st["mode"] == "CRISIS" and by not in ("clinician", "owner"):
@@ -248,6 +250,27 @@ CLINICAL_FLAGS = {"medication": "Medication interaction (substances with a presc
                   "practical": "Practical circumstances (work, housing, income)"}
 
 
+# ------------------------------------------------------------------------------------------------- text folding
+# fold(text), identical in both languages (spec/FIXES_R5.md §3): line ends, NFKC, zero-width characters removed,
+# listed look-alike letters to ASCII, JavaScript's \s whitespace and C0 controls (not the newline) to a space, runs of
+# spaces collapsed, A-Z lowercased. Wording and level patterns match folded text.
+CONFUSABLES_FROM = "авеорсухіјѕԁһӏԛԝАВЕКМНОРСТХУІЈЅԚԜαοινκρτυχΑΒΕΖΗΙΚΜΝΟΡΤΥΧıİ"
+CONFUSABLES_TO = "abeopcyxijsdhlqwABEKMHOPCTXYIJSQWaoivkptuxABEZHIKMNOPTYXiI"
+_CONF = str.maketrans(CONFUSABLES_FROM, CONFUSABLES_TO)
+_LOWER = str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")
+_ZW = re.compile("[\u00ad\u200b-\u200d\u2060\ufeff]")
+_WS = re.compile("[\x00-\x09\x0b-\x1f \u00a0\u1680\u2000-\u200a\u202f\u205f\u3000]")
+
+
+def fold(text) -> str:
+    s = re.sub("\r\n?|\u2028|\u2029", "\n", "" if text is None else str(text))
+    s = _ZW.sub("", unicodedata.normalize("NFKC", s)).translate(_CONF)
+    return re.sub(" {2,}", " ", _WS.sub(" ", s)).translate(_LOWER)
+
+
+_NUM = re.compile(r"[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)", re.A)
+
+
 def event_from_check(answers: dict) -> dict:
     """answers: {intensity: 0-10, sleep_h, clinical_result: none|low|moderate|high, flags: [medication, practical],
     history: bool}. The clinical fields are entered by the practitioner from a validated instrument of their choice."""
@@ -264,13 +287,17 @@ def event_from_check(answers: dict) -> dict:
 
 
 def _finite(v):
-    if v is None or isinstance(v, bool) or (isinstance(v, str) and not v.strip()):
+    """A finite number (not a bool), or a string of ASCII digits with an optional sign and one decimal point
+    (spec/FIXES_R5.md §3); anything else is None, as in JavaScript."""
+    if isinstance(v, bool):
         return None
-    try:
+    if isinstance(v, (int, float)):
         x = float(v)
-    except (TypeError, ValueError):
-        return None
-    return x if math.isfinite(x) else None
+        return x if math.isfinite(x) else None
+    if isinstance(v, str):
+        t = v.strip(" \t\n\r")
+        return float(t) if _NUM.fullmatch(t) else None
+    return None
 
 
 # ---------------------------------------------------------------------------------------------------- Spine wording
@@ -298,13 +325,14 @@ SPINE_TEXT = {
     "sleep_deprivation": "going without sleep is not used (Jin)",
     "rank_claim": "no population ranks about the person (Makoto): RSOS reports your own measures",
 }
-_SPINE_RE = {k: re.compile("|".join(v), re.I) for k, v in SPINE_WORDS.items()}
+_SPINE_RE = {k: re.compile("|".join(v), re.A) for k, v in SPINE_WORDS.items()}   # on folded text (FIXES_R5 §3)
 
 
 def spine_flags(text: str) -> list[dict]:
     """Spine wording flags in a frame, rule, cue or proposal: [{flag, virtue, text}] in fixed order."""
-    t = str(text or "")
-    return [{"flag": k, "virtue": SPINE_VIRTUE[k], "text": SPINE_TEXT[k]} for k in SPINE_WORDS if _SPINE_RE[k].search(t)]
+    t = fold(text)
+    u = re.sub(" {2,}", " ", re.sub(r"[^a-z0-9%. -]+", " ", re.sub(r"\\.", " ", t)))   # escapes and punctuation as spaces too
+    return [{"flag": k, "virtue": SPINE_VIRTUE[k], "text": SPINE_TEXT[k]} for k in SPINE_WORDS if _SPINE_RE[k].search(t) or _SPINE_RE[k].search(u)]
 
 
 # ------------------------------------------------------------------------------------------------- deep processing

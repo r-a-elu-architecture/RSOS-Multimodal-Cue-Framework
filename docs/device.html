@@ -3,7 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.19.0"></script>
-<script src="js/outlet.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.20.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Phones and wristbands — RSOS</title>
@@ -303,12 +303,14 @@ header.top nav a{font-size:.88rem}
   </section>
 </main>
 <footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent. The new channels use <code>docs/js/machines.js</code>, identical to <code>rsso/rsso/machines.py</code> (tested); pronunciation uses <code>docs/js/pron.js</code>, identical to <code>rsso/rsso/pron.py</code> (tested). The channel lines and their limits are in <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
-<script src="js/ugcl.js?v=1.19.0"></script>
+<script src="js/ugcl.js?v=1.20.0"></script>
 <script src="js/rsx.js?v=1.14.0"></script>
-<script src="js/safety.js?v=1.19.0"></script>
+<script src="js/safety.js?v=1.20.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/watchdog.js?v=1.20.0"></script>
 <script src="js/guard.js?v=1.19.0"></script>
+<script src="js/consent.js?v=1.16.0"></script>
+<script src="js/lineage.js?v=1.20.0"></script>
 <script src="js/rdp.js?v=1.19.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/machines.js?v=1.21.0"></script>
@@ -351,18 +353,22 @@ $("check").addEventListener("click", async () => {
 });
 // A plan node's level (FIXES_R3 §2, FIXES_R4 LM1): difficult-memory plans are memory work; diagnosed depression is clinician-led.
 function nodeFlags(plan, n) {
-  if (!plan || !n) return {};
-  const dx = (plan.dx || []).includes("depression"), memory = (((plan.intake || {}).concerns) || []).includes("ptsd") || (!!plan.therapist_led && !dx);
-  return Object.assign(memory ? Object.assign({ memory_work: true }, plan.therapist_led && n.mode === "observer" ? { therapist_led: true } : {}) : {}, dx ? { therapist_led: true } : {});
+  if (!plan || !n || !Array.isArray(plan.nodes)) return {};
+  return RSOSLineage.planFlags(plan, plan.nodes.indexOf(n));
 }
 window.addEventListener("rsos-outlet-hold", () => { try { if (tx) tx.send("STOP"); } catch (e) {} });   // FIXES_R4 G3: stop the band
+let codeHandle = null, runHandle = null;   // this page's sessions (FIXES_R5 O2)
+const flagsOnly = f => ({ therapist_led: !!f.therapist_led, memory_work: !!f.memory_work });
 async function playCode(code, flags) {
   if (!tx) return say("Connect the band first.");
   if (!UGCL.TACTON_RE.test(code)) return say("A code is 1 to 6 dots and dashes, up to three joined by spaces.");
   // Every code sent to the band asks the Watchdog (FIXES_R3 §1); a plan's codes carry its level, also when typed (FIXES_R4 G7).
-  if (!flags) { const plan = store.get("rsos.plan", null), i = plan && plan.nodes ? plan.nodes.findIndex(n => n.tacton === code) : -1; if (i >= 0) flags = nodeFlags(plan, plan.nodes[i]); }
-  const r = RSOSOutlet.open(Object.assign({ kind: "cue", protocol: "device:code", trigger: "self", source: "person" }, flags || {}), {}, { confirmed: true, seconds: 30 });
+  // Any code of a held plan node in the sequence, typed or from a button, carries the node's level (FIXES_R5 R5-11).
+  const f = flagsOnly(RSOSLineage.unite(Object.assign({}, flags || {}), RSOSLineage.codeFlags(code)));
+  const r = RSOSOutlet.open(Object.assign({ kind: "cue", protocol: "device:code", trigger: "self", source: "person" }, f), {}, { confirmed: true, seconds: 30 });
   if (!r.opened) return say("Held by the Watchdog: " + RSOSGuard.say(r));
+  if (codeHandle !== null) RSOSOutlet.close(codeHandle);
+  codeHandle = r.handle;
   await tx.send("STOP"); for (const l of R.codeEvents(UGCL.tactonPulses(code), 0.4)) await tx.send(l); await tx.send("START");
 }
 $("play").addEventListener("click", () => playCode($("code").value.trim()));
@@ -378,10 +384,16 @@ drawCodes();
 $("run").addEventListener("click", async () => {
   const p = $("prog").value;
   try {
-    const tl = RSX.compile(await (await fetch("protocols/" + p + ".rsx")).text());
-    const r = RSOSGuard.ask({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person" }, Object.assign({ timeline: tl }, window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {}));
+    const src = await (await fetch("protocols/" + p + ".rsx")).text(), tl = RSX.compile(src);
+    if (!RSOSLineage.loaded) await RSOSLineage.ready;
+    // The same content rules as the player (FIXES_R5 R5-7): the program's own level and anything it inherits.
+    const lv = RSOSWatchdog.levelOfProgram(src, { cues: store.get("rsos.cues", []) });
+    const action = Object.assign({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person", text: (lv.text + " " + RSOSLineage.texts(tl)).trim() }, flagsOnly(RSOSLineage.unite(RSOSLineage.unite({}, lv), RSOSLineage.flags(src, {}))));
+    const dom = window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};
+    const r = RSOSGuard.ask(action, Object.assign({ timeline: tl }, dom));
     if (!RSOSGuard.ok(r)) return say("Held by the Watchdog: " + RSOSGuard.say(r));
-    RSOSOutlet.adopt({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person" }, { timeline: tl }, { seconds: tl.duration_ms / 1000 + 60 });
+    if (runHandle !== null) RSOSOutlet.close(runHandle);
+    runHandle = RSOSOutlet.adopt(action, Object.assign({ timeline: tl }, dom), { seconds: tl.duration_ms / 1000 + 60 });
     await tx.send("STOP"); await tx.send("CONSENT 0"); for (const l of R.encode(tl)) await tx.send(l); await tx.send("START");
     say("Playing " + $("prog").selectedOptions[0].textContent + " (" + Math.round(tl.duration_ms / 1000) + " s). Stop at any time.", true);
   } catch (e) { say("Could not play it: " + e.message); }
@@ -458,7 +470,8 @@ function cfCmd() { return { kind: "haptic", t: 0, on: 2000, off: 0, count: 1, am
 function cfShow() { const c = cfCmd(), p = X.check(c); $("cfLine").textContent = X.encode(c); $("cfMsg").className = "msg " + (p.length ? "err" : "ok"); $("cfMsg").textContent = p.length ? "Will not play: " + p.join("; ") + "." : "Inside the limits."; return p; }
 ["cfC", "cfM", "cfA"].forEach(i => $(i).addEventListener("input", cfShow)); cfShow();
 $("cfPlay").addEventListener("click", () => { if (cfShow().length) return; const c = cfCmd();
-  let ac; try { ac = UGCL.audioCtx ? UGCL.audioCtx() : new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; }
+  let ac; try { ac = UGCL.audioCtx(); } catch (e) { return; }
+  if (!ac) return;   // no gate, no sound (FIXES_R5 O6)
   const o = ac.createOscillator(), g = ac.createGain(), lfo = ac.createOscillator(), lg = ac.createGain(), t = ac.currentTime;
   o.frequency.value = c.carrier_hz; g.gain.value = c.amp * 0.15; lfo.frequency.value = c.mod_hz; lg.gain.value = c.amp * 0.15;
   lfo.connect(lg); lg.connect(g.gain); o.connect(g); g.connect(ac.destination); o.start(t); lfo.start(t); o.stop(t + 2); lfo.stop(t + 2); });

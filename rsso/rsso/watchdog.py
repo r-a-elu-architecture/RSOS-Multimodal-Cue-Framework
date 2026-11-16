@@ -41,11 +41,11 @@ def level(action: dict) -> str:
     return "self_guided"
 
 
-# ASCII-only patterns on text with normalised line ends, identical in both languages (FIXES_R4 §2)
-_TIER_RX = re.compile(r"PROTOCOL[ \t]+tier(414|420|439|440)(?![0-9])|^[ \t]*#.*(?<![A-Za-z0-9_])Tier[ \t]+(414|420|439|440)(?![A-Za-z0-9_])", re.M | re.I)
-_CUE_RX = re.compile(r'MARK[ \t]+"programmed:([A-Za-z0-9_-]+)"')
-_OBSERVER_RX = re.compile(r'(?<![A-Za-z0-9_])MODE[ \t]+"observer"', re.I)
-_TEXT_RX = re.compile(r'"((?:[^"\\\n]|\\.)*)"')   # every quoted string, wherever it stands
+# ASCII-only patterns on folded text (S.fold), identical in both languages (FIXES_R4 §2, FIXES_R5 §3)
+_TIER_RX = re.compile(r"protocol[ \t]*tier(414|420|439|440)(?![0-9])|^[ \t]*#.*(?<![a-z0-9_])tier[ \t]*(414|420|439|440)(?![a-z0-9_])", re.M | re.A)
+_CUE_RX = re.compile(r'mark[ \t]*"programmed:([^"\n]*)"', re.A)
+_OBSERVER_RX = re.compile(r'(?<![a-z0-9_])mode[ \t]*"observer"', re.A)
+_TEXT_RX = re.compile(r'"((?:[^"\\\n]|\\.)*)"', re.A)   # every quoted string, wherever it stands
 
 
 def normalise(source: str) -> str:
@@ -56,8 +56,8 @@ def normalise(source: str) -> str:
 def level_of_program(source: str, opts: dict | None = None) -> dict:
     """The level a program's own content calls for (spec/FIXES_R3.md §2): {therapist_led, memory_work, text}.
     opts: {cues: [consent records], edited: bool}. text is the program's spoken and shown words, for Spine flags."""
-    src, o = normalise(source), opts or {}
-    tiers = {str(c.get("id")): str(c.get("tier") or "") for c in o.get("cues") or []}
+    src, o = S.fold(source), opts or {}
+    tiers = {S.fold(c.get("id")): str(c.get("tier") or "") for c in o.get("cues") or []}
     led = bool(_TIER_RX.search(src)) or "# rsos-level: clinician_led" in src
     led = led or any(tiers.get(i, "") in CLINICIAN_TIERS for i in _CUE_RX.findall(src))
     memory = "# rsos-memory: yes" in src

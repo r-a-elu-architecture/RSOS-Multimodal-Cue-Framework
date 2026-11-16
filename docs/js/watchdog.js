@@ -23,14 +23,14 @@
     if (["plan", "session"].includes(a.kind) || a.programmed || ["device", "agent"].includes(a.trigger) || ["practitioner", "agent"].includes(a.source)) return "structured";
     return "self_guided";
   }
-  // ASCII-only patterns on text with normalised line ends, identical in both languages (FIXES_R4 §2)
-  const TIER_RX = /PROTOCOL[ \t]+tier(414|420|439|440)(?![0-9])|^[ \t]*#.*(?<![A-Za-z0-9_])Tier[ \t]+(414|420|439|440)(?![A-Za-z0-9_])/im;
-  const CUE_RX = /MARK[ \t]+"programmed:([A-Za-z0-9_-]+)"/g, OBSERVER_RX = /(?<![A-Za-z0-9_])MODE[ \t]+"observer"/i;
+  // ASCII-only patterns on folded text (S.fold), identical in both languages (FIXES_R4 §2, FIXES_R5 §3)
+  const TIER_RX = /protocol[ \t]*tier(414|420|439|440)(?![0-9])|^[ \t]*#.*(?<![a-z0-9_])tier[ \t]*(414|420|439|440)(?![a-z0-9_])/m;
+  const CUE_RX = /mark[ \t]*"programmed:([^"\n]*)"/g, OBSERVER_RX = /(?<![a-z0-9_])mode[ \t]*"observer"/;
   const TEXT_RX = /"((?:[^"\\\n]|\\.)*)"/g;   // every quoted string, wherever it stands
   const normalise = s => String(s || "").replace(/\r\n?|\u2028|\u2029/g, "\n");
   function levelOfProgram(source, opts) {   // FIXES_R3 §2: the level a program's own content calls for
-    const src = normalise(source), o = opts || {}, tiers = {};
-    for (const c of o.cues || []) tiers[String(c.id)] = String(c.tier || "");
+    const src = S.fold(source), o = opts || {}, tiers = {};
+    for (const c of o.cues || []) tiers[S.fold(c.id)] = String(c.tier || "");
     let led = TIER_RX.test(src) || src.includes("# rsos-level: clinician_led");
     for (const m of src.matchAll(CUE_RX)) if (CLINICIAN_TIERS.includes(tiers[m[1]] || "")) led = true;
     let memory = src.includes("# rsos-memory: yes");

@@ -3,7 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.19.0"></script>
-<script src="js/outlet.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.20.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Therapist sessions — RSOS</title>
@@ -134,7 +134,7 @@ header.top nav a{font-size:.88rem}
 <main>
   <h1>Run a session with RSOS</h1>
   <p class="lede">A structured session with your client's own nodes: what to say, what to do and what to measure at each step, the stop rules, the practice plan for between sessions, and a session record you can keep or add to research. RSOS supports your clinical judgement; it does not replace it.</p>
-  <p class="hint">Also on this page: <a href="#copilot">the decision matrix and copilot</a>, <a href="#levels">levels and the five-step chain</a>, <a href="#core">Core Transformation</a>, <a href="#rescript">re-living with the symbol</a>, <a href="#overrides">overrides between sessions</a>, <a href="#craving">craving and context triggers</a>, <a href="#types">typology from speech</a>, <a href="#timeline">the life timeline</a>, <a href="#contexts">contexts and the setting</a>.</p>
+  <p class="hint">Also on this page: <a href="#copilot">the decision matrix and copilot</a>, <a href="#levels">levels and the five-step chain</a>, <a href="#core">Core Transformation</a>, <span data-memory-work><a href="#rescript">re-living with the symbol</a>, </span><a href="#overrides">overrides between sessions</a>, <a href="#craving">craving and context triggers</a>, <a href="#types">typology from speech</a>, <a href="#timeline">the life timeline</a>, <a href="#contexts">contexts and the setting</a>.</p>
 
   <section class="panel" id="setup">
     <h2>Set up</h2>
@@ -282,10 +282,10 @@ header.top nav a{font-size:.88rem}
   <p class="hint" style="margin-top:22px">How well these measures work on simulated sessions: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/copilot.md">rsso/results/copilot.md</a>. Protocol kit for real studies: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/COPILOT_PROTOCOL_KIT.md">COPILOT_PROTOCOL_KIT.md</a>.</p>
 </main>
 <footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. Research and development framework; not a medical device. Clinical use follows the practitioner's own protocol.<a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
-<script src="js/safety.js?v=1.19.0"></script>
+<script src="js/safety.js?v=1.20.0"></script>
 <script src="js/consent.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/watchdog.js?v=1.20.0"></script>
 <script src="js/guard.js?v=1.19.0"></script>
 <script src="js/thera.js?v=1.16.0"></script>
 <script>
@@ -355,17 +355,20 @@ $("begin").addEventListener("click", () => {
   if (!RSOSGuard.ok(d)) { $("msg").className = "msg err"; $("msg").textContent = "Held by the Watchdog: " + RSOSGuard.say(d); return; }
   const p = plan();
   cur = Object.assign(T.sessionPlan(P, id, p), { client: $("client").value.trim(), started: now(), at: 0, plan: p, led, screenOk: false, protocol: id, memory: id === "trauma_observer" });
-  RSOSOutlet.adopt({ kind: "session", protocol: "session_" + id, therapist_led: pr.therapist_led, memory_work: id === "trauma_observer", source: "practitioner" },
+  if (thHandle !== null) RSOSOutlet.close(thHandle);
+  thHandle = RSOSOutlet.adopt({ kind: "session", protocol: "session_" + id, therapist_led: pr.therapist_led, memory_work: id === "trauma_observer", source: "practitioner" },
     Object.assign({ clinician_present: true, screening_recorded: led && CLINV && scr === "no" }, DOMAIN()), { seconds: 7200 });
   save(); show();
 });
+let thHandle = null;   // this page's session (FIXES_R5 O2)
 // Resuming an open session asks the Watchdog again (FIXES_R3 R3-b): a domain or state change ends the session view.
 function resume() {
   const id = cur.protocol || (cur.id || "").replace(/^session_/, "");
   const d = RSOSGuard.ask({ kind: "session", protocol: "session_" + id, therapist_led: !!cur.led, memory_work: !!cur.memory, source: "practitioner" },
     Object.assign({ clinician_present: true, screening_recorded: !!cur.led && !!cur.screenOk }, DOMAIN()));
   if (!RSOSGuard.ok(d)) { cur.ended = now(); save(); $("msg").className = "msg err"; $("msg").textContent = "The open session was ended. Held by the Watchdog: " + RSOSGuard.say(d); return; }
-  RSOSOutlet.adopt({ kind: "session", protocol: "session_" + id, therapist_led: !!cur.led, source: "practitioner" }, Object.assign({ clinician_present: true, screening_recorded: !!cur.led }, DOMAIN()), { seconds: 7200 });
+  if (thHandle !== null) RSOSOutlet.close(thHandle);
+  thHandle = RSOSOutlet.adopt({ kind: "session", protocol: "session_" + id, therapist_led: !!cur.led, source: "practitioner" }, Object.assign({ clinician_present: true, screening_recorded: !!cur.led }, DOMAIN()), { seconds: 7200 });
   show();
 }
 function show() {
@@ -472,7 +475,7 @@ $("dl").addEventListener("click", () => {
 });
 $("again").addEventListener("click", () => { cur = null; store.set("rsos.thera.current", null); $("done").hidden = true; $("setup").hidden = false; setup(); });
 </script>
-<script src="js/ugcl.js?v=1.19.0"></script>
+<script src="js/ugcl.js?v=1.20.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/trial.js?v=1.18.0"></script>
 <script src="js/copilot.js?v=1.20.0"></script>

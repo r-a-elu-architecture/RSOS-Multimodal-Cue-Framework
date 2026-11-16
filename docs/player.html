@@ -3,7 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.19.0"></script>
-<script src="js/outlet.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.20.0"></script>
 <script src="js/voice.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -339,14 +339,15 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/rsx.js?v=1.13.0"></script>
 <script src="js/hrs.js?v=1.13.0"></script>
 <script src="js/memstack.js?v=1.13.0"></script>
-<script src="js/ugcl.js?v=1.19.0"></script>
+<script src="js/ugcl.js?v=1.20.0"></script>
 <script src="js/consent.js?v=1.16.0"></script>
 <script src="js/nodes.js?v=1.16.0"></script>
-<script src="js/safety.js?v=1.19.0"></script>
+<script src="js/safety.js?v=1.20.0"></script>
 <script src="js/linx.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/watchdog.js?v=1.20.0"></script>
 <script src="js/guard.js?v=1.19.0"></script>
+<script src="js/lineage.js?v=1.20.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -611,7 +612,7 @@ function askCheckin(after) {
     d.returnValue = ""; d.showModal();
   });
 }
-let pendingTrigger = "self", offerShownAt = 0;
+let pendingTrigger = "self", offerShownAt = 0, runHandle = null;
 $("trig").addEventListener("change", () => { $("latBox").hidden = !$("trig").value || pendingTrigger === "device"; });
 async function start(trigger) {
   if (!timeline || run) return;
@@ -624,14 +625,20 @@ async function start(trigger) {
     $("compileMsg").className = "err"; $("compileMsg").textContent = "Recorded: practice continues under the clinician-led protocol; the clinician resumes it."; drawSafety && drawSafety(); return;
   }
   // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
+  if (!RSOSLineage.loaded) await RSOSLineage.ready;
+  const held = v => { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(v.watchdog); };
   const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
-  if (verdict.decision !== "allow") { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(verdict.watchdog); return; }
-  RSOSOutlet.adopt(verdict.action, verdict.extra, { seconds: timeline.duration_ms / 1000 + 120 });   // the run's output session (FIXES_R3 §1)
+  if (verdict.decision !== "allow") return held(verdict);
   pendingTrigger = trigger;
   const deviceLatency = trigger === "device" && offerShownAt ? (performance.now() - offerShownAt) / 1000 : null;
   $("offer").hidden = true;
   ensureAudio();
   const before = await askCheckin(false);
+  // The run's output session opens after the check-in, with the Watchdog asked again then (FIXES_R5 O4).
+  const now = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
+  if (now.decision !== "allow") return held(now);
+  if (runHandle !== null) RSOSOutlet.close(runHandle);
+  runHandle = RSOSOutlet.adopt(now.action, now.extra, { seconds: timeline.duration_ms / 1000 + 120 });
   const firstTier = timeline.events.find(e => e.kind === "tier");
   const says = sayTexts();
   const voice = !$("optVoice").checked || !says.length ? "none" : says.some(t => store.get(recKey(t), null)) ? "own" : "computer";
@@ -645,7 +652,7 @@ async function start(trigger) {
 window.addEventListener("rsos-outlet-hold", () => { if (run) { $("compileMsg").className = "err"; $("compileMsg").textContent = "Stopped by the Watchdog: the session state or domain no longer allows this program."; finish(false); } });
 async function finish(completed) {
   if (!run) return;
-  RSOSOutlet.close();
+  RSOSOutlet.close(runHandle); runHandle = null;
   cancelAnimationFrame(run.raf);
   const stoppedAt = completed ? "" : (run.phase ? run.phase.name : "");
   const ended = runEnd(pending);
@@ -694,18 +701,12 @@ const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RS
 const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());
 // What the run carries (FIXES_R1 W-4, S-4b): a clinician-led plan's observer node is clinician-led memory work; a program
 // whose text differs from its built-in file is "edited" and never counts as a regulating program, whatever its name.
-// Level from where a program came from (FIXES_R4 §2): the slot's origin and any text loaded into it (a cue) keep their
-// level however the text is edited; and the same text carries the same level whatever slot it is in.
-let loadOrigin = null;   // {cue: id} when a programmed cue was loaded into the editor; cleared when another program is chosen
-const unite = (f, g) => { if (g.therapist_led) f.therapist_led = true; if (g.memory_work) f.memory_work = true; return f; };
-const normText = t => String(t || "").replace(/\r\n?|\u2028|\u2029/g, "\n").split("\n").filter(l => !/^[ \t]*#/.test(l)).join(" ").replace(/[ \t\n]+/g, " ").trim();
-function planFlags(plan, i) {
-  const f = {}, n = plan && plan.nodes ? plan.nodes[i] : null; if (!n) return f;
-  const dx = (plan.dx || []).includes("depression"), memory = (((plan.intake || {}).concerns) || []).includes("ptsd") || (!!plan.therapist_led && !dx);   // FIXES_R4 LM1
-  if (memory) { f.memory_work = true; if (plan.therapist_led && n.mode === "observer") f.therapist_led = true; }
-  if (dx) f.therapist_led = true;   // spec/LOW_MOOD.md: every node of a diagnosed-depression plan
-  return f;
-}
+// Level from where a program came from (FIXES_R4 §2) and from its compiled content wherever it goes (FIXES_R5 §2,
+// js/lineage.js): the slot's origin and a cue loaded into it keep their level however the text is edited, and a run that
+// carries an origin's distinctive content, or is mostly the same as it, inherits that origin's level.
+let loadOrigin = null;   // {cue: id} when a programmed cue was loaded into the editor
+const unite = (f, g) => RSOSLineage.unite(f, g);
+const planFlags = (plan, i) => RSOSLineage.planFlags(plan, i);
 function cueFlags(id) { const c = (store.get("rsos.cues", []) || []).find(x => String(x.id) === String(id)); return c ? RSOSWatchdog.levelOfProgram(RSOSConsent.cueProgram(c), { cues: [c] }) : {}; }
 function originFlags(p) {
   const f = {}, plan = store.get("rsos.plan", null);
@@ -715,23 +716,16 @@ function originFlags(p) {
   if (loadOrigin && loadOrigin.cue) unite(f, cueFlags(loadOrigin.cue));
   return f;
 }
-function sameTextFlags(src) {
-  const n = normText(src), f = {}; if (!n) return f;
-  const plan = store.get("rsos.plan", null);
-  if (plan && plan.nodes) plan.nodes.forEach((x, i) => { if (normText(sources["plan:" + i]) === n) unite(f, planFlags(plan, i)); });
-  (store.get("rsos.thera.programs", []) || []).forEach(it => { if (normText(it.program) === n) unite(f, originFlags("thera:" + it.key)); });
-  (store.get("rsos.cues", []) || []).forEach(c => { if (normText(RSOSConsent.cueProgram(c)) === n) unite(f, cueFlags(c.id)); });
-  return f;
-}
 function runFlags() {
-  const p = $("program").value, f = unite({}, originFlags(p));
+  const p = $("program").value, f = unite({}, originFlags(p)), src = effectiveSource();   // the source the run compiles, futures included (R5-6)
   if (timeline && (sources[p] !== $("source").value || (PROTOCOLS.includes(p) && timeline.protocol !== p))) f.edited = true;
-  unite(f, sameTextFlags($("source").value));
+  unite(f, RSOSLineage.flags(src, { edited: !!f.edited }));
   // Level and words from the program's own content (FIXES_R3 §2): clinician tiers, programmed cues, markers, edited observer text.
-  const lv = RSOSWatchdog.levelOfProgram($("source").value, { cues: store.get("rsos.cues", []), edited: !!f.edited });
+  const lv = RSOSWatchdog.levelOfProgram(src, { cues: store.get("rsos.cues", []), edited: !!f.edited });
   if (lv.therapist_led) f.therapist_led = true;
   if (lv.memory_work) f.memory_work = true;
-  if (lv.text) f.text = lv.text;
+  const said = RSOSLineage.texts(RSOSLineage.compile(src));   // the compiled words too: escapes resolved (FIXES_R5 §3)
+  if (lv.text || said) f.text = (lv.text + " " + said).trim();
   return f;
 }
 const clinLedRun = () => !!timeline && RSOSWatchdog.level(Object.assign({ kind: "run", protocol: timeline.protocol }, runFlags())) === "clinician_led";

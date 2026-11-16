@@ -1,60 +1,80 @@
-/* The output gate (spec/FIXES_R3.md §1, spec/FIXES_R4.md §1). Every channel that reaches the person goes through
- * here: sound to the speakers, unmuted media, speech, vibration and the wristband's START. Output goes through only
- * inside an allowed session. An explicit session (a run, an offer, a code, a therapist session) that turns to hold or
- * expires stays held: no fallback. The page's declared session (data-outlet-kind / -protocol / -trigger on <body>) is
- * used only when there is no explicit session. While a session is live the gate re-checks every second and on any
- * storage change in any tab; when the decision turns to hold it stops everything that is playing and dispatches
- * "rsos-outlet-hold". Stop calls always work. Fails closed without the safety scripts. Browser: window.RSOSOutlet.
+/* The output gate (spec/FIXES_R3.md §1, FIXES_R4.md §1, FIXES_R5.md §1). Every channel that reaches the person goes
+ * through here: sound to the speakers, unmuted media, speech, vibration and the wristband's START. The gate keeps a list
+ * of sessions (a run, an offer, a code, a therapist session); open() and adopt() return a handle and close(handle)
+ * removes that one. A refused open() changes no existing session. Output passes only when no session is held and a live
+ * session allows it; the page's declared session (data-outlet-* on <body>) is used only when there is no session at all.
+ * Every check uses the stricter of the session's saved domain and the live RSOSDomain. Live sessions are re-checked every
+ * second and on any storage change in any tab; when one turns to hold, everything playing stops and "rsos-outlet-hold"
+ * is dispatched. An expired session is removed; a held one stays until its page closes it. Stop calls always work.
+ * Fails closed without the safety scripts. Browser: window.RSOSOutlet.
  */
 (function (root) {
   "use strict";
   if (typeof window === "undefined") return;
   const get = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
-  let session = null;                    // {action, extra, until, declared, held}
+  const sessions = [];                   // {id, action, extra, until, declared, held}
+  let nextId = 1;
   const refused = new Set(), live = new Set(), media = new Set(), gates = new Map();
   const ready = () => !!(root.RSOSWatchdog && root.RSOSGuard && root.RSOSSafety && root.RSOSContain);
   const orig = {};
+  const RANK = { self_guided: 0, structured: 1, clinician_led: 2 };
+  const rank = l => (l in RANK ? RANK[l] : RANK.structured);
 
+  // The stricter of the session's saved domain and the live one (FIXES_R5 O1).
   function ctxFor(extra) {
     const x = extra || {}, D = root.RSOSDomain || {};
+    const levels = [x.max_level, D.max_level].filter(v => v !== undefined && v !== null);
+    const max_level = levels.length ? levels.reduce((a, b) => (rank(b) < rank(a) ? b : a)) : null;
+    const mwa = [x.memory_work_allowed, D.memory_work_allowed].filter(v => v !== undefined && v !== null);
     return { contain: get("rsos.contain", null), safety: get("rsos.safety", null), timeline: null, now: Date.now() / 1000,
-      max_level: x.max_level || D.max_level || null, clinician_present: !!x.clinician_present, screening_recorded: !!x.screening_recorded,
+      max_level: max_level && !(max_level in RANK) ? "structured" : max_level,
+      clinician_present: !!x.clinician_present, screening_recorded: !!x.screening_recorded,
       consents: get("rsos.consents", []), plan_protocols: x.plan_protocols === undefined ? null : x.plan_protocols,
-      memory_work_allowed: x.memory_work_allowed !== undefined ? x.memory_work_allowed : (D.memory_work_allowed === undefined ? null : D.memory_work_allowed) };
+      memory_work_allowed: mwa.length ? mwa.every(Boolean) : null };
+  }
+  function add(action, extra, seconds, declared) {
+    const s = { id: nextId++, action, extra: extra || {}, until: Date.now() + (seconds || 900) * 1000, declared: !!declared, held: false };
+    sessions.push(s); refused.clear(); setAudio(sessions.every(t => !t.held)); return s.id;
   }
   function open(action, extra, opts) {
     const o = opts || {};
-    if (!ready()) return { decision: "hold", reasons: [{ rule: "outlet", virtue: "jin", text: "The safety scripts are not loaded on this page.", resolve: "none" }], opened: false };
-    const r = root.RSOSGuard.ask(action, extra || {});
+    if (!ready()) return { decision: "hold", reasons: [{ rule: "outlet", virtue: "jin", text: "The safety scripts are not loaded on this page.", resolve: "none" }], opened: false, handle: null };
+    const c = ctxFor(extra);   // asked through RSOSGuard (logged), with the stricter domain (O1)
+    const r = root.RSOSGuard.ask(action, Object.assign({}, extra || {}, { max_level: c.max_level, memory_work_allowed: c.memory_work_allowed }));
     const ok = r.decision === "allow" || (r.decision === "ask" && !!o.confirmed);
-    session = ok ? { action, extra: extra || {}, until: Date.now() + (o.seconds || 900) * 1000, declared: !!o.declared, held: false } : null;
-    refused.clear(); setAudio(ok);
-    return Object.assign({}, r, { opened: ok });
+    const handle = ok ? add(action, extra, o.seconds, o.declared) : null;   // a refused open changes nothing (FIXES_R5 O2)
+    return Object.assign({}, r, { opened: ok, handle });
   }
-  function adopt(action, extra, opts) {
-    session = { action, extra: extra || {}, until: Date.now() + ((opts || {}).seconds || 900) * 1000, declared: false, held: false };
-    refused.clear(); setAudio(true);
+  function adopt(action, extra, opts) { return add(action, extra, (opts || {}).seconds, false); }
+  function close(handle) {
+    if (handle === undefined) sessions.length = 0;
+    else { const i = sessions.findIndex(s => s.id === handle); if (i >= 0) sessions.splice(i, 1); }
+    setAudio(sessions.length > 0 && sessions.every(s => !s.held));
   }
-  function close() { session = null; setAudio(false); }
   function declared() {
     const b = document.body; if (!b || !b.dataset.outletKind) return null;
     return { kind: b.dataset.outletKind, protocol: b.dataset.outletProtocol || b.dataset.outletKind, trigger: b.dataset.outletTrigger || "self", source: "person" };
   }
-  // Is the current session allowed now? An explicit session that fails stays held (FIXES_R4 G1).
+  // Re-check every live session. Expired ones are removed (O3); one that turns to hold holds everything.
   function check() {
-    if (!session || session.held) return false;
-    if (!ready() || session.until <= Date.now()) return hold();
-    const r = root.RSOSWatchdog.watch(session.action, ctxFor(session.extra));
-    return r.decision === "hold" ? hold() : true;
+    const now = Date.now();
+    for (let i = sessions.length - 1; i >= 0; i--) if (!sessions[i].held && sessions[i].until <= now) sessions.splice(i, 1);
+    if (sessions.some(s => s.held)) return false;
+    if (!sessions.length) return false;
+    if (!ready()) { sessions.forEach(s => { s.held = true; }); return hold(); }
+    let bad = false;
+    for (const s of sessions) if (root.RSOSWatchdog.watch(s.action, ctxFor(s.extra)).decision === "hold") { s.held = true; bad = true; }
+    return bad ? hold() : true;
   }
   function hold() {
-    if (session && !session.declared) session.held = true; else session = null;
+    for (let i = sessions.length - 1; i >= 0; i--) if (sessions[i].declared) sessions.splice(i, 1);   // a declared session is simply dropped
     stopAll();
     try { root.dispatchEvent(new CustomEvent("rsos-outlet-hold")); } catch (e) {}
     return false;
   }
   function permit(channel) {
-    if (session) return check() ? true : refuse(channel);  // explicit or declared: no fallback while one exists
+    if (sessions.length) { if (check()) return true; if (sessions.length) return refuse(channel); }
+    if (sessions.some(s => s.held)) return refuse(channel);
     const a = declared();                                  // only when there is no session at all
     if (a && open(a, {}, { confirmed: a.trigger === "self", declared: true }).opened && check()) return true;
     return refuse(channel);
@@ -81,9 +101,11 @@
     setAudio(false);
   }
   function setAudio(on) { for (const g of gates.values()) { try { g.gain.value = on ? 1 : 0; } catch (e) {} } }
-  // A live session is re-checked every second and on storage changes in any tab (FIXES_R4 G2, G3).
-  setInterval(() => { if (session && !session.held) check(); }, 1000);
-  root.addEventListener("storage", () => { if (session && !session.held) check(); });
+  const liveOnes = () => sessions.some(s => !s.held);
+  // Live sessions are re-checked every second and on storage changes in any tab (FIXES_R4 G2, G3).
+  setInterval(() => { if (liveOnes()) check(); }, 1000);
+  root.addEventListener("storage", () => { if (liveOnes()) check(); });
+  const frozen = s => s ? Object.freeze(JSON.parse(JSON.stringify(s))) : null;   // copies (FIXES_R5 O5)
 
   /* ---- wrap the channels ---- */
   const stopPattern = p => p === 0 || (Array.isArray(p) && (p.length === 0 || p.every(x => !x)));
@@ -122,7 +144,7 @@
       if (dest instanceof AudioDestinationNode && !this.__rsosGate) {
         const ctx = dest.context;
         let g = gates.get(ctx);
-        if (!g) { g = ctx.createGain(); g.__rsosGate = true; g.gain.value = session && !session.held ? 1 : 0; cn.call(g, dest); gates.set(ctx, g); }
+        if (!g) { g = ctx.createGain(); g.__rsosGate = true; g.gain.value = sessions.length && sessions.every(t => !t.held) ? 1 : 0; cn.call(g, dest); gates.set(ctx, g); }
         const args = Array.prototype.slice.call(arguments); args[0] = g;
         return cn.apply(this, args);
       }
@@ -130,6 +152,7 @@
     };
   }
   root.RSOSOutlet = { open, adopt, close, ensure: () => permit("check"), permit, stopAll,
-    active: () => !!(session && !session.held && check()), session: () => session,
-    gains: () => Array.from(gates.values()).map(g => g.gain.value) };   // read-only, for tests
+    active: () => liveOnes() && check(),
+    session: () => frozen(sessions[sessions.length - 1]), sessions: () => sessions.map(frozen),
+    gains: () => Array.from(gates.values()).map(g => g.gain.value) };   // copies, for tests
 })(typeof window !== "undefined" ? window : globalThis);

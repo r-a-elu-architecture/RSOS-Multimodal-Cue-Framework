@@ -3,7 +3,7 @@
 <head>
 <script src="js/devmode.js"></script>
 <script src="js/profiles.js?v=1.19.0"></script>
-<script src="js/outlet.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.20.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Safety and governance — RSOS</title>
@@ -180,11 +180,11 @@ header.top nav a{font-size:.88rem}
   <div class="panel log"><table id="log"><thead><tr><th>When</th><th>What</th><th>Decision</th><th>Why</th></tr></thead><tbody></tbody></table></div>
 </main>
 <footer>CONTAIN is <code>rsso/rsso/contain.py</code>, identically <code>docs/js/contain.js</code> (tested); the runtime refuses what it blocks, and the conformance suite checks it (C14, C15). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CONTAIN.md">spec/CONTAIN.md</a>.</footer>
-<script src="js/safety.js?v=1.19.0"></script>
+<script src="js/safety.js?v=1.20.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/watchdog.js?v=1.20.0"></script>
 <script src="js/guard.js?v=1.19.0"></script>
-<script src="js/ugcl.js?v=1.19.0"></script>
+<script src="js/ugcl.js?v=1.20.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -337,15 +337,14 @@ draw();
     store.set("rsos.safety", st); $("sfNote").textContent = r.transition ? "" : note; draw(r.messages);
   }
   // Self-checks are kept (spec/LOW_MOOD.md §2): with a low energy or mood plan, 3 or more checks of intensity 7 or more
-  // in 7 days recommend involving a practitioner.
+  // within the last 7 days, on any days, recommend involving a practitioner (the registered count, restored by FIXES_R5 R5-8).
   function escalate() {
     const plan = store.get("rsos.plan", null);
     if (!plan || !(((plan.intake || {}).concerns) || []).includes("depression")) return;
-    // 3 or more different days within 7 days (spec/LOW_MOOD.md §2, amended by FIXES_R4)
-    const week = Date.now() - 7 * 86400000, n = new Set(store.get("rsos.selfchecks", []).filter(c => c.at >= week && c.intensity !== null && c.intensity >= 7).map(c => new Date(c.at).toDateString())).size;
+    const week = Date.now() - 7 * 86400000, n = store.get("rsos.selfchecks", []).filter(c => c.at >= week && c.intensity !== null && c.intensity >= 7).length;
     if (n < 3) return;
     if (!plan.practitioner_recommended) { plan.practitioner_recommended = Date.now(); store.set("rsos.plan", plan); }
-    $("sfMsgs").append(mk("p", "Your intensity ratings have stayed high on several days this week. For the low energy or mood work in your plan, involving a practitioner is recommended."));
+    $("sfMsgs").append(mk("p", "Your intensity ratings have been high several times this week. For the low energy or mood work in your plan, involving a practitioner is recommended."));
   }
   $("sfSave").addEventListener("click", () => {
     const iv = $("sfInt").value, sl = $("sfSleep").value;

@@ -60,13 +60,7 @@ HARM_MAX = 0.3
 
 INTENSITY_MECHANISMS = {"temperature_extreme", "pain", "breath_holding_extreme", "sleep_deprivation"}
 # Action categories allowed in each safety mode (see safety.py). NORMAL allows everything the Spine allows.
-MODE_ALLOWED = {
-    "NORMAL": {"module_work", "deep_processing", "override_cue", "regulating_cue", "practical_support",
-               "crisis_response", "review", "logging"},
-    "STABILISE": {"regulating_cue", "practical_support", "review", "logging", "crisis_response"},
-    "PRACTICAL_CRISIS": {"practical_support", "regulating_cue", "logging", "crisis_response"},
-    "CRISIS": {"crisis_response", "logging"},
-}
+from .safety import MODE_ALLOWED  # noqa: E402  (one rule set with the person side: rsso/rsso/safety.py)
 
 
 def spine_check(p: dict) -> dict:

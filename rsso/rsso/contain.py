@@ -11,7 +11,8 @@ engine. docs/js/contain.js is identical (tested).
   drift(runs, protocol)      whether a program or node stops helping or starts to harm
   escalation(...)            when practice must pause device offers and point to a therapist or crisis help
   review(state, ...)         the safety state after new runs and events: drift quarantines, escalation
-  decide(action, state, ...) allow or block, with every reason (the gate every module asks before acting)
+  decide(action, state, ...) allow or block, with every reason (the gate every module asks before acting);
+                             with a safety state it also asks the safety mode in force (rsso.safety, §9)
   release(state, ...)        restore a quarantined program: by the person, or by the therapist when harm was involved
   rollback(history)          the previous approved node plan
 
@@ -22,6 +23,8 @@ from __future__ import annotations
 
 import copy
 import math
+
+from . import safety as SAFE
 
 ENVELOPE = {
     "haptic_amp_max": 0.6,          # absolute vibration strength (0..1); programs set their own lower limit
@@ -210,9 +213,11 @@ def review(state: dict | None, runs: list[dict], adverse: list[dict] | None = No
     return st, changes
 
 
-def decide(action: dict, state: dict | None, timeline: dict | None = None, now: float = 0.0) -> dict:
+def decide(action: dict, state: dict | None, timeline: dict | None = None, now: float = 0.0,
+           safety: dict | None = None) -> dict:
     """The gate every module asks before acting. action: {kind: run | offer | cue | plan, protocol, trigger,
-    therapist_led, therapist_present}. Returns {decision: allow | block, reasons[]}."""
+    therapist_led, therapist_present}. With a safety state (rsso.safety, §9), the mode in force is checked last.
+    Returns {decision: allow | block, reasons[]}."""
     st = state or new_state()
     reasons = []
     if timeline is not None:
@@ -230,6 +235,10 @@ def decide(action: dict, state: dict | None, timeline: dict | None = None, now: 
             reasons.append("therapist-led work is paused unless a therapist is present: " + "; ".join(esc["reasons"]))
         if action.get("kind") == "plan" and not action.get("therapist_present"):
             reasons.append("a new plan needs a therapist present while practice is paused: " + "; ".join(esc["reasons"]))
+    if safety is not None:
+        m = SAFE.allowed(safety, action)
+        if not m["ok"]:
+            reasons.append(m["reason"])
     return {"decision": "block" if reasons else "allow", "reasons": reasons}
 
 

@@ -91,7 +91,7 @@ goal (the mission: healing, transforming, evolving, signalling to others, for th
 ### 3.1 Safety layer (step R2, 14 November 2026)
 
 Rules derived from a forensic review of a long human–AI record; they are part of the Spine and agents cannot edit them.
-Code: `rsxv/safety.py`, Spine flags in `rsxv/agents.py`. Tests: `tests/test_safety.py`.
+Code: `rsxv/safety.py`, Spine flags in `rsxv/agents.py`. Tests: `tests/test_safety.py`. Since S1 (16 November 2026, spec/CONTAIN.md §9) the rules live in `rsso/rsso/safety.py` (re-exported here) and run identically on the person-facing pages (`docs/js/safety.js`).
 
 **Spine flags (blocked whatever the requester asks):** release through temperature extremes, pain, extreme breath-holding
 or sleep deprivation (Jin); population ranks or percentiles about the person (Makoto: report the person's own measures);

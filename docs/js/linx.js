@@ -6,6 +6,7 @@
 (function (root) {
   "use strict";
   const N = typeof module !== "undefined" && module.exports ? require("./nodes.js") : root.RSOSNodes;
+  const SAFE = typeof module !== "undefined" && module.exports ? require("./safety.js") : root.RSOSSafety;
   const SCHEMA = "rsos-linx-proposal/1";
   const LIMITS = { nodes: 6, frames: 5, contexts: 3, triggers: 10, notes: 5, text: 160, frame: 120, sense: 80, note: 240 };
   const CONCERN_WORDS = [
@@ -288,6 +289,8 @@
       if (typeof v !== "string" || !v.trim()) return null;
       if (len(v) > limit) { rejected.push({ path, reason: "longer than " + limit + " characters" }); return null; }
       if (UNSAFE.test(v)) { rejected.push({ path, reason: "unsafe wording: held for the person and their therapist" }); return null; }
+      const flags = SAFE.spineFlags(v);
+      if (flags.length) { rejected.push({ path, reason: "Spine: " + flags.map(f => f.text).join("; ") }); return null; }
       return v.trim();
     };
     for (const c of proposal.concerns || []) { if (c in N.CONCERNS) patch.concerns.push(c); else rejected.push({ path: "concerns", reason: "unknown concern '" + c + "'" }); }

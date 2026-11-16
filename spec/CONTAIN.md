@@ -115,6 +115,7 @@ All CONTAIN state stays in the browser:
 - `rsos.contain.log`: the decisions;
 - `rsos.adverse`: reported events, from the player's "Something felt wrong" or the safety page;
 - `rsos.screens`: screening answers from the node studio;
+- `rsos.safety`: the safety mode in force, its last check-in and its history (§9);
 - `rsos.plan.history`: approved node plans.
 
 Reported events are included in a research contribution only with the `safety` scope

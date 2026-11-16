@@ -327,13 +327,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/ugcl.js?v=1.13.0"></script>
 <script src="js/consent.js?v=1.13.0"></script>
 <script src="js/nodes.js?v=1.13.0"></script>
-<script src="js/linx.js?v=1.13.0"></script>
-<script src="js/contain.js?v=1.13.0"></script>
+<script src="js/safety.js?v=1.15.0"></script>
+<script src="js/linx.js?v=1.15.0"></script>
+<script src="js/contain.js?v=1.15.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
 "use strict";
-const BUILD = "1.13.0";
+const BUILD = "1.15.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
   "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
@@ -659,7 +660,7 @@ function safetyLog(action, d) {
   store.set("rsos.contain.log", log.slice(-200));
 }
 function safetyDecide(action) {
-  const d = RSOSContain.decide(action, store.get("rsos.contain", RSOSContain.newState()), action.kind === "run" ? timeline : null, Date.now() / 1000);
+  const d = RSOSContain.decide(action, store.get("rsos.contain", RSOSContain.newState()), action.kind === "run" ? timeline : null, Date.now() / 1000, store.get("rsos.safety", null));
   safetyLog(action, d); return d;
 }
 function safetyReview() {
@@ -671,7 +672,9 @@ function safetyReview() {
 function drawSafety(changes) {
   const st = store.get("rsos.contain", RSOSContain.newState()), paused = Object.keys(st.quarantine);
   let t = "All clear.";
-  if (st.escalation.active) t = "Device offers are paused: " + st.escalation.reasons.join("; ") + ". Please talk with your therapist. If you are at risk of harm, contact local emergency services or a crisis line now.";
+  const sm = store.get("rsos.safety", null);
+  if (sm && sm.mode !== "NORMAL") t = RSOSSafety.MODE_TEXT[sm.mode] + " See the safety page for the check-in and what this mode allows. " + (sm.mode === "CRISIS" ? RSOSSafety.HELP : "");
+  else if (st.escalation.active) t = "Device offers are paused: " + st.escalation.reasons.join("; ") + ". Please talk with your therapist. If you are at risk of harm, contact local emergency services or a crisis line now.";
   else if (paused.length) t = "Paused: " + paused.join(", ") + ". See the safety page for why and how to restore.";
   $("safetyStatus").textContent = t;
   if (changes && changes.some(c => c.kind === "quarantine")) $("logSummary").textContent += " CONTAIN paused " + changes.filter(c => c.kind === "quarantine").map(c => c.protocol).join(", ") + ": " + changes.filter(c => c.kind === "quarantine").map(c => c.text).join("; ") + ".";
@@ -1059,7 +1062,7 @@ $("cueSave").addEventListener("click", () => {
   const screen = (document.querySelector('input[name="cueScreen"]:checked') || {}).value;
   if (t && t.mode === "therapist-led") {
     if (!$("cueTherapist").checked) { msg.textContent = "This tier is therapist-led: save it during a session with your therapist present."; return; }
-    if (screen === "yes") { msg.textContent = "Please do not run this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist."; return; }
+    if (screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheckin({ screen: "yes" }), Date.now() / 1000)[0]); msg.textContent = "Please do not run this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist."; return; }
     if (screen !== "no") { msg.textContent = "Answer the screening question first."; return; }
   }
   const until = $("cueUntil").value ? new Date($("cueUntil").value + "T23:59:59").getTime() : null;

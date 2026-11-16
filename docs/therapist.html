@@ -276,7 +276,8 @@ header.top nav a{font-size:.88rem}
   <p class="hint" style="margin-top:22px">How well these measures work on simulated sessions: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/copilot.md">rsso/results/copilot.md</a>. Protocol kit for real studies: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/COPILOT_PROTOCOL_KIT.md">COPILOT_PROTOCOL_KIT.md</a>.</p>
 </main>
 <footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. If your client is in crisis or at risk of harm, follow your crisis procedure and contact emergency services. Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
-<script src="js/contain.js?v=1.14.0"></script>
+<script src="js/safety.js?v=1.15.0"></script>
+<script src="js/contain.js?v=1.15.0"></script>
 <script src="js/thera.js?v=1.14.0"></script>
 <script>
 "use strict";
@@ -322,7 +323,7 @@ $("begin").addEventListener("click", () => {
   const id = document.querySelector('input[name="proto"]:checked').value, pr = P[id];
   if (!$("present").checked) { $("msg").className = "msg err"; $("msg").textContent = "Therapist mode is for sessions you run with your client: confirm you are with them."; return; }
   const [cst] = K.review(store.get("rsos.contain", K.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), now());
-  const d = K.decide({ kind: "run", protocol: "session_" + id, therapist_led: pr.therapist_led, therapist_present: true }, cst, null, now());
+  const d = K.decide({ kind: "run", protocol: "session_" + id, therapist_led: pr.therapist_led, therapist_present: true }, cst, null, now(), store.get("rsos.safety", null));
   const lg = store.get("rsos.contain.log", []); lg.push({ at: Date.now(), action: "session " + id, decision: d.decision, reasons: d.reasons }); store.set("rsos.contain.log", lg.slice(-200));
   if (d.decision !== "allow") { $("msg").className = "msg err"; $("msg").textContent = "CONTAIN: " + d.reasons.join("; ") + "."; return; }
   const p = plan();
@@ -383,6 +384,7 @@ function drawCard() {
 function add(step, v, done) {
   cur = Object.assign(T.record(cur, step, Object.assign({}, v, done ? { done: true } : {}), now()), { client: cur.client, started: cur.started, at: cur.at, plan: cur.plan });
   if (v.screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: v.screen }); store.set("rsos.screens", sc.slice(-50)); }
+  if (v.screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheckin({ screen: "yes" }), Date.now() / 1000)[0]); }
   if (v.adverse && v.adverse !== "none") {
     const runs = store.get("rsos.runs", []).filter(r => Number(r.timestamp) >= cur.started), last = runs[runs.length - 1];
     const adv = store.get("rsos.adverse", []); adv.push({ ts: Date.now(), severity: v.adverse, related: "possible", resolved: false, text: "", protocol: last ? last.protocol : "" }); store.set("rsos.adverse", adv);

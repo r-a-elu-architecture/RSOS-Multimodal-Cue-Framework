@@ -58,3 +58,19 @@ the parallel ESP32_TOOLS work (`firmware/`, `firmware/BOARD_KIT.md`, `architectu
 - `check_profiles.py` exits 0; `check_all.sh` all passed.
 - Noted: the RSX-V box's arrow goes to the RSX program as registered (S6.2), not through Safety. The panel says that
   RSX-V has its own gate, and the compiled program is still gated when it plays.
+
+### Step 7 (code 6686fff)
+- `docs/data/rsxv_example.json` comes from the real bridge. Its cue program is byte-identical to the committed
+  `rsxv/examples/dragon.cue.rsx`, and regenerating it gives the same file (`test_site_catchup.py` Step 7: 2 passed;
+  `check_all.sh` regenerates it).
+- `scripts/check_site_catchup.py` (Step 7): no failures, no page errors.
+  - The three forms open with `RSX-V TIER 8 :: {DRAGON} :: (OVERRIDE)`, `PROTOCOL dragon "steady identity under
+    pressure"` and `LOAD 15 0.40`.
+  - The status line and the links to agents and results are present.
+  - The home page's menu entry opens the page, and it is marked as the current page.
+  - The home page names RSX-V.
+- The example has 63 phases, 488 timeline events and 16 device lines, and lasts 475 s at the phases' longest
+  durations.
+- The repository's menu test (`rsx/tests/test_roadmap.py`) now lists RSX-V after RSX on all 20 pages with a menu.
+  `check_profiles.py` exits 0. `check_all.sh` all passed. `rsso`: 286 passed, 1 expected failure, and 2 skipped (the
+  parallel ESP32_TOOLS tests, which need the ESP32 tools).

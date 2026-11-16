@@ -89,7 +89,33 @@ def main():
                 pg.locator("#families").screenshot(path=str(SHOTS / "results_families.png"))
             ctx.close()
 
-        steps = [("Step 6", step6), ("Step 7", step7), ("Step 8", step8)]
+        def step10():
+            ctx = b.new_context(viewport={"width": 1280, "height": 900})
+            ctx.add_init_script("""(() => { window.__out = [];
+              Navigator.prototype.vibrate = function (p) { window.__out.push(['vibrate', p]); return true; };
+              SpeechSynthesis.prototype.speak = function (u) { window.__out.push(['speak', u.text]); };
+              const st = AudioScheduledSourceNode.prototype.start; AudioScheduledSourceNode.prototype.start = function () { window.__out.push(['sound', 1]); return st.apply(this, arguments); };
+            })();""")
+            pg = ctx.new_page(); pg.on("pageerror", lambda e: errs.append("agents.html: " + str(e)))
+            pg.goto(base + "/agents.html"); pg.wait_for_timeout(1200)
+            d = json.loads((DOCS / "data" / "agents_proven.json").read_text(encoding="utf-8"))
+            first = pg.inner_text("#pvTrial")
+            pg.click("#pvNext"); second = pg.inner_text("#pvTrial"); pg.click("#pvPrev")
+            meta = pg.inner_text("#pvOut"); pg.click('#pvRepair [data-arm="local"]'); local = pg.inner_text("#pvOut")
+            t0 = d["w1"]["trials"][0]
+            expect("S10 repair panel steps and arms", [first.startswith("Trial 1 of 40"), second.startswith("Trial 2 of 40"),
+                   ("fixed" if t0["meta"]["fixed"] else "not fixed") in meta, ("not fixed" if not t0["local"]["fixed"] else "fixed") in local,
+                   pg.evaluate("document.querySelectorAll('#pvGraph rect').length"), pg.evaluate("document.querySelectorAll('#pvSteps li').length")],
+                   [True, True, True, True, 6, len(t0["local"]["repairs"])])
+            F = d["w1"]["fixed"]
+            expect("S10 counts match the file", f"meta repair fixed {F['meta']['all']}, local retry {F['local']['all']}" in pg.inner_text("#pvCount"), True)
+            expect("S10 five bars, three cards", [pg.evaluate("document.querySelectorAll('#pvBars i').length"), pg.evaluate("document.querySelectorAll('#pvCards .pv-box').length")], [5, 3])
+            expect("S10 no output to the person", pg.evaluate("window.__out.length"), 0)
+            if SHOTS:
+                pg.locator("#proven").screenshot(path=str(SHOTS / "agents_proven.png"))
+            ctx.close()
+
+        steps = [("Step 6", step6), ("Step 7", step7), ("Step 8", step8), ("Step 10", step10)]
         for name, fn in steps:
             try:
                 fn()

@@ -1,0 +1,2356 @@
+{
+ "w1": {
+  "n": 40,
+  "budget": 6,
+  "graph": {
+   "RAVEN": [],
+   "BEAR": [],
+   "EAGLE": [
+    "RAVEN",
+    "BEAR"
+   ],
+   "LEOPARD": [
+    "EAGLE"
+   ],
+   "TIGER": [
+    "EAGLE",
+    "LEOPARD"
+   ],
+   "LION": [
+    "TIGER"
+   ]
+  },
+  "modules": [
+   "perceive",
+   "decide",
+   "act"
+  ],
+  "trials": [
+   {
+    "seed": 0,
+    "cross": true,
+    "faults": [
+     [
+      "BEAR",
+      "act",
+      true
+     ],
+     [
+      "TIGER",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "decide"
+      ],
+      [
+       "BEAR",
+       "act"
+      ]
+     ],
+     "used": 4,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 1,
+    "cross": false,
+    "faults": [
+     [
+      "RAVEN",
+      "decide",
+      false
+     ],
+     [
+      "TIGER",
+      "decide",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "RAVEN",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 2,
+    "cross": true,
+    "faults": [
+     [
+      "TIGER",
+      "act",
+      true
+     ],
+     [
+      "LEOPARD",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "perceive"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 3,
+    "cross": false,
+    "faults": [
+     [
+      "TIGER",
+      "perceive",
+      false
+     ],
+     [
+      "BEAR",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "BEAR",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 4,
+    "cross": true,
+    "faults": [
+     [
+      "RAVEN",
+      "act",
+      true
+     ],
+     [
+      "LEOPARD",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 5,
+    "cross": false,
+    "faults": [
+     [
+      "TIGER",
+      "decide",
+      false
+     ],
+     [
+      "LION",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ]
+     ],
+     "used": 4,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 6,
+    "cross": true,
+    "faults": [
+     [
+      "EAGLE",
+      "act",
+      true
+     ],
+     [
+      "LEOPARD",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 7,
+    "cross": false,
+    "faults": [
+     [
+      "EAGLE",
+      "act",
+      false
+     ],
+     [
+      "RAVEN",
+      "decide",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "decide"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 8,
+    "cross": true,
+    "faults": [
+     [
+      "BEAR",
+      "act",
+      true
+     ],
+     [
+      "RAVEN",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "decide"
+      ],
+      [
+       "BEAR",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 9,
+    "cross": false,
+    "faults": [
+     [
+      "RAVEN",
+      "act",
+      false
+     ],
+     [
+      "LEOPARD",
+      "perceive",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 10,
+    "cross": true,
+    "faults": [
+     [
+      "EAGLE",
+      "act",
+      true
+     ],
+     [
+      "RAVEN",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 11,
+    "cross": false,
+    "faults": [
+     [
+      "EAGLE",
+      "act",
+      false
+     ],
+     [
+      "TIGER",
+      "perceive",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ]
+     ],
+     "used": 4,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 12,
+    "cross": true,
+    "faults": [
+     [
+      "BEAR",
+      "act",
+      true
+     ],
+     [
+      "TIGER",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 13,
+    "cross": false,
+    "faults": [
+     [
+      "LION",
+      "act",
+      false
+     ],
+     [
+      "BEAR",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "BEAR",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "BEAR",
+       "act"
+      ]
+     ],
+     "used": 4,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 14,
+    "cross": true,
+    "faults": [
+     [
+      "TIGER",
+      "act",
+      true
+     ],
+     [
+      "BEAR",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ]
+     ],
+     "used": 4,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 15,
+    "cross": false,
+    "faults": [
+     [
+      "BEAR",
+      "decide",
+      false
+     ],
+     [
+      "RAVEN",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "decide"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "BEAR",
+       "decide"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 16,
+    "cross": true,
+    "faults": [
+     [
+      "EAGLE",
+      "act",
+      true
+     ],
+     [
+      "BEAR",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "BEAR",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 17,
+    "cross": false,
+    "faults": [
+     [
+      "LION",
+      "decide",
+      false
+     ],
+     [
+      "EAGLE",
+      "perceive",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 18,
+    "cross": true,
+    "faults": [
+     [
+      "TIGER",
+      "act",
+      true
+     ],
+     [
+      "EAGLE",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "perceive"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 19,
+    "cross": false,
+    "faults": [
+     [
+      "TIGER",
+      "decide",
+      false
+     ],
+     [
+      "LION",
+      "decide",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "LION",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 20,
+    "cross": true,
+    "faults": [
+     [
+      "BEAR",
+      "act",
+      true
+     ],
+     [
+      "RAVEN",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "BEAR",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "EAGLE",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ]
+     ],
+     "used": 5,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 21,
+    "cross": false,
+    "faults": [
+     [
+      "LEOPARD",
+      "decide",
+      false
+     ],
+     [
+      "TIGER",
+      "perceive",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 22,
+    "cross": true,
+    "faults": [
+     [
+      "TIGER",
+      "act",
+      true
+     ],
+     [
+      "LEOPARD",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 23,
+    "cross": false,
+    "faults": [
+     [
+      "BEAR",
+      "perceive",
+      false
+     ],
+     [
+      "LEOPARD",
+      "perceive",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "BEAR",
+       "perceive"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 24,
+    "cross": true,
+    "faults": [
+     [
+      "TIGER",
+      "act",
+      true
+     ],
+     [
+      "LEOPARD",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "LION",
+       "act"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 25,
+    "cross": false,
+    "faults": [
+     [
+      "BEAR",
+      "perceive",
+      false
+     ],
+     [
+      "TIGER",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "BEAR",
+       "perceive"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 26,
+    "cross": true,
+    "faults": [
+     [
+      "RAVEN",
+      "act",
+      true
+     ],
+     [
+      "BEAR",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "BEAR",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 27,
+    "cross": false,
+    "faults": [
+     [
+      "LEOPARD",
+      "act",
+      false
+     ],
+     [
+      "LEOPARD",
+      "perceive",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 4,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "perceive"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 28,
+    "cross": true,
+    "faults": [
+     [
+      "EAGLE",
+      "act",
+      true
+     ],
+     [
+      "LEOPARD",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "act"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 29,
+    "cross": false,
+    "faults": [
+     [
+      "RAVEN",
+      "perceive",
+      false
+     ],
+     [
+      "RAVEN",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "perceive"
+      ],
+      [
+       "RAVEN",
+       "perceive"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "RAVEN",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 30,
+    "cross": true,
+    "faults": [
+     [
+      "BEAR",
+      "act",
+      true
+     ],
+     [
+      "LEOPARD",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "BEAR",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "perceive"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 31,
+    "cross": false,
+    "faults": [
+     [
+      "EAGLE",
+      "decide",
+      false
+     ],
+     [
+      "LION",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "decide"
+      ],
+      [
+       "LION",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 32,
+    "cross": true,
+    "faults": [
+     [
+      "LEOPARD",
+      "act",
+      true
+     ],
+     [
+      "EAGLE",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ]
+     ],
+     "used": 6,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 33,
+    "cross": false,
+    "faults": [
+     [
+      "LEOPARD",
+      "decide",
+      false
+     ],
+     [
+      "EAGLE",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "decide"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 34,
+    "cross": true,
+    "faults": [
+     [
+      "TIGER",
+      "act",
+      true
+     ],
+     [
+      "RAVEN",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 35,
+    "cross": false,
+    "faults": [
+     [
+      "TIGER",
+      "decide",
+      false
+     ],
+     [
+      "LION",
+      "perceive",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "LION",
+       "perceive"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 36,
+    "cross": true,
+    "faults": [
+     [
+      "RAVEN",
+      "act",
+      true
+     ],
+     [
+      "EAGLE",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "EAGLE",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "perceive"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 37,
+    "cross": false,
+    "faults": [
+     [
+      "LEOPARD",
+      "decide",
+      false
+     ],
+     [
+      "TIGER",
+      "decide",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "decide"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "TIGER",
+       "decide"
+      ],
+      [
+       "TIGER",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ]
+     ],
+     "used": 3,
+     "fixed": true
+    }
+   },
+   {
+    "seed": 38,
+    "cross": true,
+    "faults": [
+     [
+      "RAVEN",
+      "act",
+      true
+     ],
+     [
+      "TIGER",
+      "act",
+      true
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "decide"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "TIGER",
+       "act"
+      ]
+     ],
+     "used": 4,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LION",
+       "perceive"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LION",
+       "act"
+      ],
+      [
+       "EAGLE",
+       "decide"
+      ],
+      [
+       "LION",
+       "decide"
+      ],
+      [
+       "LEOPARD",
+       "decide"
+      ]
+     ],
+     "used": 6,
+     "fixed": false
+    }
+   },
+   {
+    "seed": 39,
+    "cross": false,
+    "faults": [
+     [
+      "LEOPARD",
+      "act",
+      false
+     ],
+     [
+      "RAVEN",
+      "act",
+      false
+     ]
+    ],
+    "meta": {
+     "repairs": [
+      [
+       "RAVEN",
+       "act"
+      ],
+      [
+       "LEOPARD",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    },
+    "local": {
+     "repairs": [
+      [
+       "LEOPARD",
+       "act"
+      ],
+      [
+       "RAVEN",
+       "act"
+      ]
+     ],
+     "used": 2,
+     "fixed": true
+    }
+   }
+  ],
+  "fixed": {
+   "meta": {
+    "all": 40,
+    "cross": 20,
+    "cross_n": 20
+   },
+   "local": {
+    "all": 20,
+    "cross": 0,
+    "cross_n": 20
+   }
+  }
+ },
+ "hswitch": {
+  "n": 30,
+  "ticks": 120,
+  "policies": [
+   {
+    "policy": "watchdog",
+    "reward": 0.0432,
+    "distress": 6.3013,
+    "switches": 2.1667
+   },
+   {
+    "policy": "rule",
+    "reward": 0.0319,
+    "distress": 2.8432,
+    "switches": 67.1
+   },
+   {
+    "policy": "rotation",
+    "reward": 0.0322,
+    "distress": 7.8391,
+    "switches": 30.0
+   },
+   {
+    "policy": "fixed",
+    "reward": 0.0376,
+    "distress": 9.8326,
+    "switches": 0.0
+   },
+   {
+    "policy": "bandit",
+    "reward": 0.0268,
+    "distress": 3.7817,
+    "switches": 79.0667
+   }
+  ]
+ },
+ "register": {
+  "W1 repair": {
+   "test": "W1 repair",
+   "result": "<b>Pass</b>: meta repair fixes 100% of trials vs 50% for local reflect-and-retry (0% vs 100% on cross-agent faults)",
+   "meaning": "The gain comes from the global view: an equal-information greedy baseline also fixes 100%",
+   "status": "pass",
+   "family": "agents",
+   "series": null,
+   "parent": null
+  },
+  "W4 safety": {
+   "test": "W4 safety",
+   "result": "<b>Pass</b>: 350/350 attempts blocked and logged, 0/350 legitimate proposals blocked",
+   "meaning": "Rules are wired in; not a test against an adaptive adversary",
+   "status": "pass",
+   "family": "agents",
+   "series": null,
+   "parent": null
+  },
+  "H-CFIT / H-SWITCH": {
+   "test": "H-CFIT / H-SWITCH",
+   "result": "<b>Pass</b>: ledger-estimated switching beats rule, rotation, fixed and the bandit on the registered reward",
+   "meaning": "Small margins; final distress is worse than under the rule, so the reward needs re-weighting for a healing goal",
+   "status": "pass",
+   "family": "agents",
+   "series": null,
+   "parent": null
+  },
+  "H-CFIT under the mission score": {
+   "test": "H-CFIT under the mission score",
+   "result": "<b>Pass</b>",
+   "meaning": "Beats rule, rotation, fixed and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score)",
+   "status": "pass",
+   "family": "agents",
+   "series": null,
+   "parent": null
+  },
+  "J1, jam predictor": {
+   "test": "J1, jam predictor (§11.9)",
+   "result": "<b>Accepted</b>",
+   "meaning": "0.754 accuracy on fresh seeds (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/j1.md\">results/j1.md</a>)",
+   "status": "pass",
+   "family": "agents",
+   "series": null,
+   "parent": null
+  },
+  "T-AP, transfer agents v1": {
+   "test": "<b>T-AP, transfer agents v1 → person (§11.8)</b>",
+   "result": "<b>PASS, confirmed</b>",
+   "meaning": "The first confirmed cross-substrate transfer: beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/tap.md\">results/tap.md</a>)",
+   "status": "pass",
+   "family": "transfer",
+   "series": "T-AP",
+   "parent": null
+  }
+ },
+ "note": "Real runs of the tested rsxv code on a small sample (W1: 40 trials; H-SWITCH: 30 simulated people). The registered results (W1 n = 400, H-SWITCH n = 200) are the authority. Stated models, not data about people."
+}

@@ -181,6 +181,46 @@ the agents, and the stricter rule always wins.
 
 This is engineering, not a test of effect: it changes no claim and no registered result.
 
+## 10. S1 revision: representation and guidance levels (design fixed before code, 16 November 2026)
+
+**Why.** S1 (§9) presented safety as crisis screening: a public check-in form, crisis wording and helpline links.
+RSOS works the other way: an unwanted state is the start signal for repurposing (interrupt, counterconditioning,
+future pacing), not something to report. The representation must follow that logic and read as a professional
+framework for sport, learning, research and psychotherapy. The rule engine of §9 is unchanged; what changes is how
+it is presented, how it is switched on, and the vocabulary.
+
+**What changes (fixed now).**
+
+1. **No crisis or helpline wording in the interface.** Removed from every page and module message on `dev`:
+   crisis screening questions for the public, helpline links, emergency banners. One line remains in page footers:
+   "Research and development framework; not a medical device."
+2. **Guidance levels instead of diagnoses.** Every program, node and session has a level:
+   `self_guided` (everyday states: pressure, nerves, low energy, distraction), `structured` (recurring strong states,
+   panic, difficult memories; with consent, self-guided or with any practitioner the person chooses: therapist, coach),
+   `clinician_led` (trauma processing, depression work, and any acute risk to life: only inside a qualified
+   clinician's protocol, including a private psychotherapist or psychiatrist; consent alone or a coach is not
+   enough at this level).
+3. **Session states, renamed.** Internal identifiers stay (rsxv compatibility); what people read changes:
+   NORMAL → **Standard**; STABILISE → **Stabilisation** (regulation programs only); PRACTICAL_CRISIS → **Paused:
+   practical**; CRISIS → **Clinician-led protocol** (self-guided practice paused; the responsible clinician resumes).
+   Messages are written in protocol language.
+4. **The clinical module is off by default.** A practitioner or study switches it on and records a screening
+   result from a validated instrument of their choice (for example the C-SSRS screener, PHQ-9 item 9): none / low /
+   moderate / high, plus optional flags (medication interaction, practical circumstances). High → Clinician-led
+   protocol; moderate → Stabilisation; flags → their states. The app shows no screening items itself.
+5. **The everyday self-check** asks only intensity (0–10) and hours slept; 7 or more, or under 4 hours, suggests
+   Stabilisation. No other questions.
+6. **The Safety page becomes "Safety and governance"**: documentation for clinicians, ethics boards and
+   organisations (governance model, guidance levels, session states, device envelope, pause rules, clinical module,
+   instruments, evidence, limits), with the session state and its history.
+7. **Domain profiles** (Performance, Learning, Research, Clinical) set labels such as "Tension" vs "Distress (SUD)"
+   on the same 0–10 measure. Built in a following step; S1 revision covers 1–6.
+
+**Acceptance.** A1–A6 of §9 still hold with the new texts; in addition A7: no page or module text on `dev` contains
+crisis, helpline or emergency-banner wording outside research records (registered tests, results, archive) and the
+clinician-facing clinical module; A8: `observe` with a clinical result of high, moderate or none gives
+Clinician-led, Stabilisation and no change, in Python and JavaScript identically.
+
 ## Autonomy gate
 
 What a device may do on its own, one anchor at a time, is decided by the autonomy gate: [GATE.md](GATE.md).

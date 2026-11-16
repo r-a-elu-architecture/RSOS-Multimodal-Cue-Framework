@@ -1,6 +1,6 @@
 # RSXV_LEVELS — RSX-V commands carry guidance levels, keep them through NEXT and ask the Watchdog (phase 2, Step 9)
 
-Status: registered 2026-11-16 (86edfd5), before code; code 0d91a09; results in §3.
+Status: registered 2026-11-16 (86edfd5), before code; code 345324b (first recorded as "0d91a09", corrected by spec/FIXES_P2.md §5); results in §3.
 
 ## 0. Problem
 
@@ -42,7 +42,7 @@ domain or consent does not allow it (spec/WATCHDOG.md, spec/FIXES_R4.md to spec/
 - Q2 All 130 existing RSX-V tests pass unchanged. `scripts/check_all.sh` passes, including the regenerated
   `docs/data/rsxv_example.json`. All `rsso` suites and the browser checks pass.
 
-## 3. Results (recorded after the code commit 0d91a09)
+## 3. Results (recorded after the code commit 345324b)
 
 - Q1 met. `rsxv/tests/test_levels.py`: 12 passed.
   - V1: parsing, the round trip and refusals.

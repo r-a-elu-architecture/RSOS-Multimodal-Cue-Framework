@@ -57,3 +57,17 @@ recorded as open. Changing the guard without a real compiler here could break bu
   - Step 10 checks that the W1 meaning is shown and the new heading is used.
   - Step 8 checks that W5-CEILING shows as an analysis.
 - Q4 All suites, `scripts/check_all.sh` and the browser checks pass. No threshold changes.
+
+## 7. Results (recorded after the code commits 0c512e4 and 84adbbf)
+
+- Q1: `rsso/tests/test_ble_pairing.py` 29 passed, including `FixesP2.test_no_library_encryption_request`. All 10 stub
+  builds compile.
+- Q2: `rsxv/tests/test_levels.py` 15 passed (the three `FixesP2` cases included). The dragon example's run is identical.
+- Q3: `scripts/check_site_catchup.py` exits 0. "FIXES_P2 C3 W5-CEILING shown as an analysis" → `lk analysis`.
+  "FIXES_P2 A1/A2" → the W1 meaning shown, and the heading "Passed in simulation: the RSX-V agents".
+- Q4: RSX-V 152 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `scripts/check_all.sh` passed; all 11 browser checks
+  exit 0. No threshold changed.
+- C1: the regenerated `rsxv/results/results_ceiling.json` has the same numbers as before. Only the decision text changed.
+- A deviation from the plan: the register first read the status from the raw markdown, so `**Analysis**` showed as
+  "other". The fix is in its own code commit (84adbbf).
+- P2-10 and P2-11 stay open (§5).

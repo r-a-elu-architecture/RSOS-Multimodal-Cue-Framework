@@ -83,15 +83,15 @@ The run took 44 s. Deployment: 200 seeds per direction; PILOT-8: 20 repetitions;
 **Verdict, as registered (§2):** W5-CEILING passes for agent → person only.
 - agent → person may get one new registered method.
 - person → agent, agent v2 → person and person → agent v2 stop.
-- The register records it as "mixed".
+- ~~The register records it as "mixed".~~ Corrected by spec/FIXES_P2.md C3: the register records it as an **analysis**.
 
-**Caveat, recorded with the result and not part of the rule:**
-- In agent → person, the source's true table says only "the stabilising function in every context". It reaches the
-  target's own optimum (Bear everywhere) because the target's roles were read with full information: 50 target seeds ×
-  60 ticks, about 3,000 ticks, against the pilot's 8 × 30.
-- The room is real, but a method reaches it only if it reads the target's roles well. That is the design question for
-  the one permitted successor. The source contributes the function ("stabilise"); the target data contributes which
-  archetype carries it.
+**Correction (review P2-1, spec/FIXES_P2.md C1–C2; replaces the caveat first recorded here):**
+- The room in agent → person **cannot be credited to the source.** A source-free rule, the target's stabilising
+  archetype in every context read from the 8-target pilot's own role-reading ticks, reaches the same +0.240
+  (20 of 20 repetitions). The pilot falls short because of its per-context estimates and its gate, not its role reading.
+- The earlier explanation ("3,000 target ticks against the pilot's 240") was wrong and is withdrawn.
+- Decision: **the W5 transfer line stops in all four directions.** No successor is planned. Any future transfer test
+  must include a source-free arm with the same target information.
 - In person → agent v2, perfect source knowledge is harmful: the person's optimum (Bear) is not the v2 agent's
   (Leopard, Tiger).
 

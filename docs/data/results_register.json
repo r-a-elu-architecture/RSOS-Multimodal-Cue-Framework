@@ -11,9 +11,9 @@
  "family_counts": {
   "transfer": {
    "pass": 2,
-   "mixed": 1,
+   "mixed": 0,
    "fail": 10,
-   "analysis": 0,
+   "analysis": 1,
    "other": 0
   },
   "repurposing": {
@@ -352,9 +352,9 @@
   },
   {
    "test": "W5-CEILING, perfect source knowledge vs an 8-target pilot (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CEILING.md\">spec/CEILING.md</a>)",
-   "result": "<b>Pass</b> for agent \u2192 person only; fail in the other three directions",
-   "meaning": "Perfect source knowledge beats an 8-target pilot by +0.213 per tick for agent \u2192 person, which is room for a method. The gain depends on reading the target's roles well: the ceiling read them from 3,000 target ticks, the pilot from 240. person \u2192 agent: no better than the pilot; agent v2 \u2192 person: no value; person \u2192 agent v2: harmful (\u22120.050). Those three directions stop (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/ceiling.md\">results/ceiling.md</a>)",
-   "status": "mixed",
+   "result": "<b>Analysis</b>: the W5 transfer line stops in all four directions (spec/FIXES_P2.md C1\u2013C3)",
+   "meaning": "By the registered rule agent \u2192 person passes: perfect source knowledge beats an 8-target pilot by +0.213 per tick. That room cannot be credited to the source: a source-free rule (the target's stabilising archetype everywhere, read from the pilot's own ticks) reaches the same +0.240 (review P2-1). person \u2192 agent: no better than the pilot; agent v2 \u2192 person: no value; person \u2192 agent v2: harmful (\u22120.050). No successor is planned; any future transfer test needs a source-free arm (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/ceiling.md\">results/ceiling.md</a>)",
+   "status": "analysis",
    "family": "transfer",
    "series": "W5",
    "parent": "W5e (\u00a711.9)"

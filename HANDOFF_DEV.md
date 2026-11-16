@@ -304,13 +304,28 @@ Tests: `rsso/tests/test_site_catchup.py` (7), `scripts/check_site_catchup.py`.
   code (`rsxv/rsxv/site_agents.py` → `docs/data/agents_proven.json`): W1 trials step by step, the H-SWITCH policy comparison
   with its distress caveat, and W4, J1, T-AP cards. Tests: `rsxv/tests/test_site_agents.py`, `check_site_catchup.py` Step 10.
 - **Step 11** (spec/CEILING.md; registered a45ff0d, code 3a055c7): W5-CEILING. Perfect source knowledge, mapped through
-  fully read roles, against an 8-target pilot. **Pass for agent → person only** (+0.213 per tick over the pilot); the other
-  three directions stop (no W5f there). Caveat: the room depends on reading the target's roles well (3,000 target ticks
-  in the ceiling, against 240 in the pilot). One registered successor is allowed for agent → person. The repurposing
-  family's ceiling still needs its own registered design.
-Phase 2 (Steps 6–11) is complete. Open: a targeted check of Steps 6–11; the repurposing ceiling; the one agent → person
-successor; ESP32_TOOLS (the parallel chat; recorded below).
-Review status: **awaiting a targeted check**.
+  fully read roles, against an 8-target pilot. By the registered rule agent → person passes (+0.213 per tick over the
+  pilot). **Corrected by FIXES_P2 (review P2-1):** that room cannot be credited to the source, because a source-free rule
+  reaches the same +0.240; the first caveat ("3,000 against 240 ticks") was wrong. The register shows the row as an
+  analysis, and **the W5 transfer line stops in all four directions**; no successor is planned. The repurposing family's
+  ceiling still needs its own registered design.
+Phase 2 (Steps 6–11) is complete and checked (review P2, branch `review/p2`, commit 3248364).
+
+### Fix pass P2 (spec/FIXES_P2.md; registered c586a03, code 0c512e4 and 84adbbf)
+- E1/E2 (blocker P2-2): the sketch makes no library encryption request; the only `esp_ble_set_encryption` call sits under
+  `linkPolicy.accept_request(...)`. A test checks the code with comments removed. BOARD_TEST T5 says why it matters.
+- L1: memory work is read from the command's words too (folded, so look-alike letters do not hide them); `MEMORY no`
+  does not lift it. L2: the domain is normalised, an unknown domain is refused, and no domain means Personal.
+  L3: `source` and `confirmed` remain the caller's assertions (recorded, not changed).
+- C1–C3: the ceiling record corrected (CEILING §5, `rsxv/RESULTS.md`, the decision text, `results/ceiling.md`, whose
+  numbers are unchanged). The register has a new status, `analysis`, shown in neutral grey on the results page.
+- A1/A2: the Agents page shows the W1 row's meaning beside the counts; the heading reads "Passed in simulation".
+- §5: references corrected (SITE_CATCHUP Step 6 → bfbc265; RSXV_LEVELS → 345324b).
+- Checks: RSX-V 152 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; all 11 browser checks exit 0;
+  10 stub builds compile. No threshold changed.
+- **Open notes:** P2-10, the emulator flag's test covers the sketch, not the build. P2-11, the NimBLE guard's macro.
+  Both are left as they are until a real compiler can check the change.
+Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
 

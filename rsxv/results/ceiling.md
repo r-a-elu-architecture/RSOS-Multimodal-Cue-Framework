@@ -94,4 +94,4 @@ VALUE: **no**. ROOM: **no**.
 
 ## Verdict
 
-Pass for agent → person: the method is the bottleneck there; one new registered method allowed for those directions only.
+Pass for agent → person by the registered rule. The room cannot be credited to the source: a source-free rule (the target's stabilising archetype everywhere, read from the pilot's own role-reading ticks) reaches the same value (review P2-1; spec/FIXES_P2.md C1). The W5 transfer line stops in all four directions (C2).

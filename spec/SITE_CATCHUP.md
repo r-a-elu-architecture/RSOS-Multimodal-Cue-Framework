@@ -46,7 +46,7 @@ the parallel ESP32_TOOLS work (`firmware/`, `firmware/BOARD_KIT.md`, `architectu
 
 ## Results
 
-### Step 6 (code 8ed086f)
+### Step 6 (code bfbc265; first recorded as "8ed086f", corrected by spec/FIXES_P2.md §5)
 - `rsso/tests/test_site_catchup.py` (Step 6 part): 3 passed. Every box's status matches the architecture map; RSX-V
   and RSX are Built; the 10 boxes lie inside the 900 × 640 map and none overlap.
 - `scripts/check_site_catchup.py` (Step 6): no failures, no page errors.

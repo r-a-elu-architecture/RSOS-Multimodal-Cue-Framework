@@ -1,6 +1,6 @@
 # FIXES_R3 — structural fixes after the third independent review
 
-Status: registered 2026-11-16, before code. Review: branch `review/r3`, commit 15256fa (reviewed dev at 14d096c).
+Status: registered 2026-11-16, before code (25ea88d); code 5636f66; results in §6. Review: branch `review/r3`, commit 15256fa (reviewed dev at 14d096c).
 Three rounds of review found the same pattern: each page had to remember to ask the Watchdog, a program's level came
 from labels pages attach, and a local PIN was presented as more than it can be. This pass changes the structure.
 
@@ -81,3 +81,15 @@ so Spine wording flags apply to programs and cues.
   per page and checks each page is covered.
 - G3 `level_of_program` identical in Python and JavaScript; built-in programs have no Spine flags and keep their levels.
 - G4 All suites and browser checks pass; no threshold changes.
+
+## 6. Results (record)
+
+- G1:  on 14d096c: 14 failures (every channel reached the person in the clinician-led
+  protocol on the four pages tested; leaving the protocol via Record result; tier-414 cue allowed in Personal,
+  Workplace and Clinical; device codes sent; anchor capture stored and played; pasted observer text and dangerous
+  wording allowed; therapist session resumed in Workplace; open session kept output). On the fix: 0.
+- G2: the gate is on all 24 pages; a test checks every page with an output call loads it and declares or opens
+  sessions; stop passes.
+- G3:  and the malformed-state handling identical in Python and JS; built-in programs unchanged.
+- G4: all suites (RSSO 246 with the registered T4 expected failure; RSX-V 130) and six browser checks pass.
+- Found while testing: a refused sound made the page's later stop() throw; the gate now lets stop pass quietly.

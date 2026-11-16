@@ -29,6 +29,44 @@ def status(r):
     return "other"
 
 
+# spec/SITE_CATCHUP.md S8.1, S8.2, S8.5: fixed rules on the test ID, applied in register order.
+FAMILIES = ["transfer", "repurposing", "lineage", "person model", "agents", "other"]
+WORDING = [("past-crisis", "past high-distress")]
+
+
+def plain(s):
+    return re.sub(r"<[^>]+>", "", s).strip()
+
+
+def family(test):
+    t = plain(test)
+    if t.startswith("W5-R"):
+        return "repurposing"
+    if t.startswith(("W3", "W5", "G1", "G2", "T-AP")):
+        return "transfer"
+    if t.startswith(("LIA-", "C1", "Corpus")):
+        return "lineage"
+    if t.startswith(("SR-", "Round", "Phase 9")):
+        return "person model"
+    if t.startswith(("W1", "W4", "H-", "J1")):
+        return "agents"
+    return "other"
+
+
+def series(test):
+    t = plain(test)
+    for prefix, name in (("W5-R", "W5-R"), ("W5", "W5"), ("W3", "W3"), ("LIA-", "LIA"), ("T-AP", "T-AP")):
+        if t.startswith(prefix):
+            return name
+    return None
+
+
+def word(s):
+    for a, b in WORDING:
+        s = s.replace(a, b)
+    return s
+
+
 def main(src, out):
     lines = open(src).read().split("## 8.", 1)[1].split("## 9.", 1)[0].splitlines()
     rows = []
@@ -38,8 +76,17 @@ def main(src, out):
         c = [x.strip() for x in l.strip().strip("|").split("|")]
         if len(c) < 3:
             continue
-        rows.append({"test": md(c[0]), "result": md(c[1]), "meaning": md(c[2]), "status": status(c[1])})
-    json.dump({"source": "rsxv/RESULTS.md §8", "rows": rows}, open(out, "w"), indent=1)
+        rows.append({"test": word(md(c[0])), "result": word(md(c[1])), "meaning": word(md(c[2])), "status": status(c[1]),
+                     "family": family(md(c[0])), "series": series(md(c[0]))})
+    last = {}
+    for i, r in enumerate(rows):   # parent: the previous row of the same series, by register order (S8.2)
+        r["parent"] = last.get(r["series"]) if r["series"] else None
+        if r["series"]:
+            last[r["series"]] = i
+    for r in rows:
+        r["parent"] = None if r["parent"] is None else plain(rows[r["parent"]]["test"])
+    fam = {f: {s: sum(r["status"] == s for r in rows if r["family"] == f) for s in ("pass", "mixed", "fail", "other")} for f in FAMILIES}
+    json.dump({"source": "rsxv/RESULTS.md §8", "families": FAMILIES, "family_counts": fam, "rows": rows}, open(out, "w"), indent=1)
     print(len(rows), {s: sum(r["status"] == s for r in rows) for s in ("pass", "mixed", "fail", "other")})
 
 

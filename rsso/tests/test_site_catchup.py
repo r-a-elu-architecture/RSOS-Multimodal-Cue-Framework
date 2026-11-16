@@ -65,5 +65,29 @@ class Step7(unittest.TestCase):
             self.assertIn(s, page)
 
 
+
+class Step8(unittest.TestCase):
+    def test_families_parents_counts(self):   # S8.6
+        import json
+        d = json.loads((REPO / "docs/data/results_register.json").read_text(encoding="utf-8"))
+        rows = d["rows"]
+        plain = lambda t: re.sub(r"<[^>]+>", "", t).strip()
+        index = {plain(r["test"]): i for i, r in enumerate(rows)}
+        for i, r in enumerate(rows):
+            self.assertIn(r["family"], d["families"], r["test"])
+            self.assertNotEqual(r["family"], "other", r["test"])
+            if r["parent"] is not None:
+                j = index[r["parent"]]
+                self.assertLess(j, i)
+                self.assertEqual((rows[j]["family"], rows[j]["series"]), (r["family"], r["series"]))
+        for f in d["families"]:
+            for s in ("pass", "mixed", "fail", "other"):
+                self.assertEqual(d["family_counts"][f][s], sum(r["family"] == f and r["status"] == s for r in rows), (f, s))
+
+    def test_display_wording(self):   # S8.5
+        for p in ("docs/data/results_register.json", "docs/results.html"):
+            self.assertNotIn("past-crisis", (REPO / p).read_text(encoding="utf-8"), p)
+
+
 if __name__ == "__main__":
     unittest.main()

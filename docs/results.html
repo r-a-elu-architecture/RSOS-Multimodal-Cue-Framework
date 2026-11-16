@@ -48,6 +48,15 @@ th{font-weight:600;color:var(--muted);font-size:.82rem}
 td{color:#cfd3e4}
 td:first-child{color:var(--text);width:28%}
 td .tag{display:inline-block;font-size:.75rem;font-weight:650;border-radius:999px;padding:1px 9px;margin-bottom:4px;border:1px solid}
+.fams{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:12px}
+.fam{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.fam h3{margin:0 0 4px;font-size:1.05rem;text-transform:capitalize}
+.fam .nums{font-size:.86rem;color:var(--muted);margin:0 0 8px}
+.fam .nums b{font-weight:600}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:6px 0 0;font-size:.84rem}
+.chain .lk{border:1px solid var(--line);border-radius:999px;padding:1px 9px}
+.chain .lk.pass{border-color:var(--pass);color:var(--pass)} .chain .lk.fail{border-color:var(--fail);color:var(--fail)} .chain .lk.mixed{border-color:var(--mixed);color:var(--mixed)}
+.chain .ar{color:var(--muted)}
 .tag.pass{color:var(--pass);border-color:var(--pass)} .tag.fail{color:var(--fail);border-color:var(--fail)} .tag.mixed{color:var(--mixed);border-color:var(--mixed)}
 code{font-size:.85em;color:#dfe3f1}
 .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:20px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
@@ -83,6 +92,12 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
     <article><h3>Output becomes the next input</h3><p>In 22,369 public conversations (WildChat-1M), people reuse the assistant's words and phrases. Reused material reappears in the next reply more than their own words do, and blocks they paste again drift further with each reuse. This was first measured in one private record and replicates on public data.</p></article>
     <article><h3>The safety rules, and now the reading</h3><p>The safety rules map each situation to the right response. A keyword reader caught 13% of the moments that needed one; a meaning-based reader with an earlier-experience note caught 95%, with 1 false alarm in 270 ordinary turns. A rule that was too narrow was found and fixed, and still needs confirmation on new data.</p></article>
   </div>
+</section>
+
+<section id="families">
+  <h2>By family</h2>
+  <p class="muted" id="forking" style="max-width:52em"></p>
+  <div class="fams" id="fams"></div>
 </section>
 
 <section>
@@ -146,6 +161,19 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
     const n = s => rows.filter(r => r.status === s).length;
     document.getElementById("count").innerHTML =
       `<div><b>${rows.length}</b>registered tests</div><div class="p"><b>${n("pass")}</b>passed</div><div class="m"><b>${n("mixed")}</b>mixed</div><div class="f"><b>${n("fail")}</b>failed</div>`;
+    // By family (spec/SITE_CATCHUP.md S8.3, S8.4): counts and each series as a chain, from the generated fields.
+    const short = t => t.replace(/<[^>]+>/g, "").split(/[,(§]/)[0].trim();
+    const esc = t => t.replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+    document.getElementById("forking").textContent = rows.length + " tests are registered so far, each with its pass condition fixed before it ran. "
+      + "With this many tests, a single pass can arise by chance, so a new pass is read against that number and counts once it is confirmed on new data.";
+    document.getElementById("fams").innerHTML = d.families.filter(fm => rows.some(r => r.family === fm)).map(fm => {
+      const c = d.family_counts[fm], mine = rows.filter(r => r.family === fm), chains = {};
+      for (const r of mine) if (r.series) (chains[r.series] = chains[r.series] || []).push(r);
+      const solo = mine.filter(r => !r.series);
+      const ch = Object.values(chains).map(list => `<div class="chain">${list.map(r => `<span class="lk ${r.status}" title="${esc(lab[r.status])}">${esc(short(r.test))}</span>`).join('<span class="ar">→</span>')}</div>`).join("")
+        + (solo.length ? `<div class="chain">${solo.map(r => `<span class="lk ${r.status}" title="${esc(lab[r.status])}">${esc(short(r.test))}</span>`).join(" ")}</div>` : "");
+      return `<div class="fam" data-family="${esc(fm)}"><h3>${esc(fm)}</h3><p class="nums">${mine.length} tests: <b style="color:var(--pass)">${c.pass} passed</b>, <b style="color:var(--mixed)">${c.mixed} mixed</b>, <b style="color:var(--fail)">${c.fail} failed</b></p>${ch}</div>`;
+    }).join("");
     draw();
   }).catch(() => { document.getElementById("rows").innerHTML = "<tr><td colspan='3'>The register could not be loaded.</td></tr>"; });
 })();

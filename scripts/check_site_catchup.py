@@ -75,7 +75,21 @@ def main():
             expect("S7.1 home page names RSX-V", "RSX-V, above RSX" in pg.inner_text("body"), True)
             ctx.close()
 
-        steps = [("Step 6", step6), ("Step 7", step7)]
+        def step8():
+            ctx, pg = page("/results.html"); pg.wait_for_timeout(500)
+            fams = pg.evaluate("() => Array.from(document.querySelectorAll('.fam')).map(f => [f.dataset.family, f.querySelectorAll('.lk').length])")
+            total = sum(n for _, n in fams)
+            expect("S8.3 families and every test in them", [[f for f, _ in fams], total == pg.evaluate("document.querySelectorAll('#rows tr').length")],
+                   [["transfer", "repurposing", "lineage", "person model", "agents"], True])
+            chain = pg.evaluate("() => Array.from(document.querySelectorAll('.fam[data-family=\"repurposing\"] .chain')[0].querySelectorAll('.lk')).map(x => x.textContent)")
+            expect("S8.2 repurposing chain in order", chain, ["W5-R", "W5-R2", "W5-R3", "W5-R4", "W5-R5", "W5-R6"])
+            body = pg.inner_text("body")
+            expect("S8.4/S8.5 context line; wording", ["tests are registered so far" in body, "past-crisis" in body], [True, False])
+            if SHOTS:
+                pg.locator("#families").screenshot(path=str(SHOTS / "results_families.png"))
+            ctx.close()
+
+        steps = [("Step 6", step6), ("Step 7", step7), ("Step 8", step8)]
         for name, fn in steps:
             try:
                 fn()

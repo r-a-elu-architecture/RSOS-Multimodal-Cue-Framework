@@ -129,6 +129,9 @@ Reported events are included in a research contribution only with the `safety` s
 
 ## 9. Safety modes on the person side (S1, design fixed before code, 16 November 2026)
 
+> Note (2026-11-16, spec/FIXES_R3.md R3-f): §10 replaces this section's wording, states and representation; §9's rules
+> stand where §10 does not change them.
+
 **Why.** The safety layer specified and tested in `rsxv/AGENTS.md` §3.1 (modes, screens, the past-crisis check-in
 and the §11.14 rule fix) ran only in the agent World. The player, node studio and therapist mode used one screening
 question and CONTAIN escalation. S1 makes one safety layer for both: the person-facing pages run the same rules as

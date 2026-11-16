@@ -8,7 +8,7 @@ Library for Arduino in both, and Espressif's qemu-system-xtensa and qemu-system-
                                                          # C1: 30 builds, C1b: 10 more (C3, S3 on 3.2.1)
   python3 real_check.py image   --build builds/build/<build> --chip esp32 --esptool <core's esptool> \
                                 --core-dir <core's hardware dir> --out flash.bin       # E1: one 4 MB image
-  python3 real_check.py usb     --port 5555                                              # E3: U1-U8 over a socket
+  python3 real_check.py usb     --port 5555                                              # E3: U1-U8, U3b over a socket
   python3 real_check.py passkey --port 5555                                              # U9: read the passkey
 
 `compile` runs, for each build:
@@ -102,13 +102,14 @@ def cmd_image(a):
     parts = next(build.glob("*.ino.partitions.bin"))
     boot0 = glob.glob(os.path.join(a.core_dir, "tools/partitions/boot_app0.bin"))
     boot_at = "0x1000" if a.chip == "esp32" else "0x0"
-    args = [a.esptool, "--chip", a.chip, "merge_bin" if not a.esptool5 else "merge-bin", "-o", a.out,
+    tool = [sys.executable, a.esptool] if a.esptool.endswith(".py") else [a.esptool]
+    args = [*tool, "--chip", a.chip, "merge_bin" if not a.esptool5 else "merge-bin", "-o", a.out,
             "--fill-flash-size", "4MB",
             boot_at, str(boot), "0x8000", str(parts)]
     if boot0:
         args += ["0xe000", boot0[0]]
     args += ["0x10000", str(app)]
-    print(" ".join(args))
+    print(" ".join(map(str, args)))
     return subprocess.run(args).returncode
 
 
@@ -184,6 +185,12 @@ def cmd_usb(a):
     got = b.send("STOP", 1.0)
     st = next((x for x in got if x.startswith("STOPPED")), None)
     res.append(("U3", "STOP", st is not None, st or "; ".join(got) or "no answer"))
+    b.send("LOAD 1 0.40", 0.3); b.send("H 0 2000 0 1 0.40", 0.3)
+    b.send("START", 0.3)
+    got = b.send("STOP", 1.0)
+    st = next((x for x in got if x.startswith("STOPPED ")), None)
+    off = any(x.startswith("MOTOR") and x.endswith(" 0.00") for x in got)
+    res.append(("U3b", "STOP while a 2 s pulse plays", st is not None and off, "; ".join(got) or "no answer"))
     got = b.send("PASSKEY", 1.0)
     pk1 = passkey_of(got)
     res.append(("U4", "PASSKEY", pk1 is not None and valid_passkey(pk1), "; ".join(got) or "no answer"))

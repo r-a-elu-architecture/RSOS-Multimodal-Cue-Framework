@@ -294,6 +294,9 @@ bool bonded(const uint8_t* addr) {   // FIXES_R6 B7
   return false;
 }
 void removeAllBonds() {
+#ifdef RSOS_EMULATOR   // no Bluetooth stack started, so no bonds (spec/ESP32_TOOLS.md §4 Q1)
+  return;
+#endif
   int n = bondCount(); if (n <= 0) return;
   esp_ble_bond_dev_t list[16]; if (n > 16) n = 16;
   esp_ble_get_bond_device_list(&n, list);
@@ -404,6 +407,9 @@ void setup() {
   passkey = prefs.getUInt("passkey", 0);
   if (!rsos::LinkPolicy::valid_passkey(passkey)) passkey = newPasskey();
   if (!rsos::LinkPolicy::valid_passkey(passkey)) { Serial.println("NOTE no passkey; Bluetooth off"); return; }   // USB still works
+#ifdef RSOS_EMULATOR   // emulator-only build (spec/ESP32_TOOLS.md §4): QEMU has no Bluetooth controller. Never set for a board.
+  Serial.println("NOTE emulator build: Bluetooth off"); return;
+#endif
   linkPolicy.begin(millis());
   BLEDevice::init("RSOS-band");
 #if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 3, 0)   // ESP32_TOOLS F2: moved to BLESecurity in 3.3

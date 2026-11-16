@@ -112,3 +112,24 @@ class Esp32Tools(unittest.TestCase):   # spec/ESP32_TOOLS.md §6 A1
     def test_display_build_pins_gfx_for_2x(self):   # F4
         ini = (REPO / "firmware/esp32/platformio.ini").read_text(encoding="utf-8")
         self.assertIn("lib_deps = moononournation/GFX Library for Arduino@1.6.1", ini)
+
+    def test_emulator_flag_only_guards_bluetooth_start_and_bond_removal(self):   # §4 Q2, Q3
+        lines = SKETCH.splitlines()
+        uses = [i for i, l in enumerate(lines) if "RSOS_EMULATOR" in l]
+        self.assertEqual(len(uses), 2, uses)
+        for i in uses:
+            self.assertTrue(lines[i].startswith("#ifdef RSOS_EMULATOR"), lines[i])
+        bodies = []
+        for i in uses:
+            j = i + 1
+            while not lines[j].startswith("#endif"):
+                j += 1
+            bodies.append("\n".join(lines[i + 1:j]).strip())
+        self.assertEqual(sorted(bodies), ['Serial.println("NOTE emulator build: Bluetooth off"); return;', "return;"])
+        setup = SKETCH[SKETCH.index("void setup()"):]
+        self.assertLess(setup.index("#ifdef RSOS_EMULATOR"), setup.index("linkPolicy.begin(millis());"))
+        self.assertLess(setup.index("passkey = newPasskey();"), setup.index("#ifdef RSOS_EMULATOR"))
+        rab = SKETCH[SKETCH.index("void removeAllBonds()"):]
+        self.assertTrue(rab.split("\n", 1)[1].startswith("#ifdef RSOS_EMULATOR"))
+        for f in ("firmware/esp32/platformio.ini", "firmware/BOARD_KIT.md", "firmware/BOARD_TEST.md"):
+            self.assertNotIn("-DRSOS_EMULATOR", (REPO / f).read_text(encoding="utf-8"), f)

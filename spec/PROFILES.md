@@ -1,6 +1,8 @@
 # PROFILES — domain profiles
 
-Status: registered 2026-11-16, before code. Code: `rsso/rsso/profiles.py` and `docs/js/profiles.js` (identical
+Status: registered 2026-11-16, before code (d9b3c01); built and tested. P1–P5: `rsso/tests/test_profiles.py`;
+P6–P7: `scripts/check_profiles.py` in Chrome (all seven profiles pass; zero clinical words in the six
+non-clinical profiles across the 15 in-scope pages). Code: `rsso/rsso/profiles.py` and `docs/js/profiles.js` (identical
 results, tested).
 
 ## 1. Purpose
@@ -54,7 +56,7 @@ Canonical (= Clinical) word → label per profile. Personal / Coaching / Perform
 | practitioner | therapist | practitioner | coach | coach | teacher | investigator | facilitator |
 | therapy | therapy | guided practice | coaching | coaching | tutoring | guided sessions | facilitated sessions |
 
-Translation is an ordered list of phrase rules (longest first), case-preserving, with article and plural forms.
+The adjective "distressing" reads "intense" outside the clinical vocabulary. Translation is an ordered list of phrase rules (longest first), case-preserving, with article and plural forms.
 Validated clinical instruments (PHQ-9, GAD-7, PCL-5) and the conditions list on the contribution page are shown
 only with the clinical vocabulary. Research records and architecture pages (results, system, tiers, roadmap,
 glyphs, architecture-benchmark, invariance-v14, cue-lab pages) keep their original wording.

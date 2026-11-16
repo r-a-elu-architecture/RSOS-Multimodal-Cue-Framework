@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contribute your data — RSOS</title>
@@ -152,8 +153,8 @@ header.top nav a{font-size:.88rem}
         <label>Prior practice</label>
         <table class="rows" id="practice"></table>
         <div id="healthBox" hidden>
-          <label>Conditions you have been told you have, or are working on</label>
-          <div class="chips" id="conditions"></div>
+          <label data-show="clinical">Conditions you have been told you have, or are working on</label>
+          <div class="chips" id="conditions" data-show="clinical"></div>
           <div class="two">
             <label class="check"><input type="checkbox" id="inTherapy"> I am in therapy while practising</label>
             <label class="check"><input type="checkbox" id="medChange"> My medication changed during this time</label>
@@ -327,7 +328,8 @@ function table(id, list, cols) {
     tb.appendChild(tr);
   });
 }
-const OUT_COLS = [["scale", "select", Object.entries(SCALE_NAMES)], ["total", "number", { min: 0, max: 80 }], ["ts", "date"], ["rater", "select", [["self", "Me"], ["clinician", "A clinician"]]]];
+const CLIN_VOCAB = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());
+const OUT_COLS = [["scale", "select", Object.entries(SCALE_NAMES).filter(([k]) => CLIN_VOCAB || !["PHQ9", "GAD7", "PCL5"].includes(k))], ["total", "number", { min: 0, max: 80 }], ["ts", "date"], ["rater", "select", [["self", "Me"], ["clinician", "A clinician"]]]];
 const ADV_COLS = [["ts", "date"], ["severity", "select", C.SEVERITY.map(s => [s, s])], ["related", "select", C.RELATED.map(s => [s, s])], ["resolved", "check"], ["text", "text", { placeholder: "Optional" }]];
 const SESS_COLS = [["ts", "date"], ["minutes", "number", { min: 1, max: 600 }], ["nodes_used", "number", { min: 0, max: 20 }], ["fidelity", "number", { min: 0, max: 10 }],
   ["engagement", "number", { min: 0, max: 10 }], ["cgi_s", "number", { min: 1, max: 7 }], ["cgi_i", "number", { min: 1, max: 7 }], ["therapist_led", "check"]];

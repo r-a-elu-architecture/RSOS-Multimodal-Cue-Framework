@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Safety and governance — RSOS</title>
@@ -132,8 +133,10 @@ header.top nav a{font-size:.88rem}
     <h3>Self-check</h3>
     <p><label>Intensity of the state right now (0–10) <select id="sfInt"></select></label> &nbsp; <label>Hours slept last night <input id="sfSleep" type="number" min="0" max="14" step="0.5" style="width:6em"></label> <button class="btn" id="sfSave">Save</button></p>
     <p style="margin-bottom:0"><button class="btn" id="sfStab">Enter Stabilisation</button> <button class="btn" id="sfExit">Resume Standard</button> <span class="hint" id="sfNote"></span></p>
+    <div id="clinHead">
     <h3>Clinical module</h3>
     <p><label><input type="checkbox" id="clinOn"> Enabled by a practitioner or study protocol</label> <span class="hint">Off by default. The practitioner uses a validated instrument of their choice (for example the C-SSRS screener or PHQ-9) and records the result here.</span></p>
+    </div>
     <div id="clinBox" style="display:none">
       <p><label>Practitioner <input id="clinName" placeholder="Name"></label> &nbsp; <label>Instrument <input id="clinInst" placeholder="e.g. C-SSRS screener"></label> &nbsp; <label>Result <select id="clinRes"><option value="">—</option><option value="none">none</option><option value="low">low</option><option value="moderate">moderate</option><option value="high">high</option></select></label></p>
       <p><label><input type="checkbox" id="clinMed"> Medication interaction</label> &nbsp; <label><input type="checkbox" id="clinPrac"> Practical circumstances</label> &nbsp; <label><input type="checkbox" id="clinHist"> Earlier experience to review</label> &nbsp; <button class="btn" id="clinSave">Record result</button></p>
@@ -306,6 +309,7 @@ draw();
   for (const m of S.MODES) { const tr = mk("tr"); tr.append(mk("td", S.MODE_NAME[m]), mk("td", S.MODE_TEXT[m].split(": ").slice(1).join(": "))); $("states").querySelector("tbody").append(tr); }
   $("sfInt").append(new Option("—", "")); for (let i = 0; i <= 10; i++) $("sfInt").append(new Option(String(i), String(i)));
   const clin = store.get("rsos.clinical", { on: false });
+  const PR = window.RSOSProfiles, allowClin = !PR || PR.get(PR.current()).clinical_module !== "none";
   $("clinOn").checked = !!clin.on;
   function draw(messages) {
     const st = get();
@@ -314,7 +318,8 @@ draw();
     const show = (id, on) => { $(id).style.display = on ? "" : "none"; };
     show("sfStab", st.mode === "NORMAL");
     show("sfExit", st.mode === "STABILISE" || st.mode === "PRACTICAL_CRISIS");
-    show("clinBox", $("clinOn").checked);
+    show("clinHead", allowClin);
+    show("clinBox", (allowClin && $("clinOn").checked) || st.mode === "CRISIS");
     show("clinResume", st.mode === "CRISIS");
     const B = $("sfHist").querySelector("tbody"); B.replaceChildren();
     st.history.slice().reverse().forEach(r => { const tr = mk("tr"); [new Date(r.at * 1000).toLocaleString(), S.MODE_NAME[r.from], S.MODE_NAME[r.to], r.why, r.by].forEach(x => tr.append(mk("td", x))); B.append(tr); });
@@ -326,7 +331,7 @@ draw();
   $("sfSave").addEventListener("click", () => apply(S.eventFromCheck({ intensity: $("sfInt").value, sleep_h: $("sfSleep").value }), "Saved. The session state is unchanged."));
   $("sfStab").addEventListener("click", () => { const [st] = S.enterStabilise(get(), "person", now()); store.set("rsos.safety", st); draw(); });
   $("sfExit").addEventListener("click", () => { const [st, r] = S.exit(get(), "person", now()); store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Back to Standard." : ""; draw(); });
-  $("clinOn").addEventListener("change", () => { store.set("rsos.clinical", { on: $("clinOn").checked }); draw(); });
+  $("clinOn").addEventListener("change", () => { store.set("rsos.clinical", { on: $("clinOn").checked }); if (PR && PR.current() === "research") location.reload(); else draw(); });
   $("clinSave").addEventListener("click", () => {
     if (!$("clinName").value.trim() || !$("clinRes").value) { $("sfNote").textContent = "Record the practitioner and the result."; return; }
     const flags = []; if ($("clinMed").checked) flags.push("medication"); if ($("clinPrac").checked) flags.push("practical");

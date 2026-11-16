@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.0.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Node studio — RSOS</title>
@@ -147,7 +148,7 @@ header.top nav a{font-size:.88rem}
         <p class="ask">What do you, or the person you work with, want to change? Choose what applies and describe it in your own words.</p>
         <div class="chips" id="concerns"></div>
         <label for="symptoms">Symptoms and what they feel like</label>
-        <textarea id="symptoms" placeholder="For example: tension in the chest, racing thoughts at night, flashbacks when voices are raised"></textarea>
+        <textarea id="symptoms" placeholder="For example: tension in the chest, racing thoughts at night, freezing when voices are raised"></textarea>
         <label for="triggers">Triggers, one per line</label>
         <textarea id="triggers" placeholder="Raised voices&#10;Opening social media instead of working"></textarea>
         <div class="two">
@@ -476,7 +477,7 @@ $("aiApply").addEventListener("click", () => {
 });
 
 // build the form
-for (const [k, v] of Object.entries(N.CONCERNS)) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = k; l.append(i, v); $("concerns").appendChild(l); }
+for (const [k, v] of Object.entries(N.CONCERNS)) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = k; l.append(i, v); if (k === "ptsd") l.setAttribute("data-memory-work", ""); $("concerns").appendChild(l); }
 for (const [k, v] of DEVICES) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.id = "dev-" + k; i.checked = ["V", "A", "K"].includes(k); l.append(i, v); $("devices").appendChild(l); }
 for (const k of [...Object.keys(N.ARCHETYPES), ""]) {
   const b = el("button", "pick", k ? (N.ARCHETYPES[k].glyph ? N.ARCHETYPES[k].glyph + " " : "") + k.charAt(0) + k.slice(1).toLowerCase() + (k === "OBSERVER" ? " (no ego)" : "") : "Your own node");

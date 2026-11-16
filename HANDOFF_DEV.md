@@ -283,8 +283,8 @@ Older items r3 marked not fixed / partly / not addressed:
   R2-1 (PIN via Resume/Record)  FIXED (as Step 1 R3-1).     Step 1 #7 (§9.3/§9.6 unmarked)  FIXED (§9 note).
   Step 1 #11 (hold styling)     FIXED.                      Step 1 #13 (pages.yml)          RECORDED-ONLY.
   Step 1 R5-2 (PIN offline brute force) RECORDED-ONLY.      Step 1b #7 (whoever sets PIN)   RECORDED (FIXES_R3 §3).
-  Step 1b R5-1 (Performance "clinician present" vs "A coach is present") NOT FIXED / not recorded (safety.html:172
-       "a new plan needs a clinician present" unchanged; not part of FIXES_R3).
+  Step 1b R5-1 (Performance "clinician present" vs "A coach is present") NOT FIXED / not recorded (safety.html:172,
+       source "a new plan needs a therapist present", identical to 14d096c:171; not part of FIXES_R3).
   Step 2 R5-5                   RECORDED (by design).       Step 3 R5-2 (blinding)          RECORDED-ONLY.
   Step 3 R5-7 (tier013 pause)   FIXED (R3-a).
 Verdict:         changes needed — the structural claims of FIXES_R3 §1 and §2 do not hold (output gate R4-G1..G5,

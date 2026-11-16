@@ -10,8 +10,8 @@
  ],
  "family_counts": {
   "transfer": {
-   "pass": 2,
-   "mixed": 0,
+   "pass": 0,
+   "mixed": 2,
    "fail": 10,
    "analysis": 1,
    "other": 0
@@ -38,8 +38,8 @@
    "other": 0
   },
   "agents": {
-   "pass": 5,
-   "mixed": 0,
+   "pass": 1,
+   "mixed": 4,
    "fail": 0,
    "analysis": 0,
    "other": 0
@@ -55,9 +55,9 @@
  "rows": [
   {
    "test": "W1 repair",
-   "result": "<b>Pass</b>: meta repair fixes 100% of trials vs 50% for local reflect-and-retry (0% vs 100% on cross-agent faults)",
-   "meaning": "The gain comes from the global view: an equal-information greedy baseline also fixes 100%",
-   "status": "pass",
+   "result": "<b>Pass</b> by its registered test: meta repair fixes 100% of trials vs 50% for local reflect-and-retry (0% vs 100% on cross-agent faults); <b>fails the baseline audit</b> (ties the equal-information greedy baseline)",
+   "meaning": "The gain comes from the global view: an equal-information greedy baseline also fixes 100%, so the loop itself adds nothing measured here (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null
@@ -73,9 +73,9 @@
   },
   {
    "test": "H-CFIT / H-SWITCH",
-   "result": "<b>Pass</b>: ledger-estimated switching beats rule, rotation, fixed and the bandit on the registered reward",
-   "meaning": "Small margins; final distress is worse than under the rule, so the reward needs re-weighting for a healing goal",
-   "status": "pass",
+   "result": "<b>Pass</b> by its registered test: ledger-estimated switching beats rule, rotation, fixed (Lion) and the bandit on the registered reward; <b>fails the baseline audit</b> (loses to one fixed archetype chosen by a 20-person pilot, Bear: \u22120.011 per tick [\u22120.012, \u22120.010])",
+   "meaning": "Small margins; final distress is worse than under the rule. Staying in the stabilising archetype throughout does better than switching (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null
@@ -91,9 +91,9 @@
   },
   {
    "test": "G1, the gate on the W3 tables",
-   "result": "<b>Pass</b> in both directions",
-   "meaning": "Every harmful entry was blocked; gated transfer is never worse than none and beats ungated transfer by +0.023 to +0.061 per tick",
-   "status": "pass",
+   "result": "<b>Pass</b> in both directions by its registered test; <b>fails the baseline audit</b> (identical to transferring nothing)",
+   "meaning": "Every harmful entry was blocked; gated transfer is never worse than none and beats ungated transfer by +0.023 to +0.061 per tick. The gate rejected every entry in both directions, so the gated tables equal \"transfer nothing\" (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "transfer",
    "series": null,
    "parent": null
@@ -109,9 +109,9 @@
   },
   {
    "test": "H-CFIT under the mission score",
-   "result": "<b>Pass</b>",
-   "meaning": "Beats rule, rotation, fixed and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score)",
-   "status": "pass",
+   "result": "<b>Pass</b> by its registered test; <b>fails the baseline audit</b> (loses to fixed Bear chosen by a 20-person pilot: \u22120.085 per tick [\u22120.095, \u22120.074])",
+   "meaning": "Beats rule, rotation, fixed (Lion) and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score). Fixed Bear scores +0.129 per tick against the watchdog's +0.045 (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null
@@ -235,9 +235,9 @@
   },
   {
    "test": "<b>T-AP, transfer agents v1 \u2192 person (\u00a711.8)</b>",
-   "result": "<b>PASS, confirmed</b>",
-   "meaning": "The first confirmed cross-substrate transfer: beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/tap.md\">results/tap.md</a>)",
-   "status": "pass",
+   "result": "<b>PASS, confirmed</b> by its registered test; <b>fails the baseline audit</b> (loses to a source-free rule in both runs: \u22120.133 and \u22120.140 per tick)",
+   "meaning": "Beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/tap.md\">results/tap.md</a>). But the target's stabilising archetype everywhere, read from the same pilot with no source, scores +0.244 against T-AP's +0.111, so this is not evidence that anything transferred (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "transfer",
    "series": "T-AP",
    "parent": null
@@ -271,9 +271,9 @@
   },
   {
    "test": "J1, jam predictor (\u00a711.9)",
-   "result": "<b>Accepted</b>",
-   "meaning": "0.754 accuracy on fresh seeds (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/j1.md\">results/j1.md</a>)",
-   "status": "pass",
+   "result": "<b>Accepted</b> (passed its registered test); <b>fails the baseline audit</b> (not significantly above never-jam: exact McNemar p = 0.054 against the registered 0.01)",
+   "meaning": "0.754 accuracy on fresh seeds against 0.685 for always predicting \"no jam\" (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/j1.md\">results/j1.md</a>) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null

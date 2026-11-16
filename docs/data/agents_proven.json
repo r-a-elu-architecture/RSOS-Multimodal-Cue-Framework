@@ -2299,9 +2299,9 @@
  "register": {
   "W1 repair": {
    "test": "W1 repair",
-   "result": "<b>Pass</b>: meta repair fixes 100% of trials vs 50% for local reflect-and-retry (0% vs 100% on cross-agent faults)",
-   "meaning": "The gain comes from the global view: an equal-information greedy baseline also fixes 100%",
-   "status": "pass",
+   "result": "<b>Pass</b> by its registered test: meta repair fixes 100% of trials vs 50% for local reflect-and-retry (0% vs 100% on cross-agent faults); <b>fails the baseline audit</b> (ties the equal-information greedy baseline)",
+   "meaning": "The gain comes from the global view: an equal-information greedy baseline also fixes 100%, so the loop itself adds nothing measured here (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null
@@ -2317,36 +2317,36 @@
   },
   "H-CFIT / H-SWITCH": {
    "test": "H-CFIT / H-SWITCH",
-   "result": "<b>Pass</b>: ledger-estimated switching beats rule, rotation, fixed and the bandit on the registered reward",
-   "meaning": "Small margins; final distress is worse than under the rule, so the reward needs re-weighting for a healing goal",
-   "status": "pass",
+   "result": "<b>Pass</b> by its registered test: ledger-estimated switching beats rule, rotation, fixed (Lion) and the bandit on the registered reward; <b>fails the baseline audit</b> (loses to one fixed archetype chosen by a 20-person pilot, Bear: −0.011 per tick [−0.012, −0.010])",
+   "meaning": "Small margins; final distress is worse than under the rule. Staying in the stabilising archetype throughout does better than switching (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null
   },
   "H-CFIT under the mission score": {
    "test": "H-CFIT under the mission score",
-   "result": "<b>Pass</b>",
-   "meaning": "Beats rule, rotation, fixed and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score)",
-   "status": "pass",
+   "result": "<b>Pass</b> by its registered test; <b>fails the baseline audit</b> (loses to fixed Bear chosen by a 20-person pilot: −0.085 per tick [−0.095, −0.074])",
+   "meaning": "Beats rule, rotation, fixed (Lion) and bandit by +0.09 to +0.16 per tick; final distress 3.58 (was 6.80 under the old score). Fixed Bear scores +0.129 per tick against the watchdog's +0.045 (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null
   },
   "J1, jam predictor": {
    "test": "J1, jam predictor (§11.9)",
-   "result": "<b>Accepted</b>",
-   "meaning": "0.754 accuracy on fresh seeds (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/j1.md\">results/j1.md</a>)",
-   "status": "pass",
+   "result": "<b>Accepted</b> (passed its registered test); <b>fails the baseline audit</b> (not significantly above never-jam: exact McNemar p = 0.054 against the registered 0.01)",
+   "meaning": "0.754 accuracy on fresh seeds against 0.685 for always predicting \"no jam\" (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/j1.md\">results/j1.md</a>) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "agents",
    "series": null,
    "parent": null
   },
   "T-AP, transfer agents v1": {
    "test": "<b>T-AP, transfer agents v1 → person (§11.8)</b>",
-   "result": "<b>PASS, confirmed</b>",
-   "meaning": "The first confirmed cross-substrate transfer: beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/tap.md\">results/tap.md</a>)",
-   "status": "pass",
+   "result": "<b>PASS, confirmed</b> by its registered test; <b>fails the baseline audit</b> (loses to a source-free rule in both runs: −0.133 and −0.140 per tick)",
+   "meaning": "Beats pilot-only by +0.024 per tick with fewer spikes, and holds on new seeds and a second person model (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/tap.md\">results/tap.md</a>). But the target's stabilising archetype everywhere, read from the same pilot with no source, scores +0.244 against T-AP's +0.111, so this is not evidence that anything transferred (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/baseline_audit.md\">results/baseline_audit.md</a>)",
+   "status": "mixed",
    "family": "transfer",
    "series": "T-AP",
    "parent": null

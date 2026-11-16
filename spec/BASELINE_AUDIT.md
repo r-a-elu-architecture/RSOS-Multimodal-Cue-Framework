@@ -84,5 +84,38 @@ Register effect:
 - Q3 The register, the results page and the Agents page are regenerated from the corrected `RESULTS.md`.
 - Q4 All suites, `scripts/check_all.sh` and the browser checks pass.
 
-## 6. Results
-(recorded after the run, in a separate commit)
+## 6. Results (recorded after the code commits ee01c84 and 59539cf; `rsxv/results/baseline_audit.md`)
+
+The full run took 90 s. Every reproduction check passed: H-SWITCH watchdog +0.042649, H-CFIT-M +0.044732, J1 n = 260 and
+accuracy 0.754, T-AP +0.1113 and +0.0872.
+
+| Row | Baseline | Method | Baseline value | Method − baseline | Outcome |
+|---|---|---|---|---|---|
+| A1 W1 | GREEDY | 100% fixed | 100% fixed | 0 (recorded) | **TIES** |
+| A2 W4 | none | — | — | — | not applicable; label kept |
+| A3 H-SWITCH | FIXED-BEST, Bear | +0.0426 | +0.0538 | −0.0111 [−0.0123, −0.0100] | **LOSES** |
+| A4 H-CFIT-M | FIXED-BEST, Bear | +0.0447 | +0.1294 | −0.0847 [−0.0954, −0.0741] | **LOSES** |
+| A5 G1 | NONE | gated table all Lion, both directions | the same | identical | **TIES** |
+| A6 J1 | NEVER-JAM | 0.754 | 0.685 | discordant 65 vs 47; p = 0.054 | **TIES** |
+| A7 T-AP primary | STAB-ONLY (Bear everywhere) | +0.1113 | +0.2439 | −0.1325 [−0.1449, −0.1190] | **LOSES** |
+| A7 T-AP confirmation | STAB-ONLY (Bear everywhere) | +0.0872 | +0.2271 | −0.1399 [−0.1470, −0.1335] | **LOSES** |
+
+**Verdict:** none of the six audited rows beats its simplest baseline. W4 keeps its label. By §4, W1, H-SWITCH, H-CFIT-M,
+G1, T-AP and J1 now read "passed its registered test; fails the baseline audit"; their original verdicts are kept.
+
+**What this means.**
+- In these stated models, one fixed rule (Bear, the stabilising archetype, in every context) beats every adaptive method
+  tested: ledger switching, transfer and pilot-gated tables. The models reward stabilising so strongly that choosing well
+  between archetypes adds nothing on top.
+- T-AP's STAB-ONLY table was Bear everywhere in all 40 repetitions. The rule needs 8 targets × 10 ticks of role reading and
+  no source, so the T-AP pass is not evidence that anything transferred between substrates.
+- This questions the models more than the methods. A model in which one archetype is best everywhere cannot show the value
+  of switching or of transfer. Any future switching or transfer test needs a model where the best archetype depends on
+  context. It also needs FIXED-BEST and STAB-ONLY as registered comparators.
+- Information only: J1's mean-only rule scores 0.746. Each fixed mode on the test persons is listed in the results file.
+
+**Disclosed deviation:** before the full run, a smoke run (`--quick`) used subsets of the registered seeds, not unregistered
+ones as AGENTS.md §11.5 asks. Its outcome labels matched the full run's. Nothing was changed between the smoke run and the
+full run.
+
+**Checks:** listed in HANDOFF.

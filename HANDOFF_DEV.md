@@ -327,6 +327,26 @@ Phase 2 (Steps 6–11) is complete and checked (review P2, branch `review/p2`, c
   Both are left as they are until a real compiler can check the change.
 Review status: **awaiting review**.
 
+### BASELINE_AUDIT (spec/BASELINE_AUDIT.md; registered 0f5ba72, code ee01c84 and 59539cf)
+- Each passed register row was compared against its simplest baseline, re-running each test's own procedure and seeds.
+  Every reproduction check passed.
+- **None of the six audited rows beats its baseline:**
+  - W1 ties greedy repair.
+  - H-SWITCH and H-CFIT-M lose to fixed Bear (−0.011 and −0.085 per tick).
+  - G1's gate equals transferring nothing.
+  - J1 is not significantly above never-jam (p = 0.054).
+  - T-AP loses to "Bear everywhere" with no source (−0.133 and −0.140 per tick).
+- W4 keeps its label: no baseline applies.
+- The register: 1 pass (W4), 11 mixed, 21 fail, 1 analysis. The original verdicts are kept in each row's text.
+- Meaning: in these models one fixed stabilising archetype beats every adaptive method. The models cannot show the value
+  of switching or transfer. Future tests need a model where the best archetype depends on context, with FIXED-BEST and
+  STAB-ONLY as registered comparators.
+- Disclosed: the smoke run used subsets of the registered seeds; its labels matched the full run's.
+- Checks: RSX-V 156 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; all 11 browser checks exit 0.
+- Open: the Agents page heading "Passed in simulation" is still literally true (the tests passed), but each card now shows
+  the audit result. Whether to retitle it is the owner's call.
+Review status: **awaiting review**.
+
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
 
 Registered 35d61d8; round-1 results c6b6af6; amendment A1 356991b; code c4d9b8b; E2 results 22059eb; amendment A2

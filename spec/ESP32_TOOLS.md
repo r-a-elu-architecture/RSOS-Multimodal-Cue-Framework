@@ -1,6 +1,6 @@
 # ESP32_TOOLS — the wristband firmware checked with the real ESP32 compilers and Espressif's emulator
 
-Status: registered 2026-11-16, before any compile or emulator run and before code. Results go in §7, in a separate
+Status: registered 2026-11-16 (35d61d8), before any compile or emulator run and before code; amendments A1 (356991b) and A2 (183939d); code c4d9b8b and 74fa4b2; results in §7. Results go in §7, in a separate
 "Record results" commit. No threshold in this file or elsewhere changes after results are seen.
 
 ## 0. Why
@@ -196,6 +196,71 @@ esp_develop_9.2.2_20260417, UART0 on a TCP socket, 45 s each. Boot logs: `rsso/r
   it also appeared on the first boot. In one scratch run of an emulator-flag image without that option, the first boot
   panicked (`Cache error`) in `initArduino` → `nvs_flash_init_partition` → `spi_flash_disable_interrupts_caches_and_other_cpu`,
   before `setup()`, then booted normally. Both are in start-up code that runs before the sketch.
+
+### 7.3 Round 2: the compile matrix after A1 (code c4d9b8b) — 30 of 40 builds compile
+
+Table with every build, its flags, flash and RAM: `rsso/results/esp32_tools/round2_matrix.md`.
+
+- **C1 / C1b.** Every ESP32 build compiles on 2.0.17 and 3.3.12 (10 of 10). Every ESP32-C3 and -S3 build compiles on
+  2.0.17 and 3.2.1 (20 of 20). The ten ESP32-C3 and -S3 builds on 3.3.12 stop at F3's guard, exactly:
+  `rsos_esp32.ino:25:2: error: #error "RSOS: this core builds Bluetooth with NimBLE (Arduino-ESP32 3.3 and later on
+  ESP32-C3/-S3). …"` (GCC then also prints `fatal error: esp_gap_ble_api.h: No such file or directory`).
+- **C5 not met as registered** for those ten builds: the sketch has no NimBLE implementation of the pairing rules
+  (A1 F3). Met for the other 30.
+- **New in round 2 (library, not sketch):** the two ESP32-S3 2.0.17 display builds failed inside GFX Library 1.6.1:
+  `Arduino_ESP32RGBPanel.cpp:147:3: error: 'esp_rgb_panel_t' was not declared in this scope`. Under §1's library rule
+  the newest release that compiles them is 1.6.0; with it both compile (round 2b). 1.6.0 also compiles the ESP32
+  and -C3 display builds on 2.0.17 (the `--warnings all` builds below used it). `platformio.ini` (F4) builds only the
+  ESP32 (`esp32dev`), where 1.6.1 compiles.
+- **C2 warnings.** `--warnings all` for the all-modules build of ESP32 on 2.0.17 and 3.3.12, -C3 on 2.0.17 and 3.2.1,
+  and -S3 on 3.2.1: no warning in `rsos_esp32.ino`, `rsos_core.*`, `rsos_link.*` or `rsos_modules.*`. The only
+  warnings are `-Wmissing-field-initializers` inside GFX Library sources (-C3 and -S3 on 3.2.1).
+- **C6 size.** Largest: ESP32 on 3.3.12 with all modules, 1,227,250 bytes (93% of the default 1.25 MB application
+  partition), 48,500 bytes static RAM (14%). The band alone: 1,114,030 (84%) on 3.3.12 and 1,131,917 (86%) on 2.0.17;
+  -C3 on 3.2.1 1,007,724 (76%); -S3 on 3.2.1 938,242 (71%). Adding modules beyond these leaves about 83 KB on the
+  ESP32 with 3.3.12; a larger build would need another partition scheme.
+- **Code after the matrix.** The emulator flag (74fa4b2) only adds two `#ifdef RSOS_EMULATOR` blocks: with them
+  removed, the sketch is byte-identical to c4d9b8b, and every other sketch file is unchanged. So the 40 results stand
+  for 74fa4b2 built without the flag.
+- **C5 stub check.** `test_esp32_sketch_compiles_against_stubs`: 12 builds pass (A2). The corrected stubs reproduce
+  R1-a and R1-b on the round-1 sketch.
+
+### 7.4 E3 and E4: the compiled firmware in QEMU (code 74fa4b2, `-DRSOS_EMULATOR`, `FlashMode=dio`)
+
+Four images: ESP32 on 3.3.12 and 2.0.17; ESP32-C3 and -S3 on 3.2.1. Each boots to
+`NOTE emulator build: Bluetooth off` and answers on the socket. Transcripts: `rsso/results/esp32_tools/e3_*.json`;
+board-check reports: `e4_*_quick.md`, `e4_*_full.md`.
+
+| Check | ESP32 3.3.12 | ESP32 2.0.17 | -C3 3.2.1 | -S3 3.2.1 |
+|---|---|---|---|---|
+| U1 `HELLO` | pass | pass | pass | pass |
+| U2 three pulses at 0.40, then 0.00 (`MOTOR 0 0.40 … MOTOR 1500 0.00`) | pass | pass | pass | pass |
+| U3 `STOP` after the pattern ended → `STOPPED` (as registered) | **not met**: `OK STOP` | **not met**: `OK STOP` | **not met**: `OK STOP` | **not met**: `OK STOP` |
+| U3b `STOP` while a 2 s pulse plays | pass: `MOTOR 302 0.00`, `STOPPED 302` | pass (303) | pass (302) | pass (303) |
+| U4 `PASSKEY` → a valid six-digit key | pass | pass | pass | pass |
+| U5 `PAIR` → `PAIR open 120` | pass | pass | pass | pass |
+| U6 `UNPAIR` → `UNPAIR all` | pass | pass | pass | pass |
+| U7 `NEWKEY`, then a different valid key | pass | pass | pass | pass |
+| U8 100 letters → `ERR LINE too-long`, then `HELLO` answered | pass | pass | pass | pass |
+| U9 the U7 key after restarting on the same flash | pass | pass | pass | pass |
+| E4 `python -m rsso.board --port socket://…` | 7/7 | 7/7 | 7/7 | 7/7 |
+| E4 the same with `--full` | 22/22 | 22/22 | 22/22 | 22/22 |
+
+- U3: the band did what DEVICE_PROTOCOL and `rsos_core.cpp:133-134` specify (`OK STOP` when nothing plays); the
+  registered expectation was wrong, as recorded in A2. U3b shows `STOPPED <t>` while playing.
+- Timing in emulation: B2 measured `0+300, 600+300, 1200+300` on every image, B7 `100, 100, 300`; B4 1–2 ms;
+  conformance C1 1 ms, C2 worst 0–4 ms. These times are the emulated chip's clock and a local TCP socket. They show
+  that the compiled scheduling logic places events where the timeline puts them; they are not measurements of a
+  board's timer, USB link, Bluetooth link or motor.
+
+### 7.5 What this step does not show (E5)
+
+Nothing here ran a radio. Not shown: advertising, pairing and encryption with a real phone or computer, the
+passkey prompt, the pairing window and failure limit against a real host, bonded reconnects after an address change
+(T7), link loss on a real link (T8), the bond removal in `UNPAIR` and `NEWKEY` (skipped in the emulator build), PWM
+on a pin, the motor's feel and timing, the scent and taste outputs, and the thermal, site and display hardware.
+BOARD_TEST.md T2–T9 and the module bench checks still need a board. The ESP32-C3 and -S3 cannot be built with
+Arduino-ESP32 3.3 or later until the pairing rules exist for NimBLE.
 
 Environment note: the first 2.0.17 attempt failed inside the core's esptool (`ModuleNotFoundError: No module named
 'serial'`) until pyserial was installed for the workspace's Python; that is a tool set-up step, not a sketch error.

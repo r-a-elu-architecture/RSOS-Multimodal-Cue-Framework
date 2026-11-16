@@ -1,0 +1,127 @@
+{
+ "boot": [
+  "ets Jul 29 2019 12:21:46",
+  "rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)",
+  "configsip: 0, SPIWP:0xee",
+  "clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00",
+  "mode:DIO, clock div:1",
+  "load:0x3fff0030,len:1184",
+  "load:0x40078000,len:13260",
+  "load:0x40080400,len:3028",
+  "entry 0x400805e4",
+  "NOTE emulator build: Bluetooth off"
+ ],
+ "results": [
+  [
+   "U1",
+   "HELLO",
+   true,
+   "HELLO RDP/1 haptic,olfactory,gustatory 0.60"
+  ],
+  [
+   "U2",
+   "LOAD 1 0.40 / H 0 300 300 3 0.40 / START",
+   true,
+   "MOTOR 0 0.40; MOTOR 300 0.00; MOTOR 600 0.40; MOTOR 900 0.00; MOTOR 1200 0.40; MOTOR 1500 0.00"
+  ],
+  [
+   "U3",
+   "STOP",
+   false,
+   "OK STOP"
+  ],
+  [
+   "U3b",
+   "STOP while a 2 s pulse plays",
+   true,
+   "MOTOR 303 0.00; STOPPED 303"
+  ],
+  [
+   "U4",
+   "PASSKEY",
+   true,
+   "PASSKEY 309911"
+  ],
+  [
+   "U5",
+   "PAIR",
+   true,
+   "PAIR open 120"
+  ],
+  [
+   "U6",
+   "UNPAIR",
+   true,
+   "UNPAIR all"
+  ],
+  [
+   "U7",
+   "NEWKEY then PASSKEY",
+   true,
+   "NEWKEY done; read it with PASSKEY; PASSKEY 048110"
+  ],
+  [
+   "U8",
+   "a line of 100 letters, then HELLO",
+   true,
+   "ERR LINE too-long; HELLO RDP/1 haptic,olfactory,gustatory 0.60"
+  ]
+ ],
+ "passkeys": [
+  309911,
+  48110
+ ],
+ "transcript": [
+  "< ets Jul 29 2019 12:21:46",
+  "< rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)",
+  "< configsip: 0, SPIWP:0xee",
+  "< clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00",
+  "< mode:DIO, clock div:1",
+  "< load:0x3fff0030,len:1184",
+  "< load:0x40078000,len:13260",
+  "< load:0x40080400,len:3028",
+  "< entry 0x400805e4",
+  "< NOTE emulator build: Bluetooth off",
+  "> HELLO",
+  "< HELLO RDP/1 haptic,olfactory,gustatory 0.60",
+  "> STOP",
+  "< OK STOP",
+  "> LOAD 1 0.40",
+  "< OK LOAD",
+  "> H 0 300 300 3 0.40",
+  "> START",
+  "< OK START",
+  "< MOTOR 0 0.40",
+  "< MOTOR 300 0.00",
+  "< MOTOR 600 0.40",
+  "< MOTOR 900 0.00",
+  "< MOTOR 1200 0.40",
+  "< MOTOR 1500 0.00",
+  "< DONE 1800",
+  "> STOP",
+  "< OK STOP",
+  "> LOAD 1 0.40",
+  "< OK LOAD",
+  "> H 0 2000 0 1 0.40",
+  "> START",
+  "< OK START",
+  "< MOTOR 0 0.40",
+  "> STOP",
+  "< MOTOR 303 0.00",
+  "< STOPPED 303",
+  "> PASSKEY",
+  "< PASSKEY 309911",
+  "> PAIR",
+  "< PAIR open 120",
+  "> UNPAIR",
+  "< UNPAIR all",
+  "> NEWKEY",
+  "< NEWKEY done; read it with PASSKEY",
+  "> PASSKEY",
+  "< PASSKEY 048110",
+  "> AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "< ERR LINE too-long",
+  "> HELLO",
+  "< HELLO RDP/1 haptic,olfactory,gustatory 0.60"
+ ]
+}

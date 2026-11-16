@@ -103,6 +103,25 @@ STOP                       → STOPPED
 
 The band also advertises over Bluetooth LE as `RSOS-band`, using the Nordic UART Service.
 
+### Pairing
+
+Bluetooth is paired and encrypted (spec/BLE_PAIRING.md). The band makes a six-digit passkey the first time it
+starts and keeps it in flash. It never sends it over Bluetooth.
+
+```
+PASSKEY                    → PASSKEY 482913   (USB only: the passkey to type when the system asks)
+PAIR                       → PAIR open 120    (USB only: new devices can pair for 120 s)
+UNPAIR                     → UNPAIR all       (USB only: forget every paired device)
+NEWKEY                     → NEWKEY done; read it with PASSKEY   (USB only: a new passkey; forgets every paired device)
+```
+
+- New devices can pair only in the first 120 s after power-on, or 120 s after `PAIR`. Paired devices reconnect at
+  any time. At most 4 paired devices.
+- After 3 failed pairings the window closes until the band restarts or you send `PAIR`.
+- With the display module the passkey is shown on the screen while a device pairs.
+- Over Bluetooth these four commands answer `ERR LINK usb-only`. A line longer than 95 characters answers
+  `ERR LINE too-long` and is not run.
+
 ## 5. Check it
 
 You can check the band in three ways.
@@ -152,6 +171,7 @@ MICRO and AUG from "complete in simulation" to "built and checked on hardware" o
 | B3 fails | Old firmware: reflash; the clamp is in `rsos_core` |
 | B4 fails above 100 ms | A USB hub or Bluetooth link adds delay: retry on direct USB. The band itself stops on the next millisecond tick |
 | The motor buzzes at boot | Add the 100 kΩ gate-to-ground resistor |
+| The system never asks for a passkey, or pairing fails | The pairing window has closed: send `PAIR` over USB or restart the band; remove an old pairing of `RSOS-band` in the system's Bluetooth settings; at most 4 devices (send `UNPAIR`) |
 | The board browns out when the motor starts | Power the motor from 3V3 with a 10 µF capacitor nearby, or from the battery through the MOSFET |
 
 ## 8. RDP/1.1 modules (software built, not yet assembled)

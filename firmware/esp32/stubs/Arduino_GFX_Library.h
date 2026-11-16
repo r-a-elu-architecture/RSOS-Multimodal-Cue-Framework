@@ -9,5 +9,9 @@ class Arduino_GFX {
   bool begin() { return true; }
   void fillScreen(uint16_t) {}
   void draw16bitRGBBitmap(int16_t, int16_t, uint16_t*, int16_t, int16_t) {}
+  void setTextColor(uint16_t) {}
+  void setTextSize(uint8_t) {}
+  void setCursor(int16_t, int16_t) {}
+  void print(const char*) {}
 };
 class Arduino_GC9A01 : public Arduino_GFX { public: Arduino_GC9A01(Arduino_DataBus*, int8_t, uint8_t, bool) {} };

@@ -4,6 +4,7 @@
 #include <string>
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 #define HIGH 1
 #define LOW 0
 #define OUTPUT 1

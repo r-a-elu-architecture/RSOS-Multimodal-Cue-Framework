@@ -20,6 +20,8 @@ def md(s):
 
 def status(r):
     x = re.sub(r"<[^>]+>", "", r).lower()
+    if x.lstrip().startswith("analysis"):   # spec/FIXES_P2.md C3: an analysis, not evidence for or against
+        return "analysis"
     if "pass" in x and ("fail" in x or "of 7" in x or "not testable" in x or "inconclusive" in x):
         return "mixed"
     if "pass" in x or "accepted" in x:
@@ -85,7 +87,7 @@ def main(src, out):
             last[r["series"]] = i
     for r in rows:
         r["parent"] = None if r["parent"] is None else plain(rows[r["parent"]]["test"])
-    fam = {f: {s: sum(r["status"] == s for r in rows if r["family"] == f) for s in ("pass", "mixed", "fail", "other")} for f in FAMILIES}
+    fam = {f: {s: sum(r["status"] == s for r in rows if r["family"] == f) for s in ("pass", "mixed", "fail", "analysis", "other")} for f in FAMILIES}
     json.dump({"source": "rsxv/RESULTS.md §8", "families": FAMILIES, "family_counts": fam, "rows": rows}, open(out, "w"), indent=1)
     print(len(rows), {s: sum(r["status"] == s for r in rows) for s in ("pass", "mixed", "fail", "other")})
 

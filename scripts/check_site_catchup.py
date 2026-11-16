@@ -84,6 +84,8 @@ def main():
             chain = pg.evaluate("() => Array.from(document.querySelectorAll('.fam[data-family=\"repurposing\"] .chain')[0].querySelectorAll('.lk')).map(x => x.textContent)")
             expect("S8.2 repurposing chain in order", chain, ["W5-R", "W5-R2", "W5-R3", "W5-R4", "W5-R5", "W5-R6"])
             body = pg.inner_text("body")
+            ceil = pg.evaluate("() => { const x = Array.from(document.querySelectorAll('.lk')).find(e => e.textContent === 'W5-CEILING'); return x ? x.className : null; }")
+            expect("FIXES_P2 C3 W5-CEILING shown as an analysis", ceil, "lk analysis")
             expect("S8.4/S8.5 context line; wording", ["tests are registered so far" in body, "past-crisis" in body], [True, False])
             if SHOTS:
                 pg.locator("#families").screenshot(path=str(SHOTS / "results_families.png"))
@@ -109,6 +111,10 @@ def main():
                    [True, True, True, True, 6, len(t0["local"]["repairs"])])
             F = d["w1"]["fixed"]
             expect("S10 counts match the file", f"meta repair fixed {F['meta']['all']}, local retry {F['local']['all']}" in pg.inner_text("#pvCount"), True)
+            w1m = d["register"]["W1 repair"]["meaning"]
+            import re as _re
+            expect("FIXES_P2 A1/A2 W1 caveat and heading", [_re.sub(r"<[^>]+>", "", w1m)[:40] in pg.inner_text("#pvW1Meaning"), pg.inner_text("#pvTitle")],
+                   [True, "Passed in simulation: the RSX-V agents"])
             expect("S10 five bars, three cards", [pg.evaluate("document.querySelectorAll('#pvBars i').length"), pg.evaluate("document.querySelectorAll('#pvCards .pv-box').length")], [5, 3])
             expect("S10 no output to the person", pg.evaluate("window.__out.length"), 0)
             if SHOTS:

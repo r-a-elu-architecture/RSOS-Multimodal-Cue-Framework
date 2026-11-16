@@ -155,13 +155,26 @@ def to_cue(prog: dict, lineage: dict | None = None, seconds: dict | None = None,
     lv = _watchdog().level_of_program(src)
     tier = _watchdog().level_of_program(f"PROTOCOL tier{int(prog.get('tier') or 0):03d}")   # the command's ledger tier, by the same pattern
     led = bool(lv["therapist_led"] or tier["therapist_led"]) or prog.get("level") == "clinician_led"
-    mem = bool(lv["memory_work"]) or prog.get("memory") is True
+    # FIXES_P2 L1: memory work also from the command's own words (INTENT and vector arguments, folded); MEMORY no cannot
+    # remove it.
+    mem = bool(lv["memory_work"]) or prog.get("memory") is True or memory_words(prog)
     marks = (["# rsos-level: clinician_led"] if led else []) + (["# rsos-memory: yes"] if mem else [])
     if marks:
         src = "\n".join(marks) + "\n" + src
     manifest["level"] = "clinician_led" if led else (prog.get("level") or "self_guided")
     manifest["memory"] = mem
     return {"source": src, "manifest": manifest}
+
+
+MEMORY_RX = re.compile(r"re-?liv(e|es|ed|ing)|re-?experienc|flashback|traumati[cz]|trauma|reprocess|memory work|the accident|old memor", re.A)
+
+
+def memory_words(prog: dict) -> bool:
+    """FIXES_P2 L1: the command's INTENT and vector arguments, folded, name difficult-memory work."""
+    _watchdog()
+    from rsso import safety as S
+    args = " ".join(str(v.get("args") or "") for b in prog["blocks"] for v in b["vectors"])
+    return bool(MEMORY_RX.search(S.fold((prog.get("intent") or {}).get("text", "") + " " + args)))
 
 
 _EFFECTIVE: dict = {}

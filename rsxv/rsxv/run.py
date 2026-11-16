@@ -115,10 +115,16 @@ def _watch(prog: dict, ctx: dict):
               "programmed": e["level"] == "structured"}
     wctx = {"safety": ctx.get("safety"), "clinician_present": ctx.get("clinician_present"), "screening_recorded": ctx.get("screening_recorded"),
             "max_level": ctx.get("max_level")}
-    if ctx.get("domain"):
-        from rsso import profiles as Pr
-        wctx["max_level"] = Pr.max_level(ctx["domain"], ctx.get("clinical", False))
-        wctx["memory_work_allowed"] = Pr.get(ctx["domain"])["memory_work"]
+    from rsso import profiles as Pr
+    dom = ctx.get("domain")
+    if dom is None and ctx.get("max_level") is None:
+        dom = "personal"   # FIXES_P2 L2: the site's default domain, not an open cap
+    if dom is not None:
+        dom = str(dom).strip().lower()
+        if dom not in {p["id"] for p in Pr.PROFILES}:   # FIXES_P2 L2: an unknown domain fails closed
+            return {"decision": "hold", "level": None, "reasons": [{"rule": "domain", "virtue": "gi", "text": "unknown domain", "resolve": "none"}]}
+        wctx["max_level"] = Pr.max_level(dom, ctx.get("clinical", False))
+        wctx["memory_work_allowed"] = Pr.get(dom)["memory_work"]
     d = W.watch(action, wctx)
     if d["decision"] == "hold" or (d["decision"] == "ask" and not ctx.get("confirmed")):
         return d

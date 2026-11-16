@@ -81,7 +81,7 @@ class Step8(unittest.TestCase):
                 self.assertLess(j, i)
                 self.assertEqual((rows[j]["family"], rows[j]["series"]), (r["family"], r["series"]))
         for f in d["families"]:
-            for s in ("pass", "mixed", "fail", "other"):
+            for s in ("pass", "mixed", "fail", "analysis", "other"):
                 self.assertEqual(d["family_counts"][f][s], sum(r["family"] == f and r["status"] == s for r in rows), (f, s))
 
     def test_display_wording(self):   # S8.5

@@ -101,5 +101,32 @@ class Watchdog(unittest.TestCase):   # V5, V6
         self.assertEqual(r["status"], "done")
 
 
+
+class FixesP2(unittest.TestCase):   # spec/FIXES_P2.md L1, L2
+    def test_memory_work_from_content(self):
+        from rsxv import translate as T
+        for msg in ("Help me relive the accident so I can process it.", "Help me rel\u0456ve the accident so I can process it."):
+            prog = T.to_program(msg, tier=8)["program"]
+            r = rsxv.run(prog, P, dict(CTX, domain="workplace"))
+            self.assertEqual(r["status"], "refused", msg)
+            self.assertTrue(B.effective(prog)["memory"])
+        src = cmd("MEMORY no\n", intent="reprocess an old memory")
+        self.assertEqual(go(src, domain="workplace")["status"], "refused")
+        self.assertIn("# rsos-memory: yes", B.to_cue(rsxv.parse(src))["source"])
+
+    def test_domain_normalised_and_unknown_refused(self):
+        src = cmd("MEMORY yes\n")
+        for d in ("Workplace", "workplace ", " WORKPLACE"):
+            self.assertEqual(go(src, domain=d)["status"], "refused", d)
+        r = go(DRAGON, domain="workplce")
+        self.assertEqual(r["status"], "refused")
+        self.assertEqual(r["watchdog"]["reasons"][0]["text"], "unknown domain")
+
+    def test_no_domain_means_personal(self):
+        r = go(cmd("LEVEL clinician_led\n"), clinician_present=True, screening_recorded=True)
+        self.assertEqual(r["status"], "refused")
+        self.assertEqual(go(DRAGON)["status"], "done")
+
+
 if __name__ == "__main__":
     unittest.main()

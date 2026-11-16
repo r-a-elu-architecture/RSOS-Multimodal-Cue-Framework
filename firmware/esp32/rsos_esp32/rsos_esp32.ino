@@ -415,11 +415,9 @@ void setup() {
 #endif
   linkPolicy.begin(millis());
   BLEDevice::init("RSOS-band");
-#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 3, 0)   // ESP32_TOOLS F2: moved to BLESecurity in 3.3
-  BLESecurity::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);
-#else
-  BLEDevice::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);
-#endif
+  // FIXES_P2 E1: no setEncryptionLevel on any core. On 2.0.17 and 3.2.1 it makes the library request encryption on every
+  // connection (BLEDevice.cpp, ESP_GATTS_CONNECT_EVT), which bypasses onSecurityRequest() and the pairing window. The only
+  // encryption request is onConnect's, inside the window; the characteristics still require *_ENC_MITM.
   BLEDevice::setCustomGapHandler(gapEvent);
   BLEDevice::setSecurityCallbacks(new SecurityCB());   // S1
   setSecurity();

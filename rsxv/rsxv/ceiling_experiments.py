@@ -45,7 +45,9 @@ def verdict(con_none: dict, con_pilot: dict) -> dict:
 def line_verdict(per_dir: list) -> dict:
     room = [d["source"] + " → " + d["target"] for d in per_dir if d["verdict"]["room"]]
     return {"pass": bool(room), "room_in": room,
-            "decision": ("Pass for " + ", ".join(room) + ": the method is the bottleneck there; one new registered method allowed for those directions only.")
+            "decision": ("Pass for " + ", ".join(room) + " by the registered rule. The room cannot be credited to the source: a source-free rule "
+                         "(the target's stabilising archetype everywhere, read from the pilot's own role-reading ticks) reaches the same value "
+                         "(review P2-1; spec/FIXES_P2.md C1). The W5 transfer line stops in all four directions (C2).")
             if room else "Fail: even perfect source knowledge is no better than an 8-target pilot in any direction. The W5 transfer line stops (no W5f); T-AP stays as recorded."}
 
 

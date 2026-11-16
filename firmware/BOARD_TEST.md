@@ -125,6 +125,11 @@ prompt appears and pairing works.
 - what happened with the window closed: was there a prompt, an error message, or a connection?
 - what happened after `PAIR`.
 
+**Why this test matters (spec/FIXES_P2.md E1).** The band refuses pairing outside the window only if nothing asks the
+phone for encryption at connect. An earlier version called `setEncryptionLevel`, which on Arduino-ESP32 2.0.17 and 3.2.1
+makes the library request encryption on every connection and so invites any phone to pair. That call is removed. The
+fix rests on reading the library at 2.0.17, 3.2.1 and 3.3.12, not on a run, so record the core version you flashed with.
+
 ## T6 — Failure limit
 
 1. Send `UNPAIR` over USB, then `PAIR`. The window is open.

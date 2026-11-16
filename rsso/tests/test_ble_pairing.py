@@ -54,9 +54,6 @@ class Sketch(unittest.TestCase):   # B3
         self.assertNotIn("serialLine +=", SKETCH)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
 
 class FixesR6(unittest.TestCase):   # spec/FIXES_R6.md §5
     def test_requests_answered_only_in_the_window(self):   # B5 as amended by FIXES_R6C S1-S3
@@ -97,10 +94,10 @@ class Esp32Tools(unittest.TestCase):   # spec/ESP32_TOOLS.md §6 A1
         self.assertNotRegex(SKETCH, r"\blink\.")
         self.assertIn("#include <unistd.h>", (REPO / "firmware/esp32/stubs/Arduino.h").read_text(encoding="utf-8"))
 
-    def test_encryption_level_on_every_core(self):   # F2
-        self.assertIn("#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 3, 0)", SKETCH)
-        self.assertIn("BLESecurity::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);", SKETCH)
-        self.assertIn("BLEDevice::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);", SKETCH)
+    def test_encryption_level_on_every_core(self):   # F2, superseded by FIXES_P2 E1: no encryption level on any core
+        code = "\n".join(l.split("//")[0] for l in SKETCH.splitlines())
+        self.assertNotIn("BLESecurity::setEncryptionLevel(", code)
+        self.assertNotIn("BLEDevice::setEncryptionLevel(", code)
 
     def test_nimble_builds_stop_with_a_reason(self):   # F3
         i, j = SKETCH.index("#include <Arduino.h>"), SKETCH.index("#include <BLEDevice.h>")
@@ -133,3 +130,18 @@ class Esp32Tools(unittest.TestCase):   # spec/ESP32_TOOLS.md §6 A1
         self.assertTrue(rab.split("\n", 1)[1].startswith("#ifdef RSOS_EMULATOR"))
         for f in ("firmware/esp32/platformio.ini", "firmware/BOARD_KIT.md", "firmware/BOARD_TEST.md"):
             self.assertNotIn("-DRSOS_EMULATOR", (REPO / f).read_text(encoding="utf-8"), f)
+
+
+class FixesP2(unittest.TestCase):   # spec/FIXES_P2.md E2
+    def test_no_library_encryption_request(self):
+        code = "\n".join(l.split("//")[0] for l in SKETCH.splitlines())   # code only, not comments
+        self.assertNotIn("setEncryptionLevel(", code)
+        self.assertNotIn("startSecurity(", code)
+        self.assertNotIn("setAuthenticationMode(", code)
+        calls = [l for l in code.splitlines() if "esp_ble_set_encryption(" in l]
+        self.assertEqual(len(calls), 1)
+        self.assertIn("if (linkPolicy.accept_request(", calls[0])
+
+
+if __name__ == "__main__":
+    unittest.main()

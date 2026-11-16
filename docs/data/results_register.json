@@ -13,36 +13,42 @@
    "pass": 2,
    "mixed": 1,
    "fail": 10,
+   "analysis": 0,
    "other": 0
   },
   "repurposing": {
    "pass": 0,
    "mixed": 1,
    "fail": 5,
+   "analysis": 0,
    "other": 0
   },
   "lineage": {
    "pass": 0,
    "mixed": 2,
    "fail": 4,
+   "analysis": 0,
    "other": 0
   },
   "person model": {
    "pass": 0,
    "mixed": 2,
    "fail": 2,
+   "analysis": 0,
    "other": 0
   },
   "agents": {
    "pass": 5,
    "mixed": 0,
    "fail": 0,
+   "analysis": 0,
    "other": 0
   },
   "other": {
    "pass": 0,
    "mixed": 0,
    "fail": 0,
+   "analysis": 0,
    "other": 0
   }
  },

@@ -182,11 +182,11 @@ th{color:var(--muted);font-weight:500}
   </section>
 
   <section aria-labelledby="pvTitle" id="proven">
-    <h2 id="pvTitle">Proven in simulation: the RSX-V agents</h2>
+    <h2 id="pvTitle">Passed in simulation: the RSX-V agents</h2>
     <p class="lede">Six archetype agents pass work to one another (<a href="rsxv.html">RSX-V</a>). These are the agent results that passed their registered tests, shown working from runs of the real code on a small sample. Shown in simulation with stated models of agents and a person; not tested with people.</p>
     <div class="pv-grid">
       <div class="pv-box" id="pvRepair">
-        <h3>Repair: finding the fault where it starts <span class="pv-tag">W1 passed</span></h3>
+        <h3>Repair: finding the fault where it starts <span class="pv-tag">W1: passed its registered test</span></h3>
         <p class="hint" style="margin:0">Two faults are injected; some are silent and show up only in the agents downstream. Meta repair looks at the whole graph; local retry repairs inside the agent where the error shows.</p>
         <div class="pv-row" role="group" aria-label="Repair method"><button type="button" data-arm="meta" aria-pressed="true">Meta repair</button><button type="button" data-arm="local" aria-pressed="false">Local retry</button></div>
         <div class="pv-row"><button type="button" id="pvPrev" aria-label="Previous trial">←</button><span id="pvTrial" aria-live="polite"></span><button type="button" id="pvNext" aria-label="Next trial">→</button></div>
@@ -194,9 +194,10 @@ th{color:var(--muted);font-weight:500}
         <p style="margin:6px 0 0" class="pv-out" id="pvOut"></p>
         <ol class="pv-steps" id="pvSteps"></ol>
         <p class="hint" id="pvCount" style="margin:10px 0 0"></p>
+        <p class="hint" id="pvW1Meaning" style="margin:6px 0 0"></p>
       </div>
       <div class="pv-box" id="pvSwitch">
-        <h3>Switching between modes <span class="pv-tag">H-SWITCH passed</span></h3>
+        <h3>Switching between modes <span class="pv-tag">H-SWITCH: passed its registered test</span></h3>
         <p class="hint" style="margin:0">The Watchdog picks a mode from what the ledger has measured, against four other policies, on the same simulated people. Mean reward per tick:</p>
         <div class="pv-bars" id="pvBars"></div>
         <p class="hint" id="pvCaveat" style="margin:10px 0 0"></p>
@@ -327,6 +328,8 @@ drawAll();
   const F = W1.fixed;
   $("pvCount").textContent = "Over these " + W1.n + " trials: meta repair fixed " + F.meta.all + ", local retry " + F.local.all + ". Where faults pass between agents (" + F.meta.cross_n + " trials): meta " + F.meta.cross + ", local " + F.local.cross + ".";
   draw();
+  // FIXES_P2 A1: the register's own caveat for W1, beside the counts.
+  if (D.register["W1 repair"]) $("pvW1Meaning").innerHTML = "What the register says this means: " + D.register["W1 repair"].meaning;
   const P = D.hswitch.policies, top = Math.max(...P.map(p => p.reward));
   $("pvBars").innerHTML = P.map(p => `<span>${p.policy[0].toUpperCase() + p.policy.slice(1)}</span><i class="${p.reward === top ? "best" : ""}" style="width:${Math.round(100 * p.reward / top)}%" title="${p.reward}"></i><span>${p.reward.toFixed(3)} · distress ${p.distress.toFixed(1)}</span>`).join("");
   const R = D.register;

@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 concurrency:
   group: firmware-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false   # every push gets a complete result (dev receives frequent pushes)
 jobs:
   compile:
     # 40 builds: ESP32 on Arduino-ESP32 2.0.17 and 3.3.12; ESP32-C3/-S3 on 2.0.17, 3.2.1 and 3.3.12; no module, each

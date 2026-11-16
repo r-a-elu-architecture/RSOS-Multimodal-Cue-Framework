@@ -1,0 +1,45 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4640
+load:0x40078000,len:15592
+load:0x40080400,len:3164
+entry 0x4008059c
+
+assert failed: btdm_low_power_mode_init bt.c:1564 (select_src_ret && set_div_ret)
+
+
+Backtrace: 0x40093698:0x3ffb46d0 0x4009365d:0x3ffb46f0 0x40099c85:0x3ffb4710 0x400ed8f8:0x3ffb4850 0x400dbdab:0x3ffb4880 0x400dbdc1:0x3ffb48d0 0x400d73e1:0x3ffb48f0 0x400d3512:0x3ffb4920 0x400de54e:0x3ffb4970 0x40094241:0x3ffb4990
+
+
+
+
+ELF file SHA256: 463fb978e
+
+Rebooting...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4640
+load:0x40078000,len:15592
+load:0x40080400,len:3164
+entry 0x4008059c
+
+assert failed: btdm_low_power_mode_init bt.c:1564 (select_src_ret && set_div_ret)
+
+
+Backtrace: 0x40093698:0x3ffb46d0 0x4009365d:0x3ffb46f0 0x40099c85:0x3ffb4710 0x400ed8f8:0x3ffb4850 0x400dbdab:0x3ffb4880 0x400dbdc1:0x3ffb48d0 0x400d73e1:0x3ffb48f0 0x400d3512:0x3ffb4920 0x400de54e:0x3ffb4970 0x40094241:0x3ffb4990
+
+
+
+
+ELF file SHA256: 463fb978e
+
+Rebooting...
+[... 4 resets in 45 s of emulation; capture cut here]

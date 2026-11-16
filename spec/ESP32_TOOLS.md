@@ -151,6 +151,33 @@ Probe (a scratch copy, not committed, before the amendment in §6): with R1-a an
 ESP32 on 3.3.12 with all modules, ESP32 on 2.0.17 with thermal and sites, and ESP32-C3 on 3.2.1 compiled with no
 other error; ESP32-C3 on 3.2.1 is built with Bluedroid (`CONFIG_BT_BLUEDROID_ENABLED=y`), as are -S3 on 3.2.1.
 
+### 7.2 E2: the real images in QEMU (code c4d9b8b, no emulator flag)
+
+Images: no module flags; ESP32 with 3.3.12 and 2.0.17, ESP32-C3 and -S3 with 3.2.1 (A1, E1b). QEMU
+esp_develop_9.2.2_20260417, UART0 on a TCP socket, 45 s each. Boot logs: `rsso/results/esp32_tools/e2_*.txt`.
+
+- **Flash mode.** With Arduino's default `FlashMode=qio` the ESP32 image never reaches the sketch:
+  `E (…) qio_mode: Failed to set QIE bit, not enabling QIO mode`, then
+  `assert failed: __esp_system_init_fn_init_flash startup_funcs.c:118 (flash_ret == ESP_OK)`, then a reset, in a loop.
+  The emulated flash does not take QIO. All runs below use the board option `FlashMode=dio` (no code change).
+- **Bluetooth start-up fails in the emulator, on every image.** Each reaches `setup()` and stops in
+  `BLEDevice::init`, which resets the chip; this repeats.
+
+  | Image | First failure, exactly | Resets in 45 s |
+  |---|---|---|
+  | ESP32, 3.3.12 | `assert failed: btdm_low_power_mode_init bt.c:1564 (select_src_ret && set_div_ret)`; decoded: `esp_bt_controller_init` ← `btStartMode` (esp32-hal-bt.c:130) ← `btStart` ← `BLEDevice::init(String)` (BLEDevice.cpp:306) ← `setup()` (rsos_esp32.ino:408) | 4 |
+  | ESP32, 2.0.17 | `assert failed: esp_bt_controller_init bt.c:1555 (select_src_ret && set_div_ret)`; decoded: `esp_bt_controller_init` ← `btStart` (esp32-hal-bt.c:46) ← `BLEDevice::init` (BLEDevice.cpp:339) ← `setup()` (rsos_esp32.ino:408) | 6 |
+  | ESP32-C3, 3.2.1 | `assert failed: btdm_low_power_mode_init bt.c:1680 (select_src_ret && set_div_ret)` | 156 |
+  | ESP32-S3, 3.2.1 | `assert failed: 0x4201f22b <cached disabled>:1680 (<cached disabled>)` (the same assertion line, printed while the cache was off) | 5 |
+
+  So §4 applies: the emulator has no Bluetooth controller, and the real build cannot reach `loop()` there.
+  None of U1–U9 or E4 can run on the unchanged image.
+- Other emulator behaviour seen: on the 3.3.12 ESP32 image, after several resets, a `LoadProhibited` panic in
+  `task_wdt_isr` (task_wdt.c:478); without the QEMU option `-global driver=timer.esp32.timg,property=wdt_disable,value=true`
+  it also appeared on the first boot. In one scratch run of an emulator-flag image without that option, the first boot
+  panicked (`Cache error`) in `initArduino` → `nvs_flash_init_partition` → `spi_flash_disable_interrupts_caches_and_other_cpu`,
+  before `setup()`, then booted normally. Both are in start-up code that runs before the sketch.
+
 Environment note: the first 2.0.17 attempt failed inside the core's esptool (`ModuleNotFoundError: No module named
 'serial'`) until pyserial was installed for the workspace's Python; that is a tool set-up step, not a sketch error.
 

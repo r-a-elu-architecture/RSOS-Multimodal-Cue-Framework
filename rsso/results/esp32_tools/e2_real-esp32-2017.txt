@@ -1,0 +1,53 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:1184
+load:0x40078000,len:13260
+load:0x40080400,len:3028
+entry 0x400805e4
+
+assert failed: esp_bt_controller_init bt.c:1555 (select_src_ret && set_div_ret)
+
+
+Backtrace: 0x400837a9:0x3ffca620 0x40093815:0x3ffca640 0x40098d55:0x3ffca660 0x400e86ed:0x3ffca790 0x400d9921:0x3ffca7b0 0x400d5fe6:0x3ffca800 0x400d35c5:0x3ffca830 0x400da8b6:0x3ffca880
+
+
+
+
+ELF file SHA256: 4042e4f0e9c36401
+
+Rebooting...
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x12 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:1184
+load:0x40078000,len:13260
+load:0x40080400,len:3028
+entry 0x400805e4
+Guru Meditation Error: Core  1 panic'ed (Cache disabled but cached memory region accessed). 
+
+Core  1 register dump:
+PC      : 0x400e3cec  PS      : 0x00060035  A0      : 0x80082bfc  A1      : 0x3ffe7d80  
+A2      : 0x00003e80  A3      : 0x3846ef97  A4      : 0x00000001  A5      : 0x00000020  
+A6      : 0x00000020  A7      : 0x00000000  A8      : 0x800837ed  A9      : 0x3ffe7d70  
+A10     : 0x00003e84  A11     : 0x3ff00328  A12     : 0x0000001a  A13     : 0x003f2540  
+A14     : 0x00000020  A15     : 0x3ffbf990  SAR     : 0x00000006  EXCCAUSE: 0x00000007  
+EXCVADDR: 0x00000000  LBEG    : 0x40090fe8  LEND    : 0x40090ffe  LCOUNT  : 0x00000000  
+
+
+Backtrace: 0x400e3ce9:0x3ffe7d80 0x40082bf9:0x3ffe7da0 0x40007c15:0x3ffe7dc0 0x4000073d:0x3ffe7e30
+
+
+
+
+ELF file SHA256: 4042e4f0e9c36401
+
+E (5932) esp_core_dump_flash: Core dump flash config is corrupted! CRC=0x7bd5c66f instead of 0x0
+Rebooting...
+[... 6 resets in 45 s of emulation; capture cut here]

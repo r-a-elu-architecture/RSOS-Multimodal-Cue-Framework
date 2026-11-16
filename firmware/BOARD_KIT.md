@@ -4,8 +4,12 @@ This guide takes you from parts to a wristband that passes the RSOS device check
 (`esp32/rsos_esp32/`) is the same C++ core that passes all 15 conformance checks in the host simulator. This kit
 is how it gets onto real hardware and how you prove it behaves the same there.
 
-Status: the sketch is compile-checked for Arduino-ESP32 2.x and 3.x. It has not yet been run on a board in this
-repository. The first board you build is that test, so please record the result (§6).
+Status (spec/ESP32_TOOLS.md): the sketch compiles with the real ESP32 toolchains — Arduino-ESP32 2.0.17 and 3.3.12
+for the ESP32, 2.0.17 and 3.2.1 for the ESP32-C3 and -S3 — with and without the modules. The compiled firmware has
+run in Espressif's QEMU emulator with Bluetooth left out (an emulator-only build; QEMU has no Bluetooth): the USB
+commands and the board check pass there (B1–B7 and the conformance suite). It has not yet been run on a board: the
+radio, pairing with a phone, the motor's feel and timing, and the module hardware are still untested. The first board
+you build is that test, so please record the result (§6).
 
 ## Which wristbands work
 
@@ -69,14 +73,22 @@ Choose one of the three routes.
 
 **Arduino IDE (2.x):**
 
-1. Install "esp32 by Espressif Systems" from Boards Manager. Version 3.x and 2.x both work.
+1. Install "esp32 by Espressif Systems" from Boards Manager. Which version:
+
+   | Board | Works (compiled with the real toolchain) | Does not build |
+   |---|---|---|
+   | ESP32 (DevKitC and similar) | 2.0.17; 3.3.12 (3.x) | — |
+   | ESP32-C3, ESP32-S3 | 2.0.17; 3.2.1 | 3.3 and later: these builds use the NimBLE Bluetooth stack, and the sketch's pairing rules are written for Bluedroid, so it stops with a message naming the versions to use |
+
+   With the display module (`-DRSOS_DISPLAY`) also install "GFX Library for Arduino": with core 2.x use version
+   1.6.0 (1.6.2 and later need core 3.x; 1.6.1 fails on the ESP32-S3), with core 3.x the newest.
 2. Open `firmware/esp32/rsos_esp32/rsos_esp32.ino`.
 3. Choose your board and port, then press Upload.
 
 **arduino-cli:**
 
 ```bash
-arduino-cli core install esp32:esp32
+arduino-cli core install esp32:esp32              # ESP32; for ESP32-C3 or -S3: esp32:esp32@3.2.1
 arduino-cli compile --fqbn esp32:esp32:esp32 firmware/esp32/rsos_esp32
 arduino-cli upload  --fqbn esp32:esp32:esp32 -p /dev/ttyUSB0 firmware/esp32/rsos_esp32
 ```
@@ -98,7 +110,7 @@ HELLO                      → HELLO RDP/1 haptic,olfactory,gustatory 0.60   (th
 LOAD 1 0.40
 H 0 300 300 3 0.40
 START                      → the motor pulses three times; MOTOR lines report each change
-STOP                       → STOPPED
+STOP                       → STOPPED <t> while a pattern plays; OK STOP once it has finished
 ```
 
 The band also advertises over Bluetooth LE as `RSOS-band`, using the Nordic UART Service.
@@ -180,7 +192,7 @@ MICRO and AUG from "complete in simulation" to "built and checked on hardware" o
 
 ## 8. RDP/1.1 modules (software built, not yet assembled)
 
-The firmware core runs the RDP/1.1 lines (11 of 11 channel checks, `rsso/results/channels_firmware.md`). The module code (`rsos_modules.*`: the thermal controller with its safety cut-offs, the multi-site driver, the display gate) passes 15 of 15 checks in simulation, the thermal controller against a physical model of the module (`rsso/results/modules.md`). The sketch drives each module when built with its flag; it is compile-checked for Arduino-ESP32 2.x and 3.x, but not yet run on a board.
+The firmware core runs the RDP/1.1 lines (11 of 11 channel checks, `rsso/results/channels_firmware.md`). The module code (`rsos_modules.*`: the thermal controller with its safety cut-offs, the multi-site driver, the display gate) passes 15 of 15 checks in simulation, the thermal controller against a physical model of the module (`rsso/results/modules.md`). The sketch drives each module when built with its flag; every module build compiles with the real Arduino-ESP32 toolchains (2.0.17, 3.2.1 and 3.3.12, as in §3), but none has been run on a board or with the module hardware.
 
 | Module | Parts (about) | Build | Wiring (default pins, ESP32-DevKitC) |
 |---|---|---|---|

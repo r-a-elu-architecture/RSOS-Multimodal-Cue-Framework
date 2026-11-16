@@ -309,8 +309,38 @@ Tests: `rsso/tests/test_site_catchup.py` (7), `scripts/check_site_catchup.py`.
   in the ceiling, against 240 in the pilot). One registered successor is allowed for agent → person. The repurposing
   family's ceiling still needs its own registered design.
 Phase 2 (Steps 6–11) is complete. Open: a targeted check of Steps 6–11; the repurposing ceiling; the one agent → person
-successor; ESP32_TOOLS (the parallel chat).
+successor; ESP32_TOOLS (the parallel chat; recorded below).
 Review status: **awaiting a targeted check**.
+
+### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
+
+Registered 35d61d8; round-1 results c6b6af6; amendment A1 356991b; code c4d9b8b; E2 results 22059eb; amendment A2
+183939d; code 74fa4b2; results fb684a5. Tools: arduino-cli 1.6.0, Arduino-ESP32 2.0.17, 3.2.1 and 3.3.12, QEMU
+esp_develop_9.2.2_20260417. Reproduce with `firmware/esp32/real_check.py` (needs those tools; not part of `check_all.sh`).
+- **Round 1, unchanged sketch: 0 of 30 builds compiled.** Real errors the stubs had hidden: the global `link` collides
+  with POSIX `link()` (every build); `BLEDevice::setEncryptionLevel` moved to `BLESecurity` in 3.3; Arduino-ESP32 3.3+
+  builds the ESP32-C3/-S3 with NimBLE, not Bluedroid; GFX Library 1.6.9 needs core 3.x. Exact output in
+  `rsso/results/esp32_tools/round1_errors.md`.
+- **Fixes (A1):** rename to `linkPolicy`; version-dependent encryption call; a clear `#error` for NimBLE builds (not a
+  port: the pairing rules on NimBLE need their own registration and review); GFX pinned for 2.x. The stubs now include
+  `<unistd.h>` and model the 3.3 API, so they catch the first two errors.
+- **Round 2: 30 of 40 builds compile** (ESP32 on 2.0.17 and 3.3.12; -C3 and -S3 on 2.0.17 and 3.2.1; each alone, with
+  each module and with all). The ten -C3/-S3 builds on 3.3.12 stop at the guard. No warnings in the sketch's files.
+  Largest build 93% of the default app partition (ESP32, 3.3.12, all modules).
+- **QEMU:** every real image reaches `setup()` and then asserts in the Bluetooth controller start-up (no Bluetooth in
+  QEMU), resetting in a loop. Emulator-only flag `-DRSOS_EMULATOR` (§4: skips Bluetooth start-up and bond removal; never
+  set for a board; a test checks this). With it, on ESP32 (3.3.12, 2.0.17), -C3 and -S3 (3.2.1): BOARD_TEST T1 and
+  the USB-only commands pass (HELLO, three pulses, STOP while playing, PASSKEY, PAIR, UNPAIR, NEWKEY, long line,
+  passkey kept in flash across a restart); `python -m rsso.board --port socket://…` 7/7 and `--full` 22/22 on all four.
+  Registered U3 not met: STOP after the pattern ended answers `OK STOP`, which is what the protocol specifies (the
+  test's wording was wrong; BOARD_TEST T1 corrected).
+- `rsso.board` accepts pyserial URLs (`socket://`), so the board check can run against an emulator or a network port.
+- **Still needs a board:** radio and pairing with a phone or computer (BOARD_TEST T3–T7), link loss (T8), bond removal
+  (T9), PWM on a pin, motor feel and timing, scent/taste outputs, module hardware. Emulator timings are the emulated
+  clock over a local socket, not a board's.
+Docs: BOARD_KIT status and version table, BOARD_TEST T0/T1, firmware README, the sketch's STATUS comment, MICRO on the
+architecture map (status stays "complete in simulation").
+Review status: **awaiting review**.
 
 ## 5. Review findings
 
@@ -328,3 +358,5 @@ Verdict:         ready for the owner | changes needed
 ## 6. Open items
 
 - Step 4 on a board: flash, pair from Android Chrome and a computer, check the window, the failure limit and USB-only commands (BOARD_KIT §4 Pairing); first, whether a bonded phone reconnects after its private address changes (R6c-2), and that a phone outside the window cannot start pairing (FIXES_R6C S1/S2).
+- Wristband on Arduino-ESP32 3.3+ for the ESP32-C3/-S3: the pairing rules (window, failure limit, bond limit, refusal before keys are exchanged, bonded-host check) need a NimBLE implementation, registered and reviewed on its own (ESP32_TOOLS A1 F3). Until then those chips build with 3.2.1 or 2.0.17.
+- First board run (BOARD_TEST.md): the firmware now compiles with the real toolchains and passes the USB checks in QEMU, so a failure on a board points at the radio, the pins or the motor rather than the build.

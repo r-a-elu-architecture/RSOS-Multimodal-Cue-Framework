@@ -12,13 +12,16 @@
 //
 // rsos_core.* and rsos_modules.* are copies of firmware/rsos_core/ (tested on the host with host_sim and module_sim);
 // keep them identical (rsso/tests/test_firmware.py checks this).
-// STATUS: compile-checked on a PC against stubs for Arduino-ESP32 2.x and 3.x, with and without the modules;
-// not yet run on a board. Flash and check it with firmware/BOARD_KIT.md.
+// STATUS (spec/ESP32_TOOLS.md): compiles with the real toolchains, Arduino-ESP32 2.0.17 and 3.3.12 (ESP32) and
+// 2.0.17 and 3.2.1 (ESP32-C3, -S3), with and without the modules; the USB side passes the board check in Espressif's
+// QEMU with the emulator-only build flag of spec §4 (no Bluetooth there). Not yet run on a board: radio, pairing and motor
+// are untested. Flash and check it with firmware/BOARD_KIT.md and firmware/BOARD_TEST.md.
 //
 // Bluetooth is paired and encrypted (spec/BLE_PAIRING.md): LE Secure Connections with a six-digit passkey made on
 // first start and kept in flash; new hosts can pair only in a 120 s window after power-on or USB PAIR; PASSKEY,
 // PAIR, UNPAIR and NEWKEY act only over USB. The policy is rsos_link.* (a copy of firmware/rsos_core/, host-tested).
-// Uses the Bluedroid BLE stack (not a NimBLE build).
+// Uses the Bluedroid BLE stack. Arduino-ESP32 3.3 and later build the ESP32-C3 and -S3 with NimBLE: there the sketch
+// stops with an #error (spec/ESP32_TOOLS.md A1 F3); use 3.2.1 or 2.0.17 for those chips.
 
 #include <Arduino.h>
 #if defined(CONFIG_BT_NIMBLE_ENABLED)   // ESP32_TOOLS F3

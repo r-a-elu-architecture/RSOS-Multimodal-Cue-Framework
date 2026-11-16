@@ -30,15 +30,17 @@ https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/dev/device.
    ESP32-S3.
 2. Get the firmware from the `dev` branch: `firmware/esp32/rsos_esp32/`. Include all files in that folder:
    `rsos_esp32.ino`, `rsos_core.*`, `rsos_link.*` and the module files.
-3. Flash with Arduino IDE ("esp32 by Espressif Systems", 2.x or 3.x) or PlatformIO (`BOARD_KIT.md` §3).
+3. Flash with Arduino IDE ("esp32 by Espressif Systems") or PlatformIO (`BOARD_KIT.md` §3). Versions that compile:
+   2.0.17 or 3.3.12 for the ESP32; 2.0.17 or 3.2.1 for the ESP32-C3 and -S3 (3.3 and later stop with a message on
+   those two, because they use a different Bluetooth stack).
 
 **Expect:** the upload finishes without errors.
 
 **Record:**
 - the board model;
 - the Arduino-ESP32 version (Boards Manager shows it);
-- any compiler error, copied exactly. The firmware was checked only against stand-in headers, so a real compile error
-  here is a real finding.
+- any compiler error, copied exactly. The firmware has been compiled with the real toolchains for these versions
+  (spec/ESP32_TOOLS.md), so an error here points to a different version or setting: record both.
 
 ## T1 — Signs of life over USB
 
@@ -48,7 +50,7 @@ Open the serial monitor: 115200 baud, line ending "Newline". Type each line and 
 |---|---|
 | `HELLO` | `HELLO RDP/1 haptic,olfactory,gustatory 0.60` |
 | `LOAD 1 0.40` then `H 0 300 300 3 0.40` then `START` | Three pulses of the motor, with `MOTOR` lines |
-| `STOP` | `STOPPED …`, motor off |
+| `STOP` | `STOPPED …` while the pattern plays, or `OK STOP` once it has finished; motor off |
 | `PASSKEY` | `PASSKEY` followed by six digits. **Write the number down.** |
 
 **Record:** each reply as shown, and whether the motor pulsed three times.

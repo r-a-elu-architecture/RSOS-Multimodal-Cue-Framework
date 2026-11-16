@@ -184,6 +184,7 @@
   let AC = null;
   function audioCtx() { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch (e) { AC = null; } return AC; }
   function feel(code, opts) {
+    if (typeof window !== "undefined" && !window.RSOSOutlet) return;   // fails closed without the output gate (FIXES_R4 G6)
     // plays a vibration code: the wrist vibrates where the device can, the speaker gives the same pattern as the low
     // buzz of a vibration motor, and the code's marks (opts.marks: an element containing codeSVG) light up in time
     opts = opts || {};

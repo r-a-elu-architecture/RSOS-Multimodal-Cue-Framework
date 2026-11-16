@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
-<script src="js/profiles.js?v=1.0.0"></script>
-<script src="js/outlet.js?v=1.0.0"></script>
-<script src="js/voice.js?v=1.0.0"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.19.0"></script>
+<script src="js/voice.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Protocol player — RSOS</title>
@@ -339,14 +339,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/rsx.js?v=1.13.0"></script>
 <script src="js/hrs.js?v=1.13.0"></script>
 <script src="js/memstack.js?v=1.13.0"></script>
-<script src="js/ugcl.js?v=1.13.0"></script>
+<script src="js/ugcl.js?v=1.19.0"></script>
 <script src="js/consent.js?v=1.16.0"></script>
 <script src="js/nodes.js?v=1.16.0"></script>
-<script src="js/safety.js?v=1.16.0"></script>
+<script src="js/safety.js?v=1.19.0"></script>
 <script src="js/linx.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.0.0"></script>
-<script src="js/guard.js?v=1.0.0"></script>
+<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -401,6 +401,7 @@ function futuresOf(src) {
   return (m[1].match(/"(?:[^"\\]|\\.)*"/g) || []).map(s => s.slice(1, -1));
 }
 function selectProgram() {
+  loadOrigin = null;
   const p = $("program").value, src = sources[p];
   if (src == null) { $("source").value = ""; $("compileMsg").className = "err";
     $("compileMsg").textContent = "Could not load protocols/" + p + ".rsx. Open this page from the published site or a local web server."; return; }
@@ -641,6 +642,7 @@ async function start(trigger) {
   setCue("", ""); run.raf = requestAnimationFrame(frame);
   $("stop").focus();
 }
+window.addEventListener("rsos-outlet-hold", () => { if (run) { $("compileMsg").className = "err"; $("compileMsg").textContent = "Stopped by the Watchdog: the session state or domain no longer allows this program."; finish(false); } });
 async function finish(completed) {
   if (!run) return;
   RSOSOutlet.close();
@@ -692,14 +694,39 @@ const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RS
 const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());
 // What the run carries (FIXES_R1 W-4, S-4b): a clinician-led plan's observer node is clinician-led memory work; a program
 // whose text differs from its built-in file is "edited" and never counts as a regulating program, whatever its name.
+// Level from where a program came from (FIXES_R4 §2): the slot's origin and any text loaded into it (a cue) keep their
+// level however the text is edited; and the same text carries the same level whatever slot it is in.
+let loadOrigin = null;   // {cue: id} when a programmed cue was loaded into the editor; cleared when another program is chosen
+const unite = (f, g) => { if (g.therapist_led) f.therapist_led = true; if (g.memory_work) f.memory_work = true; return f; };
+const normText = t => String(t || "").replace(/\r\n?|\u2028|\u2029/g, "\n").split("\n").filter(l => !/^[ \t]*#/.test(l)).join(" ").replace(/[ \t\n]+/g, " ").trim();
+function planFlags(plan, i) {
+  const f = {}, n = plan && plan.nodes ? plan.nodes[i] : null; if (!n) return f;
+  const dx = (plan.dx || []).includes("depression"), memory = (((plan.intake || {}).concerns) || []).includes("ptsd") || (!!plan.therapist_led && !dx);   // FIXES_R4 LM1
+  if (memory) { f.memory_work = true; if (plan.therapist_led && n.mode === "observer") f.therapist_led = true; }
+  if (dx) f.therapist_led = true;   // spec/LOW_MOOD.md: every node of a diagnosed-depression plan
+  return f;
+}
+function cueFlags(id) { const c = (store.get("rsos.cues", []) || []).find(x => String(x.id) === String(id)); return c ? RSOSWatchdog.levelOfProgram(RSOSConsent.cueProgram(c), { cues: [c] }) : {}; }
+function originFlags(p) {
+  const f = {}, plan = store.get("rsos.plan", null);
+  if (p.startsWith("plan:")) unite(f, planFlags(plan, +p.slice(5)));
+  if (p.startsWith("thera:")) { const it = (store.get("rsos.thera.programs", []) || []).find(x => "thera:" + x.key === p); if (it && it.level === "clinician_led") f.therapist_led = true; if (it && it.memory) f.memory_work = true; }
+  unite(f, RSOSWatchdog.levelOfProgram(sources[p] || "", { cues: store.get("rsos.cues", []) }));
+  if (loadOrigin && loadOrigin.cue) unite(f, cueFlags(loadOrigin.cue));
+  return f;
+}
+function sameTextFlags(src) {
+  const n = normText(src), f = {}; if (!n) return f;
+  const plan = store.get("rsos.plan", null);
+  if (plan && plan.nodes) plan.nodes.forEach((x, i) => { if (normText(sources["plan:" + i]) === n) unite(f, planFlags(plan, i)); });
+  (store.get("rsos.thera.programs", []) || []).forEach(it => { if (normText(it.program) === n) unite(f, originFlags("thera:" + it.key)); });
+  (store.get("rsos.cues", []) || []).forEach(c => { if (normText(RSOSConsent.cueProgram(c)) === n) unite(f, cueFlags(c.id)); });
+  return f;
+}
 function runFlags() {
-  const p = $("program").value, plan = store.get("rsos.plan", null), f = {};
-  if (p.startsWith("plan:") && plan && plan.nodes) {
-    const n = plan.nodes[+p.slice(5)], memory = !!plan.therapist_led || (((plan.intake || {}).concerns) || []).includes("ptsd");
-    if (n && memory) { f.memory_work = true; if (plan.therapist_led && n.mode === "observer") f.therapist_led = true; }   // FIXES_R3 §2: every node of a memory plan
-    if (n && (plan.dx || []).includes("depression")) f.therapist_led = true;   // spec/LOW_MOOD.md: every node of a diagnosed-depression plan
-  }
+  const p = $("program").value, f = unite({}, originFlags(p));
   if (timeline && (sources[p] !== $("source").value || (PROTOCOLS.includes(p) && timeline.protocol !== p))) f.edited = true;
+  unite(f, sameTextFlags($("source").value));
   // Level and words from the program's own content (FIXES_R3 §2): clinician tiers, programmed cues, markers, edited observer text.
   const lv = RSOSWatchdog.levelOfProgram($("source").value, { cues: store.get("rsos.cues", []), edited: !!f.edited });
   if (lv.therapist_led) f.therapist_led = true;
@@ -885,7 +912,8 @@ function onStress() {
     $("offerStart").textContent = "Start the " + pick.name.toLowerCase();
   } else { $("offerText").textContent = "Your heart rate suggests a stress response. Start the override?"; $("offerStart").textContent = "Start the override"; }
   $("offer").hidden = false; offerShownAt = performance.now();
-  if (navigator.vibrate && $("optVib").checked) navigator.vibrate([200, 100, 200]);
+  // The offer's vibration is device-triggered (FIXES_R4 G5): it plays only under the Watchdog's firing rules.
+  if (navigator.vibrate && $("optVib").checked && RSOSOutlet.open({ kind: "cue", protocol: "offer:vibration", trigger: "device", source: "person", auto: true, signals: ["heart_rate"] }, DOMAIN(), { seconds: 5 }).opened) navigator.vibrate([200, 100, 200]);
   $("offerStart").focus();
 }
 /* ---- The autonomy gate (rsso/rsso/gate.py, docs/js/gate.js): anchors offer or fire only at the stage they have earned ---- */
@@ -1109,7 +1137,7 @@ function drawCues() {
     const acts = document.createElement("div"); acts.className = "actions";
     if (cueStatus(c) === "active") {
       const load = document.createElement("button"); load.className = "btn quiet"; load.type = "button"; load.textContent = "Load into the player";
-      load.addEventListener("click", () => { $("source").value = RSOSConsent.cueProgram(c, +$("inhale").value || 4, +$("exhale").value || 6); $("futuresBox").hidden = true; $("tierNote").hidden = true; recompile(); $("start").focus(); });
+      load.addEventListener("click", () => { loadOrigin = { cue: c.id }; $("source").value = RSOSConsent.cueProgram(c, +$("inhale").value || 4, +$("exhale").value || 6); $("futuresBox").hidden = true; $("tierNote").hidden = true; recompile(); $("start").focus(); });
       const rv = document.createElement("button"); rv.className = "btn quiet"; rv.type = "button"; rv.textContent = "Revoke";
       rv.addEventListener("click", () => { const all = store.get("rsos.cues", []); const x = all.find(y => y.id === c.id); if (x) x.revoked_ms = Date.now(); store.set("rsos.cues", all); drawCues(); });
       acts.append(load, rv);

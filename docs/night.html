@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
-<script src="js/profiles.js?v=1.0.0"></script>
-<script src="js/outlet.js?v=1.0.0"></script>
-<script src="js/safety.js?v=1.17.0"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.19.0"></script>
+<script src="js/safety.js?v=1.19.0"></script>
 <script src="js/contain.js?v=1.17.0"></script>
-<script src="js/watchdog.js?v=1.17.0"></script>
-<script src="js/guard.js?v=1.17.0"></script>
+<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Night and reward — RSOS</title>
@@ -91,12 +91,12 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 
   <section aria-labelledby="planTitle">
     <h2 id="planTitle">Tonight's plan</h2>
-    <p class="lede">Choose the codes you practised today. Mark any code linked to a painful memory: it is never played during sleep. If a nightmare is detected, the device plays a separate safety code or wakes you gently.</p>
+    <p class="lede">Choose the codes you practised today.<span data-memory-work> Mark any code linked to a painful memory: it is never played during sleep. If a nightmare is detected, the device plays a separate safety code or wakes you gently.</span></p>
     <div class="panel">
       <div class="codes" id="codes"></div>
       <div class="two">
         <div><label>Channels</label><div id="channels"></div></div>
-        <div><label for="trauma">When a nightmare is detected</label><select id="trauma"><option value="safety">Play the safety code (. .)</option><option value="wake">Wake me gently</option></select></div>
+        <div data-memory-work><label for="trauma">When a nightmare is detected</label><select id="trauma"><option value="safety">Play the safety code (. .)</option><option value="wake">Wake me gently</option></select></div>
       </div>
       <p class="verdict" id="planSay"></p>
       <div class="warn" id="consent"></div>
@@ -177,7 +177,7 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 </main>
 <div class="flash" id="flash" aria-hidden="true"></div>
 <footer>SLEEP and REWARD are <code>rsso/rsso/night.py</code>, identically <code>docs/js/night.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/NIGHT.md">spec/NIGHT.md</a>. Cueing during sleep is experimental and is not a treatment; <span data-memory-work>with difficult memories, work with a therapist.</span> If something feels wrong, stop and use the <a href="safety.html">Safety page</a>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/ugcl.js?v=1.19.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/trial.js?v=1.18.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>

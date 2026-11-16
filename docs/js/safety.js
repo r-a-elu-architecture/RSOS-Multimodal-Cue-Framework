@@ -124,7 +124,8 @@
     return [st, { ok: true, transition: go(st, "STABILISE", "chosen", by || "person", now || 0) }];
   }
   function exit(state, by, now) {
-    const st = clone(state || newState());
+    const st = state && typeof state === "object" && MODES.includes(state.mode) ? clone(state) : newState();   // FIXES_R4 P1
+    if (!Array.isArray(st.history)) st.history = [];
     if (st.mode === "NORMAL") return [st, { ok: false, why: "not_in_safety_mode" }];
     if (st.mode === "CRISIS" && !["clinician", "owner"].includes(by)) return [st, { ok: false, why: "crisis_exit_needs_clinician_or_owner" }];
     if ((st.mode === "STABILISE" || st.mode === "PRACTICAL_CRISIS") && !["person", "clinician", "owner"].includes(by)) return [st, { ok: false, why: "exit_is_the_persons_choice" }];
@@ -143,8 +144,10 @@
     const ev = { substances: flags.has("medication"), sedative_prescribed: flags.has("medication"), job_loss: flags.has("practical"),
       history_reference: !!ans.history };
     if (CLINICAL_RESULTS.includes(ans.clinical_result)) ev.clinical_result = ans.clinical_result;
-    if (has(ans.intensity) && ans.intensity !== "") ev.distress = Number(ans.intensity);
-    if (has(ans.sleep_h) && ans.sleep_h !== "") ev.sleep_h = Number(ans.sleep_h);
+    // a non-numeric answer is omitted (FIXES_R4 P1)
+    const fin = v => (v === null || v === undefined || typeof v === "boolean" || (typeof v === "string" && !v.trim())) ? null : (Number.isFinite(Number(v)) ? Number(v) : null);
+    if (fin(ans.intensity) !== null) ev.distress = fin(ans.intensity);
+    if (fin(ans.sleep_h) !== null) ev.sleep_h = fin(ans.sleep_h);
     return ev;
   }
 

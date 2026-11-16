@@ -25,7 +25,7 @@
 
   /* The output gate (spec/FIXES_R3.md §1): a START that would play on the band needs an allowed session; STOP, HELLO,
    * LOAD, CONSENT and status lines always pass. In a browser without the gate loaded, START is refused (fails closed). */
-  const gate = send => line => (typeof window !== "undefined" && /^\s*START\b/i.test(line) && !(window.RSOSOutlet && window.RSOSOutlet.permit("wristband"))) ? Promise.resolve() : send(line);
+  const gate = send => line => (typeof window !== "undefined" && /^\s*START\b/im.test(String(line)) && !(window.RSOSOutlet && window.RSOSOutlet.permit("wristband"))) ? Promise.resolve() : send(line);   // any line (FIXES_R4 G9)
   /* A line transport: send(line), and lines arriving in a buffer that readFor() drains. */
   function lineBuffer() {
     const buf = [], waiters = [];
@@ -93,7 +93,7 @@
     res.push(["B7", "the Lion's vibration code ..- plays as 100, 100 and 300 ms pulses", ok, lengths.join(", ") || "no pulses"]);
     return res;
   }
-  const api = { NUS, a2, encode, codeEvents, lineBuffer, connectSerial, connectBle, quickCheck, readFor };
+  const api = { NUS, a2, encode, codeEvents, lineBuffer, connectSerial, connectBle, quickCheck, readFor, gate };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.RSOSRdp = api;
 })(typeof self !== "undefined" ? self : this);

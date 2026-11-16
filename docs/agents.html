@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
-<script src="js/profiles.js?v=1.0.0"></script>
-<script src="js/outlet.js?v=1.0.0"></script>
-<script src="js/safety.js?v=1.17.0"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.19.0"></script>
+<script src="js/safety.js?v=1.19.0"></script>
 <script src="js/contain.js?v=1.17.0"></script>
-<script src="js/watchdog.js?v=1.17.0"></script>
-<script src="js/guard.js?v=1.17.0"></script>
+<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Agents — RSOS</title>
@@ -156,7 +156,7 @@ th{color:var(--muted);font-weight:500}
   </section>
 </main>
 <footer>The agent layer is <code>rsso/rsso/machines.py</code>, identically <code>docs/js/machines.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>. A value check is a guard rail, not a guarantee: it only knows what its values name. <span class="mdline">Research and development framework; not a medical device.</span></footer>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/ugcl.js?v=1.19.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/machines.js?v=1.21.0"></script>
 <script>
@@ -191,13 +191,15 @@ const EXAMPLES = [["Hand over the knife, blade first", ["sharp_near_person"]], [
   ["Turn on the blender", ["loud", "tidy"]], ["Take the cup from the table", ["take_without_asking"]], ["Ask before moving the cup", ["ask"]], ["Say it broke the plate", ["report"]], ["Hide the broken plate", ["hide_error"]]];
 function doAct(title, tags) {
   const action = { id: "a" + Date.now(), title, tags }, r = M.act(A, action, Date.now() / 1000); A.log[A.log.length - 1].title = title; save();
+  // agent status codes are agent-triggered (FIXES_R4 G5): the Watchdog asks the person first, so they stay silent
+  const agentFeel = code => { if (RSOSOutlet.open({ kind: "cue", protocol: "agent:status", trigger: "agent", source: "agent" }, {}, { seconds: 5 }).opened) feel(code); };
   const D = $("decision"); D.textContent = ""; const box = el("div", "decision " + r.decision);
   box.append(el("b", "", ({ allow: "Acting: ", ask: "Asking you first: ", override: "Overridden: " })[r.decision] + title), el("p", "say", r.say.replace(/^(Overridden|Asking first): /, "").replace(/^./, ch => ch.toUpperCase())));
-  if (r.decision === "allow") { feel(M.AGENT_STATES.working); const b = el("button", "btn", "That was wrong (error signal)"); b.addEventListener("click", () => { const h = M.humanSignal(A, Date.now() / 1000); save(); box.append(el("p", "say", h ? "Flagged. Its tags count against it; once a tag is flagged on most actions that carry it, the agent asks first." : "Too late: the signal must come within ten seconds of the action.")); drawAgent(); drawLog(); }); box.append(b); }
-  if (r.decision === "ask") { feel(M.AGENT_STATES.needs_input); pending = action; const y = el("button", "btn main", "Yes, go ahead"), n = el("button", "btn", "No");
+  if (r.decision === "allow") { agentFeel(M.AGENT_STATES.working); const b = el("button", "btn", "That was wrong (error signal)"); b.addEventListener("click", () => { const h = M.humanSignal(A, Date.now() / 1000); save(); box.append(el("p", "say", h ? "Flagged. Its tags count against it; once a tag is flagged on most actions that carry it, the agent asks first." : "Too late: the signal must come within ten seconds of the action.")); drawAgent(); drawLog(); }); box.append(b); }
+  if (r.decision === "ask") { agentFeel(M.AGENT_STATES.needs_input); pending = action; const y = el("button", "btn main", "Yes, go ahead"), n = el("button", "btn", "No");
     y.addEventListener("click", () => { M.answer(A, pending, true); save(); box.append(el("p", "say", "Done. Approving lowers the flag on its tags.")); y.remove(); n.remove(); drawAgent(); drawLog(); });
     n.addEventListener("click", () => { M.answer(A, pending, false); save(); box.append(el("p", "say", "Not done.")); y.remove(); n.remove(); drawAgent(); drawLog(); }); box.append(y, n); }
-  if (r.decision === "override") feel(M.AGENT_STATES.conflict);
+  if (r.decision === "override") agentFeel(M.AGENT_STATES.conflict);
   D.append(box); drawLog(); drawAgent();
 }
 function drawActions() { const C = $("actions"); C.textContent = ""; EXAMPLES.forEach(([t, tags]) => { const b = el("button", "chip", t); b.addEventListener("click", () => doAct(t, tags)); C.append(b); }); }

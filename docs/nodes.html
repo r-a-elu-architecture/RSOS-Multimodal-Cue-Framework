@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
-<script src="js/profiles.js?v=1.0.0"></script>
-<script src="js/outlet.js?v=1.0.0"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Node studio — RSOS</title>
@@ -220,13 +220,13 @@ header.top nav a{font-size:.88rem}
   </div>
 </main>
 <footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it is not an assessment. <span class="mdline">Research and development framework; not a medical device.</span></footer>
-<script src="js/ugcl.js?v=1.13.0"></script>
+<script src="js/ugcl.js?v=1.19.0"></script>
 <script src="js/nodes.js?v=1.16.0"></script>
-<script src="js/safety.js?v=1.16.0"></script>
+<script src="js/safety.js?v=1.19.0"></script>
 <script src="js/linx.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.0.0"></script>
-<script src="js/guard.js?v=1.0.0"></script>
+<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <script src="js/cm1.js?v=1.14.0"></script>
 <script>
 "use strict";
@@ -427,7 +427,7 @@ $("save").addEventListener("click", () => {
   // CONTAIN: while practice is paused, a new plan needs a therapist present (rsso/rsso/contain.py decide)
   const [cst] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
   // The Watchdog (spec/WATCHDOG.md): CONTAIN, the session state, the domain's highest guidance level and the clinician rule
-  const memory = !!p.therapist_led || (current.intake.concerns || []).includes("ptsd");   // difficult-memory work (FIXES_R1 P-2)
+  const memory = (current.intake.concerns || []).includes("ptsd") || (!!p.therapist_led && !dx);   // difficult-memory work (FIXES_R1 P-2; FIXES_R4 LM1)
   const verdict = RSOSGuard.ask({ kind: "plan", protocol: "plan", therapist_led: p.therapist_led, memory_work: memory, source: $("author").value === "therapist" ? "practitioner" : "person" },
     Object.assign({ contain: cst, clinician_present: $("therapistHere").checked,
       screening_recorded: CLINV && !$("ledBox").hidden && (document.querySelector('input[name="screen"]:checked') || {}).value === "no" }, DOMAIN()));

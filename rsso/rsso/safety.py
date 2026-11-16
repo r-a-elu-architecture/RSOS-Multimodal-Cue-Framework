@@ -23,6 +23,7 @@ this module, so a rule changes in one place only. Rules here are fixed: no modul
 from __future__ import annotations
 
 import copy
+import math
 import re
 
 MODES = ("NORMAL", "STABILISE", "PRACTICAL_CRISIS", "CRISIS")
@@ -190,7 +191,8 @@ def enter_stabilise(state: dict | None, by: str = "person", now: float = 0.0) ->
 
 
 def exit(state: dict | None, by: str, now: float = 0.0) -> tuple[dict, dict]:  # noqa: A001 (mirrors the agent API)
-    st = copy.deepcopy(state or new_state())
+    st = copy.deepcopy(state) if isinstance(state, dict) and state.get("mode") in MODES else new_state()   # FIXES_R4 P1
+    st.setdefault("history", [])
     if st["mode"] == "NORMAL":
         return st, {"ok": False, "why": "not_in_safety_mode"}
     if st["mode"] == "CRISIS" and by not in ("clinician", "owner"):
@@ -254,11 +256,21 @@ def event_from_check(answers: dict) -> dict:
           "job_loss": "practical" in flags, "history_reference": bool(answers.get("history"))}
     if answers.get("clinical_result") in CLINICAL_RESULTS:
         ev["clinical_result"] = answers["clinical_result"]
-    if answers.get("intensity") is not None and answers.get("intensity") != "":
-        ev["distress"] = float(answers["intensity"])
-    if answers.get("sleep_h") is not None and answers.get("sleep_h") != "":
-        ev["sleep_h"] = float(answers["sleep_h"])
+    for key, field in (("intensity", "distress"), ("sleep_h", "sleep_h")):   # a non-numeric answer is omitted (FIXES_R4 P1)
+        v = _finite(answers.get(key))
+        if v is not None:
+            ev[field] = v
     return ev
+
+
+def _finite(v):
+    if v is None or isinstance(v, bool) or (isinstance(v, str) and not v.strip()):
+        return None
+    try:
+        x = float(v)
+    except (TypeError, ValueError):
+        return None
+    return x if math.isfinite(x) else None
 
 
 # ---------------------------------------------------------------------------------------------------- Spine wording

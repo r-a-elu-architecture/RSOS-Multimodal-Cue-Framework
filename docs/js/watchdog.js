@@ -23,11 +23,13 @@
     if (["plan", "session"].includes(a.kind) || a.programmed || ["device", "agent"].includes(a.trigger) || ["practitioner", "agent"].includes(a.source)) return "structured";
     return "self_guided";
   }
-  const TIER_RX = /PROTOCOL\s+tier(414|420|439|440)(?!\d)|^\s*#.*\bTier\s+(414|420|439|440)\b/im;
-  const CUE_RX = /MARK\s+"programmed:([\w-]+)"/g, OBSERVER_RX = /\bMODE\s+"observer"/i;
-  const TEXT_RX = /^\s*(?:SAY|SEE|FEEL|GESTURE|WORD|FRAME|V|A|K|O|G)\s+"((?:[^"\\]|\\.)*)"/gm;
+  // ASCII-only patterns on text with normalised line ends, identical in both languages (FIXES_R4 §2)
+  const TIER_RX = /PROTOCOL[ \t]+tier(414|420|439|440)(?![0-9])|^[ \t]*#.*(?<![A-Za-z0-9_])Tier[ \t]+(414|420|439|440)(?![A-Za-z0-9_])/im;
+  const CUE_RX = /MARK[ \t]+"programmed:([A-Za-z0-9_-]+)"/g, OBSERVER_RX = /(?<![A-Za-z0-9_])MODE[ \t]+"observer"/i;
+  const TEXT_RX = /"((?:[^"\\\n]|\\.)*)"/g;   // every quoted string, wherever it stands
+  const normalise = s => String(s || "").replace(/\r\n?|\u2028|\u2029/g, "\n");
   function levelOfProgram(source, opts) {   // FIXES_R3 §2: the level a program's own content calls for
-    const src = source || "", o = opts || {}, tiers = {};
+    const src = normalise(source), o = opts || {}, tiers = {};
     for (const c of o.cues || []) tiers[String(c.id)] = String(c.tier || "");
     let led = TIER_RX.test(src) || src.includes("# rsos-level: clinician_led");
     for (const m of src.matchAll(CUE_RX)) if (CLINICIAN_TIERS.includes(tiers[m[1]] || "")) led = true;
@@ -140,6 +142,6 @@
     });
   }
 
-  const api = { LEVEL_RANK, LEVEL_NAME, CLINICIAN_TIERS, LOG_MAX, level, levelOfProgram, watch, link, canonical, sha256, record, trim, verify };
+  const api = { LEVEL_RANK, LEVEL_NAME, CLINICIAN_TIERS, LOG_MAX, level, levelOfProgram, normalise, watch, link, canonical, sha256, record, trim, verify };
   if (node) module.exports = api; else root.RSOSWatchdog = api;
 })(typeof window !== "undefined" ? window : globalThis);

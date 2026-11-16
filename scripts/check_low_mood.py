@@ -73,14 +73,21 @@ def main():
         if "player.html" not in url or (p or {}).get("therapist_led"): fails.append(f"L3: {out['L3']}")
 
         # L4: escalation (the plan from L3 has the low energy or mood concern)
-        def checks(pg, n):
+        def checks(pg, n):   # each check on a different day (LOW_MOOD §2 as amended by FIXES_R4: 3 different days)
             for _ in range(n):
+                pg.evaluate("() => { const l = JSON.parse(localStorage.getItem('rsos.selfchecks') || '[]'); l.forEach(c => { c.at -= 86400000; }); localStorage.setItem('rsos.selfchecks', JSON.stringify(l)); }")
                 pg.select_option("#sfInt", "8"); pg.click("#sfSave"); pg.wait_for_timeout(120)
             return pg.inner_text("#sfMsgs"), (pg.evaluate("JSON.parse(localStorage.getItem('rsos.plan'))") or {}).get("practitioner_recommended")
         pg.goto(base + "/safety.html?profile=personal"); pg.wait_for_timeout(500)
         t2, r2 = checks(pg, 2)
         t3, r3 = checks(pg, 1)
         out["L4"] = ["practitioner" in t2, bool(r2), "practitioner" in t3, bool(r3)]
+        pg.evaluate("() => { const p = JSON.parse(localStorage.getItem('rsos.plan')); delete p.practitioner_recommended; localStorage.setItem('rsos.plan', JSON.stringify(p)); localStorage.setItem('rsos.selfchecks', '[]'); }")
+        pg.reload(); pg.wait_for_timeout(400)
+        for _ in range(3):
+            pg.select_option("#sfInt", "8"); pg.click("#sfSave"); pg.wait_for_timeout(80)
+        out["L4_same_day"] = "practitioner" in pg.inner_text("#sfMsgs")
+        if out["L4_same_day"]: fails.append("L4: three checks on one day counted as several days")
         if out["L4"] != [False, False, True, True]: fails.append(f"L4: {out['L4']}")
         pg.evaluate("() => { const p = JSON.parse(localStorage.getItem('rsos.plan')); p.intake.concerns = ['stress']; delete p.practitioner_recommended; localStorage.setItem('rsos.plan', JSON.stringify(p)); localStorage.removeItem('rsos.selfchecks'); }")
         pg.reload(); pg.wait_for_timeout(500)

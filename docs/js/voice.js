@@ -24,7 +24,7 @@
   function pick() { const vs = english(), c = chosen(); return (c && vs.find(v => v.name === c)) || vs[0] || null; }
   function speak(text, o) {
     try {
-      if (!text || !("speechSynthesis" in root)) return;
+      if (!text || !("speechSynthesis" in root) || !root.RSOSOutlet) return;   // fails closed without the gate (FIXES_R4 G6)
       const u = new SpeechSynthesisUtterance(text), v = pick();
       if (v) { u.voice = v; u.lang = v.lang; } else u.lang = "en-US";
       u.rate = (o && o.rate) || 0.9; if (o && o.pitch) u.pitch = o.pitch;

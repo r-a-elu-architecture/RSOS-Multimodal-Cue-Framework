@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <script src="js/devmode.js"></script>
-<script src="js/profiles.js?v=1.0.0"></script>
-<script src="js/outlet.js?v=1.0.0"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Safety and governance — RSOS</title>
@@ -127,7 +127,7 @@ header.top nav a{font-size:.88rem}
   </div>
 
   <h2 id="mode">Session state</h2>
-  <p class="hint">One governance engine for people and agents (spec/CONTAIN.md §9–§10). An unwanted state is the start signal for repurposing; the session state decides which programs may run and who leads. A state can be raised by a self-check or a practitioner's screening result; it is never lowered by itself.</p>
+  <p class="hint">One governance engine for people and agents (spec/CONTAIN.md §9–§10). An unwanted state is the start signal for repurposing; the session state decides which programs may run and who leads. A state can be raised by a self-check or a practitioner's screening result; it is never lowered by itself. On a person's own device the clinician-led protocol is advisory: a record, a prompt and a default block; clearing the browser's data resets it.</p>
   <div class="panel">
     <p id="sfMode" style="font-weight:600;margin-top:0"></p>
     <div id="sfMsgs"></div>
@@ -139,7 +139,7 @@ header.top nav a{font-size:.88rem}
     <p><label><input type="checkbox" id="clinOn"> Enabled by a practitioner or study protocol</label> <span class="hint">Off by default. The practitioner uses a validated instrument of their choice<span data-show="clinical"> (for example the C-SSRS screener or PHQ-9)</span> and records the result here. The clinician sets a PIN here before any result; resuming from the clinician-led protocol needs it. On a person's own device this control is advisory: a record, a prompt and a default block. Clearing the browser's data resets it, and whoever sets the PIN first holds it. Enforced clinician control needs a clinician-held device or a server.</span></p>
     </div>
     <div id="clinBox" style="display:none">
-      <p><label>Practitioner <input id="clinName" placeholder="Name"></label> &nbsp; <label>Instrument <input id="clinInst" placeholder="e.g. C-SSRS screener"></label> &nbsp; <label>Result <select id="clinRes"><option value="">—</option><option value="none">none</option><option value="low">low</option><option value="moderate">moderate</option><option value="high">high</option></select></label></p>
+      <p><label>Practitioner <input id="clinName" placeholder="Name"></label> &nbsp; <label>Instrument <input id="clinInst" placeholder="Name of the instrument"></label> &nbsp; <label>Result <select id="clinRes"><option value="">—</option><option value="none">none</option><option value="low">low</option><option value="moderate">moderate</option><option value="high">high</option></select></label></p>
       <p><label><input type="checkbox" id="clinMed"> Medication interaction</label> &nbsp; <label><input type="checkbox" id="clinPrac"> Practical circumstances</label> &nbsp; <label><input type="checkbox" id="clinHist"> Earlier experience to review</label> &nbsp; <button class="btn" id="clinSave">Record result</button></p>
       <p id="pinRow"><label>Clinician PIN <input id="clinPin" type="password" inputmode="numeric" autocomplete="off" style="width:8em"></label> <button class="btn" id="pinSet" type="button">Set PIN</button> <span class="hint" id="pinSay"></span></p>
       <p id="clinResume" style="display:none"><label><input type="checkbox" id="clinOk"> I am the responsible clinician and resume self-guided practice</label> <button class="btn" id="clinGo">Resume</button></p>
@@ -180,11 +180,11 @@ header.top nav a{font-size:.88rem}
   <div class="panel log"><table id="log"><thead><tr><th>When</th><th>What</th><th>Decision</th><th>Why</th></tr></thead><tbody></tbody></table></div>
 </main>
 <footer>CONTAIN is <code>rsso/rsso/contain.py</code>, identically <code>docs/js/contain.js</code> (tested); the runtime refuses what it blocks, and the conformance suite checks it (C14, C15). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CONTAIN.md">spec/CONTAIN.md</a>.</footer>
-<script src="js/safety.js?v=1.16.0"></script>
+<script src="js/safety.js?v=1.19.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
-<script src="js/watchdog.js?v=1.0.0"></script>
-<script src="js/guard.js?v=1.0.0"></script>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/watchdog.js?v=1.19.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
+<script src="js/ugcl.js?v=1.19.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -341,7 +341,8 @@ draw();
   function escalate() {
     const plan = store.get("rsos.plan", null);
     if (!plan || !(((plan.intake || {}).concerns) || []).includes("depression")) return;
-    const week = Date.now() - 7 * 86400000, n = store.get("rsos.selfchecks", []).filter(c => c.at >= week && c.intensity !== null && c.intensity >= 7).length;
+    // 3 or more different days within 7 days (spec/LOW_MOOD.md §2, amended by FIXES_R4)
+    const week = Date.now() - 7 * 86400000, n = new Set(store.get("rsos.selfchecks", []).filter(c => c.at >= week && c.intensity !== null && c.intensity >= 7).map(c => new Date(c.at).toDateString())).size;
     if (n < 3) return;
     if (!plan.practitioner_recommended) { plan.practitioner_recommended = Date.now(); store.set("rsos.plan", plan); }
     $("sfMsgs").append(mk("p", "Your intensity ratings have stayed high on several days this week. For the low energy or mood work in your plan, involving a practitioner is recommended."));

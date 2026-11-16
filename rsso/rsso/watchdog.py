@@ -41,16 +41,22 @@ def level(action: dict) -> str:
     return "self_guided"
 
 
-_TIER_RX = re.compile(r"PROTOCOL\s+tier(414|420|439|440)(?!\d)|^\s*#.*\bTier\s+(414|420|439|440)\b", re.M | re.I)
-_CUE_RX = re.compile(r'MARK\s+"programmed:([\w-]+)"')
-_OBSERVER_RX = re.compile(r'\bMODE\s+"observer"', re.I)
-_TEXT_RX = re.compile(r'^\s*(?:SAY|SEE|FEEL|GESTURE|WORD|FRAME|V|A|K|O|G)\s+"((?:[^"\\]|\\.)*)"', re.M)
+# ASCII-only patterns on text with normalised line ends, identical in both languages (FIXES_R4 §2)
+_TIER_RX = re.compile(r"PROTOCOL[ \t]+tier(414|420|439|440)(?![0-9])|^[ \t]*#.*(?<![A-Za-z0-9_])Tier[ \t]+(414|420|439|440)(?![A-Za-z0-9_])", re.M | re.I)
+_CUE_RX = re.compile(r'MARK[ \t]+"programmed:([A-Za-z0-9_-]+)"')
+_OBSERVER_RX = re.compile(r'(?<![A-Za-z0-9_])MODE[ \t]+"observer"', re.I)
+_TEXT_RX = re.compile(r'"((?:[^"\\\n]|\\.)*)"')   # every quoted string, wherever it stands
+
+
+def normalise(source: str) -> str:
+    """Line ends to \\n (\\r\\n, \\r, U+2028, U+2029)."""
+    return re.sub("\r\n?|\u2028|\u2029", "\n", source or "")
 
 
 def level_of_program(source: str, opts: dict | None = None) -> dict:
     """The level a program's own content calls for (spec/FIXES_R3.md §2): {therapist_led, memory_work, text}.
     opts: {cues: [consent records], edited: bool}. text is the program's spoken and shown words, for Spine flags."""
-    src, o = source or "", opts or {}
+    src, o = normalise(source), opts or {}
     tiers = {str(c.get("id")): str(c.get("tier") or "") for c in o.get("cues") or []}
     led = bool(_TIER_RX.search(src)) or "# rsos-level: clinician_led" in src
     led = led or any(tiers.get(i, "") in CLINICIAN_TIERS for i in _CUE_RX.findall(src))

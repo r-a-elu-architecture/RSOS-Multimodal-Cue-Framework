@@ -106,7 +106,25 @@ checks that a `socket://` URL reaches a listening socket and that a plain name g
 
 ## 6. Fix registrations (amendments, each committed before its fix)
 
-(none yet)
+### 6.1 Amendment A1 (registered after round 1, §7.1; before any code)
+
+| ID | Error | Fix |
+|---|---|---|
+| F1 | R1-a | The sketch's `rsos::LinkPolicy` object is renamed from `link` to `linkPolicy`; every use is renamed with it, nothing else changes. The stub `Arduino.h` declares POSIX `int link(const char*, const char*);`, as the real cores do through `<unistd.h>`, so the stub check fails on any global named `link`. `rsso/tests/test_ble_pairing.py` reads the new name (its FIXES_R6C checks look for `linkPolicy.accept_request(millis())` and the same rules as before). |
+| F2 | R1-b | Encryption level: `BLESecurity::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM)` when `ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 3, 0)`, otherwise `BLEDevice::setEncryptionLevel(…)` as now (2.0.17 to 3.2.x). Same level, same call order. The stubs define `ESP_ARDUINO_VERSION`, `ESP_ARDUINO_VERSION_VAL` and a minor version (2 → 2.0, 3 → 3.3 unless given), and declare `setEncryptionLevel` only where the real library has it. |
+| F3 | R1-c | **Not a port.** A NimBLE build stops with a clear message instead of failing on a missing header: right after `#include <Arduino.h>`, `#if defined(CONFIG_BT_NIMBLE_ENABLED)` gives `#error` saying that the pairing rules (spec/BLE_PAIRING.md) are implemented for the Bluedroid stack only, and that ESP32-C3 and -S3 must be built with Arduino-ESP32 3.2.1 or 2.0.17. Writing the pairing rules for NimBLE (window, failure limit, bond limit, refusal before keys are exchanged, bonded-host check) is a security change that needs its own registration and review; it is listed as an open item, not done here. |
+| F4 | R1-d | `firmware/esp32/platformio.ini`'s display build pins `moononournation/GFX Library for Arduino@1.6.1` (PlatformIO's espressif32 platform uses Arduino-ESP32 2.0.17). BOARD_KIT.md says: with core 2.x, install GFX Library 1.6.1; with 3.x, the newest. |
+
+Consequential changes to §2 and §3 (no threshold changes):
+- **C1b.** ESP32-C3 and -S3 are also built with Arduino-ESP32 3.2.1 (the last 3.x that builds them with Bluedroid),
+  five flag sets each: 10 more builds, under the C2 pass rule. ESP32 is not added (3.3.12 already builds it with
+  Bluedroid).
+- **C5 as registered stays.** The ten ESP32-C3/-S3 builds on 3.3.12 are expected to stop at F3's `#error`; they are
+  then recorded as not passing C5, with the reason. They are not removed from the matrix.
+- **E1b.** ESP32-C3 and -S3 are emulated with their 3.2.1 build (3.3.12 cannot build them, F3).
+- The stub check stays at 10 builds (plus §4's builds, if §4 applies); `rsso/tests/test_ble_pairing.py` also checks
+  that the sketch has no global named `link`, has the F3 guard, and that `platformio.ini` pins GFX 1.6.1 for the
+  display build.
 
 ## 7. Results
 

@@ -92,6 +92,11 @@ not only in the `MOTOR` lines the firmware prints. The on-times are host-clock r
     as expected (`OK STOP`); U9 passkey 345751 kept across a restart; board check 7/7; K3a–K3e pass. K3 on-times
     (host): 300, 302, 298 / 196 / 294 / 352 ms.
 
+- Run 43945771906 on ba83063, which includes the parallel session's FIXES_P2 sketch change (c17b0b4: no
+  `setEncryptionLevel`): **compile success** (`K1-P pass: 40 builds`) and **emulator success** (U3 failed as expected;
+  7/7; K3 pass). That change compiles on all three cores.
+  https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/actions/runs/43945771906
+
 ### K2
 
 - Issue form `.github/ISSUE_TEMPLATE/board_report.md`; label "board report".

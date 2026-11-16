@@ -48,8 +48,15 @@ Guidance level of an action: **clinician_led** if `therapist_led`, `deep`, or a 
 (414, 420, 439, 440); **structured** if it is a plan, a practitioner session, a programmed cue, or triggered by a
 device or an agent; otherwise **self_guided**.
 
-The Watchdog's own rules never hold a regulating program (paced breathing, interrupt, stillness, breath anchor) or
-a stop; only CONTAIN and the session state can (they are unchanged).
+The Watchdog's own rules never hold a stop. Its domain, clinician and plan rules never hold a regulating program
+(paced breathing, interrupt-only, stillness: CONTAIN §9.4's list), provided the program is unedited and not
+clinician-led. Spine wording flags apply to every action: dangerous wording makes a program not a safe regulating
+program. (Amended 2026-11-16 by spec/FIXES_R2.md; previously listed the breath anchor and exempted regulating programs
+from every rule.)
+
+Also (spec/FIXES_R1.md, FIXES_R2.md): the THERA low-mood session is clinician-led; an action marked `memory_work`
+holds when the page passes `memory_work_allowed: false`; signals must be distinct; an unknown `max_level` counts as
+structured.
 
 ## 3. Link between CONTAIN and the session state
 
@@ -80,7 +87,8 @@ accepting an offer, an "ask" proceeds; a "hold" never does.
 - W1 Parity: Python and JS identical over a generated grid of actions, states and contexts (decisions, reasons,
   levels, link results, hashes).
 - W2 Never weaker: whenever CONTAIN `decide` blocks, the Watchdog holds.
-- W3 Stop is always allowed; the Watchdog's own rules never hold a regulating program.
+- W3 Stop is always allowed; the domain, clinician and plan rules never hold an unedited, non-clinician-led regulating
+  program (amended by FIXES_R2).
 - W4 Guidance: clinician-led actions hold where the highest level is structured; where it is clinician-led they
   hold unless a clinician is present and a screening result is recorded.
 - W5 Agents and devices never start a run alone: agent-proposed actions are at most ask; automatic firing is

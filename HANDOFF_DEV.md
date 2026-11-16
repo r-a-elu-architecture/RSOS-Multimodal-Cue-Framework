@@ -37,7 +37,7 @@ git checkout dev
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
   rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
-  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py rsso/tests/test_arch_refresh.py rsso/tests/test_site_catchup.py
+  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_fixes_r6.py rsso/tests/test_ble_pairing.py rsso/tests/test_arch_refresh.py rsso/tests/test_site_catchup.py rsxv/tests/test_levels.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -297,7 +297,10 @@ Registered ecac2ee. Built alongside the ESP32_TOOLS work without touching its fi
 - **Step 8** (7bc669f): the results page groups the 33 tests by family, shows each series as a chain coloured by
   outcome, and reads a new pass against the number of tests; "past-crisis" shown as "past high-distress".
 Tests: `rsso/tests/test_site_catchup.py` (7), `scripts/check_site_catchup.py`.
-Next in phase 2: Step 9 (RSX-V language: guidance levels, level lineage, domain cap, shared folding), Step 10 (passing
+- **Step 9** (345324b, spec/RSXV_LEVELS.md): RSX-V commands declare `LEVEL` and `MEMORY`; the effective level (declared
+  or from content) travels into the RSX program as the person side's markers, NEXT never lowers it, and `run()` asks the
+  Watchdog first (domain cap, session state, clinician presence, shared folded Spine check). Tests: `rsxv/tests/test_levels.py`.
+Next in phase 2: Step 10 (passing
 results as automation on the Agents page), Step 11 (ceiling test for the transfer and repurposing families).
 Review status: **awaiting a targeted check**.
 

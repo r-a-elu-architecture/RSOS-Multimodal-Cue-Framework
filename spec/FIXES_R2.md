@@ -1,6 +1,6 @@
 # FIXES_R2 — fixes from the repeat independent review
 
-Status: registered 2026-11-16, before code. Review: branch `review/r2`, commit 557c3fa (reviewed dev at 6de0315).
+Status: registered 2026-11-16, before code (e408934); code 9a51dc6; results below. Review: branch `review/r2`, commit 557c3fa (reviewed dev at 6de0315).
 This registration commit also amends spec/WATCHDOG.md §2 and W3 (finding 5).
 
 ## 1. Process rule, clarified
@@ -28,3 +28,14 @@ in code commits; nothing was loosened); recorded here.
 - Q1 Each test above fails on 6de0315 and passes after the fix (the R2-1 and R2-2 browser scenarios included).
 - Q2 All suites and the browser checks pass; Python and JavaScript identical for changed functions.
 - Q3 No threshold changes.
+
+## 4. Results (record)
+
+- Q1: on 6de0315, 4 of the 5 unit tests fail (guard keys, evidence, opt-in scope, parity) and the browser scenarios
+  cannot run (no PIN controls). The fifth, R2-7, passes on 6de0315 as well: the property held; the finding was that
+  the old test was only a text search.
+- Q2: all suites pass (RSSO 239 with the registered T4 expected failure; RSX-V 130); five browser checks pass with no
+  page or console errors.
+- Q3: no threshold changed.
+- Found while checking: six pages had no icon link, so browsers requested a missing favicon (a 404 the old console
+  filter hid); fixed.

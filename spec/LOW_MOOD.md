@@ -17,7 +17,8 @@ with two safeguards.
 
 The self-check (Safety page) is kept in `rsos.selfchecks` (`[{at, intensity, sleep_h}]`, last 60). A single check with
 intensity 7 or more already moves the session to Stabilisation (unchanged). New: when the active plan has the low
-energy or mood concern and **3 or more self-checks with intensity 7 or more fall within the last 7 days**, the page
+energy or mood concern and **self-checks with intensity 7 or more fall on 3 or more different days within the last 7
+days** (amended by spec/FIXES_R4.md; previously 3 checks, which could be seconds apart), the page
 says the ratings have stayed high on several days and recommends involving a practitioner, and the plan records
 `practitioner_recommended` with the time. No crisis wording; no new block (Stabilisation already applies).
 

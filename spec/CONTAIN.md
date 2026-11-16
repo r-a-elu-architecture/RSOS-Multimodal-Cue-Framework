@@ -177,7 +177,9 @@ the agents, and the stricter rule always wins.
   cases covering every screen and every mode.
 - A2 `rsxv` uses `rsso.safety`: its 130 tests pass unchanged.
 - A3 Every existing test in `rsx`, `rsso` and `toolkit` passes; `decide` without a safety state is unchanged.
-- A4 Each mode blocks exactly the categories §3.1 forbids, and CRISIS cannot be left by the person alone.
+- A4 Each mode blocks exactly the categories §3.1 forbids, and CRISIS cannot be left by the person alone through the
+  engine or the pages without the clinician PIN. (Amended 2026-11-16 by spec/FIXES_R4.md: on a person's own device this
+  is advisory; clearing browser data resets it, and whoever sets the PIN first holds it.)
 - A5 `spine_flags` flags each listed mechanism and rank wording, and none of 20 ordinary frames and rules (warm
   bath, golden light, calm breathing, sleep well…).
 - A6 `scripts/check_all.sh` passes; page build numbers and the offline cache are raised.

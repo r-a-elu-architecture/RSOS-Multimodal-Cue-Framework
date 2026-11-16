@@ -262,7 +262,10 @@ BLE_PAIRING P3/P4/§4); code dbb393c.
   for bonded hosts; receive line portable to 3.x (stubs now catch the old error); ring emptied on link loss; the page
   writes with response.
 Tests: `rsso/tests/test_fixes_r6.py`; `scripts/check_fixes_r6.py` (8 failures on c3b1a55, 0 now); link_test 52.
-Review status: **awaiting a targeted check** (R6 only).
+Review status: targeted check `review/r6-check` (1ae33e3, 7171f77): R6-1–R6-7, R6-9, R6-11 confirmed fixed; R6c-1 (B5 had no
+effect) → fix pass R6C (registration 0ab05ea, code 69bfb2f): the library's security callback answers host-started
+pairing with the window rule, the band requests encryption only in the window, and the player compiles at Start.
+**Open, needs a board:** R6c-2, whether `AUTH_CMPL` carries a phone's identity address (B7); confirm S1/S2 on hardware.
 
 ### Step 4 — paired, encrypted wristband Bluetooth (spec/BLE_PAIRING.md)
 
@@ -297,4 +300,4 @@ Verdict:         ready for the owner | changes needed
 
 ## 6. Open items
 
-- Step 4 on a board: flash, pair from Android Chrome and a computer, check the window, the failure limit and USB-only commands (BOARD_KIT §4 Pairing).
+- Step 4 on a board: flash, pair from Android Chrome and a computer, check the window, the failure limit and USB-only commands (BOARD_KIT §4 Pairing); first, whether a bonded phone reconnects after its private address changes (R6c-2), and that a phone outside the window cannot start pairing (FIXES_R6C S1/S2).

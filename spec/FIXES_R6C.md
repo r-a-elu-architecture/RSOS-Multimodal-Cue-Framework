@@ -1,6 +1,6 @@
 # FIXES_R6C — fixes from the targeted check of fix pass R6
 
-Status: registered 2026-11-16, before code. Check: branch `review/r6-check`, commits 1ae33e3 and 7171f77 (checked dev at
+Status: registered 2026-11-16 (0ab05ea), before code; code 69bfb2f; results in §4. Check: branch `review/r6-check`, commits 1ae33e3 and 7171f77 (checked dev at
 0304a0c). R6-1 to R6-7, R6-9 and R6-11 were confirmed fixed. There was 1 should fix (R6c-1) and 4 notes. This
 registration amends FIXES_R6 B5 and corrects BLE_PAIRING §4 as amended by FIXES_R6.
 
@@ -38,3 +38,22 @@ FIXES_R6 B5 answered `ESP_GAP_BLE_SEC_REQ_EVT` in the sketch's own GAP handler. 
 - Q2 `scripts/check_fixes_r6.py` gains P1: text typed and Started within 250 ms is decided and played as typed. A
   held node typed into an allowed program's editor and Started at once is held.
 - Q3 All suites and browser checks pass. No threshold changes.
+
+## 4. Results (recorded after the code commit 69bfb2f)
+
+- Q1 met. `rsso/tests/test_ble_pairing.py`: 13 passed, including:
+  - the security callback answering with `link.accept_request(millis())`;
+  - encryption requested only under `link.accept_request(`;
+  - no `ESP_GAP_BLE_SEC_REQ_EVT` case;
+  - the five pure virtual methods with the real signatures, compared by hand against the Arduino-ESP32 2.0.17 and
+    3.0.7 `BLESecurity.h` the check used.
+
+  All 10 builds compile against the stubs.
+- Q2 met. `scripts/check_fixes_r6.py` P1:
+  - On 23d145a, typing a held node into `ssit_calm` and clicking Start before the 250 ms recompile showed no hold
+    message, and one's own program typed and Started at once did not run as typed (1 failure).
+  - On 69bfb2f, the held node is held with the message, and the typed program runs as typed. 0 failures.
+- Q3 met. `rsso` suite 277 passed, 1 expected failure (TRIAL_LOOP T4, unchanged); `rsxv` 130 passed;
+  `scripts/check_all.sh` all passed; the 10 browser checks exit 0. No threshold changed.
+- Not run on a board: S1 and S2 rest on the ESP-IDF and Arduino sources the check read (`smp_proc_pair_cmd`,
+  `BLEDevice` SEC_REQ handling). R6c-2 (private addresses in B7) remains the first board test.

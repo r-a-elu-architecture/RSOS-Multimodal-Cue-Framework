@@ -37,7 +37,7 @@ git checkout dev
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
   rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
-  rsso/tests/test_fixes_r4.py rsso/tests/test_ble_pairing.py
+  rsso/tests/test_fixes_r4.py rsso/tests/test_fixes_r5.py rsso/tests/test_ble_pairing.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -45,7 +45,8 @@ python3 scripts/check_fixes_r1.py docs
 python3 scripts/check_fixes_r2.py docs
 python3 scripts/check_outlet.py docs      # the output gate (FIXES_R3)
 python3 scripts/check_low_mood.py docs    # spec/LOW_MOOD.md
-python3 scripts/check_fixes_r4.py docs    # spec/FIXES_R4.md
+python3 scripts/check_fixes_r4.py docs    # spec/FIXES_R4.md (synthetic sessions; see FIXES_R5)
+python3 scripts/check_fixes_r5.py docs    # spec/FIXES_R5.md: real page paths
 ```
 
 ## 3. Review checklist (every step)
@@ -225,7 +226,24 @@ Review: branch `review/r4`, commit 48d3aff (reviewed 451a4df; no blockers, 13 sh
 - Smaller: a diagnosed low-mood plan is clinician-led, not memory work; escalation counts distinct days; the advisory
   sentence is always shown; therapist copilot outputs work in Standard; malformed check answers are dropped.
 Tests: `rsso/tests/test_fixes_r4.py`; `scripts/check_fixes_r4.py` (16 failures on 451a4df, 0 now).
-Review status: **awaiting the fifth review** (covers R4 and Low mood).
+Review status: reviewed in review 5 (`review/r5`, c21e634): 0 blockers, 10 should fix → fix pass R5.
+
+### Fix pass R5 (spec/FIXES_R5.md)
+
+Review: branch `review/r5`, commit c21e634 (reviewed 2dacc02). Registration d633b5a (also restores the LOW_MOOD §2
+count, owner's decision); code 9ab5f78.
+- **Gate**: a list of sessions with handles; a refused open changes nothing; the stricter of the saved and the live
+  domain; expired sessions removed, held ones kept until closed; copies from `session()`; the run's session opens after
+  the check-in.
+- **Level from compiled content** (`docs/js/lineage.js`): a run inherits the level of a plan node, saved program or cue
+  whose distinctive content it carries or whose content it mostly shares; player and device page alike; a held node's
+  code is held in any sequence; futures fields and compiled words go through Spine.
+- **Folding and parity**: one `fold()` in both languages for level patterns and Spine (NFKC, zero-width removed,
+  look-alike letters, Unicode spaces, ASCII lowercase); strict numeric check answers; exit repairs bad history.
+- Smaller: direct sound paths fail closed without the gate; two memory-work sentences hidden in Workplace; the
+  escalation count restored; FIXES_R4's "No threshold changed" and Q1 claims corrected in its record.
+Tests: `rsso/tests/test_fixes_r5.py`; `scripts/check_fixes_r5.py` (16 failures on 4f4b6d8, 0 now).
+Review status: **awaiting the sixth review** (covers R5 and Step 4).
 
 ### Step 4 — paired, encrypted wristband Bluetooth (spec/BLE_PAIRING.md)
 

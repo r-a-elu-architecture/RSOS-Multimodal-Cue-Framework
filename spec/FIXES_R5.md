@@ -1,6 +1,6 @@
 # FIXES_R5 — fixes from the fifth independent review
 
-Status: registered 2026-11-16, before code. Review: branch `review/r5`, commit c21e634 (reviewed dev at 2dacc02;
+Status: registered 2026-11-16 (d633b5a), before code; code 9ab5f78; results in §6. Review: branch `review/r5`, commit c21e634 (reviewed dev at 2dacc02;
 0 blockers, 10 should fix, 8 notes). Owner's decision on R5-8: restore the registered escalation count.
 
 Two design choices of FIXES_R4 are replaced:
@@ -80,3 +80,25 @@ Two design choices of FIXES_R4 are replaced:
 - Q2 The parity script reports 0 differences on the reviewer's inputs: levels, Spine, eventFromCheck, exit.
 - Q3 All suites and browser checks pass. Built-in programs run as before with no plan saved. No threshold changes
   besides the R5-8 restoration.
+
+## 6. Results (recorded after the code commit 9ab5f78)
+
+- Q1 met. `scripts/check_fixes_r5.py` (real page paths, expected outcome per scenario) on 4f4b6d8: 16 failures (R5-1 ×2,
+  R5-2 ×2, R5-3 ×2, R5-4, R5-5, R5-6, R5-7 ×2, R5-11, R5-12, R5-15, R5-8, R5-16/17). Two of them (the second R5-2
+  check and R5-16/17) fail on 4f4b6d8 only because they read the new `RSOSOutlet.sessions()`. On 9ab5f78: 0 failures,
+  0 page errors. The controls pass: with no plan saved the built-in Observer plays on the band, every built-in program
+  is allowed in Personal, and a code that belongs to no held node plays.
+- The reviewer's own `review/r5/attacks.py` on 9ab5f78: A1, A1b, A2, A4–A8, A10–A14 show the expected holds. A3 and A9
+  end with a script error only because the run is now stopped (A3: no session left after the switch) or never starts
+  (A9).
+- Q2 met. `rsso/tests/test_fixes_r5.py`: 7 passed (6 043 generated programs: level and fold identical; check answers,
+  exit and Spine identical; look-alike letters and Unicode spaces raise the level; built-in list matches
+  `docs/protocols`). `review/r5/parity.py`: 0 differences.
+- Q3 met. `rsso` suite 263 passed, 1 expected failure (TRIAL_LOOP T4, unchanged); `rsxv` 130 passed;
+  `scripts/check_all.sh` all passed; the 9 browser checks exit 0. The only threshold change is the R5-8 restoration.
+- Implementation detail beyond §3, recorded: Spine also tests the folded text with backslash escapes and punctuation
+  (other than `% . -`) read as spaces, because RSX keeps `\t` in a string as two characters (A10 "tab"). Both
+  languages do the same.
+- Limits that stand: a program from which the person removes every distinctive element is their own (§2); folding
+  does not remove accents (NFKC keeps "ẓ"), so a Spine word with an accented letter is not matched; page code is
+  trusted; a static site cannot authenticate.

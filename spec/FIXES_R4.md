@@ -66,5 +66,11 @@ program was held, and text the person can edit carried a program's level.
 - Q3 met. `rsso` suite: 249 passed, 1 expected failure (TRIAL_LOOP T4 power, unchanged). `scripts/check_all.sh`: all
   checks passed, generated files unchanged. Browser checks check_outlet, check_low_mood, check_profiles,
   check_watchdog, check_trial_loop, check_fixes_r1, check_fixes_r2, check_fixes_r4: all exit 0. No threshold changed.
+  **Correction (FIXES_R5 R5-8):** this was not true. The registration c7a8e39 changed the LOW_MOOD §2 escalation from
+  3 checks to 3 different days after LOW_MOOD's results, which made the recommendation rarer. FIXES_R5 restores the
+  registered count.
+- Correction (review 5, R5-10): Q1 was claimed met, but `check_fixes_r4.py` built synthetic sessions for G1–G3, set
+  the cue origin by hand and tested only byte-exact copies, which hid R5-1, R5-3 and R5-4. FIXES_R5 replaces it with a
+  test of the real page paths.
 - Not changed by this pass, still recorded limits: a static site cannot authenticate; the clinician PIN is advisory on
   a person's own device; page code is trusted.

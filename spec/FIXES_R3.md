@@ -84,12 +84,12 @@ so Spine wording flags apply to programs and cues.
 
 ## 6. Results (record)
 
-- G1:  on 14d096c: 14 failures (every channel reached the person in the clinician-led
+- G1: `scripts/check_outlet.py` on 14d096c: 14 failures (every channel reached the person in the clinician-led
   protocol on the four pages tested; leaving the protocol via Record result; tier-414 cue allowed in Personal,
   Workplace and Clinical; device codes sent; anchor capture stored and played; pasted observer text and dangerous
   wording allowed; therapist session resumed in Workplace; open session kept output). On the fix: 0.
 - G2: the gate is on all 24 pages; a test checks every page with an output call loads it and declares or opens
   sessions; stop passes.
-- G3:  and the malformed-state handling identical in Python and JS; built-in programs unchanged.
+- G3: `level_of_program` and the malformed-state handling identical in Python and JS; built-in programs unchanged.
 - G4: all suites (RSSO 246 with the registered T4 expected failure; RSX-V 130) and six browser checks pass.
 - Found while testing: a refused sound made the page's later stop() throw; the gate now lets stop pass quietly.

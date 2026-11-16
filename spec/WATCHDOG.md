@@ -68,7 +68,7 @@ SHA-256 is synchronous and equal to Python's.
 Player, device, nodes and therapist ask the Watchdog instead of CONTAIN directly; the safety page shows the recent
 decisions and whether the log verifies. The world simulation is not part of this step.
 
-## 6. Interpretation recorded at build time
+## 6. Interpretation recorded at build time (WITHDRAWN 2026-11-16, spec/FIXES_R1.md §1; replaced by fix W-3)
 
 On the therapist page a clinician-led THERA session counts as having its screening recorded, because the session
 itself contains a required screening step before any processing, and a "yes" there stops the session (THERA `check`).

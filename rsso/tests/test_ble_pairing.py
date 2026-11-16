@@ -60,11 +60,11 @@ if __name__ == "__main__":
 
 class FixesR6(unittest.TestCase):   # spec/FIXES_R6.md §5
     def test_requests_answered_only_in_the_window(self):   # B5 as amended by FIXES_R6C S1-S3
-        self.assertIn("bool onSecurityRequest() override { return link.accept_request(millis()); }", SKETCH)
+        self.assertIn("bool onSecurityRequest() override { return linkPolicy.accept_request(millis()); }", SKETCH)
         self.assertIn("BLEDevice::setSecurityCallbacks(new SecurityCB());", SKETCH)
         self.assertNotIn("ESP_GAP_BLE_SEC_REQ_EVT", SKETCH)
         for line in [l for l in SKETCH.splitlines() if "esp_ble_set_encryption(" in l]:
-            self.assertRegex(line, r"if \(link\.(accept_request|window_open)\(", line)
+            self.assertRegex(line, r"if \(linkPolicy\.(accept_request|window_open)\(", line)
 
     def test_stub_security_callbacks_match_the_real_interface(self):   # FIXES_R6C S4
         stub = (REPO / "firmware/esp32/stubs/BLEDevice.h").read_text(encoding="utf-8")
@@ -73,7 +73,7 @@ class FixesR6(unittest.TestCase):   # spec/FIXES_R6.md §5
             self.assertIn(sig, stub)
 
     def test_passkey_shown_only_in_the_window(self):   # B6
-        self.assertIn("if (link.show_passkey(millis())) keyScreen = 1;", SKETCH)
+        self.assertIn("if (linkPolicy.show_passkey(millis())) keyScreen = 1;", SKETCH)
         self.assertNotIn("case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: keyScreen = 1;", SKETCH)
 
     def test_no_key_exchange_only_for_known_hosts(self):   # B7
@@ -89,3 +89,26 @@ class FixesR6(unittest.TestCase):   # spec/FIXES_R6.md §5
     def test_ring_emptied_on_link_loss(self):   # B9
         self.assertIn("rxTail = rxHead; }", SKETCH)
         self.assertIn("writeValueWithResponse", (REPO / "docs/js/rdp.js").read_text(encoding="utf-8"))
+
+
+class Esp32Tools(unittest.TestCase):   # spec/ESP32_TOOLS.md §6 A1
+    def test_no_global_named_link(self):   # F1: POSIX link() in the real cores
+        self.assertNotRegex(SKETCH, r"(?m)^[\w:<>]+\s+link\s*[;=(]")
+        self.assertNotRegex(SKETCH, r"\blink\.")
+        self.assertIn("#include <unistd.h>", (REPO / "firmware/esp32/stubs/Arduino.h").read_text(encoding="utf-8"))
+
+    def test_encryption_level_on_every_core(self):   # F2
+        self.assertIn("#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 3, 0)", SKETCH)
+        self.assertIn("BLESecurity::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);", SKETCH)
+        self.assertIn("BLEDevice::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);", SKETCH)
+
+    def test_nimble_builds_stop_with_a_reason(self):   # F3
+        i, j = SKETCH.index("#include <Arduino.h>"), SKETCH.index("#include <BLEDevice.h>")
+        guard = SKETCH[i:j]
+        self.assertIn("#if defined(CONFIG_BT_NIMBLE_ENABLED)", guard)
+        self.assertIn("#error", guard)
+        self.assertIn("3.2.1 or 2.0.17", guard)
+
+    def test_display_build_pins_gfx_for_2x(self):   # F4
+        ini = (REPO / "firmware/esp32/platformio.ini").read_text(encoding="utf-8")
+        self.assertIn("lib_deps = moononournation/GFX Library for Arduino@1.6.1", ini)

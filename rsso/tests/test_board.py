@@ -54,3 +54,49 @@ class Board(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+try:
+    import serial  # noqa: F401
+    HAVE_PYSERIAL = True
+except ImportError:
+    HAVE_PYSERIAL = False
+
+
+@unittest.skipUnless(HAVE_PYSERIAL, "pyserial not installed")
+class SocketPort(unittest.TestCase):   # spec/ESP32_TOOLS.md §5 B1
+    def test_socket_url_reaches_a_listening_socket(self):
+        import socket
+        import threading
+        srv = socket.socket()
+        srv.bind(("localhost", 0))
+        srv.listen(1)
+        got = []
+
+        def serve():
+            c, _ = srv.accept()
+            data = b""
+            while not data.endswith(b"\n"):
+                data += c.recv(64)
+            got.append(data)
+            c.sendall(b"HELLO RDP/1 test 0.60\n")
+            c.close()
+        threading.Thread(target=serve, daemon=True).start()
+        port = board.open_port(f"socket://localhost:{srv.getsockname()[1]}")
+        port.write(b"HELLO\n")
+        line = b""
+        for _ in range(200):
+            line += port.readline()
+            if line.endswith(b"\n"):
+                break
+        port.close()
+        srv.close()
+        self.assertEqual(got, [b"HELLO\n"])
+        self.assertEqual(line, b"HELLO RDP/1 test 0.60\n")
+
+    def test_plain_port_names_use_the_same_call(self):
+        import unittest.mock as mock
+        import serial as ser
+        with mock.patch.object(ser, "serial_for_url") as f, mock.patch.object(board.time, "sleep"):
+            board.open_port("/dev/ttyUSB0")
+        f.assert_called_once_with("/dev/ttyUSB0", baudrate=115200, timeout=0.01)

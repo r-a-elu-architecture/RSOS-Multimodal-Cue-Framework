@@ -82,7 +82,7 @@ def open_port(path: str, baud: int = 115200):
         import serial  # pyserial
     except ImportError:
         raise SystemExit("Install pyserial first: pip install pyserial")
-    port = serial.Serial(path, baud, timeout=0.01)
+    port = serial.serial_for_url(path, baudrate=baud, timeout=0.01)   # port names and URLs such as socket://host:port (ESP32_TOOLS B1)
     time.sleep(2.0)                                # many ESP32 boards reset when the port opens
     port.reset_input_buffer()
     return port
@@ -248,7 +248,7 @@ def report(name: str, hello: str, results: list[tuple]) -> str:
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Check an RSOS wristband (RDP/1) over USB serial.")
-    ap.add_argument("--port", help="serial port, e.g. /dev/ttyUSB0 or COM5")
+    ap.add_argument("--port", help="serial port, e.g. /dev/ttyUSB0 or COM5, or a pyserial URL such as socket://localhost:5555")
     ap.add_argument("--sim", action="store_true", help="check the firmware core in real time instead of a board")
     ap.add_argument("--full", action="store_true", help="also run the whole conformance suite (a few minutes)")
     ap.add_argument("--out", help="write the report to this file")

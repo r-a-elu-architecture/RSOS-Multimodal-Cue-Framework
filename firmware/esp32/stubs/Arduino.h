@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>   // as the real cores (through Arduino.h): declares POSIX link(), so no global may be named `link` (ESP32_TOOLS F1)
 #define HIGH 1
 #define LOW 0
 #define OUTPUT 1
@@ -30,6 +31,15 @@ inline void digitalWrite(int, int) {}
 #ifndef ESP_ARDUINO_VERSION_MAJOR
 #define ESP_ARDUINO_VERSION_MAJOR 3
 #endif
+#ifndef ESP_ARDUINO_VERSION_MINOR            // ESP32_TOOLS F2: 2 -> 2.0.17, 3 -> 3.3.12 unless given (3.0-3.2: -DESP_ARDUINO_VERSION_MINOR=2)
+#if ESP_ARDUINO_VERSION_MAJOR >= 3
+#define ESP_ARDUINO_VERSION_MINOR 3
+#else
+#define ESP_ARDUINO_VERSION_MINOR 0
+#endif
+#endif
+#define ESP_ARDUINO_VERSION_VAL(major, minor, patch) ((major << 16) | (minor << 8) | (patch))
+#define ESP_ARDUINO_VERSION ESP_ARDUINO_VERSION_VAL(ESP_ARDUINO_VERSION_MAJOR, ESP_ARDUINO_VERSION_MINOR, 0)
 inline bool ledcAttach(int, int, int) { return true; }
 inline double ledcSetup(int, int, int) { return 0; }
 inline void ledcAttachPin(int, int) {}

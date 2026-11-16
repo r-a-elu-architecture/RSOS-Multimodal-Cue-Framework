@@ -44,7 +44,12 @@ class BLEServer {
 struct BLEDevice {
   static void init(const char*) {}
   static BLEServer* createServer() { return new BLEServer(); }
-  static void setEncryptionLevel(esp_ble_sec_act_t) {}
+#if ESP_ARDUINO_VERSION < ESP_ARDUINO_VERSION_VAL(3, 3, 0)
+  static void setEncryptionLevel(esp_ble_sec_act_t) {}   // 2.0.17 to 3.2.x only (ESP32_TOOLS F2)
+#endif
   static void setSecurityCallbacks(BLESecurityCallbacks*) {}
   static void setCustomGapHandler(void (*)(esp_gap_ble_cb_event_t, esp_ble_gap_cb_param_t*)) {}
 };
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 3, 0)
+struct BLESecurity { static void setEncryptionLevel(esp_ble_sec_act_t) {} };   // 3.3.x (ESP32_TOOLS F2)
+#endif

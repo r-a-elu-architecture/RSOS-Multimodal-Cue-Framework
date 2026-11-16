@@ -21,6 +21,9 @@
 // Uses the Bluedroid BLE stack (not a NimBLE build).
 
 #include <Arduino.h>
+#if defined(CONFIG_BT_NIMBLE_ENABLED)   // ESP32_TOOLS F3
+#error "RSOS: this core builds Bluetooth with NimBLE (Arduino-ESP32 3.3 and later on ESP32-C3/-S3). The pairing rules (spec/BLE_PAIRING.md) are implemented for Bluedroid only: build this chip with Arduino-ESP32 3.2.1 or 2.0.17."
+#endif
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLE2902.h>
@@ -66,7 +69,7 @@ volatile bool newKeys = false;         // keys exchanged in this connection: a n
 volatile bool dropLink = false;        // a refused pairing: disconnect from loop()
 volatile uint16_t bleConnId = 0;
 volatile int8_t keyScreen = -1;      // 1 show the passkey, 0 clear it; drawn in loop(), not in the Bluetooth task
-rsos::LinkPolicy link;
+rsos::LinkPolicy linkPolicy;     // not `link`: POSIX link() from <unistd.h> (ESP32_TOOLS F1)
 uint32_t passkey = 0;                  // never sent over Bluetooth (P2)
 Preferences prefs;
 // Bytes written by the host, handed from the Bluetooth task to loop() (one producer, one consumer).
@@ -266,7 +269,7 @@ class ServerCB : public BLEServerCallbacks {
     bleConnId = param->connect.conn_id; linkAuthed = false; newKeys = false; bleConnected = true;
     // FIXES_R6C S2: the band asks for encryption only while the window is open. Outside it a bonded host encrypts with
     // its stored key when it reads or writes; an unknown host must start pairing itself, and SecurityCB refuses it.
-    if (link.accept_request(millis())) esp_ble_set_encryption(param->connect.remote_bda, ESP_BLE_SEC_ENCRYPT_MITM);
+    if (linkPolicy.accept_request(millis())) esp_ble_set_encryption(param->connect.remote_bda, ESP_BLE_SEC_ENCRYPT_MITM);
   }
   void onDisconnect(BLEServer* s) override { linkAuthed = false; newKeys = false; bleConnected = false; s->getAdvertising()->start(); }
 };
@@ -310,12 +313,12 @@ void showPasskey(bool on) {
 void gapEvent(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param) {
   switch (event) {
     case ESP_GAP_BLE_KEY_EVT: newKeys = true; break;
-    case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: if (link.show_passkey(millis())) keyScreen = 1; break;   // B6
+    case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: if (linkPolicy.show_passkey(millis())) keyScreen = 1; break;   // B6
     case ESP_GAP_BLE_AUTH_CMPL_EVT: {
       keyScreen = 0;
-      if (!param->ble_security.auth_cmpl.success) { link.on_auth_fail(millis()); linkAuthed = false; dropLink = true; break; }
+      if (!param->ble_security.auth_cmpl.success) { linkPolicy.on_auth_fail(millis()); linkAuthed = false; dropLink = true; break; }
       if (newKeys) {
-        rsos::LinkPolicy::Decision d = link.on_new_bond(millis(), bondCount() - 1);   // the new bond is already stored
+        rsos::LinkPolicy::Decision d = linkPolicy.on_new_bond(millis(), bondCount() - 1);   // the new bond is already stored
         if (d != rsos::LinkPolicy::kAccept) { esp_ble_remove_bond_device(param->ble_security.auth_cmpl.bd_addr); linkAuthed = false; dropLink = true; break; }
       } else if (!bonded(param->ble_security.auth_cmpl.bd_addr)) {   // B7: no keys exchanged and not a known host
         linkAuthed = false; dropLink = true; break;
@@ -332,7 +335,7 @@ void gapEvent(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param) {
 class SecurityCB : public BLESecurityCallbacks {
   uint32_t onPassKeyRequest() override { return 0; }              // the band does not enter keys
   void onPassKeyNotify(uint32_t) override {}                       // shown by gapEvent (B6)
-  bool onSecurityRequest() override { return link.accept_request(millis()); }
+  bool onSecurityRequest() override { return linkPolicy.accept_request(millis()); }
   void onAuthenticationComplete(esp_ble_auth_cmpl_t) override {}  // decided by gapEvent (P3-P5, B7)
   bool onConfirmPIN(uint32_t) override { return false; }          // numeric comparison is not used
 };
@@ -365,7 +368,7 @@ void usbCommand(const char* line, uint32_t now) {
   if (strncmp(line, "PASSKEY", 7) == 0) { snprintf(out, sizeof out, "PASSKEY %06lu", (unsigned long)passkey); Serial.println(out); }
   else if (strncmp(line, "UNPAIR", 6) == 0) { removeAllBonds(); dropLink = true; Serial.println("UNPAIR all"); }
   else if (strncmp(line, "NEWKEY", 6) == 0) { passkey = newPasskey(); setSecurity(); removeAllBonds(); dropLink = true; Serial.println("NEWKEY done; read it with PASSKEY"); }
-  else if (strncmp(line, "PAIR", 4) == 0) { link.open_window(now); snprintf(out, sizeof out, "PAIR open %lu", (unsigned long)(rsos::LinkPolicy::kWindowMs / 1000)); Serial.println(out); }
+  else if (strncmp(line, "PAIR", 4) == 0) { linkPolicy.open_window(now); snprintf(out, sizeof out, "PAIR open %lu", (unsigned long)(rsos::LinkPolicy::kWindowMs / 1000)); Serial.println(out); }
 }
 
 void onLine(rsos::LinkSource src, rsos::LineBuffer::Result r, const char* line, uint32_t now) {
@@ -401,9 +404,13 @@ void setup() {
   passkey = prefs.getUInt("passkey", 0);
   if (!rsos::LinkPolicy::valid_passkey(passkey)) passkey = newPasskey();
   if (!rsos::LinkPolicy::valid_passkey(passkey)) { Serial.println("NOTE no passkey; Bluetooth off"); return; }   // USB still works
-  link.begin(millis());
+  linkPolicy.begin(millis());
   BLEDevice::init("RSOS-band");
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 3, 0)   // ESP32_TOOLS F2: moved to BLESecurity in 3.3
+  BLESecurity::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);
+#else
   BLEDevice::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);
+#endif
   BLEDevice::setCustomGapHandler(gapEvent);
   BLEDevice::setSecurityCallbacks(new SecurityCB());   // S1
   setSecurity();

@@ -110,7 +110,31 @@ checks that a `socket://` URL reaches a listening socket and that a plain name g
 
 ## 7. Results
 
-(recorded after the runs, in a separate commit)
+### 7.1 Round 1: the unchanged sketch (dev 35d61d8), 30 builds — 0 passed
+
+Tools as in §1 (arduino-cli 1.6.0; cores 2.0.17 and 3.3.12; GFX Library 1.6.9, the newest). The full diagnostics, as
+printed, are in `rsso/results/esp32_tools/round1_errors.md`.
+
+| Error | Builds | Message (first line, exactly) |
+|---|---|---|
+| R1-a | every build that reached the sketch: ESP32, -C3, -S3 on 2.0.17 (band, thermal, sites) and ESP32 on 3.3.12 (all five) | `rsos_esp32.ino:69:18: error: 'rsos::LinkPolicy link' redeclared as different kind of symbol` (2.0.17; 3.3.12 says `entity`), then `request for member '…' in 'link', which is of non-class type 'int(const char*, const char*)'` at lines 269, 313, 316, 318, 335, 368 and 404. The global `link` collides with POSIX `int link(const char*, const char*)` from `<unistd.h>`, which both cores include through `Arduino.h`. |
+| R1-b | ESP32 on 3.3.12 (all five) | `rsos_esp32.ino:406:14: error: 'setEncryptionLevel' is not a member of 'BLEDevice'` — in 3.3.12 it is `BLESecurity::setEncryptionLevel`. |
+| R1-c | ESP32-C3 and -S3 on 3.3.12 (all ten) | `rsos_esp32.ino:28:10: fatal error: esp_gap_ble_api.h: No such file or directory` — Arduino-ESP32 3.3.12 builds these chips with the NimBLE host (`CONFIG_BT_NIMBLE_ENABLED=y` in their `sdkconfig`; the ESP32 keeps `CONFIG_BT_BLUEDROID_ENABLED=y`). The sketch's pairing code is written for Bluedroid. |
+| R1-d | display and all-modules builds on 2.0.17 (six) | `Arduino_ESP32SPI.h:21:10: fatal error: esp32-hal-periman.h: No such file or directory` — inside GFX Library 1.6.9, which needs the 3.x core. |
+
+The stubs hid R1-a (they do not declare POSIX `link`) and R1-b (they declare `BLEDevice::setEncryptionLevel` for 3.x).
+R1-c and R1-d are outside what the stubs model. Builds that stopped at R1-c or R1-d did not reach later errors.
+
+Library selection under §1: GFX Library 1.6.1 is the newest release that compiles on 2.0.17 (1.6.2, 1.6.3, 1.6.4 and
+1.6.8 fail with R1-d; 1.6.1, 1.6.0, 1.5.9, 1.5.0 and 1.4.9 compile the display build, tried with R1-a and R1-b
+corrected in a scratch copy).
+
+Probe (a scratch copy, not committed, before the amendment in §6): with R1-a and R1-b corrected and a NimBLE stop,
+ESP32 on 3.3.12 with all modules, ESP32 on 2.0.17 with thermal and sites, and ESP32-C3 on 3.2.1 compiled with no
+other error; ESP32-C3 on 3.2.1 is built with Bluedroid (`CONFIG_BT_BLUEDROID_ENABLED=y`), as are -S3 on 3.2.1.
+
+Environment note: the first 2.0.17 attempt failed inside the core's esptool (`ModuleNotFoundError: No module named
+'serial'`) until pyserial was installed for the workspace's Python; that is a tool set-up step, not a sketch error.
 
 ## 8. Reproduce
 

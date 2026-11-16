@@ -1,6 +1,6 @@
 /* CONTAIN — the safety layer, JavaScript implementation (spec/CONTAIN.md). Mirrors rsso/rsso/contain.py (identical
  * results, tested): the device safety envelope, drift detection, escalation, review, the decide() gate, release and
- * rollback; with a safety state, decide() also asks the safety mode in force (safety.js). Runs carry `timestamp` in seconds; adverse events and screening answers carry `ts` in milliseconds.
+ * rollback. Runs carry `timestamp` in seconds; adverse events and screening answers carry `ts` in milliseconds.
  * Browser: window.RSOSContain; Node: module.exports.
  */
 (function (root) {
@@ -107,9 +107,7 @@
     st.escalation = esc;
     return [st, changes];
   }
-  // Safety modes (spec/CONTAIN.md §9): docs/js/safety.js, loaded before this file in the browser.
-  const SAFE = typeof module !== "undefined" && module.exports ? require("./safety.js") : root.RSOSSafety;
-  function decide(action, state, timeline, now, safety) {
+  function decide(action, state, timeline, now) {
     const st = state || newState(), reasons = [];
     if (timeline) for (const v of checkEnvelope(timeline)) reasons.push("outside the device safety envelope: " + v.rule + " is " + v.value + ", the limit is " + v.limit);
     const p = action.protocol;
@@ -120,7 +118,6 @@
       if (action.therapist_led && !action.therapist_present) reasons.push("therapist-led work is paused unless a therapist is present: " + esc.reasons.join("; "));
       if (action.kind === "plan" && !action.therapist_present) reasons.push("a new plan needs a therapist present while practice is paused: " + esc.reasons.join("; "));
     }
-    if (safety !== undefined && safety !== null) { const m = SAFE.allowed(safety, action); if (!m.ok) reasons.push(m.reason); }
     return { decision: reasons.length ? "block" : "allow", reasons };
   }
   function release(state, protocol, by, now) {

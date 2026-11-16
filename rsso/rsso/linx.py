@@ -26,7 +26,6 @@ import math
 import re
 
 from . import nodes as N
-from . import safety as SAFE
 
 SCHEMA = "rsos-linx-proposal/1"
 LIMITS = {"nodes": 6, "frames": 5, "contexts": 3, "triggers": 10, "notes": 5, "text": 160, "frame": 120, "sense": 80, "note": 240}
@@ -474,10 +473,6 @@ def route(proposal, intake: dict) -> dict:
             return None
         if UNSAFE.search(v):
             rejected.append({"path": path, "reason": "unsafe wording: held for the person and their therapist"})
-            return None
-        flags = SAFE.spine_flags(v)
-        if flags:
-            rejected.append({"path": path, "reason": "Spine: " + "; ".join(f["text"] for f in flags)})
             return None
         return v.strip()
 

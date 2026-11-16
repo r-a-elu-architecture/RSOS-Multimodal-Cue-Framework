@@ -124,17 +124,6 @@ header.top nav a{font-size:.88rem}
     </div>
   </div>
 
-  <h2 id="mode">Safety mode and check-in</h2>
-  <p class="hint">The same rules run for people and for agents (spec/CONTAIN.md §9). A check-in can raise the mode; it never lowers it by itself. Leaving Stabilise or Practical crisis is your choice; leaving Crisis needs your clinician.</p>
-  <div class="panel">
-    <p id="sfMode" style="font-weight:600;margin-top:0"></p>
-    <div id="sfMsgs"></div>
-    <div id="sfForm"></div>
-    <p style="margin-bottom:0"><button class="btn" id="sfSave">Save check-in</button> <button class="btn" id="sfStab">Enter Stabilise mode</button> <button class="btn" id="sfExit">Leave this mode</button> <span class="hint" id="sfNote"></span></p>
-    <div id="sfClin" hidden style="margin-top:10px"><label><input type="checkbox" id="sfClinOk"> My clinician is with me and agrees that I leave Crisis mode</label> <input id="sfClinName" placeholder="Clinician's name"> <button class="btn" id="sfClinExit">Leave with my clinician</button></div>
-    <table id="sfHist" style="margin-top:12px"><thead><tr><th>When</th><th>From</th><th>To</th><th>Why</th><th>By</th></tr></thead><tbody></tbody></table>
-  </div>
-
   <div class="crisis"><b>If you are in crisis or at risk of harm</b>, contact local emergency services or a crisis line now. RSOS is not a treatment and does not replace care.</div>
 
   <h2>The device safety envelope</h2>
@@ -150,7 +139,6 @@ header.top nav a{font-size:.88rem}
       <tr><td>Rising distress</td><td>Distress after runs is 1.5 or more higher than in the 5 runs before</td><td>Watched; paused together with any other signal</td></tr>
       <tr><td>Stopped often</td><td>Stopped 4 of the last 6 times</td><td>Watched; paused together with any other signal</td></tr>
       <tr><td>Adverse event</td><td>A moderate or serious event possibly or likely related to a program</td><td>That program is paused until the therapist restores it</td></tr>
-      <tr><td>Safety mode</td><td>A check-in or the screening question: thoughts of self-harm now or arrangements for after (Crisis); a prescribed sedative with alcohol or drugs (Crisis); losing work, home or income (Practical crisis); distress 7 or more or under 4 hours of sleep (Stabilise)</td><td>Only what the mode allows can start: Crisis allows crisis help only; Stabilise and Practical crisis allow calming programs (paced breathing, interrupt, stillness) and practical steps</td></tr>
       <tr><td>Practice paused</td><td>A serious adverse event in 30 days; two moderate related events in 14 days; the screening question answered yes in 7 days; distress at 8 or more after 3 of the last 5 runs in a week</td><td>Device offers and therapist-led work stop; a new plan needs a therapist present; the person is pointed to their therapist or to crisis help</td></tr>
     </tbody>
   </table>
@@ -161,8 +149,7 @@ header.top nav a{font-size:.88rem}
   <div class="panel log"><table id="log"><thead><tr><th>When</th><th>What</th><th>Decision</th><th>Why</th></tr></thead><tbody></tbody></table></div>
 </main>
 <footer>CONTAIN is <code>rsso/rsso/contain.py</code>, identically <code>docs/js/contain.js</code> (tested); the runtime refuses what it blocks, and the conformance suite checks it (C14, C15). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CONTAIN.md">spec/CONTAIN.md</a>.</footer>
-<script src="js/safety.js?v=1.15.0"></script>
-<script src="js/contain.js?v=1.15.0"></script>
+<script src="js/contain.js?v=1.13.0"></script>
 <script src="js/ugcl.js?v=1.14.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
@@ -280,57 +267,5 @@ $("rollback").addEventListener("click", () => {
 draw();
 </script>
 <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
-<script>
-"use strict";
-(function () {
-  const S = RSOSSafety, $ = id => document.getElementById(id);
-  const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
-  const mk = (tag, text) => { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; return e; };
-  const now = () => Date.now() / 1000;
-  const answers = {};
-  function form() {
-    const F = $("sfForm"); F.replaceChildren();
-    S.CHECKIN.forEach(q => {
-      const p = mk("p"); p.append(mk("span", q.text + " "));
-      [["yes", "Yes"], ["no", "No"], ["skip", "Prefer not to say"]].forEach(([v, t]) => {
-        const l = mk("label"), r = mk("input"); r.type = "radio"; r.name = "sf_" + q.id; r.value = v;
-        r.addEventListener("change", () => { answers[q.id] = v; }); l.append(r, " " + t + " "); p.append(l);
-      });
-      F.append(p);
-    });
-    const p = mk("p"), d = mk("select"), h = mk("input");
-    d.id = "sfDist"; h.id = "sfSleep"; h.type = "number"; h.min = 0; h.max = 14; h.step = 0.5; h.placeholder = "hours";
-    d.append(new Option("—", "")); for (let i = 0; i <= 10; i++) d.append(new Option(String(i), String(i)));
-    p.append(mk("span", "Distress now, 0–10: "), d, mk("span", "  Hours slept last night: "), h); F.append(p);
-  }
-  function draw(messages) {
-    const st = store.get("rsos.safety", S.newState());
-    $("sfMode").textContent = "Mode in force: " + S.MODE_TEXT[st.mode];
-    const M = $("sfMsgs"); M.replaceChildren(); (messages || []).forEach(m => M.append(mk("p", m)));
-    if (st.mode === "CRISIS" && !(messages || []).length) M.append(mk("p", S.HELP));
-    $("sfClin").hidden = st.mode !== "CRISIS";
-    $("sfExit").hidden = st.mode === "NORMAL" || st.mode === "CRISIS";
-    $("sfStab").hidden = st.mode !== "NORMAL";
-    const B = $("sfHist").querySelector("tbody"); B.replaceChildren();
-    st.history.slice().reverse().forEach(r => { const tr = mk("tr"); [new Date(r.at * 1000).toLocaleString(), r.from, r.to, r.why, r.by].forEach(x => tr.append(mk("td", x))); B.append(tr); });
-  }
-  $("sfSave").addEventListener("click", () => {
-    const ans = Object.assign({}, answers, { distress: $("sfDist").value, sleep_h: $("sfSleep").value });
-    const [st, r] = S.observe(store.get("rsos.safety", S.newState()), S.eventFromCheckin(ans), now());
-    store.set("rsos.safety", st); $("sfNote").textContent = r.screens.length ? "" : "Saved. Nothing in this check-in changes the mode.";
-    for (const k of Object.keys(answers)) delete answers[k];
-    form(); draw(r.messages);
-  });
-  $("sfStab").addEventListener("click", () => { const [st] = S.enterStabilise(store.get("rsos.safety", S.newState()), "person", now()); store.set("rsos.safety", st); draw(); });
-  $("sfExit").addEventListener("click", () => { const [st, r] = S.exit(store.get("rsos.safety", S.newState()), "person", now()); store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Back to Normal." : ""; draw(); });
-  $("sfClinExit").addEventListener("click", () => {
-    if (!$("sfClinOk").checked || !$("sfClinName").value.trim()) { $("sfNote").textContent = "Leaving Crisis needs your clinician: tick the box and write their name."; return; }
-    const [st, r] = S.exit(store.get("rsos.safety", S.newState()), "clinician", now());
-    if (r.ok) st.history[st.history.length - 1].by = "clinician: " + $("sfClinName").value.trim();
-    store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Back to Normal, confirmed by your clinician." : ""; draw();
-  });
-  form(); draw();
-})();
-</script>
 </body>
 </html>

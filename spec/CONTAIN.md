@@ -115,7 +115,6 @@ All CONTAIN state stays in the browser:
 - `rsos.contain.log`: the decisions;
 - `rsos.adverse`: reported events, from the player's "Something felt wrong" or the safety page;
 - `rsos.screens`: screening answers from the node studio;
-- `rsos.safety`: the safety mode in force, its last check-in and its history (§9);
 - `rsos.plan.history`: approved node plans.
 
 Reported events are included in a research contribution only with the `safety` scope
@@ -126,60 +125,6 @@ Reported events are included in a research contribution only with the `safety` s
 - Pauses learned from pooled contributions: thresholds fitted on real drift and adverse-event data.
 - Signals from EEG and heart rate during runs (a run that raises arousal instead of lowering it).
 - The envelope enforced in the firmware itself, in addition to the host.
-
-## 9. Safety modes on the person side (S1, design fixed before code, 16 November 2026)
-
-**Why.** The safety layer specified and tested in `rsxv/AGENTS.md` §3.1 (modes, screens, the past-crisis check-in
-and the §11.14 rule fix) ran only in the agent World. The player, node studio and therapist mode used one screening
-question and CONTAIN escalation. S1 makes one safety layer for both: the person-facing pages run the same rules as
-the agents, and the stricter rule always wins.
-
-**What is built (fixed now).**
-
-1. `rsso/rsso/safety.py` and `docs/js/safety.js`, identical results: `screen(event)`, the fixed responses with a
-   readable message for each screen, the mode machine as plain data (`new_state`, `observe`, `enter_stabilise`,
-   `exit`), `MODE_ALLOWED`, `category(action)`, `may_start_deep_session`, `adjusted_effect`, the structured
-   check-in (`CHECKIN` questions → `event_from_checkin(answers)`), and `spine_flags(text)`.
-   `rsxv/rsxv/safety.py` becomes a re-export of `rsso.safety`, and `rsxv.agents.MODE_ALLOWED` is the same object:
-   one rule set.
-2. The rules are those of §3.1 exactly; no threshold or rule changes. Escalation is automatic and never
-   downgrades on a lower screen; leaving CRISIS needs a clinician (or the owner); leaving STABILISE or
-   PRACTICAL_CRISIS is the person's choice; `history_check_in` changes no mode.
-3. **The structured check-in** replaces free-text reading in the browser (a keyword reader caught 13% in §11.12;
-   the meaning-based reader needs a model). Questions, answered yes / no / prefer not to say: thoughts of harming
-   yourself or not wanting to live right now (→ `self_harm_signal`); putting things in order or making arrangements
-   for after you are gone (→ `arrangements_for_after`); alcohol or other drugs today while taking a prescribed
-   sedative (→ `substances` + `sedative_prescribed`); job loss, losing your home or no income now (→
-   `practical_crisis` fields); such thoughts in the past but not now (→ `history_reference`); plus distress 0–10
-   and hours slept. The existing screening question answered yes counts as `self_harm_signal`.
-4. **CONTAIN asks the mode.** `decide(action, state, timeline, now, safety=None)`: when a safety state is given and
-   the action's category (`category(action)`) is not allowed in the mode in force, the action is blocked with the
-   mode's reason, after the envelope, quarantine and escalation checks. Categories: a therapist-led or deep tier →
-   `deep_processing`; paced breathing, interrupt-only and stillness programs → `regulating_cue`; other runs,
-   cues and offers → `override_cue`; a new node plan → `module_work`. Without a safety state, `decide` behaves
-   exactly as before.
-5. **Spine flags in the browser.** `spine_flags(text)` finds, by fixed word lists, release through temperature
-   extremes, pain, extreme breath-holding or sleep deprivation (Jin) and population ranks about the person
-   (Makoto). LINX `route` rejects a proposed text field that raises a flag; the node studio shows the flag on a
-   frame or rule. Warm water, ordinary breathing and rest raise nothing.
-6. **Pages.** Safety page: the check-in, the mode in force and why, its history, and the exits each mode allows.
-   Player, node studio and therapist mode: the mode is shown and passed to CONTAIN; a yes to the screening question
-   enters CRISIS. Crisis help is pointed to local emergency services and an international helpline directory; no
-   phone numbers are hard-coded.
-
-**Acceptance (all must hold before the push to `main`).**
-
-- A1 Python and JavaScript give identical results for `screen`, `observe` sequences, `exit`, `category`,
-  `event_from_checkin`, `spine_flags`, `may_start_deep_session` and `decide` with a safety state, on a fixed set of
-  cases covering every screen and every mode.
-- A2 `rsxv` uses `rsso.safety`: its 130 tests pass unchanged.
-- A3 Every existing test in `rsx`, `rsso` and `toolkit` passes; `decide` without a safety state is unchanged.
-- A4 Each mode blocks exactly the categories §3.1 forbids, and CRISIS cannot be left by the person alone.
-- A5 `spine_flags` flags each listed mechanism and rank wording, and none of 20 ordinary frames and rules (warm
-  bath, golden light, calm breathing, sleep well…).
-- A6 `scripts/check_all.sh` passes; page build numbers and the offline cache are raised.
-
-This is engineering, not a test of effect: it changes no claim and no registered result.
 
 ## Autonomy gate
 

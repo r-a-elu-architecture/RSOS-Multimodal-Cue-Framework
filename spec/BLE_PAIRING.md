@@ -1,6 +1,6 @@
 # BLE_PAIRING — the wristband accepts commands only from paired hosts (roadmap Step 4)
 
-Status: registered 2026-11-16, before code.
+Status: registered 2026-11-16 (c898386), before code; code 661165e; results in §5.
 
 ## 0. Problem
 
@@ -55,3 +55,19 @@ line buffer also has no length limit (USB serial stops at 95 characters).
   fresh passkey each time (not done here).
 - Pairing dialogs belong to the operating system and differ between Android, Windows, macOS, ChromeOS and Linux.
 - The web page cannot see or check the passkey; it relies on the operating system's pairing.
+
+## 5. Results (recorded after the code commit 661165e)
+
+- B1 met. `link_test`: 47 checks passed (window edges at 0, 119.999 s and 120 s; PAIR reopens; 3 failures close;
+  4 bonds then refusal; 100 000 generated passkeys all valid; USB-only commands; 95/96-character lines; a START hidden
+  past the limit not run; millis() wrap-around). "Lines before authentication dropped" is enforced in the sketch, not
+  in the portable policy, so B1 covers it only through the static check in B3.
+- B2 met. The sketch compiles against the extended stubs for Arduino-ESP32 2.x and 3.x, alone and with each module and
+  all modules (10 builds).
+- B3 met. `rsso/tests/test_ble_pairing.py`: 7 passed (copies identical; RX and the TX descriptor `_ENC_MITM`; no open
+  write permission; lines and notifications need `linkAuthed`; the passkey in no Bluetooth send path; USB-only
+  commands refused over Bluetooth; no unbounded line buffers).
+- B4 met. `rsso` suite 256 passed, 1 expected failure (TRIAL_LOOP T4, unchanged); `rsxv` 130 passed;
+  `scripts/check_all.sh` all passed; the 8 browser checks exit 0. No threshold changed.
+- The §4 limits stand: not run on a board; the stubs are written to the Bluedroid API, so the security calls are
+  checked for syntax only, not against the real headers.

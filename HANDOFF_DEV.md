@@ -37,7 +37,7 @@ git checkout dev
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
   rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py rsso/tests/test_fixes_r3.py \
-  rsso/tests/test_fixes_r4.py
+  rsso/tests/test_fixes_r4.py rsso/tests/test_ble_pairing.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
@@ -227,6 +227,16 @@ Review: branch `review/r4`, commit 48d3aff (reviewed 451a4df; no blockers, 13 sh
 Tests: `rsso/tests/test_fixes_r4.py`; `scripts/check_fixes_r4.py` (16 failures on 451a4df, 0 now).
 Review status: **awaiting the fifth review** (covers R4 and Low mood).
 
+### Step 4 — paired, encrypted wristband Bluetooth (spec/BLE_PAIRING.md)
+
+Registered c898386; code 661165e. The band accepts commands only over an LE Secure Connections link with a six-digit
+passkey (made on first start, kept in flash, never sent over Bluetooth; read with `PASSKEY` over USB or on the
+screen). New hosts pair only within 120 s of power-on or USB `PAIR`; 3 failures close the window; at most 4 bonds;
+`PASSKEY`, `PAIR`, `UNPAIR`, `NEWKEY` only over USB; lines over 95 characters dropped whole. Policy
+`firmware/rsos_core/rsos_link.*` (host test `link_test`, 47 checks), copied into the sketch.
+Tests: `rsso/tests/test_ble_pairing.py`; sketch compile check (10 builds). **Not run on a board.**
+Review status: **awaiting review**.
+
 ## 5. Review findings
 
 Reviewer: add one block per review.
@@ -242,5 +252,5 @@ Verdict:         ready for the owner | changes needed
 
 ## 6. Open items
 
-- Step 4: BLE pairing with a passkey (`rsos_esp32.ino`, open NUS characteristic around lines 274–279).
+- Step 4 on a board: flash, pair from Android Chrome and a computer, check the window, the failure limit and USB-only commands (BOARD_KIT §4 Pairing).
 - Step 5: refresh `architecture/` pages for RSX-V.

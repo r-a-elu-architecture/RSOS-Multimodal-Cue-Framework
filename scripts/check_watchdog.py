@@ -30,7 +30,8 @@ def node_plan(pg, base, profile):
     pg.locator('#concerns input[value="ptsd"]').check()
     pg.wait_for_timeout(200)
     pg.check("#therapistHere")
-    pg.check('input[name="screen"][value="no"]')
+    if pg.is_visible('input[name="screen"][value="no"]'):      # shown only with the clinical vocabulary (FIXES_R1 S-2)
+        pg.check('input[name="screen"][value="no"]')
     pg.check("#consent")
     pg.click("#save")
     pg.wait_for_timeout(1500)
@@ -42,6 +43,8 @@ def session(pg, base, profile, proto="trauma_observer"):
     pg.wait_for_timeout(500)
     pg.check(f'input[name="proto"][value="{proto}"]')
     pg.check("#present")
+    if pg.is_visible('input[name="startScreen"][value="no"]'):   # FIXES_R1 W-3: screening on the start panel
+        pg.check('input[name="startScreen"][value="no"]')
     pg.click("#begin")
     pg.wait_for_timeout(300)
     return pg.inner_text("#msg")
@@ -69,7 +72,13 @@ def main():
             ctx = b.new_context()
             pg = ctx.new_page()
             pg.on("pageerror", lambda e, p=prof: errs.append(f"{p}: {e}"))
-            out[f"session:{prof}"] = session(pg, base, prof)
+            if prof == "workplace":                                   # FIXES_R1 P-2, W-9
+                pg.goto(f"{base}/therapist.html?profile=workplace")
+                pg.wait_for_timeout(500)
+                out["observer_hidden:workplace"] = not pg.is_visible('input[name="proto"][value="trauma_observer"]')
+                out[f"session:{prof}"] = session(pg, base, prof, "low_mood")
+            else:
+                out[f"session:{prof}"] = session(pg, base, prof)
             if prof == "workplace":
                 pg.goto(f"{base}/nodes.html?profile=workplace")
                 pg.wait_for_timeout(400)
@@ -80,7 +89,9 @@ def main():
             out[f"log:{prof}"] = pg.inner_text("#wdSay")
             ctx.close()
         if "Watchdog" not in out["session:workplace"]:
-            fails.append("clinician-led session was not held in Workplace")
+            fails.append("clinician-led (low mood) session was not held in Workplace")
+        if not out.get("observer_hidden:workplace"):
+            fails.append("the observer session is offered in Workplace")
         if out["session:clinical"].strip():
             fails.append("clinician-led session did not start in Clinical: " + out["session:clinical"])
         if out["plan:workplace"] != "hold":

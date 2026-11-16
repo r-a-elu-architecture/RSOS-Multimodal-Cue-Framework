@@ -49,7 +49,7 @@
       "resume when you choose.",
     intensity_protocol: "Intensity methods (temperature extremes, pain, extreme breath-holding, sleep loss) are " +
       "outside RSOS. Use a regulation program instead.",
-    unstable: "High intensity or short sleep: Stabilisation is suggested. Regulation programs only today; leave " +
+    unstable: "High intensity or short sleep: the session moved to Stabilisation. Regulation programs only today; leave " +
       "Stabilisation when you choose.",
     history_check_in: "Earlier experience noted for the practitioner's review. Nothing changes in the session.",
     clinical_high: "Screening result: high. The session moves to the clinician-led protocol; the responsible " +
@@ -80,18 +80,23 @@
       "clinician's protocol (including a private psychotherapist or psychiatrist).",
   };
 
-  const REGULATING = ["paced_breathing", "interrupt_only", "tier016_stillness", "tier012_breath_anchor"];
+  const REGULATING = ["paced_breathing", "interrupt_only", "tier016_stillness"];   // exactly CONTAIN §9.4 (FIXES_R1 S-3)
 
+  function regulating(a) {   // FIXES_R1 S-4b, W-7
+    a = a || {};
+    if (a.edited || a.therapist_led || a.deep) return false;
+    return REGULATING.includes(a.protocol || "");
+  }
   function category(a) {
-    if (a.category) return a.category;
+    if (a.category && a.source === "agent") return a.category;   // FIXES_R1 S-4a
     if (a.kind === "plan") return "module_work";
     if (a.therapist_led || a.deep) return "deep_processing";
-    if (REGULATING.includes(a.protocol || "")) return "regulating_cue";
+    if (regulating(a)) return "regulating_cue";
     return "override_cue";
   }
   const newState = () => ({ mode: "NORMAL", history: [], last: null });
   function allowed(state, action) {
-    const mode = (state || newState()).mode, cat = category(action);
+    const mode = state && typeof state === "object" && MODES.includes(state.mode) ? state.mode : "NORMAL", cat = category(action);   // FIXES_R1 W-10
     if (MODE_ALLOWED[mode].includes(cat)) return { ok: true, mode, category: cat, reason: "" };
     return { ok: false, mode, category: cat, reason: "session state " + MODE_TEXT[mode] };
   }
@@ -197,7 +202,7 @@
     return { adjusted: den ? num / den : null, crude: t.length && c.length ? mean(t) - mean(c) : null, strata_used: used, strata_dropped: dropped };
   }
 
-  const api = { MODES, SEVERITY, RECOVERY_H, WEEKLY_CAP, FOOTER, RESPONSES, MESSAGES, MODE_ALLOWED, MODE_NAME, MODE_TEXT, LEVELS, REGULATING,
+  const api = { regulating, MODES, SEVERITY, RECOVERY_H, WEEKLY_CAP, FOOTER, RESPONSES, MESSAGES, MODE_ALLOWED, MODE_NAME, MODE_TEXT, LEVELS, REGULATING,
     SELF_CHECK, CLINICAL_RESULTS, CLINICAL_FLAGS, screen, category, newState, allowed, observe, enterStabilise, exit, eventFromCheck, spineFlags,
     mayStartDeepSession, adjustedEffect };
   if (typeof module !== "undefined" && module.exports) module.exports = api;

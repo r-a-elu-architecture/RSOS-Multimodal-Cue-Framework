@@ -300,7 +300,7 @@ header.top nav a{font-size:.88rem}
     </div>
   </section>
 </main>
-<footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent. The new channels use <code>docs/js/machines.js</code>, identical to <code>rsso/rsso/machines.py</code> (tested); pronunciation uses <code>docs/js/pron.js</code>, identical to <code>rsso/rsso/pron.py</code> (tested). The channel lines and their limits are in <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>.</footer>
+<footer>The protocol is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DEVICE_PROTOCOL.md">RDP/1</a>; this page uses <code>docs/js/rdp.js</code>, whose board check matches <code>rsso/rsso/board.py</code> (tested against the firmware core). Every program is checked by CONTAIN before it is sent. The new channels use <code>docs/js/machines.js</code>, identical to <code>rsso/rsso/machines.py</code> (tested); pronunciation uses <code>docs/js/pron.js</code>, identical to <code>rsso/rsso/pron.py</code> (tested). The channel lines and their limits are in <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 <script src="js/ugcl.js?v=1.14.0"></script>
 <script src="js/rsx.js?v=1.14.0"></script>
 <script src="js/safety.js?v=1.16.0"></script>
@@ -365,7 +365,7 @@ $("run").addEventListener("click", async () => {
   const p = $("prog").value;
   try {
     const tl = RSX.compile(await (await fetch("protocols/" + p + ".rsx")).text());
-    const r = RSOSGuard.ask({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person" }, { timeline: tl, max_level: window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null });
+    const r = RSOSGuard.ask({ kind: "run", protocol: tl.protocol, trigger: "self", source: "person" }, Object.assign({ timeline: tl }, window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {}));
     if (!RSOSGuard.ok(r)) return say("Held by the Watchdog: " + RSOSGuard.say(r));
     await tx.send("STOP"); await tx.send("CONSENT 0"); for (const l of R.encode(tl)) await tx.send(l); await tx.send("START");
     say("Playing " + $("prog").selectedOptions[0].textContent + " (" + Math.round(tl.duration_ms / 1000) + " s). Stop at any time.", true);

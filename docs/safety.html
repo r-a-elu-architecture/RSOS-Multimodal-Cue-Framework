@@ -135,11 +135,12 @@ header.top nav a{font-size:.88rem}
     <p style="margin-bottom:0"><button class="btn" id="sfStab">Enter Stabilisation</button> <button class="btn" id="sfExit">Resume Standard</button> <span class="hint" id="sfNote"></span></p>
     <div id="clinHead">
     <h3>Clinical module</h3>
-    <p><label><input type="checkbox" id="clinOn"> Enabled by a practitioner or study protocol</label> <span class="hint">Off by default. The practitioner uses a validated instrument of their choice (for example the C-SSRS screener or PHQ-9) and records the result here.</span></p>
+    <p><label><input type="checkbox" id="clinOn"> Enabled by a practitioner or study protocol</label> <span class="hint">Off by default. The practitioner uses a validated instrument of their choice<span data-show="clinical"> (for example the C-SSRS screener or PHQ-9)</span> and records the result here. The first result recorded sets a clinician PIN; resuming from the clinician-led protocol needs it.</span></p>
     </div>
     <div id="clinBox" style="display:none">
       <p><label>Practitioner <input id="clinName" placeholder="Name"></label> &nbsp; <label>Instrument <input id="clinInst" placeholder="e.g. C-SSRS screener"></label> &nbsp; <label>Result <select id="clinRes"><option value="">—</option><option value="none">none</option><option value="low">low</option><option value="moderate">moderate</option><option value="high">high</option></select></label></p>
       <p><label><input type="checkbox" id="clinMed"> Medication interaction</label> &nbsp; <label><input type="checkbox" id="clinPrac"> Practical circumstances</label> &nbsp; <label><input type="checkbox" id="clinHist"> Earlier experience to review</label> &nbsp; <button class="btn" id="clinSave">Record result</button></p>
+      <p id="pinRow"><label>Clinician PIN <input id="clinPin" type="password" inputmode="numeric" autocomplete="off" style="width:8em"></label> <span class="hint" id="pinSay"></span></p>
       <p id="clinResume" style="display:none"><label><input type="checkbox" id="clinOk"> I am the responsible clinician and resume self-guided practice</label> <button class="btn" id="clinGo">Resume</button></p>
     </div>
     <table id="sfHist" style="margin-top:12px"><thead><tr><th>When</th><th>From</th><th>To</th><th>Why</th><th>By</th></tr></thead><tbody></tbody></table>
@@ -337,9 +338,24 @@ draw();
   $("sfSave").addEventListener("click", () => apply(S.eventFromCheck({ intensity: $("sfInt").value, sleep_h: $("sfSleep").value }), "Saved. The session state is unchanged."));
   $("sfStab").addEventListener("click", () => { const [st] = S.enterStabilise(get(), "person", now()); store.set("rsos.safety", st); draw(); });
   $("sfExit").addEventListener("click", () => { const [st, r] = S.exit(get(), "person", now()); store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Back to Standard." : ""; draw(); });
-  $("clinOn").addEventListener("change", () => { store.set("rsos.clinical", { on: $("clinOn").checked }); if (PR && PR.current() === "research") location.reload(); else draw(); });
+  $("clinOn").addEventListener("change", () => { store.set("rsos.clinical", Object.assign(store.get("rsos.clinical", {}), { on: $("clinOn").checked })); if (PR && PR.current() === "research") location.reload(); else draw(); });
+  // Clinician PIN (FIXES_R1 S-1): a salted SHA-256 hash kept on this device. A local barrier, not authentication.
+  const pinHash = (salt, pin) => RSOSWatchdog.sha256(salt + ":" + pin);
+  const pinOk = () => { const c = store.get("rsos.clinical", {}); return !!c.pin_hash && pinHash(c.pin_salt, $("clinPin").value) === c.pin_hash; };
+  function ensurePin() {
+    const c = store.get("rsos.clinical", { on: false });
+    if (c.pin_hash) return pinOk() ? true : ($("sfNote").textContent = "Enter the clinician PIN.", false);
+    const pin = $("clinPin").value;
+    if (!/^\d{4,}$/.test(pin)) { $("sfNote").textContent = "Set a clinician PIN of four or more digits first."; return false; }
+    const b = new Uint8Array(16); crypto.getRandomValues(b); const salt = Array.from(b, x => x.toString(16).padStart(2, "0")).join("");
+    store.set("rsos.clinical", Object.assign(c, { pin_salt: salt, pin_hash: pinHash(salt, pin) }));
+    const log = store.get("rsos.clinical.log", []); log.push({ at: Date.now(), by: $("clinName").value.trim(), event: "pin_set" }); store.set("rsos.clinical.log", log.slice(-100));
+    return true;
+  }
+  const pinSay = () => { $("pinSay").textContent = store.get("rsos.clinical", {}).pin_hash ? "Needed to resume and to record results." : "Not set yet: the responsible clinician sets it here (four or more digits)."; };
   $("clinSave").addEventListener("click", () => {
     if (!$("clinName").value.trim() || !$("clinRes").value) { $("sfNote").textContent = "Record the practitioner and the result."; return; }
+    if (!ensurePin()) return;
     const flags = []; if ($("clinMed").checked) flags.push("medication"); if ($("clinPrac").checked) flags.push("practical");
     const log = store.get("rsos.clinical.log", []); log.push({ at: Date.now(), by: $("clinName").value.trim(), instrument: $("clinInst").value.trim(), result: $("clinRes").value, flags, history: $("clinHist").checked });
     store.set("rsos.clinical.log", log.slice(-100));
@@ -347,11 +363,13 @@ draw();
   });
   $("clinGo").addEventListener("click", () => {
     if (!$("clinOk").checked || !$("clinName").value.trim()) { $("sfNote").textContent = "Resuming needs the responsible clinician: tick the box and enter the practitioner's name."; return; }
+    if (!store.get("rsos.clinical", {}).pin_hash) { $("sfNote").textContent = "No clinician PIN is set on this device: the responsible clinician sets one in the PIN field, then resumes."; if (!ensurePin()) return; }
+    else if (!pinOk()) { $("sfNote").textContent = "The clinician PIN does not match."; return; }
     const [st, r] = S.exit(get(), "clinician", now());
     if (r.ok) st.history[st.history.length - 1].by = "clinician: " + $("clinName").value.trim();
     store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Resumed by the clinician." : ""; draw();
   });
-  draw();
+  pinSay(); draw();
 })();
 </script>
 </body>

@@ -52,13 +52,18 @@ TERMS = {k: {p: _ROWS[p][i] for p in _ROWS} for i, k in enumerate(_K)}
 
 # Ordered phrase rules: (pattern, template). "{key}" inserts a term, "{a:key}" adds "a" or "an".
 RULES = [
+    (r"\bdistress \(SUDS?\)", "{rating}"),                              # FIXES_R1 P-4
+    (r"\btherapy sessions?\b", "{therapy}"),
+    (r"\b(?:an? )?(?:anxiety|panic) disorders?\b", "{surges}"),
+    (r"\bclinical judgement\b", "professional judgement"),              # FIXES_R1 P-3
+    (r"\bclinical screening\b", "screening"),
     (r"\bPTSD or trauma\b", "{memories}"),
     (r"\btrauma symptoms\b", "{memories}"),
     (r"\btrauma(?:tic)? memories\b", "{memories}"),
     (r"\b(?:a|an) distressing memory\b", "{a:memory}"),
     (r"\bdistressing memory\b", "{memory}"),
     (r"\bthe most distress\b", "the highest {rating}"),
-    (r"\bsymptoms and what they feel like\b", "{changes}: what it feels like"),
+    (r"\bsymptoms and what they feel like\b", "{changes} (describe how it feels)"),
     (r"\b(?:a|an) negative state\b", "{a:target_state}"),
     (r"\bnegative state\b", "{target_state}"),
     (r"\b(?:a|an) therapist\b", "{a:practitioner}"),
@@ -81,7 +86,8 @@ RULES = [
 _RX = re.compile("|".join("(" + p + ")" for p, _ in RULES), re.I)
 _SLOT = re.compile(r"\{(a:)?(\w+)\}")
 
-CLINICAL_WORDS = r"\b(?:SUDS?|PTSD|depress\w*|trauma\w*|symptom\w*|distress\w*|panic\w*|anxiety|patients?|therap\w*)\b"
+CLINICAL_WORDS = (r"\b(?:SUDS?|PTSD|depress\w*|trauma\w*|symptom\w*|distress\w*|panic\w*|anxiety|patients?|therap\w*"
+                  r"|clinical screening|clinical judgement|diagnos\w*|C-SSRS|PHQ-9|GAD-7|PCL-5)\b")   # FIXES_R1 P-3
 
 # Research records and architecture pages keep their original wording.
 EXEMPT_PAGES = ["results.html", "system.html", "tiers.html", "roadmap.html", "glyphs.html",
@@ -94,6 +100,26 @@ def valid(profile):
 
 def get(profile):
     return PROFILES[IDS.index(valid(profile))]
+
+
+def max_level(profile, clinical_on=False):
+    """The domain's highest guidance level. Research allows clinician-led work only with a study clinician, that is
+    with the clinical module on (FIXES_R1 W-2)."""
+    p = valid(profile)
+    if p == "research":
+        return "clinician_led" if clinical_on else "structured"
+    return get(p)["max_level"]
+
+
+_LED = re.compile(r"\b(?:therapist|clinician)-led\b", re.I)
+_THERAPIST = re.compile(r"\btherapist(s?)\b", re.I)
+
+
+def _clinician_led_text(s):
+    """In text about therapist-led or clinician-led work, the therapist is a clinician in every domain (FIXES_R1 P-1)."""
+    if not _LED.search(s):
+        return s
+    return _THERAPIST.sub(lambda m: ("Clinician" if m.group(0)[0].isupper() else "clinician") + m.group(1), s)
 
 
 def clinical_vocab(profile, clinical_on=False):
@@ -120,6 +146,7 @@ def text(s, profile, clinical_on=False):
     if not s or clinical_vocab(profile, clinical_on):
         return s
     p = valid(profile)
+    s = _clinician_led_text(s)
 
     def fill(m):
         tpl = RULES[m.lastindex - 1][1]

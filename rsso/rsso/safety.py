@@ -81,7 +81,7 @@ MESSAGES = {
                         "resume when you choose.",
     "intensity_protocol": "Intensity methods (temperature extremes, pain, extreme breath-holding, sleep loss) are "
                           "outside RSOS. Use a regulation program instead.",
-    "unstable": "High intensity or short sleep: Stabilisation is suggested. Regulation programs only today; leave "
+    "unstable": "High intensity or short sleep: the session moved to Stabilisation. Regulation programs only today; leave "
                 "Stabilisation when you choose.",
     "history_check_in": "Earlier experience noted for the practitioner's review. Nothing changes in the session.",
     "clinical_high": "Screening result: high. The session moves to the clinician-led protocol; the responsible "
@@ -115,18 +115,27 @@ LEVELS = {
                      "clinician's protocol (including a private psychotherapist or psychiatrist).",
 }
 
-REGULATING = ("paced_breathing", "interrupt_only", "tier016_stillness", "tier012_breath_anchor")
+REGULATING = ("paced_breathing", "interrupt_only", "tier016_stillness")   # exactly CONTAIN §9.4 (FIXES_R1 S-3)
+
+
+def regulating(action: dict) -> bool:
+    """A regulating program by name, unedited, and not clinician-led work (FIXES_R1 S-4b, W-7)."""
+    a = action or {}
+    if a.get("edited") or a.get("therapist_led") or a.get("deep"):
+        return False
+    return (a.get("protocol") or "") in REGULATING
 
 
 def category(action: dict) -> str:
-    """The kind of action, for MODE_ALLOWED. action as CONTAIN's: {kind, protocol, therapist_led, deep, category}."""
-    if action.get("category"):
+    """The kind of action, for MODE_ALLOWED. action as CONTAIN's: {kind, protocol, therapist_led, deep, edited, source,
+    category}. A caller-supplied category counts only for agents (FIXES_R1 S-4a)."""
+    if action.get("category") and action.get("source") == "agent":
         return action["category"]
     if action.get("kind") == "plan":
         return "module_work"
     if action.get("therapist_led") or action.get("deep"):
         return "deep_processing"
-    if (action.get("protocol") or "") in REGULATING:
+    if regulating(action):
         return "regulating_cue"
     return "override_cue"
 
@@ -137,7 +146,7 @@ def new_state() -> dict:
 
 def allowed(state: dict | None, action: dict) -> dict:
     """{ok, mode, category, reason}: whether the mode in force allows the action."""
-    mode = (state or new_state())["mode"]
+    mode = state.get("mode") if isinstance(state, dict) and state.get("mode") in MODES else "NORMAL"   # FIXES_R1 W-10
     cat = category(action)
     if cat in MODE_ALLOWED[mode]:
         return {"ok": True, "mode": mode, "category": cat, "reason": ""}

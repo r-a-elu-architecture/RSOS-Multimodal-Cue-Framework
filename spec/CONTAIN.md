@@ -139,7 +139,7 @@ the agents, and the stricter rule always wins.
 1. `rsso/rsso/safety.py` and `docs/js/safety.js`, identical results: `screen(event)`, the fixed responses with a
    readable message for each screen, the mode machine as plain data (`new_state`, `observe`, `enter_stabilise`,
    `exit`), `MODE_ALLOWED`, `category(action)`, `may_start_deep_session`, `adjusted_effect`, the structured
-   check-in (`CHECKIN` questions → `event_from_checkin(answers)`), and `spine_flags(text)`.
+   check-in (`CHECKIN` questions → `event_from_check(answers)`), and `spine_flags(text)`.
    `rsxv/rsxv/safety.py` becomes a re-export of `rsso.safety`, and `rsxv.agents.MODE_ALLOWED` is the same object:
    one rule set.
 2. The rules are those of §3.1 exactly; no threshold or rule changes. Escalation is automatic and never
@@ -170,7 +170,7 @@ the agents, and the stricter rule always wins.
 **Acceptance (all must hold before the push to `main`).**
 
 - A1 Python and JavaScript give identical results for `screen`, `observe` sequences, `exit`, `category`,
-  `event_from_checkin`, `spine_flags`, `may_start_deep_session` and `decide` with a safety state, on a fixed set of
+  `event_from_check`, `spine_flags`, `may_start_deep_session` and `decide` with a safety state, on a fixed set of
   cases covering every screen and every mode.
 - A2 `rsxv` uses `rsso.safety`: its 130 tests pass unchanged.
 - A3 Every existing test in `rsx`, `rsso` and `toolkit` passes; `decide` without a safety state is unchanged.

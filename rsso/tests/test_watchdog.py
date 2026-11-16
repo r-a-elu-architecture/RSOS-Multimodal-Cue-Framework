@@ -86,7 +86,7 @@ class Watchdog(unittest.TestCase):
         for a, c in CASES:
             r = W.watch(dict(a, kind="stop"), c)
             self.assertEqual(r["decision"], "allow")
-            if (a.get("protocol") or "") in S.REGULATING:
+            if S.regulating(a) and W.level(a) != "clinician_led":      # FIXES_R1 W-7: unedited and not clinician-led
                 own = [x for x in W.watch(a, c)["reasons"] if x["rule"] in ("level", "clinician", "plan")]
                 self.assertEqual(own, [], a)
 
@@ -104,7 +104,7 @@ class Watchdog(unittest.TestCase):
         self.assertEqual(W.level({"kind": "run", "trigger": "device"}), "structured")
         for a, c in CASES:
             r = W.watch(a, c)
-            if r["level"] == "clinician_led" and a["kind"] != "stop" and (a.get("protocol") or "") not in S.REGULATING:
+            if r["level"] == "clinician_led" and a["kind"] != "stop":
                 if c["max_level"] == "structured" or not (c["clinician_present"] and c["screening_recorded"]):
                     self.assertEqual(r["decision"], "hold")
 

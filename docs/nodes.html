@@ -189,8 +189,8 @@ header.top nav a{font-size:.88rem}
         <p class="ask">Read every node on the right. A plan runs only with the consent of the person it is for.</p>
         <div id="ledBox" hidden>
           <label class="check"><input type="checkbox" id="therapistHere"> A therapist is present for this session</label>
-          <p class="hint" id="screenQ"></p>
-          <div class="chips"><label><input type="radio" name="screen" value="no"> No</label><label><input type="radio" name="screen" value="yes"> Yes</label></div>
+          <div data-show="clinical"><p class="hint" id="screenQ"></p>
+          <div class="chips"><label><input type="radio" name="screen" value="no"> No</label><label><input type="radio" name="screen" value="yes"> Yes</label></div></div>
         </div>
         <label class="check"><input type="checkbox" id="consent"> I have read every node, frame and cue in this plan, and I agree that it runs for me</label>
         <div>
@@ -217,7 +217,7 @@ header.top nav a{font-size:.88rem}
     </aside>
   </div>
 </main>
-<footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it does not diagnose.</footer>
+<footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it is not an assessment. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 <script src="js/ugcl.js?v=1.13.0"></script>
 <script src="js/nodes.js?v=1.16.0"></script>
 <script src="js/safety.js?v=1.16.0"></script>
@@ -399,12 +399,14 @@ $("download").addEventListener("click", () => {
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(current, null, 2)], { type: "application/json" }));
   a.download = "rsos-node-plan.json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 });
+const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};   // FIXES_R1 W-2, P-2
+const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());   // clinical vocabulary (FIXES_R1 S-2)
 $("save").addEventListener("click", () => {
   if (!current || !current.plan.nodes.length) return say("Add a node first.");
   const p = current.plan;
-  if (!$("ledBox").hidden) {
+  if (!$("ledBox").hidden && CLINV) {   // the screening question exists only with the clinical vocabulary (FIXES_R1 S-2)
     const screen = (document.querySelector('input[name="screen"]:checked') || {}).value;
-    if (screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: screen }); store.set("rsos.screens", sc.slice(-50)); }
+    if (screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: screen, q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
     if (screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); }
     if (screen === "yes") return say("Recorded: this session continues under the clinician-led protocol; the clinician resumes practice.");
     if (screen !== "no") return say("Record the clinical screening result first.");
@@ -416,9 +418,10 @@ $("save").addEventListener("click", () => {
   // CONTAIN: while practice is paused, a new plan needs a therapist present (rsso/rsso/contain.py decide)
   const [cst] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
   // The Watchdog (spec/WATCHDOG.md): CONTAIN, the session state, the domain's highest guidance level and the clinician rule
-  const verdict = RSOSGuard.ask({ kind: "plan", protocol: "plan", therapist_led: p.therapist_led, source: $("author").value === "therapist" ? "practitioner" : "person" },
-    { contain: cst, clinician_present: $("therapistHere").checked, screening_recorded: !$("ledBox").hidden && (document.querySelector('input[name="screen"]:checked') || {}).value === "no",
-      max_level: window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null });
+  const memory = !!p.therapist_led || (current.intake.concerns || []).includes("ptsd");   // difficult-memory work (FIXES_R1 P-2)
+  const verdict = RSOSGuard.ask({ kind: "plan", protocol: "plan", therapist_led: p.therapist_led, memory_work: memory, source: $("author").value === "therapist" ? "practitioner" : "person" },
+    Object.assign({ contain: cst, clinician_present: $("therapistHere").checked,
+      screening_recorded: CLINV && !$("ledBox").hidden && (document.querySelector('input[name="screen"]:checked') || {}).value === "no" }, DOMAIN()));
   if (!RSOSGuard.ok(verdict)) return say("Held by the Watchdog: " + RSOSGuard.say(verdict) + " See the safety page.");
   const approvedPlan = Object.assign({}, p, { approved: true, approved_at: new Date().toISOString(), intake: current.intake });
   store.set("rsos.plan", approvedPlan);

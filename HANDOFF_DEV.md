@@ -25,7 +25,7 @@ history.
 | Live site (from `main`) | https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/ |
 | Development site (from `dev`) | https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/dev/ |
 | Backup of the state before this work | branch `backup/pre-claude-2026-11-16` (32f49bb), protected by the ruleset "Protect backup" |
-| `main` | identical in files to the backup (one revert commit, 059a58f) |
+| `main` | identical in files to the backup (one revert commit, 059a58f). The S1 code (6394a70) was on `main` and the live site for about ten minutes (00:13–00:23, 16 November) before that revert. |
 | Deploy | `.github/workflows/pages.yml` builds `main/docs` at `/` and `dev/docs` at `/dev/` |
 | Dev site isolation | `docs/js/devmode.js`: saved data under `/dev/` is prefixed `dev.`; a "DEVELOPMENT VERSION" banner; a separate offline cache |
 
@@ -35,8 +35,12 @@ history.
 git checkout dev
 ./scripts/check_all.sh                     # every suite, conformance, generated files unchanged
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
-python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py
+python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
+  rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
+python3 scripts/check_watchdog.py docs
+python3 scripts/check_trial_loop.py docs
+python3 scripts/check_fixes_r1.py docs
 ```
 
 ## 3. Review checklist (every step)
@@ -148,6 +152,16 @@ unchanged (spec §7). Reviewer: please check the simulation matches the register
 Click: `/dev/trials.html` (start Real anchor or sham with an anchor from the Anchors page; after saving, the message
 shows the code and the anchor's strength), `/dev/player.html?program=ssit_higher`, `?program=tier013_lion_dragon`.
 Review status: **awaiting review**.
+
+### Fix pass R1 — findings of the first independent review
+
+Review: branch `review/interim`, commit 2b2cc3c (reviewed fcc1b36). Registration: `spec/FIXES_R1.md` (6ed0f75).
+All 3 blockers and every "should fix" item are fixed; notes are fixed or recorded. WATCHDOG §6 is withdrawn. Late spec
+edits recorded (PROFILES §4, WATCHDOG §6). Voice: one American-English voice on every page (9b551d9).
+Tests: `rsso/tests/test_fixes_r1.py` (fail on fcc1b36, pass now), `scripts/check_fixes_r1.py` (page scenarios).
+Decision flagged to the owner: the node studio's "low energy or mood" concern stays structured; the THERA low-mood
+session is clinician-led (FIXES_R1 W-9).
+Review status: **awaiting the repeat review (R5)**, which also covers Step 3.
 
 ## 5. Review findings
 

@@ -52,6 +52,7 @@ input[type=text],select{width:100%;background:var(--ink);border:1px solid var(--
 .btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
 .msg{font-size:.92rem;margin:12px 0 0;min-height:1.2em}
 .msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
+.session[hidden]{display:none}
 .session{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;margin-top:26px;align-items:start}
 .steps{list-style:none;margin:0;padding:0;position:sticky;top:16px}
 .steps li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem;color:var(--muted);cursor:pointer}
@@ -131,7 +132,7 @@ header.top nav a{font-size:.88rem}
 </header>
 <main>
   <h1>Run a session with RSOS</h1>
-  <p class="lede">A structured session with your client's own nodes: what to say, what to do and what to measure at each step, the stop rules, the practice plan for between sessions, and a session record you can keep or add to research. RSOS supports your clinical judgement; it does not diagnose or treat.</p>
+  <p class="lede">A structured session with your client's own nodes: what to say, what to do and what to measure at each step, the stop rules, the practice plan for between sessions, and a session record you can keep or add to research. RSOS supports your clinical judgement; it does not replace it.</p>
   <p class="hint">Also on this page: <a href="#copilot">the decision matrix and copilot</a>, <a href="#levels">levels and the five-step chain</a>, <a href="#core">Core Transformation</a>, <a href="#rescript">re-living with the symbol</a>, <a href="#overrides">overrides between sessions</a>, <a href="#craving">craving and context triggers</a>, <a href="#types">typology from speech</a>, <a href="#timeline">the life timeline</a>, <a href="#contexts">contexts and the setting</a>.</p>
 
   <section class="panel" id="setup">
@@ -144,6 +145,8 @@ header.top nav a{font-size:.88rem}
     </div>
     <p class="hint" id="planNote"></p>
     <label class="check"><input type="checkbox" id="present"> I am the therapist and I am with the client for this session</label>
+    <div id="startScreen" hidden data-show="clinical"><p class="hint" id="startScreenQ"></p>
+      <label class="check"><input type="radio" name="startScreen" value="no"> No</label> <label class="check"><input type="radio" name="startScreen" value="yes"> Yes</label></div>
     <button class="btn go" type="button" id="begin">Start the session</button>
     <p class="msg" id="msg" aria-live="polite"></p>
   </section>
@@ -279,6 +282,7 @@ header.top nav a{font-size:.88rem}
 </main>
 <footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. Research and development framework; not a medical device. Clinical use follows the practitioner's own protocol.<a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
 <script src="js/safety.js?v=1.16.0"></script>
+<script src="js/consent.js?v=1.16.0"></script>
 <script src="js/contain.js?v=1.16.0"></script>
 <script src="js/watchdog.js?v=1.0.0"></script>
 <script src="js/guard.js?v=1.0.0"></script>
@@ -303,15 +307,20 @@ function setup() {
   const box = $("protos"); box.innerHTML = "";
   for (const [id, p] of Object.entries(P)) {
     const l = el("label", "proto"); const i = el("input"); i.type = "radio"; i.name = "proto"; i.value = id; if (id === "stress") i.checked = true;
-    l.append(i, el("b", "", p.title), el("span", "", p.aim)); if (p.therapist_led) l.appendChild(el("em", "", "Therapist-led, screening first"));
+    l.append(i, el("b", "", p.title), el("span", "", p.aim)); if (p.therapist_led || id === "low_mood") l.appendChild(el("em", "", "Therapist-led, screening first"));
+    if (id === "trauma_observer") l.setAttribute("data-memory-work", "");   // FIXES_R1 P-2
+    i.addEventListener("change", startScreenBox);
     box.appendChild(l);
   }
   const s = $("planSrc"); s.innerHTML = "";
   const bp = store.get("rsos.plan", null);
   if (bp && bp.nodes) s.appendChild(new Option("The plan saved in this browser (" + bp.nodes.map(n => n.name).join(", ") + ")", "browser"));
   s.appendChild(new Option("Load the client's plan file", "file")); s.appendChild(new Option("No plan yet: guide without nodes", "none"));
-  notePlan();
+  notePlan(); startScreenBox();
 }
+// A clinician-led session starts only with a screening answer given here (FIXES_R1 W-3; replaces the withdrawn WATCHDOG §6).
+const LED_IDS = id => !!(P[id] && (P[id].therapist_led || id === "low_mood"));
+function startScreenBox() { const c = document.querySelector('input[name="proto"]:checked'); $("startScreen").hidden = !(c && LED_IDS(c.value)); $("startScreenQ").textContent = RSOSConsent.SCREENING_QUESTION; }
 function notePlan() {
   const p = plan();
   $("planNote").innerHTML = "";
@@ -323,16 +332,25 @@ $("planFile").addEventListener("change", async e => {
   try { const d = JSON.parse(await e.target.files[0].text()); loaded = d.plan && d.plan.nodes ? Object.assign({}, d.plan, { intake: d.intake || d.plan.intake }) : d; notePlan(); }
   catch (err) { $("msg").className = "msg err"; $("msg").textContent = "That file is not a node plan. Download it from the node studio (“Download the plan”)."; }
 });
+const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};   // FIXES_R1 W-2, P-2
+const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());   // clinical vocabulary (FIXES_R1 S-2)
 $("begin").addEventListener("click", () => {
   const id = document.querySelector('input[name="proto"]:checked').value, pr = P[id];
   if (!$("present").checked) { $("msg").className = "msg err"; $("msg").textContent = "Therapist mode is for sessions you run with your client: confirm you are with them."; return; }
   const [cst] = K.review(store.get("rsos.contain", K.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), now());
-  // The Watchdog (spec/WATCHDOG.md). A clinician-led session carries its own required screening step before any processing.
-  const d = RSOSGuard.ask({ kind: "session", protocol: "session_" + id, therapist_led: pr.therapist_led, source: "practitioner" },
-    { contain: cst, clinician_present: true, screening_recorded: !!pr.screen, max_level: window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null });
+  const led = LED_IDS(id), scr = (document.querySelector('input[name="startScreen"]:checked') || {}).value;
+  if (led && CLINV && scr === "yes") {
+    { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "yes", q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+    const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]);
+    $("msg").className = "msg err"; $("msg").textContent = "Recorded: the session continues under the clinician-led protocol; the clinician resumes practice."; return;
+  }
+  if (led && CLINV && scr === "no") { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "no", q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+  // The Watchdog (spec/WATCHDOG.md, FIXES_R1 W-3): the screening must be answered "no" on this panel.
+  const d = RSOSGuard.ask({ kind: "session", protocol: "session_" + id, therapist_led: pr.therapist_led, memory_work: id === "trauma_observer", source: "practitioner" },
+    Object.assign({ contain: cst, clinician_present: true, screening_recorded: led && CLINV && scr === "no" }, DOMAIN()));
   if (!RSOSGuard.ok(d)) { $("msg").className = "msg err"; $("msg").textContent = "Held by the Watchdog: " + RSOSGuard.say(d); return; }
   const p = plan();
-  cur = Object.assign(T.sessionPlan(P, id, p), { client: $("client").value.trim(), started: now(), at: 0, plan: p });
+  cur = Object.assign(T.sessionPlan(P, id, p), { client: $("client").value.trim(), started: now(), at: 0, plan: p, led, screenOk: false });
   save(); show();
 });
 function show() {
@@ -344,10 +362,14 @@ function drawSteps() {
   cur.steps.forEach((s, i) => {
     const li = el("li", (i === cur.at ? "now " : "") + (done.has(s.id) ? "done" : ""));
     const t = el("div"); t.append(s.title); t.appendChild(el("small", "", s.minutes + " min" + (s.required ? "" : ", optional")));
-    li.appendChild(t); li.tabIndex = 0; li.addEventListener("click", () => { cur.at = i; save(); show(); }); L.appendChild(li);
+    li.appendChild(t); li.tabIndex = 0; li.addEventListener("click", () => { if (locked(i)) { alertBox("return", "Record the screening result before the steps after it."); return; } cur.at = i; save(); show(); }); L.appendChild(li);
   });
 }
+// In a clinician-led session the steps after the screening step stay locked until it is recorded "no" (FIXES_R1 W-3).
+function screenIndex() { return cur.steps.findIndex(s => (s.measure || []).includes("screen")); }
+function locked(i) { const k = screenIndex(); return !!cur.led && k >= 0 && i > k && !cur.screenOk; }
 function drawCard() {
+  if (locked(cur.at)) cur.at = screenIndex();
   const s = cur.steps[cur.at], C = $("card"); C.innerHTML = "";
   C.appendChild(el("div", "op", "Step " + (cur.at + 1) + " of " + cur.steps.length + ", " + s.op + (cur.client ? ", client " + cur.client : "")));
   C.appendChild(el("h3", "", s.title));
@@ -381,14 +403,15 @@ function drawCard() {
     const v = vals();
     if ((s.measure || []).includes("screen") && !v.screen) { alertBox("return", "Record the clinical screening result before you go on."); return; }
     add(s.id, v, true);
-    if (v.screen === "yes") return;
+    if (v.screen === "yes") { finish(); $("sum").prepend(el("p", "", "The screening answer was yes: the session work stopped and continues under the clinician-led protocol.")); return; }
+    if (v.screen === "no") cur.screenOk = true;
     if (cur.at < cur.steps.length - 1) { cur.at++; save(); show(); } else finish();
   });
   C.append(rec, next);
 }
 function add(step, v, done) {
   cur = Object.assign(T.record(cur, step, Object.assign({}, v, done ? { done: true } : {}), now()), { client: cur.client, started: cur.started, at: cur.at, plan: cur.plan });
-  if (v.screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: v.screen }); store.set("rsos.screens", sc.slice(-50)); }
+  if (v.screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: v.screen, q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
   if (v.screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); }
   if (v.adverse && v.adverse !== "none") {
     const runs = store.get("rsos.runs", []).filter(r => Number(r.timestamp) >= cur.started), last = runs[runs.length - 1];

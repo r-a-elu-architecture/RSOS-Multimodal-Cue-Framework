@@ -37,11 +37,36 @@ def _strings(o, out):
     return out
 
 
+class _Text(__import__("html.parser").parser.HTMLParser):
+    """Visible static text: drops scripts, styles, navigation, pre, textarea and anything shown only with the clinical
+    vocabulary (data-show="clinical"), as the browser does (FIXES_R1: the helper follows the page attributes)."""
+    SKIP = {"script", "style", "nav", "pre", "textarea"}
+    VOID = {"br", "img", "input", "meta", "link", "hr", "source", "wbr", "area", "base", "col", "embed", "param", "track"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack, self.out = [], []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self.VOID:
+            return
+        a = dict(attrs)
+        hide = tag in self.SKIP or a.get("data-show") == "clinical" or "hidden" in a
+        self.stack.append(hide or bool(self.stack and self.stack[-1]))
+
+    def handle_endtag(self, tag):
+        if tag not in self.VOID and self.stack:
+            self.stack.pop()
+
+    def handle_data(self, data):
+        if not (self.stack and self.stack[-1]):
+            self.out.append(data)
+
+
 def _visible(name):
-    t = (ROOT / "docs" / f"{name}.html").read_text(encoding="utf-8")
-    t = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>|<nav[\s\S]*?</nav>|<pre[\s\S]*?</pre>|<textarea[\s\S]*?</textarea>", " ", t)
-    t = re.sub(r"<[^>]*data-show=\"clinical\"[\s\S]*?<!-- /clinical -->", " ", t)
-    return [s.strip() for s in html.unescape(re.sub(r"<[^>]+>", "\n", t)).split("\n") if s.strip()]
+    p = _Text()
+    p.feed((ROOT / "docs" / f"{name}.html").read_text(encoding="utf-8"))
+    return [s.strip() for s in "\n".join(p.out).split("\n") if s.strip()]
 
 
 def corpus():

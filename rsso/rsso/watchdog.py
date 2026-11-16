@@ -24,6 +24,7 @@ LEVEL_RANK = {"self_guided": 0, "structured": 1, "clinician_led": 2}
 LEVEL_NAME = {"self_guided": "self-guided", "structured": "structured", "clinician_led": "clinician-led"}
 CLINICIAN_TIERS = ("414", "420", "439", "440")
 MAP_SOURCES = ("cm1", "atlas", "map")
+CLINICIAN_SESSIONS = ("session_low_mood",)   # depression work (CONTAIN §10.2; FIXES_R1 W-9)
 LOG_MAX = 500
 ZERO = "0" * 64
 
@@ -32,7 +33,7 @@ def level(action: dict) -> str:
     """The guidance level an action needs (spec/WATCHDOG.md §2)."""
     a = action or {}
     m = re.match(r"^tier(\d{3})", str(a.get("protocol") or ""))
-    if a.get("therapist_led") or a.get("deep") or (m and m.group(1) in CLINICIAN_TIERS):
+    if a.get("therapist_led") or a.get("deep") or (m and m.group(1) in CLINICIAN_TIERS) or a.get("protocol") in CLINICIAN_SESSIONS:
         return "clinician_led"
     if (a.get("kind") in ("plan", "session") or a.get("programmed") or a.get("trigger") in ("device", "agent")
             or a.get("source") in ("practitioner", "agent")):
@@ -41,8 +42,13 @@ def level(action: dict) -> str:
 
 
 def _consent(consents, scope, now) -> bool:
-    return any(c.get("scope") == scope and c.get("given", 0) <= now and (c.get("withdrawn") is None or c["withdrawn"] > now)
+    return any(c.get("scope") == scope and (c.get("given") or 0) <= now and (c.get("withdrawn") is None or c["withdrawn"] > now)
                for c in consents or [])
+
+
+def _state(v, key, allowed=None):
+    """A saved state counts only when it has its key (FIXES_R1 W-10)."""
+    return v if isinstance(v, dict) and key in v and (allowed is None or v[key] in allowed) else None
 
 
 def _r(rule, virtue, text, resolve):
@@ -60,12 +66,15 @@ def watch(action: dict, ctx: dict | None = None) -> dict:
     for f in S.spine_flags(a.get("text") or ""):
         holds.append(_r("spine:" + f["flag"], f["virtue"], f["text"], "none"))
     ca = dict(a, therapist_present=bool(x.get("clinician_present")))
-    d = C.decide(ca, x.get("contain"), x.get("timeline"), now, x.get("safety"))
+    d = C.decide(ca, _state(x.get("contain"), "quarantine"), x.get("timeline"), now, _state(x.get("safety"), "mode", S.MODES))
     for t in d["reasons"]:
         holds.append(_r("contain", "jin", t, "safety_page"))
-    regulating = (a.get("protocol") or "") in S.REGULATING
+    regulating = S.regulating(a) and lvl != "clinician_led"          # FIXES_R1 W-7
+    if a.get("memory_work") and x.get("memory_work_allowed") is False:  # FIXES_R1 P-2
+        holds.append(_r("memory", "gi", "Difficult-memory work is not offered in this domain.", "none"))
     if not regulating:
         top = x.get("max_level") or "clinician_led"
+        top = top if top in LEVEL_RANK else "structured"                # FIXES_R1 W-8
         if LEVEL_RANK[lvl] > LEVEL_RANK[top]:
             holds.append(_r("level", "gi", f"This is {LEVEL_NAME[lvl]} work; this domain allows up to {LEVEL_NAME[top]}. "
                             "It runs in the Clinical domain, or in Research with a study clinician.", "none"))
@@ -80,7 +89,7 @@ def watch(action: dict, ctx: dict | None = None) -> dict:
     if auto and not _consent(x.get("consents"), "automatic_firing", now):
         asks.append(_r("consent", "rei", "Automatic firing has no consent on record, so the device asks instead.", "person"))
         auto = False
-    if a.get("auto") and len(a.get("signals") or []) < 2:
+    if a.get("auto") and len(set(a.get("signals") or [])) < 2:        # FIXES_R1 W-11: distinct signals
         asks.append(_r("p3", "p3", "Fewer than two independent signals: never act on a partial impression, so the "
                        "device asks instead.", "person"))
         auto = False
@@ -122,7 +131,8 @@ def sha256(text: str) -> str:
 def record(log: list, action: dict, result: dict, ts: int) -> dict:
     """Append one decision. Records hold only strings, integers, booleans and null, so both languages hash alike."""
     a = action or {}
-    body = {"n": len(log), "ts": int(ts), "kind": a.get("kind"), "protocol": a.get("protocol"), "trigger": a.get("trigger"),
+    # FIXES_R1 W-1: the number follows the previous record, so trimming keeps the chain valid
+    body = {"n": log[-1]["n"] + 1 if log else 0, "ts": int(ts), "kind": a.get("kind"), "protocol": a.get("protocol"), "trigger": a.get("trigger"),
             "source": a.get("source"), "decision": result["decision"], "level": result["level"],
             "rules": [r["rule"] for r in result["reasons"]], "virtues": [r["virtue"] for r in result["reasons"]],
             "prev": log[-1]["hash"] if log else ZERO}

@@ -13,16 +13,18 @@
   const LEVEL_NAME = { self_guided: "self-guided", structured: "structured", clinician_led: "clinician-led" };
   const CLINICIAN_TIERS = ["414", "420", "439", "440"];
   const MAP_SOURCES = ["cm1", "atlas", "map"];
+  const CLINICIAN_SESSIONS = ["session_low_mood"];   // depression work (CONTAIN §10.2; FIXES_R1 W-9)
   const LOG_MAX = 500, ZERO = "0".repeat(64);
   const clone = o => JSON.parse(JSON.stringify(o));
 
   function level(action) {
     const a = action || {}, m = /^tier(\d{3})/.exec(String(a.protocol || ""));
-    if (a.therapist_led || a.deep || (m && CLINICIAN_TIERS.includes(m[1]))) return "clinician_led";
+    if (a.therapist_led || a.deep || (m && CLINICIAN_TIERS.includes(m[1])) || CLINICIAN_SESSIONS.includes(a.protocol)) return "clinician_led";
     if (["plan", "session"].includes(a.kind) || a.programmed || ["device", "agent"].includes(a.trigger) || ["practitioner", "agent"].includes(a.source)) return "structured";
     return "self_guided";
   }
   const consent = (cs, scope, now) => (cs || []).some(c => c.scope === scope && (c.given || 0) <= now && (c.withdrawn === null || c.withdrawn === undefined || c.withdrawn > now));
+  const state = (v, key, allowed) => (v && typeof v === "object" && !Array.isArray(v) && key in v && (!allowed || allowed.includes(v[key])) ? v : null);   // FIXES_R1 W-10
   const R = (rule, virtue, text, resolve) => ({ rule, virtue, text, resolve });
 
   function watch(action, ctx) {
@@ -30,11 +32,13 @@
     if (a.kind === "stop") return { decision: "allow", level: "self_guided", reasons: [], resolve: null, contain: null };
     const lvl = level(a), holds = [], asks = [];
     for (const f of S.spineFlags(a.text || "")) holds.push(R("spine:" + f.flag, f.virtue, f.text, "none"));
-    const d = C.decide(Object.assign({}, a, { therapist_present: !!x.clinician_present }), x.contain || null, x.timeline || null, now, x.safety || null);
+    const d = C.decide(Object.assign({}, a, { therapist_present: !!x.clinician_present }), state(x.contain, "quarantine"), x.timeline || null, now, state(x.safety, "mode", S.MODES));
     for (const t of d.reasons) holds.push(R("contain", "jin", t, "safety_page"));
-    const regulating = S.REGULATING.includes(a.protocol || "");
+    const regulating = S.regulating(a) && lvl !== "clinician_led";       // FIXES_R1 W-7
+    if (a.memory_work && x.memory_work_allowed === false) holds.push(R("memory", "gi", "Difficult-memory work is not offered in this domain.", "none"));   // FIXES_R1 P-2
     if (!regulating) {
-      const top = x.max_level || "clinician_led";
+      let top = x.max_level || "clinician_led";
+      if (!Object.prototype.hasOwnProperty.call(LEVEL_RANK, top)) top = "structured";                        // FIXES_R1 W-8
       if (LEVEL_RANK[lvl] > LEVEL_RANK[top])
         holds.push(R("level", "gi", "This is " + LEVEL_NAME[lvl] + " work; this domain allows up to " + LEVEL_NAME[top] + ". It runs in the Clinical domain, or in Research with a study clinician.", "none"));
       else if (lvl === "clinician_led" && !(x.clinician_present && x.screening_recorded))
@@ -45,7 +49,7 @@
     }
     const auto = !!a.auto && a.source !== "agent" && a.trigger !== "agent";
     if (auto && !consent(x.consents, "automatic_firing", now)) asks.push(R("consent", "rei", "Automatic firing has no consent on record, so the device asks instead.", "person"));
-    if (a.auto && (a.signals || []).length < 2) asks.push(R("p3", "p3", "Fewer than two independent signals: never act on a partial impression, so the device asks instead.", "person"));
+    if (a.auto && new Set(a.signals || []).size < 2) asks.push(R("p3", "p3", "Fewer than two independent signals: never act on a partial impression, so the device asks instead.", "person"));
     if (a.source === "agent" || a.trigger === "agent") asks.push(R("agent", "rei", "An agent proposed this; the person starts every run.", "person"));
     else if (a.trigger === "device" && !a.auto) asks.push(R("offer", "rei", "A device offer: the person confirms before it runs.", "person"));
     if (MAP_SOURCES.includes(a.justified_by)) asks.push(R("p15", "p15", "Recommended from population data: maps inform, the person decides.", "person"));
@@ -104,7 +108,8 @@
   }
   function record(log, action, result, ts) {
     const a = action || {}, nul = v => (v === undefined ? null : v);
-    const body = { n: log.length, ts: Math.trunc(ts), kind: nul(a.kind), protocol: nul(a.protocol), trigger: nul(a.trigger), source: nul(a.source),
+    // FIXES_R1 W-1: the number follows the previous record, so trimming keeps the chain valid
+    const body = { n: log.length ? log[log.length - 1].n + 1 : 0, ts: Math.trunc(ts), kind: nul(a.kind), protocol: nul(a.protocol), trigger: nul(a.trigger), source: nul(a.source),
       decision: result.decision, level: result.level, rules: result.reasons.map(r => r.rule), virtues: result.reasons.map(r => r.virtue),
       prev: log.length ? log[log.length - 1].hash : ZERO };
     const rec = Object.assign({}, body, { hash: sha256(canonical(body)) });

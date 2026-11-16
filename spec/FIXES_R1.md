@@ -1,6 +1,7 @@
 # FIXES_R1 — fixes from the first independent review
 
-Status: registered 2026-11-16, before code. Review: branch `review/interim`, commit 2b2cc3c, `HANDOFF_DEV.md` §5
+Status: registered 2026-11-16, before code (6ed0f75); built and tested. Engine tests: `rsso/tests/test_fixes_r1.py`
+(all 8 fail on the reviewed commit fcc1b36 and pass now); page scenarios: `scripts/check_fixes_r1.py` (Chrome). Review: branch `review/interim`, commit 2b2cc3c, `HANDOFF_DEV.md` §5
 (reviewed dev at fcc1b36). Every fix below gets a test that reproduces the reviewer's scenario; the test must fail on
 the reviewed code and pass after the fix.
 
@@ -56,3 +57,18 @@ the reviewed code and pass after the fix.
 - R3 Browser checks (profiles, Watchdog, trial loop) pass with no page or console errors.
 - R4 No threshold changes; the regulating list returns to CONTAIN §9.4's.
 - R5 The independent review is repeated on the fixed code, including Step 3.
+
+## 4. Results and notes at build time
+
+- R1: every engine finding has a test that fails on fcc1b36 and passes now; every page finding has a browser scenario
+  in `scripts/check_fixes_r1.py`; all pass. All suites pass (RSSO 234 with the one registered expected failure of
+  TRIAL_LOOP T4).
+- R2: Python and JavaScript identical for safety, Watchdog and profiles (`test_fixes_r1.Parity`).
+- R3: the four browser checks pass with no page or console errors (blocked external font requests excepted).
+- R4: no threshold changed; the regulating list is CONTAIN §9.4's.
+- Found while fixing: the therapist page's session view never hid on finishing (a CSS rule overrode `hidden`); fixed.
+- The static text helper in `test_profiles.py` now parses HTML and skips `hidden` and `data-show="clinical"` elements,
+  as the browser does; the criterion is unchanged.
+- The clinician contributor role is shown only with the clinical vocabulary (its form asks for diagnosis categories).
+- The S-7 browser scan follows A7's scope: research-record pages (PROFILES exempt list) are excepted.
+- R5 (repeat review) follows this commit.

@@ -41,13 +41,18 @@
   };
   const TERMS = {}; K.forEach((k, i) => { TERMS[k] = {}; for (const p of Object.keys(ROWS)) TERMS[k][p] = ROWS[p][i]; });
   const RULES = [
+    ["\\bdistress \\(SUDS?\\)", "{rating}"],
+    ["\\btherapy sessions?\\b", "{therapy}"],
+    ["\\b(?:an? )?(?:anxiety|panic) disorders?\\b", "{surges}"],
+    ["\\bclinical judgement\\b", "professional judgement"],
+    ["\\bclinical screening\\b", "screening"],
     ["\\bPTSD or trauma\\b", "{memories}"],
     ["\\btrauma symptoms\\b", "{memories}"],
     ["\\btrauma(?:tic)? memories\\b", "{memories}"],
     ["\\b(?:a|an) distressing memory\\b", "{a:memory}"],
     ["\\bdistressing memory\\b", "{memory}"],
     ["\\bthe most distress\\b", "the highest {rating}"],
-    ["\\bsymptoms and what they feel like\\b", "{changes}: what it feels like"],
+    ["\\bsymptoms and what they feel like\\b", "{changes} (describe how it feels)"],
     ["\\b(?:a|an) negative state\\b", "{a:target_state}"],
     ["\\bnegative state\\b", "{target_state}"],
     ["\\b(?:a|an) therapist\\b", "{a:practitioner}"],
@@ -69,12 +74,16 @@
   ];
   const RX = new RegExp(RULES.map(r => "(" + r[0] + ")").join("|"), "gi");
   const SLOT = /\{(a:)?(\w+)\}/g;
-  const CLINICAL_WORDS = "\\b(?:SUDS?|PTSD|depress\\w*|trauma\\w*|symptom\\w*|distress\\w*|panic\\w*|anxiety|patients?|therap\\w*)\\b";
+  const CLINICAL_WORDS = "\\b(?:SUDS?|PTSD|depress\\w*|trauma\\w*|symptom\\w*|distress\\w*|panic\\w*|anxiety|patients?|therap\\w*" +
+    "|clinical screening|clinical judgement|diagnos\\w*|C-SSRS|PHQ-9|GAD-7|PCL-5)\\b";   // FIXES_R1 P-3
   const EXEMPT_PAGES = ["results.html", "system.html", "tiers.html", "roadmap.html", "glyphs.html",
     "architecture-benchmark.html", "invariance-v14.html", "cue-lab.html", "cue-lab-v13.html"];
 
   const valid = p => IDS.includes(p) ? p : DEFAULT;
   const get = p => PROFILES[IDS.indexOf(valid(p))];
+  const maxLevel = (p, on) => valid(p) === "research" ? (on ? "clinician_led" : "structured") : get(p).max_level;   // FIXES_R1 W-2
+  const LED = /\b(?:therapist|clinician)-led\b/i, THERAPIST = /\btherapist(s?)\b/gi;   // FIXES_R1 P-1
+  const clinicianLedText = s => LED.test(s) ? s.replace(THERAPIST, (m, pl) => (m.charAt(0) === "T" ? "Clinician" : "clinician") + pl) : s;
   const clinicalVocab = (p, on) => valid(p) === "clinical" || (valid(p) === "research" && !!on);
   const term = (key, p, on) => TERMS[key][clinicalVocab(p, on) ? "clinical" : valid(p)];
   const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
@@ -84,6 +93,7 @@
   function text(s, p, on) {
     if (!s || clinicalVocab(p, on)) return s;
     const id = valid(p);
+    s = clinicianLedText(s);
     return s.replace(RX, function () {
       const a = arguments, w = a[0], off = a[RULES.length + 1];
       let g = 1; while (a[g] === undefined) g++;
@@ -94,7 +104,7 @@
   }
   const hasClinicalWords = s => new RegExp(CLINICAL_WORDS, "i").test(s);
 
-  const api = { PROFILES, IDS, DEFAULT, TERMS, RULES, CLINICAL_WORDS, EXEMPT_PAGES, valid, get, clinicalVocab, term, text, hasClinicalWords };
+  const api = { PROFILES, IDS, DEFAULT, TERMS, RULES, CLINICAL_WORDS, EXEMPT_PAGES, valid, get, maxLevel, clinicalVocab, term, text, hasClinicalWords };
 
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
 
@@ -123,6 +133,17 @@
     const w = document.createTreeWalker(node, NodeFilter.SHOW_TEXT); let t;
     while ((t = w.nextNode())) { const el = t.parentElement; if (el && el.closest(SKIP)) continue; const v = tr(t.data); if (v !== t.data) t.data = v; }
   }
+  // Switching into the Clinical domain asks first, inline (FIXES_R1 P-5). A link with ?profile=clinical is explicit.
+  function choose(id, where) {
+    const go = () => { try { localStorage.setItem(KEY, JSON.stringify(id)); } catch (e) {} const u = new URL(root.location.href); u.searchParams.delete("profile"); root.location.replace(u.toString()); };
+    if (id !== "clinical" || P === "clinical") return go();
+    let c = document.getElementById("profileConfirm");
+    if (!c) { c = document.createElement("div"); c.id = "profileConfirm"; c.style.cssText = "margin:8px 0;font-size:14px"; }
+    c.replaceChildren(document.createTextNode("The Clinical domain is for clinicians and people working with one. Clinician-led work still needs the clinician present, a recorded screening and, to resume, the clinician's PIN. "));
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = "Switch to Clinical"; b.addEventListener("click", go);
+    const n = document.createElement("button"); n.type = "button"; n.className = "btn quiet"; n.textContent = "Cancel"; n.addEventListener("click", () => { c.remove(); const s = document.getElementById("profileSelect"); if (s) s.value = P; });
+    c.append(b, document.createTextNode(" "), n); where.append(c);
+  }
   function bar() {
     const h = document.querySelector("header"); if (!h || h.querySelector(".profilebar")) return;
     const d = document.createElement("div"); d.className = "profilebar";
@@ -131,7 +152,7 @@
     const s = document.createElement("select"); s.setAttribute("aria-label", "Domain profile"); s.id = "profileSelect";
     s.style.cssText = "background:transparent;color:inherit;border:1px solid rgba(128,128,128,.45);border-radius:6px;padding:2px 6px;font:inherit;margin-left:4px";
     for (const p of PROFILES) s.append(new Option(p.name, p.id, false, p.id === P));
-    s.addEventListener("change", () => { try { localStorage.setItem(KEY, JSON.stringify(s.value)); } catch (e) {} const u = new URL(root.location.href); u.searchParams.delete("profile"); root.location.replace(u.toString()); });
+    s.addEventListener("change", () => choose(s.value, d));
     l.append(s); d.append(l); h.append(d);
   }
   function cards() {
@@ -142,7 +163,7 @@
       b.setAttribute("aria-pressed", p.id === P ? "true" : "false");
       const n = document.createElement("b"); n.textContent = p.name; const f = document.createElement("span"); f.textContent = p.for;
       b.append(n, f);
-      b.addEventListener("click", () => { try { localStorage.setItem(KEY, JSON.stringify(p.id)); } catch (e) {} root.location.reload(); });
+      b.addEventListener("click", () => choose(p.id, box.parentElement || box));
       box.append(b);
     }
   }

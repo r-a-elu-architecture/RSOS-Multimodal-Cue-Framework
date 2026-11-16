@@ -190,8 +190,8 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <input type="date" id="cueUntil" style="width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px">
     <div id="cueLed" hidden>
       <label class="check"><input type="checkbox" id="cueTherapist"> A therapist is present for this session</label>
-      <p class="note" id="cueScreenQ"></p>
-      <div class="row"><label class="check"><input type="radio" name="cueScreen" value="no"> No</label><label class="check"><input type="radio" name="cueScreen" value="yes"> Yes</label></div>
+      <div data-show="clinical"><p class="note" id="cueScreenQ"></p>
+      <div class="row"><label class="check"><input type="radio" name="cueScreen" value="no"> No</label><label class="check"><input type="radio" name="cueScreen" value="yes"> Yes</label></div></div>
     </div>
     <label class="check"><input type="checkbox" id="cueConsent"> I know exactly what this cue says, and I agree that it runs for me</label>
     <div class="actions" style="margin-top:6px"><button class="btn quiet" id="cueSave" type="button">Save cue</button></div>
@@ -272,6 +272,11 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   <div class="offer" id="offer" hidden role="alertdialog" aria-labelledby="offerText">
     <p id="offerText">Your heart rate suggests a stress response. Start the override?</p>
     <div class="actions"><button class="btn go" id="offerStart" type="button">Start the override</button><button class="btn quiet" id="offerDismiss" type="button">Not now</button></div>
+  </div>
+  <div id="clinRun" hidden data-show="clinical">
+    <label class="check"><input type="checkbox" id="clinRunHere"> The responsible clinician is present</label>
+    <p class="note" id="clinRunQ"></p>
+    <div class="row"><label class="check"><input type="radio" name="clinRunScreen" value="no"> No</label><label class="check"><input type="radio" name="clinRunScreen" value="yes"> Yes</label></div>
   </div>
   <div class="actions"><button class="btn go" id="start" type="button">Start</button></div>
 </main>
@@ -407,7 +412,7 @@ function selectProgram() {
   $("futuresBox").hidden = !f;
   const own = p.startsWith("node_") || p.startsWith("plan:") || p.startsWith("identity:") || p.startsWith("thera:");   // a node's contexts belong to that node
   if (f) { const saved = store.get("rsos.settings", {}); if (own || !saved.futuresEdited) { ["f0", "f1", "f2"].forEach((id, i) => { $(id).value = f[i] || ""; }); } }
-  recompile();
+  recompile(); updateClinRun();
 }
 function q(s) { return '"' + String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"'; }
 function effectiveSource() {
@@ -608,6 +613,11 @@ async function start(trigger) {
   const [cueOk, cueWhy] = RSOSConsent.gate(timeline, store.get("rsos.cues", []), Date.now());
   if (!cueOk) { $("compileMsg").className = "err"; $("compileMsg").textContent = "This program contains a programmed cue that may not run: " + cueWhy + "."; return; }
   trigger = trigger === "device" ? "device" : "self";
+  if (clinLedRun() && CLINV && (document.querySelector('input[name="clinRunScreen"]:checked') || {}).value === "yes") {
+    { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "yes", q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+    const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]);
+    $("compileMsg").className = "err"; $("compileMsg").textContent = "Recorded: practice continues under the clinician-led protocol; the clinician resumes it."; drawSafety && drawSafety(); return;
+  }
   // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
   const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
   if (verdict.decision !== "allow") { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(verdict.watchdog); return; }
@@ -670,11 +680,29 @@ function safetyLog(action, d) {
   log.push({ at: Date.now(), action: action.kind + (action.protocol ? " " + action.protocol : ""), decision: d.decision, reasons: d.reasons });
   store.set("rsos.contain.log", log.slice(-200));
 }
-const MAXL = window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null;  // the domain's highest guidance level (spec/PROFILES.md)
+const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};   // FIXES_R1 W-2, P-2
+const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());
+// What the run carries (FIXES_R1 W-4, S-4b): a clinician-led plan's observer node is clinician-led memory work; a program
+// whose text differs from its built-in file is "edited" and never counts as a regulating program, whatever its name.
+function runFlags() {
+  const p = $("program").value, plan = store.get("rsos.plan", null), f = {};
+  if (p.startsWith("plan:") && plan && plan.nodes) {
+    const n = plan.nodes[+p.slice(5)], memory = !!plan.therapist_led || (((plan.intake || {}).concerns) || []).includes("ptsd");
+    if (n && n.mode === "observer" && memory) { f.memory_work = true; if (plan.therapist_led) f.therapist_led = true; }
+  }
+  if (timeline && (sources[p] !== $("source").value || (PROTOCOLS.includes(p) && timeline.protocol !== p))) f.edited = true;
+  return f;
+}
+const clinLedRun = () => !!timeline && RSOSWatchdog.level(Object.assign({ kind: "run", protocol: timeline.protocol }, runFlags())) === "clinician_led";
+function updateClinRun() { $("clinRun").hidden = !(clinLedRun() && DOMAIN().max_level === "clinician_led"); $("clinRunQ").textContent = RSOSConsent.SCREENING_QUESTION; }
+const planProtocols = () => { const pl = store.get("rsos.plan", null); return pl && pl.nodes ? pl.nodes.map((n, i) => "plan:" + i).concat([$("program").value, timeline ? timeline.protocol : ""]) : null; };   // FIXES_R1 W-6
 // The Watchdog (spec/WATCHDOG.md) decides; CONTAIN is asked inside it. "ask" proceeds here because the person confirms
 // by pressing start or by accepting the offer; "hold" never proceeds.
-function safetyDecide(action) {
-  const r = RSOSGuard.ask(Object.assign({ source: "person" }, action), { timeline: action.kind === "run" ? timeline : null, max_level: MAXL });
+function safetyDecide(action, extra) {
+  const led = action.kind === "run" && clinLedRun(), scr = (document.querySelector('input[name="clinRunScreen"]:checked') || {}).value;
+  const a = Object.assign({ source: "person" }, action.kind === "run" ? runFlags() : {}, action);
+  const r = RSOSGuard.ask(a, Object.assign({ timeline: action.kind === "run" ? timeline : null, clinician_present: led && $("clinRunHere").checked,
+    screening_recorded: led && CLINV && scr === "no" }, DOMAIN(), extra || {}));
   return { decision: RSOSGuard.ok(r) ? "allow" : "block", reasons: r.reasons.map(t => t.text), watchdog: r };
 }
 function safetyReview() {
@@ -830,7 +858,7 @@ function onStress() {
   governor = governor || new RSOSHeart.Governor(timeline.safety, true);
   const [ok] = governor.check(Date.now());
   if (!ok) return;
-  if (safetyDecide({ kind: "offer", protocol: timeline.protocol, trigger: "device" }).decision !== "allow") return;
+  if (safetyDecide({ kind: "offer", protocol: timeline.protocol, trigger: "device" }, { plan_protocols: planProtocols() }).decision !== "allow") return;
   if (anchorOffer()) return;
   // LINX: with an approved node plan, offer the node that fits best (rsso/rsso/linx.py offer); the person starts it
   const myPlan = store.get("rsos.plan", null);
@@ -861,6 +889,15 @@ function anchorOffer() {
   });
   store.set("rsos.gate.history", hist);
   if (!best) return false;
+  // Automatic firing passes the Watchdog's firing rules (FIXES_R1 W-5): consent and two or more distinct signals,
+  // otherwise it becomes an offer.
+  if (best.mode === "auto") {
+    const s = detector && detector.state, sig = [];
+    if (s && isFinite(s.hr) && isFinite(s.base_hr) && s.hr > s.base_hr) sig.push("heart_rate");
+    if (s && isFinite(s.rmssd) && isFinite(s.base_rmssd) && s.rmssd < s.base_rmssd) sig.push("hrv");
+    const wd = RSOSGuard.ask({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: true, signals: sig }, DOMAIN());
+    if (wd.decision !== "allow") best.mode = "suggest";
+  }
   const au = store.get("rsos.gate.audit", []);
   RSOSGate.audit(au, t, "device", best.mode === "auto" ? "fired" : "offered", best.a.name, "allow", [], best.flag);
   store.set("rsos.gate.audit", au.slice(-300));
@@ -1075,9 +1112,14 @@ $("cueSave").addEventListener("click", () => {
   if (!$("cueConsent").checked) { msg.textContent = "A cue is saved only with your consent: tick the box once you have read it."; return; }
   const tid = $("cueTier").value, t = consentedTiers[tid], tier = t ? t.number : "";
   const screen = (document.querySelector('input[name="cueScreen"]:checked') || {}).value;
+  // Programmed cues ask the Watchdog (FIXES_R1 W-6, S-2): clinician-led tiers need the clinician rule and a domain that allows them.
+  const led = !!t && t.mode === "therapist-led";
+  const wd = RSOSGuard.ask({ kind: "cue", protocol: "cue:" + (tier || "none"), programmed: true, therapist_led: led, source: $("cueAuthor").value === "therapist" ? "practitioner" : "person" },
+    Object.assign({ clinician_present: led && $("cueTherapist").checked, screening_recorded: led && CLINV && screen === "no" }, DOMAIN()));
+  if (led && CLINV && screen === "yes") { /* recorded below */ } else if (!RSOSGuard.ok(wd)) { msg.textContent = "Held by the Watchdog: " + RSOSGuard.say(wd); return; }
   if (t && t.mode === "therapist-led") {
     if (!$("cueTherapist").checked) { msg.textContent = "This tier is therapist-led: save it during a session with your therapist present."; return; }
-    if (screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); msg.textContent = "Recorded: this session continues under the clinician-led protocol; the clinician resumes practice."; return; }
+    if (screen === "yes") { { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "yes", q: 2 }); store.set("rsos.screens", sc.slice(-50)); } const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); msg.textContent = "Recorded: this session continues under the clinician-led protocol; the clinician resumes practice."; return; }
     if (screen !== "no") { msg.textContent = "Record the clinical screening result first."; return; }
   }
   const until = $("cueUntil").value ? new Date($("cueUntil").value + "T23:59:59").getTime() : null;
@@ -1099,5 +1141,6 @@ fetch("data/tier_map.json?v=" + BUILD).then(r => r.json()).then(m => {
 }).catch(() => {});
 drawCues();
 </script>
+<footer><span class="mdline">Research and development framework; not a medical device.</span></footer>
 </body>
 </html>

@@ -95,7 +95,7 @@ header.top nav a{font-size:.88rem}
   <div id="trialArea"></div>
 
   <h2 id="tasks">Short tasks</h2>
-  <p class="lede">One to three minutes each. Your scores are kept with the date so you can compare yourself over weeks. They are research measures, not diagnoses, and they improve a little with practice at first.</p>
+  <p class="lede">One to three minutes each. Your scores are kept with the date so you can compare yourself over weeks. They are research measures, not assessments, and they improve a little with practice at first.</p>
   <div class="grid" id="taskGrid"></div>
   <div id="taskStage"></div>
 
@@ -107,7 +107,7 @@ header.top nav a{font-size:.88rem}
     <p class="hint">Across many simulated people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/trial.md">rsso/results/trial.md</a>. To run trials with real people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/TRIAL_PROTOCOL_KIT.md">the protocol kit</a>.</p>
   </div>
 </main>
-<footer>TRIAL is <code>rsso/rsso/trial.py</code>, identically <code>docs/js/trial.js</code>; the tasks are <code>rsso/rsso/checks.py</code>, identically <code>docs/js/checks.js</code> (tested). Specifications: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/TRIAL.md">TRIAL</a>, <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CHECKS.md">CHECKS</a>. Everything stays in this browser until you export it.</footer>
+<footer>TRIAL is <code>rsso/rsso/trial.py</code>, identically <code>docs/js/trial.js</code>; the tasks are <code>rsso/rsso/checks.py</code>, identically <code>docs/js/checks.js</code> (tested). Specifications: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/TRIAL.md">TRIAL</a>, <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CHECKS.md">CHECKS</a>. Everything stays in this browser until you export it. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 <script src="js/ugcl.js?v=1.14.0"></script>
 <script src="js/peak.js?v=1.15.0"></script>
 <script src="js/trial.js?v=1.19.0"></script>
@@ -203,7 +203,7 @@ function session(box) {
   box.textContent = ""; const d = T.DESIGNS[trial.design], arm = trial.schedule[trial.sessions.length], blind = trial.design === "anchor_vs_sham";
   // Every action on a person asks the Watchdog first (spec/WATCHDOG.md, spec/TRIAL_LOOP.md §3).
   const wd = RSOSGuard.ask({ kind: "run", protocol: "trial_" + trial.design, trigger: "self", source: "person" },
-    { max_level: window.RSOSProfiles ? RSOSProfiles.get(RSOSProfiles.current()).max_level : null });
+    window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()) } : {});
   if (!RSOSGuard.ok(wd)) { box.append(el("p", "hint", "Held by the Watchdog: " + RSOSGuard.say(wd))); return; }
   let played = null;
   const F = el("div", "stage"); F.style.alignItems = "stretch"; F.style.textAlign = "left"; box.append(F);

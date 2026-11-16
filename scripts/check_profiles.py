@@ -22,6 +22,8 @@ from rsso import profiles as P  # noqa: E402
 PAGES = ["index", "player", "nodes", "therapist", "contribute", "night", "safety", "world", "metrics", "anchors",
          "identity", "atlas", "trials", "device", "agents"]
 RX = re.compile(P.CLINICAL_WORDS, re.I)
+CRISIS = re.compile(r"\b(?:crisis|suicid\w*|self-harm|harming yourself|helpline|emergency services|not wanting to live|at risk of harm)\b", re.I)   # FIXES_R1 S-7
+ALL_PAGES = sorted(f.stem for f in DOCS.glob("*.html"))
 VISIBLE = """() => { document.querySelectorAll('nav,[data-raw]').forEach(e => e.style.setProperty('display','none','important'));
   return document.title + '\\n' + document.body.innerText; }"""
 
@@ -41,6 +43,7 @@ def main():
             ctx = b.new_context()
             pg = ctx.new_page()
             pg.on("pageerror", lambda e, p=prof: errs.append(f"{p}: {e}"))
+            pg.on("console", lambda m, p=prof: errs.append(f"{p} console: {m.text}") if m.type == "error" and "Failed to load resource" not in m.text else None)   # FIXES_R1 P-6
             n = 0
             for name in PAGES:
                 pg.goto(f"{base}/{name}.html?profile={prof}")
@@ -60,6 +63,12 @@ def main():
                 if not P.clinical_vocab(prof) and hits:
                     fails.append(f"P6 {prof} {name}: {hits}")
             counts[prof] = n
+            for name in [n for n in ALL_PAGES if n + ".html" not in P.EXEMPT_PAGES]:   # FIXES_R1 S-7, A7 scope: research records excepted
+                pg.goto(f"{base}/{name}.html?profile={prof}")
+                pg.wait_for_timeout(250)
+                hits = sorted(set(m.group(0) for m in CRISIS.finditer(pg.evaluate(VISIBLE))))
+                if hits:
+                    fails.append(f"S-7 {prof} {name}: {hits}")
             # P7 safety page
             pg.goto(f"{base}/safety.html?profile={prof}")
             pg.wait_for_timeout(300)

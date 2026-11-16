@@ -264,7 +264,9 @@ void sendLine(const char* line) { hw.send(line); }
 class ServerCB : public BLEServerCallbacks {
   void onConnect(BLEServer*, esp_ble_gatts_cb_param_t* param) override {
     bleConnId = param->connect.conn_id; linkAuthed = false; newKeys = false; bleConnected = true;
-    esp_ble_set_encryption(param->connect.remote_bda, ESP_BLE_SEC_ENCRYPT_MITM);   // ask for pairing or the bond at once
+    // FIXES_R6C S2: the band asks for encryption only while the window is open. Outside it a bonded host encrypts with
+    // its stored key when it reads or writes; an unknown host must start pairing itself, and SecurityCB refuses it.
+    if (link.accept_request(millis())) esp_ble_set_encryption(param->connect.remote_bda, ESP_BLE_SEC_ENCRYPT_MITM);
   }
   void onDisconnect(BLEServer* s) override { linkAuthed = false; newKeys = false; bleConnected = false; s->getAdvertising()->start(); }
 };
@@ -307,9 +309,6 @@ void showPasskey(bool on) {
 // GAP events from the Bluetooth task: decide new pairings with the policy (P3-P5).
 void gapEvent(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param) {
   switch (event) {
-    case ESP_GAP_BLE_SEC_REQ_EVT:   // FIXES_R6 B5: a pairing request is answered only inside the window
-      esp_ble_gap_security_rsp(param->ble_security.ble_req.bd_addr, link.accept_request(millis()));
-      break;
     case ESP_GAP_BLE_KEY_EVT: newKeys = true; break;
     case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: if (link.show_passkey(millis())) keyScreen = 1; break;   // B6
     case ESP_GAP_BLE_AUTH_CMPL_EVT: {
@@ -327,6 +326,16 @@ void gapEvent(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param) {
     default: break;
   }
 }
+
+// FIXES_R6C S1: the library answers a pairing the host starts with onSecurityRequest(); without these callbacks it
+// answers true. Same interface in Arduino-ESP32 2.0.17 and 3.0.7.
+class SecurityCB : public BLESecurityCallbacks {
+  uint32_t onPassKeyRequest() override { return 0; }              // the band does not enter keys
+  void onPassKeyNotify(uint32_t) override {}                       // shown by gapEvent (B6)
+  bool onSecurityRequest() override { return link.accept_request(millis()); }
+  void onAuthenticationComplete(esp_ble_auth_cmpl_t) override {}  // decided by gapEvent (P3-P5, B7)
+  bool onConfirmPIN(uint32_t) override { return false; }          // numeric comparison is not used
+};
 
 void setSecurity() {
   uint32_t pk = passkey;
@@ -396,6 +405,7 @@ void setup() {
   BLEDevice::init("RSOS-band");
   BLEDevice::setEncryptionLevel(ESP_BLE_SEC_ENCRYPT_MITM);
   BLEDevice::setCustomGapHandler(gapEvent);
+  BLEDevice::setSecurityCallbacks(new SecurityCB());   // S1
   setSecurity();
   BLEServer* srv = BLEDevice::createServer(); srv->setCallbacks(new ServerCB()); bleServer = srv;
   BLEService* svc = srv->createService(NUS_SERVICE);

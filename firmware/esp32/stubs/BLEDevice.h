@@ -22,6 +22,16 @@ class BLECharacteristic {
   std::string getValue() { return ""; }       // Arduino-ESP32 2.x
 #endif
 };
+// The real interface (Arduino-ESP32 2.0.17 and 3.0.7, BLESecurity.h): five pure virtual methods (FIXES_R6C S4).
+class BLESecurityCallbacks {
+ public:
+  virtual ~BLESecurityCallbacks() {}
+  virtual uint32_t onPassKeyRequest() = 0;
+  virtual void onPassKeyNotify(uint32_t pass_key) = 0;
+  virtual bool onSecurityRequest() = 0;
+  virtual void onAuthenticationComplete(esp_ble_auth_cmpl_t) = 0;
+  virtual bool onConfirmPIN(uint32_t pin) = 0;
+};
 struct BLEAdvertising { void start() {} void addServiceUUID(const char*) {} };
 struct BLEService { BLECharacteristic* createCharacteristic(const char*, int) { return new BLECharacteristic(); } void start() {} };
 class BLEServer {
@@ -35,5 +45,6 @@ struct BLEDevice {
   static void init(const char*) {}
   static BLEServer* createServer() { return new BLEServer(); }
   static void setEncryptionLevel(esp_ble_sec_act_t) {}
+  static void setSecurityCallbacks(BLESecurityCallbacks*) {}
   static void setCustomGapHandler(void (*)(esp_gap_ble_cb_event_t, esp_ble_gap_cb_param_t*)) {}
 };

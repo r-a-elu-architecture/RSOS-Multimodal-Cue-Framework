@@ -109,6 +109,21 @@ def main():
             expect("C1c control: CRISIS during a run", [started, pg.evaluate("!!run"), pg.evaluate("window.__hold") > 0], [True, False, True])
             ctx.close()
 
+        def p1():   # FIXES_R6C P1: text typed and Started at once is decided and played as typed
+            ctx, pg = page("/player.html?profile=personal", PLANS["dx"])
+            n = node(pg, 0); pg.select_option("#program", "ssit_calm"); pg.wait_for_timeout(300)
+            pg.evaluate("(t) => { $('source').value = t; $('source').dispatchEvent(new Event('input')); $('start').click(); }", n)   # no wait for the 250 ms
+            pg.wait_for_timeout(600)
+            held = [pg.is_visible("#checkinGo"), pg.evaluate("!!run"), "Held by the Watchdog" in pg.evaluate("$('compileMsg').textContent")]
+            ctx.close()
+            ctx, pg = page("/player.html?profile=personal")
+            pg.select_option("#program", "ssit_calm"); pg.wait_for_timeout(300)
+            mine = 'PROTOCOL mine "Mine"\nPHASE a dur=3s {\n  SAY "My own words now"\n}\n'
+            pg.evaluate("(t) => { $('source').value = t; $('source').dispatchEvent(new Event('input')); $('start').click(); }", mine)
+            pg.wait_for_selector("#checkinGo", state="visible", timeout=5000); pg.click("#checkinGo"); pg.wait_for_timeout(300)
+            expect("P1 decided and played as typed, without the 250 ms wait", held + [pg.evaluate("run ? run.tl.protocol : null")], [False, False, True, "mine"])
+            ctx.close()
+
         def c2():   # §2 share = shared / |origin|
             ctx, pg = page("/player.html?profile=personal", PLANS["dx"])
             n = node(pg, 0).replace("warmth in the belly", "warmth in the chest"); pg.select_option("#program", "ssit_calm"); pg.wait_for_timeout(300)
@@ -188,7 +203,7 @@ def main():
             expect("Recorded: with a diagnosed plan the built-in Lion node is held", pg.evaluate(DECIDE), "block")
             ctx.close()
 
-        for name, fn in (("C1", c1), ("C2", c2), ("C3-C5", c3_c5), ("C6", c6), ("C7", c7), ("C8", c8), ("controls", controls)):
+        for name, fn in (("C1", c1), ("P1", p1), ("C2", c2), ("C3-C5", c3_c5), ("C6", c6), ("C7", c7), ("C8", c8), ("controls", controls)):
             run(name, fn)
         b.close()
     srv.shutdown()

@@ -637,6 +637,8 @@ async function start(trigger) {
   }
   // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
   if (!RSOSLineage.loaded) await RSOSLineage.ready;
+  clearTimeout(debounce); recompile();   // FIXES_R6C P1: decide and play the text as it is now
+  if (!timeline) return;
   const held = v => { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(v.watchdog)
     + (RSOSLineage.strict ? " Some built-in programs could not be loaded, so the content check is strict on this page." : ""); };
   const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });

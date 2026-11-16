@@ -59,9 +59,18 @@ if __name__ == "__main__":
 
 
 class FixesR6(unittest.TestCase):   # spec/FIXES_R6.md §5
-    def test_requests_answered_only_in_the_window(self):   # B5
-        self.assertIn("case ESP_GAP_BLE_SEC_REQ_EVT:", SKETCH)
-        self.assertIn("esp_ble_gap_security_rsp(param->ble_security.ble_req.bd_addr, link.accept_request(millis()));", SKETCH)
+    def test_requests_answered_only_in_the_window(self):   # B5 as amended by FIXES_R6C S1-S3
+        self.assertIn("bool onSecurityRequest() override { return link.accept_request(millis()); }", SKETCH)
+        self.assertIn("BLEDevice::setSecurityCallbacks(new SecurityCB());", SKETCH)
+        self.assertNotIn("ESP_GAP_BLE_SEC_REQ_EVT", SKETCH)
+        for line in [l for l in SKETCH.splitlines() if "esp_ble_set_encryption(" in l]:
+            self.assertRegex(line, r"if \(link\.(accept_request|window_open)\(", line)
+
+    def test_stub_security_callbacks_match_the_real_interface(self):   # FIXES_R6C S4
+        stub = (REPO / "firmware/esp32/stubs/BLEDevice.h").read_text(encoding="utf-8")
+        for sig in ("virtual uint32_t onPassKeyRequest() = 0;", "virtual void onPassKeyNotify(uint32_t pass_key) = 0;", "virtual bool onSecurityRequest() = 0;",
+                    "virtual void onAuthenticationComplete(esp_ble_auth_cmpl_t) = 0;", "virtual bool onConfirmPIN(uint32_t pin) = 0;"):
+            self.assertIn(sig, stub)
 
     def test_passkey_shown_only_in_the_window(self):   # B6
         self.assertIn("if (link.show_passkey(millis())) keyScreen = 1;", SKETCH)

@@ -248,7 +248,8 @@ function svgEl(tag, attrs) { const e = document.createElementNS(ns, tag); for (c
    around it (filled when the node has a cue on that sense), its vibration code below. */
 function nodeSphere(svg, n, size) {
   svg.innerHTML = ""; const W = 260, cx = 130, cy = 116, obs = n.mode === "observer";
-  svg.setAttribute("viewBox", "0 0 " + W + " " + W);
+  // The top channel circle reaches y = -2 (cy 116, R 104, r 14): the view starts at -16 so nothing is cut off.
+  svg.setAttribute("viewBox", "0 -16 " + W + " " + (W + 16));
   const id = "g" + (counter++);
   const defs = svgEl("defs", {});
   defs.innerHTML = '<radialGradient id="' + id + '"><stop offset="0" stop-color="#fff6dc"/><stop offset=".32" stop-color="#f7d995"/><stop offset=".62" stop-color="#e8b04a" stop-opacity=".85"/><stop offset="1" stop-color="#e8b04a" stop-opacity="0"/></radialGradient>';

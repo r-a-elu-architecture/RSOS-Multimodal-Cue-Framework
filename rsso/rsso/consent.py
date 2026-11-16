@@ -21,7 +21,7 @@ import math
 from dataclasses import asdict, dataclass, field
 
 THERAPIST_LED_TIERS = {"414", "420", "439", "440"}
-SCREENING_QUESTION = "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?"
+SCREENING_QUESTION = "Did today's clinical screening (the practitioner's validated instrument) indicate elevated risk?"
 CONSENT_SCHEMA = "rsos-consent/1"
 
 

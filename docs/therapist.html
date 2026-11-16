@@ -276,10 +276,10 @@ header.top nav a{font-size:.88rem}
   </div>
   <p class="hint" style="margin-top:22px">How well these measures work on simulated sessions: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/copilot.md">rsso/results/copilot.md</a>. Protocol kit for real studies: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/COPILOT_PROTOCOL_KIT.md">COPILOT_PROTOCOL_KIT.md</a>.</p>
 </main>
-<footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. If your client is in crisis or at risk of harm, follow your crisis procedure and contact emergency services. Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
-<script src="js/safety.js?v=1.15.0"></script>
-<script src="js/contain.js?v=1.15.0"></script>
-<script src="js/thera.js?v=1.14.0"></script>
+<footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. Research and development framework; not a medical device. Clinical use follows the practitioner's own protocol.<a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
+<script src="js/safety.js?v=1.16.0"></script>
+<script src="js/contain.js?v=1.16.0"></script>
+<script src="js/thera.js?v=1.16.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id), T = RSOSThera, K = RSOSContain;
@@ -375,7 +375,7 @@ function drawCard() {
   rec.addEventListener("click", () => { add(s.id, vals(), false); });
   next.addEventListener("click", () => {
     const v = vals();
-    if ((s.measure || []).includes("screen") && !v.screen) { alertBox("return", "Ask the screening question and record the answer before you go on."); return; }
+    if ((s.measure || []).includes("screen") && !v.screen) { alertBox("return", "Record the clinical screening result before you go on."); return; }
     add(s.id, v, true);
     if (v.screen === "yes") return;
     if (cur.at < cur.steps.length - 1) { cur.at++; save(); show(); } else finish();
@@ -385,7 +385,7 @@ function drawCard() {
 function add(step, v, done) {
   cur = Object.assign(T.record(cur, step, Object.assign({}, v, done ? { done: true } : {}), now()), { client: cur.client, started: cur.started, at: cur.at, plan: cur.plan });
   if (v.screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: v.screen }); store.set("rsos.screens", sc.slice(-50)); }
-  if (v.screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheckin({ screen: "yes" }), Date.now() / 1000)[0]); }
+  if (v.screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); }
   if (v.adverse && v.adverse !== "none") {
     const runs = store.get("rsos.runs", []).filter(r => Number(r.timestamp) >= cur.started), last = runs[runs.length - 1];
     const adv = store.get("rsos.adverse", []); adv.push({ ts: Date.now(), severity: v.adverse, related: "possible", resolved: false, text: "", protocol: last ? last.protocol : "" }); store.set("rsos.adverse", adv);

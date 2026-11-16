@@ -1,6 +1,7 @@
-/* Safety modes for people and agents, JavaScript implementation (spec/CONTAIN.md §9, S1). Mirrors
+/* Session states for people and agents, JavaScript implementation (spec/CONTAIN.md §9 and §10). Mirrors
  * rsso/rsso/safety.py (identical results, tested): screens, fixed responses and messages, the mode machine
- * (NORMAL, STABILISE, PRACTICAL_CRISIS, CRISIS), the categories each mode allows, the structured check-in,
+ * (shown as Standard, Stabilisation, Paused: practical, Clinician-led protocol), the categories each state allows,
+ * guidance levels, the everyday self-check and the clinician-entered screening result,
  * Spine wording flags, the deep-processing gate and medication-stratified effects. Rules are fixed.
  * Browser: window.RSOSSafety; Node: module.exports.
  */
@@ -10,8 +11,7 @@
   const SEVERITY = { NORMAL: 0, STABILISE: 1, PRACTICAL_CRISIS: 2, CRISIS: 3 };
   const RECOVERY_H = { mild: 0, moderate: 24, intense: 48, highly_destabilising: 96 };
   const WEEKLY_CAP = { self_chosen: 1, clinician_agreed: 3 };
-  const HELP = "If you might act on these thoughts, contact local emergency services now. You can also reach a crisis line: " +
-    "find one for your country at https://findahelpline.com.";
+  const FOOTER = "Research and development framework; not a medical device.";
   const clone = o => JSON.parse(JSON.stringify(o));
   const uniq = xs => xs.filter((x, i) => xs.indexOf(x) === i);
   const has = v => v !== null && v !== undefined;
@@ -24,6 +24,8 @@
     if (ev.job_loss || ev.housing_risk || ev.no_income) hits.push("practical_crisis");
     if (ev.intensity_mechanism) hits.push("intensity_protocol");
     if ((has(ev.distress) ? ev.distress : 0) >= 7 || (has(ev.sleep_h) ? ev.sleep_h : 8) < 4) hits.push("unstable");
+    if (ev.clinical_result === "high") hits.push("clinical_high");
+    else if (ev.clinical_result === "moderate") hits.push("clinical_moderate");
     if (ev.history_reference && !hits.includes("possible_crisis")) hits.push("history_check_in");
     return uniq(hits);
   }
@@ -35,38 +37,49 @@
     intensity_protocol: ["block_protocol", "offer_ordinary_regulation"],
     unstable: ["offer_stabilise_mode", "no_deep_processing_today"],
     history_check_in: ["ask_how_they_are_now", "offer_contacts_without_escalation"],
+    clinical_high: ["route_to_clinician_led_protocol", "notify_clinician_view", "pause_module_work"],
+    clinical_moderate: ["offer_stabilise_mode", "no_deep_processing_today", "notify_clinician_view"],
   };
   const MESSAGES = {
-    possible_crisis: "Are you safe right now? Practice is paused, because what you said matters more than any " +
-      "exercise. " + HELP + " If you have a therapist or doctor, tell them today.",
-    sedative_combination: "Alcohol or other drugs together with a prescribed sedative can slow or stop breathing. " +
-      "If you feel very sleepy or confused, or your breathing is slow or shallow, call " +
-      "emergency services now. Otherwise do not take more, and ask your prescriber or a " +
-      "pharmacist today. Practice is paused.",
-    practical_crisis: "Losing work, a home or income is a crisis of its own. Practice is paused so you can deal " +
-      "with it: write down the one next step for today, and contact local social, housing or " +
-      "employment services, or someone you trust, to help with it.",
-    intensity_protocol: "This uses heat or cold, pain, holding the breath or going without sleep to force a " +
-      "change. RSOS does not run that. Use ordinary regulation instead: slow breathing, " +
-      "warmth that is comfortable, rest.",
-    unstable: "Today looks like a day for stabilising: high distress or very little sleep. No deep work today. " +
-      "Stabilise mode offers only calming and practical steps; you can leave it when you choose.",
-    history_check_in: "You mentioned a hard time in the past. How are you now? If any of it is close again, " +
-      "talk to someone you trust or a crisis line (https://findahelpline.com). Nothing else " +
-      "changes.",
+    possible_crisis: "Self-guided practice is paused. The session continues inside a clinician-led protocol: the " +
+      "responsible clinician decides the next step and resumes practice.",
+    sedative_combination: "Medication interaction flagged. Self-guided practice is paused until the prescribing " +
+      "clinician has reviewed it.",
+    practical_crisis: "Practical circumstances flagged. Practice is paused so the next practical step comes first; " +
+      "resume when you choose.",
+    intensity_protocol: "Intensity methods (temperature extremes, pain, extreme breath-holding, sleep loss) are " +
+      "outside RSOS. Use a regulation program instead.",
+    unstable: "High intensity or short sleep: Stabilisation is suggested. Regulation programs only today; leave " +
+      "Stabilisation when you choose.",
+    history_check_in: "Earlier experience noted for the practitioner's review. Nothing changes in the session.",
+    clinical_high: "Screening result: high. The session moves to the clinician-led protocol; the responsible " +
+      "clinician resumes practice.",
+    clinical_moderate: "Screening result: moderate. Stabilisation: regulation programs only, no deep processing " +
+      "today; the practitioner is informed.",
   };
+
   const MODE_ALLOWED = {
     NORMAL: ["module_work", "deep_processing", "override_cue", "regulating_cue", "practical_support", "crisis_response", "review", "logging"],
     STABILISE: ["regulating_cue", "practical_support", "review", "logging", "crisis_response"],
     PRACTICAL_CRISIS: ["practical_support", "regulating_cue", "logging", "crisis_response"],
     CRISIS: ["crisis_response", "logging"],
   };
+  const MODE_NAME = { NORMAL: "Standard", STABILISE: "Stabilisation", PRACTICAL_CRISIS: "Paused: practical", CRISIS: "Clinician-led protocol" };
   const MODE_TEXT = {
-    NORMAL: "Normal: everything the Spine allows.",
-    STABILISE: "Stabilise: calming and practical steps only, no deep work. You can leave when you choose.",
-    PRACTICAL_CRISIS: "Practical crisis: practical support and calming only. You can leave when you choose.",
-    CRISIS: "Crisis: practice is paused; only crisis help. Leaving needs your clinician.",
+    NORMAL: "Standard: every program the person's guidance level allows.",
+    STABILISE: "Stabilisation: regulation programs and practical steps only, no deep processing. The person " +
+      "leaves it when they choose.",
+    PRACTICAL_CRISIS: "Paused: practical. Practical steps and regulation only. The person resumes when they choose.",
+    CRISIS: "Clinician-led protocol: self-guided practice is paused; the responsible clinician resumes it.",
   };
+  const LEVELS = {
+    self_guided: "Everyday states (pressure, nerves, low energy, distraction): self-guided.",
+    structured: "Recurring strong states, panic, difficult memories: with consent, self-guided or with a " +
+      "practitioner the person chooses (therapist, coach).",
+    clinician_led: "Trauma processing, depression work and any acute risk to life: only inside a qualified " +
+      "clinician's protocol (including a private psychotherapist or psychiatrist).",
+  };
+
   const REGULATING = ["paced_breathing", "interrupt_only", "tier016_stillness", "tier012_breath_anchor"];
 
   function category(a) {
@@ -80,7 +93,7 @@
   function allowed(state, action) {
     const mode = (state || newState()).mode, cat = category(action);
     if (MODE_ALLOWED[mode].includes(cat)) return { ok: true, mode, category: cat, reason: "" };
-    return { ok: false, mode, category: cat, reason: "the safety mode is " + mode + ": " + MODE_TEXT[mode] };
+    return { ok: false, mode, category: cat, reason: "session state " + MODE_TEXT[mode] };
   }
   function go(st, mode, why, by, now) {
     const rec = { from: st.mode, to: mode, why, by, at: now };
@@ -90,9 +103,9 @@
   function observe(state, ev, now) {
     now = now || 0; const st = clone(state || newState()), hits = screen(ev);
     let target = "NORMAL";
-    if (hits.includes("possible_crisis") || hits.includes("sedative_combination")) target = "CRISIS";
+    if (hits.includes("possible_crisis") || hits.includes("sedative_combination") || hits.includes("clinical_high")) target = "CRISIS";
     else if (hits.includes("practical_crisis")) target = "PRACTICAL_CRISIS";
-    else if (hits.includes("unstable")) target = "STABILISE";
+    else if (hits.includes("unstable") || hits.includes("clinical_moderate")) target = "STABILISE";
     const actions = uniq([].concat(...hits.map(h => RESPONSES[h])));
     let rec = null;
     if (SEVERITY[target] > SEVERITY[st.mode]) rec = go(st, target, hits.join(","), "screen", now);
@@ -112,19 +125,19 @@
     return [st, { ok: true, transition: go(st, "NORMAL", "exit", by, now || 0) }];
   }
 
-  const CHECKIN = [
-    { id: "now", text: "Right now, are you having thoughts of harming yourself or of not wanting to live?" },
-    { id: "after", text: "Have you been putting things in order or making arrangements for after you are gone?" },
-    { id: "sedative", text: "Today, have you had alcohol or other drugs while taking a prescribed sedative " +
-      "(for example a sleeping pill, a benzodiazepine or an opioid)?" },
-    { id: "practical", text: "Are you losing your job, your home or all income right now?" },
-    { id: "past", text: "Have you had such thoughts in the past, even if they are not here now?" },
+  const SELF_CHECK = [
+    { id: "intensity", text: "Intensity of the state right now (0 none, 10 the most)", kind: "scale" },
+    { id: "sleep_h", text: "Hours slept last night", kind: "hours" },
   ];
-  function eventFromCheckin(ans) {
-    const yes = k => ans[k] === "yes";
-    const ev = { self_harm_signal: yes("now") || yes("screen"), arrangements_for_after: yes("after"), substances: yes("sedative"),
-      sedative_prescribed: yes("sedative"), job_loss: yes("practical"), history_reference: yes("past") };
-    if (has(ans.distress) && ans.distress !== "") ev.distress = Number(ans.distress);
+  const CLINICAL_RESULTS = ["none", "low", "moderate", "high"];
+  const CLINICAL_FLAGS = { medication: "Medication interaction (substances with a prescribed sedative)",
+    practical: "Practical circumstances (work, housing, income)" };
+  function eventFromCheck(ans) {
+    const flags = new Set(ans.flags || []);
+    const ev = { substances: flags.has("medication"), sedative_prescribed: flags.has("medication"), job_loss: flags.has("practical"),
+      history_reference: !!ans.history };
+    if (CLINICAL_RESULTS.includes(ans.clinical_result)) ev.clinical_result = ans.clinical_result;
+    if (has(ans.intensity) && ans.intensity !== "") ev.distress = Number(ans.intensity);
     if (has(ans.sleep_h) && ans.sleep_h !== "") ev.sleep_h = Number(ans.sleep_h);
     return ev;
   }
@@ -184,8 +197,9 @@
     return { adjusted: den ? num / den : null, crude: t.length && c.length ? mean(t) - mean(c) : null, strata_used: used, strata_dropped: dropped };
   }
 
-  const api = { MODES, SEVERITY, RECOVERY_H, WEEKLY_CAP, HELP, RESPONSES, MESSAGES, MODE_ALLOWED, MODE_TEXT, REGULATING, CHECKIN,
-    screen, category, newState, allowed, observe, enterStabilise, exit, eventFromCheckin, spineFlags, mayStartDeepSession, adjustedEffect };
+  const api = { MODES, SEVERITY, RECOVERY_H, WEEKLY_CAP, FOOTER, RESPONSES, MESSAGES, MODE_ALLOWED, MODE_NAME, MODE_TEXT, LEVELS, REGULATING,
+    SELF_CHECK, CLINICAL_RESULTS, CLINICAL_FLAGS, screen, category, newState, allowed, observe, enterStabilise, exit, eventFromCheck, spineFlags,
+    mayStartDeepSession, adjustedEffect };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.RSOSSafety = api;
 })(typeof self !== "undefined" ? self : this);

@@ -132,8 +132,8 @@
       { phase: "On triggers", per_day: 0, days: 0, note: "Start the node when the trigger comes; device offers only with consent." }];
     const safety = ["Every node runs with the person's consent; the person can stop any run at once."];
     const therapistLed = inC("ptsd") && hasMode("observer");
-    if (therapistLed) safety.push("Observer work with trauma memories is therapist-led: a therapist is present and the screening question is answered before the session.");
-    if (inC("ptsd", "depression")) safety.push("Ask the screening question before the first session: Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?");
+    if (therapistLed) safety.push("Observer work with difficult memories is clinician-led: the clinician is present and the screening result is recorded before the session.");
+    if (inC("ptsd", "depression")) safety.push("Record the clinical screening result before the first session (the practitioner's validated instrument).");
     if (nodes.some(n => n.channels.O) || nodes.some(n => n.channels.G)) safety.push("Confirm there is no allergy to the scent or taste before it is used.");
     if (perDay > 20) safety.push("More than 20 a day are self-started; device-triggered offers stay within the safety limits (20 a day, 90 s apart).");
     if (nodes.some(n => n.frame_checks.some(fc => fc.flags.includes("negation") || fc.flags.includes("low believability")))) safety.push("Some frames need rewording before practice (see the frame checks).");

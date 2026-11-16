@@ -243,7 +243,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.13.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.13.0. Not a treatment. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -326,11 +326,11 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/hrs.js?v=1.13.0"></script>
 <script src="js/memstack.js?v=1.13.0"></script>
 <script src="js/ugcl.js?v=1.13.0"></script>
-<script src="js/consent.js?v=1.13.0"></script>
-<script src="js/nodes.js?v=1.13.0"></script>
-<script src="js/safety.js?v=1.15.0"></script>
-<script src="js/linx.js?v=1.15.0"></script>
-<script src="js/contain.js?v=1.15.0"></script>
+<script src="js/consent.js?v=1.16.0"></script>
+<script src="js/nodes.js?v=1.16.0"></script>
+<script src="js/safety.js?v=1.16.0"></script>
+<script src="js/linx.js?v=1.16.0"></script>
+<script src="js/contain.js?v=1.16.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -674,8 +674,8 @@ function drawSafety(changes) {
   const st = store.get("rsos.contain", RSOSContain.newState()), paused = Object.keys(st.quarantine);
   let t = "All clear.";
   const sm = store.get("rsos.safety", null);
-  if (sm && sm.mode !== "NORMAL") t = RSOSSafety.MODE_TEXT[sm.mode] + " See the safety page for the check-in and what this mode allows. " + (sm.mode === "CRISIS" ? RSOSSafety.HELP : "");
-  else if (st.escalation.active) t = "Device offers are paused: " + st.escalation.reasons.join("; ") + ". Please talk with your therapist. If you are at risk of harm, contact local emergency services or a crisis line now.";
+  if (sm && sm.mode !== "NORMAL") t = RSOSSafety.MODE_TEXT[sm.mode] + " Details on the safety page.";
+  else if (st.escalation.active) t = "Device offers are paused: " + st.escalation.reasons.join("; ") + ". Review it with your practitioner.";
   else if (paused.length) t = "Paused: " + paused.join(", ") + ". See the safety page for why and how to restore.";
   $("safetyStatus").textContent = t;
   if (changes && changes.some(c => c.kind === "quarantine")) $("logSummary").textContent += " CONTAIN paused " + changes.filter(c => c.kind === "quarantine").map(c => c.protocol).join(", ") + ": " + changes.filter(c => c.kind === "quarantine").map(c => c.text).join("; ") + ".";
@@ -685,7 +685,7 @@ $("reportSave").addEventListener("click", () => {
   const adv = store.get("rsos.adverse", []), last = records[records.length - 1];
   adv.push({ ts: Date.now(), severity: $("advSev").value, related: $("advRel").value, resolved: false, text: $("advText").value.trim(), protocol: last ? last.protocol : "" });
   store.set("rsos.adverse", adv); $("reportBox").hidden = true; $("advText").value = ""; safetyReview();
-  if ($("advSev").value === "serious") $("safetyStatus").textContent += " If you are at risk of harm, contact local emergency services or a crisis line now.";
+  if ($("advSev").value === "serious") $("safetyStatus").textContent += " Recorded; your practitioner can review it on the safety page.";
 });
 let srbaiLog = store.get("rsos.srbai", []);
 const SRBAI_ITEMS = ["I do it automatically.", "I do it without having to consciously remember.", "I do it without thinking.", "I start doing it before I realize I'm doing it."];
@@ -1063,8 +1063,8 @@ $("cueSave").addEventListener("click", () => {
   const screen = (document.querySelector('input[name="cueScreen"]:checked') || {}).value;
   if (t && t.mode === "therapist-led") {
     if (!$("cueTherapist").checked) { msg.textContent = "This tier is therapist-led: save it during a session with your therapist present."; return; }
-    if (screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheckin({ screen: "yes" }), Date.now() / 1000)[0]); msg.textContent = "Please do not run this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist."; return; }
-    if (screen !== "no") { msg.textContent = "Answer the screening question first."; return; }
+    if (screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); msg.textContent = "Recorded: this session continues under the clinician-led protocol; the clinician resumes practice."; return; }
+    if (screen !== "no") { msg.textContent = "Record the clinical screening result first."; return; }
   }
   const until = $("cueUntil").value ? new Date($("cueUntil").value + "T23:59:59").getTime() : null;
   const c = { id: "c" + Date.now().toString(36), content, person: "me", author: $("cueAuthor").value, tier, created_ms: Date.now(), expires_ms: until,

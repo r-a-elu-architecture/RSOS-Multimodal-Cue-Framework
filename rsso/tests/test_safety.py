@@ -41,9 +41,10 @@ SPINE_OK = ["A warm bath with soft music", "Golden light fills every cell", "I b
             "I see broadly and all", "Strength and calm together", "Hold the breath gently at the top for a moment",
             "Cool water on the face", "The lion stands in the sun", "I am at ease wherever I am",
             "Light flows down from above", "Three futures: driving, work, my goal", "Rest after work"]
-CHECKINS = [{}, {"now": "yes"}, {"after": "yes", "now": "no"}, {"sedative": "yes"}, {"practical": "yes"},
-            {"past": "yes"}, {"screen": "yes"}, {"distress": "7", "sleep_h": "5"}, {"distress": 3, "sleep_h": 3.5},
-            {"now": "skip", "after": "skip", "distress": ""}]
+CHECKS = [{}, {"clinical_result": "high"}, {"clinical_result": "moderate"}, {"clinical_result": "low"},
+          {"clinical_result": "none", "intensity": 3}, {"flags": ["medication"]}, {"flags": ["practical"]},
+          {"history": True}, {"intensity": "7", "sleep_h": "5"}, {"intensity": 3, "sleep_h": 3.5},
+          {"clinical_result": "other", "intensity": ""}, {"flags": ["medication", "practical"], "clinical_result": "high"}]
 DEEP = [[100, None, None, 0, "self_chosen"], [100, None, None, 1, "self_chosen"], [100, None, None, 0, "none"],
         [100, {"end_h": 80, "intensity": "intense"}, None, 1, "clinician_agreed"],
         [100, {"end_h": 40, "intensity": "intense"}, {"sleep_ok": True, "functioning_ok": True, "distress_at_baseline": True}, 1, "clinician_agreed"],
@@ -97,6 +98,20 @@ class TestRules(unittest.TestCase):
         st, r = S.observe(st, {"history_reference": True}, 5)
         self.assertEqual((st["mode"], r["transition"]), ("NORMAL", None))
 
+    def test_a8_clinical_result(self):
+        for res, mode in (("high", "CRISIS"), ("moderate", "STABILISE"), ("low", "NORMAL"), ("none", "NORMAL")):
+            st, r = S.observe(None, S.event_from_check({"clinical_result": res}))
+            self.assertEqual(st["mode"], mode, res)
+        self.assertEqual(S.MODE_NAME["CRISIS"], "Clinician-led protocol")
+
+    def test_a7_no_crisis_wording_in_texts(self):
+        import re
+        bad = re.compile(r"crisis|suicid|self-harm|harming yourself|helpline|emergency services|not wanting to live", re.I)
+        texts = list(S.MESSAGES.values()) + list(S.MODE_TEXT.values()) + list(S.MODE_NAME.values()) + list(S.LEVELS.values()) \
+            + [q["text"] for q in S.SELF_CHECK] + list(S.CLINICAL_FLAGS.values()) + [S.FOOTER]
+        for t in texts:
+            self.assertIsNone(bad.search(t), t)
+
     def test_a5_spine_flags(self):
         for t in SPINE_BAD:
             self.assertTrue(S.spine_flags(t), t)
@@ -111,7 +126,7 @@ class TestRules(unittest.TestCase):
         crisis, _ = S.observe(None, {"arrangements_for_after": True})
         d = C.decide(a, cst, safety=crisis)
         self.assertEqual(d["decision"], "block")
-        self.assertIn("CRISIS", d["reasons"][-1])
+        self.assertIn("Clinician-led protocol", d["reasons"][-1])
 
     def test_linx_rejects_spine_wording(self):
         p = {"schema": L.SCHEMA, "triggers": ["Take a cold plunge to reset", "the smell of smoke"]}
@@ -137,7 +152,7 @@ class TestParity(unittest.TestCase):
         decisions = [[a, cst, None, 0, sf] for a in ACTIONS for sf in (None, S.new_state(), crisis, stab)]
         routes = [[{"schema": L.SCHEMA, "triggers": [t]}, {}] for t in SPINE_BAD[:5] + SPINE_OK[:5]]
         inp = {"events": EVENTS, "sequences": SEQUENCES, "actions": ACTIONS, "allowed": allowed_cases,
-               "checkins": CHECKINS, "texts": SPINE_BAD + SPINE_OK, "deep": DEEP, "records": RECORDS,
+               "checks": CHECKS, "texts": SPINE_BAD + SPINE_OK, "deep": DEEP, "records": RECORDS,
                "decisions": decisions, "routes": routes}
         js = json.loads(subprocess.run([NODE, str(HERE / "js_safety.js")], input=json.dumps(inp), capture_output=True,
                                        text=True, check=True).stdout)
@@ -156,7 +171,7 @@ class TestParity(unittest.TestCase):
 
         py = {"screen": [S.screen(e) for e in EVENTS], "sequences": [seq(q) for q in SEQUENCES],
               "category": [S.category(a) for a in ACTIONS], "allowed": [S.allowed(s_, a) for s_, a in allowed_cases],
-              "checkin": [S.event_from_checkin(a) for a in CHECKINS], "spine": [S.spine_flags(t) for t in SPINE_BAD + SPINE_OK],
+              "check": [S.event_from_check(a) for a in CHECKS], "spine": [S.spine_flags(t) for t in SPINE_BAD + SPINE_OK],
               "deep": [S.may_start_deep_session(*a) for a in DEEP], "adjusted": S.adjusted_effect(RECORDS),
               "decide": [C.decide(a, s_, tl, n, sf) for a, s_, tl, n, sf in decisions],
               "route": [L.route(p, i) for p, i in routes]}
@@ -167,3 +182,19 @@ class TestParity(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestSiteWording(unittest.TestCase):
+    """A7 (spec/CONTAIN.md §10): no crisis, helpline or emergency-banner wording in the visible text of any page."""
+
+    def test_a7_pages(self):
+        import html
+        import re
+        bad = re.compile(r"crisis|suicid|self-harm|harming yourself|helpline|emergency services|not wanting to live|at risk of harm", re.I)
+        hits = []
+        for f in sorted((HERE.parents[1] / "docs").glob("*.html")):
+            t = f.read_text(encoding="utf-8")
+            t = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", t)
+            t = html.unescape(re.sub(r"<[^>]+>", " ", t))
+            hits += [f"{f.name}: {m.group(0)}" for m in bad.finditer(t)]
+        self.assertEqual(hits, [])

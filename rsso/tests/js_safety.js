@@ -11,7 +11,7 @@ let s = ""; process.stdin.on("data", d => (s += d)); process.stdin.on("end", () 
     r.push([st, res]); }); return r; });
   out.category = i.actions.map(a => S.category(a));
   out.allowed = i.allowed.map(([st, a]) => S.allowed(st, a));
-  out.checkin = i.checkins.map(a => S.eventFromCheckin(a));
+  out.check = i.checks.map(a => S.eventFromCheck(a));
   out.spine = i.texts.map(t => S.spineFlags(t));
   out.deep = i.deep.map(a => S.mayStartDeepSession(...a));
   out.adjusted = S.adjustedEffect(i.records);

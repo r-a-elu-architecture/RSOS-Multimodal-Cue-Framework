@@ -1,4 +1,4 @@
-"""Safety modes for people and agents (spec/CONTAIN.md §9, S1; rules from rsxv/AGENTS.md §3.1).
+"""Session states for people and agents (spec/CONTAIN.md §9 and §10; rules from rsxv/AGENTS.md §3.1).
 
 One rule set. The agent World (rsxv) and the person-facing pages (docs/js/safety.js, identical results, tested) use
 this module, so a rule changes in one place only. Rules here are fixed: no module, agent or model may edit them.
@@ -11,7 +11,10 @@ this module, so a rule changes in one place only. Rules here are fixed: no modul
                                  a clinician or the owner; leaving STABILISE or PRACTICAL_CRISIS is the person's choice
   MODE_ALLOWED / category / allowed
                                  which kinds of action each mode allows
-  CHECKIN / event_from_checkin   the structured check-in the pages ask instead of reading free text
+  MODE_NAME / LEVELS             what people read: Standard, Stabilisation, Paused: practical, Clinician-led protocol;
+                                 guidance levels self_guided, structured, clinician_led (§10)
+  SELF_CHECK / CLINICAL          the everyday self-check (intensity, sleep) and the clinician-entered screening result
+  event_from_check(answers)      either of them as a structured event
   spine_flags(text)              Spine wording rules: no release through intensity mechanisms (Jin), no population
                                  ranks about the person (Makoto)
   may_start_deep_session         deep processing gated on stability, not on a planned count
@@ -28,8 +31,7 @@ SEVERITY = {"NORMAL": 0, "STABILISE": 1, "PRACTICAL_CRISIS": 2, "CRISIS": 3}
 RECOVERY_H = {"mild": 0, "moderate": 24, "intense": 48, "highly_destabilising": 96}
 WEEKLY_CAP = {"self_chosen": 1, "clinician_agreed": 3}
 
-HELP = ("If you might act on these thoughts, contact local emergency services now. You can also reach a crisis line: "
-        "find one for your country at https://findahelpline.com.")
+FOOTER = "Research and development framework; not a medical device."
 
 
 def screen(event: dict) -> list[str]:
@@ -48,6 +50,10 @@ def screen(event: dict) -> list[str]:
     if (event.get("distress") if event.get("distress") is not None else 0) >= 7 or \
             (event.get("sleep_h") if event.get("sleep_h") is not None else 8) < 4:
         hits.append("unstable")
+    if event.get("clinical_result") == "high":       # §10: a practitioner's screening result, validated instrument
+        hits.append("clinical_high")
+    elif event.get("clinical_result") == "moderate":
+        hits.append("clinical_moderate")
     if event.get("history_reference") and "possible_crisis" not in hits:
         hits.append("history_check_in")             # a past crisis mentioned now: a gentle check-in, no mode change
     return list(dict.fromkeys(hits))
@@ -62,26 +68,26 @@ RESPONSES = {
     "intensity_protocol": ["block_protocol", "offer_ordinary_regulation"],
     "unstable": ["offer_stabilise_mode", "no_deep_processing_today"],
     "history_check_in": ["ask_how_they_are_now", "offer_contacts_without_escalation"],
+    "clinical_high": ["route_to_clinician_led_protocol", "notify_clinician_view", "pause_module_work"],
+    "clinical_moderate": ["offer_stabilise_mode", "no_deep_processing_today", "notify_clinician_view"],
 }
 
 MESSAGES = {
-    "possible_crisis": "Are you safe right now? Practice is paused, because what you said matters more than any "
-                       "exercise. " + HELP + " If you have a therapist or doctor, tell them today.",
-    "sedative_combination": "Alcohol or other drugs together with a prescribed sedative can slow or stop breathing. "
-                            "If you feel very sleepy or confused, or your breathing is slow or shallow, call "
-                            "emergency services now. Otherwise do not take more, and ask your prescriber or a "
-                            "pharmacist today. Practice is paused.",
-    "practical_crisis": "Losing work, a home or income is a crisis of its own. Practice is paused so you can deal "
-                        "with it: write down the one next step for today, and contact local social, housing or "
-                        "employment services, or someone you trust, to help with it.",
-    "intensity_protocol": "This uses heat or cold, pain, holding the breath or going without sleep to force a "
-                          "change. RSOS does not run that. Use ordinary regulation instead: slow breathing, "
-                          "warmth that is comfortable, rest.",
-    "unstable": "Today looks like a day for stabilising: high distress or very little sleep. No deep work today. "
-                "Stabilise mode offers only calming and practical steps; you can leave it when you choose.",
-    "history_check_in": "You mentioned a hard time in the past. How are you now? If any of it is close again, "
-                        "talk to someone you trust or a crisis line (https://findahelpline.com). Nothing else "
-                        "changes.",
+    "possible_crisis": "Self-guided practice is paused. The session continues inside a clinician-led protocol: the "
+                       "responsible clinician decides the next step and resumes practice.",
+    "sedative_combination": "Medication interaction flagged. Self-guided practice is paused until the prescribing "
+                            "clinician has reviewed it.",
+    "practical_crisis": "Practical circumstances flagged. Practice is paused so the next practical step comes first; "
+                        "resume when you choose.",
+    "intensity_protocol": "Intensity methods (temperature extremes, pain, extreme breath-holding, sleep loss) are "
+                          "outside RSOS. Use a regulation program instead.",
+    "unstable": "High intensity or short sleep: Stabilisation is suggested. Regulation programs only today; leave "
+                "Stabilisation when you choose.",
+    "history_check_in": "Earlier experience noted for the practitioner's review. Nothing changes in the session.",
+    "clinical_high": "Screening result: high. The session moves to the clinician-led protocol; the responsible "
+                     "clinician resumes practice.",
+    "clinical_moderate": "Screening result: moderate. Stabilisation: regulation programs only, no deep processing "
+                         "today; the practitioner is informed.",
 }
 
 MODE_ALLOWED = {
@@ -92,11 +98,21 @@ MODE_ALLOWED = {
     "CRISIS": {"crisis_response", "logging"},
 }
 
+MODE_NAME = {"NORMAL": "Standard", "STABILISE": "Stabilisation", "PRACTICAL_CRISIS": "Paused: practical",
+             "CRISIS": "Clinician-led protocol"}
 MODE_TEXT = {
-    "NORMAL": "Normal: everything the Spine allows.",
-    "STABILISE": "Stabilise: calming and practical steps only, no deep work. You can leave when you choose.",
-    "PRACTICAL_CRISIS": "Practical crisis: practical support and calming only. You can leave when you choose.",
-    "CRISIS": "Crisis: practice is paused; only crisis help. Leaving needs your clinician.",
+    "NORMAL": "Standard: every program the person's guidance level allows.",
+    "STABILISE": "Stabilisation: regulation programs and practical steps only, no deep processing. The person "
+                 "leaves it when they choose.",
+    "PRACTICAL_CRISIS": "Paused: practical. Practical steps and regulation only. The person resumes when they choose.",
+    "CRISIS": "Clinician-led protocol: self-guided practice is paused; the responsible clinician resumes it.",
+}
+LEVELS = {
+    "self_guided": "Everyday states (pressure, nerves, low energy, distraction): self-guided.",
+    "structured": "Recurring strong states, panic, difficult memories: with consent, self-guided or with a "
+                  "practitioner the person chooses (therapist, coach).",
+    "clinician_led": "Trauma processing, depression work and any acute risk to life: only inside a qualified "
+                     "clinician's protocol (including a private psychotherapist or psychiatrist).",
 }
 
 REGULATING = ("paced_breathing", "interrupt_only", "tier016_stillness", "tier012_breath_anchor")
@@ -126,7 +142,7 @@ def allowed(state: dict | None, action: dict) -> dict:
     if cat in MODE_ALLOWED[mode]:
         return {"ok": True, "mode": mode, "category": cat, "reason": ""}
     return {"ok": False, "mode": mode, "category": cat,
-            "reason": f"the safety mode is {mode}: {MODE_TEXT[mode]}"}
+            "reason": f"session state {MODE_TEXT[mode]}"}
 
 
 def _go(st: dict, mode: str, why: str, by: str, now: float) -> dict:
@@ -141,11 +157,11 @@ def observe(state: dict | None, event: dict, now: float = 0.0) -> tuple[dict, di
     st = copy.deepcopy(state or new_state())
     hits = screen(event)
     target = "NORMAL"
-    if "possible_crisis" in hits or "sedative_combination" in hits:
+    if "possible_crisis" in hits or "sedative_combination" in hits or "clinical_high" in hits:
         target = "CRISIS"
     elif "practical_crisis" in hits:
         target = "PRACTICAL_CRISIS"
-    elif "unstable" in hits:
+    elif "unstable" in hits or "clinical_moderate" in hits:
         target = "STABILISE"
     actions = list(dict.fromkeys(a for h in hits for a in RESPONSES[h]))
     rec = None
@@ -211,25 +227,25 @@ class SafetyState:
 
 
 # ---------------------------------------------------------------------------------------------- structured check-in
-CHECKIN = [
-    {"id": "now", "text": "Right now, are you having thoughts of harming yourself or of not wanting to live?"},
-    {"id": "after", "text": "Have you been putting things in order or making arrangements for after you are gone?"},
-    {"id": "sedative", "text": "Today, have you had alcohol or other drugs while taking a prescribed sedative "
-                               "(for example a sleeping pill, a benzodiazepine or an opioid)?"},
-    {"id": "practical", "text": "Are you losing your job, your home or all income right now?"},
-    {"id": "past", "text": "Have you had such thoughts in the past, even if they are not here now?"},
+SELF_CHECK = [
+    {"id": "intensity", "text": "Intensity of the state right now (0 none, 10 the most)", "kind": "scale"},
+    {"id": "sleep_h", "text": "Hours slept last night", "kind": "hours"},
 ]
+CLINICAL_RESULTS = ("none", "low", "moderate", "high")
+CLINICAL_FLAGS = {"medication": "Medication interaction (substances with a prescribed sedative)",
+                  "practical": "Practical circumstances (work, housing, income)"}
 
 
-def event_from_checkin(answers: dict) -> dict:
-    """answers: {now, after, sedative, practical, past: 'yes' | 'no' | 'skip', distress: 0-10, sleep_h, screen}.
-    'screen' is the older single screening question; a yes there counts as a self-harm signal."""
-    yes = lambda k: answers.get(k) == "yes"  # noqa: E731
-    ev = {"self_harm_signal": yes("now") or yes("screen"), "arrangements_for_after": yes("after"),
-          "substances": yes("sedative"), "sedative_prescribed": yes("sedative"), "job_loss": yes("practical"),
-          "history_reference": yes("past")}
-    if answers.get("distress") is not None and answers.get("distress") != "":
-        ev["distress"] = float(answers["distress"])
+def event_from_check(answers: dict) -> dict:
+    """answers: {intensity: 0-10, sleep_h, clinical_result: none|low|moderate|high, flags: [medication, practical],
+    history: bool}. The clinical fields are entered by the practitioner from a validated instrument of their choice."""
+    flags = set(answers.get("flags") or [])
+    ev = {"substances": "medication" in flags, "sedative_prescribed": "medication" in flags,
+          "job_loss": "practical" in flags, "history_reference": bool(answers.get("history"))}
+    if answers.get("clinical_result") in CLINICAL_RESULTS:
+        ev["clinical_result"] = answers["clinical_result"]
+    if answers.get("intensity") is not None and answers.get("intensity") != "":
+        ev["distress"] = float(answers["intensity"])
     if answers.get("sleep_h") is not None and answers.get("sleep_h") != "":
         ev["sleep_h"] = float(answers["sleep_h"])
     return ev

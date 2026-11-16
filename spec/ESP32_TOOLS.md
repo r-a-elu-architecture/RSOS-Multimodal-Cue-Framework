@@ -126,6 +126,25 @@ Consequential changes to §2 and §3 (no threshold changes):
   that the sketch has no global named `link`, has the F3 guard, and that `platformio.ini` pins GFX 1.6.1 for the
   display build.
 
+### 6.2 Amendment A2 (registered after E2, §7.2; before the emulator flag's code)
+
+- **§4 applies** (E2: Bluetooth start-up asserts in every emulated image). Q1–Q4 as registered. Q1 placement: in
+  `setup()`, right after the passkey is read or made (and after the existing "no passkey" return), before
+  `linkPolicy.begin` and `BLEDevice::init`. `removeAllBonds()` returns at once under the flag.
+  The stub check gains two builds with `-DRSOS_EMULATOR` (2.x and 3.x, no modules): 12 in all.
+- **Emulator settings (E1).** Emulator images are built with the board option `FlashMode=dio` (the emulated flash
+  refuses QIO, §7.2) and with `-DRSOS_EMULATOR`. QEMU runs with
+  `-global driver=timer.<chip>.timg,property=wdt_disable,value=true`. One flash file per chip is used for U1–U8 and
+  then, after the emulator is restarted on the same file, for U9; E4 runs on a fresh image.
+- **Images.** ESP32 on 3.3.12 and on 2.0.17; ESP32-C3 and -S3 on 3.2.1 (E1b). Each runs U1–U9 and U3b, then E4.
+- **U3 stays as registered** and is recorded with its result. A scratch run of a probe image showed that `STOP` sent
+  when nothing is playing answers `OK STOP`, which is what DEVICE_PROTOCOL and `rsos_core.cpp` specify; U3 was
+  written from BOARD_TEST T1, whose wording has the same imprecision. Added, not substituted:
+  **U3b** `LOAD 1 0.40`, `H 0 2000 0 1 0.40`, `START`, then after about 300 ms `STOP` → a `MOTOR … 0.00` line and a
+  line `STOPPED <t>`.
+- **BOARD_TEST T1** wording is corrected after results: `STOP` answers `STOPPED <t>` while a pattern plays and
+  `OK STOP` otherwise.
+
 ## 7. Results
 
 ### 7.1 Round 1: the unchanged sketch (dev 35d61d8), 30 builds — 0 passed

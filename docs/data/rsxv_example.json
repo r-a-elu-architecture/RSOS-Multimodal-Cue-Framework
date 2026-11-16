@@ -1,0 +1,29 @@
+{
+ "source": "rsxv/examples/dragon.rsxv",
+ "command": "RSX-V TIER 8 :: {DRAGON} :: (OVERRIDE)\nINTENT \"steady identity under pressure\" <- V1 V8 V14\nGOAL agency>=+1 AND distress<=-1 AND drift<=+0\nSENSE EEG HRV DISTRESS\nLAWS InteractionMatrix ChronoGate GhostPass ConsentStack\nWINDOW 07:00-22:00\n@Vector0:NullSafe\nGATE\n  @Vector7:EthicsContain(CONTAIN)\n  @Vector13:SymbolicDriftCheck\nPHASE settle UNTIL arousal<=0.4 AND distress<=-1 MIN 45s MAX 150s\n  @Vector3:BreathOverride(6/min)\n  @Vector4:PostureShift\n  @Vector6:EmotionalLock(Calm)\nPHASE expand IF arousal<=0.55 ELSE settle UNTIL C2>=0.5 AND C3>=0.5 MIN 20s MAX 90s\n  @Vector5:MemoryRecall(Archetype=LION)\n  @Vector18:AssociativeExpand(LION, 10)\n  @Vector8:CompressionRun(CM1)\n  @Vector10:ArchetypeMerge(LION+DRAGON)\nPHASE rebuild IF arousal<=0.6 AND distress<=6 ELSE settle UNTIL C7>=0.5 AND C4>=0.5 MIN 20s MAX 120s\n  @Vector1:IdentityRebuild\n  @Vector9:FutureProjection(3Years)\n  @Vector11:DeviceOutput(AR, symbol=dragon)\nPHASE integrate UNTIL C9>=0.4 AND C10>=0.4 AND C11>=0.4 MIN 20s MAX 90s\n  @Vector19:MetaObserve\n  @Vector21:SelfRevise\n  @Vector20:IntegrateAll\n  @Vector14:RecursiveLawApply\nCLOSE\n  @Vector15:MemoryUpdate(MEMSTACK)\n  @Vector17:EchoPropagationStop\n  @Vector16:SymbolicCommandExport(RSX) -> NEXT",
+ "cue": "PROTOCOL dragon \"steady identity under pressure\"\nVERSION 1.0\nSAFETY max_per_hour=6 max_per_day=20 refractory=90s haptic_max=0.4\nBREATH inhale=4s exhale=6s\n\nTIER 1 DRAGON {\n  V \"Deep red light turning to gold\"\n  A \"I hold the storm and breathe\"\n  K \"Slow heat rising along the spine\"\n}\nTIER 2 LION {\n  V \"A warm golden light\"\n  A \"I lead, calmly\"\n  K \"Steady strength in the chest\"\n}\nFUTURES \"Your future self in 3 years\" | \"A real moment where you will need this\"\n\nPHASE gate dur=5s {\n  MARK \"lin:-|v7:EthicsContain\"\n  MARK \"lin:-|v13:SymbolicDriftCheck\"\n  FEEL \"Check in: are you ready to begin?\"\n}\nREPEAT 15 {\n  PHASE settle_in breath=inhale {\n    MARK \"lin:-|v3:BreathOverride\"\n    HAPTIC on=300ms off=600ms x=4 amp=0.3\n    FEEL \"Breathe in slowly, out longer\"\n    MARK \"lin:-|v4:PostureShift\"\n    GESTURE \"Spine tall, shoulders soft\"\n    MARK \"lin:-|v6:EmotionalLock\"\n    FEEL \"Let calm settle in the chest\"\n  }\n  PHASE settle_out breath=exhale {\n    FEEL \"Breathe out\"\n  }\n}\nREPEAT 9 {\n  PHASE expand dur=10s {\n    MARK \"lin:-|v5:MemoryRecall\"\n    ACTIVATE LION\n    MARK \"lin:-|v18:AssociativeExpand\"\n    SEE \"Let the image open into everything it connects to\"\n    MARK \"lin:-|v8:CompressionRun\"\n    SEE \"Fold it all into one symbol\"\n    MARK \"lin:-|v10:ArchetypeMerge\"\n    ACTIVATE LION\n    ACTIVATE DRAGON\n    SEE \"The two become one form\"\n  }\n}\nREPEAT 12 {\n  PHASE rebuild dur=10s {\n    MARK \"lin:-|v1:IdentityRebuild\"\n    SAY \"This is who I am becoming\"\n    MARK \"lin:-|v9:FutureProjection\"\n    FOR FUTURE {\n      SEE \"$future\"\n      WAIT 2s\n    }\n    MARK \"lin:-|v11:DeviceOutput\"\n    SEE \"dragon\"\n  }\n}\nREPEAT 9 {\n  PHASE integrate dur=10s {\n    MARK \"lin:-|v19:MetaObserve\"\n    SEE \"Watch yourself from a calm distance\"\n    MARK \"lin:-|v21:SelfRevise\"\n    SAY \"I choose what to keep\"\n    MARK \"lin:-|v20:IntegrateAll\"\n    FEEL \"Let every part settle into one\"\n    MARK \"lin:-|v14:RecursiveLawApply\"\n    SAY \"What worked, I keep\"\n  }\n}\nREPEAT 2 {\n  PHASE close dur=10s {\n    MARK \"lin:-|v15:MemoryUpdate\"\n    MARK \"lin:-|v17:EchoPropagationStop\"\n    FEEL \"Let it end here\"\n    MARK \"lin:-|v16:SymbolicCommandExport\"\n  }\n}",
+ "device": [
+  "LOAD 15 0.40",
+  "H 5000 300 600 4 0.30",
+  "H 15000 300 600 4 0.30",
+  "H 25000 300 600 4 0.30",
+  "H 35000 300 600 4 0.30",
+  "H 45000 300 600 4 0.30",
+  "H 55000 300 600 4 0.30",
+  "H 65000 300 600 4 0.30",
+  "H 75000 300 600 4 0.30",
+  "H 85000 300 600 4 0.30",
+  "H 95000 300 600 4 0.30",
+  "H 105000 300 600 4 0.30",
+  "H 115000 300 600 4 0.30",
+  "H 125000 300 600 4 0.30",
+  "H 135000 300 600 4 0.30",
+  "H 145000 300 600 4 0.30"
+ ],
+ "device_total": 16,
+ "timeline": {
+  "phases": 63,
+  "events": 488,
+  "seconds": 475.0
+ }
+}

@@ -59,7 +59,23 @@ def main():
             expect("S6.5 map fits a phone screen", pg.evaluate("() => { const m = document.getElementById('map').getBoundingClientRect(); return m.width <= window.innerWidth; }"), True)
             ctx.close()
 
-        steps = [("Step 6", step6)]
+        def step7():
+            ctx, pg = page("/rsxv.html"); pg.wait_for_timeout(500)
+            got = pg.evaluate("() => ['fCommand', 'fCue', 'fDevice'].map(id => document.getElementById(id).textContent.split('\\n')[0])")
+            expect("S7.2 three forms shown", got, ["RSX-V TIER 8 :: {DRAGON} :: (OVERRIDE)", 'PROTOCOL dragon "steady identity under pressure"', "LOAD 15 0.40"])
+            expect("S7.2 status and links", ["none comes from people" in pg.inner_text("body"), pg.evaluate("() => ['agents.html', 'results.html'].every(h => !!document.querySelector('a[href=\"' + h + '\"]'))")], [True, True])
+            if SHOTS:
+                pg.screenshot(path=str(SHOTS / "rsxv_page.png"), full_page=False)
+            ctx.close()
+            ctx, pg = page("/")
+            pg.click('nav a[href="rsxv.html"]'); pg.wait_for_timeout(500)
+            expect("S7.1/S7.4 menu entry from the home page", [pg.url.endswith("rsxv.html"), pg.evaluate("document.querySelector('nav a[aria-current]').textContent")], [True, "RSX-V"])
+            ctx.close()
+            ctx, pg = page("/")
+            expect("S7.1 home page names RSX-V", "RSX-V, above RSX" in pg.inner_text("body"), True)
+            ctx.close()
+
+        steps = [("Step 6", step6), ("Step 7", step7)]
         for name, fn in steps:
             try:
                 fn()

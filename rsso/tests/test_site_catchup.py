@@ -1,6 +1,7 @@
 """spec/SITE_CATCHUP.md: repository checks for Steps 6 to 8 (S6.4, S6.5, S7.3, S8.6)."""
 import pathlib
 import re
+import sys
 import unittest
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
@@ -38,6 +39,30 @@ class Step6(unittest.TestCase):
         for s in ("Watchdog and CONTAIN", "Paused: practical", "Clinician-led protocol", "docs/js/outlet.js", "docs/js/lineage.js",
                   '["ai", "rsxv"], ["rsxv", "program"]', "spec/BLE_PAIRING.md"):
             self.assertIn(s, SYSTEM)
+
+
+
+class Step7(unittest.TestCase):
+    def test_example_is_the_real_bridge_output(self):   # S7.3
+        import json
+        import subprocess
+        d = json.loads((REPO / "docs/data/rsxv_example.json").read_text(encoding="utf-8"))
+        self.assertEqual(d["command"], (REPO / "rsxv/examples/dragon.rsxv").read_text(encoding="utf-8").rstrip("\n"))
+        self.assertEqual(d["cue"], (REPO / "rsxv/examples/dragon.cue.rsx").read_text(encoding="utf-8").rstrip("\n"))
+        r = subprocess.run([sys.executable, "-c", "import json; from rsxv.site_example import build; print(json.dumps(build()))"],
+                           cwd=REPO / "rsxv", capture_output=True, text=True, check=True)
+        self.assertEqual(json.loads(r.stdout), d)
+
+    def test_page_listed_everywhere(self):   # S7.1, S7.4
+        self.assertIn('"rsxv.html"', (REPO / "docs/sw.js").read_text(encoding="utf-8"))
+        self.assertIn("rsxv.html", (REPO / "docs/sitemap.xml").read_text(encoding="utf-8"))
+        for p in (REPO / "docs").glob("*.html"):
+            s = p.read_text(encoding="utf-8")
+            if "<nav" in s:
+                self.assertIn('href="rsxv.html"', s, p.name)
+        page = (REPO / "docs/rsxv.html").read_text(encoding="utf-8")
+        for s in ("js/outlet.js", "not a medical device", "none comes from people"):
+            self.assertIn(s, page)
 
 
 if __name__ == "__main__":

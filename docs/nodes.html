@@ -230,6 +230,8 @@ header.top nav a{font-size:.88rem}
 "use strict";
 const $ = id => document.getElementById(id);
 const N = RSOSNodes;
+const PIN_SET = () => { try { return !!(JSON.parse(localStorage.getItem("rsos.clinical") || "{}") || {}).pin_hash; } catch (e) { return false; } };   // FIXES_R2 R2-1
+const NOPIN = "The screening question appears once the responsible clinician has set a clinician PIN on the Safety page; until then clinician-led work stays held.";
 const SCREEN = "Did today's clinical screening (the practitioner's validated instrument) indicate elevated risk?";
 const DEVICES = [["V", "Screen or VR"], ["A", "Earbuds"], ["K", "Vibrating wristband"], ["O", "Scent module"], ["G", "Taste cue"], ["hr", "Heart-rate strap or watch"], ["eeg", "EEG headset"]];
 const CH = [["V", "Visual", "What you see: the sphere, its colour, the image"], ["A", "Auditory", "The sound, melody or song"], ["K", "Kinesthetic", "The feeling and posture"],
@@ -404,6 +406,7 @@ const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.cu
 $("save").addEventListener("click", () => {
   if (!current || !current.plan.nodes.length) return say("Add a node first.");
   const p = current.plan;
+  if (!$("ledBox").hidden && CLINV && !PIN_SET()) return say(NOPIN);
   if (!$("ledBox").hidden && CLINV) {   // the screening question exists only with the clinical vocabulary (FIXES_R1 S-2)
     const screen = (document.querySelector('input[name="screen"]:checked') || {}).value;
     if (screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: screen, q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
@@ -490,7 +493,8 @@ for (const k of [...Object.keys(N.ARCHETYPES), ""]) {
   const b = el("button", "pick", k ? (N.ARCHETYPES[k].glyph ? N.ARCHETYPES[k].glyph + " " : "") + k.charAt(0) + k.slice(1).toLowerCase() + (k === "OBSERVER" ? " (no ego)" : "") : "Your own node");
   b.type = "button"; b.addEventListener("click", () => { const c = nodeCard(k); c.scrollIntoView({ behavior: "smooth", block: "start" }); }); $("picks").appendChild(b);
 }
-$("screenQ").textContent = SCREEN;
+$("screenQ").textContent = PIN_SET() ? SCREEN : NOPIN;
+document.querySelector('input[name="screen"]').closest(".chips").style.display = PIN_SET() ? "" : "none";
 $("intake").addEventListener("input", update);
 fetch("ugcl/originals.json?v=1.13.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => { ORIG = d.glyphs; })).catch(() => {}).finally(() => {
   const saved = store.get("rsos.plan", null);

@@ -444,11 +444,14 @@ function recompile() {
   }
   drawTrack(); drawRecordings();
 }
+let voiceChosen = false;   // set when the person picks a voice (FIXES_R2)
 function saveSettings() {
   const s = {}; for (const k of ["f0", "f1", "f2", "inhale", "exhale"]) s[k] = $(k).value;
   s.futuresEdited = futuresEdited;
   for (const k of ["optVoice", "optTone", "optVib"]) s[k] = $(k).checked;
-  if ($("voice").value) { s.voice = $("voice").value; s.voice_v = 2; }   // voice_v 2: chosen after American became the default
+  const prev = store.get("rsos.settings", {});
+  if (voiceChosen && $("voice").value) { s.voice = $("voice").value; s.voice_v = 2; }        // FIXES_R2: only a voice the person chose
+  else if (prev.voice_v === 2 && prev.voice) { s.voice = prev.voice; s.voice_v = 2; }
   store.set("rsos.settings", s);
 }
 function drawTrack() {
@@ -680,6 +683,8 @@ function safetyLog(action, d) {
   log.push({ at: Date.now(), action: action.kind + (action.protocol ? " " + action.protocol : ""), decision: d.decision, reasons: d.reasons });
   store.set("rsos.contain.log", log.slice(-200));
 }
+const PIN_SET = () => { try { return !!(JSON.parse(localStorage.getItem("rsos.clinical") || "{}") || {}).pin_hash; } catch (e) { return false; } };   // FIXES_R2 R2-1
+const NOPIN = "The screening question appears once the responsible clinician has set a clinician PIN on the Safety page; until then clinician-led work stays held.";
 const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};   // FIXES_R1 W-2, P-2
 const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());
 // What the run carries (FIXES_R1 W-4, S-4b): a clinician-led plan's observer node is clinician-led memory work; a program
@@ -694,7 +699,8 @@ function runFlags() {
   return f;
 }
 const clinLedRun = () => !!timeline && RSOSWatchdog.level(Object.assign({ kind: "run", protocol: timeline.protocol }, runFlags())) === "clinician_led";
-function updateClinRun() { $("clinRun").hidden = !(clinLedRun() && DOMAIN().max_level === "clinician_led"); $("clinRunQ").textContent = RSOSConsent.SCREENING_QUESTION; }
+function updateClinRun() { $("clinRun").hidden = !(clinLedRun() && DOMAIN().max_level === "clinician_led"); $("clinRunQ").textContent = PIN_SET() ? RSOSConsent.SCREENING_QUESTION : NOPIN;
+  document.querySelector('input[name="clinRunScreen"]').closest(".row").style.display = PIN_SET() ? "" : "none"; }
 const planProtocols = () => { const pl = store.get("rsos.plan", null); return pl && pl.nodes ? pl.nodes.map((n, i) => "plan:" + i).concat([$("program").value, timeline ? timeline.protocol : ""]) : null; };   // FIXES_R1 W-6
 // The Watchdog (spec/WATCHDOG.md) decides; CONTAIN is asked inside it. "ask" proceeds here because the person confirms
 // by pressing start or by accepting the offer; "hold" never proceeds.
@@ -830,7 +836,7 @@ $("weeklyBtn").addEventListener("click", askWeekly);
 $("saveSnap").addEventListener("click", saveSnapshot);
 $("loadSnapBtn").addEventListener("click", () => $("loadSnap").click());
 $("loadSnap").addEventListener("change", e => { if (e.target.files[0]) loadSnapshot(e.target.files[0]); e.target.value = ""; });
-$("voice").addEventListener("change", saveSettings);
+$("voice").addEventListener("change", () => { voiceChosen = true; saveSettings(); });
 $("testVoice").addEventListener("click", () => { const t = sayTexts()[0] || "I move, I act"; const was = $("optVoice").checked; $("optVoice").checked = true; speak(t); $("optVoice").checked = was; });
 if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; } else loadVoices();
 // ---------- heart-rate trigger (AUG) ----------
@@ -889,14 +895,15 @@ function anchorOffer() {
   });
   store.set("rsos.gate.history", hist);
   if (!best) return false;
-  // Automatic firing passes the Watchdog's firing rules (FIXES_R1 W-5): consent and two or more distinct signals,
-  // otherwise it becomes an offer.
-  if (best.mode === "auto") {
+  // Every anchor offer asks the Watchdog (FIXES_R1 W-5, FIXES_R2 R2-3): hold means no offer at all; automatic firing
+  // needs consent and two or more distinct signals, otherwise it becomes an offer the person confirms.
+  {
     const s = detector && detector.state, sig = [];
     if (s && isFinite(s.hr) && isFinite(s.base_hr) && s.hr > s.base_hr) sig.push("heart_rate");
     if (s && isFinite(s.rmssd) && isFinite(s.base_rmssd) && s.rmssd < s.base_rmssd) sig.push("hrv");
-    const wd = RSOSGuard.ask({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: true, signals: sig }, DOMAIN());
-    if (wd.decision !== "allow") best.mode = "suggest";
+    const wd = RSOSGuard.ask({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: best.mode === "auto", signals: sig }, DOMAIN());
+    if (wd.decision === "hold") return false;
+    if (best.mode === "auto" && wd.decision !== "allow") best.mode = "suggest";
   }
   const au = store.get("rsos.gate.audit", []);
   RSOSGate.audit(au, t, "device", best.mode === "auto" ? "fired" : "offered", best.a.name, "allow", [], best.flag);
@@ -1104,7 +1111,8 @@ function cueTierChanged() {
   if (led) { $("cueAuthor").value = "therapist"; }
 }
 $("cueTier").addEventListener("change", cueTierChanged);
-$("cueScreenQ").textContent = RSOSConsent.SCREENING_QUESTION;
+$("cueScreenQ").textContent = PIN_SET() ? RSOSConsent.SCREENING_QUESTION : NOPIN;
+document.querySelector('input[name="cueScreen"]').closest(".row").style.display = PIN_SET() ? "" : "none";
 $("cueSave").addEventListener("click", () => {
   const msg = $("cueMsg"); msg.textContent = "";
   const content = $("cueText").value.trim();
@@ -1114,6 +1122,7 @@ $("cueSave").addEventListener("click", () => {
   const screen = (document.querySelector('input[name="cueScreen"]:checked') || {}).value;
   // Programmed cues ask the Watchdog (FIXES_R1 W-6, S-2): clinician-led tiers need the clinician rule and a domain that allows them.
   const led = !!t && t.mode === "therapist-led";
+  if (led && CLINV && !PIN_SET()) { msg.textContent = NOPIN; return; }
   const wd = RSOSGuard.ask({ kind: "cue", protocol: "cue:" + (tier || "none"), programmed: true, therapist_led: led, source: $("cueAuthor").value === "therapist" ? "practitioner" : "person" },
     Object.assign({ clinician_present: led && $("cueTherapist").checked, screening_recorded: led && CLINV && screen === "no" }, DOMAIN()));
   if (led && CLINV && screen === "yes") { /* recorded below */ } else if (!RSOSGuard.ok(wd)) { msg.textContent = "Held by the Watchdog: " + RSOSGuard.say(wd); return; }

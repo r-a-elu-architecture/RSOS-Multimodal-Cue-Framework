@@ -18,6 +18,9 @@ CHROME = sys.argv[2] if len(sys.argv) > 2 else "/usr/bin/google-chrome"
 CRISIS_STATE = "() => { const S = RSOSSafety; localStorage.setItem('rsos.safety', JSON.stringify(S.observe(S.newState(), S.eventFromCheck({clinical_result: 'high'}), Date.now()/1000)[0])); }"
 
 
+SETPIN = "() => { const c = JSON.parse(localStorage.getItem('rsos.clinical') || '{}'); c.pin_salt = 'ab'; c.pin_hash = RSOSWatchdog.sha256('ab:4826'); localStorage.setItem('rsos.clinical', JSON.stringify(c)); }"   # the clinician sets a PIN first (FIXES_R2 R2-1)
+
+
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a):
         pass
@@ -92,6 +95,7 @@ def main():
         # W-3: clinician-led THERA session: screening on the start panel; steps locked; yes closes
         ctx = b.new_context(); pg = page(ctx)
         pg.goto(f"{base}/therapist.html?profile=clinical"); pg.wait_for_timeout(600)
+        pg.evaluate(SETPIN); pg.reload(); pg.wait_for_timeout(600)
         pg.check('input[name="proto"][value="trauma_observer"]'); pg.check("#present"); pg.click("#begin"); pg.wait_for_timeout(300)
         out["W3_no_screen"] = pg.inner_text("#msg")
         pg.check('input[name="startScreen"][value="no"]'); pg.click("#begin"); pg.wait_for_timeout(400)

@@ -36,11 +36,12 @@ git checkout dev
 ./scripts/check_all.sh                     # every suite, conformance, generated files unchanged
 (cd rsxv && python3 -m pytest -q tests)    # RSX-V agent layer
 python3 -m pytest -q rsso/tests/test_safety.py rsso/tests/test_profiles.py rsso/tests/test_watchdog.py \
-  rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py
+  rsso/tests/test_trial_loop.py rsso/tests/test_fixes_r1.py rsso/tests/test_fixes_r2.py
 python3 scripts/check_profiles.py docs     # browser acceptance (needs Playwright and Chrome)
 python3 scripts/check_watchdog.py docs
 python3 scripts/check_trial_loop.py docs
 python3 scripts/check_fixes_r1.py docs
+python3 scripts/check_fixes_r2.py docs
 ```
 
 ## 3. Review checklist (every step)
@@ -156,12 +157,32 @@ Review status: **awaiting review**.
 ### Fix pass R1 — findings of the first independent review
 
 Review: branch `review/interim`, commit 2b2cc3c (reviewed fcc1b36). Registration: `spec/FIXES_R1.md` (6ed0f75).
-All 3 blockers and every "should fix" item are fixed; notes are fixed or recorded. WATCHDOG §6 is withdrawn. Late spec
+The repeat review (`review/r2`, 557c3fa) found that two of these were not really fixed on the pages (the PIN could be
+set by Resume; guard.js dropped the Workplace memory-work setting) and five smaller gaps; see Fix pass R2. WATCHDOG §6 is withdrawn. Late spec
 edits recorded (PROFILES §4, WATCHDOG §6). Voice: one American-English voice on every page (9b551d9).
 Tests: `rsso/tests/test_fixes_r1.py` (fail on fcc1b36, pass now), `scripts/check_fixes_r1.py` (page scenarios).
 Decision flagged to the owner: the node studio's "low energy or mood" concern stays structured; the THERA low-mood
 session is clinician-led (FIXES_R1 W-9).
 Review status: **awaiting the repeat review (R5)**, which also covers Step 3.
+
+### Fix pass R2 — findings of the repeat review
+
+Review: branch `review/r2`, commit 557c3fa (reviewed 6de0315). Registration: `spec/FIXES_R2.md` (e408934), which also
+amends WATCHDOG §2 and W3.
+- R2-1 PIN: Resume never sets a PIN; no PIN can be set during the clinician-led protocol (except the logged
+  older-data path through Record result); screening questions appear only once a PIN exists; five wrong PINs lock it
+  for 15 minutes.
+- R2-2 guard.js passes `memory_work_allowed` (and a test compares its keys with the Watchdog's).
+- R2-3 every anchor offer asks the Watchdog: hold means no offer.
+- R2-4 plan membership: by design it cannot hold in the player (every offer is the person's selection or a plan node);
+  it applies to agents and devices proposing other programs.
+- R2-6 trial evidence only when a code was played; R2-7 MEMSTACK/CM1 computed with and without trials (this held
+  before too; the finding was the test's strength).
+- R2-8 notes: sham seeds normalised; trials scope opt-in; voice saved only when chosen; icon links on six pages that
+  lacked them (browsers asked for a missing favicon).
+Tests: `rsso/tests/test_fixes_r2.py`, `scripts/check_fixes_r2.py`; the Watchdog and R1 browser checks now set a
+clinician PIN first, as a clinician would.
+Review status: **awaiting review**.
 
 ## 5. Review findings
 

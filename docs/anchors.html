@@ -191,7 +191,7 @@ function flash(color) {
   const f = $("flash"); f.style.background = "radial-gradient(circle at 50% 45%, " + color + "55, transparent 60%)";
   f.style.opacity = 1; setTimeout(() => { f.style.opacity = 0; }, 900);
 }
-function speak(text) { RSOSVoice.speak(text, { rate: 0.9 }); }
+function speak(text) { if (window.RSOSVoice) RSOSVoice.speak(text, { rate: 0.9 }); }
 function play(a, marks) { flash(a.channels.light || "#e8b04a"); return UGCL.feel(a.code, { marks }); }
 
 function curve(s, light) {

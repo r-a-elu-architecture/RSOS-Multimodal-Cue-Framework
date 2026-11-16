@@ -43,7 +43,7 @@ def main():
             ctx = b.new_context()
             pg = ctx.new_page()
             pg.on("pageerror", lambda e, p=prof: errs.append(f"{p}: {e}"))
-            pg.on("console", lambda m, p=prof: errs.append(f"{p} console: {m.text}") if m.type == "error" and "Failed to load resource" not in m.text else None)   # FIXES_R1 P-6
+            pg.on("console", lambda m, p=prof: errs.append(f"{p} console: {m.text}") if m.type == "error" and "net::ERR_" not in m.text else None)   # FIXES_R2: only blocked network requests are ignored   # FIXES_R1 P-6
             n = 0
             for name in PAGES:
                 pg.goto(f"{base}/{name}.html?profile={prof}")

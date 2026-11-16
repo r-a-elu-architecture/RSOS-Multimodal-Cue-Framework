@@ -17,6 +17,9 @@ DOCS = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "docs"
 CHROME = sys.argv[2] if len(sys.argv) > 2 else "/usr/bin/google-chrome"
 
 
+SETPIN = "() => { const c = JSON.parse(localStorage.getItem('rsos.clinical') || '{}'); c.pin_salt = 'ab'; c.pin_hash = RSOSWatchdog.sha256('ab:4826'); localStorage.setItem('rsos.clinical', JSON.stringify(c)); }"   # the clinician sets a PIN first (FIXES_R2 R2-1)
+
+
 class Quiet(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a):
         pass
@@ -25,6 +28,9 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 def node_plan(pg, base, profile):
     """Build a clinician-led plan in the node studio (difficult memories + Observer node, clinician present, screening no)."""
     pg.goto(f"{base}/nodes.html?profile={profile}")
+    pg.wait_for_timeout(400)
+    pg.evaluate(SETPIN)
+    pg.reload()
     pg.wait_for_timeout(500)
     pg.locator("button.pick", has_text="(no ego)").first.click()
     pg.locator('#concerns input[value="ptsd"]').check()
@@ -40,6 +46,9 @@ def node_plan(pg, base, profile):
 
 def session(pg, base, profile, proto="trauma_observer"):
     pg.goto(f"{base}/therapist.html?profile={profile}")
+    pg.wait_for_timeout(400)
+    pg.evaluate(SETPIN)
+    pg.reload()
     pg.wait_for_timeout(500)
     pg.check(f'input[name="proto"][value="{proto}"]')
     pg.check("#present")

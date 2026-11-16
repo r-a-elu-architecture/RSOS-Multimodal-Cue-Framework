@@ -60,7 +60,7 @@ class Bridge(unittest.TestCase):
         for design in T.DESIGNS:
             tr = T.new_trial(design, 2, 11, "t", 0)
             for k in range(len(tr["schedule"])):
-                s = T.record(tr, 4, 6, {}, k)
+                s = T.record(tr, 4, 6, {}, k, {"code_kind": "x", "code": "..-"})   # a code was played (FIXES_R2 R2-6)
                 ev = T.evidence(tr, s)
                 if design == "anchor_vs_sham":
                     self.assertEqual(ev["probe"], {"ts": k, "kind": "cue" if s["arm"] == "anchor" else "sham", "calm_before": 4, "calm_after": 6})

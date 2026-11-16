@@ -319,8 +319,11 @@ function setup() {
   notePlan(); startScreenBox();
 }
 // A clinician-led session starts only with a screening answer given here (FIXES_R1 W-3; replaces the withdrawn WATCHDOG §6).
+const PIN_SET = () => { try { return !!(JSON.parse(localStorage.getItem("rsos.clinical") || "{}") || {}).pin_hash; } catch (e) { return false; } };   // FIXES_R2 R2-1
+const NOPIN = "The screening question appears once the responsible clinician has set a clinician PIN on the Safety page; until then clinician-led work stays held.";
 const LED_IDS = id => !!(P[id] && (P[id].therapist_led || id === "low_mood"));
-function startScreenBox() { const c = document.querySelector('input[name="proto"]:checked'); $("startScreen").hidden = !(c && LED_IDS(c.value)); $("startScreenQ").textContent = RSOSConsent.SCREENING_QUESTION; }
+function startScreenBox() { const c = document.querySelector('input[name="proto"]:checked'); $("startScreen").hidden = !(c && LED_IDS(c.value)); $("startScreenQ").textContent = PIN_SET() ? RSOSConsent.SCREENING_QUESTION : NOPIN;
+  document.querySelectorAll('input[name="startScreen"]').forEach(i => { i.closest("label").style.display = PIN_SET() ? "" : "none"; }); }
 function notePlan() {
   const p = plan();
   $("planNote").innerHTML = "";

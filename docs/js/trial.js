@@ -98,14 +98,16 @@
   const SHAM_POOL = ["-..-", ".-.-", "--..", "-.-.", "..--"];
   function shamCode(trial, i, anchorCode) {
     const pool = SHAM_POOL.filter(c => c !== anchorCode);
-    const rng = new Rng((Math.trunc(Number(trial.seed) || 0) + 7919 * (Math.trunc(i) + 1)) % 4294967296);
+    const M = 4294967296, v = (Math.trunc(Number(trial.seed) || 0) + 7919 * (Math.trunc(i) + 1)) % M;
+    const rng = new Rng((v + M) % M);   // FIXES_R2 R2-8: the same non-negative seed as Python
     rng.u();
     return pool[Math.floor(rng.u() * pool.length)];
   }
   function evidence(trial, session) {
     const d = trial.design, arm = session.arm, ts = session.ts === undefined ? 0 : session.ts;
-    if (d === "anchor_vs_sham") return { probe: { ts, kind: arm === "anchor" ? "cue" : "sham", calm_before: session.before, calm_after: session.after }, use: null };
-    if ((d === "cue_vs_none" && arm === "cue") || d === "auto_vs_manual") return { probe: null, use: { ts, during_stress: true } };
+    const played = !!((session.detail || {}).code);   // FIXES_R2 R2-6
+    if (d === "anchor_vs_sham" && played) return { probe: { ts, kind: arm === "anchor" ? "cue" : "sham", calm_before: session.before, calm_after: session.after }, use: null };
+    if ((d === "cue_vs_none" && arm === "cue" && played) || d === "auto_vs_manual") return { probe: null, use: { ts, during_stress: true } };
     return { probe: null, use: null };
   }
 

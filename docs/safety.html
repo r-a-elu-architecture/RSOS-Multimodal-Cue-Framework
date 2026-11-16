@@ -140,7 +140,7 @@ header.top nav a{font-size:.88rem}
     <div id="clinBox" style="display:none">
       <p><label>Practitioner <input id="clinName" placeholder="Name"></label> &nbsp; <label>Instrument <input id="clinInst" placeholder="e.g. C-SSRS screener"></label> &nbsp; <label>Result <select id="clinRes"><option value="">—</option><option value="none">none</option><option value="low">low</option><option value="moderate">moderate</option><option value="high">high</option></select></label></p>
       <p><label><input type="checkbox" id="clinMed"> Medication interaction</label> &nbsp; <label><input type="checkbox" id="clinPrac"> Practical circumstances</label> &nbsp; <label><input type="checkbox" id="clinHist"> Earlier experience to review</label> &nbsp; <button class="btn" id="clinSave">Record result</button></p>
-      <p id="pinRow"><label>Clinician PIN <input id="clinPin" type="password" inputmode="numeric" autocomplete="off" style="width:8em"></label> <span class="hint" id="pinSay"></span></p>
+      <p id="pinRow"><label>Clinician PIN <input id="clinPin" type="password" inputmode="numeric" autocomplete="off" style="width:8em"></label> <button class="btn" id="pinSet" type="button">Set PIN</button> <span class="hint" id="pinSay"></span></p>
       <p id="clinResume" style="display:none"><label><input type="checkbox" id="clinOk"> I am the responsible clinician and resume self-guided practice</label> <button class="btn" id="clinGo">Resume</button></p>
     </div>
     <table id="sfHist" style="margin-top:12px"><thead><tr><th>When</th><th>From</th><th>To</th><th>Why</th><th>By</th></tr></thead><tbody></tbody></table>
@@ -341,21 +341,35 @@ draw();
   $("clinOn").addEventListener("change", () => { store.set("rsos.clinical", Object.assign(store.get("rsos.clinical", {}), { on: $("clinOn").checked })); if (PR && PR.current() === "research") location.reload(); else draw(); });
   // Clinician PIN (FIXES_R1 S-1): a salted SHA-256 hash kept on this device. A local barrier, not authentication.
   const pinHash = (salt, pin) => RSOSWatchdog.sha256(salt + ":" + pin);
-  const pinOk = () => { const c = store.get("rsos.clinical", {}); return !!c.pin_hash && pinHash(c.pin_salt, $("clinPin").value) === c.pin_hash; };
-  function ensurePin() {
+  // FIXES_R2 R2-1: five wrong PINs lock it for 15 minutes; a PIN is never set by Resume, and never set while the
+  // clinician-led protocol is active (except the logged path for older data, through Record result).
+  function pinOk() {
+    const c = store.get("rsos.clinical", {});
+    if (!c.pin_hash) return false;
+    if ((c.pin_lock_until || 0) > Date.now()) { $("sfNote").textContent = "Too many wrong PINs: the PIN is locked for 15 minutes."; return false; }
+    if (pinHash(c.pin_salt, $("clinPin").value) === c.pin_hash) { store.set("rsos.clinical", Object.assign(c, { pin_fail: 0 })); return true; }
+    const n = (c.pin_fail || 0) + 1;
+    store.set("rsos.clinical", Object.assign(c, n >= 5 ? { pin_fail: 0, pin_lock_until: Date.now() + 15 * 60000 } : { pin_fail: n }));
+    $("sfNote").textContent = n >= 5 ? "Too many wrong PINs: the PIN is locked for 15 minutes." : "The clinician PIN does not match.";
+    return false;
+  }
+  function ensurePin(viaRecord) {
     const c = store.get("rsos.clinical", { on: false });
-    if (c.pin_hash) return pinOk() ? true : ($("sfNote").textContent = "Enter the clinician PIN.", false);
+    if (c.pin_hash) return pinOk();
+    if (get().mode === "CRISIS" && !viaRecord) { $("sfNote").textContent = "A PIN cannot be set while the clinician-led protocol is active."; return false; }
     const pin = $("clinPin").value;
     if (!/^\d{4,}$/.test(pin)) { $("sfNote").textContent = "Set a clinician PIN of four or more digits first."; return false; }
     const b = new Uint8Array(16); crypto.getRandomValues(b); const salt = Array.from(b, x => x.toString(16).padStart(2, "0")).join("");
     store.set("rsos.clinical", Object.assign(c, { pin_salt: salt, pin_hash: pinHash(salt, pin) }));
-    const log = store.get("rsos.clinical.log", []); log.push({ at: Date.now(), by: $("clinName").value.trim(), event: "pin_set" }); store.set("rsos.clinical.log", log.slice(-100));
-    return true;
+    const log = store.get("rsos.clinical.log", []); log.push({ at: Date.now(), by: $("clinName").value.trim(), event: get().mode === "CRISIS" ? "pin_set_older_state" : "pin_set" }); store.set("rsos.clinical.log", log.slice(-100));
+    pinSay(); return true;
   }
-  const pinSay = () => { $("pinSay").textContent = store.get("rsos.clinical", {}).pin_hash ? "Needed to resume and to record results." : "Not set yet: the responsible clinician sets it here (four or more digits)."; };
+  $("pinSet").addEventListener("click", () => { if (!$("clinName").value.trim()) { $("sfNote").textContent = "Enter the practitioner's name, then set the PIN."; return; } if (ensurePin(false)) { $("sfNote").textContent = "Clinician PIN set."; draw(); } });
+  const pinSay = () => { const has = !!store.get("rsos.clinical", {}).pin_hash; $("pinSet").style.display = has ? "none" : "";
+    $("pinSay").textContent = has ? "Needed to resume and to record results." : "Not set yet: the responsible clinician sets it here (four or more digits). Screening questions appear only once it is set."; };
   $("clinSave").addEventListener("click", () => {
     if (!$("clinName").value.trim() || !$("clinRes").value) { $("sfNote").textContent = "Record the practitioner and the result."; return; }
-    if (!ensurePin()) return;
+    if (!ensurePin(true)) return;
     const flags = []; if ($("clinMed").checked) flags.push("medication"); if ($("clinPrac").checked) flags.push("practical");
     const log = store.get("rsos.clinical.log", []); log.push({ at: Date.now(), by: $("clinName").value.trim(), instrument: $("clinInst").value.trim(), result: $("clinRes").value, flags, history: $("clinHist").checked });
     store.set("rsos.clinical.log", log.slice(-100));
@@ -363,8 +377,8 @@ draw();
   });
   $("clinGo").addEventListener("click", () => {
     if (!$("clinOk").checked || !$("clinName").value.trim()) { $("sfNote").textContent = "Resuming needs the responsible clinician: tick the box and enter the practitioner's name."; return; }
-    if (!store.get("rsos.clinical", {}).pin_hash) { $("sfNote").textContent = "No clinician PIN is set on this device: the responsible clinician sets one in the PIN field, then resumes."; if (!ensurePin()) return; }
-    else if (!pinOk()) { $("sfNote").textContent = "The clinician PIN does not match."; return; }
+    if (!store.get("rsos.clinical", {}).pin_hash) { $("sfNote").textContent = "No clinician PIN is set on this device. The practitioner records a clinical result above (this sets the PIN and is logged), then resumes with it."; return; }
+    if (!pinOk()) return;
     const [st, r] = S.exit(get(), "clinician", now());
     if (r.ok) st.history[st.history.length - 1].by = "clinician: " + $("clinName").value.trim();
     store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Resumed by the clinician." : ""; draw();

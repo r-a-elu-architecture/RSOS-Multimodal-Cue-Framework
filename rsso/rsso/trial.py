@@ -179,10 +179,11 @@ def evidence(trial: dict, session: dict) -> dict:
     """What a session adds to the trial's anchor in PEAK: a probe (anchor or sham code alone, calm before and after),
     a use outside training (the anchor played when stress starts, or fired by hand or by the device), or nothing."""
     d, arm = trial.get("design"), session.get("arm")
-    if d == "anchor_vs_sham":
+    played = bool((session.get("detail") or {}).get("code"))          # FIXES_R2 R2-6: only sessions that played a code
+    if d == "anchor_vs_sham" and played:
         return {"probe": {"ts": session.get("ts", 0), "kind": "cue" if arm == "anchor" else "sham",
                           "calm_before": session.get("before"), "calm_after": session.get("after")}, "use": None}
-    if (d == "cue_vs_none" and arm == "cue") or d == "auto_vs_manual":
+    if (d == "cue_vs_none" and arm == "cue" and played) or d == "auto_vs_manual":
         return {"probe": None, "use": {"ts": session.get("ts", 0), "during_stress": True}}
     return {"probe": None, "use": None}
 

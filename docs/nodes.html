@@ -148,6 +148,7 @@ header.top nav a{font-size:.88rem}
         <h2><span class="n">1</span>What is happening</h2>
         <p class="ask">What do you, or the person you work with, want to change? Choose what applies and describe it in your own words.</p>
         <div class="chips" id="concerns"></div>
+        <div class="chips" data-show="clinical"><label><input type="checkbox" id="dxDep"> <span>Depression (diagnosed or under treatment): clinician-led</span></label></div>
         <label for="symptoms">Symptoms and what they feel like</label>
         <textarea id="symptoms" placeholder="For example: tension in the chest, racing thoughts at night, freezing when voices are raised"></textarea>
         <label for="triggers">Triggers, one per line</label>
@@ -340,7 +341,7 @@ let current = null;
 function update() {
   const it = intake(), p = N.plan(it); current = { intake: it, plan: p };
   const box = $("pNodes"), rest = $("pRest"); box.innerHTML = ""; rest.innerHTML = "";
-  $("ledBox").hidden = !(p.therapist_led || it.concerns.includes("ptsd") || it.concerns.includes("depression"));
+  $("ledBox").hidden = !(p.therapist_led || it.concerns.includes("ptsd") || it.concerns.includes("depression") || ($("dxDep") && $("dxDep").checked));
   if (!p.nodes.length) { $("pSummary").textContent = "Add a node to begin: choose a symbol on the left."; return; }
   $("pSummary").textContent = p.nodes.length + (p.nodes.length === 1 ? " node" : " nodes") + (p.concerns.length ? " for " + p.concerns.join(", ").toLowerCase() : "") + ".";
   if (CM1DATA) {   // CM1: where people with practice like yours start best (docs/js/cm1.js)
@@ -406,7 +407,10 @@ const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RS
 const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());   // clinical vocabulary (FIXES_R1 S-2)
 $("save").addEventListener("click", () => {
   if (!current || !current.plan.nodes.length) return say("Add a node first.");
-  const p = current.plan;
+  // Diagnosed depression is clinician-led work (spec/LOW_MOOD.md); only with the clinical vocabulary.
+  const dx = CLINV && $("dxDep").checked;
+  const p = dx ? Object.assign({}, current.plan, { therapist_led: true, dx: ["depression"] }) : current.plan;
+  if (dx && !(current.intake.concerns || []).includes("depression")) current.intake.concerns = (current.intake.concerns || []).concat(["depression"]);
   if (!$("ledBox").hidden && CLINV && !PIN_SET()) return say(NOPIN);
   if (!$("ledBox").hidden && CLINV) {   // the screening question exists only with the clinical vocabulary (FIXES_R1 S-2)
     const screen = (document.querySelector('input[name="screen"]:checked') || {}).value;
@@ -414,7 +418,7 @@ $("save").addEventListener("click", () => {
     if (screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); }
     if (screen === "yes") return say("Recorded: this session continues under the clinician-led protocol; the clinician resumes practice.");
     if (screen !== "no") return say("Record the clinical screening result first.");
-    if (p.therapist_led && !$("therapistHere").checked) return say("Observer work with trauma memories is therapist-led: save this plan in a session with your therapist present.");
+    if (p.therapist_led && !$("therapistHere").checked) return say(dx ? "Work with diagnosed depression is clinician-led: save this plan in a session with the clinician present." : "Observer work with trauma memories is therapist-led: save this plan in a session with your therapist present.");
   }
   const sflags = RSOSSafety.spineFlags(JSON.stringify(p.nodes));
   if (sflags.length) return say("Spine: " + sflags.map(x => x.text).join("; ") + ". Change the wording of the node and save again.");
@@ -508,6 +512,7 @@ fetch("ugcl/originals.json?v=1.13.0").then(r => r.json()).then(d => UGCL.prepare
   bubble("linx", "Tell me what is happening and the state you want, in your own words. I will ask about anything that is missing.");
   const hero = N.plan({ nodes: [{ archetype: "LION", O: "Cedar", G: "Mint" }] }).nodes[0]; nodeSphere($("heroNode"), hero);
   $("heroNode").style.cursor = "pointer"; $("heroNode").addEventListener("click", () => feel(hero.tacton, $("heroNode")));
+  $("dxDep").addEventListener("change", update);   // spec/LOW_MOOD.md
   update();
 });
 </script>

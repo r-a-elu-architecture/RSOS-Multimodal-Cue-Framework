@@ -360,7 +360,8 @@ $("play").addEventListener("click", () => playCode($("code").value.trim()));
 function drawCodes() {
   const plan = store.get("rsos.plan", null), box = $("codes"); box.innerHTML = "";
   const memory = !!plan && (!!plan.therapist_led || (((plan.intake || {}).concerns) || []).includes("ptsd"));
-  const fl = n => memory ? Object.assign({ memory_work: true }, plan.therapist_led && n.mode === "observer" ? { therapist_led: true } : {}) : {};
+  const dxp = !!plan && (plan.dx || []).includes("depression");   // spec/LOW_MOOD.md
+  const fl = n => Object.assign(memory ? Object.assign({ memory_work: true }, plan.therapist_led && n.mode === "observer" ? { therapist_led: true } : {}) : {}, dxp ? { therapist_led: true } : {});
   const items = (plan && plan.nodes ? plan.nodes.map(n => [n.name, n.tacton, fl(n)]) : []).concat([["Lion", "..-", {}], ["Dragon", "---", {}], ["Observer", "-", {}], ["Lion + Dragon", "..- ---", {}]]);
   const seen = new Set();
   for (const [name, code, flags] of items) { if (seen.has(name + code)) continue; seen.add(name + code);

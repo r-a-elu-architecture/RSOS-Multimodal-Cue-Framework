@@ -43,6 +43,7 @@ python3 scripts/check_trial_loop.py docs
 python3 scripts/check_fixes_r1.py docs
 python3 scripts/check_fixes_r2.py docs
 python3 scripts/check_outlet.py docs      # the output gate (FIXES_R3)
+python3 scripts/check_low_mood.py docs    # spec/LOW_MOOD.md
 ```
 
 ## 3. Review checklist (every step)
@@ -199,6 +200,15 @@ Review: branch `review/r3`, commit 15256fa (reviewed 14d096c). Registration: `sp
   both languages; night memory column hidden in Workplace; hold rows marked; CONTAIN §9 note.
 Tests: `rsso/tests/test_fixes_r3.py`; `scripts/check_outlet.py` (14 failures on 14d096c, 0 now).
 Review status: **awaiting the fourth review**.
+
+### Low mood — owner's decision (spec/LOW_MOOD.md)
+
+Registered 1ec57e4. The node studio's "low energy or mood" stays structured. With the clinical vocabulary only, a
+separate "Depression (diagnosed or under treatment)" choice makes the plan clinician-led, and every node of it is
+clinician-led in the player and on the device page. Self-checks are kept (`rsos.selfchecks`); with a low-mood plan,
+3 or more checks of intensity 7 or more in 7 days recommend involving a practitioner (recorded on the plan).
+Test: `scripts/check_low_mood.py` (L1–L4). Built after review 4 started, so review 4 does not cover it.
+Review status: **awaiting review**.
 
 ## 5. Review findings
 

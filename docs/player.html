@@ -697,6 +697,7 @@ function runFlags() {
   if (p.startsWith("plan:") && plan && plan.nodes) {
     const n = plan.nodes[+p.slice(5)], memory = !!plan.therapist_led || (((plan.intake || {}).concerns) || []).includes("ptsd");
     if (n && memory) { f.memory_work = true; if (plan.therapist_led && n.mode === "observer") f.therapist_led = true; }   // FIXES_R3 §2: every node of a memory plan
+    if (n && (plan.dx || []).includes("depression")) f.therapist_led = true;   // spec/LOW_MOOD.md: every node of a diagnosed-depression plan
   }
   if (timeline && (sources[p] !== $("source").value || (PROTOCOLS.includes(p) && timeline.protocol !== p))) f.edited = true;
   // Level and words from the program's own content (FIXES_R3 §2): clinician tiers, programmed cues, markers, edited observer text.

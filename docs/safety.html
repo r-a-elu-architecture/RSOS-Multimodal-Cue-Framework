@@ -336,7 +336,22 @@ draw();
     const [st, r] = S.observe(get(), ev, now());
     store.set("rsos.safety", st); $("sfNote").textContent = r.transition ? "" : note; draw(r.messages);
   }
-  $("sfSave").addEventListener("click", () => apply(S.eventFromCheck({ intensity: $("sfInt").value, sleep_h: $("sfSleep").value }), "Saved. The session state is unchanged."));
+  // Self-checks are kept (spec/LOW_MOOD.md §2): with a low energy or mood plan, 3 or more checks of intensity 7 or more
+  // in 7 days recommend involving a practitioner.
+  function escalate() {
+    const plan = store.get("rsos.plan", null);
+    if (!plan || !(((plan.intake || {}).concerns) || []).includes("depression")) return;
+    const week = Date.now() - 7 * 86400000, n = store.get("rsos.selfchecks", []).filter(c => c.at >= week && c.intensity !== null && c.intensity >= 7).length;
+    if (n < 3) return;
+    if (!plan.practitioner_recommended) { plan.practitioner_recommended = Date.now(); store.set("rsos.plan", plan); }
+    $("sfMsgs").append(mk("p", "Your intensity ratings have stayed high on several days this week. For the low energy or mood work in your plan, involving a practitioner is recommended."));
+  }
+  $("sfSave").addEventListener("click", () => {
+    const iv = $("sfInt").value, sl = $("sfSleep").value;
+    const log = store.get("rsos.selfchecks", []); log.push({ at: Date.now(), intensity: iv === "" ? null : Number(iv), sleep_h: sl === "" ? null : Number(sl) }); store.set("rsos.selfchecks", log.slice(-60));
+    apply(S.eventFromCheck({ intensity: iv, sleep_h: sl }), "Saved. The session state is unchanged.");
+    escalate();
+  });
   $("sfStab").addEventListener("click", () => { const [st] = S.enterStabilise(get(), "person", now()); store.set("rsos.safety", st); draw(); });
   $("sfExit").addEventListener("click", () => { const [st, r] = S.exit(get(), "person", now()); store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Back to Standard." : ""; draw(); });
   $("clinOn").addEventListener("change", () => { store.set("rsos.clinical", Object.assign(store.get("rsos.clinical", {}), { on: $("clinOn").checked })); if (PR && PR.current() === "research") location.reload(); else draw(); });

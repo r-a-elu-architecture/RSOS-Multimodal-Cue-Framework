@@ -207,3 +207,15 @@ conversation's second half and post-chat intensity held out for step 5.
   school closed") counts as the person's environment.
 - For step 4, statements flagged `agreed: false` and the weak desired states are known limits, recorded before step 4 is
   designed.
+
+### Step 4 (code 06fa583; aggregates `rsxv/results/personlab_step4.json`)
+- `ProfilePerson` is built from all 100 private profiles. Each person starts at its conversation's own initial intensity.
+- Targets: 33 persons from agreed desired items, 31 from any desired item, 36 from current items, 0 from the default.
+  Target levels: behaviour 44, environment 30, skills 18, identity 14, beliefs 13, mission 4.
+- 46 persons have a skills statement (progress × 1.25). The median number of signals is 2.
+- Deviation fixed before the commit: a first draft scaled relief by 4 and progress by 10 inside the code, which the
+  registered formula does not say. The code now matches §6 literally (default relief 0.2 per tick).
+- 5 tests pass: same seed, same run; cues never block; action directions; the targets rule; the 8 strategies map to the
+  5 actions.
+- The parameters are still the neutral placeholders. **Nothing about real behaviour is claimed until step 5 fits and tests
+  them.**

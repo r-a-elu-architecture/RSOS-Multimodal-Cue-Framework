@@ -1,0 +1,18 @@
+{
+ "persons_built": 100,
+ "target_rule": {
+  "current": 36,
+  "desired_agreed": 33,
+  "desired_any": 31
+ },
+ "target_levels": {
+  "skills": 18,
+  "behaviour": 44,
+  "environment": 30,
+  "identity": 14,
+  "beliefs": 13,
+  "mission": 4
+ },
+ "with_skills_statement": 46,
+ "signals_median": 2
+}

@@ -391,7 +391,8 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
 - Step 2: `SOURCES.md`. ESConv is primary, Hippocorpus and EmpatheticDialogues secondary.
 - Step 3 (c324fa1, frozen 2d1f9c5): 100 ESConv profiles from two independent readers. **Kappa 0.728, passes.** Environment
   agreed worst (0.412); desired states are weak (46% matched). Stored privately (private repo `dev`, bbb3faa).
-- Next: step 4, the simulated persons driven by profiles (register first).
+- Step 4 (registered 17650e5, code 06fa583): `ProfilePerson`; all 100 build. Cues never block. The parameters are placeholders.
+- Next: step 5, fit the parameters on development conversations and validate on held-out ones (register first).
 Review status: **awaiting review**.
 Review status: **awaiting review**.
 

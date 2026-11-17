@@ -119,3 +119,12 @@ ones as AGENTS.md §11.5 asks. Its outcome labels matched the full run's. Nothin
 full run.
 
 **Checks:** listed in HANDOFF.
+
+## 7. Amendment, 17 November 2026: the Agents page (registered before the code)
+
+- T1: the section heading becomes "Tested in simulation: the RSX-V agents". The tags stay "passed its registered test",
+  which is still true.
+- T2: under the lede, one line built from `rsxv/results/results_baseline_audit.json` (via `rsxv.site_agents`), never typed
+  into the page. It gives how many audited rows hold against their baseline, each row's outcome, and links to the results
+  file. No new numbers.
+- T3: `scripts/check_site_catchup.py` checks the heading, and checks that the line's counts equal the counts in the data.

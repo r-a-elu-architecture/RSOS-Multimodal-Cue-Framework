@@ -33,7 +33,7 @@
   "person model": {
    "pass": 0,
    "mixed": 2,
-   "fail": 4,
+   "fail": 5,
    "analysis": 0,
    "other": 1
   },
@@ -417,6 +417,15 @@
    "test": "Round 8c, do the stress readings track people's own ratings (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/PERSONLAB.md\">spec/PERSONLAB.md</a> \u00a77c)",
    "result": "<b>Fail</b>",
    "meaning": "Not valid: reader stress against the seekers' own intensity gives \u03c1 0.21 (start), 0.11 (end) and 0.03 (change). Readers measure a message's tone, such as polite greetings and thanks, not how the person reports feeling (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/personlab_step5c.json\">results/personlab_step5c.json</a>)",
+   "status": "fail",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8d, VAKOG matching and echo against people's own ratings (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/RAPPORT_ESCONV.md\">spec/RAPPORT_ESCONV.md</a>)",
+   "result": "<b>Fail</b>",
+   "meaning": "No effect on 6,970 ratings: matching the person's sensory channel +0.09 [-0.02, +0.20], echoing their words -0.02 [-0.09, +0.05] on the 1\u20135 rating; both together not testable (96 events) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/rapport_esconv.json\">results/rapport_esconv.json</a>)",
    "status": "fail",
    "family": "person model",
    "series": null,

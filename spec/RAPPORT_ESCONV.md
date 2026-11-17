@@ -67,5 +67,19 @@ P(ECHO holds) = 0.40; P(BOTH holds) = 0.20.
 - Features that do not hold stay out of the agents' defaults.
 - The glyph-tier cue programs remain architecture until tested with people.
 
-## 7. Results
-(recorded after the run, in a separate commit)
+## 7. Results (recorded after code 3ce406c; aggregates `rsxv/results/rapport_esconv.json`)
+
+- 1,196 conversations and 6,970 rated events.
+- **MATCH: NO EFFECT.** +0.094 on the 1–5 rating, interval [-0.018, +0.197]
+  (403 matched events). The placebo is +0.040.
+- **ECHO: NO EFFECT.** -0.023, interval [-0.094, +0.048] (989 echo events). The placebo is
+  +0.048.
+- **BOTH: NOT TESTABLE.** 96 events with both, against the 100 needed.
+- **Information.**
+  - Most turns name no clear sense (5,188 of 6,970 seeker turns). Among those that do, K leads (751), then A (631)
+    and V (394). O and G are almost absent (3 each).
+  - Share of ratings at 5: matched 54.1% against 51.5%; echo 49.2% against 52.1%.
+  - By stage, MATCH is largest in the middle third (+0.195), but no stage was tested.
+- **The sealed predictions** (MATCH 0.15, ECHO 0.40, BOTH 0.20): MATCH and ECHO did not hold. BOTH cannot be scored.
+- **What follows (§6).** Neither VAKOG matching nor word echo enters the Person Lab agents' defaults. In this data, how
+  people rated the support does not depend on whether the supporter used their sensory words or repeated their words.

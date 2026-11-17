@@ -400,8 +400,8 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   stress drop.
 - Step 5c (registered 8b8f069, code 948aaef): **NOT VALID.** Reader stress does not track the seekers' own intensity
   ratings (change ρ +0.03). It measures tone, not self-reported state. The confirmatory test on reader stress is cancelled.
-- Next (proposed): use the seekers' own per-turn ratings (feedback, 7,681 in ESConv) as the outcome. They are
-  self-reports, so the measure is valid by construction.
+- RAPPORT_ESCONV (registered f4bbc63, code 3ce406c): on the seekers' own ratings, VAKOG matching **no effect**
+  (+0.094), echo **no effect** (-0.023), both together not testable (96 events). Neither enters the agents' defaults.
 Review status: **awaiting review**.
 Review status: **awaiting review**.
 

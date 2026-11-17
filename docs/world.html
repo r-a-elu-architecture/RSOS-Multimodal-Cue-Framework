@@ -318,6 +318,7 @@ const $ = id => document.getElementById(id);
 const NM = {BEAR: "Bear", RAVEN: "Raven", TIGER: "Tiger", LION: "Lion"};
 const ACT = {STABILISE: "steady", EXPLORE: "clarify", SUGGEST: "take a step", SHARE: "share", NONE: "no action"};
 const POL = {agents: "Agents (Watchdog rule)", always_bear: "Always Bear", no_support: "No support"};
+const TYPE = {"job crisis": "work and job", "breakup with partner": "a breakup", "problems with friends": "friendships", "academic pressure": "study pressure"};   // display names (no crisis wording on pages)
 const EFF = {placeholder: "Equal effects (registered placeholder)", illustrative: "Different effects (invented, untested)"};
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 let LAB = null, M = null, run = null;
@@ -328,7 +329,7 @@ Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/p
 function init() {
   const types = [...new Set(M.persons.map(p => p.problem_type))];
   for (const ty of types) {
-    const g = document.createElement("optgroup"); g.label = ty[0].toUpperCase() + ty.slice(1);
+    const g = document.createElement("optgroup"); const tn = TYPE[ty] || ty; g.label = tn[0].toUpperCase() + tn.slice(1);
     M.persons.forEach((p, i) => { if (p.problem_type === ty) { const o = el("option", null, p.id + " · starts at " + p.initial_intensity + " of 5"); o.value = i; g.appendChild(o); } });
     $("labP").appendChild(g);
   }
@@ -343,7 +344,7 @@ function person() { const i = Number($("labP").value || 0); return [M.persons[i]
 
 function tree() {
   const [p] = person(), tg = PersonLab.targetNodes(p), tl = new Set(tg.map(x => x[0])), tn = new Set(tg.map(x => x[0] + ":" + x[1]));
-  $("labMeta").textContent = p.id + " · " + p.problem_type + " · starting intensity " + p.initial_intensity + " of 5 · the agents work on: " + tg.map(x => x.join(":")).join(", ");
+  $("labMeta").textContent = p.id + " · " + (TYPE[p.problem_type] || p.problem_type) + " · starting intensity " + p.initial_intensity + " of 5 · the agents work on: " + tg.map(x => x.join(":")).join(", ");
   const ul = $("labTree"); ul.textContent = "";
   for (const lv of LAB.levels.slice().reverse()) {
     const li = el("li", tl.has(lv.id) ? "tg" : ""), sts = ((p.levels[lv.id] || {}).statements) || [];

@@ -80,7 +80,35 @@ This is a review by the same model family that built the work: the release notes
 
 ## 5. Amendments (fixes registered before code)
 
-(none yet)
+### A1 (after the first check run; before any fix)
+
+Found (recorded in full in §6):
+- **RF1 (blocker, a check).** `scripts/check_site_catchup.py` fails on `dev` at 3a3d4d8 / cfe9eff:
+  `BASELINE_AUDIT Q3 H-SWITCH meaning shown: got False`. The Agents page is right: `profiles.js` shows clinical words
+  in the default profile's vocabulary ("distress" becomes "intensity"), as the representation rule requires. The check
+  compares the raw register text. BASELINE_AUDIT Q4 records that the browser checks pass, which is not true on `dev`.
+- **RF2 (environment).** In the workspace, external hosts are blocked. Every page that loads Google Fonts logs
+  `Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED`. No same-origin request failed and no link was missing.
+- **RF3 (note).** Pages load fonts from fonts.googleapis.com / fonts.gstatic.com: a third-party request on every visit,
+  and no glyph fonts when offline. Recorded as open in the release notes; not changed in this step.
+
+Fixes:
+- **F1** In `check_site_catchup.py`, the two register-meaning checks (W1, H-SWITCH) compare the page with the
+  register text after the page's own wording rule:
+  `RSOSProfiles.text(stripped, RSOSProfiles.current(), RSOSProfiles.clinicalOn())`, evaluated in the page. Nothing on
+  the page changes. HANDOFF_DEV §5 records that BASELINE_AUDIT Q4 was not met when recorded.
+- **F2** `check_release.py` (A3): a `console.error` of the form `Failed to load resource: net::ERR_…` does not fail a
+  view when, in that view, a request to an external host failed and no same-origin request failed. The failed external
+  URLs are listed per view and in the summary. Same-origin failures, page errors and any other `console.error` still
+  fail.
+- **F3 (U1, U2)** — the texts:
+  - `index.html`, before "Your domain": a section "Start here" with the five paths of §4 U1. Each path is one sentence
+    plus one link.
+  - A one-line status note under the first heading of `player.html`, `therapist.html`, `device.html` and
+    `results.html`, in the site's status words. Each says what the page is, its evidence status, and "not a medical
+    device".
+  - Text that names no outcome claim: no human outcome data yet; the wristband compiled and emulated, not run on a
+    board; clinical use under the practitioner's own protocol.
 
 ## 6. Results
 

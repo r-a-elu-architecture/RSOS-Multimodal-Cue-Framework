@@ -59,21 +59,25 @@ are registered here, each before its code. Results are recorded in §9 in separa
 A source is **usable** only if it meets all of these:
 - Public and downloadable by an official route, with a stated licence that allows research use and redistribution of
   derived aggregates.
-- De-identified. No hospital, clinical or patient records: those are private and cannot legally be downloaded.
+- De-identified. No medical or patient records: those are private and cannot legally be downloaded.
 - Holds first-person stories or conversations (counselling, support or life narratives) with enough text to fill several
   levels.
 - **Has a later part** (later turns, a follow-up, an outcome) that step 5 can hold out for validation.
 
-The search result is a table (`rsxv/personlab/SOURCES.md`): name, owner, licence and its link, access route, size,
+The search result is a table (`rsxv/rsxv/personlab/SOURCES.md`): name, owner, licence and its link, access route, size,
 content, whether it has a later part, and a decision (usable, not usable, or unclear with the reason). It also notes, from
-the dataset card, whether the content touches crisis or clinical topics: those stay out of the public repo, by the
+the dataset card, whether the content touches sensitive topics: those stay out of the public repo, by the
 existing rules.
 
 ## 4. Privacy and publication
 - Profiles built from any dataset stay in the workspace or the private repository.
 - The public repo holds the schema, code, aggregate results and at most a few hand-written **illustrative** profiles,
   marked as invented.
-- No crisis or clinical wording appears in public files.
+- Public files keep neutral wording, by the existing rules.
+
+## 8. Amendment, 17 November 2026
+Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording
+rule, and the SOURCES.md path is made exact. No design change.
 
 ## 9. Results
 (recorded per step, in separate commits)

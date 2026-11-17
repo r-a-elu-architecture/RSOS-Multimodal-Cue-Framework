@@ -356,6 +356,11 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
 - **Inconclusive:** 128 of 35,858 prompts were PERSONAL. Length-matched, no style wins or loses clearly in CODE or OTHER.
 - The question (does the best response depend on context?) is still open. It needs data where personal-difficulty prompts
   are common.
+- **CTX_PREF_HH** (registered c78c128, code 8668c32, run 44064375403): hh-rlhf helpfulness pairs, the same fixed patterns.
+  **Inconclusive** again: 505 personal prompts, 11 and 22 usable pairs. In everyday prompts, asking back loses (0.413).
+  Information only: the stabilising reply was chosen in 9 of 11 personal pairs.
+- Two datasets, both inconclusive for the same reason: the fixed patterns find too few personal prompts. A third attempt
+  needs a dataset made of personal conversations, or a meaning-based reader registered before it reads any data.
 Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)

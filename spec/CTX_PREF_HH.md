@@ -54,5 +54,11 @@ in size, without a crossover).
 If PERSONAL has fewer than 50 discordant length-matched pairs for both features, the verdict is INCONCLUSIVE and that is
 the result. No new pattern is tried on this data.
 
-## 7. Results
-(recorded after the run, in a separate commit)
+## 7. Results (recorded after code 8668c32; GitHub run 44064375403; `rsxv/results/ctx_pref_hh.md`)
+
+- 123,415 of 124,503 pairs qualified. Contexts: PERSONAL 505, OTHER 122,910.
+- **Verdict: INCONCLUSIVE** (§6): PERSONAL had 11 (S) and 22 (Q) discordant length-matched pairs.
+- OTHER: S 198 / 452 = 0.438 [0.365, 0.514]; Q 1,476 / 3,575 = 0.413 [0.387, 0.440], below 0.5.
+- The sealed prediction (0.30) cannot be scored.
+- Information only: S in PERSONAL 9 / 11. PERSONAL minus OTHER for S is +0.380, 99% [+0.075, +0.686], on 11 pairs.
+- Per §6, no new pattern is tried on this data.

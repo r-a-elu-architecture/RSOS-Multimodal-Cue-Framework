@@ -363,3 +363,16 @@ conversation's second half and post-chat intensity held out for step 5.
   EXPLORE -0.036 (70). Questions are followed by the smallest drop in stress. That matches in direction the
   asking-back finding of CTX_PREF_HH and CTX_PREF_WC. A confirmatory test needs fresh conversations.
 - The sealed predictions: P(kappa ≥ 0.6) = 0.6 was met; P(pass) = 0.25 cannot be scored.
+
+### Step 5c (code 948aaef; aggregates `rsxv/results/personlab_step5c.json`)
+- **Verdict: NOT VALID.**
+  - (a) first turn against the person's own initial intensity: ρ +0.21 [-0.05, +0.43];
+  - (b) last turn against their own final intensity: ρ +0.11 [-0.15, +0.36];
+  - (c) change against their own change: ρ +0.03 [-0.24, +0.30].
+- Why: people rated themselves 4–5 before the chat (77 of 100), while readers rated the first message mostly 2–3, because
+  openings are often polite greetings. Readers rated 73 of the 100 last messages "1" (usually thanks and goodbye), while
+  people's own final ratings spread from 1 to 4.
+- **Reading.** The stress readings are reliable (kappa 0.925) but measure the tone of a message, not the person's
+  self-reported state. The step-5b information on questions rests on this unvalidated measure and is withdrawn as a signal.
+  The confirmatory test is not run on reader stress.
+- The sealed predictions: P(VALID) = 0.35 and P(at least PARTIAL) = 0.65 were both not met.

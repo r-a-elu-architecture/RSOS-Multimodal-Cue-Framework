@@ -33,7 +33,7 @@
   "person model": {
    "pass": 0,
    "mixed": 2,
-   "fail": 3,
+   "fail": 4,
    "analysis": 0,
    "other": 1
   },
@@ -409,6 +409,15 @@
    "result": "<b>Not testable</b>",
    "meaning": "Stress read reliably from 1,584 turns (weighted kappa 0.925). But supporters addressed the person's own belief or identity wording in only 3 of 560 moments (30 needed) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/personlab_step5b.json\">results/personlab_step5b.json</a>)",
    "status": "other",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8c, do the stress readings track people's own ratings (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/PERSONLAB.md\">spec/PERSONLAB.md</a> \u00a77c)",
+   "result": "<b>Fail</b>",
+   "meaning": "Not valid: reader stress against the seekers' own intensity gives \u03c1 0.21 (start), 0.11 (end) and 0.03 (change). Readers measure a message's tone, such as polite greetings and thanks, not how the person reports feeling (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/personlab_step5c.json\">results/personlab_step5c.json</a>)",
+   "status": "fail",
    "family": "person model",
    "series": null,
    "parent": null

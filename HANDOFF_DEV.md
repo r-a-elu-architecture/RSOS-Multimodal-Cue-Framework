@@ -398,8 +398,10 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
 - Step 5b (registered dd1d360, code 72c303e): stress per turn, kappa **0.925** over 1,584 turns, reliable. Override
   test **NOT TESTABLE**: 3 targeted blocks of 560, with 30 needed. Information only: questions are followed by the smallest
   stress drop.
-- Next: a confirmatory test on fresh ESConv conversations: actions against stress, by pre-stress band (the switching
-  question), and the override detected by meaning rather than word overlap.
+- Step 5c (registered 8b8f069, code 948aaef): **NOT VALID.** Reader stress does not track the seekers' own intensity
+  ratings (change ρ +0.03). It measures tone, not self-reported state. The confirmatory test on reader stress is cancelled.
+- Next (proposed): use the seekers' own per-turn ratings (feedback, 7,681 in ESConv) as the outcome. They are
+  self-reports, so the measure is valid by construction.
 Review status: **awaiting review**.
 Review status: **awaiting review**.
 

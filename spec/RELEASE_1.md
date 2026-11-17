@@ -110,6 +110,26 @@ Fixes:
   - Text that names no outcome claim: no human outcome data yet; the wristband compiled and emulated, not run on a
     board; clinical use under the practitioner's own protocol.
 
+### A2 (owner's decision, 2026-11-17; before the change)
+
+The owner: RSOS is not presented as a hospital, a crisis centre or a helpline; no emergency numbers. Public documents
+follow the representation rule of HANDOFF_DEV §1, as the pages already do. Acute risk stays where that rule puts it:
+under a qualified clinician's protocol.
+- **F4** Changed:
+  - `README.md` status note: the crisis-line sentence is replaced by "Acute risk is outside self-guided use and belongs
+    under a qualified clinician's protocol."
+  - `README.md` Safety row, and `releases/NEXT.md` (CONTAIN entry): "pointed to a therapist or crisis help" becomes
+    "referred to their practitioner".
+  - `SECURITY.md` §"Not for crisis use": becomes §"Not for acute risk", with the same sentence as the README.
+  - `spec/OVERRIDE_PROTOCOL.md` "Do not use as a stand-alone method in": the first item becomes "acute risk of harm to
+    self or others: only under a qualified clinician's protocol".
+
+  Spec files that record earlier decisions (`CONTAIN.md` §4, which §10 revises) and research results are records and
+  stay unchanged.
+- **F5** A test (`rsso/tests/test_release.py`) checks that `README.md`, `SECURITY.md`, `CONTRIBUTING.md`,
+  `REVIEW.md`, `releases/NEXT.md` and `spec/OVERRIDE_PROTOCOL.md` contain no "crisis line", "crisis help", "helpline",
+  "hotline", "emergency services" or emergency number (112, 911, 999).
+
 ## 6. Results
 
 Registered cfe9eff; amendment A1 ae091f8; code 475b9d2; review record 3e9eac2; release notes 6e848bb; M1 683c4a6.

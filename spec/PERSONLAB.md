@@ -135,3 +135,26 @@ statement tree with where, when and detail sub-nodes, a source on every item, cu
 **Hippocorpus** (the same writer's retelling 3–6 months later) and EmpatheticDialogues. Not usable: counsel-chat (single
 message, unclear licence) and MentalChat16K (partly synthetic). Proposed for step 3: 100 profiles from ESConv, with each
 conversation's second half and post-chat intensity held out for step 5.
+
+### Step 3 (code c324fa1; instructions frozen 2d1f9c5; aggregates `rsxv/results/personlab_step3.json`)
+- 100 conversations (25 per type; 1 replaced by the safety screen), two independent readers, 8 parallel runs.
+- 0 parse errors, 0 invalid profiles, 0 quotes not found.
+- **Agreement: kappa 0.728 over 600 level cells (519 agree). The bar of 0.6 is met.** Profiles are stored privately
+  (private repository, `dev` branch, `personlab/esconv_v1`, commit bbb3faa).
+- Per level (profiles where reader A / reader B placed at least one statement; agreement; kappa):
+
+  | Level | A | B | Agree | Kappa |
+  |---|---|---|---|---|
+  | environment | 82 | 67 | 77/100 | 0.412 |
+  | behaviour | 89 | 89 | 96/100 | 0.796 |
+  | skills | 46 | 42 | 86/100 | 0.716 |
+  | beliefs | 71 | 69 | 86/100 | 0.667 |
+  | identity | 42 | 42 | 82/100 | 0.631 |
+  | mission | 14 | 6 | 92/100 | 0.563 |
+- 497 statements from reader A, of which 332 (67%) are matched by reader B. Median 5 statements per profile.
+- Desired states are the weak part: 64 profiles have one, and 37 of 80 desired items (46%) are matched by reader B.
+- The sealed prediction (P = 0.55) was met. Its detail was half right: behaviour agreed best (0.796) and mission was sparse
+  (0.563), but **environment agreed worst (0.412)**, not mission. The readers differ on whether a situation line ("my
+  school closed") counts as the person's environment.
+- For step 4, statements flagged `agreed: false` and the weak desired states are known limits, recorded before step 4 is
+  designed.

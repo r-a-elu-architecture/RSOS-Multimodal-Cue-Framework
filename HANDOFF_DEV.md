@@ -383,6 +383,15 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   person's own words.
 - Information only: positive under 1 day; a dose effect (+0.013).
 - A corrected design would be a new test on new data.
+
+### PERSONLAB (the Person Lab; registered b6b2ff7, amended d9af1ac and 23d17c6)
+- Owner's design: simulated persons with six-level identity profiles from real stories, and autonomous agents working
+  toward each person's desired state, as a lab for researchers. A module, not a new language.
+- Step 1 (eb39498): the schema in `rsxv/rsxv/personlab/schema.py`.
+- Step 2: `SOURCES.md`. ESConv is primary, Hippocorpus and EmpatheticDialogues secondary.
+- Step 3 (c324fa1, frozen 2d1f9c5): 100 ESConv profiles from two independent readers. **Kappa 0.728, passes.** Environment
+  agreed worst (0.412); desired states are weak (46% matched). Stored privately (private repo `dev`, bbb3faa).
+- Next: step 4, the simulated persons driven by profiles (register first).
 Review status: **awaiting review**.
 Review status: **awaiting review**.
 

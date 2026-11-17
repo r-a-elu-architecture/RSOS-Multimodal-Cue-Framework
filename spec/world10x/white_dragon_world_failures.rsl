@@ -1,0 +1,59 @@
+# The White Dragon visits each planet (one per failure or miss in the World, the agents and the Person Lab, none needing
+# a real person), lights the library and lands green particles that become the nodes of that planet's 10x list.
+LANGUAGE RSOS 0.2
+WORLD cosmos
+HOST lab KIND software CHANNELS visual
+USE HOST lab
+OBJECT library KIND room
+BOOK all_knowledge SYMBOL golden_light AT library
+LIGHT white_dragon OVER all ACTS find, show, heal, hear STYLE golden
+FOUNDATION universal_knowledge DOMAINS biology, physics, information, statistics, medicine, engineering, history, cybernetics
+OBJECT miss KIND module
+PART miss.bear_lock KIND planet
+PART miss.cue_loophole KIND planet
+PART miss.transfer KIND planet
+PART miss.repurposing KIND planet
+PART miss.jam KIND planet
+PART miss.repair_ceiling KIND planet
+PART miss.attribution KIND planet
+PART miss.outcome_grain KIND planet
+PART miss.override_moments KIND planet
+PART miss.stress_validity KIND planet
+PART miss.rapport_power KIND planet
+PART miss.context_data KIND planet
+PART miss.adopt_confound KIND planet
+PART miss.safety_reader KIND planet
+PART miss.reader_independence KIND planet
+PART miss.lineage_gaps KIND planet
+PARTICLE niche_bear_lock LAND miss.bear_lock ON reward OPENS optimum_varies_by_context
+TRANSPLANT niche_bear_lock TO miss.bear_lock DEPTH structure ORDER 1 GAIN tenfold
+PARTICLE refractory_cue_loophole LAND miss.cue_loophole ON open_cue OPENS cue_self_resolves
+TRANSPLANT refractory_cue_loophole TO miss.cue_loophole DEPTH structure ORDER 2 GAIN tenfold
+PARTICLE rosetta_transfer LAND miss.transfer ON archetype_name OPENS map_by_measured_function
+TRANSPLANT rosetta_transfer TO miss.transfer DEPTH structure ORDER 3 GAIN tenfold
+PARTICLE penicillin_repurposing LAND miss.repurposing ON failure_log OPENS screen_at_scale
+TRANSPLANT penicillin_repurposing TO miss.repurposing DEPTH structure ORDER 4 GAIN tenfold
+PARTICLE kalman_jam LAND miss.jam ON signal_history OPENS state_space_forecast
+TRANSPLANT kalman_jam TO miss.jam DEPTH structure ORDER 5 GAIN tenfold
+PARTICLE np_hard_repair_ceiling LAND miss.repair_ceiling ON benchmark OPENS instances_where_greedy_fails
+TRANSPLANT np_hard_repair_ceiling TO miss.repair_ceiling DEPTH structure ORDER 6 GAIN tenfold
+PARTICLE counterfactual_attribution LAND miss.attribution ON decisive_step OPENS replay_with_step_fixed
+TRANSPLANT counterfactual_attribution TO miss.attribution DEPTH structure ORDER 7 GAIN tenfold
+PARTICLE microscope_outcome_grain LAND miss.outcome_grain ON final_intensity OPENS turn_ratings
+TRANSPLANT microscope_outcome_grain TO miss.outcome_grain DEPTH structure ORDER 8 GAIN tenfold
+PARTICLE microscope_override_moments LAND miss.override_moments ON word_overlap OPENS meaning_match
+TRANSPLANT microscope_override_moments TO miss.override_moments DEPTH structure ORDER 9 GAIN tenfold
+PARTICLE si_units_stress_validity LAND miss.stress_validity ON reader_scale OPENS calibrate_to_self_report
+TRANSPLANT si_units_stress_validity TO miss.stress_validity DEPTH structure ORDER 10 GAIN tenfold
+PARTICLE meta_analysis_rapport_power LAND miss.rapport_power ON one_corpus OPENS pooled_corpora
+TRANSPLANT meta_analysis_rapport_power TO miss.rapport_power DEPTH structure ORDER 11 GAIN tenfold
+PARTICLE telescope_context_data LAND miss.context_data ON three_shards OPENS all_shards_and_support_corpora
+TRANSPLANT telescope_context_data TO miss.context_data DEPTH structure ORDER 12 GAIN tenfold
+PARTICLE controlled_trial_adopt_confound LAND miss.adopt_confound ON placebo OPENS echo_matched_placebo
+TRANSPLANT controlled_trial_adopt_confound TO miss.adopt_confound DEPTH structure ORDER 13 GAIN tenfold
+PARTICLE swiss_cheese_safety_reader LAND miss.safety_reader ON one_reader OPENS independent_layers
+TRANSPLANT swiss_cheese_safety_reader TO miss.safety_reader DEPTH structure ORDER 14 GAIN tenfold
+PARTICLE replication_reader_independence LAND miss.reader_independence ON same_model OPENS different_method
+TRANSPLANT replication_reader_independence TO miss.reader_independence DEPTH structure ORDER 15 GAIN tenfold
+PARTICLE phylogenetics_lineage_gaps LAND miss.lineage_gaps ON single_record OPENS multi_session_public_data
+TRANSPLANT phylogenetics_lineage_gaps TO miss.lineage_gaps DEPTH structure ORDER 16 GAIN tenfold

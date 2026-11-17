@@ -205,6 +205,51 @@ Reported beside the pass, not part of it:
 **Sealed prediction:** P(pass) = 0.25. The linear baseline is strong. P(profile adds something) = 0.15, because the profile
 enters only through the signal count.
 
+## 7b. Step 5b: one state (stress) and the override on the profile (registered 17 November 2026, before code or labels)
+
+Owner's direction after step 5: narrow to one state change, stress, and test the override targeted at the person's own
+profile.
+
+**Stress per turn.** Every seeker turn of the 100 conversations (both halves) gets a stress rating from 1 (calm) to 5
+(very stressed). Two independent readers each see the numbered conversation and the written instructions
+(`rsxv/rsxv/personlab/stress_instructions.md`). They never see profiles or this design. Agreement is quadratic-weighted
+kappa over all rated turns, and must be at least 0.6; below that the test is INCONCLUSIVE. The stress of a turn is the
+mean of the two ratings.
+
+**Blocks.** A block is the run of supporter turns between two seeker turns, s_i and s_{i+1}. Δstress = stress(s_{i+1}) −
+stress(s_i). Only blocks in the **held-out half** count: the block's first supporter turn comes after the last seeker turn
+the profile builder saw.
+- The block's action is the §6 action of its first supporter turn.
+- Pre-stress band: stress(s_i) ≤ 2, ≤ 3.5, or above.
+
+**The override, defined on the profile (fixed now).** A block **targets the profile** when one of its supporter turns
+shares at least 2 content words with the quote of a single `beliefs` or `identity` statement in the person's merged
+profile. Content words are lower-case alphabetic, at least 4 letters, not in `override.STOP`.
+
+**Placebo targeting.** The same rule, applied to the profile of a different person of the same problem type. That person
+is chosen by a seeded draw (seed 2029, never the person themselves). This separates "addressing this person's own
+statements" from "addressing the topic".
+
+**Measure.**
+- The estimate is the stratified difference in mean Δstress between targeted and non-targeted blocks. The strata are
+  action × pre-stress band (15 strata), with weights n1·n0/(n1+n0).
+- The placebo estimate is the same with the placebo indicator.
+- Intervals come from a bootstrap over conversations (2000 resamples, seed 12345), at level 1 − 0.05/2 (97.5%).
+
+**Pass** when both hold:
+- (a) the targeting estimate's interval lies below 0 (stress drops more after targeting);
+- (b) the interval of (targeting estimate − placebo estimate), from the same bootstrap draws, lies below 0.
+
+NOT TESTABLE with fewer than 30 targeted blocks.
+
+Reported beside the verdict: the counts; the seeker feedback ratings in the held-out half after targeted against
+non-targeted blocks; and each action's mean Δstress.
+
+**Limits.** Association, not cause: supporters chose their words, nobody assigned them. Targeting is detected by word
+overlap. Stress is read from text.
+
+**Sealed prediction:** P(pass) = 0.25. P(kappa ≥ 0.6) = 0.6.
+
 ## 8. Amendment, 17 November 2026
 Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording
 rule, and the SOURCES.md path is made exact. No design change.

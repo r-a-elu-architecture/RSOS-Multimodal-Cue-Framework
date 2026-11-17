@@ -108,3 +108,13 @@ under a 2% relative reduction in mean squared error for M1, because 52% of ratin
 ## 9. Results
 
 (recorded per stage, in separate commits)
+
+### Stage P (code fca11ec; `rsxv/results/turn_ratings_pilot.json`; ESConv.json SHA-256 aa0556c5…f7efdd9af)
+
+- 1,300 conversations; 7,681 rated seeker turns; 7,605 events; 1,253 without a previous rating; 0 without a start.
+- **Usable events 6,352: development 3,119, test 3,233.** Events per conversation: median 4 (quartiles 4–6).
+- Action indicators true in test events: STABILISE 1,102, SUGGEST 1,102, EXPLORE 792, NONE 637, SHARE 484. Indicators per
+  block: one 4,723, two 1,557, three 68, four 4.
+- Rating distribution of usable events: 1: 47, 2: 128, 3: 817, 4: 1,890, 5: 3,470; **54.6% at 5**.
+- **No amendment** (§4): the test half holds ≥ 1,500 usable events and every indicator is true in ≥ 100 test events. Stage M
+  runs as registered.

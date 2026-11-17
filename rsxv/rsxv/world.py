@@ -508,3 +508,13 @@ class RolePolicy:
 
     def __hash__(self):
         return hash(self.key)
+
+
+# spec/STAB_DEFAULT.md D2: anything new that runs on a person starts stabilise-first (spec/BASELINE_AUDIT.md: always
+# Bear beat ledger switching in every stated model). World's own default stays "watchdog" so recorded runs reproduce.
+STABILISE_FIRST = {"policy": "fixed", "fixed_mode": "BEAR"}
+
+
+def person_world(env, seed=0, **kw):
+    """A World on a person with the stabilise-first default; keyword arguments other than the policy pass through."""
+    return World(env, seed=seed, **{**kw, **STABILISE_FIRST})

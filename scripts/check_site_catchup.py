@@ -128,7 +128,19 @@ def main():
                 pg.locator("#proven").screenshot(path=str(SHOTS / "agents_proven.png"))
             ctx.close()
 
-        steps = [("Step 6", step6), ("Step 7", step7), ("Step 8", step8), ("Step 10", step10)]
+        def step12():
+            # STAB_DEFAULT T3: the World page shows both means and the cue counts, read from the data.
+            ctx, pg = page("/world.html"); pg.wait_for_timeout(600)
+            d = json.loads((DOCS / "data" / "world_runs.json").read_text(encoding="utf-8"))
+            r0 = next(r for r in d["runs"] if r["seed"] == 11 and r["event"] is None)
+            txt = pg.inner_text("#pBear")
+            expect("STAB_DEFAULT T3 both means and cues shown",
+                   [f"{r0['summary']['person_mean']:.3f}" in txt, f"{r0['summary']['person_mean_bear']:.3f}" in txt,
+                    "blocks later cues" in txt, "helps the simulated person" in pg.inner_text("body")],
+                   [True, True, True, False])
+            ctx.close()
+
+        steps = [("Step 6", step6), ("Step 7", step7), ("Step 8", step8), ("Step 10", step10), ("Step 12", step12)]
         for name, fn in steps:
             try:
                 fn()

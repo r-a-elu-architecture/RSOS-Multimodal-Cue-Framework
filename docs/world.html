@@ -109,6 +109,7 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
     <div class="gauge"><div class="row"><span>Agency</span><span id="gV"></span></div><div class="bar"><i id="gB"></i></div></div>
     <div class="cue" id="cue" aria-live="polite"></div>
     <div class="now" id="pNow"></div>
+    <p class="sub" id="pBear" style="margin-top:10px"></p>
   </div>
 </div>
 
@@ -137,7 +138,7 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
 <section>
   <h2>What you are looking at</h2>
   <p class="lede">The Watchdog estimates, from what it has seen so far, which mode fits each context, and switches through a two-phase handover. It also micro-randomises some ticks to keep learning. On the person side, a safety mode such as STABILISE blocks deep work whatever the Watchdog wants, and the run falls back to stabilising. Each block shows as a small gold mark on the timeline and as a step in the decision chain for that tick.</p>
-  <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The confirmed result most relevant here is T-AP: a policy learned on agents, certified and gated, helps the simulated person.</p>
+  <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The result most relevant here is T-AP: a policy learned on agents passed its registered test on the simulated person, but it fails the baseline audit, because always stabilising did better.</p>
 </section>
 
 <footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
@@ -164,6 +165,13 @@ function pick() {
   $("t0").disabled = ev === "none";
   run = D.runs.find(r => r.seed === seed && (ev === "none" ? r.event === null : r.event === ev && r.t0 === t0));
   t = 0; drawTimeline(); show();
+  // STAB_DEFAULT D1 and §1a: the audit's baseline on the same simulated person, and the cue counts behind it.
+  const S = run.summary, c = S.cues;
+  $("pBear").innerHTML = `This run, mean score per tick: Watchdog switching ${S.person_mean.toFixed(3)}; `
+    + `always Bear ${S.person_mean_bear.toFixed(3)} (the simple baseline that beat switching in the <a href="results.html">baseline audit</a>). `
+    + `Cues reaching the person: ${c.watchdog} under the Watchdog${c.watchdog_open_at_end ? " (one still open at the end)" : ""}, `
+    + `${c.bear} under always Bear${c.bear_open_at_end ? " (one still open at the end)" : ""}. `
+    + `In this model an uninterrupted cue blocks later cues; see STAB_DEFAULT §5.`;
 }
 
 function drawGraph(tick) {

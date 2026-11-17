@@ -184,6 +184,12 @@ Tests: `tests/test_person2.py`. A stated model, not data.
 **Two-phase handover.** The outgoing mode disengages and its working state is flushed to MEMSTACK and verified empty; only then
 does the incoming mode engage. Residual traits after handover ("bleed") are measured.
 
+**Default (spec/STAB_DEFAULT.md, 17 November 2026).** Anything new that runs on a person starts stabilise-first:
+`world.person_world` (always Bear, with the safety fallback). Ledger switching remains available as an experiment;
+`World` itself keeps "watchdog" as its default so recorded runs reproduce. Guidance for any future generator of replies to
+everyday requests: avoid ending with a question back (CTX_PREF_HH, CTX_PREF_WC). Not applied to the copilot's deliberate
+personal questions, where it was never tested.
+
 **Simplicity.** The Watchdog has fixed rules, no learning and no language model, so it cannot drift with the agents it watches.
 Its rules sit in the Spine-protected layer.
 

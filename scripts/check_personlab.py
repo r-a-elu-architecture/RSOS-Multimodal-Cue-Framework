@@ -24,7 +24,7 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 
 
 def main():
-    mirrors = json.loads((DOCS / "data/personlab_mirrors.json").read_text(encoding="utf-8"))
+    mirrors = json.loads((DOCS / "data/personlab_persons.json").read_text(encoding="utf-8"))
     lab = json.loads((DOCS / "data/personlab_lab.json").read_text(encoding="utf-8"))
     srv = socketserver.TCPServer(("127.0.0.1", 0), functools.partial(Quiet, directory=str(DOCS)))
     threading.Thread(target=srv.serve_forever, daemon=True).start()

@@ -1,5 +1,5 @@
 """spec/PERSONLAB.md §7d C: the browser's Person Lab engine (docs/js/personlab.js) equals Python (rsxv.personlab.lab)
-for all 100 mirror lab persons, three policies and two effect sets; and the published population summary matches."""
+for all 100 lab persons, three policies and two effect sets; and the published population summary matches."""
 import json
 import pathlib
 import shutil
@@ -12,7 +12,7 @@ sys.path.insert(0, str(REPO / "rsxv"))
 from rsxv.personlab import lab as LB  # noqa: E402
 
 NODE = shutil.which("node")
-MIRRORS = json.loads((REPO / "docs/data/personlab_mirrors.json").read_text(encoding="utf-8"))
+MIRRORS = json.loads((REPO / "docs/data/personlab_persons.json").read_text(encoding="utf-8"))
 LAB = json.loads((REPO / "docs/data/personlab_lab.json").read_text(encoding="utf-8"))
 JS = """
 const L = require(process.argv[1]); const fs = require('fs');
@@ -29,7 +29,7 @@ class Parity(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         r = subprocess.run([NODE, "-e", JS, str(REPO / "docs/js/personlab.js"), str(REPO / "docs/data/personlab_lab.json"),
-                            str(REPO / "docs/data/personlab_mirrors.json")], capture_output=True, text=True, check=True)
+                            str(REPO / "docs/data/personlab_persons.json")], capture_output=True, text=True, check=True)
         cls.js = json.loads(r.stdout)
 
     def test_every_session_tick_equal(self):

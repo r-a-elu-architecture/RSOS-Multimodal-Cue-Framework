@@ -1,9 +1,9 @@
 """PERSONLAB §7d C: the Person Lab session engine (architecture, not a test).
 
-Agents work on a mirror lab person toward its desired state. The person is step 4's ProfilePerson, unchanged, with its
+Agents work on a lab person toward its desired state. The person is step 4's ProfilePerson, unchanged, with its
 random source replaced by mulberry32 so the browser (docs/js/personlab.js) gives identical runs.
 
-    python -m rsxv.personlab.lab ../docs/data/personlab_mirrors.json ../docs/data/personlab_lab.json
+    python -m rsxv.personlab.lab ../docs/data/personlab_persons.json ../docs/data/personlab_lab.json
 """
 from __future__ import annotations
 
@@ -145,8 +145,8 @@ def population(persons: list) -> dict:
     return out
 
 
-def build(mirrors: dict) -> dict:
-    persons = mirrors["persons"]
+def build(lab_persons: dict) -> dict:
+    persons = lab_persons["persons"]
     return {"spec": "spec/PERSONLAB.md §7d C", "ticks": TICKS, "seed0": SEED0, "policies": list(POLICIES),
             "tau": PS.DEFAULTS["tau"], "defaults": {k: v for k, v in PS.DEFAULTS.items() if k != "act"},
             "effects": EFFECTS, "archetypes": ARCH, "programs": PROGRAMS, "levels": S.LEVELS,

@@ -1,4 +1,4 @@
-"""spec/PERSONLAB.md §7d: RSX-V TARGET, the public mirror lab persons and the session engine."""
+"""spec/PERSONLAB.md §7d: RSX-V TARGET, the public lab persons (generated from summary statistics, §7d-B′) and the session engine."""
 import json
 import pathlib
 import random
@@ -10,11 +10,12 @@ sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "rsso"))
 import rsxv  # noqa: E402
 from rsxv import lang, sim  # noqa: E402
-from rsxv.personlab import lab as LB, mirror as MR, schema as S  # noqa: E402
+from rsxv.personlab import lab as LB, schema as S, synth as SY  # noqa: E402
 from rsxv.personlab.mirror_bank import BANK, DETAILS, SIGNALS, TYPES  # noqa: E402
 
 DRAGON = (HERE / "examples/dragon.rsxv").read_text(encoding="utf-8")
-MIRRORS = json.loads((HERE.parent / "docs/data/personlab_mirrors.json").read_text(encoding="utf-8"))
+MIRRORS = json.loads((HERE.parent / "docs/data/personlab_persons.json").read_text(encoding="utf-8"))
+AGG = json.loads((HERE / "results/personlab_aggregates.json").read_text(encoding="utf-8"))
 PERSONS = MIRRORS["persons"]
 
 
@@ -49,7 +50,7 @@ class Target(unittest.TestCase):   # §7d A
         self.assertIn("TARGET beliefs:v2", nx["text"])
 
 
-class Mirrors(unittest.TestCase):   # §7d B (the private structure match and overlap check run privately)
+class LabPersons(unittest.TestCase):   # §7d-B′ (the overlap check runs privately; its result is published in the file)
     def test_one_hundred_valid_invented_persons(self):
         self.assertEqual(len(PERSONS), 100)
         self.assertEqual([p["id"] for p in PERSONS], [f"lab-{i:03d}" for i in range(1, 101)])
@@ -60,25 +61,42 @@ class Mirrors(unittest.TestCase):   # §7d B (the private structure match and ov
             self.assertNotRegex(json.dumps(p).lower(), r"esconv-\d")   # no private document id
             self.assertIn(p["initial_intensity"], (1.0, 2.0, 3.0, 4.0, 5.0))
 
+    def test_open_licence_and_citation(self):
+        self.assertTrue(MIRRORS["licence"].startswith("CC BY 4.0"))
+        self.assertNotIn("NC", MIRRORS["licence"].replace("ESConv", ""))
+        self.assertIn("Liu", MIRRORS["citation"])
+
+    def test_generated_from_the_published_aggregates_alone(self):
+        self.assertEqual(SY.build(AGG, MIRRORS["check"]), MIRRORS)
+
+    def test_aggregates_are_counts_only(self):
+        A = AGG["aggregates"]
+        self.assertEqual(A["n"], 100)
+        def leaves(x):
+            if isinstance(x, dict):
+                for v in x.values():
+                    yield from leaves(v)
+            elif isinstance(x, list):
+                for v in x:
+                    yield from leaves(v)
+            else:
+                yield x
+        self.assertTrue(all(isinstance(v, int) for v in leaves(A)))
+        self.assertEqual(sum(A["initial_intensity"].values()), 100)
+        for lv in S.LEVEL_IDS:
+            self.assertEqual(sum(A["statements_per_level"][lv].values()), 100)
+
     def test_every_text_comes_from_the_invented_bank(self):
         bank = {x for ty in BANK.values() for lv in ty.values() for e in lv for x in e}
         bank |= {x for ty in DETAILS.values() for k in ty.values() for x in k} | set(SIGNALS.values())
         for p in PERSONS:
-            for t in MR.texts(p):
+            for t in SY.texts(p):
                 self.assertIn(t, bank, p["id"])
 
     def test_check_published(self):
         c = MIRRORS["check"]
-        self.assertEqual((c["mirrors"], c["structure_matches"], c["schema_valid"]), (100, 100, 100))
+        self.assertEqual((c["persons"], c["schema_valid"]), (100, 100))
         self.assertEqual((c["shared_4gram_with_profiles"], c["shared_4gram_with_input_text"]), (0, 0))
-
-    def test_mirror_copies_structure_of_a_profile(self):
-        ex = S.example()
-        ex["levels"]["behaviour"]["statements"][0]["details"] = [{"kind": "when", "text": "every week", "source": ex["levels"]["behaviour"]["statements"][0]["source"]}]
-        m = MR.build_mirror(ex, "job crisis", 4, "lab-test", 1)
-        self.assertEqual(MR.shape(m), MR.shape(ex))
-        self.assertEqual(S.validate(m), [])
-        self.assertFalse(set(MR.texts(m)) & set(MR.texts(ex)))
 
 
 class Engine(unittest.TestCase):   # §7d C

@@ -164,7 +164,7 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
 <section id="lab">
   <h2>Person Lab: 100 lab persons, and agents working toward each one's desired state</h2>
   <p class="lede">Each lab person has an identity profile on six levels, from environment up to purpose, with where they are now and where they want to be. Choose one and run a session: every tick the Watchdog picks an archetype (Bear steadies, Raven clarifies, Tiger takes a step, Lion shares), and each action is an RSX-V program whose <code>TARGET</code> line names the part of the profile it serves. Always Bear, the simple rule that beat switching in the baseline audit, runs beside it on the same person.</p>
-  <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each copies the structure of one profile built from a public research dataset of support conversations (ESConv, CC BY-NC 4.0, non-commercial use), and every statement is written for the lab. They are not real people and not anyone's words. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
+  <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each is drawn at random from summary statistics of 100 profiles built from a public research dataset of support conversations (ESConv), and every statement is written for the lab. They are not real people, not anyone's words, and none corresponds to any profile. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
   <div class="controls" role="group" aria-label="Person Lab controls">
     <label>Lab person<select id="labP"></select></label>
     <label>Effects of actions<select id="labE"><option value="placeholder">Equal (registered placeholder)</option><option value="illustrative">Different (invented, untested)</option></select></label>
@@ -192,7 +192,7 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
   <div style="overflow:auto"><table class="pop" id="labPop"></table></div>
 </section>
 
-<footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>. Person Lab: <code>rsxv/rsxv/personlab/</code> → <code>docs/data/personlab_mirrors.json</code>, <code>docs/data/personlab_lab.json</code>; lab persons' structure from ESConv (CC BY-NC 4.0), statements invented. <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>. Person Lab: <code>rsxv/rsxv/personlab/</code> → <code>docs/data/personlab_persons.json</code>, <code>docs/data/personlab_lab.json</code>; lab persons drawn from summary statistics of ESConv profiles (Liu et al., 2021), statements invented. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 </div>
 
 <script>
@@ -322,7 +322,7 @@ const TYPE = {"job crisis": "work and job", "breakup with partner": "a breakup",
 const EFF = {placeholder: "Equal effects (registered placeholder)", illustrative: "Different effects (invented, untested)"};
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 let LAB = null, M = null, run = null;
-Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/personlab_mirrors.json").then(r => r.json())])
+Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/personlab_persons.json").then(r => r.json())])
   .then(([l, m]) => { LAB = l; M = m; init(); })
   .catch(() => { $("labMeta").textContent = "The lab data could not be loaded. Open this page from the website, not as a local file."; });
 

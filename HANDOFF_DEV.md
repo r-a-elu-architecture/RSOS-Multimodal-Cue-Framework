@@ -6,6 +6,10 @@ history.
 
 ## 1. Rules
 
+> **FREEZE (2026-11-17, spec/RELEASE_1.md).** The owner chose one consolidated release step. Until its pull request
+> `dev` → `main` is opened, `dev` takes only RELEASE_1 commits: no new specs or features from any session. If you are
+> the parallel session, finish or park what you have, push nothing new, and add findings to §5 instead.
+
 - **Nothing goes to `main` or the live site** from the building account. Everything is on `dev` and the
   development site. Merging is the owner's decision after review.
 - **Lanes.** The builder pushes to `dev` only. The reviewer works on its own branch (`review/<step>`) and writes

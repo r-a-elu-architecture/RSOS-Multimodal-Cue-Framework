@@ -436,6 +436,9 @@ Review status: **awaiting review**.
 - Click: `/dev/world.html#lab` (pick a lab person, switch effects and policy, click a tick for its RSX-V program);
   `/dev/system.html` → Person Lab box.
 - Checks: RSX-V 220, rsso 304, `check_all.sh`, `check_personlab` 31/31, all browser checks and `check_release` exit 0.
+- **Amendment §7d-B′** (registered df50bc2, code 5aefd70; owner: RSOS is open like Linux): lab persons are now drawn from
+  published summary statistics (`rsxv/results/personlab_aggregates.json`), CC BY 4.0 with ESConv cited; no per-profile
+  copy. Equal effects: tie on all 100; invented effects: agents ahead on 99, behind on 1.
 Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)

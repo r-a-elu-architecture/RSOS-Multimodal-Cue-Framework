@@ -486,6 +486,17 @@ conversation's second half and post-chat intensity held out for step 5.
 - **Open.** The lab persons and agents are architecture. What would make the lab evidence: a person model that passes
   step 5's validation on the people's own ratings, and effects measured rather than written.
 
+### §7d-B′ (registered df50bc2, code 5aefd70): lab persons from summary statistics, CC BY 4.0
+- `rsxv/results/personlab_aggregates.json` published (counts only; a test checks every value is a count).
+- 100 lab persons drawn from it (seed 2041), 25 per problem type; schema valid 100 of 100. Private check: 0 shared four-word
+  runs with the private profiles and 0 with the conversation text. `docs/data/personlab_persons.json` is CC BY 4.0 with ESConv
+  cited; the per-profile mirrors and `mirror.py` are removed. Anyone can regenerate the file from the aggregates (tested).
+- Population, recomputed: placeholder: agents and always Bear identical on all 100 (final intensity 1.40, progress 12%); no
+  support 4.13 and 0%. Illustrative (invented): agents progress 79% against always Bear 14%; more for 99, less for 1
+  (the drawn features, not the copied ones, now decide each person, so one person ends behind).
+- Checks: RSX-V 222 (pytest), rsso 304, `check_all.sh`, `check_personlab` 31/31, all other browser checks and
+  `check_release` exit 0.
+
 ### Record review note (17 November 2026, evening; no threshold, verdict or number changed)
 - **Readers.** The "two independent readers" in steps 3 and 5b are separate instances of the same model, given the same
   frozen instructions. They do not see each other's output, but they share the model's habits. Kappa 0.728 (profiles)

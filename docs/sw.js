@@ -1,6 +1,6 @@
 /* RSOS player service worker: works offline, never serves a stale version when online.
  * Network first for everything; the cache is only a fallback when there is no connection. */
-const CACHE = (/\/dev\//.test(self.location.pathname) ? "rsos-dev-" : "rsos-player-") + "v47";
+const CACHE = (/\/dev\//.test(self.location.pathname) ? "rsos-dev-" : "rsos-player-") + "v48";
 const SHELL = ["js/devmode.js", "player.html", "agents.html", "js/machines.js", "js/pron.js", "data/parts.json", "js/rsx.js", "js/hrs.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png",
   "protocols/override.rsx", "protocols/interrupt_only.rsx", "protocols/swish.rsx", "protocols/legacy_vector.rsx",
   "protocols/paced_breathing.rsx", "protocols/tier013_lion_dragon.rsx", "protocols/ssit_higher.rsx", "protocols/ssit_local.rsx", "protocols/ssit_calm.rsx", "data/demo_rr.json", "js/memstack.js",

@@ -73,8 +73,19 @@ def register():
     return out
 
 
+def audit():
+    """spec/BASELINE_AUDIT.md §7 T2: each audited row's outcome, read from the audit's own result file."""
+    p = ROOT / "rsxv/results/results_baseline_audit.json"
+    if not p.exists():
+        return None
+    rows = [r for r in json.loads(p.read_text(encoding="utf-8"))["rows"] if r["outcome"] != "NOT APPLICABLE"]
+    return {"rows": [{"id": r["id"].split(" ", 1)[1], "outcome": r["outcome"].lower(), "baseline": r["baseline"]} for r in rows],
+            "holds": sum(r["outcome"] == "HOLDS" for r in rows), "n": len(rows),
+            "link": "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/dev/rsxv/results/baseline_audit.md"}
+
+
 def build():
-    return {"w1": w1(), "hswitch": hswitch(), "register": register(),
+    return {"w1": w1(), "hswitch": hswitch(), "register": register(), "audit": audit(),
             "note": "Real runs of the tested rsxv code on a small sample (W1: 40 trials; H-SWITCH: 30 simulated people). "
                     "The registered results (W1 n = 400, H-SWITCH n = 200) are the authority. Stated models, not data about people."}
 

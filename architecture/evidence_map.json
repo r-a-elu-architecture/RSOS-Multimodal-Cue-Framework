@@ -1,0 +1,40 @@
+{
+  "spec": "spec/EVIDENCE_LABELS.md",
+  "levels": {
+    "E0": {"name": "Written", "means": "specified in a document; no code yet"},
+    "E1": {"name": "Built", "means": "the software runs and its own tests pass; whether the method helps is not tested"},
+    "E2": {"name": "Checked on simulated people", "means": "the measuring recovers known answers planted in simulated people; whether the method helps is not tested"},
+    "E3": {"name": "Tested in simulation", "means": "registered tests of whether the method helps, on simulated people or agents"},
+    "E4": {"name": "Tested on recorded data", "means": "registered tests on real recorded data, not on people using RSOS"},
+    "E5": {"name": "Tested with people using RSOS", "means": "a registered study with people using RSOS"}
+  },
+  "row_sources": {
+    "sim": ["W1", "W3", "W4", "W5", "G1", "G2", "H-CFIT", "LIA-G", "T-AP", "J1"],
+    "record": ["C1–C6", "Corpus v2", "Round 7", "SR-2", "SR-3"],
+    "public": ["Phase 9", "LIA-WW", "H-CTX", "Corpus lineage across conversations", "Round 8"],
+    "people": []
+  },
+  "pages": {
+    "index":      {"kind": "summary"},
+    "system":     {"kind": "summary"},
+    "results":    {"kind": "summary"},
+    "player":     {"kind": "part", "level": "E1", "part": "Override Protocol and the player", "basis": ["rsx/tests/test_compiler.py", "rsx/tests/js_compile.js"]},
+    "anchors":    {"kind": "part", "level": "E2", "part": "Anchors you can measure (PEAK)", "basis": ["rsso/results/peak.md"]},
+    "trials":     {"kind": "part", "level": "E2", "part": "Personal trials (TRIAL)", "basis": ["rsso/results/trial.md"]},
+    "identity":   {"kind": "part", "level": "E2", "part": "Identity profiles (IDENTITY)", "basis": ["rsso/results/identity.md"]},
+    "atlas":      {"kind": "part", "level": "E2", "part": "Trigger atlas (ATLAS)", "basis": ["rsso/results/atlas.md"]},
+    "night":      {"kind": "part", "level": "E2", "part": "Night and reward (SLEEP, REWARD)", "basis": ["rsso/results/night.md"]},
+    "therapist":  {"kind": "part", "level": "E2", "part": "Therapist mode (THERA)", "basis": ["rsso/results/copilot.md"]},
+    "nodes":      {"kind": "part", "level": "E1", "part": "Nodes and LINX", "basis": ["rsso/tests/test_nodes.py", "rsso/tests/test_linx.py"]},
+    "device":     {"kind": "part", "level": "E1", "part": "Device protocol and firmware", "basis": ["rsso/results/conformance_firmware.md", "rsso/tests/test_firmware.py", "rsso/tests/test_board.py"], "note": "no board run yet"},
+    "glyphs":     {"kind": "part", "level": "E1", "part": "Glyph layer (UGCL)", "basis": ["rsso/tests/test_ugcl.py"]},
+    "safety":     {"kind": "part", "level": "E1", "part": "Safety engine and Watchdog", "basis": ["rsso/tests/test_safety.py", "rsso/tests/test_watchdog.py"]},
+    "contribute": {"kind": "part", "level": "E1", "part": "Data contribution", "basis": ["rsso/tests/test_contribution.py"]},
+    "agents":     {"kind": "part", "level": "E4", "part": "RSX-V agents", "families": ["agents", "transfer", "repurposing", "lineage"]},
+    "world":      {"kind": "part", "level": "E4", "part": "The World simulation", "families": ["agents", "transfer", "repurposing", "lineage"]},
+    "rsxv":       {"kind": "part", "level": "E4", "part": "RSX-V command layer", "families": ["agents", "transfer", "repurposing", "lineage"]},
+    "roadmap":    {"kind": "record"},
+    "tiers":      {"kind": "record"},
+    "metrics":    {"kind": "record"}
+  }
+}

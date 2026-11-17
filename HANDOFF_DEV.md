@@ -52,6 +52,7 @@ python3 scripts/check_fixes_r4.py docs    # spec/FIXES_R4.md (synthetic sessions
 python3 scripts/check_fixes_r5.py docs    # spec/FIXES_R5.md: real page paths
 python3 scripts/check_fixes_r6.py docs    # spec/FIXES_R6.md: changes after Begin, lineage, held pages
 python3 scripts/check_site_catchup.py docs # spec/SITE_CATCHUP.md: System page, RSX-V page, results families
+python3 scripts/check_evidence.py docs     # spec/EVIDENCE_LABELS.md: every live page shows its evidence label
 ```
 
 ## 3. Review checklist (every step)

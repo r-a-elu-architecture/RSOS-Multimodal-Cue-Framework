@@ -1,0 +1,318 @@
+{
+ "spec": "spec/EVIDENCE_LABELS.md",
+ "levels": {
+  "E0": {
+   "name": "Written",
+   "means": "specified in a document; no code yet"
+  },
+  "E1": {
+   "name": "Built",
+   "means": "the software runs and its own tests pass; whether the method helps is not tested"
+  },
+  "E2": {
+   "name": "Checked on simulated people",
+   "means": "the measuring recovers known answers planted in simulated people; whether the method helps is not tested"
+  },
+  "E3": {
+   "name": "Tested in simulation",
+   "means": "registered tests of whether the method helps, on simulated people or agents"
+  },
+  "E4": {
+   "name": "Tested on recorded data",
+   "means": "registered tests on real recorded data, not on people using RSOS"
+  },
+  "E5": {
+   "name": "Tested with people using RSOS",
+   "means": "a registered study with people using RSOS"
+  }
+ },
+ "pages": {
+  "player": {
+   "kind": "part",
+   "level": "E1",
+   "part": "Override Protocol and the player",
+   "text": "Evidence: E1 Built. The software runs and its own tests pass; whether the method helps is not tested. Not yet tested with people using RSOS.",
+   "basis": [
+    "rsx/tests/test_compiler.py",
+    "rsx/tests/js_compile.js"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "anchors": {
+   "kind": "part",
+   "level": "E2",
+   "part": "Anchors you can measure (PEAK)",
+   "text": "Evidence: E2 Checked on simulated people. The measuring recovers known answers planted in simulated people; whether the method helps is not tested (rsso/results/peak.md). Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/results/peak.md"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "trials": {
+   "kind": "part",
+   "level": "E2",
+   "part": "Personal trials (TRIAL)",
+   "text": "Evidence: E2 Checked on simulated people. The measuring recovers known answers planted in simulated people; whether the method helps is not tested (rsso/results/trial.md). Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/results/trial.md"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "identity": {
+   "kind": "part",
+   "level": "E2",
+   "part": "Identity profiles (IDENTITY)",
+   "text": "Evidence: E2 Checked on simulated people. The measuring recovers known answers planted in simulated people; whether the method helps is not tested (rsso/results/identity.md). Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/results/identity.md"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "atlas": {
+   "kind": "part",
+   "level": "E2",
+   "part": "Trigger atlas (ATLAS)",
+   "text": "Evidence: E2 Checked on simulated people. The measuring recovers known answers planted in simulated people; whether the method helps is not tested (rsso/results/atlas.md). Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/results/atlas.md"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "night": {
+   "kind": "part",
+   "level": "E2",
+   "part": "Night and reward (SLEEP, REWARD)",
+   "text": "Evidence: E2 Checked on simulated people. The measuring recovers known answers planted in simulated people; whether the method helps is not tested (rsso/results/night.md). Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/results/night.md"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "therapist": {
+   "kind": "part",
+   "level": "E2",
+   "part": "Therapist mode (THERA)",
+   "text": "Evidence: E2 Checked on simulated people. The measuring recovers known answers planted in simulated people; whether the method helps is not tested (rsso/results/copilot.md). Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/results/copilot.md"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "nodes": {
+   "kind": "part",
+   "level": "E1",
+   "part": "Nodes and LINX",
+   "text": "Evidence: E1 Built. The software runs and its own tests pass; whether the method helps is not tested. Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/tests/test_nodes.py",
+    "rsso/tests/test_linx.py"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "device": {
+   "kind": "part",
+   "level": "E1",
+   "part": "Device protocol and firmware",
+   "text": "Evidence: E1 Built. The software runs and its own tests pass; whether the method helps is not tested. No board run yet. Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/results/conformance_firmware.md",
+    "rsso/tests/test_firmware.py",
+    "rsso/tests/test_board.py"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "glyphs": {
+   "kind": "part",
+   "level": "E1",
+   "part": "Glyph layer (UGCL)",
+   "text": "Evidence: E1 Built. The software runs and its own tests pass; whether the method helps is not tested. Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/tests/test_ugcl.py"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "safety": {
+   "kind": "part",
+   "level": "E1",
+   "part": "Safety engine and Watchdog",
+   "text": "Evidence: E1 Built. The software runs and its own tests pass; whether the method helps is not tested. Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/tests/test_safety.py",
+    "rsso/tests/test_watchdog.py"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "contribute": {
+   "kind": "part",
+   "level": "E1",
+   "part": "Data contribution",
+   "text": "Evidence: E1 Built. The software runs and its own tests pass; whether the method helps is not tested. Not yet tested with people using RSOS.",
+   "basis": [
+    "rsso/tests/test_contribution.py"
+   ],
+   "families": [],
+   "counts": {}
+  },
+  "agents": {
+   "kind": "part",
+   "level": "E4",
+   "part": "RSX-V agents",
+   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
+   "basis": [],
+   "families": [
+    "agents",
+    "transfer",
+    "repurposing",
+    "lineage"
+   ],
+   "counts": {
+    "simulation": {
+     "pass": 1,
+     "mixed": 7,
+     "fail": 18,
+     "analysis": 1
+    },
+    "recorded": {
+     "pass": 0,
+     "mixed": 2,
+     "fail": 2,
+     "other": 3
+    }
+   }
+  },
+  "world": {
+   "kind": "part",
+   "level": "E4",
+   "part": "The World simulation",
+   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
+   "basis": [],
+   "families": [
+    "agents",
+    "transfer",
+    "repurposing",
+    "lineage"
+   ],
+   "counts": {
+    "simulation": {
+     "pass": 1,
+     "mixed": 7,
+     "fail": 18,
+     "analysis": 1
+    },
+    "recorded": {
+     "pass": 0,
+     "mixed": 2,
+     "fail": 2,
+     "other": 3
+    }
+   }
+  },
+  "rsxv": {
+   "kind": "part",
+   "level": "E4",
+   "part": "RSX-V command layer",
+   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
+   "basis": [],
+   "families": [
+    "agents",
+    "transfer",
+    "repurposing",
+    "lineage"
+   ],
+   "counts": {
+    "simulation": {
+     "pass": 1,
+     "mixed": 7,
+     "fail": 18,
+     "analysis": 1
+    },
+    "recorded": {
+     "pass": 0,
+     "mixed": 2,
+     "fail": 2,
+     "other": 3
+    }
+   }
+  },
+  "roadmap": {
+   "kind": "record",
+   "level": null,
+   "text": "Evidence: this page shows records as written and makes no claim of effect. Not yet tested with people using RSOS."
+  },
+  "tiers": {
+   "kind": "record",
+   "level": null,
+   "text": "Evidence: this page shows records as written and makes no claim of effect. Not yet tested with people using RSOS."
+  },
+  "metrics": {
+   "kind": "record",
+   "level": null,
+   "text": "Evidence: this page shows records as written and makes no claim of effect. Not yet tested with people using RSOS."
+  },
+  "index": {
+   "kind": "summary",
+   "level": null,
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 42 registered tests: 1 pass, 11 mixed, 25 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
+  },
+  "system": {
+   "kind": "summary",
+   "level": null,
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 42 registered tests: 1 pass, 11 mixed, 25 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
+  },
+  "results": {
+   "kind": "summary",
+   "level": null,
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 42 registered tests: 1 pass, 11 mixed, 25 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
+  }
+ },
+ "register": {
+  "pass": 1,
+  "mixed": 11,
+  "fail": 25,
+  "analysis": 1,
+  "other": 4
+ },
+ "register_by_source": {
+  "sim": {
+   "pass": 1,
+   "mixed": 7,
+   "fail": 18,
+   "analysis": 1
+  },
+  "record": {
+   "pass": 0,
+   "mixed": 3,
+   "fail": 2
+  },
+  "public": {
+   "pass": 0,
+   "mixed": 1,
+   "fail": 5,
+   "other": 4
+  },
+  "people": {
+   "pass": 0,
+   "mixed": 0,
+   "fail": 0
+  }
+ },
+ "parts_by_level": {
+  "E0": 0,
+  "E1": 6,
+  "E2": 6,
+  "E3": 0,
+  "E4": 3,
+  "E5": 0
+ }
+}

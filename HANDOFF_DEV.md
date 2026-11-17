@@ -426,6 +426,18 @@ Review status: **awaiting review**.
 - Open: World page E3 or E4 (§7). Next: step 14, the Agents page board.
 Review status: **awaiting review**.
 
+### PERSONLAB §7d: the Person Lab on the World page (registered 0882e83, code 094b5c3; owner's decision)
+- Rebuilt in this session: the earlier session's work on this (TARGET, mirrors, World section) was never pushed and was lost.
+- RSX-V `TARGET <level>:<node>`; 100 public mirror lab persons (private structure, invented statements, 0 shared 4-word
+  runs); step 4's person in Python and the browser (identical on 600 sessions); agents (Bear / Raven / Tiger / Lion by the
+  Watchdog rule), always Bear and no support; equal (registered) and invented effects.
+- Result by construction: equal effects → agents tie always Bear on all 100; invented effects → agents ahead on all 100.
+  The page says plainly that this is architecture, the person model failed validation, and VAKOG and echo showed no effect.
+- Click: `/dev/world.html#lab` (pick a lab person, switch effects and policy, click a tick for its RSX-V program);
+  `/dev/system.html` → Person Lab box.
+- Checks: RSX-V 220, rsso 304, `check_all.sh`, `check_personlab` 31/31, all browser checks and `check_release` exit 0.
+Review status: **awaiting review**.
+
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
 
 Registered 35d61d8; round-1 results c6b6af6; amendment A1 356991b; code c4d9b8b; E2 results 22059eb; amendment A2

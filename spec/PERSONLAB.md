@@ -442,6 +442,29 @@ conversation's second half and post-chat intensity held out for step 5.
   The confirmatory test is not run on reader stress.
 - The sealed predictions: P(VALID) = 0.35 and P(at least PARTIAL) = 0.65 were both not met.
 
+### Steps 6–7 as architecture, §7d (registered 0882e83, code 094b5c3; not a test, nothing enters the results register)
+- **A. TARGET** in RSX-V: parsed, written by `to_text`, kept through NEXT; malformed lines and unknown levels rejected.
+- **B. 100 mirror lab persons** (`docs/data/personlab_mirrors.json`): structure matches the private profiles 100 of 100;
+  schema valid 100 of 100; 25 per problem type; shuffled with seed 2041. Overlap check, run privately: the first bank shared
+  13 four-word runs with the private profiles and 8 with the conversation text, all generic phrases ("at the end of",
+  "I am good at"). 13 bank phrases were reworded before publishing; the published bank shares **0** with either.
+- **C. Session engine.** All 528 action × node programs of the 100 lab persons parse. The browser equals Python on all
+  600 sessions (100 persons × 3 policies × 2 effect sets), tick by tick. Population, 20 ticks:
+  - placeholder (registered equal effects): agents and always Bear identical on all 100 (final intensity 1.41, progress
+    12%); no support 4.06 and 0%. As stated at registration, by construction.
+  - illustrative (invented, untested): agents progress 79% against always Bear 14%, more on all 100; always Bear ends
+    lower in intensity (1.03 against 1.39). By construction.
+- **D. World page:** the Person Lab section (person picker, identity tree, session beside always Bear, tick table with each
+  tick's RSX-V program, population table). Problem types are shown with neutral names (ESConv's "job crisis" is shown as
+  "work and job"), because pages carry no crisis wording (`check_profiles` S-7 caught it).
+- **E. System page:** the Person Lab box (status "sim"), linked to the AI layer, RSX-V and Memory, with its evidence.
+- **F.** The World page's evidence label now counts the person-model rows: on recorded data 15 tests, 0 pass.
+- Checks: RSX-V 220 passed (13 new); rsso 304 (parity 3 new); `check_all.sh` passed; `check_personlab.py` 31/31; all 14
+  other browser checks exit 0, `check_release.py` included. L5 caught one phrase of mine on the World page ("a validated
+  effect"); reworded.
+- **Open.** The lab persons and agents are architecture. What would make the lab evidence: a person model that passes
+  step 5's validation on the people's own ratings, and effects measured rather than written.
+
 ### Record review note (17 November 2026, evening; no threshold, verdict or number changed)
 - **Readers.** The "two independent readers" in steps 3 and 5b are separate instances of the same model, given the same
   frozen instructions. They do not see each other's output, but they share the model's habits. Kappa 0.728 (profiles)

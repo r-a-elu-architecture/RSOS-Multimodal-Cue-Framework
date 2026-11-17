@@ -42,7 +42,7 @@
    "mixed": 4,
    "fail": 0,
    "analysis": 0,
-   "other": 0
+   "other": 1
   },
   "other": {
    "pass": 0,
@@ -358,6 +358,15 @@
    "family": "transfer",
    "series": "W5",
    "parent": "W5e (\u00a711.9)"
+  },
+  {
+   "test": "H-CTX, context-dependent reply style in real arena votes (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CTX_PREF.md\">spec/CTX_PREF.md</a>)",
+   "result": "<b>Inconclusive</b>",
+   "meaning": "Only 128 of 35,858 real prompts described a personal difficulty, too few to test the context that matters most. Length-matched, neither stabilising acknowledgment nor asking back wins or loses clearly anywhere (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/ctx_pref.md\">results/ctx_pref.md</a>)",
+   "status": "other",
+   "family": "agents",
+   "series": null,
+   "parent": null
   }
  ]
 }

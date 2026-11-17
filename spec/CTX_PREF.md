@@ -78,5 +78,14 @@ without a full crossover.
 - A CONTEXT-DEPENDENT result supports building switching on real data; SAME DIRECTION would mean the switching idea needs
   rethinking, as the models suggested.
 
-## 8. Results
-(recorded after the run, in a separate commit)
+## 8. Results (recorded after code 6869870; GitHub job 44061366439; `rsxv/results/ctx_pref.md`)
+
+- Data revision 6322995ab34d7c2693e3f47dd13fa5caa0789a74, 135,634 rows; 35,858 votes included.
+- Contexts: PERSONAL 128, CODE 11,045, OTHER 24,685.
+- **Verdict: INCONCLUSIVE.** S had one usable context (OTHER: 41 / 76 = 0.539) and Q two (CODE 175 / 339 = 0.516;
+  OTHER 456 / 836 = 0.545). No interval excludes 0.5. PERSONAL had 2 (S) and 7 (Q) usable votes.
+- The sealed prediction (P(CONTEXT-DEPENDENT) = 0.45) could not be scored. The data do not reach the question.
+- Information only: without length matching, asking back wins 0.406 in CODE and 0.436 in OTHER. The length-matched
+  rates are near 0.5, so length probably explains that gap.
+- Next step if the question is pursued: a public data set where personal-difficulty prompts are common (for example
+  support-conversation corpora), registered as a new test with the same rules. Not run here.

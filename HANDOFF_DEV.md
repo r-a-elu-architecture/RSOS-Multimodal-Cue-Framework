@@ -350,6 +350,14 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   under the lede gives the audit's outcome per row, built from the audit's result file.
 Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
+### CTX_PREF (spec/CTX_PREF.md; registered 0b0337c, code 6869870, GitHub job 44061366439)
+- Real arena votes (lmarena-ai/arena-human-preference-140k, CC BY 4.0), analysed on GitHub's runner. Only aggregates
+  were printed; they are read back from the job log.
+- **Inconclusive:** 128 of 35,858 prompts were PERSONAL. Length-matched, no style wins or loses clearly in CODE or OTHER.
+- The question (does the best response depend on context?) is still open. It needs data where personal-difficulty prompts
+  are common.
+Review status: **awaiting review**.
+
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
 
 Registered 35d61d8; round-1 results c6b6af6; amendment A1 356991b; code c4d9b8b; E2 results 22059eb; amendment A2

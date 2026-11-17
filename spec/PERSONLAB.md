@@ -118,6 +118,55 @@ reader B. **The instructions are frozen unchanged** (`builder_instructions.md` a
 **Sealed prediction:** P(kappa ≥ 0.6) = 0.55. The environment and behaviour levels are expected to agree best, and mission
 worst (people rarely state a purpose in a support chat).
 
+## 6. Step 4: simulated persons driven by profiles (registered 17 November 2026, before its code)
+
+Module `rsxv/rsxv/personlab/person.py`, class `ProfilePerson(profile, params, seed)`.
+
+**Actions.** Five, mapped from ESConv's own supporter-strategy labels, so step 5 can fit them from real conversations.
+Each carries the archetype that plays it in the architecture:
+
+| Action | ESConv strategies | Archetype |
+|---|---|---|
+| `STABILISE` | Affirmation and Reassurance; Reflection of feelings | Bear |
+| `EXPLORE` | Question; Restatement or Paraphrasing | Raven |
+| `SUGGEST` | Providing Suggestions; Information | Tiger |
+| `SHARE` | Self-disclosure | Lion |
+| `NONE` | Others | — |
+
+**State.** Intensity I on ESConv's 1–5 scale, starting at the profile's initial intensity. Arousal u in [0, 1], starting at
+(I − 1) / 4. Clarity k in [0, 1], starting at 0. Progress g in [0, 1] towards the desired state.
+
+**Targets.** The levels of the desired items that both readers agreed on. Otherwise all desired items. Otherwise the levels
+with current items. Otherwise `behaviour`. These are recorded in the person, so the weak desired states (§5) are handled
+openly.
+
+**One tick (one supporter turn).**
+- A cue arrives with probability ρ: I rises by δ and u by δ/4. **Cues never block one another**, which fixes the
+  STAB_DEFAULT loophole.
+- The action applies, with parameters per action:
+  - relief r_a lowers I;
+  - calming m_a lowers u;
+  - clarity gain e_a raises k;
+  - progress p_a raises g, scaled by (0.5 + k). It applies only when u < τ; at u ≥ τ the action instead raises u by c_a.
+- I drifts back towards 1 at rate λ.
+- Values are clipped to their ranges.
+
+**Observation.** A feedback score in 1–5: 3 + f1 · (relief this tick) + f2 · (progress this tick) + noise, rounded and
+clipped. This is what ESConv records after supporter turns.
+
+**Profile → person, by count only.** No meaning is read beyond step 3. The cue rate is ρ · (1 + 0.25 · the number of
+signals, capped at 4). The progress scale is × 1.25 when the profile has a `skills` statement.
+
+**Parameters.** Defaults are neutral placeholders: every action has the same small effects, ρ = 0.1, δ = 0.5, τ = 0.6,
+λ = 0.02, f1 = f2 = 1. **Step 5 fits them from ESConv** (development conversations) and tests them on held-out ones. The
+structure ("progress only when calm enough") is a hypothesis that step 5's fit can weaken: a fitted τ near 1 removes it.
+
+**Score for step 6.** Per tick: (relief) + (progress), minus 1 when I rises by more than 1 in one tick (a spike).
+
+**Tests.** Same seed gives the same run. Cues keep arriving while earlier ones are unresolved. Each action moves its own
+variable in the stated direction. The targets rule. Building all 100 private profiles gives 100 valid persons, and an
+aggregate summary of targets is published.
+
 ## 8. Amendment, 17 November 2026
 Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording
 rule, and the SOURCES.md path is made exact. No design change.

@@ -167,6 +167,44 @@ structure ("progress only when calm enough") is a hypothesis that step 5's fit c
 variable in the stated direction. The targets rule. Building all 100 private profiles gives 100 valid persons, and an
 aggregate summary of targets is published.
 
+## 7. Step 5: fit on development conversations, validate on the held-out 100 (registered 17 November 2026, before its code)
+
+**Development set.** ESConv conversations of the same four types, with both intensity ratings, **excluding the 100 and the
+4 pilot conversations**. They have no profiles and are used only to fit the parameters.
+
+**What is predicted (primary).** Each conversation's real **final intensity**. One tick per supporter turn, with the
+action given by that turn's real strategy label (§6 mapping), over the whole conversation. The start is the real initial
+intensity.
+
+**The model in expectation.** For prediction, a cue's effect is replaced by its expected value: each tick, I rises by
+ρ·δ·(1 + 0.25·signals). The intensity path depends only on the fitted relief per action r_a (allowed in [−1, 1], so an
+action may raise intensity), the drift ρ·δ and the recovery λ. Progress, clarity and arousal do not enter the primary
+prediction. Fitting them needs the feedback data and is left out of this step.
+
+**Fit.** Mean absolute error of the final intensity on the development set, minimised by Nelder–Mead (scipy) from the
+defaults and from 5 random starts (seed 2028). The best development error wins. The fitted values are frozen before the
+100 are touched.
+
+**Validated arms on the 100** (all fitted on the development set only):
+- `PERSON`: the fitted model with each person's profile (signals count).
+- `PERSON-NOPROFILE`: the same with signals = 0. This is the ablation: does the profile add anything?
+- `B1 persistence`: final = initial.
+- `B2 mean change`: final = initial + the development mean change.
+- `B3 linear`: least squares of final on initial intensity and the count of supporter turns per action. Profile-free,
+  with the same information as `PERSON-NOPROFILE`.
+
+**Pass.** `PERSON` beats B1, B2 and B3: for each comparison, the paired bootstrap interval (2000 resamples, seed 12345,
+level 1 − 0.05/3) of (|error_PERSON| − |error_baseline|) per conversation lies below 0.
+
+Reported beside the pass, not part of it:
+- `PERSON` against `PERSON-NOPROFILE`, with the same interval. If it does not differ, the profiles add nothing to the
+  prediction of intensity in this model, and that is stated plainly.
+- The fitted parameters.
+- The errors by problem type.
+
+**Sealed prediction:** P(pass) = 0.25. The linear baseline is strong. P(profile adds something) = 0.15, because the profile
+enters only through the signal count.
+
 ## 8. Amendment, 17 November 2026
 Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording
 rule, and the SOURCES.md path is made exact. No design change.

@@ -130,7 +130,7 @@ The protocol player tracks these measures per tier (RSSO MEMSTACK): it asks how 
 - Scent and taste components require the practitioner to confirm they have no allergy or aversion.
 
 **Do not use as a stand-alone method in:**
-- acute crisis, or any risk of harm to self or others: contact local emergency services or a crisis line;
+- acute risk of harm to self or others: only under a qualified clinician's protocol;
 - active psychosis, mania or severe dissociation;
 - deliberate processing of traumatic memories, which belongs with a qualified clinician (the protocol may be used *alongside* such treatment with the clinician's agreement).
 

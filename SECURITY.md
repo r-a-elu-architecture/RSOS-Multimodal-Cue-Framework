@@ -21,6 +21,6 @@ See [REVIEW.md §5](REVIEW.md): the wristband's Bluetooth link is not yet paired
 - Never commit run logs, voice recordings, physiological recordings or other personal data to this repository.
 - Studies that collect data from people need informed consent and appropriate ethical oversight.
 
-## Not for crisis use
+## Not for acute risk
 
-The protocol is not a crisis intervention. Anyone at risk of harm should contact local emergency services or a crisis line.
+Acute risk is outside self-guided use and belongs under a qualified clinician's protocol.

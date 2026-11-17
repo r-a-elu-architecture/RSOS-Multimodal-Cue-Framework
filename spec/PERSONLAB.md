@@ -24,8 +24,8 @@ are registered here, each before its code. Results are recorded in §9 in separa
 | 3 | Profile builder: story → profile, two independent readers, agreement measured | before its code |
 | 4 | Simulated persons driven by profiles (no open-cue blocking) | before its code |
 | 5 | Validation: does each simulated person predict the held-out part of its source better than simple baselines? | before its code |
-| 6 | Agents act from current → desired state; compared with "always stabilise" and other simple baselines; RSX-V `TARGET` | before its code |
-| 7 | The Person Lab page on the site | before its code |
+| 6 | Agents act from current → desired state; compared with "always stabilise" and other simple baselines; RSX-V `TARGET` | before its code (built as architecture: §7d) |
+| 7 | The Person Lab page on the site | before its code (§7d, on the World page) |
 
 ## 2. Step 1: the identity profile (`rsxv/rsxv/personlab/schema.py`)
 
@@ -279,6 +279,71 @@ every result. NOT VALID: the stress readings measure what readers see, not what 
 redesigned before it runs.
 
 **Sealed prediction:** P(VALID) = 0.35; P(at least PARTIAL) = 0.65.
+
+## 7d. Steps 6–7 as architecture: the Person Lab on the World page (registered 17 November 2026, owner's decision, before its code)
+
+Step 5 failed, so step 6 cannot be a test of whether the agents help: there is no validated person to test them on. By the
+owner's decision, steps 6 and 7 are built **as working architecture**, clearly labelled, so that the lab can be extended
+and later validated. Nothing in this section is a hypothesis test, and no result here enters the results register.
+
+**A. RSX-V `TARGET` (step 6's language part).** One header line, `TARGET <level>:<node>`, naming the profile level and the
+statement an action serves (`level` one of the six; `node` a statement id, `[A-Za-z0-9_-]+`). `parse` stores
+`prog["target"] = {"level", "node"}`; `to_text` writes it after `MEMORY`; NEXT keeps it unchanged (`next_program` copies
+the program). Unknown levels and malformed lines are rejected. Programs without `TARGET` are unchanged.
+
+**B. 100 mirror lab persons (public).** The private profiles (§4) are never published. Each of the 100 gets a public
+*mirror* that copies its structure exactly and none of its words:
+- copied: problem type (from the sample order, 25 per type), initial intensity, which levels hold statements and how many,
+  how many details of each kind each statement has, the current and desired items per level, which statement each item
+  points at, the `agreed` flags of desired items, and the number and kinds of signals;
+- invented: every text, drawn from a hand-written neutral phrase bank per problem type and level
+  (`rsxv/rsxv/personlab/mirror_bank.py`), each text labelled as invented;
+- not copied: document ids, conversation text, final intensity, reader outputs. The mirrors are shuffled (seed 2041), so a
+  mirror's number does not reveal its position in the sample.
+- Check, run privately with aggregates only published: no mirror text shares a run of 4 words with any private profile
+  text. Each mirror validates under the step-1 schema (with `source` pointing at the mirror's own invented text).
+- File: `docs/data/personlab_mirrors.json`, labelled "structure from ESConv (CC BY-NC 4.0), non-commercial research use;
+  all statements invented".
+
+**C. The session engine (`rsxv/rsxv/personlab/lab.py`, `docs/js/personlab.js`).**
+- The simulated person is step 4's `ProfilePerson`, unchanged, with one substitution: its random source is a seeded
+  mulberry32 generator (uniforms, and normals by Box–Muller), implemented identically in Python and JavaScript, so a run
+  in the browser equals the run in Python.
+- **Effect sets.** `placeholder`: step 4's registered defaults (every action the same small effect; step 5's fit also gave
+  every action the same relief, −0.239). `illustrative`: actions differ (Bear calms, Raven clarifies, Tiger moves toward the
+  desired state, Lion shares), **invented to show the architecture working, untested**, labelled so wherever shown.
+- **Policies.** `agents`: each tick, the Watchdog rule picks the archetype: Bear (STABILISE) while arousal u ≥ τ; else Raven
+  (EXPLORE) while clarity k < 0.5; else Tiger (SUGGEST); Lion (SHARE) on every sixth calm tick. Each action targets the
+  next desired node in turn (the person's targets rule from step 4). `always_bear` (the audit's comparator) and
+  `no_support` (NONE every tick).
+- Every tick's action is an RSX-V program with a `TARGET` line; the templates are generated in Python and every
+  template × every mirror node parses.
+- 20 ticks per session; person *i* uses seed 5000 + *i*. Reported per policy and effect set over the 100: mean final
+  intensity, mean progress g toward the desired state, spikes, mean score (step 4's score), and how many persons the agents
+  beat always-Bear on progress. Computed in Python (`docs/data/personlab_lab.json`) and recomputed in the browser.
+- **Expected by construction, stated now:** under `placeholder` the agents and always-Bear give identical runs, because
+  every action has the same effect and the random draws do not depend on the action. Under `illustrative` the agents do
+  better on progress, because the effects were written that way. Neither says anything about people.
+
+**D. The World page.** A "Person Lab" section: choose one of the 100 lab persons (filter by problem type); its identity
+tree (six levels, bottom to top, statements with details, current and desired items); run a session under a chosen policy
+and effect set beside always-Bear, tick by tick (archetype, action, `TARGET`, intensity, progress, feedback), with the
+RSX-V program of the selected tick; and the population table. The page states: mirrors with invented statements; the person
+model failed validation (step 5); VAKOG matching and echo showed no effect on people's own ratings (RAPPORT_ESCONV).
+
+**E. The System page.** A "Person Lab" box, status "sim", linked to LINX (profiles built from text), RSX-V (session programs
+with `TARGET`) and Memory; its panel lists the parts and the evidence: profiles kappa 0.73 (same-model readers), simulated
+persons not validated (step 5), text-read stress not valid (5c), VAKOG and echo no effect shown (RAPPORT_ESCONV).
+
+**F. Evidence labels.** The World page's map entry adds the `person model` family; it stays E4 (the Person Lab's rows are
+on recorded data).
+
+**Tests.** `rsxv/tests/test_personlab_lab.py`: TARGET parse, to_text round trip, rejection, kept through NEXT; mirrors
+match the shape rules and validate; templates parse for every node; the placeholder tie; same seed same run.
+`rsso/tests/test_personlab_parity.py` (Node): JS sessions equal Python for all 100 mirrors, three policies, two effect sets.
+`scripts/check_personlab.py` in Chrome: the section loads, a session runs and matches the data, the population table matches,
+no page errors, labels present. Private: the 4-word overlap check and the structure match against the private profiles.
+All suites, `check_all.sh` and the browser checks pass.
 
 ## 8. Amendment, 17 November 2026
 Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording

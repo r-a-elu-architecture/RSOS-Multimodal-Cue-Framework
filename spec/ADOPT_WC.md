@@ -72,5 +72,14 @@ Reported beside the verdict, not part of it:
 ## 7. If it fails
 A failure is recorded as such. No other word definition or window is tried on this data.
 
-## 8. Results
-(recorded after the run, in a separate commit)
+## 8. Results (recorded after code 84b660f; GitHub run 44084235343; `rsxv/results/adopt_wc.md`)
+
+- Revision 7d6490e462285cf85d91eabea0f9a954fbddcd1f, 14 files. 120,611 persons; 28,366 kept; 26,783 with an event; 170,061
+  events.
+- **Verdict: FAIL.** Mean (p_prev − p_next) = -0.0046, 99% [-0.0059, -0.0032]; p_prev 0.0161,
+  p_next 0.0206.
+- The sealed prediction (P(PASS) = 0.55) was wrong.
+- Information only: under 1 day +0.0022; 1–7 days -0.0200; over 7 days
+  -0.0354; dose (3+ uses minus 1 use) +0.0131.
+- The §4 bias (X_next can contain words the person writes first in c_k and the AI echoes later) probably inflates the
+  placebo. The result reads "not shown by this design", not "no adoption". No other definition is tried on this data (§7).

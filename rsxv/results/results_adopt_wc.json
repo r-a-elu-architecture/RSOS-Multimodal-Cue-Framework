@@ -1,0 +1,59 @@
+{
+ "verdict": "FAIL",
+ "persons": 26783,
+ "events": 170061,
+ "estimate": -0.0045633904776625454,
+ "lo": -0.005862505483282895,
+ "hi": -0.003230100359432157,
+ "info_only": {
+  "p_prev": 0.016084747026245617,
+  "p_next": 0.020648137503908162,
+  "by_gap_event_mean": {
+   "under_1_day": {
+    "events": 148929,
+    "mean": 0.0022317591153493844
+   },
+   "1_to_7_days": {
+    "events": 16546,
+    "mean": -0.02002780943833294
+   },
+   "over_7_days": {
+    "events": 4586,
+    "mean": -0.03541815453767359
+   }
+  },
+  "dose_events": 103343,
+  "dose_hi_minus_lo": 0.013114889802334473
+ },
+ "test": "ADOPT_WC",
+ "spec": "spec/ADOPT_WC.md",
+ "steps": {
+  "conversations_seen": 837989,
+  "english": 474405,
+  "duplicates": 11670,
+  "persons_all": 120611,
+  "persons_kept": 28366,
+  "persons_over_200": 158,
+  "conversations_kept": 267547
+ },
+ "dataset": {
+  "name": "allenai/WildChat-1M",
+  "revision": "7d6490e462285cf85d91eabea0f9a954fbddcd1f",
+  "files": {
+   "data/train-00000-of-00014.parquet": "abec2a13129db8c0e6a2d3a51ff12644873c748205a6fdf6551fbcb34430e51c",
+   "data/train-00001-of-00014.parquet": "f10fa35bb52703baad5e3177d3382d63b855fce9e9d1b9ab1fe2f0e762464f2a",
+   "data/train-00002-of-00014.parquet": "9a4912ec14c1012970f57b6710518dda17dbf6cdfb9b6e694880f5456b0b031f",
+   "data/train-00003-of-00014.parquet": "3f2d50ee227e32848f6c4fdb0f8ea543b379b2219bec72be9446e232d3d2a670",
+   "data/train-00004-of-00014.parquet": "08c7e0c31edc120606d67cfa82486471d82945a7a414761501ea44b1ab0cd804",
+   "data/train-00005-of-00014.parquet": "1caab40d8d4f01d76d8e1fa03e80f31b2f4d8b8b4c47cb3aa0280f4467e04555",
+   "data/train-00006-of-00014.parquet": "0bd2fff31c74feb6b44b0397b4e7ab6285dd69ccbe4cc8b5f19c42cdbf691303",
+   "data/train-00007-of-00014.parquet": "f498ea6771be5bf00d259ec76bd9fba51ceaa99c76147a0bb95fd7fa1769b984",
+   "data/train-00008-of-00014.parquet": "a69578183dde5de1aa94134da2d7c2d13f00d88a577ef91140a492fbbbf10792",
+   "data/train-00009-of-00014.parquet": "d2eb8868323274c60c9fd5437eaf2159a08ac278598b1197bc20ac04c633648a",
+   "data/train-00010-of-00014.parquet": "328b0d702d91ffd47e51aff2de56d74d0f2b874a31f2530f1948474a582f0467",
+   "data/train-00011-of-00014.parquet": "a458b915aeab7a4a81bd18770f33c3ebb908c91e67d916db5525819c88dbe778",
+   "data/train-00012-of-00014.parquet": "5353f1a829ac86de165c2fb537a30d7d756259dbe37a8a0fa6ec791321a37d6e",
+   "data/train-00013-of-00014.parquet": "440be579bf012a6e98d179b8dd0bedd73634e5527f7000c067d19c88b5cefa6c"
+  }
+ }
+}

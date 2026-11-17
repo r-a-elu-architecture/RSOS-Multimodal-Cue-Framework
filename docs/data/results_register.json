@@ -26,7 +26,7 @@
   "lineage": {
    "pass": 0,
    "mixed": 2,
-   "fail": 4,
+   "fail": 5,
    "analysis": 0,
    "other": 0
   },
@@ -383,6 +383,15 @@
    "meaning": "536,786 real reactions, but only 185 stabilising replies to personal messages (200 needed). In everyday requests, replies that end by asking back are followed by worse reactions (\u22120.011 [\u22120.020, \u22120.002]), as in H-CTX2. Association, not cause (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/ctx_pref_wc.md\">results/ctx_pref_wc.md</a>)",
    "status": "other",
    "family": "agents",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Corpus lineage across conversations, ADOPT-WC: do the AI's words become the person's own across conversations (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/ADOPT_WC.md\">spec/ADOPT_WC.md</a>)",
+   "result": "<b>Fail</b>",
+   "meaning": "26,783 persons in WildChat-1M: the AI's new words from the previous conversation appeared in the person's next opening message less often than placebo words from the following conversation (-0.0046 [-0.0059, -0.0032]). The placebo is likely inflated by the AI echoing the person; not shown by this design, rather than shown absent (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/adopt_wc.md\">results/adopt_wc.md</a>)",
+   "status": "fail",
+   "family": "lineage",
    "series": null,
    "parent": null
   }

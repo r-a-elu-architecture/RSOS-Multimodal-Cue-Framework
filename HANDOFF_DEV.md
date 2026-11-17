@@ -376,6 +376,13 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
 - `world.person_world` is the stabilise-first default for new person-facing uses.
 - Open: person model v3 (cues that can resolve without the module).
 - Next: step 13, evidence labels.
+
+### ADOPT_WC (registered 8b0c08e, code 84b660f, run 44084235343)
+- Do the AI's words become the person's own across conversations? WildChat-1M, 26,783 persons, future-placebo design.
+- **Fail:** -0.0046 [-0.0059, -0.0032]. The placebo is probably inflated by the AI echoing the
+  person's own words.
+- Information only: positive under 1 day; a dose effect (+0.013).
+- A corrected design would be a new test on new data.
 Review status: **awaiting review**.
 Review status: **awaiting review**.
 

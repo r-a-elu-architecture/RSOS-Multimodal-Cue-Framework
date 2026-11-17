@@ -113,9 +113,12 @@ def main():
             expect("S10 counts match the file", f"meta repair fixed {F['meta']['all']}, local retry {F['local']['all']}" in pg.inner_text("#pvCount"), True)
             w1m = d["register"]["W1 repair"]["meaning"]
             import re as _re
-            expect("FIXES_P2 A1/A2 W1 caveat and heading", [_re.sub(r"<[^>]+>", "", w1m)[:40] in pg.inner_text("#pvW1Meaning"), pg.inner_text("#pvTitle")],
+            # RELEASE_1 A1 F1: compare after the page's own wording rule (profiles.js shows clinical words in the
+            # current profile's vocabulary), not with the raw register text.
+            shown = lambda t: pg.evaluate("t => RSOSProfiles.text(t, RSOSProfiles.current(), RSOSProfiles.clinicalOn())", t)
+            expect("FIXES_P2 A1/A2 W1 caveat and heading", [shown(_re.sub(r"<[^>]+>", "", w1m))[:40] in pg.inner_text("#pvW1Meaning"), pg.inner_text("#pvTitle")],
                    [True, "Passed in simulation: the RSX-V agents"])
-            hsm = _re.sub(r"<[^>]+>", "", d["register"]["H-CFIT / H-SWITCH"]["meaning"])[:40]
+            hsm = shown(_re.sub(r"<[^>]+>", "", d["register"]["H-CFIT / H-SWITCH"]["meaning"]))[:40]
             expect("BASELINE_AUDIT Q3 H-SWITCH meaning shown", hsm in pg.inner_text("#pvHsMeaning"), True)
             expect("S10 five bars, three cards", [pg.evaluate("document.querySelectorAll('#pvBars i').length"), pg.evaluate("document.querySelectorAll('#pvCards .pv-box').length")], [5, 3])
             expect("S10 no output to the person", pg.evaluate("window.__out.length"), 0)

@@ -81,3 +81,14 @@ rule, and the SOURCES.md path is made exact. No design change.
 
 ## 9. Results
 (recorded per step, in separate commits)
+
+### Step 1 (code eb39498)
+`rsxv/rsxv/personlab/schema.py`: six levels with fixed definitions and key questions (the ids match `copilot.js`), a
+statement tree with where, when and detail sub-nodes, a source on every item, current and desired states, signals,
+`validate`, `to_tree` and an invented example. 5 tests pass.
+
+### Step 2 (search only; nothing downloaded)
+`rsxv/rsxv/personlab/SOURCES.md`. Usable: **ESConv** (primary: multi-turn, with emotion intensity before and after),
+**Hippocorpus** (the same writer's retelling 3–6 months later) and EmpatheticDialogues. Not usable: counsel-chat (single
+message, unclear licence) and MentalChat16K (partly synthetic). Proposed for step 3: 100 profiles from ESConv, with each
+conversation's second half and post-chat intensity held out for step 5.

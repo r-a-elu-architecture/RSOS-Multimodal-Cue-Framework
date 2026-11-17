@@ -89,6 +89,25 @@ effect") or `summary` (the site-wide counts by level and by register status).
 - The level is the author's assignment within what the basis allows; a reviewer should check §4.
 - The word list in L5 catches plain overclaims, not every misleading sentence.
 
-## 7. Results
+## 7. Results (recorded after code 88c0eae)
 
-(recorded after the code, in a separate commit)
+- **21 live pages labelled** (the 4 retired pages are excluded): 6 at E1 Built (player, nodes, device, glyphs, safety,
+  contribute), 6 at E2 Checked on simulated people (anchors, trials, identity, atlas, night, therapist), 3 at E4 Tested
+  on recorded data (agents, world, rsxv), 3 summary (index, system, results) and 3 record (roadmap, tiers, metrics).
+  No page reaches E5.
+- **Clarification of §4:** the home page is a live page, so L1 requires a label there too. It carries the summary label;
+  the home page redesign stays step 15.
+- **All 42 register rows placed (L3):** simulation 27 (1 pass, 7 mixed, 18 fail, 1 analysis); one private record 5
+  (3 mixed, 2 fail); public data 10 (1 mixed, 5 fail, 4 other); people 0.
+- The agents, World and RSX-V pages now read: in simulation 27 tests, 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded
+  data 7 tests, 0 pass, 2 mixed, 2 fail, 3 other.
+- **L5 found one overclaim word:** README's autonomy-gate row said "proven strength against sham". It now reads
+  "strength measured against sham and above it". No page text tripped the rule; the safety page's "validated instrument"
+  is the registered exemption.
+- **Checks:** `rsso/tests/test_evidence.py` 7 passed (L1–L6, each failure path exercised); `scripts/check_evidence.py`
+  168 of 168 page views (21 pages × 4 domain profiles × desktop and phone) show the generated label, 0 page errors;
+  `check_all.sh` passed (rsso 301, RSX-V 205 under unittest, toolkit 10, conformance 15/15 twice, board 7/7, generated
+  files unchanged); the 12 existing browser checks and `check_release.py` (75 of 75 views) exit 0.
+- Offline cache bumped to v50 so the labels reach installed copies.
+- **Open for review:** the level assignments in §4 are the author's judgement within the basis rules; in particular,
+  whether the World page (simulation replays) should sit at E3 rather than E4.

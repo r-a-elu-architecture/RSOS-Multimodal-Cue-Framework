@@ -366,6 +366,17 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   followed by worse reactions (−0.011 [−0.020, −0.002]), in the same direction as CTX_PREF_HH. Association, not cause.
 - Released to main on the owner's instruction: PR #9 (merge 0aa965c), 17 November. The live Agents page now reads
   "Tested in simulation".
+
+### Phase 3 (website and agents), step 12: STAB_DEFAULT (registered 2349a85, amendment dd54544, code c4f3bd0)
+- Found first: no person-facing page switches archetypes. Switching exists only in the simulation and the World page.
+  The asking-back finding is not applied, because it covers everyday requests only.
+- The World page shows always-Bear beside the Watchdog on the same simulated person, with the cue counts.
+- **Person model v2 loophole:** under Bear, 1 cue in all 15 runs, never interrupted, blocking later cues. Recorded in
+  BASELINE_AUDIT §8: it affects T-AP's confirmation run only.
+- `world.person_world` is the stabilise-first default for new person-facing uses.
+- Open: person model v3 (cues that can resolve without the module).
+- Next: step 13, evidence labels.
+Review status: **awaiting review**.
 Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)

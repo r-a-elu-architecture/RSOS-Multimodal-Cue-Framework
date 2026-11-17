@@ -55,5 +55,17 @@ Status: registered 2026-11-17, before any code. Results in §5, in a separate re
 ## 4. Not in this step
 Evidence labels (step 13), the Agents page board (step 14), the home page (step 15).
 
-## 5. Results
-(recorded after the code, in a separate commit)
+## 5. Results (recorded after code c4f3bd0)
+
+- D1: all 15 recorded runs gained the Bear run. Every earlier field of `world_runs.json` is unchanged (checked by diff).
+- **The §1a loophole holds in every run.** Under always Bear the simulated person received exactly 1 cue in all 15 runs,
+  and it was still open at the end of each. Under the Watchdog it received 3 to 23 cues. Bear's mean per tick
+  (0.087–0.093) is therefore not evidence of good care in person model v2. The page shows the counts beside the means.
+- D2: `world.person_world` and `world.STABILISE_FIRST` are in place. `World` still defaults to "watchdog". AGENTS.md §4
+  states the default and the asking-back guidance.
+- Found while doing D1: the World page still called T-AP "the confirmed result most relevant here … helps the simulated
+  person". It now says T-AP passed its registered test but fails the baseline audit.
+- Checks: RSX-V 174 passed; `rsso` 291 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; `check_site_catchup.py`
+  (with step 12), `check_trial_loop.py` and `check_watchdog.py` exit 0.
+- **Open:** person model v3, where a cue can resolve without the module (or where an open cue does not block later cues).
+  Until then, any stabilise-first result on person model v2 carries this caveat.

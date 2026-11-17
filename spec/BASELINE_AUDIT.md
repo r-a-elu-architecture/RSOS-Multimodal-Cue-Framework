@@ -134,3 +134,9 @@ audit: 0 of 6 audited results beat their simplest baseline (W1 ties …; T-AP lo
 first draft said "the simplest baseline that uses no more information", which is not true of FIXED-BEST (it uses a
 20-person pilot), so that phrase was removed before the commit. Checks: `rsso` 291 passed, 2 skipped, 1 xfailed; RSX-V 156
 passed; `check_all.sh` passed; `check_site_catchup.py`, `check_profiles.py` and `check_outlet.py` exit 0.
+
+## 8. Note, 17 November 2026 (spec/STAB_DEFAULT.md §1a and §5)
+Person model v2 has a loophole: under always-Bear the first cue is never interrupted, and it blocks every later cue. A3, A4
+and T-AP's primary run used person model v1, which has no cues, so they are not affected. T-AP's confirmation run used
+person model v2; its STAB-ONLY value there (+0.227) may be inflated by the loophole. The verdict for T-AP stands on the
+primary run alone (−0.133 [−0.145, −0.119]).

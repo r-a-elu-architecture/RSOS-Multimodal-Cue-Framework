@@ -31,7 +31,7 @@
     "safety":     {"kind": "part", "level": "E1", "part": "Safety engine and Watchdog", "basis": ["rsso/tests/test_safety.py", "rsso/tests/test_watchdog.py"]},
     "contribute": {"kind": "part", "level": "E1", "part": "Data contribution", "basis": ["rsso/tests/test_contribution.py"]},
     "agents":     {"kind": "part", "level": "E4", "part": "RSX-V agents", "families": ["agents", "transfer", "repurposing", "lineage"]},
-    "world":      {"kind": "part", "level": "E4", "part": "The World simulation", "families": ["agents", "transfer", "repurposing", "lineage"]},
+    "world":      {"kind": "part", "level": "E4", "part": "The World simulation and the Person Lab", "families": ["agents", "transfer", "repurposing", "lineage", "person model"]},
     "rsxv":       {"kind": "part", "level": "E4", "part": "RSX-V command layer", "families": ["agents", "transfer", "repurposing", "lineage"]},
     "roadmap":    {"kind": "record"},
     "tiers":      {"kind": "record"},

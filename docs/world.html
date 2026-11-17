@@ -70,6 +70,25 @@ svg text{font-family:var(--sans)}
 section{padding:40px 0;border-top:1px solid var(--line);margin-top:34px}
 footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px solid var(--line);margin-top:40px}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.lab-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}
+@media (max-width:860px){.lab-grid{grid-template-columns:1fr}}
+.lab-grid>.pane{min-width:0}
+#lab .sub,#lab .tree{overflow-wrap:anywhere}
+.tree{list-style:none;margin:0;padding:0}
+.tree>li{border-left:3px solid var(--line);padding:6px 0 8px 12px;margin:0 0 6px}
+.tree>li.tg{border-left-color:var(--gold)}
+.tree .lv{font-size:.8rem;color:var(--muted);letter-spacing:.02em}
+.tree .st{font-size:.92rem;margin:3px 0 0}
+.tree .st code{color:var(--glow);font-size:.78rem;margin-right:6px}
+.tree .dt{color:var(--muted);font-size:.8rem}
+.tree .now,.tree .want{font-size:.82rem;margin:2px 0 0}
+.tree .now b{color:var(--hot);font-weight:600}.tree .want b{color:var(--calm);font-weight:600}
+table.ticks,table.pop{width:100%;border-collapse:collapse;font-size:.84rem}
+table.ticks th,table.ticks td,table.pop th,table.pop td{border-bottom:1px solid #263052;padding:4px 6px;text-align:left}
+table.ticks tr{cursor:pointer}table.ticks tr.sel td{background:#263052}
+table.ticks td.n,table.pop td.n{font-variant-numeric:tabular-nums;text-align:right}
+pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;max-height:280px;margin:8px 0 0}
+.tag{display:inline-block;font-size:.72rem;border:1px solid var(--hot);color:var(--hot);border-radius:999px;padding:1px 8px;margin-left:6px}
 </style>
 <link rel="icon" href="icons/icon-192.png">
 </head>
@@ -82,7 +101,7 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
 
 <h1>Software agents and a simulated person, run by one architecture.</h1>
 <p class="lede">On the left, six software agents depend on each other and fail. On the right, a simulated person meets cues that raise distress. The same Watchdog chooses each side's working mode every tick, and the Spine and the safety layer can overrule it.</p>
-  <!-- evidence:start --><p class="evidence" data-level="E4" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.</p><!-- evidence:end -->
+  <!-- evidence:start --><p class="evidence" data-level="E4" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 15 registered tests: 0 pass, 4 mixed, 7 fail, 4 other. Not yet tested with people using RSOS.</p><!-- evidence:end -->
 <p class="note">These are replays of real runs of the tested code (<code>rsxv</code>: <code>World</code>, <code>AgentEnvV2</code>, <code>PersonEnvV2</code>), recorded tick by tick. Both sides are stated models, not people and not production systems. Choose an intervention and a run, press play, and click the timeline to see why any decision was made.</p>
 
 <div class="controls" role="group" aria-label="Run controls">
@@ -142,7 +161,38 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
   <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The result most relevant here is T-AP: a policy learned on agents passed its registered test on the simulated person, but it fails the baseline audit, because always stabilising did better.</p>
 </section>
 
-<footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<section id="lab">
+  <h2>Person Lab: 100 lab persons, and agents working toward each one's desired state</h2>
+  <p class="lede">Each lab person has an identity profile on six levels, from environment up to purpose, with where they are now and where they want to be. Choose one and run a session: every tick the Watchdog picks an archetype (Bear steadies, Raven clarifies, Tiger takes a step, Lion shares), and each action is an RSX-V program whose <code>TARGET</code> line names the part of the profile it serves. Always Bear, the simple rule that beat switching in the baseline audit, runs beside it on the same person.</p>
+  <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each copies the structure of one profile built from a public research dataset of support conversations (ESConv, CC BY-NC 4.0, non-commercial use), and every statement is written for the lab. They are not real people and not anyone's words. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
+  <div class="controls" role="group" aria-label="Person Lab controls">
+    <label>Lab person<select id="labP"></select></label>
+    <label>Effects of actions<select id="labE"><option value="placeholder">Equal (registered placeholder)</option><option value="illustrative">Different (invented, untested)</option></select></label>
+    <label>Policy<select id="labPol"><option value="agents">Agents (Watchdog rule)</option><option value="always_bear">Always Bear</option><option value="no_support">No support</option></select></label>
+    <button class="play" id="labRun" type="button">Run session</button>
+  </div>
+  <div class="lab-grid">
+    <div class="pane">
+      <h3>Identity profile <span class="tag">invented</span></h3>
+      <p class="sub" id="labMeta"></p>
+      <ul class="tree" id="labTree"></ul>
+    </div>
+    <div class="pane">
+      <h3>Session, 20 ticks</h3>
+      <p class="sub" id="labSum"></p>
+      <svg id="labChart" viewBox="0 0 560 190" width="100%" role="img" aria-label="Intensity and progress by tick"></svg>
+      <p class="sub">Intensity 1–5 (red) and progress toward the desired state (green). Solid: the chosen policy; dashed: always Bear.</p>
+      <div style="overflow:auto;max-height:300px"><table class="ticks" id="labTicks"></table></div>
+      <p class="sub" style="margin-top:10px">RSX-V program of the selected tick</p>
+      <pre class="prog" id="labProg"></pre>
+    </div>
+  </div>
+  <h3 style="font-family:var(--serif);font-weight:500;margin:26px 0 6px">All 100 lab persons</h3>
+  <p class="note">Each policy run on every lab person, 20 ticks, under both effect sets. Under the registered equal effects the agents and always Bear tie on every person, because no action differs. Under the invented effects the agents make more progress, because those effects were written that way. Neither row says anything about people; they show that the machinery runs and how a validated effect would be used once one exists.</p>
+  <div style="overflow:auto"><table class="pop" id="labPop"></table></div>
+</section>
+
+<footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>. Person Lab: <code>rsxv/rsxv/personlab/</code> → <code>docs/data/personlab_mirrors.json</code>, <code>docs/data/personlab_lab.json</code>; lab persons' structure from ESConv (CC BY-NC 4.0), statements invented. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 </div>
 
 <script>
@@ -258,6 +308,105 @@ $("nmF").addEventListener("click", () => setNames("F"));
 $("nmS").addEventListener("click", () => setNames("S"));
 fetch("data/world_runs.json").then(r => r.json()).then(d => { D = d; pick(); })
   .catch(() => { $("aNow").textContent = "The recorded runs could not be loaded. Open this page from the website, not as a local file."; });
+})();
+</script>
+<script src="js/personlab.js?v=1.0.0"></script>
+<script>
+(() => {   // Person Lab (spec/PERSONLAB.md §7d D)
+"use strict";
+const $ = id => document.getElementById(id);
+const NM = {BEAR: "Bear", RAVEN: "Raven", TIGER: "Tiger", LION: "Lion"};
+const ACT = {STABILISE: "steady", EXPLORE: "clarify", SUGGEST: "take a step", SHARE: "share", NONE: "no action"};
+const POL = {agents: "Agents (Watchdog rule)", always_bear: "Always Bear", no_support: "No support"};
+const EFF = {placeholder: "Equal effects (registered placeholder)", illustrative: "Different effects (invented, untested)"};
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+let LAB = null, M = null, run = null;
+Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/personlab_mirrors.json").then(r => r.json())])
+  .then(([l, m]) => { LAB = l; M = m; init(); })
+  .catch(() => { $("labMeta").textContent = "The lab data could not be loaded. Open this page from the website, not as a local file."; });
+
+function init() {
+  const types = [...new Set(M.persons.map(p => p.problem_type))];
+  for (const ty of types) {
+    const g = document.createElement("optgroup"); g.label = ty[0].toUpperCase() + ty.slice(1);
+    M.persons.forEach((p, i) => { if (p.problem_type === ty) { const o = el("option", null, p.id + " · starts at " + p.initial_intensity + " of 5"); o.value = i; g.appendChild(o); } });
+    $("labP").appendChild(g);
+  }
+  $("labP").addEventListener("change", () => { tree(); go(); });
+  $("labE").addEventListener("change", go);
+  $("labPol").addEventListener("change", go);
+  $("labRun").addEventListener("click", go);
+  tree(); go(); population();
+}
+
+function person() { const i = Number($("labP").value || 0); return [M.persons[i], i + 1]; }
+
+function tree() {
+  const [p] = person(), tg = PersonLab.targetNodes(p), tl = new Set(tg.map(x => x[0])), tn = new Set(tg.map(x => x[0] + ":" + x[1]));
+  $("labMeta").textContent = p.id + " · " + p.problem_type + " · starting intensity " + p.initial_intensity + " of 5 · the agents work on: " + tg.map(x => x.join(":")).join(", ");
+  const ul = $("labTree"); ul.textContent = "";
+  for (const lv of LAB.levels.slice().reverse()) {
+    const li = el("li", tl.has(lv.id) ? "tg" : ""), sts = ((p.levels[lv.id] || {}).statements) || [];
+    li.appendChild(el("div", "lv", lv.name + " · " + lv.question + (tl.has(lv.id) ? " · target level" : "")));
+    for (const st of sts) {
+      const d = el("div", "st"); d.appendChild(el("code", null, st.id + (tn.has(lv.id + ":" + st.id) ? " ◎" : ""))); d.appendChild(document.createTextNode(st.text));
+      if (st.details && st.details.length) d.appendChild(el("span", "dt", " · " + st.details.map(x => x.kind + ": " + x.text).join(" · ")));
+      li.appendChild(d);
+    }
+    for (const [part, cls, lab] of [["current", "now", "Now "], ["desired", "want", "Wants "]])
+      for (const it of ((p[part] || {})[lv.id] || [])) { const d = el("div", cls); d.appendChild(el("b", null, lab)); d.appendChild(document.createTextNode(it.text + (it.node ? " (" + it.node + ")" : ""))); li.appendChild(d); }
+    if (!sts.length && !((p.current || {})[lv.id] || []).length && !((p.desired || {})[lv.id] || []).length) li.appendChild(el("div", "dt", "Nothing on this level in this profile."));
+    ul.appendChild(li);
+  }
+}
+
+function go() {
+  const [p, n] = person(), eff = $("labE").value, pol = $("labPol").value;
+  run = PersonLab.session(LAB, p, n, pol, eff);
+  const bear = PersonLab.session(LAB, p, n, "always_bear", eff);
+  const fb = run.ticks.reduce((s, r) => s + r.feedback, 0) / run.ticks.length;
+  $("labSum").textContent = POL[pol] + ", " + EFF[eff].toLowerCase() + ". Final intensity " + run.final_I.toFixed(2) + " (always Bear " + bear.final_I.toFixed(2) +
+    "); progress toward the desired state " + Math.round(run.final_g * 100) + "% (always Bear " + Math.round(bear.final_g * 100) + "%); mean feedback " + fb.toFixed(2) + " of 5.";
+  chart(run, bear);
+  const t = $("labTicks"); t.textContent = "";
+  const h = t.insertRow(); for (const c of ["Tick", "Archetype", "Action", "TARGET", "Intensity", "Progress", "Feedback", "Cue"]) h.appendChild(el("th", null, c));
+  run.ticks.forEach((r, i) => {
+    const tr = t.insertRow(); tr.dataset.i = i;
+    for (const [v, cls] of [[r.t + 1, "n"], [r.archetype ? NM[r.archetype] : "—"], [ACT[r.action]], [r.target || "—"], [r.I.toFixed(2), "n"], [Math.round(r.g * 100) + "%", "n"], [r.feedback, "n"], [r.cue ? "•" : ""]]) tr.appendChild(el("td", cls || "", String(v)));
+    tr.addEventListener("click", () => pick(i));
+  });
+  pick(0);
+}
+
+function pick(i) {
+  for (const tr of $("labTicks").rows) tr.classList.toggle("sel", tr.dataset.i === String(i));
+  const r = run.ticks[i];
+  $("labProg").textContent = r.action === "NONE" ? "No program: no action this tick." : PersonLab.program(LAB, r.action, r.target);
+}
+
+function chart(a, b) {
+  const s = $("labChart"), W = 560, H = 190, L = 34, R = 34, T = 12, B = 10, n = a.ticks.length;
+  const x = i => L + (W - L - R) * i / (n - 1), yI = v => T + (H - T - B) * (5 - v) / 4, yG = v => T + (H - T - B) * (1 - v);
+  const path = (rows, f) => rows.map((r, i) => (i ? "L" : "M") + x(i).toFixed(1) + "," + f(r).toFixed(1)).join(" ");
+  let g = "";
+  for (let v = 1; v <= 5; v++) g += `<line x1="${L}" x2="${W - R}" y1="${yI(v)}" y2="${yI(v)}" stroke="#263052"/><text x="${L - 6}" y="${yI(v) + 4}" text-anchor="end" font-size="10" fill="#a3abc6">${v}</text>`;
+  g += `<text x="${W - R + 6}" y="${yG(1) + 4}" font-size="10" fill="#7fb7a4">100%</text><text x="${W - R + 6}" y="${yG(0) + 4}" font-size="10" fill="#7fb7a4">0%</text>`;
+  g += `<path d="${path(b.ticks, r => yI(r.I))}" fill="none" stroke="#e0745a" stroke-dasharray="4 4" stroke-width="1.5" opacity=".7"/>`;
+  g += `<path d="${path(b.ticks, r => yG(r.g))}" fill="none" stroke="#7fb7a4" stroke-dasharray="4 4" stroke-width="1.5" opacity=".7"/>`;
+  g += `<path d="${path(a.ticks, r => yI(r.I))}" fill="none" stroke="#e0745a" stroke-width="2.4"/>`;
+  g += `<path d="${path(a.ticks, r => yG(r.g))}" fill="none" stroke="#7fb7a4" stroke-width="2.4"/>`;
+  s.innerHTML = g;
+}
+
+function population() {
+  const P = PersonLab.population(LAB, M.persons), t = $("labPop");
+  const h = t.insertRow(); for (const c of ["Effects", "Policy", "Final intensity", "Progress", "Spikes", "Mean score", "Agents vs always Bear"]) h.appendChild(el("th", null, c));
+  for (const eff of Object.keys(P)) for (const pol of PersonLab.POLICIES) {
+    const s = P[eff][pol], v = P[eff].agents_vs_bear, tr = t.insertRow(); tr.dataset.k = eff + "/" + pol;
+    for (const [val, cls] of [[EFF[eff]], [POL[pol]], [s.mean_final_I.toFixed(2), "n"], [Math.round(s.mean_final_g * 100) + "%", "n"], [s.mean_spikes.toFixed(2), "n"], [s.mean_score.toFixed(3), "n"],
+      [pol === "agents" ? `more progress for ${v.more_progress}, same for ${v.same}, less for ${v.less_progress}` : ""]]) tr.appendChild(el("td", cls || "", val));
+  }
+}
 })();
 </script>
 </body>

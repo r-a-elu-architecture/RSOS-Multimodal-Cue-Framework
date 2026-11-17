@@ -53,6 +53,7 @@ python3 scripts/check_fixes_r5.py docs    # spec/FIXES_R5.md: real page paths
 python3 scripts/check_fixes_r6.py docs    # spec/FIXES_R6.md: changes after Begin, lineage, held pages
 python3 scripts/check_site_catchup.py docs # spec/SITE_CATCHUP.md: System page, RSX-V page, results families
 python3 scripts/check_evidence.py docs     # spec/EVIDENCE_LABELS.md: every live page shows its evidence label
+python3 scripts/check_personlab.py docs    # spec/PERSONLAB.md §7d: Person Lab on the World page, its box on the System page
 ```
 
 ## 3. Review checklist (every step)

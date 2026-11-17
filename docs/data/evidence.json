@@ -194,14 +194,15 @@
   "world": {
    "kind": "part",
    "level": "E4",
-   "part": "The World simulation",
-   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
+   "part": "The World simulation and the Person Lab",
+   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 15 registered tests: 0 pass, 4 mixed, 7 fail, 4 other. Not yet tested with people using RSOS.",
    "basis": [],
    "families": [
     "agents",
     "transfer",
     "repurposing",
-    "lineage"
+    "lineage",
+    "person model"
    ],
    "counts": {
     "simulation": {
@@ -212,9 +213,9 @@
     },
     "recorded": {
      "pass": 0,
-     "mixed": 2,
-     "fail": 2,
-     "other": 3
+     "mixed": 4,
+     "fail": 7,
+     "other": 4
     }
    }
   },

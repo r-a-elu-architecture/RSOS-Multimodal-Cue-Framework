@@ -75,6 +75,45 @@ existing rules.
   marked as invented.
 - Public files keep neutral wording, by the existing rules.
 
+
+## 5. Step 3: the profile builder (registered 17 November 2026, before any conversation text is read)
+
+**Data.** ESConv, `ESConv.json` from `github.com/thu-coai/Emotional-Support-Conversation` (commit f262d06, 2024-06-19),
+SHA-256 aa0556c5…f7efdd9af, licence CC BY-NC 4.0 (the repository's own LICENSE file). Before this registration only field
+names and counts were looked at: 1,300 conversations, 1,150 with intensity before and after.
+
+**Sample (fixed now).**
+- Four everyday problem types: job, breakup with a partner, problems with friends, academic pressure.
+- 25 conversations from each, drawn at random (seed 2026) from those with both intensity ratings.
+- The very sensitive types (persistent low mood, alcohol and the small rare types) are left out of the lab.
+- A drawn conversation is replaced by the next draw when the existing safety screen (`rsso.safety`, lexical) flags any of
+  its seeker turns as `possible_crisis`. Replacements are counted.
+- A separate **pilot** of 4 conversations (one per type, seed 2027, none of the 100) tests the instructions first. The
+  instructions may be corrected once after the pilot, and are then frozen and committed before the 100 are read.
+
+**What the builder sees.** The pre-chat `situation`, the initial intensity, and the first half of the conversation (all
+turns up to and including the seeker's ⌈k/2⌉-th turn, for k seeker turns). **Held out for step 5:** the rest of the
+conversation and the final intensity. No reader sees them.
+
+**Two independent readers.** Separate model instances, each given only the frozen instructions
+(`rsxv/rsxv/personlab/builder_instructions.md`) and the input text. They write a profile in the step-1 schema. Every item
+quotes its span exactly, and the code turns the quote into character offsets. The two readers do not see each other's
+output.
+
+**Checks in code.**
+- Each profile is validated (step 1). Items whose quote is not found in the input are dropped and counted.
+- **Agreement:** for each of the 600 cells (100 profiles × 6 levels), whether each reader put at least one statement
+  there. Cohen's kappa over the cells must be at least 0.6; below that, step 3 is "agreement too low" and step 5 waits.
+  Also reported: span overlap per level.
+- **The final profile** keeps reader A's statements. Each is flagged `agreed` when reader B has a statement at the same
+  level whose span overlaps it by at least half of the shorter span. Current and desired states are merged the same way.
+
+**Privacy.** The conversations and profiles stay in the private repository. The public repo gets the code, the
+instructions, the counts, the agreement and the per-level coverage.
+
+**Sealed prediction:** P(kappa ≥ 0.6) = 0.55. The environment and behaviour levels are expected to agree best, and mission
+worst (people rarely state a purpose in a support chat).
+
 ## 8. Amendment, 17 November 2026
 Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording
 rule, and the SOURCES.md path is made exact. No design change.

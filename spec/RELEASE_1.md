@@ -146,6 +146,7 @@ Registered cfe9eff; amendment A1 ae091f8; code 475b9d2; review record 3e9eac2; r
 | M2 | Trial merge of 683c4a6 into `main` (059a58f) in a scratch clone: no conflict, `git diff` against `dev` 0 lines, S1's `docs/js/safety.js` present. Without M1 (the same trial with 6e848bb): conflicts in 8 files, among them `docs/js/safety.js` and `rsso/rsso/safety.py` (deleted on `main`, modified on `dev`) |
 | M3 | `backup/pre-claude-2026-11-16` still at 32f49bb |
 | N1 | `releases/NEXT.md`: release section for this work, evidence status, open items, verify commands |
+| A2 | F4 applied in README, SECURITY, release notes and OVERRIDE_PROTOCOL; `test_release.py` pass; `check_all.sh` and rsso suites pass |
 | N2 | Pull request #6: https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/pull/6 |
 
 ## 7. Release notes and pull request

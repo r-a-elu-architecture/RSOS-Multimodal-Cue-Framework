@@ -440,8 +440,9 @@ Checklist:  1 pass | 2 pass (spec before code in each step's record) | 3 pass (n
             new SSIT programs carry their own SAFETY lines) | 4 pass (keys only added: rsos.clinical, rsos.settings,
             rsos.watchdog.log; none removed) | 5 pass (suites) | 6 pass (check_profiles; no crisis, helpline or
             emergency wording in any page's text, only internal mode names) | 7 pass | 8 pass | 9 pass
-Findings:   1 note: README.md still has "If you are in crisis, contact local emergency services or a crisis line"
-            (it is on main too; README is not a page). Owner's decision.
+Findings:   1 note -> fixed (owner's decision, RELEASE_1 A2): README.md had "If you are in crisis, contact local
+            emergency services or a crisis line"; README, SECURITY, release notes and the protocol's contraindication
+            now say acute risk belongs under a qualified clinician's protocol (test_release.py).
 Verdict:    ready for the owner
 ```
 ```

@@ -393,6 +393,11 @@ Registered 4f32dc2; code 9cb1d8a, 6041243; results da31d1f.
   when `setEncryptionLevel` was used; on 3.3.12 the call only stores the level. ESP32_TOOLS F2 had kept the call.
 Review status: **awaiting review**.
 
+**Wristband firmware lane: parked (2026-11-17).** Nothing more is done here without a board. Done: the real-toolchain
+compile, the emulator checks, the PWM-register check, CI on every push (`firmware` workflow), and the call for
+a tester (issue #5). Resumes when a board report arrives (issue #5 or the Board report form): register the result
+first, then fix. Open items stay as listed in §6: the NimBLE port for C3/S3 on 3.3+, and the first board run.
+
 ## 5. Review findings
 
 Reviewer: add one block per review.

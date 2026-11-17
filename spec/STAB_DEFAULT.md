@@ -25,6 +25,18 @@ Status: registered 2026-11-17, before any code. Results in §5, in a separate re
 - **Every existing field of `world_runs.json` must be unchanged** (checked by a diff of the earlier fields). The added World
   has its own random streams.
 
+### 1a. Amendment, 17 November 2026 (before the page code; after the data generator was first run)
+- Running the generator showed a property of person model v2. A cue that is never interrupted stays open, and while a cue
+  is open no new cue can start (`PersonEnvV2.step`). Bear cannot interrupt with an untrained module, because only Tiger
+  trains it. So under always-Bear the first cue stays open and blocks every later cue, including the page's storm.
+- That makes the Bear number on the World page partly a loophole of the model. D1 therefore also records, per run, the
+  number of cues and whether one is still open at the end, for both the Watchdog and the Bear person (`summary.cues`).
+  The page shows that count beside the two means, with one line: "In this model an uninterrupted cue blocks later cues;
+  see STAB_DEFAULT §5".
+- Scope for BASELINE_AUDIT: person model v1 (`world.PersonEnv`) has no cue mechanism, so A3, A4 and T-AP's primary run are
+  not affected. T-AP's confirmation run used person model v2 and may be affected. This is recorded in §5 and in the
+  audit's spec, and left as an open note: a person model v3 where cues can resolve without the module.
+
 ## 2. D2: a stabilise-first default for new person-facing uses
 
 - `rsxv.world.STABILISE_FIRST = {"policy": "fixed", "fixed_mode": "BEAR"}` and `rsxv.world.person_world(env, seed, **kw)`,

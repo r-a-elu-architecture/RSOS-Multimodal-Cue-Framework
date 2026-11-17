@@ -6,9 +6,9 @@ history.
 
 ## 1. Rules
 
-> **FREEZE (2026-11-17, spec/RELEASE_1.md).** The owner chose one consolidated release step. Until its pull request
-> `dev` → `main` is opened, `dev` takes only RELEASE_1 commits: no new specs or features from any session. If you are
-> the parallel session, finish or park what you have, push nothing new, and add findings to §5 instead.
+> **RELEASE PENDING (2026-11-17, spec/RELEASE_1.md).** Pull request #6 (`dev` → `main`) is open for the owner's
+> approval: https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/pull/6. Every commit pushed to
+> `dev` joins it, so until the owner merges, push only fixes the pull request needs, and nothing new.
 
 - **Nothing goes to `main` or the live site** from the building account. Everything is on `dev` and the
   development site. Merging is the owner's decision after review.

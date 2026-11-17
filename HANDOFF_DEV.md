@@ -361,6 +361,11 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   Information only: the stabilising reply was chosen in 9 of 11 personal pairs.
 - Two datasets, both inconclusive for the same reason: the fixed patterns find too few personal prompts. A third attempt
   needs a dataset made of personal conversations, or a meaning-based reader registered before it reads any data.
+- **CTX_PREF_WC** (registered 2cb5ea2, code 39941b0, run 44068403883): WildChat-1M, all 14 files, 536,786 reactions.
+  **Inconclusive** a third time: only 185 stabilising replies to personal messages. In everyday requests, asking back is
+  followed by worse reactions (−0.011 [−0.020, −0.002]), in the same direction as CTX_PREF_HH. Association, not cause.
+- Released to main on the owner's instruction: PR #9 (merge 0aa965c), 17 November. The live Agents page now reads
+  "Tested in simulation".
 Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)

@@ -77,5 +77,13 @@ hh-rlhf, and S near zero outside PERSONAL.
 - Leaving a conversation is not counted as a reaction.
 - Only aggregates leave the runner. No text, hash or model output is published.
 
-## 8. Results
-(recorded after the run, in a separate commit)
+## 8. Results (recorded after code 39941b0; GitHub run 44068403883; `rsxv/results/ctx_pref_wc.md`)
+
+- Revision 7d6490e462285cf85d91eabea0f9a954fbddcd1f, not gated, 14 files.
+- 536,786 events from 474,405 English conversations. Contexts: PERSONAL 2,074; CODE 15,189; OTHER 519,523.
+- **Verdict: INCONCLUSIVE.** PERSONAL S 185 events with the feature, Q 152; CODE S 117, Q 112; all below 200. Only OTHER
+  was usable.
+- OTHER: S −0.0032 [−0.0088, +0.0025]; Q −0.0113 [−0.0204, −0.0022], below 0.
+- The sealed prediction (0.30) cannot be scored. Q associated with worse reactions in OTHER, as predicted.
+- Third inconclusive attempt at this question. Public general-purpose data does not reach the personal context with these
+  fixed patterns.

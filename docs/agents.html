@@ -182,8 +182,9 @@ th{color:var(--muted);font-weight:500}
   </section>
 
   <section aria-labelledby="pvTitle" id="proven">
-    <h2 id="pvTitle">Passed in simulation: the RSX-V agents</h2>
+    <h2 id="pvTitle">Tested in simulation: the RSX-V agents</h2>
     <p class="lede">Six archetype agents pass work to one another (<a href="rsxv.html">RSX-V</a>). These are the agent results that passed their registered tests, shown working from runs of the real code on a small sample. Shown in simulation with stated models of agents and a person; not tested with people.</p>
+    <p class="hint" id="pvAudit"></p>
     <div class="pv-grid">
       <div class="pv-box" id="pvRepair">
         <h3>Repair: finding the fault where it starts <span class="pv-tag">W1: passed its registered test</span></h3>
@@ -331,6 +332,15 @@ drawAll();
   draw();
   // FIXES_P2 A1: the register's own caveat for W1, beside the counts.
   if (D.register["W1 repair"]) $("pvW1Meaning").innerHTML = "What the register says this means: " + D.register["W1 repair"].meaning;
+  // BASELINE_AUDIT §7 T2: the audit line, built from the audit's result file.
+  if (D.audit) {
+    const A = D.audit;
+    $("pvAudit").textContent = `Baseline audit: ${A.holds} of ${A.n} audited results beat their simplest baseline (`
+      + A.rows.map(r => `${r.id} ${r.outcome} against ${r.baseline}`).join("; ")
+      + "). ";
+    const link = document.createElement("a"); link.href = A.link; link.textContent = "The audit";
+    $("pvAudit").append(link, ".");
+  }
   // BASELINE_AUDIT Q3: the H-SWITCH row's own meaning, from the register.
   if (D.register["H-CFIT / H-SWITCH"]) $("pvHsMeaning").innerHTML = "What the register says this means: " + D.register["H-CFIT / H-SWITCH"].meaning;
   const P = D.hswitch.policies, top = Math.max(...P.map(p => p.reward));

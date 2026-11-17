@@ -1,0 +1,24 @@
+name: ctx_pref
+# spec/CTX_PREF.md: runs the registered analysis on the public arena votes. Prints aggregates only.
+on:
+  push:
+    branches: [dev]
+    paths:
+      - "rsxv/rsxv/ctx_pref.py"
+      - ".github/workflows/ctx_pref.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "datasets>=2.19" huggingface_hub
+      - name: CTX_PREF (aggregates only)
+        working-directory: rsxv
+        run: python3 -m rsxv.ctx_pref

@@ -119,3 +119,18 @@ ones as AGENTS.md §11.5 asks. Its outcome labels matched the full run's. Nothin
 full run.
 
 **Checks:** listed in HANDOFF.
+
+## 7. Amendment, 17 November 2026: the Agents page (registered before the code)
+
+- T1: the section heading becomes "Tested in simulation: the RSX-V agents". The tags stay "passed its registered test",
+  which is still true.
+- T2: under the lede, one line built from `rsxv/results/results_baseline_audit.json` (via `rsxv.site_agents`), never typed
+  into the page. It gives how many audited rows hold against their baseline, each row's outcome, and links to the results
+  file. No new numbers.
+- T3: `scripts/check_site_catchup.py` checks the heading, and checks that the line's counts equal the counts in the data.
+
+**§7 results (code a775ffa).** The heading reads "Tested in simulation: the RSX-V agents". The line renders as "Baseline
+audit: 0 of 6 audited results beat their simplest baseline (W1 ties …; T-AP loses against STAB-ONLY). The audit." The
+first draft said "the simplest baseline that uses no more information", which is not true of FIXED-BEST (it uses a
+20-person pilot), so that phrase was removed before the commit. Checks: `rsso` 291 passed, 2 skipped, 1 xfailed; RSX-V 156
+passed; `check_all.sh` passed; `check_site_catchup.py`, `check_profiles.py` and `check_outlet.py` exit 0.

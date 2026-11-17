@@ -2352,5 +2352,42 @@
    "parent": null
   }
  },
+ "audit": {
+  "rows": [
+   {
+    "id": "W1",
+    "outcome": "ties",
+    "baseline": "GREEDY (equal information)"
+   },
+   {
+    "id": "H-SWITCH",
+    "outcome": "loses",
+    "baseline": "FIXED-BEST (BEAR)"
+   },
+   {
+    "id": "H-CFIT-M",
+    "outcome": "loses",
+    "baseline": "FIXED-BEST (BEAR)"
+   },
+   {
+    "id": "G1",
+    "outcome": "ties",
+    "baseline": "NONE (transfer nothing)"
+   },
+   {
+    "id": "J1",
+    "outcome": "ties",
+    "baseline": "NEVER-JAM"
+   },
+   {
+    "id": "T-AP",
+    "outcome": "loses",
+    "baseline": "STAB-ONLY"
+   }
+  ],
+  "holds": 0,
+  "n": 6,
+  "link": "https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/dev/rsxv/results/baseline_audit.md"
+ },
  "note": "Real runs of the tested rsxv code on a small sample (W1: 40 trials; H-SWITCH: 30 simulated people). The registered results (W1 n = 400, H-SWITCH n = 200) are the authority. Stated models, not data about people."
 }

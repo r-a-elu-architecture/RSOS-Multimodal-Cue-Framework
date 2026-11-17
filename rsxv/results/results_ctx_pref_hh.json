@@ -1,0 +1,136 @@
+{
+ "test": "CTX_PREF_HH",
+ "spec": "spec/CTX_PREF_HH.md",
+ "level": 0.99875,
+ "min_n": 50,
+ "steps": {
+  "lines": 124503,
+  "pairs_kept": 123415
+ },
+ "per_file": {
+  "helpful-base/train.jsonl.gz": 43596,
+  "helpful-base/test.jsonl.gz": 2339,
+  "helpful-online/train.jsonl.gz": 21902,
+  "helpful-online/test.jsonl.gz": 1132,
+  "helpful-rejection-sampled/train.jsonl.gz": 51732,
+  "helpful-rejection-sampled/test.jsonl.gz": 2714
+ },
+ "contexts": {
+  "PERSONAL": 505,
+  "OTHER": 122910
+ },
+ "matched": {
+  "S|PERSONAL": {
+   "k": 9,
+   "n": 11,
+   "rate": 0.8181818181818182,
+   "wilson": [
+    0.3531246553126558,
+    0.9737499659761811
+   ]
+  },
+  "S|OTHER": {
+   "k": 198,
+   "n": 452,
+   "rate": 0.43805309734513276,
+   "wilson": [
+    0.36497518048658134,
+    0.5139214655666513
+   ]
+  },
+  "Q|PERSONAL": {
+   "k": 11,
+   "n": 22,
+   "rate": 0.5,
+   "wilson": [
+    0.21658308784863717,
+    0.7834169121513628
+   ]
+  },
+  "Q|OTHER": {
+   "k": 1476,
+   "n": 3575,
+   "rate": 0.4128671328671329,
+   "wilson": [
+    0.386583241268208,
+    0.4396572328081566
+   ]
+  }
+ },
+ "unmatched_info_only": {
+  "S|PERSONAL": {
+   "k": 17,
+   "n": 28,
+   "rate": 0.6071428571428571,
+   "wilson": [
+    0.32214401486493194,
+    0.8340452227673096
+   ]
+  },
+  "S|OTHER": {
+   "k": 733,
+   "n": 1705,
+   "rate": 0.4299120234604106,
+   "wilson": [
+    0.3917603344735032,
+    0.4689147741555926
+   ]
+  },
+  "Q|PERSONAL": {
+   "k": 52,
+   "n": 134,
+   "rate": 0.3880597014925373,
+   "wilson": [
+    0.2650180812074978,
+    0.5272471771117092
+   ]
+  },
+  "Q|OTHER": {
+   "k": 9529,
+   "n": 25980,
+   "rate": 0.3667821401077752,
+   "wilson": [
+    0.35718815045883706,
+    0.37648289649029315
+   ]
+  }
+ },
+ "s_personal_minus_other_info_only": {
+  "diff": 0.3801287208366855,
+  "lo": 0.07461023913615139,
+  "hi": 0.6856472025372196
+ },
+ "verdict": "INCONCLUSIVE",
+ "per_feature": {
+  "S": {
+   "usable": [
+    "OTHER"
+   ],
+   "above": [],
+   "below": [],
+   "crossover": false
+  },
+  "Q": {
+   "usable": [
+    "OTHER"
+   ],
+   "above": [],
+   "below": [
+    "OTHER"
+   ],
+   "crossover": false
+  }
+ },
+ "dataset": {
+  "name": "Anthropic/hh-rlhf",
+  "revision": "09be8c5bbc57cb3887f3a9732ad6aa7ec602a1fa",
+  "files": {
+   "helpful-base/train.jsonl.gz": "518a5bf288456fc9f3b7c980c54116fba0c52f274d3f4d344675d83e4058f6f4",
+   "helpful-base/test.jsonl.gz": "8be3fc1a13b27901631696f2be6f184c799f1baeaf145f53ac5db24960adc37b",
+   "helpful-online/train.jsonl.gz": "0994d18b82083f5c084ce04071b683958a724df8c7215ab1d851986642d36a2a",
+   "helpful-online/test.jsonl.gz": "39a475cc7e0df972902f8e3a0972726fce826ac65369bda8c671de4330c60a10",
+   "helpful-rejection-sampled/train.jsonl.gz": "0cea2d2ab2187624ec1314e8cc6fb579f0fa987b3a33e8102b7556ed4d255f64",
+   "helpful-rejection-sampled/test.jsonl.gz": "abc35dbc56015db1dae0faa484514ccbc3eee0133bfcd557fc69250619b028bb"
+  }
+ }
+}

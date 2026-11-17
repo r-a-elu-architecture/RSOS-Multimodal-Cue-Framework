@@ -42,7 +42,7 @@
    "mixed": 4,
    "fail": 0,
    "analysis": 0,
-   "other": 0
+   "other": 2
   },
   "other": {
    "pass": 0,
@@ -358,6 +358,24 @@
    "family": "transfer",
    "series": "W5",
    "parent": "W5e (\u00a711.9)"
+  },
+  {
+   "test": "H-CTX, context-dependent reply style in real arena votes (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CTX_PREF.md\">spec/CTX_PREF.md</a>)",
+   "result": "<b>Inconclusive</b>",
+   "meaning": "Only 128 of 35,858 real prompts described a personal difficulty, too few to test the context that matters most. Length-matched, neither stabilising acknowledgment nor asking back wins or loses clearly anywhere (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/ctx_pref.md\">results/ctx_pref.md</a>)",
+   "status": "other",
+   "family": "agents",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "H-CTX2, the same question on hh-rlhf helpfulness pairs (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CTX_PREF_HH.md\">spec/CTX_PREF_HH.md</a>)",
+   "result": "<b>Inconclusive</b>",
+   "meaning": "505 of 123,415 prompts were personal, with 11 and 22 usable pairs (50 needed). In everyday prompts, replies that end by asking back were chosen less often (0.413). Information only: the stabilising reply was chosen in 9 of 11 personal pairs (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/ctx_pref_hh.md\">results/ctx_pref_hh.md</a>)",
+   "status": "other",
+   "family": "agents",
+   "series": null,
+   "parent": null
   }
  ]
 }

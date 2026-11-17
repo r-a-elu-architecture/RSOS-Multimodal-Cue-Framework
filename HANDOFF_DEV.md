@@ -346,9 +346,22 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   STAB-ONLY as registered comparators.
 - Disclosed: the smoke run used subsets of the registered seeds; its labels matched the full run's.
 - Checks: RSX-V 156 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; all 11 browser checks exit 0.
-- Open: the Agents page heading "Passed in simulation" is still literally true (the tests passed), but each card now shows
-  the audit result. Whether to retitle it is the owner's call.
+- Agents page (§7, code a775ffa): retitled "Tested in simulation: the RSX-V agents", owner's decision 17 November. A line
+  under the lede gives the audit's outcome per row, built from the audit's result file.
 Review status: **reviewed in RELEASE_1** (same-account review; §5).
+
+### CTX_PREF (spec/CTX_PREF.md; registered 0b0337c, code 6869870, GitHub job 44061366439)
+- Real arena votes (lmarena-ai/arena-human-preference-140k, CC BY 4.0), analysed on GitHub's runner. Only aggregates
+  were printed; they are read back from the job log.
+- **Inconclusive:** 128 of 35,858 prompts were PERSONAL. Length-matched, no style wins or loses clearly in CODE or OTHER.
+- The question (does the best response depend on context?) is still open. It needs data where personal-difficulty prompts
+  are common.
+- **CTX_PREF_HH** (registered c78c128, code 8668c32, run 44064375403): hh-rlhf helpfulness pairs, the same fixed patterns.
+  **Inconclusive** again: 505 personal prompts, 11 and 22 usable pairs. In everyday prompts, asking back loses (0.413).
+  Information only: the stabilising reply was chosen in 9 of 11 personal pairs.
+- Two datasets, both inconclusive for the same reason: the fixed patterns find too few personal prompts. A third attempt
+  needs a dataset made of personal conversations, or a meaning-based reader registered before it reads any data.
+Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
 

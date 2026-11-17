@@ -107,6 +107,6 @@ RSOS combines parts that exist separately (scent conditioning, wearable cue deli
 ## Licence and citation
 
 - Software: Apache 2.0. Specifications and framework texts: CC BY 4.0. Archive records keep their original notices. Details in [LICENSING.md](LICENSING.md).
-- Cite: [CITATION.cff](CITATION.cff). DOI for all versions (always the latest): [doi:10.5281/zenodo.24143731](https://doi.org/10.5281/zenodo.24143731). v2.0.0 is archived at [doi:10.5281/zenodo.24151788](https://doi.org/10.5281/zenodo.24151788). The earlier v1.0.0 research preview (superseded) is at [doi:10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732).
+- Cite: [CITATION.cff](CITATION.cff). DOI for all versions (always the latest): [doi:10.5281/zenodo.24143731](https://doi.org/10.5281/zenodo.24143731). v2.1.0 is archived at [doi:10.5281/zenodo.24301903](https://doi.org/10.5281/zenodo.24301903), v2.0.0 at [doi:10.5281/zenodo.24151788](https://doi.org/10.5281/zenodo.24151788). The earlier v1.0.0 research preview (superseded) is at [doi:10.5281/zenodo.24143732](https://doi.org/10.5281/zenodo.24143732).
 
 Author: R. A. Elu.

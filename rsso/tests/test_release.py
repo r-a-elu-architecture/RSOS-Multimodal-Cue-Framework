@@ -4,7 +4,7 @@ import re
 import unittest
 
 REPO = pathlib.Path(__file__).resolve().parents[2]
-DOCS = ["README.md", "SECURITY.md", "CONTRIBUTING.md", "REVIEW.md", "releases/NEXT.md", "spec/OVERRIDE_PROTOCOL.md"]
+DOCS = ["README.md", "SECURITY.md", "CONTRIBUTING.md", "REVIEW.md", "releases/NEXT.md", "releases/v2.1.0.md", "spec/OVERRIDE_PROTOCOL.md"]
 BANNED = re.compile(r"crisis line|crisis help|helpline|hotline|emergency services|\b(?:112|911|999)\b", re.I)
 
 

@@ -6,9 +6,8 @@ history.
 
 ## 1. Rules
 
-> **RELEASE PENDING (2026-11-17, spec/RELEASE_1.md).** Pull request #6 (`dev` → `main`) is open for the owner's
-> approval: https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/pull/6. Every commit pushed to
-> `dev` joins it, so until the owner merges, push only fixes the pull request needs, and nothing new.
+> **RELEASED v2.1.0 (2026-11-17).** Pull request #6 merged into `main` by the owner's decision (merge commit
+> 9f60f4c); the live site shows this work. `dev` is open again; the rules below apply. Release notes: `releases/v2.1.0.md`.
 
 - **Nothing goes to `main` or the live site** from the building account. Everything is on `dev` and the
   development site. Merging is the owner's decision after review.

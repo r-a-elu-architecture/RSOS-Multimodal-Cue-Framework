@@ -1,6 +1,78 @@
 # Next release (unreleased) — running changelog
 
-Collected here until the next release, planned once all RSSO subsystems are complete.
+Collected here until the next release. Proposed number for the release that merges `dev` into `main` (RELEASE_1):
+**v2.1.0**, set by the owner at the merge.
+
+## In this release: the development work of 16–17 November 2026
+
+Every step was registered in `spec/` before its code, and results were recorded separately; nothing changed after
+results were seen. The record is in `HANDOFF_DEV.md`. **Review:** the steps were reviewed by the same model family that
+built them (RELEASE_1, findings in HANDOFF_DEV §5), not by an independent reviewer. The automated checks below are the
+independent evidence.
+
+### Safety and representation
+- **One safety engine for people and agents** (`spec/CONTAIN.md` §9–§10; `rsso/rsso/safety.py`, `docs/js/safety.js`).
+  It provides screens, session states (Standard, Stabilisation, Paused: practical, Clinician-led protocol), guidance
+  levels (self-guided, structured, clinician-led), a self-check and wording flags. CONTAIN checks the session state
+  last. The clinical module is off by default. The Safety page is rebuilt as "Safety and governance".
+- **Domain profiles** (`spec/PROFILES.md`): one engine and one 0–10 scale. Each field sees its own vocabulary: no
+  clinical words on non-clinical profiles, and the rule is checked on every page.
+- **The RSIA Watchdog on the person side** (`spec/WATCHDOG.md`), and **low energy kept apart from clinical
+  depression** (`spec/LOW_MOOD.md`).
+- **Fix passes R1–R6 and P2:** an output gate for every text shown to a person; changes after Begin; lineage; held
+  pages; memory-work wording; domains fail closed.
+
+### Evidence
+- **Trials feed the evidence chain** (`spec/TRIAL_LOOP.md`).
+- **RSX-V:**
+  - guidance levels on commands, kept through NEXT (`spec/RSXV_LEVELS.md`);
+  - the passing agent results shown working on the Agents page, labelled "Passed in simulation"
+    (`spec/AGENTS_PROVEN.md`);
+  - the value of perfect source knowledge tested (`spec/CEILING.md`);
+  - every passed row checked against its simplest baseline, with the register relabelled where a baseline does as
+    well (`spec/BASELINE_AUDIT.md`).
+- **The site shows the system as it is now** (`spec/SITE_CATCHUP.md`, `spec/ARCH_REFRESH.md`): the System page, the
+  RSX-V page, results grouped by family, and the architecture map.
+
+### Wristband
+- **Paired, encrypted Bluetooth** (`spec/BLE_PAIRING.md`, `spec/FIXES_R6C.md`, `spec/FIXES_P2.md`):
+  - six-digit passkey pairing, only in a 2-minute window opened over USB, with a failure limit and a bond limit;
+  - commands only over an encrypted, authenticated link;
+  - no library encryption request outside the window.
+- **Real ESP32 toolchains and emulation** (`spec/ESP32_TOOLS.md`, `spec/BOARD_PENDING.md`):
+  - the sketch compiles for ESP32 (Arduino-ESP32 2.0.17 and 3.3.12) and ESP32-C3/-S3 (2.0.17 and 3.2.1);
+  - on Arduino-ESP32 3.3+, C3 and S3 builds stop with a message (NimBLE);
+  - in Espressif's QEMU, the emulator-only build passes the USB commands, the board check, and the PWM duty at the
+    hardware register;
+  - all of this runs on every push (`firmware` workflow);
+  - a call for the first board report is open (issue #5).
+
+### Usability
+- The home page opens with **Start here**: five paths (try it, researchers, practitioners, developers, hardware). The
+  main pages state their status in one line.
+- The development site at `/dev/` is kept apart from the live site: its own saved data, its own offline cache, and a
+  banner.
+
+### Evidence status (unchanged in kind)
+No human outcome data exists. Results are measured (software and firmware checks), simulated, or synthetic, as
+labelled in the evidence register. The wristband has not been run on a board. Nothing here is a medical device.
+
+### Open
+- **The first board run** (BOARD_TEST T3–T9: pairing with a phone, reconnecting after an address change, link loss,
+  motor timing); issue #5.
+- The NimBLE implementation of the pairing rules for ESP32-C3/-S3 on Arduino-ESP32 3.3+.
+- Google Fonts are loaded from a third party on every page (RELEASE_1 RF3).
+- An independent review of this release.
+
+### Verify
+```bash
+./scripts/check_all.sh
+(cd rsxv && python3 -m pytest -q tests)
+python3 scripts/check_release.py docs          # every page, desktop, phone and /dev/ (Playwright + Chrome)
+python3 scripts/check_site_catchup.py docs     # and the other browser checks listed in HANDOFF_DEV.md §2
+```
+
+## Earlier, unreleased since v2.0.0
 
 ## New
 - **MACHINES, more channels and agents** (`spec/MACHINES.md`, `rsso/rsso/machines.py`, `docs/js/machines.js`, `docs/agents.html`, the Devices page; roadmap step 8, items 9, 10, 15, 19, 29, 36, 38, 42, 43 and 44): device classes with the implanted class as specification only; RDP/1.1 draft lines for temperature (T), images (D) and vibration with carrier, rhythm and body site (HF), checked against an extended envelope; posture from the phone's motion sensor with hysteresis, live and simulated; a lock-screen image generator; codes spread over several body sites; an agent profile in the same shape as a person's, whose values gate every action (override, ask, allow); the person's error signal and answers teaching it; agent-state codes and replies on the wrist; content packs turned into copilot matrices and agent values; the firmware core running the RDP/1.1 lines with the limits enforced on the device (channel checks X1-X11, 11 of 11 in simulation); the three modules in software (`firmware/rsos_core/rsos_modules.*`: a thermal controller with safety cut-offs, the multi-site driver, the display gate; ESP32 drivers built with `-DRSOS_THERMAL`, `-DRSOS_SITES`, `-DRSOS_DISPLAY`, compile-checked; 15 of 15 checks against a physical model, `rsso/rsso/modules.py`), with parts, wiring and bench checks in the board kit and an image converter for the display; a "Build one" section on the Devices page listing each device's parts with single-unit prices checked at named shops (`docs/data/parts.json`, from `rsso/rsso/modules.py`); pronunciation feedback (melody, vowels, rhythm, and mouth shape from the camera if switched on) with five drills (`rsso/rsso/pron.py`, `docs/js/pron.js`); the EEG test for claim C35 with a sham that cancels the motor's pickup (`rsso/rsso/ssep.py`); TRIAL designs `rhythm_focus`, `agent_values` and `pronunciation_feedback`; implant and novelty claims tracked against public evidence in PRIOR_ART. Simulated agents and people (`rsso/results/machines.md`, `channels_firmware.md`, `pron.md`, `ssep.md`). Protocol kit (`spec/kits/MACHINES_PROTOCOL_KIT.md`). Agents in the site menu. Python and JavaScript identical (tested).

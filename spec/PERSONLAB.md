@@ -345,6 +345,27 @@ match the shape rules and validate; templates parse for every node; the placehol
 no page errors, labels present. Private: the 4-word overlap check and the structure match against the private profiles.
 All suites, `check_all.sh` and the browser checks pass.
 
+### 7d-B′. Amendment, 17 November 2026 (evening, owner's decision, before its code): lab persons from summary statistics only
+
+RSOS is an open project under Apache 2.0 and CC BY 4.0, usable by anyone, commercially included. The §7d B mirrors copied
+each private ESConv profile's structure one to one; ESConv is CC BY-NC 4.0, so the mirrors carried a non-commercial label.
+They are replaced:
+- **Aggregates (computed privately, published):** `rsxv/results/personlab_aggregates.json`, counts only over the 100
+  private profiles: problem types; initial intensity (1–5); per level, the number of statements (0–3); per statement, the
+  number of details and the share of each detail kind; per level and part (current, desired), the number of items, the
+  share pointing at a statement, and the share agreed; the number of signals and the share of each kind. Nothing per person.
+- **Generator (public, reproducible by anyone):** `rsxv/rsxv/personlab/synth.py` draws 100 lab persons from those counts,
+  each feature independently, with seed 2041: 25 per problem type, intensity from its distribution, then per level the
+  statement count, per statement its details, per level and part the items (an item pointing at a statement picks one of
+  that level's statements uniformly; with none, it points at nothing), then the signals. Texts from the invented bank, as
+  before. No lab person corresponds to any profile; correlations between features are not kept, and that is stated.
+- **File:** `docs/data/personlab_persons.json` (replaces `personlab_mirrors.json`), licence CC BY 4.0, with ESConv cited as
+  the source of the summary statistics. The check that no text shares a four-word run with the private profiles or the
+  conversation text is run again privately.
+- Everything else in §7d is unchanged (TARGET, engine, policies, effect sets, seeds, pages, tests), with "mirror" read as
+  "lab person". The population numbers are recomputed; the by-construction statements of §7d C still apply.
+- The real profiles stay private. Published aggregate results (steps 3–5c, RAPPORT_ESCONV) are summary statistics and stay.
+
 ## 8. Amendment, 17 November 2026
 Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording
 rule, and the SOURCES.md path is made exact. No design change.

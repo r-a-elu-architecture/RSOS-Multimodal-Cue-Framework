@@ -346,8 +346,8 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   STAB-ONLY as registered comparators.
 - Disclosed: the smoke run used subsets of the registered seeds; its labels matched the full run's.
 - Checks: RSX-V 156 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; all 11 browser checks exit 0.
-- Open: the Agents page heading "Passed in simulation" is still literally true (the tests passed), but each card now shows
-  the audit result. Whether to retitle it is the owner's call.
+- Agents page (§7, code a775ffa): retitled "Tested in simulation: the RSX-V agents", owner's decision 17 November. A line
+  under the lede gives the audit's outcome per row, built from the audit's result file.
 Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)

@@ -128,3 +128,9 @@ full run.
   into the page. It gives how many audited rows hold against their baseline, each row's outcome, and links to the results
   file. No new numbers.
 - T3: `scripts/check_site_catchup.py` checks the heading, and checks that the line's counts equal the counts in the data.
+
+**§7 results (code a775ffa).** The heading reads "Tested in simulation: the RSX-V agents". The line renders as "Baseline
+audit: 0 of 6 audited results beat their simplest baseline (W1 ties …; T-AP loses against STAB-ONLY). The audit." The
+first draft said "the simplest baseline that uses no more information", which is not true of FIXED-BEST (it uses a
+20-person pilot), so that phrase was removed before the commit. Checks: `rsso` 291 passed, 2 skipped, 1 xfailed; RSX-V 156
+passed; `check_all.sh` passed; `check_site_catchup.py`, `check_profiles.py` and `check_outlet.py` exit 0.

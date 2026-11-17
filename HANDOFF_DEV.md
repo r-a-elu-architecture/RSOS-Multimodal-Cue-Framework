@@ -364,8 +364,9 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
 - **CTX_PREF_WC** (registered 2cb5ea2, code 39941b0, run 44068403883): WildChat-1M, all 14 files, 536,786 reactions.
   **Inconclusive** a third time: only 185 stabilising replies to personal messages. In everyday requests, asking back is
   followed by worse reactions (−0.011 [−0.020, −0.002]), in the same direction as CTX_PREF_HH. Association, not cause.
-- Released to main on the owner's instruction: PR #9 (merge 0aa965c), 17 November. The live Agents page now reads
-  "Tested in simulation".
+- Released to main on the owner's instruction: PR #9 (merge 0aa965c), 17 November, with **CTX_PREF and CTX_PREF_HH
+  only**. The live Agents page now reads "Tested in simulation". CTX_PREF_WC (below) came after that merge and is on
+  `dev` only.
 
 ### Phase 3 (website and agents), step 12: STAB_DEFAULT (registered 2349a85, amendment dd54544, code c4f3bd0)
 - Found first: no person-facing page switches archetypes. Switching exists only in the simulation and the World page.
@@ -389,7 +390,7 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   toward each person's desired state, as a lab for researchers. A module, not a new language.
 - Step 1 (eb39498): the schema in `rsxv/rsxv/personlab/schema.py`.
 - Step 2: `SOURCES.md`. ESConv is primary, Hippocorpus and EmpatheticDialogues secondary.
-- Step 3 (c324fa1, frozen 2d1f9c5): 100 ESConv profiles from two independent readers. **Kappa 0.728, passes.** Environment
+- Step 3 (c324fa1, frozen 2d1f9c5): 100 ESConv profiles from two readers (separate instances of the same model; see the record review note in spec/PERSONLAB.md). **Kappa 0.728, passes.** Environment
   agreed worst (0.412); desired states are weak (46% matched). Stored privately (private repo `dev`, bbb3faa).
 - Step 4 (registered 17650e5, code 06fa583): `ProfilePerson`; all 100 build. Cues never block. The parameters are placeholders.
 - Step 5 (registered 49c8277, code b439c7c): **FAIL.** Final-intensity error: PERSON 0.814; persistence 2.030;
@@ -399,10 +400,9 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   test **NOT TESTABLE**: 3 targeted blocks of 560, with 30 needed. Information only: questions are followed by the smallest
   stress drop.
 - Step 5c (registered 8b8f069, code 948aaef): **NOT VALID.** Reader stress does not track the seekers' own intensity
-  ratings (change ρ +0.03). It measures tone, not self-reported state. The confirmatory test on reader stress is cancelled.
+  ratings (change ρ +0.03). It appears to track tone rather than self-reported state (100 conversations; wide intervals). The confirmatory test on reader stress is cancelled.
 - RAPPORT_ESCONV (registered f4bbc63, code 3ce406c): on the seekers' own ratings, VAKOG matching **no effect**
   (+0.094), echo **no effect** (-0.023), both together not testable (96 events). Neither enters the agents' defaults.
-Review status: **awaiting review**.
 Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)

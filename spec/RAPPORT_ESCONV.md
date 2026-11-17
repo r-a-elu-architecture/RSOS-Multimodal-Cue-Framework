@@ -83,3 +83,13 @@ P(ECHO holds) = 0.40; P(BOTH holds) = 0.20.
 - **The sealed predictions** (MATCH 0.15, ECHO 0.40, BOTH 0.20): MATCH and ECHO did not hold. BOTH cannot be scored.
 - **What follows (§6).** Neither VAKOG matching nor word echo enters the Person Lab agents' defaults. In this data, how
   people rated the support does not depend on whether the supporter used their sensory words or repeated their words.
+
+### Record review note (17 November 2026, evening; no threshold, verdict or number changed)
+- **NO EFFECT means no effect shown.** MATCH's interval [-0.018, +0.197] does not rule out a small benefit. The last
+  sentence of §7 should read: in this data, matching the person's sensory words or repeating their words was **not shown**
+  to change how they rated the support. §6 is unchanged: neither enters the agents' defaults, because neither held.
+- **Data already explored.** The same ESConv conversations (apart from the excluded 104) had been opened by this project
+  for PERSONLAB; the feedback ratings themselves had only been counted (§1). Disclosed here for completeness.
+- **The word lists** (§2, fixed at registration) mix sensory words with ordinary talk verbs (A: say, tell, talk, call,
+  discuss) and emotion words (K: pain, hurt, calm). MATCH therefore partly measures shared topic. A future test of
+  sensory matching needs lists checked against a pilot sample before registration.

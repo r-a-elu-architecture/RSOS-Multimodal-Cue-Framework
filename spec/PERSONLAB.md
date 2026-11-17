@@ -376,3 +376,14 @@ conversation's second half and post-chat intensity held out for step 5.
   self-reported state. The step-5b information on questions rests on this unvalidated measure and is withdrawn as a signal.
   The confirmatory test is not run on reader stress.
 - The sealed predictions: P(VALID) = 0.35 and P(at least PARTIAL) = 0.65 were both not met.
+
+### Record review note (17 November 2026, evening; no threshold, verdict or number changed)
+- **Readers.** The "two independent readers" in steps 3 and 5b are separate instances of the same model, given the same
+  frozen instructions. They do not see each other's output, but they share the model's habits. Kappa 0.728 (profiles)
+  and 0.925 (stress) are therefore agreement between two instances of one model, not between independent raters, and
+  are likely higher than two people would reach. The verdicts stand as registered; this is how they are to be read.
+- **Step 5c wording.** "Measures tone, not self-reported state" is stronger than 100 conversations allow: the intervals
+  are about 0.5 wide and (a) reaches +0.43. The verdict NOT VALID stands under the registered rule. The reading is: reader
+  stress *appears* to track tone more than self-reported state; a weak link is not ruled out. Part of the gap is built
+  into the design (first and last turns are mostly greetings and thanks); a pilot look at the measurement unit before
+  registering would have shown it, and future registrations do that.

@@ -111,6 +111,10 @@ output.
 **Privacy.** The conversations and profiles stay in the private repository. The public repo gets the code, the
 instructions, the counts, the agreement and the per-level coverage.
 
+**Pilot, before the 100 were read.** 4 conversations (ESConv ids 559, 600, 781, 1222). Every quote was found, all 8
+profiles are valid, the level-cell agreement is 21 / 24 (kappa 0.727), and 21 of 25 of reader A's statements are matched by
+reader B. **The instructions are frozen unchanged** (`builder_instructions.md` as committed in c324fa1).
+
 **Sealed prediction:** P(kappa ≥ 0.6) = 0.55. The environment and behaviour levels are expected to agree best, and mission
 worst (people rarely state a purpose in a support chat).
 

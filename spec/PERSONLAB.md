@@ -250,6 +250,36 @@ overlap. Stress is read from text.
 
 **Sealed prediction:** P(pass) = 0.25. P(kappa ≥ 0.6) = 0.6.
 
+## 7c. Step 5c: do the stress readings track the person's own ratings? (registered 17 November 2026, before computing)
+
+The step-5b readers saw the situation line and the conversation, but never the intensities the seekers gave themselves.
+ESConv holds those self-ratings: emotion intensity (1–5) before the chat and after it. Nothing relating the two has been
+computed.
+
+**For each of the 100 conversations:**
+- (a) the reader stress of the first person turn (S1), against the self-rated **initial** intensity;
+- (b) the reader stress of the last person turn, against the self-rated **final** intensity;
+- (c) the change, last − first, against final − initial.
+
+Reader stress is the mean of the two readers.
+
+**Measure.** Spearman ρ for (a), (b) and (c). Each gets a percentile bootstrap interval over conversations (2000 resamples,
+seed 12345, level 1 − 0.05/3).
+
+**Verdict.**
+- **VALID:** all three intervals lie above 0 and all three ρ are at least 0.3.
+- **PARTIAL:** all three intervals lie above 0, but some ρ is below 0.3.
+- **NOT VALID:** otherwise.
+
+Reported: the distributions of both measures, because a narrow range of self-ratings (for example mostly 4–5 at the start)
+limits ρ.
+
+**What follows.** VALID: Δstress can carry the confirmatory test. PARTIAL: it can, with the size of the link stated beside
+every result. NOT VALID: the stress readings measure what readers see, not what people report, and the confirmatory test is
+redesigned before it runs.
+
+**Sealed prediction:** P(VALID) = 0.35; P(at least PARTIAL) = 0.65.
+
 ## 8. Amendment, 17 November 2026
 Wording only, before any data was downloaded: neutral terms replace three phrases that broke the public-repo wording
 rule, and the SOURCES.md path is made exact. No design change.

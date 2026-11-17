@@ -95,7 +95,7 @@ Code: 6394a70 (S1), 5347a3a (§10 revision), 1409a8c (a wording fix).
 Tests: `rsso/tests/test_safety.py` (A1–A8, including the site-wide wording test A7).
 Click: `/dev/safety.html` (self-check intensity 8 → Stabilisation; clinical module → result "high" → clinician-led
 protocol; resume as clinician), `/dev/player.html` (status line follows the state).
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Step 1b — domain profiles
 
@@ -114,7 +114,7 @@ Click: `/dev/nodes.html?profile=performance`, `/dev/therapist.html?profile=resea
 `/dev/contribute.html?profile=workplace`, `/dev/nodes.html?profile=clinical`.
 Known limits: the highest guidance level per profile is shown, not yet enforced (Step 2); exported records do not
 record the profile (would need its own registration).
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Step 2 — RSIA Watchdog on the person side
 
@@ -141,7 +141,7 @@ present, screening no → held: clinician-led work, Gi); the same in `?profile=c
 Interpretation to review: the therapist session's own required screening step counts as the recorded screening
 (spec/WATCHDOG.md §6).
 Not in this step: the world simulation.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Step 3 — trials feed the evidence chain
 
@@ -163,7 +163,7 @@ Tests: `rsso/tests/test_trial_loop.py`; `scripts/check_trial_loop.py` (T8 in Chr
 unchanged (spec §7). Reviewer: please check the simulation matches the registered wording.
 Click: `/dev/trials.html` (start Real anchor or sham with an anchor from the Anchors page; after saving, the message
 shows the code and the anchor's strength), `/dev/player.html?program=ssit_higher`, `?program=tier013_lion_dragon`.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Fix pass R1 — findings of the first independent review
 
@@ -193,7 +193,7 @@ amends WATCHDOG §2 and W3.
   lacked them (browsers asked for a missing favicon).
 Tests: `rsso/tests/test_fixes_r2.py`, `scripts/check_fixes_r2.py`; the Watchdog and R1 browser checks now set a
 clinician PIN first, as a clinician would.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Fix pass R3 — structural (after the third review)
 
@@ -217,7 +217,7 @@ separate "Depression (diagnosed or under treatment)" choice makes the plan clini
 clinician-led in the player and on the device page. Self-checks are kept (`rsos.selfchecks`); with a low-mood plan,
 3 or more checks of intensity 7 or more in 7 days recommend involving a practitioner (recorded on the plan).
 Test: `scripts/check_low_mood.py` (L1–L4). Built after review 4 started, so review 4 does not cover it.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Fix pass R4 (spec/FIXES_R4.md)
 
@@ -280,7 +280,7 @@ screen). New hosts pair only within 120 s of power-on or USB `PAIR`; 3 failures 
 `PASSKEY`, `PAIR`, `UNPAIR`, `NEWKEY` only over USB; lines over 95 characters dropped whole. Policy
 `firmware/rsos_core/rsos_link.*` (host test `link_test`, 47 checks), copied into the sketch.
 Tests: `rsso/tests/test_ble_pairing.py`; sketch compile check (10 builds). **Not run on a board.**
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Step 5 — architecture map covers RSX-V and Steps 1–4 (spec/ARCH_REFRESH.md)
 
@@ -288,7 +288,7 @@ Registered 388f443 (B2 wording amended in 1703c61, before code); code 9cafcdb. N
 top-level table, RSIA Watchdog, CONTAIN, MICRO and cross-system pages describe the person-side Watchdog, session
 states, guidance levels, domain profiles, output gate, level lineage, wristband pairing and the trial loop. Generated
 by `architecture/build.py`. Test: `rsso/tests/test_arch_refresh.py`. Documentation only; no site page changed.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### Phase 2, Steps 6–8 — the site shows the system as it now is (spec/SITE_CATCHUP.md)
 
@@ -329,7 +329,7 @@ Phase 2 (Steps 6–11) is complete and checked (review P2, branch `review/p2`, c
   10 stub builds compile. No threshold changed.
 - **Open notes:** P2-10, the emulator flag's test covers the sketch, not the build. P2-11, the NimBLE guard's macro.
   Both are left as they are until a real compiler can check the change.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### BASELINE_AUDIT (spec/BASELINE_AUDIT.md; registered 0f5ba72, code ee01c84 and 59539cf)
 - Each passed register row was compared against its simplest baseline, re-running each test's own procedure and seeds.
@@ -349,7 +349,7 @@ Review status: **awaiting review**.
 - Checks: RSX-V 156 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; all 11 browser checks exit 0.
 - Open: the Agents page heading "Passed in simulation" is still literally true (the tests passed), but each card now shows
   the audit result. Whether to retitle it is the owner's call.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
 
@@ -379,7 +379,7 @@ esp_develop_9.2.2_20260417. Reproduce with `firmware/esp32/real_check.py` (needs
   clock over a local socket, not a board's.
 Docs: BOARD_KIT status and version table, BOARD_TEST T0/T1, firmware README, the sketch's STATUS comment, MICRO on the
 architecture map (status stays "complete in simulation").
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 ### BOARD_PENDING — checks and preparation while no board is available (spec/BOARD_PENDING.md)
 
@@ -395,7 +395,7 @@ Registered 4f32dc2; code 9cb1d8a, 6041243; results da31d1f.
   the pin, the 20 kHz carrier, the MOSFET and motor.
 - Observed for FIXES_P2 E1: the 2.0.17 and 3.2.1 library sources do call `esp_ble_set_encryption` on every connection
   when `setEncryptionLevel` was used; on 3.3.12 the call only stores the level. ESP32_TOOLS F2 had kept the call.
-Review status: **awaiting review**.
+Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
 **Wristband firmware lane: parked (2026-11-17).** Nothing more is done here without a board. Done: the real-toolchain
 compile, the emulator checks, the PWM-register check, CI on every push (`firmware` workflow), and the call for
@@ -414,6 +414,63 @@ Checklist:       1 pass | 2 pass | 3 … (with evidence)
 Findings:        (numbered; file and line; severity: blocker / should fix / note)
 Verdict:         ready for the owner | changes needed
 ```
+
+### RELEASE_1 review (2026-11-17, spec/RELEASE_1.md)
+
+Reviewer: the building account's model family (Claude Opus 5.5), not an independent reviewer. Reviewed commit: 475b9d2
+(`dev`), against `main` 059a58f. Checks on 475b9d2:
+- `check_all.sh`: pass.
+- rsso: 292 passed, 1 expected failure. RSX-V: 156 passed.
+- Browser checks: 11 of 11 pass, after F1.
+- `check_release.py`: 75 of 75 page views pass (25 pages: desktop, phone, and under /dev/).
+- `firmware` workflow: pass.
+
+```
+Area:       1 wristband security (BLE_PAIRING, FIXES_R6C, FIXES_P2)
+Checklist:  1 pass (suites; firmware workflow 40 builds + emulator) | 2 pass | 3 pass (only added constants:
+            kWindowMs 120000, line limit) | 4 n/a | 5 pass (rsos_core host tests) | 6 n/a | 7 pass | 8 n/a | 9 pass
+Findings:   1 note: FIXES_P2 E1 confirmed in the 2.0.17 and 3.2.1 library sources (BOARD_PENDING §5).
+            2 note: ESP32_TOOLS A1 F2 had kept setEncryptionLevel on every core; FIXES_P2 removed it.
+            3 note: everything about pairing rests on reading library sources; it needs a board (§6, issue #5).
+Verdict:    ready for the owner, with the hardware items open
+```
+```
+Area:       2 safety engine and wording (Step 1, CONTAIN, LOW_MOOD, R1-R6, output gate)
+Checklist:  1 pass | 2 pass (spec before code in each step's record) | 3 pass (no changed limit lines against main;
+            new SSIT programs carry their own SAFETY lines) | 4 pass (keys only added: rsos.clinical, rsos.settings,
+            rsos.watchdog.log; none removed) | 5 pass (suites) | 6 pass (check_profiles; no crisis, helpline or
+            emergency wording in any page's text, only internal mode names) | 7 pass | 8 pass | 9 pass
+Findings:   1 note: README.md still has "If you are in crisis, contact local emergency services or a crisis line"
+            (it is on main too; README is not a page). Owner's decision.
+Verdict:    ready for the owner
+```
+```
+Area:       3 claims against evidence (RSX-V levels, W5-CEILING, BASELINE_AUDIT)
+Checklist:  1 fail -> pass (RF1) | 2 pass | 3 pass | 6 pass | 9 fail -> pass (RF1)
+Findings:   1 blocker (RF1, fixed in 475b9d2): check_site_catchup failed on dev ("H-SWITCH meaning shown"); the page
+              was right (the profile wording rule), the check compared raw text. BASELINE_AUDIT Q4 recorded that
+              the browser checks pass; that was not true when recorded.
+            2 pass: no "proven", "validated", "clinically" or similar claim beyond the evidence on any page; the
+              Agents page heading reads "Passed in simulation".
+Verdict:    ready for the owner
+```
+```
+Area:       4 site (SITE_CATCHUP, ARCH_REFRESH) and usability (RELEASE_1 U1-U4)
+Checklist:  1 pass | 6 pass | 8 pass (75/75 views; the dev banner only under /dev/)
+Findings:   1 should fix -> fixed: no guided entry on the home page (23 menu entries). Added "Start here", and status
+              lines on the player, practitioner, devices and results pages.
+            2 note (RF3, open): pages load Google Fonts from a third party on every visit; no glyph fonts offline.
+Verdict:    ready for the owner
+```
+```
+Area:       5 firmware and CI (ESP32_TOOLS, BOARD_PENDING)
+Checklist:  1 pass | 2 pass | 3 pass | 7 pass | 9 pass
+Findings:   1 note: this account built these steps and reviewed them; the firmware workflow's runs are the
+              independent evidence (runs 43941331355, 43945771906).
+Verdict:    ready for the owner
+```
+Release blocker found outside the steps: `main` holds 059a58f (a revert of S1). A plain merge would keep the revert;
+RELEASE_1 §1 M1/M2 handles it before the pull request.
 
 ## 6. Open items
 

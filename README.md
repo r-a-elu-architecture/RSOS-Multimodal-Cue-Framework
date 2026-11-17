@@ -62,9 +62,9 @@ Every page on the site carries one of these labels (scale and rules: [`spec/EVID
 | Personal trials (TRIAL) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
 | RSX-V agents | E4 Tested on recorded data | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
 | RSX-V command layer | E4 Tested on recorded data | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
-| The World simulation and the Person Lab | E4 Tested on recorded data | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 15 registered tests: 0 pass, 4 mixed, 7 fail, 4 other |
+| The World simulation and the Person Lab | E4 Tested on recorded data | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other |
 
-Results register: 42 registered tests: 1 pass, 11 mixed, 25 fail, 1 analysis, 4 other ([`rsxv/RESULTS.md`](rsxv/RESULTS.md)).
+Results register: 43 registered tests: 1 pass, 11 mixed, 26 fail, 1 analysis, 4 other ([`rsxv/RESULTS.md`](rsxv/RESULTS.md)).
 
 <!-- evidence:end -->
 

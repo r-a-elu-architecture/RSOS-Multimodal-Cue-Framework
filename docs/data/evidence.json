@@ -195,7 +195,7 @@
    "kind": "part",
    "level": "E4",
    "part": "The World simulation and the Person Lab",
-   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 15 registered tests: 0 pass, 4 mixed, 7 fail, 4 other. Not yet tested with people using RSOS.",
+   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other. Not yet tested with people using RSOS.",
    "basis": [],
    "families": [
     "agents",
@@ -214,7 +214,7 @@
     "recorded": {
      "pass": 0,
      "mixed": 4,
-     "fail": 7,
+     "fail": 8,
      "other": 4
     }
    }
@@ -264,23 +264,23 @@
   "index": {
    "kind": "summary",
    "level": null,
-   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 42 registered tests: 1 pass, 11 mixed, 25 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 43 registered tests: 1 pass, 11 mixed, 26 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
   },
   "system": {
    "kind": "summary",
    "level": null,
-   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 42 registered tests: 1 pass, 11 mixed, 25 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 43 registered tests: 1 pass, 11 mixed, 26 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
   },
   "results": {
    "kind": "summary",
    "level": null,
-   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 42 registered tests: 1 pass, 11 mixed, 25 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 43 registered tests: 1 pass, 11 mixed, 26 fail, 1 analysis, 4 other. Not yet tested with people using RSOS."
   }
  },
  "register": {
   "pass": 1,
   "mixed": 11,
-  "fail": 25,
+  "fail": 26,
   "analysis": 1,
   "other": 4
  },
@@ -299,7 +299,7 @@
   "public": {
    "pass": 0,
    "mixed": 1,
-   "fail": 5,
+   "fail": 6,
    "other": 4
   },
   "people": {

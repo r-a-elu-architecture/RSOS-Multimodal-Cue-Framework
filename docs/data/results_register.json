@@ -33,7 +33,7 @@
   "person model": {
    "pass": 0,
    "mixed": 2,
-   "fail": 5,
+   "fail": 6,
    "analysis": 0,
    "other": 1
   },
@@ -426,6 +426,15 @@
    "test": "Round 8d, VAKOG matching and echo against people's own ratings (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/RAPPORT_ESCONV.md\">spec/RAPPORT_ESCONV.md</a>)",
    "result": "<b>Fail</b>",
    "meaning": "No effect shown on 6,970 ratings (a small benefit of matching is not ruled out): matching the person's sensory channel +0.09 [-0.02, +0.20], echoing their words -0.02 [-0.09, +0.05] on the 1\u20135 rating; both together not testable (96 events) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/rapport_esconv.json\">results/rapport_esconv.json</a>)",
+   "status": "fail",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8e, supporter action against the person's own next rating (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/TURN_RATINGS.md\">spec/TURN_RATINGS.md</a>)",
+   "result": "<b>Fail</b> (null shown)",
+   "meaning": "6,352 rated events. What the supporter did adds nothing to the next rating beyond the previous rating, stage and starting intensity: \u22120.0008 [\u22120.0036, +0.0019] in mean squared error, inside the \u00b10.01 equivalence band; letting the effect depend on stage adds nothing either (+0.0032 [+0.0005, +0.0063]). The previous rating and start beat persistence by \u22120.185 [\u22120.232, \u22120.141]. Association data; no action effect to give the Person Lab (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/turn_ratings.json\">results/turn_ratings.json</a>)",
    "status": "fail",
    "family": "person model",
    "series": null,

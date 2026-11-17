@@ -118,3 +118,29 @@ under a 2% relative reduction in mean squared error for M1, because 52% of ratin
 - Rating distribution of usable events: 1: 47, 2: 128, 3: 817, 4: 1,890, 5: 3,470; **54.6% at 5**.
 - **No amendment** (§4): the test half holds ≥ 1,500 usable events and every indicator is true in ≥ 100 test events. Stage M
   runs as registered.
+
+### Stage M (code fca11ec, run once after stage P was recorded in e0da9ed; `rsxv/results/turn_ratings.json`)
+
+- Fitted on 3,119 development events; measured on 3,233 test events in 650 conversations. Run time 9 s.
+- Test mean squared error: B0 persistence 0.677; **B1 0.4926; M1 0.4918; M2 0.4950**.
+- **Q1, M1 − B1: −0.0008 [−0.0036, +0.0019] → NULL.** The interval lies inside ±0.01: the supporter's action adds nothing
+  measurable to the next rating beyond the previous rating, stage and starting intensity.
+- **Q2, M2 − M1: +0.0032 [+0.0005, +0.0063] → NULL.** Letting the action's effect depend on the stage adds nothing; the
+  richer model is slightly worse on the test half (overfitting), within the band.
+- Reported beside them: **B1 − B0: −0.185 [−0.232, −0.141]**: the previous rating and starting intensity, used together,
+  predict better than persistence (27% lower error). M1 action coefficients (rating points, 99.5% intervals): EXPLORE
+  −0.08 [−0.19, +0.02]; SHARE +0.05 [−0.05, +0.15]; NONE −0.01 [−0.13, +0.09]; STABILISE −0.005 [−0.09, +0.08];
+  SUGGEST +0.004 [−0.10, +0.09]. Every interval contains 0. Share of predictions at the clip: B0 0.50 (persistence at 5),
+  B1 0, M1 0, M2 0.001.
+- **Independent recomputation.** A separately written script (different parser, normal equations; workspace only)
+  reproduced the event counts (6,352; 3,119 / 3,233) and all four errors to six decimals.
+- **Sealed predictions:** P(Q1 SIGNAL) = 0.40, not met; P(Q2 SIGNAL) = 0.15, not met; P(B1 beats B0) = 0.85, met.
+
+**Reading (§8).** Q1 and Q2 are NULL, so by the rule fixed before the run: ESConv ratings do not separate supporter actions at
+this grain; the Person Lab agents cannot be validated on this data; WORLD_10X row 1 needs other data; the switching idea is
+not supported here. This is now the third ESConv outcome with no action signal (conversation-level intensity, PERSONLAB
+step 5; VAKOG matching and echo, RAPPORT_ESCONV; turn-level action, here), and the first measured as equivalence rather
+than as an interval that merely contains zero. What does predict the next rating is the person: their previous rating and
+their starting state. Limits as §7: association only; crowdworkers playing seekers; strategy labels by supporters; a
+ceiling of 54.6% at 5. The EXPLORE coefficient points the same way as the asking-back findings (CTX_PREF_HH, CTX_PREF_WC) but
+its interval contains 0 and it is not a finding.

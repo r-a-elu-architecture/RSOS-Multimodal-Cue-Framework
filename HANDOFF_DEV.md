@@ -395,7 +395,11 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
 - Step 5 (registered 49c8277, code b439c7c): **FAIL.** Final-intensity error: PERSON 0.814; persistence 2.030;
   mean change 0.771; linear 0.681. The fit gives all actions the same effect, and the profile makes it
   worse (+0.144). Whole-conversation final intensity in ESConv does not separate strategies.
-- Next: a registered turn-level test on the seeker's feedback ratings, before redesigning the simulated person.
+- Step 5b (registered dd1d360, code 72c303e): stress per turn, kappa **0.925** over 1,584 turns, reliable. Override
+  test **NOT TESTABLE**: 3 targeted blocks of 560, with 30 needed. Information only: questions are followed by the smallest
+  stress drop.
+- Next: a confirmatory test on fresh ESConv conversations: actions against stress, by pre-stress band (the switching
+  question), and the override detected by meaning rather than word overlap.
 Review status: **awaiting review**.
 Review status: **awaiting review**.
 

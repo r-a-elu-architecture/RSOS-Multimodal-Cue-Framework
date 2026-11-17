@@ -35,7 +35,7 @@
    "mixed": 2,
    "fail": 3,
    "analysis": 0,
-   "other": 0
+   "other": 1
   },
   "agents": {
    "pass": 1,
@@ -400,6 +400,15 @@
    "result": "<b>Fail</b>",
    "meaning": "Profiles built with agreement kappa 0.728 (passes). But the simulated persons do not predict final intensity better than a linear baseline (0.81 against 0.68), the fit gives every support strategy the same effect, and the profile makes the prediction worse (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/personlab_step5.json\">results/personlab_step5.json</a>)",
    "status": "fail",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8b, stress per turn and the profile-targeted override (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/PERSONLAB.md\">spec/PERSONLAB.md</a> \u00a77b)",
+   "result": "<b>Not testable</b>",
+   "meaning": "Stress read reliably from 1,584 turns (weighted kappa 0.925). But supporters addressed the person's own belief or identity wording in only 3 of 560 moments (30 needed) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/personlab_step5b.json\">results/personlab_step5b.json</a>)",
+   "status": "other",
    "family": "person model",
    "series": null,
    "parent": null

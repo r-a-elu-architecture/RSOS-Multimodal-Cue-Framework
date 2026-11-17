@@ -320,3 +320,16 @@ conversation's second half and post-chat intensity held out for step 5.
 - The sealed predictions (P(pass) = 0.25; P(profile adds) = 0.15) are both scored as not met.
 - No refit or new model is tried on these 100. A next design should use the finer outcome ESConv also records: the
   seeker's 1–5 feedback after supporter turns (7,681 ratings). That is a new registered step.
+
+### Step 5b (code 72c303e; aggregates `rsxv/results/personlab_step5b.json`)
+- **Stress readings:** 1,584 person turns rated by both readers, none missing. **Quadratic-weighted kappa 0.925**; exact
+  agreement 87%. The bar of 0.6 is met by far, and the per-turn stress measure is reliable.
+- **Verdict: NOT TESTABLE.** In 560 held-out blocks, only **3** targeted the person's own beliefs or identity statements by
+  the registered rule (placebo: 1). 30 are needed. Supporters in ESConv almost never repeat a person's own belief or
+  identity wording. The registered word-overlap detector cannot find the override in this data, and no other rule is
+  tried on these 100.
+- Information only, **not tested** (unstratified, on data now seen): mean Δstress per action in the held-out half is
+  SUGGEST -0.259 (n 170), STABILISE -0.222 (153), SHARE -0.193 (57), NONE -0.168 (110),
+  EXPLORE -0.036 (70). Questions are followed by the smallest drop in stress. That matches in direction the
+  asking-back finding of CTX_PREF_HH and CTX_PREF_WC. A confirmatory test needs fresh conversations.
+- The sealed predictions: P(kappa ≥ 0.6) = 0.6 was met; P(pass) = 0.25 cannot be scored.

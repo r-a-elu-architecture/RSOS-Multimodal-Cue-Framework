@@ -257,3 +257,21 @@ conversation's second half and post-chat intensity held out for step 5.
   5 actions.
 - The parameters are still the neutral placeholders. **Nothing about real behaviour is claimed until step 5 fits and tests
   them.**
+
+### Step 5 (code b439c7c; aggregates `rsxv/results/personlab_step5.json`)
+- Fitted on 656 development conversations (development error 0.622). Validated on the 100.
+- **Verdict: FAIL.** Final-intensity error: PERSON 0.814; B1 persistence 2.030; B2 mean change
+  0.771; B3 linear 0.681; PERSON-NOPROFILE 0.670.
+  - PERSON beats B1: -1.216 [-1.424, -0.999].
+  - It ties B2: +0.042 [-0.098, +0.184].
+  - It loses to B3: +0.133 [+0.032, +0.220].
+- **The profile makes the prediction worse:** PERSON − PERSON-NOPROFILE = +0.144 [+0.035, +0.238].
+- **The fit gives every action the same effect** (relief −0.239 for each of the five), with drift 0.953 and
+  recovery 0.544. The model settles every conversation to one level, whatever the supporter does. In
+  the linear baseline, too, the strategy counts carry almost no weight (coefficients −0.024 to +0.027 per turn).
+- **Reading.** At the level of a whole conversation's final intensity, ESConv shows no measurable difference between
+  support strategies. Final intensity is explained by the start and a typical drop (mean −2.05). This model cannot be
+  validated on that outcome, and the profile's only route into it (the signal count) carries no information.
+- The sealed predictions (P(pass) = 0.25; P(profile adds) = 0.15) are both scored as not met.
+- No refit or new model is tried on these 100. A next design should use the finer outcome ESConv also records: the
+  seeker's 1–5 feedback after supporter turns (7,681 ratings). That is a new registered step.

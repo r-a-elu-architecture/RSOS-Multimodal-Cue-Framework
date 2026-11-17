@@ -392,7 +392,10 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
 - Step 3 (c324fa1, frozen 2d1f9c5): 100 ESConv profiles from two independent readers. **Kappa 0.728, passes.** Environment
   agreed worst (0.412); desired states are weak (46% matched). Stored privately (private repo `dev`, bbb3faa).
 - Step 4 (registered 17650e5, code 06fa583): `ProfilePerson`; all 100 build. Cues never block. The parameters are placeholders.
-- Next: step 5, fit the parameters on development conversations and validate on held-out ones (register first).
+- Step 5 (registered 49c8277, code b439c7c): **FAIL.** Final-intensity error: PERSON 0.814; persistence 2.030;
+  mean change 0.771; linear 0.681. The fit gives all actions the same effect, and the profile makes it
+  worse (+0.144). Whole-conversation final intensity in ESConv does not separate strategies.
+- Next: a registered turn-level test on the seeker's feedback ratings, before redesigning the simulated person.
 Review status: **awaiting review**.
 Review status: **awaiting review**.
 

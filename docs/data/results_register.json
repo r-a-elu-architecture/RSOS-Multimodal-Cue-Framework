@@ -33,7 +33,7 @@
   "person model": {
    "pass": 0,
    "mixed": 2,
-   "fail": 2,
+   "fail": 3,
    "analysis": 0,
    "other": 0
   },
@@ -392,6 +392,15 @@
    "meaning": "26,783 persons in WildChat-1M: the AI's new words from the previous conversation appeared in the person's next opening message less often than placebo words from the following conversation (-0.0046 [-0.0059, -0.0032]). The placebo is likely inflated by the AI echoing the person; not shown by this design, rather than shown absent (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/adopt_wc.md\">results/adopt_wc.md</a>)",
    "status": "fail",
    "family": "lineage",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8, the Person Lab: 100 profiles from ESConv, step 5 validation (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/PERSONLAB.md\">spec/PERSONLAB.md</a>)",
+   "result": "<b>Fail</b>",
+   "meaning": "Profiles built with agreement kappa 0.728 (passes). But the simulated persons do not predict final intensity better than a linear baseline (0.81 against 0.68), the fit gives every support strategy the same effect, and the profile makes the prediction worse (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/personlab_step5.json\">results/personlab_step5.json</a>)",
+   "status": "fail",
+   "family": "person model",
    "series": null,
    "parent": null
   }

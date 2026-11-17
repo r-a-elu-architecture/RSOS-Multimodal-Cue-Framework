@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Therapist sessions — RSOS</title>
@@ -50,6 +53,7 @@ input[type=text],select{width:100%;background:var(--ink);border:1px solid var(--
 .btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
 .msg{font-size:.92rem;margin:12px 0 0;min-height:1.2em}
 .msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
+.session[hidden]{display:none}
 .session{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;margin-top:26px;align-items:start}
 .steps{list-style:none;margin:0;padding:0;position:sticky;top:16px}
 .steps li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem;color:var(--muted);cursor:pointer}
@@ -122,15 +126,16 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="therapist:copilot">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html" aria-current="page">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html" aria-current="page">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Run a session with RSOS</h1>
-  <p class="lede">A structured session with your client's own nodes: what to say, what to do and what to measure at each step, the stop rules, the practice plan for between sessions, and a session record you can keep or add to research. RSOS supports your clinical judgement; it does not diagnose or treat.</p>
-  <p class="hint">Also on this page: <a href="#copilot">the decision matrix and copilot</a>, <a href="#levels">levels and the five-step chain</a>, <a href="#core">Core Transformation</a>, <a href="#rescript">re-living with the symbol</a>, <a href="#overrides">overrides between sessions</a>, <a href="#craving">craving and context triggers</a>, <a href="#types">typology from speech</a>, <a href="#timeline">the life timeline</a>, <a href="#contexts">contexts and the setting</a>.</p>
+  <p class="lede">A structured session with your client's own nodes: what to say, what to do and what to measure at each step, the stop rules, the practice plan for between sessions, and a session record you can keep or add to research. RSOS supports your clinical judgement; it does not replace it.</p>
+  <p class="hint relstatus" style="margin-top:6px"><b>Status:</b> specification and software for research sessions, used under the practitioner's own professional protocol. No outcome data from sessions exists yet. Research and development framework; not a medical device.</p>
+  <p class="hint">Also on this page: <a href="#copilot">the decision matrix and copilot</a>, <a href="#levels">levels and the five-step chain</a>, <a href="#core">Core Transformation</a>, <span data-memory-work><a href="#rescript">re-living with the symbol</a>, </span><a href="#overrides">overrides between sessions</a>, <a href="#craving">craving and context triggers</a>, <a href="#types">typology from speech</a>, <a href="#timeline">the life timeline</a>, <a href="#contexts">contexts and the setting</a>.</p>
 
   <section class="panel" id="setup">
     <h2>Set up</h2>
@@ -142,6 +147,8 @@ header.top nav a{font-size:.88rem}
     </div>
     <p class="hint" id="planNote"></p>
     <label class="check"><input type="checkbox" id="present"> I am the therapist and I am with the client for this session</label>
+    <div id="startScreen" hidden data-show="clinical"><p class="hint" id="startScreenQ"></p>
+      <label class="check"><input type="radio" name="startScreen" value="no"> No</label> <label class="check"><input type="radio" name="startScreen" value="yes"> Yes</label></div>
     <button class="btn go" type="button" id="begin">Start the session</button>
     <p class="msg" id="msg" aria-live="polite"></p>
   </section>
@@ -181,7 +188,7 @@ header.top nav a{font-size:.88rem}
       <button class="btn" id="cpDemo" type="button">Play a sample session</button>
       <button class="btn" id="cpClear" type="button">Clear</button>
       <div class="cp-suggest" id="cpSuggest" hidden></div>
-      <div class="cp-lines" id="cpLines"></div>
+      <div class="cp-lines" id="cpLines" data-raw></div>
       <p class="msg" id="cpSay"></p>
     </div>
   </div>
@@ -204,7 +211,7 @@ header.top nav a{font-size:.88rem}
     <div id="ctDone"></div>
   </div>
 
-  <h2 class="cp" id="rescript">Re-living an event with the symbol and light</h2>
+  <h2 class="cp" id="rescript" data-memory-work>Re-living an event with the symbol and light</h2>
   <p class="lede">After a difficult event: see it briefly and from a distance, let the symbol's light fill the scene, and rehearse what you would do now. Rate distress before and after. Imagery rescripting is an established method; doing it with the person's own symbol is what RSOS adds and tests.</p>
   <div class="panel">
     <div class="two"><div><label for="rsEvent">The event, in a few words</label><input type="text" id="rsEvent" value="the argument at the door"></div>
@@ -275,9 +282,14 @@ header.top nav a{font-size:.88rem}
   </div>
   <p class="hint" style="margin-top:22px">How well these measures work on simulated sessions: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/copilot.md">rsso/results/copilot.md</a>. Protocol kit for real studies: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/COPILOT_PROTOCOL_KIT.md">COPILOT_PROTOCOL_KIT.md</a>.</p>
 </main>
-<footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. If your client is in crisis or at risk of harm, follow your crisis procedure and contact emergency services. Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
-<script src="js/contain.js?v=1.14.0"></script>
-<script src="js/thera.js?v=1.14.0"></script>
+<footer>THERA is <code>rsso/rsso/thera.py</code>, identically <code>docs/js/thera.js</code> (tested); the protocols are data (<a href="data/thera.json">thera.json</a>). Every start is checked by CONTAIN. Research and development framework; not a medical device. Clinical use follows the practitioner's own protocol.<a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/THERA.md">spec/THERA.md</a>.</footer>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/consent.js?v=1.16.0"></script>
+<script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
+<script src="js/thera.js?v=1.16.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id), T = RSOSThera, K = RSOSContain;
@@ -292,21 +304,29 @@ const SELECTS = { screen: ["Screening answer", [["", "Choose"], ["no", "No"], ["
 function plan() { return $("planSrc").value === "browser" ? store.get("rsos.plan", null) : $("planSrc").value === "file" ? loaded : null; }
 function save() { store.set("rsos.thera.current", cur); }
 
-fetch("data/thera.json?v=1.14.0").then(r => r.json()).then(d => { P = d.protocols; setup(); if (cur && !cur.ended) show(); }).catch(() => { $("msg").className = "msg err"; $("msg").textContent = "The protocols could not be loaded. Open this page from the published site or a local web server."; });
+fetch("data/thera.json?v=1.14.0").then(r => r.json()).then(d => { P = d.protocols; setup(); if (cur && !cur.ended) resume(); }).catch(() => { $("msg").className = "msg err"; $("msg").textContent = "The protocols could not be loaded. Open this page from the published site or a local web server."; });
 
 function setup() {
   const box = $("protos"); box.innerHTML = "";
   for (const [id, p] of Object.entries(P)) {
     const l = el("label", "proto"); const i = el("input"); i.type = "radio"; i.name = "proto"; i.value = id; if (id === "stress") i.checked = true;
-    l.append(i, el("b", "", p.title), el("span", "", p.aim)); if (p.therapist_led) l.appendChild(el("em", "", "Therapist-led, screening first"));
+    l.append(i, el("b", "", p.title), el("span", "", p.aim)); if (p.therapist_led || id === "low_mood") l.appendChild(el("em", "", "Therapist-led, screening first"));
+    if (id === "trauma_observer") l.setAttribute("data-memory-work", "");   // FIXES_R1 P-2
+    i.addEventListener("change", startScreenBox);
     box.appendChild(l);
   }
   const s = $("planSrc"); s.innerHTML = "";
   const bp = store.get("rsos.plan", null);
   if (bp && bp.nodes) s.appendChild(new Option("The plan saved in this browser (" + bp.nodes.map(n => n.name).join(", ") + ")", "browser"));
   s.appendChild(new Option("Load the client's plan file", "file")); s.appendChild(new Option("No plan yet: guide without nodes", "none"));
-  notePlan();
+  notePlan(); startScreenBox();
 }
+// A clinician-led session starts only with a screening answer given here (FIXES_R1 W-3; replaces the withdrawn WATCHDOG §6).
+const PIN_SET = () => { try { return !!(JSON.parse(localStorage.getItem("rsos.clinical") || "{}") || {}).pin_hash; } catch (e) { return false; } };   // FIXES_R2 R2-1
+const NOPIN = "The screening question appears once the responsible clinician has set a clinician PIN on the Safety page; until then clinician-led work stays held.";
+const LED_IDS = id => !!(P[id] && (P[id].therapist_led || id === "low_mood"));
+function startScreenBox() { const c = document.querySelector('input[name="proto"]:checked'); $("startScreen").hidden = !(c && LED_IDS(c.value)); $("startScreenQ").textContent = PIN_SET() ? RSOSConsent.SCREENING_QUESTION : NOPIN;
+  document.querySelectorAll('input[name="startScreen"]').forEach(i => { i.closest("label").style.display = PIN_SET() ? "" : "none"; }); }
 function notePlan() {
   const p = plan();
   $("planNote").innerHTML = "";
@@ -318,17 +338,41 @@ $("planFile").addEventListener("change", async e => {
   try { const d = JSON.parse(await e.target.files[0].text()); loaded = d.plan && d.plan.nodes ? Object.assign({}, d.plan, { intake: d.intake || d.plan.intake }) : d; notePlan(); }
   catch (err) { $("msg").className = "msg err"; $("msg").textContent = "That file is not a node plan. Download it from the node studio (“Download the plan”)."; }
 });
+const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};   // FIXES_R1 W-2, P-2
+const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());   // clinical vocabulary (FIXES_R1 S-2)
 $("begin").addEventListener("click", () => {
   const id = document.querySelector('input[name="proto"]:checked').value, pr = P[id];
   if (!$("present").checked) { $("msg").className = "msg err"; $("msg").textContent = "Therapist mode is for sessions you run with your client: confirm you are with them."; return; }
   const [cst] = K.review(store.get("rsos.contain", K.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), now());
-  const d = K.decide({ kind: "run", protocol: "session_" + id, therapist_led: pr.therapist_led, therapist_present: true }, cst, null, now());
-  const lg = store.get("rsos.contain.log", []); lg.push({ at: Date.now(), action: "session " + id, decision: d.decision, reasons: d.reasons }); store.set("rsos.contain.log", lg.slice(-200));
-  if (d.decision !== "allow") { $("msg").className = "msg err"; $("msg").textContent = "CONTAIN: " + d.reasons.join("; ") + "."; return; }
+  const led = LED_IDS(id), scr = (document.querySelector('input[name="startScreen"]:checked') || {}).value;
+  if (led && CLINV && scr === "yes") {
+    { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "yes", q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+    const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]);
+    $("msg").className = "msg err"; $("msg").textContent = "Recorded: the session continues under the clinician-led protocol; the clinician resumes practice."; return;
+  }
+  if (led && CLINV && scr === "no") { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "no", q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+  // The Watchdog (spec/WATCHDOG.md, FIXES_R1 W-3): the screening must be answered "no" on this panel.
+  const d = RSOSGuard.ask({ kind: "session", protocol: "session_" + id, therapist_led: pr.therapist_led, memory_work: id === "trauma_observer", source: "practitioner" },
+    Object.assign({ contain: cst, clinician_present: true, screening_recorded: led && CLINV && scr === "no" }, DOMAIN()));
+  if (!RSOSGuard.ok(d)) { $("msg").className = "msg err"; $("msg").textContent = "Held by the Watchdog: " + RSOSGuard.say(d); return; }
   const p = plan();
-  cur = Object.assign(T.sessionPlan(P, id, p), { client: $("client").value.trim(), started: now(), at: 0, plan: p });
+  cur = Object.assign(T.sessionPlan(P, id, p), { client: $("client").value.trim(), started: now(), at: 0, plan: p, led, screenOk: false, protocol: id, memory: id === "trauma_observer" });
+  if (thHandle !== null) RSOSOutlet.close(thHandle);
+  thHandle = RSOSOutlet.adopt({ kind: "session", protocol: "session_" + id, therapist_led: pr.therapist_led, memory_work: id === "trauma_observer", source: "practitioner" },
+    Object.assign({ clinician_present: true, screening_recorded: led && CLINV && scr === "no" }, DOMAIN()), { seconds: 7200 });
   save(); show();
 });
+let thHandle = null;   // this page's session (FIXES_R5 O2)
+// Resuming an open session asks the Watchdog again (FIXES_R3 R3-b): a domain or state change ends the session view.
+function resume() {
+  const id = cur.protocol || (cur.id || "").replace(/^session_/, "");
+  const d = RSOSGuard.ask({ kind: "session", protocol: "session_" + id, therapist_led: !!cur.led, memory_work: !!cur.memory, source: "practitioner" },
+    Object.assign({ clinician_present: true, screening_recorded: !!cur.led && !!cur.screenOk }, DOMAIN()));
+  if (!RSOSGuard.ok(d)) { cur.ended = now(); save(); $("msg").className = "msg err"; $("msg").textContent = "The open session was ended. Held by the Watchdog: " + RSOSGuard.say(d); return; }
+  if (thHandle !== null) RSOSOutlet.close(thHandle);
+  thHandle = RSOSOutlet.adopt({ kind: "session", protocol: "session_" + id, therapist_led: !!cur.led, source: "practitioner" }, Object.assign({ clinician_present: true, screening_recorded: !!cur.led }, DOMAIN()), { seconds: 7200 });
+  show();
+}
 function show() {
   $("setup").hidden = true; $("done").hidden = true; $("session").hidden = false;
   drawSteps(); drawCard(); drawAlerts(); drawLine();
@@ -338,10 +382,14 @@ function drawSteps() {
   cur.steps.forEach((s, i) => {
     const li = el("li", (i === cur.at ? "now " : "") + (done.has(s.id) ? "done" : ""));
     const t = el("div"); t.append(s.title); t.appendChild(el("small", "", s.minutes + " min" + (s.required ? "" : ", optional")));
-    li.appendChild(t); li.tabIndex = 0; li.addEventListener("click", () => { cur.at = i; save(); show(); }); L.appendChild(li);
+    li.appendChild(t); li.tabIndex = 0; li.addEventListener("click", () => { if (locked(i)) { alertBox("return", "Record the screening result before the steps after it."); return; } cur.at = i; save(); show(); }); L.appendChild(li);
   });
 }
+// In a clinician-led session the steps after the screening step stay locked until it is recorded "no" (FIXES_R1 W-3).
+function screenIndex() { return cur.steps.findIndex(s => (s.measure || []).includes("screen")); }
+function locked(i) { const k = screenIndex(); return !!cur.led && k >= 0 && i > k && !cur.screenOk; }
 function drawCard() {
+  if (locked(cur.at)) cur.at = screenIndex();
   const s = cur.steps[cur.at], C = $("card"); C.innerHTML = "";
   C.appendChild(el("div", "op", "Step " + (cur.at + 1) + " of " + cur.steps.length + ", " + s.op + (cur.client ? ", client " + cur.client : "")));
   C.appendChild(el("h3", "", s.title));
@@ -373,16 +421,18 @@ function drawCard() {
   rec.addEventListener("click", () => { add(s.id, vals(), false); });
   next.addEventListener("click", () => {
     const v = vals();
-    if ((s.measure || []).includes("screen") && !v.screen) { alertBox("return", "Ask the screening question and record the answer before you go on."); return; }
+    if ((s.measure || []).includes("screen") && !v.screen) { alertBox("return", "Record the clinical screening result before you go on."); return; }
     add(s.id, v, true);
-    if (v.screen === "yes") return;
+    if (v.screen === "yes") { finish(); $("sum").prepend(el("p", "", "The screening answer was yes: the session work stopped and continues under the clinician-led protocol.")); return; }
+    if (v.screen === "no") cur.screenOk = true;
     if (cur.at < cur.steps.length - 1) { cur.at++; save(); show(); } else finish();
   });
   C.append(rec, next);
 }
 function add(step, v, done) {
   cur = Object.assign(T.record(cur, step, Object.assign({}, v, done ? { done: true } : {}), now()), { client: cur.client, started: cur.started, at: cur.at, plan: cur.plan });
-  if (v.screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: v.screen }); store.set("rsos.screens", sc.slice(-50)); }
+  if (v.screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: v.screen, q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+  if (v.screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); }
   if (v.adverse && v.adverse !== "none") {
     const runs = store.get("rsos.runs", []).filter(r => Number(r.timestamp) >= cur.started), last = runs[runs.length - 1];
     const adv = store.get("rsos.adverse", []); adv.push({ ts: Date.now(), severity: v.adverse, related: "possible", resolved: false, text: "", protocol: last ? last.protocol : "" }); store.set("rsos.adverse", adv);
@@ -427,7 +477,7 @@ $("dl").addEventListener("click", () => {
 });
 $("again").addEventListener("click", () => { cur = null; store.set("rsos.thera.current", null); $("done").hidden = true; $("setup").hidden = false; setup(); });
 </script>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/trial.js?v=1.18.0"></script>
 <script src="js/copilot.js?v=1.20.0"></script>
@@ -440,7 +490,7 @@ const mk = (t, c, x) => { const e = document.createElement(t); if (c) e.classNam
 const feel = c => { try { UGCL.feel(c, {}); } catch (e) { /* none */ } };
 const nowS = () => Date.now() / 1000;
 const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[ch]);
-function toPlayer(key, title, program) { const list = st.get("rsos.thera.programs", []).filter(x => x.key !== key); list.push({ key, title, program }); st.set("rsos.thera.programs", list); location.href = "player.html?program=" + encodeURIComponent("thera:" + key); }
+function toPlayer(key, title, program) { if (cur && cur.led && !/# rsos-level: clinician_led/.test(program)) program = "# rsos-level: clinician_led\n" + (cur.plan && cur.memory ? "# rsos-memory: yes\n" : "") + program;   /* FIXES_R3 §2 */ const list = st.get("rsos.thera.programs", []).filter(x => x.key !== key); list.push({ key, title, program, level: cur && cur.led ? "clinician_led" : null, memory: !!(cur && cur.memory) || /re-?living|relive/i.test(key + " " + title) }); st.set("rsos.thera.programs", list); location.href = "player.html?program=" + encodeURIComponent("thera:" + key); }
 
 /* ---------- the matrix as an anchor tree ---------- */
 let M = st.get("rsos.copilot.matrix", null) || JSON.parse(JSON.stringify(C.EXAMPLE_MATRIX)), LOG = st.get("rsos.copilot.log", []), lastHit = null;
@@ -519,6 +569,8 @@ $("ctNext").addEventListener("click", () => { const v = $("ctIn").value.trim(); 
 $("ctIn").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("ctNext").click(); } });
 
 /* ---------- rescripting ---------- */
+// The re-living section is memory work (FIXES_R4 §2): hidden where the domain offers none.
+(function () { if (window.RSOSDomain && RSOSDomain.memory_work_allowed === false) { let e = $("rescript").nextElementSibling; while (e && e.tagName !== "H2") { e.style.display = "none"; e = e.nextElementSibling; } } })();
 $("rsGo").addEventListener("click", () => toPlayer("rescript", "Re-living with the symbol", C.rescriptRsx($("rsEvent").value, $("rsSym").value || "🦁", $("rsBeh").value, $("rsLight").value)));
 
 /* ---------- overrides ---------- */

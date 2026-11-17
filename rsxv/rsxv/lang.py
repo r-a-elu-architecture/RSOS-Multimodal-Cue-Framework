@@ -29,6 +29,7 @@ SENSES = {"EEG", "HRV", "DISTRESS", "POSTURE"}
 LAWS = {"InteractionMatrix", "ChronoGate", "GhostPass", "ConsentStack",
         "MultiSessionContinuity", "TemporalSymmetry", "Contingency", "ResonanceAudit"}
 RESCUES = {"SHIELD", "ANCHOR_MAX", "MIRROR_RESET"}
+LEVELS = ("self_guided", "structured", "clinician_led")   # spec/RSXV_LEVELS.md V1
 VEC = re.compile(r"@Vector(\d+):(\w+)(?:\((.*?)\))?\s*(->\s*NEXT)?$")
 TERM = re.compile(r"(\w+)\s*(<=|>=|<|>)\s*([+-]?)(\d+(?:\.\d+)?)$")
 
@@ -94,7 +95,8 @@ def _legacy(src):
 
 def new_program(tier=0):
     return {"version": "RSX-V", "tier": tier, "archetype": "", "mode": "", "intent": {"text": "", "vectors": []},
-            "goal": None, "sense": [], "laws": [], "rescue": [], "window": None, "nullsafe": False, "blocks": [], "legacy": False}
+            "goal": None, "sense": [], "laws": [], "rescue": [], "window": None, "nullsafe": False, "blocks": [], "legacy": False,
+            "level": None, "memory": None}
 
 
 def parse(src: str) -> dict:
@@ -135,6 +137,16 @@ def parse(src: str) -> dict:
             bad = set(prog["rescue"]) - RESCUES
             if bad:
                 raise RSXVError(f"unknown rescue archetype {sorted(bad)}")
+        elif word == "LEVEL":   # V1
+            mm = re.match(r"LEVEL\s+(\w+)$", s)
+            if not mm or mm.group(1) not in LEVELS:
+                raise RSXVError("LEVEL self_guided | structured | clinician_led")
+            prog["level"] = mm.group(1)
+        elif word == "MEMORY":
+            mm = re.match(r"MEMORY\s+(yes|no)$", s)
+            if not mm:
+                raise RSXVError("MEMORY yes | no")
+            prog["memory"] = mm.group(1) == "yes"
         elif word == "WINDOW":
             mm = re.match(r"WINDOW\s+(\d\d):(\d\d)-(\d\d):(\d\d)$", s)
             if not mm:
@@ -230,6 +242,10 @@ def to_text(prog: dict) -> str:
         L.append("LAWS " + " ".join(prog["laws"]))
     if prog.get("rescue"):
         L.append("RESCUE " + " ".join("{" + x + "}" for x in prog["rescue"]))
+    if prog.get("level"):
+        L.append("LEVEL " + prog["level"])
+    if prog.get("memory") is not None:
+        L.append("MEMORY " + ("yes" if prog["memory"] else "no"))
     if prog["window"]:
         a, b = prog["window"]; L.append(f"WINDOW {a//60:02d}:{a%60:02d}-{b//60:02d}:{b%60:02d}")
     L.append("@Vector0:NullSafe")

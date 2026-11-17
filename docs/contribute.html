@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/contain.js?v=1.17.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contribute your data — RSOS</title>
@@ -101,10 +109,10 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="check:recognition">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html" aria-current="page">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html" aria-current="page">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <section class="hero">
@@ -128,7 +136,7 @@ header.top nav a{font-size:.88rem}
         <p class="ask">The questions that follow depend on who you are.</p>
         <div class="roles">
           <label class="role"><input type="radio" name="role" value="person" checked><b>I use RSOS myself</b><span>With the player, a phone or a wearable.</span></label>
-          <label class="role"><input type="radio" name="role" value="clinician"><b>A clinician, with my client</b><span>Sessions, ratings and outcomes, with the client's consent.</span></label>
+          <label class="role" data-show="clinical"><input type="radio" name="role" value="clinician"><b>A clinician, with my client</b><span>Sessions, ratings and outcomes, with the client's consent.</span></label>
           <label class="role"><input type="radio" name="role" value="lab"><b>A research lab</b><span>EEG, BCI or wearable recordings under an ethics approval.</span></label>
         </div>
       </section>
@@ -151,8 +159,8 @@ header.top nav a{font-size:.88rem}
         <label>Prior practice</label>
         <table class="rows" id="practice"></table>
         <div id="healthBox" hidden>
-          <label>Conditions you have been told you have, or are working on</label>
-          <div class="chips" id="conditions"></div>
+          <label data-show="clinical">Conditions you have been told you have, or are working on</label>
+          <div class="chips" id="conditions" data-show="clinical"></div>
           <div class="two">
             <label class="check"><input type="checkbox" id="inTherapy"> I am in therapy while practising</label>
             <label class="check"><input type="checkbox" id="medChange"> My medication changed during this time</label>
@@ -251,12 +259,14 @@ header.top nav a{font-size:.88rem}
     </aside>
   </div>
 </main>
-<footer>The file format is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DATA_CONTRIBUTION.md">rsos-contribution/1</a>; <code>rsso/rsso/contribution.py</code> and <code>docs/js/contribution.js</code> build identical files (tested), and <code>python -m rsso.contribution check|pool</code> verifies contributions and pools their runs for the analysis kit. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now.</footer>
+<footer>The file format is <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/DATA_CONTRIBUTION.md">rsos-contribution/1</a>; <code>rsso/rsso/contribution.py</code> and <code>docs/js/contribution.js</code> build identical files (tested), and <code>python -m rsso.contribution check|pool</code> verifies contributions and pools their runs for the analysis kit. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 <script src="js/rsx.js?v=1.11.0"></script>
 <script src="js/memstack.js?v=1.11.0"></script>
 <script src="js/metrics.js?v=1.11.0"></script>
-<script src="js/ugcl.js?v=1.11.0"></script>
-<script src="js/contribution.js?v=1.11.0"></script>
+<script src="js/ugcl.js?v=1.21.0"></script>
+<script src="js/peak.js?v=1.15.0"></script>
+<script src="js/trial.js?v=1.19.0"></script>
+<script src="js/contribution.js?v=1.12.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id), C = RSOSContribution;
@@ -276,22 +286,26 @@ const WHY = {
   texts: "The words that work. Frames and cues in your own language are the richest material, and the most personal.",
   calibration: "Which glyphs and colours people feel as courage, across cultures, so glyphs are designed from evidence.",
   recognition: "How learnable the vibration alphabet is.",
-  outcomes: "Whether practice changes depression, anxiety, trauma symptoms, stress and wellbeing over weeks.",
+  outcomes: "Whether practice changes stress, wellbeing and the states people work on, over weeks.",
   safety: "Every unpleasant event is how the safety limits are set right. Please include this.",
   profile: "Whether results hold across ages, genders, regions and prior practice.",
   health: "What RSOS is used for and for whom it helps most. Sensitive: share only if you are comfortable.",
   clinical: "How RSOS works inside therapy: sessions, fidelity, clinician ratings.",
-  lab: "Brain and body signals aligned with every cue: what happens before a state is noticed."
+  lab: "Brain and body signals aligned with every cue: what happens before a state is noticed.",
+  trials: "Your own randomised trials are the strongest personal evidence; pooled across people they answer moderate effects."
 };
-const DEFAULT_ON = ["runs", "physiology", "plan", "calibration", "recognition", "outcomes", "safety"];
+const DEFAULT_ON = ["runs", "physiology", "plan", "calibration", "recognition", "outcomes", "safety"];   // trials: opt-in (FIXES_R2)
 const SENSITIVE = ["texts", "health"];
 const LABEL = { runs: "Practice runs", physiology: "Heart rate", plan: "Node plans and cues", texts: "Your own words", calibration: "Glyph and colour choices",
-  recognition: "Vibration-code check", outcomes: "Questionnaires", safety: "Safety", profile: "About you", health: "Health information", clinical: "Clinician sessions", lab: "Lab and recordings" };
+  recognition: "Vibration-code check", outcomes: "Questionnaires", safety: "Safety", profile: "About you", health: "Health information", clinical: "Clinician sessions", lab: "Lab and recordings", trials: "Personal trials" };
 for (const [k, what] of Object.entries(C.SCOPES)) {
   if (k === "clinical" || k === "lab") continue;
+  const shown = k === "outcomes" && window.RSOSProfiles && !RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn())
+    ? "Standard questionnaire totals over time (PSS-10, WEMWBS, global change)" : null;   // FIXES_R1 P-3
+  if (k === "health" && window.RSOSProfiles && !RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn())) continue;   // FIXES_R1 P-3
   const l = el("label", "scope" + (SENSITIVE.includes(k) ? " sensitive" : "")); const i = el("input"); i.type = "checkbox"; i.value = k; i.checked = DEFAULT_ON.includes(k);
   if (k === "runs") i.disabled = true;
-  const t = el("div"); t.appendChild(el("b", "", LABEL[k])); t.appendChild(el("div", "what", what + "."));
+  const t = el("div"); t.appendChild(el("b", "", LABEL[k])); t.appendChild(el("div", "what", (shown || what) + "."));
   l.append(i, t, el("div", "why", WHY[k])); $("scopes").appendChild(l);
 }
 opt($("age"), C.AGE_BANDS, "Prefer not to say"); opt($("gender"), C.GENDERS.filter(g => g !== "prefer not to say"), "Prefer not to say");
@@ -326,7 +340,8 @@ function table(id, list, cols) {
     tb.appendChild(tr);
   });
 }
-const OUT_COLS = [["scale", "select", Object.entries(SCALE_NAMES)], ["total", "number", { min: 0, max: 80 }], ["ts", "date"], ["rater", "select", [["self", "Me"], ["clinician", "A clinician"]]]];
+const CLIN_VOCAB = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());
+const OUT_COLS = [["scale", "select", Object.entries(SCALE_NAMES).filter(([k]) => CLIN_VOCAB || !["PHQ9", "GAD7", "PCL5"].includes(k))], ["total", "number", { min: 0, max: 80 }], ["ts", "date"], ["rater", "select", [["self", "Me"], ["clinician", "A clinician"]]]];
 const ADV_COLS = [["ts", "date"], ["severity", "select", C.SEVERITY.map(s => [s, s])], ["related", "select", C.RELATED.map(s => [s, s])], ["resolved", "check"], ["text", "text", { placeholder: "Optional" }]];
 const SESS_COLS = [["ts", "date"], ["minutes", "number", { min: 1, max: 600 }], ["nodes_used", "number", { min: 0, max: 20 }], ["fidelity", "number", { min: 0, max: 10 }],
   ["engagement", "number", { min: 0, max: 10 }], ["cgi_s", "number", { min: 1, max: 7 }], ["cgi_i", "number", { min: 1, max: 7 }], ["therapist_led", "check"]];
@@ -407,6 +422,7 @@ function inputs(ids) {
   const plan = store.get("rsos.plan", null);
   return {
     role, ids, runs, srbai, plan, cues: store.get("rsos.cues", []), ugcl: store.get("rsos.ugcl", null), recognition,
+    trials: store.get("rsos.trials.done", []).concat(store.get("rsos.trial", null) ? [store.get("rsos.trial", null)] : []),
     settings: store.get("rsos.settings", {}), now: Date.now() / 1000,
     outcomes: draft.outcomes, adverse: draft.adverse.concat(store.get("rsos.adverse", [])),
     profile: { age_band: $("age").value, gender: $("gender").value, handedness: $("hand").value, region: $("region").value, experience: exp,

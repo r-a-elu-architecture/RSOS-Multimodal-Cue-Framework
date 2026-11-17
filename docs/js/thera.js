@@ -50,7 +50,7 @@
   const sudSeries = s => s.events.filter(e => !blank(e.sud)).map(e => [e.step, Number(e.sud)]);
   function check(session) {
     const out = [];
-    if (session.events.some(e => e.screen === "yes")) out.push({ level: "stop", text: "The screening answer was yes: stop the session work, follow your crisis procedure, and do not start device practice." });
+    if (session.events.some(e => e.screen === "yes")) out.push({ level: "stop", text: "The screening answer was yes: stop the session work, continue under your clinical protocol, and do not start device practice." });
     const series = sudSeries(session);
     if (series.length && series[series.length - 1][1] >= session.stop_sud)
       out.push({ level: "return", text: "Distress is " + nt(series[series.length - 1][1]) + ", at or above this session's ceiling of " + session.stop_sud + ": stop the current step, return to paced breathing and grounding, and continue only when it is below " + (session.stop_sud - 2) + "." });

@@ -6,7 +6,7 @@
 (function (root) {
   "use strict";
   const THERAPIST_LED_TIERS = ["414", "420", "439", "440"];
-  const SCREENING_QUESTION = "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?";
+  const SCREENING_QUESTION = "Did today's clinical screening (the practitioner's validated instrument) indicate elevated risk?";
   const SCHEMA = "rsos-consent/1";
   const has = v => v !== null && v !== undefined;
   function therapistLed(c) { return THERAPIST_LED_TIERS.includes(String(c.tier || "")); }

@@ -1,9 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Safety — RSOS</title>
+<title>Safety and governance — RSOS</title>
 <meta name="theme-color" content="#151b2f">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -54,7 +57,6 @@ label{display:block;font-size:.86rem;color:var(--muted);margin:10px 0 4px}
 select,input[type=text]{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:var(--text);font:inherit;font-size:.92rem}
 .log{max-height:300px;overflow:auto}
 .allow{color:var(--ok)} .block{color:var(--stop)} .other{color:var(--warn)}
-.crisis{border-left:3px solid var(--stop);padding:8px 14px;margin-top:20px;max-width:70ch}
 footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 @media (max-width:760px){table{display:block;overflow-x:auto}td.num{white-space:normal}.two{grid-template-columns:1fr}.gate li{grid-template-columns:32px 1fr}.gate .lamp{grid-column:2}}
 .locks{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:16px}
@@ -82,7 +84,7 @@ header.top nav a{font-size:.88rem}
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html" aria-current="page">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html" aria-current="page">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Nothing in RSOS starts unchecked</h1>
@@ -124,7 +126,34 @@ header.top nav a{font-size:.88rem}
     </div>
   </div>
 
-  <div class="crisis"><b>If you are in crisis or at risk of harm</b>, contact local emergency services or a crisis line now. RSOS is not a treatment and does not replace care.</div>
+  <h2 id="mode">Session state</h2>
+  <p class="hint">One governance engine for people and agents (spec/CONTAIN.md §9–§10). An unwanted state is the start signal for repurposing; the session state decides which programs may run and who leads. A state can be raised by a self-check or a practitioner's screening result; it is never lowered by itself. On a person's own device the clinician-led protocol is advisory: a record, a prompt and a default block; clearing the browser's data resets it.</p>
+  <div class="panel">
+    <p id="sfMode" style="font-weight:600;margin-top:0"></p>
+    <div id="sfMsgs"></div>
+    <h3>Self-check</h3>
+    <p><label>Intensity of the state right now (0–10) <select id="sfInt"></select></label> &nbsp; <label>Hours slept last night <input id="sfSleep" type="number" min="0" max="14" step="0.5" style="width:6em"></label> <button class="btn" id="sfSave">Save</button></p>
+    <p style="margin-bottom:0"><button class="btn" id="sfStab">Enter Stabilisation</button> <button class="btn" id="sfExit">Resume Standard</button> <span class="hint" id="sfNote"></span></p>
+    <div id="clinHead">
+    <h3>Clinical module</h3>
+    <p><label><input type="checkbox" id="clinOn"> Enabled by a practitioner or study protocol</label> <span class="hint">Off by default. The practitioner uses a validated instrument of their choice<span data-show="clinical"> (for example the C-SSRS screener or PHQ-9)</span> and records the result here. The clinician sets a PIN here before any result; resuming from the clinician-led protocol needs it. On a person's own device this control is advisory: a record, a prompt and a default block. Clearing the browser's data resets it, and whoever sets the PIN first holds it. Enforced clinician control needs a clinician-held device or a server.</span></p>
+    </div>
+    <div id="clinBox" style="display:none">
+      <p><label>Practitioner <input id="clinName" placeholder="Name"></label> &nbsp; <label>Instrument <input id="clinInst" placeholder="Name of the instrument"></label> &nbsp; <label>Result <select id="clinRes"><option value="">—</option><option value="none">none</option><option value="low">low</option><option value="moderate">moderate</option><option value="high">high</option></select></label></p>
+      <p><label><input type="checkbox" id="clinMed"> Medication interaction</label> &nbsp; <label><input type="checkbox" id="clinPrac"> Practical circumstances</label> &nbsp; <label><input type="checkbox" id="clinHist"> Earlier experience to review</label> &nbsp; <button class="btn" id="clinSave">Record result</button></p>
+      <p id="pinRow"><label>Clinician PIN <input id="clinPin" type="password" inputmode="numeric" autocomplete="off" style="width:8em"></label> <button class="btn" id="pinSet" type="button">Set PIN</button> <span class="hint" id="pinSay"></span></p>
+      <p id="clinResume" style="display:none"><label><input type="checkbox" id="clinOk"> I am the responsible clinician and resume self-guided practice</label> <button class="btn" id="clinGo">Resume</button></p>
+    </div>
+    <table id="sfHist" style="margin-top:12px"><thead><tr><th>When</th><th>From</th><th>To</th><th>Why</th><th>By</th></tr></thead><tbody></tbody></table>
+  </div>
+
+  <h2>Guidance levels</h2>
+  <p class="hint">Every program, node and session has a level. Consent and openness apply at every level; the level decides who is in the loop.</p>
+  <table id="levels"><thead><tr><th>Level</th><th>Scope and who leads</th></tr></thead><tbody></tbody></table>
+
+  <h2>Session states</h2>
+  <table id="states"><thead><tr><th>State</th><th>What may run</th></tr></thead><tbody></tbody></table>
+  <p class="hint">Research and development framework; not a medical device.</p>
 
   <h2>The device safety envelope</h2>
   <p class="hint">Limits no program can exceed, whoever wrote it: the planner, a therapist, LINX or you. A program may set stricter limits for itself, never looser ones. A program outside the envelope does not start (conformance check C14).</p>
@@ -139,18 +168,24 @@ header.top nav a{font-size:.88rem}
       <tr><td>Rising distress</td><td>Distress after runs is 1.5 or more higher than in the 5 runs before</td><td>Watched; paused together with any other signal</td></tr>
       <tr><td>Stopped often</td><td>Stopped 4 of the last 6 times</td><td>Watched; paused together with any other signal</td></tr>
       <tr><td>Adverse event</td><td>A moderate or serious event possibly or likely related to a program</td><td>That program is paused until the therapist restores it</td></tr>
-      <tr><td>Practice paused</td><td>A serious adverse event in 30 days; two moderate related events in 14 days; the screening question answered yes in 7 days; distress at 8 or more after 3 of the last 5 runs in a week</td><td>Device offers and therapist-led work stop; a new plan needs a therapist present; the person is pointed to their therapist or to crisis help</td></tr>
+      <tr><td>Session state</td><td>A self-check (intensity 7 or more, or under 4 hours of sleep: Stabilisation) or a practitioner's screening result in the clinical module (moderate: Stabilisation; high: clinician-led protocol); flags for medication interaction or practical circumstances</td><td>Only what the state allows can start: the clinician-led protocol pauses self-guided practice until the clinician resumes it; Stabilisation and Paused: practical allow regulation programs (paced breathing, interrupt, stillness) and practical steps</td></tr>
+      <tr><td>Practice paused</td><td>A serious adverse event in 30 days; two moderate related events in 14 days; a screening answer of yes in 7 days; distress at 8 or more after 3 of the last 5 runs in a week</td><td>Device offers and therapist-led work stop; a new plan needs a therapist present; the practitioner reviews it with the person</td></tr>
     </tbody>
   </table>
   <p class="hint">A paused program is restored by the person, or by the therapist when an adverse event was involved or practice is paused (conformance check C15). After a restore, only new runs count.</p>
 
   <h2>Every decision</h2>
   <p class="hint">The last decisions in this browser, newest first.</p>
+  <p class="hint" id="wdSay"></p>
   <div class="panel log"><table id="log"><thead><tr><th>When</th><th>What</th><th>Decision</th><th>Why</th></tr></thead><tbody></tbody></table></div>
 </main>
 <footer>CONTAIN is <code>rsso/rsso/contain.py</code>, identically <code>docs/js/contain.js</code> (tested); the runtime refuses what it blocks, and the conformance suite checks it (C14, C15). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CONTAIN.md">spec/CONTAIN.md</a>.</footer>
-<script src="js/contain.js?v=1.13.0"></script>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
@@ -161,7 +196,7 @@ function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.
 const now = () => Date.now() / 1000;
 function state() {
   const [st] = K.review(store.get("rsos.contain", K.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), now());
-  store.set("rsos.contain", st); return st;
+  store.set("rsos.contain", st); RSOSGuard.link(); return st;
 }
 function log(action, decision, reasons) { const l = store.get("rsos.contain.log", []); l.push({ at: Date.now(), action, decision, reasons }); store.set("rsos.contain.log", l.slice(-200)); }
 const ENV = [["Vibration strength", "haptic_amp_max", v => Math.round(v * 100) + "% of the motor", "Strong vibration is unpleasant and can numb the skin"],
@@ -247,8 +282,11 @@ function draw() {
   $("rollback").hidden = !prev;
   drawAutonomy();
   const L = $("log").tBodies[0]; L.innerHTML = "";
+  { const wl = store.get("rsos.watchdog.log", []), ok = RSOSWatchdog.verify(wl);
+    $("wdSay").textContent = "Watchdog: " + wl.length + (wl.length === 1 ? " decision" : " decisions") + " in a hash-chained log; " + (wl.length ? (ok ? "the chain verifies (no record edited, removed or reordered)." : "the chain does NOT verify: a record was changed.") : "none yet.") +
+      (wl.length ? " Latest: " + wl.slice(-5).reverse().map(r => r.decision + " " + (r.kind || "") + (r.virtues.length ? " [" + r.virtues.join(", ") + "]" : "")).join("; ") + "." : ""); }
   for (const x of store.get("rsos.contain.log", []).slice().reverse().slice(0, 40)) {
-    const tr = el("tr");
+    const tr = el("tr"); if (x.decision === "hold" || x.decision === "block") tr.style.borderLeft = "3px solid var(--stop, #c66)";   // FIXES_R3 R3-e
     tr.append(el("td", "num", new Date(x.at).toLocaleString()), el("td", "", x.action), el("td", x.decision === "allow" ? "allow" : x.decision === "block" ? "block" : "other", x.decision), el("td", "", (x.reasons || []).join("; ") || "—"));
     L.appendChild(tr);
   }
@@ -267,5 +305,103 @@ $("rollback").addEventListener("click", () => {
 draw();
 </script>
 <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
+<script>
+"use strict";
+(function () {
+  const S = RSOSSafety, $ = id => document.getElementById(id);
+  const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} } };
+  const mk = (tag, text) => { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; return e; };
+  const now = () => Date.now() / 1000;
+  const get = () => store.get("rsos.safety", S.newState());
+  const LEVEL_NAME = { self_guided: "Self-guided", structured: "Structured", clinician_led: "Clinician-led" };
+  for (const [k, v] of Object.entries(S.LEVELS)) { const tr = mk("tr"); tr.append(mk("td", LEVEL_NAME[k]), mk("td", v.split(": ").slice(1).join(": ") || v)); $("levels").querySelector("tbody").append(tr); }
+  for (const m of S.MODES) { const tr = mk("tr"); tr.append(mk("td", S.MODE_NAME[m]), mk("td", S.MODE_TEXT[m].split(": ").slice(1).join(": "))); $("states").querySelector("tbody").append(tr); }
+  $("sfInt").append(new Option("—", "")); for (let i = 0; i <= 10; i++) $("sfInt").append(new Option(String(i), String(i)));
+  const clin = store.get("rsos.clinical", { on: false });
+  const PR = window.RSOSProfiles, allowClin = !PR || PR.get(PR.current()).clinical_module !== "none";
+  $("clinOn").checked = !!clin.on;
+  function draw(messages) {
+    const st = get();
+    $("sfMode").textContent = "Session state: " + S.MODE_TEXT[st.mode];
+    const M = $("sfMsgs"); M.replaceChildren(); (messages || []).forEach(m => M.append(mk("p", m)));
+    const show = (id, on) => { $(id).style.display = on ? "" : "none"; };
+    show("sfStab", st.mode === "NORMAL");
+    show("sfExit", st.mode === "STABILISE" || st.mode === "PRACTICAL_CRISIS");
+    show("clinHead", allowClin);
+    show("clinBox", (allowClin && $("clinOn").checked) || st.mode === "CRISIS");
+    show("clinResume", st.mode === "CRISIS");
+    const B = $("sfHist").querySelector("tbody"); B.replaceChildren();
+    st.history.slice().reverse().forEach(r => { const tr = mk("tr"); [new Date(r.at * 1000).toLocaleString(), S.MODE_NAME[r.from], S.MODE_NAME[r.to], r.why, r.by].forEach(x => tr.append(mk("td", x))); B.append(tr); });
+  }
+  function apply(ev, note) {
+    const [st, r] = S.observe(get(), ev, now());
+    store.set("rsos.safety", st); $("sfNote").textContent = r.transition ? "" : note; draw(r.messages);
+  }
+  // Self-checks are kept (spec/LOW_MOOD.md §2): with a low energy or mood plan, 3 or more checks of intensity 7 or more
+  // within the last 7 days, on any days, recommend involving a practitioner (the registered count, restored by FIXES_R5 R5-8).
+  function escalate() {
+    const plan = store.get("rsos.plan", null);
+    if (!plan || !(((plan.intake || {}).concerns) || []).includes("depression")) return;
+    const week = Date.now() - 7 * 86400000, n = store.get("rsos.selfchecks", []).filter(c => c.at >= week && c.intensity !== null && c.intensity >= 7).length;
+    if (n < 3) return;
+    if (!plan.practitioner_recommended) { plan.practitioner_recommended = Date.now(); store.set("rsos.plan", plan); }
+    $("sfMsgs").append(mk("p", "Your intensity ratings have been high several times this week. For the low energy or mood work in your plan, involving a practitioner is recommended."));
+  }
+  $("sfSave").addEventListener("click", () => {
+    const iv = $("sfInt").value, sl = $("sfSleep").value;
+    const log = store.get("rsos.selfchecks", []); log.push({ at: Date.now(), intensity: iv === "" ? null : Number(iv), sleep_h: sl === "" ? null : Number(sl) }); store.set("rsos.selfchecks", log.slice(-60));
+    apply(S.eventFromCheck({ intensity: iv, sleep_h: sl }), "Saved. The session state is unchanged.");
+    escalate();
+  });
+  $("sfStab").addEventListener("click", () => { const [st] = S.enterStabilise(get(), "person", now()); store.set("rsos.safety", st); draw(); });
+  $("sfExit").addEventListener("click", () => { const [st, r] = S.exit(get(), "person", now()); store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Back to Standard." : ""; draw(); });
+  $("clinOn").addEventListener("change", () => { store.set("rsos.clinical", Object.assign(store.get("rsos.clinical", {}), { on: $("clinOn").checked })); if (PR && PR.current() === "research") location.reload(); else draw(); });
+  // Clinician PIN (FIXES_R1 S-1): a salted SHA-256 hash kept on this device. A local barrier, not authentication.
+  const pinHash = (salt, pin) => RSOSWatchdog.sha256(salt + ":" + pin);
+  // FIXES_R2 R2-1: five wrong PINs lock it for 15 minutes; a PIN is never set by Resume, and never set while the
+  // clinician-led protocol is active (except the logged path for older data, through Record result).
+  function pinOk() {
+    const c = store.get("rsos.clinical", {});
+    if (!c.pin_hash) return false;
+    if ((c.pin_lock_until || 0) > Date.now()) { $("sfNote").textContent = "Too many wrong PINs: the PIN is locked for 15 minutes."; return false; }
+    if (pinHash(c.pin_salt, $("clinPin").value) === c.pin_hash) { store.set("rsos.clinical", Object.assign(c, { pin_fail: 0 })); return true; }
+    const n = (c.pin_fail || 0) + 1;
+    store.set("rsos.clinical", Object.assign(c, n >= 5 ? { pin_fail: 0, pin_lock_until: Date.now() + 15 * 60000 } : { pin_fail: n }));
+    $("sfNote").textContent = n >= 5 ? "Too many wrong PINs: the PIN is locked for 15 minutes." : "The clinician PIN does not match.";
+    return false;
+  }
+  function ensurePin() {
+    const c = store.get("rsos.clinical", { on: false });
+    if (c.pin_hash) return pinOk();
+    if (get().mode === "CRISIS") { $("sfNote").textContent = "A PIN cannot be set while the clinician-led protocol is active. Contact the responsible clinician."; return false; }   // FIXES_R3 §3
+    const pin = $("clinPin").value;
+    if (!/^\d{4,}$/.test(pin)) { $("sfNote").textContent = "Set a clinician PIN of four or more digits first."; return false; }
+    const b = new Uint8Array(16); crypto.getRandomValues(b); const salt = Array.from(b, x => x.toString(16).padStart(2, "0")).join("");
+    store.set("rsos.clinical", Object.assign(c, { pin_salt: salt, pin_hash: pinHash(salt, pin) }));
+    const log = store.get("rsos.clinical.log", []); log.push({ at: Date.now(), by: $("clinName").value.trim(), event: "pin_set" }); store.set("rsos.clinical.log", log.slice(-100));
+    pinSay(); return true;
+  }
+  $("pinSet").addEventListener("click", () => { if (!$("clinName").value.trim()) { $("sfNote").textContent = "Enter the practitioner's name, then set the PIN."; return; } if (ensurePin()) { $("sfNote").textContent = "Clinician PIN set."; draw(); } });
+  const pinSay = () => { const has = !!store.get("rsos.clinical", {}).pin_hash; $("pinSet").style.display = has ? "none" : "";
+    $("pinSay").textContent = has ? "Needed to resume and to record results." : "Not set yet: the responsible clinician sets it here (four or more digits). Screening questions appear only once it is set."; };
+  $("clinSave").addEventListener("click", () => {
+    if (!$("clinName").value.trim() || !$("clinRes").value) { $("sfNote").textContent = "Record the practitioner and the result."; return; }
+    if (!ensurePin()) return;
+    const flags = []; if ($("clinMed").checked) flags.push("medication"); if ($("clinPrac").checked) flags.push("practical");
+    const log = store.get("rsos.clinical.log", []); log.push({ at: Date.now(), by: $("clinName").value.trim(), instrument: $("clinInst").value.trim(), result: $("clinRes").value, flags, history: $("clinHist").checked });
+    store.set("rsos.clinical.log", log.slice(-100));
+    apply(S.eventFromCheck({ clinical_result: $("clinRes").value, flags, history: $("clinHist").checked }), "Result recorded. The session state is unchanged.");
+  });
+  $("clinGo").addEventListener("click", () => {
+    if (!$("clinOk").checked || !$("clinName").value.trim()) { $("sfNote").textContent = "Resuming needs the responsible clinician: tick the box and enter the practitioner's name."; return; }
+    if (!store.get("rsos.clinical", {}).pin_hash) { $("sfNote").textContent = "No clinician PIN was set on this device before the clinician-led protocol began, so it cannot be left here. Contact the responsible clinician."; return; }
+    if (!pinOk()) return;
+    const [st, r] = S.exit(get(), "clinician", now());
+    if (r.ok) st.history[st.history.length - 1].by = "clinician: " + $("clinName").value.trim();
+    store.set("rsos.safety", st); $("sfNote").textContent = r.ok ? "Resumed by the clinician." : ""; draw();
+  });
+  pinSay(); draw();
+})();
+</script>
 </body>
 </html>

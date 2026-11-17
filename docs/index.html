@@ -1,13 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RSOS — Recursive Symbolic Operating System</title>
 <meta name="description" content="RSOS is an open operating system for changing state on purpose: the Override Protocol, the RSX language that runs it, a learning model of how it becomes a reflex, and a personalised cue engine.">
 <link rel="canonical" href="https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/">
 <meta property="og:title" content="RSOS — Recursive Symbolic Operating System">
-<meta property="og:description" content="An open protocol, language and runtime for interrupting a negative state and redirecting it into agency.">
+<meta property="og:description" content="An open protocol, language and runtime for turning the state you have into the state you want.">
 <meta property="og:type" content="website">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"RSOS — Recursive Symbolic Operating System","author":{"@type":"Person","name":"R. A. Elu"},"codeRepository":"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework","license":"https://www.apache.org/licenses/LICENSE-2.0","programmingLanguage":["Python","JavaScript","RSX"]}</script>
 <style>
@@ -77,17 +80,38 @@ header.top nav a{font-size:.84rem}
 <div class="wrap">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="#protocol">Protocol</a><a href="#rsx">RSX</a><a href="#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="#protocol">Protocol</a><a href="#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 
 <div class="hero">
   <div>
-    <h1>Turn the moment a negative state arrives into the start of an override.</h1>
+    <h1>Turn the state you have into the state you want, the moment it arrives.</h1>
     <p>RSOS is an open operating system for changing state on purpose. A short routine of breath, words, gestures, light imagery and sensory cues interrupts the state, redirects it into agency and rehearses it in three future situations. Practised often enough, it is meant to run as a reflex.</p>
     <a class="cta" href="player.html">Run the Override Protocol</a><a class="cta quiet" href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md">Read the specification</a>
   </div>
   <div class="orbwrap" aria-hidden="true"><div class="orb"></div><div class="orbword">I move, I act</div></div>
 </div>
+
+<section id="start">
+  <h2>Start here</h2>
+  <p class="intro">Five ways in. Each is usable on its own, without contacting us.</p>
+  <div class="starts">
+    <a class="start" href="player.html"><b>Try the core routine</b><span>Run the Override Protocol in your browser: about a minute, nothing to install, and your data stays on your device.</span></a>
+    <a class="start" href="results.html"><b>Researchers</b><span>Every registered test with its result and what supports it; reproduce all of them with one script (<u>REVIEW.md</u> on GitHub).</span></a>
+    <a class="start" href="therapist.html"><b>Practitioners</b><span>Structured, measured sessions with a client's own nodes, run under your own professional protocol.</span></a>
+    <a class="start" href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework#readme"><b>Developers</b><span>Write programs in RSX, build on the runtime and the device protocol. Open source; every check runs with one command.</span></a>
+    <a class="start" href="device.html"><b>Hardware</b><span>Use an Android phone's vibration today, or build and check an ESP32 wristband from common parts.</span></a>
+  </div>
+  <p class="hint" style="margin-top:14px">Status: specification and software built and tested; no human outcome data yet. Research and development framework; not a medical device.</p>
+  <style>.starts{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}.start{display:block;padding:12px 14px;border:1px solid rgba(128,128,128,.35);border-radius:10px;color:inherit;text-decoration:none}.start:hover,.start:focus{border-color:currentColor}.start b{display:block;margin-bottom:4px}.start span{font-size:13px;opacity:.85}</style>
+</section>
+
+<section id="domains">
+  <h2>Your domain</h2>
+  <p class="intro">One engine and one 0–10 scale in every field, shown in your field's vocabulary. Choose where you use RSOS; change it at any time from the Domain menu at the top of each page. The rules, limits and data are the same in every domain.</p>
+  <div id="profileCards" class="pcards"></div>
+  <style>.pcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:14px}.pcard{text-align:left;padding:12px 14px;border:1px solid rgba(128,128,128,.35);border-radius:10px;background:transparent;color:inherit;cursor:pointer;font:inherit}.pcard b{display:block;margin-bottom:4px}.pcard span{font-size:13px;opacity:.8}.pcard.on{border-color:currentColor;box-shadow:inset 0 0 0 1px currentColor}</style>
+</section>
 
 <section id="protocol">
   <h2>The Override Protocol</h2>
@@ -114,6 +138,7 @@ header.top nav a{font-size:.84rem}
     <div><h3>RSIA</h3><p>The identity layer: six archetypes (Lion, Eagle, Bear, Leopard, Raven, Tiger) and the values they serve.</p></div>
     <div><h3>RSX</h3><p>The language programs are written in. It compiles to a timeline any device can play: a browser, a phone, a wearable, a VR scene.</p></div>
     <div><h3>RSSO</h3><p>Orchestration: triggers, schedules, safety limits and the shared run log.</p></div>
+    <div style="grid-column:1/-1"><h3>RSX-V, above RSX</h3><p>The command layer: typed, staged and audited vector commands with ten laws and a hash-chained audit, compiled into RSX programs. <a href="rsxv.html">One program in three forms</a>.</p></div>
   </div>
 </section>
 
@@ -165,7 +190,7 @@ header.top nav a{font-size:.84rem}
   <h2>Where it stands</h2>
   <div class="status">
     <p style="margin-top:0">The specification and software are complete enough to use and test. No human outcome data exists yet: RSOS is published so that researchers, clinics and individuals can run it and share results in one log format. The specification lists six hypotheses with study designs.</p>
-    <p style="margin-bottom:0">It is not a medical device or a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line.</p>
+    <p style="margin-bottom:0">Research and development framework; not a medical device.</p>
   </div>
   <p style="margin-top:24px"><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/RELATED_WORK.md">How RSOS relates to existing systems</a> &nbsp; <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/tree/main/archive">Source archive</a> &nbsp; <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/tree/main/toolkit">Personalised cue engine</a></p>
 </section>

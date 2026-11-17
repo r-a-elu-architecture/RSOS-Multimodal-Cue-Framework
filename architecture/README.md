@@ -7,6 +7,7 @@ RSOS is built from four systems. This map explains what each one and each subsys
 | [RSOS](rsos/) — Recursive Symbolic Operating System | The cue bundles: tiers that bind glyph, word, feeling, scent and taste into one conditioned unit | Partly built |
 | [RSIA](rsia/) — Recursive Symbolic Identity Architecture | The identity layer: which inner mode colours a state, and the values it serves | Partly built |
 | [RSX](rsx/) — Recursive Symbolic eXpression | The language programs are written and executed in | Built |
+| ↳ [RSX-V](rsx/rsx-v/) — RSX vector commands | The command layer above RSX: typed, staged, audited vector commands that compile into RSX | Built |
 | [RSSO](rsso/) — Recursive Symbolic System Operating | The operating layer: runtime, safety, memory, devices, and eight subsystems | Partly built |
 
 **How they work together:** an RSX program (RSX) activates tiers (RSOS) in the mode of an archetype (RSIA); the RSSO runtime plays it on a device within safety limits, records the run, and the cue engine learns what works for that person. See [cross-system](cross-system/) for the full flow.
@@ -28,5 +29,10 @@ RSOS is built from four systems. This map explains what each one and each subsys
 | RSSO runtime: devices, sensors, conformance, virtual studies | [rsso/](../rsso) |
 | RSOS Device Protocol and firmware | [spec/DEVICE_PROTOCOL.md](../spec/DEVICE_PROTOCOL.md), [firmware/](../firmware) |
 | RSIA framework edition | [framework/](../framework) |
+| RSX-V command layer and archetype agents | [rsxv/](../rsxv) |
+| One safety engine for people and agents: session states, guidance levels, output gate | [spec/CONTAIN.md](../spec/CONTAIN.md) §9–§10, `rsso/rsso/safety.py`, `docs/js/safety.js`, `docs/js/outlet.js` |
+| RSIA Watchdog on the person side | [spec/WATCHDOG.md](../spec/WATCHDOG.md) |
+| Domain profiles (personal, coaching, performance, learning, research, workplace, clinical) | [spec/PROFILES.md](../spec/PROFILES.md) |
+| Trial loop and evidence modules (PEAK, GATE, TRIAL) | [spec/TRIAL_LOOP.md](../spec/TRIAL_LOOP.md), [docs/trials.html](../docs/trials.html) |
 
 Run `python architecture/build.py` to regenerate these pages from the manifest.

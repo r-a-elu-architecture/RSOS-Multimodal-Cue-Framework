@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Trials — RSOS</title>
@@ -79,10 +82,10 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="check:tasks">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html" aria-current="page">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html" aria-current="page">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Find out what works for you</h1>
@@ -93,7 +96,7 @@ header.top nav a{font-size:.88rem}
   <div id="trialArea"></div>
 
   <h2 id="tasks">Short tasks</h2>
-  <p class="lede">One to three minutes each. Your scores are kept with the date so you can compare yourself over weeks. They are research measures, not diagnoses, and they improve a little with practice at first.</p>
+  <p class="lede">One to three minutes each. Your scores are kept with the date so you can compare yourself over weeks. They are research measures, not assessments, and they improve a little with practice at first.</p>
   <div class="grid" id="taskGrid"></div>
   <div id="taskStage"></div>
 
@@ -105,10 +108,16 @@ header.top nav a{font-size:.88rem}
     <p class="hint">Across many simulated people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/trial.md">rsso/results/trial.md</a>. To run trials with real people: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/TRIAL_PROTOCOL_KIT.md">the protocol kit</a>.</p>
   </div>
 </main>
-<footer>TRIAL is <code>rsso/rsso/trial.py</code>, identically <code>docs/js/trial.js</code>; the tasks are <code>rsso/rsso/checks.py</code>, identically <code>docs/js/checks.js</code> (tested). Specifications: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/TRIAL.md">TRIAL</a>, <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CHECKS.md">CHECKS</a>. Everything stays in this browser until you export it.</footer>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<footer>TRIAL is <code>rsso/rsso/trial.py</code>, identically <code>docs/js/trial.js</code>; the tasks are <code>rsso/rsso/checks.py</code>, identically <code>docs/js/checks.js</code> (tested). Specifications: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/TRIAL.md">TRIAL</a>, <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/CHECKS.md">CHECKS</a>. Everything stays in this browser until you export it. <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.15.0"></script>
-<script src="js/trial.js?v=1.18.0"></script>
+<script src="js/trial.js?v=1.19.0"></script>
+<script src="js/gate.js?v=1.15.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <script src="js/checks.js?v=1.15.0"></script>
 <script>
 const $ = id => document.getElementById(id);
@@ -192,8 +201,17 @@ function drawTrial() {
   const end = el("button", "btn quiet", "End this trial"); end.addEventListener("click", () => { if (end.dataset.sure) { const done = store.get("rsos.trials.done", []); done.push(trial); store.set("rsos.trials.done", done); trial = null; saveTrial(); drawTrial(); } else { end.dataset.sure = 1; end.textContent = "End it for good (results are kept)"; } });
   P.append(ex, end); A.append(P);
 }
+let trialHandle = null;   // FIXES_R6 H1: closed on a hold, with a message; the next session is decided afresh
+window.addEventListener("rsos-outlet-hold", () => { if (trialHandle !== null) { RSOSOutlet.close(trialHandle); trialHandle = null; const b = document.querySelector(".stage"); if (b) b.prepend(Object.assign(document.createElement("p"), { className: "hint", textContent: "Stopped by the Watchdog." })); } });
 function session(box) {
   box.textContent = ""; const d = T.DESIGNS[trial.design], arm = trial.schedule[trial.sessions.length], blind = trial.design === "anchor_vs_sham";
+  // Every action on a person asks the Watchdog first (spec/WATCHDOG.md, spec/TRIAL_LOOP.md §3).
+  const wd = RSOSGuard.ask({ kind: "run", protocol: "trial_" + trial.design, trigger: "self", source: "person" },
+    window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()) } : {});
+  if (!RSOSGuard.ok(wd)) { box.append(el("p", "hint", "Held by the Watchdog: " + RSOSGuard.say(wd))); return; }
+  if (trialHandle !== null) RSOSOutlet.close(trialHandle);
+  trialHandle = RSOSOutlet.adopt({ kind: "run", protocol: "trial_" + trial.design, trigger: "self", source: "person" }, {}, { seconds: 1800 });   // FIXES_R3 §1
+  let played = null;
   const F = el("div", "stage"); F.style.alignItems = "stretch"; F.style.textAlign = "left"; box.append(F);
   const rec = { cov: { hour: new Date().getHours() } };
   F.append(el("h3", "", blind ? "Today's session: blind" : "Today: " + d.arm_names[arm]), el("p", "hint", d.do));
@@ -206,18 +224,36 @@ function session(box) {
   if (trial.anchor && (trial.design === "anchor_vs_sham" || (trial.design === "cue_vs_none" && arm === "cue"))) {
     const a = store.get("rsos.anchors", []).find(x => x.id === trial.anchor);
     const play = el("button", "btn main", blind ? "Play today's code" : "Play your anchor");
-    play.addEventListener("click", () => { let code = a ? a.code : "..-"; if (arm === "sham") { const pool = ["-..-", ".-.-", "--..", "-.-.", "..--"].filter(c => !a || c !== a.code); code = pool[Math.floor(Math.random() * pool.length)]; } UGCL.feel(code, {}); });
+    play.addEventListener("click", () => { let code = a ? a.code : "..-"; if (arm === "sham") code = T.shamCode(trial, trial.sessions.length, a ? a.code : null); played = { code_kind: arm === "sham" ? "sham" : "anchor", code }; UGCL.feel(code, {}); });
     F.append(play);
   }
+  if (trial.design === "ssit") { const ln = el("a", "btn", "Open today's imagery in the player"); ln.href = "player.html?program=ssit_" + arm; ln.target = "_blank"; ln.rel = "noopener"; F.append(ln); }
   F.append(scale("After: " + d.outcome, v => { rec.after = v; }));
   const save = el("button", "btn main", "Save this session"), msg = el("span", "hint");
   save.addEventListener("click", () => {
     if (rec.before === undefined || rec.after === undefined) { msg.textContent = " Rate before and after first."; return; }
     rec.cov.sleep_h = Number(ss.value); rec.cov.caffeine = Number(cs.value); rec.cov.exercise = Number(es.value);
-    T.record(trial, rec.before, rec.after, rec.cov, now()); saveTrial();
-    F.replaceChildren(el("p", "", "Saved." + (blind ? " Today's code was " + (arm === "anchor" ? "your anchor." : "a sham code.") : ""))); setTimeout(drawTrial, 1600);
+    const s = T.record(trial, rec.before, rec.after, rec.cov, now(), played); saveTrial();
+    const fed = feedAnchor(s);
+    F.replaceChildren(el("p", "", "Saved." + (blind ? " Today's code was " + (arm === "anchor" ? "your anchor." : "a sham code" + (played ? " (" + played.code + ")." : ".")) : "") + (fed ? " " + fed : ""))); setTimeout(drawTrial, fed ? 4000 : 1600);
   });
   F.append(save, msg);
+}
+
+// The bridge to PEAK and GATE (spec/TRIAL_LOOP.md): a probe or a use on the trial's anchor.
+function feedAnchor(s) {
+  if (!s || !trial.anchor) return "";
+  const ev = T.evidence(trial, s); if (!ev.probe && !ev.use) return "";
+  const all = store.get("rsos.anchors", []), a = all.find(x => x.id === trial.anchor); if (!a) return "";
+  a.probes = a.probes || []; a.uses = a.uses || [];
+  if (ev.probe) RSOSPeak.addProbe(a, ev.probe);
+  if (ev.use) RSOSPeak.addUse(a, ev.use.ts, ev.use.during_stress);
+  store.set("rsos.anchors", all);
+  const st = RSOSPeak.strength(a);
+  let msg = ev.probe ? "This session added a probe to your anchor; its strength is now: " + st.status + (st.estimate !== null ? " (" + st.estimate + " against " + st.against + ")" : "") + "."
+    : "This session counts as a use of your anchor outside training.";
+  if (window.RSOSGate) { const g = RSOSGate.gate(a, store.get("rsos.gate.offers", []), now(), store.get("rsos.gate.optins", {}), {}); msg += " Device permission: " + g.stage_name + "."; }
+  return msg;
 }
 
 // ---------------------------------------------------------------- tasks

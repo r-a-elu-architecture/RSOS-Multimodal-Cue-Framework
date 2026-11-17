@@ -182,8 +182,10 @@
     return '<svg class="tcode" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + fmt(w) + " " + fmt(h) + '" width="' + fmt(w) + '" height="' + fmt(h) + '" fill="' + color + '" role="img" aria-label="Vibration code ' + code + '">' + marks.join("") + "</svg>";
   }
   let AC = null;
-  function audioCtx() { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch (e) { AC = null; } return AC; }
+  function audioCtx() { if (typeof window !== "undefined" && !window.RSOSOutlet) return null;   // fails closed without the gate (FIXES_R5 O6)
+    try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch (e) { AC = null; } return AC; }
   function feel(code, opts) {
+    if (typeof window !== "undefined" && !window.RSOSOutlet) return;   // fails closed without the output gate (FIXES_R4 G6)
     // plays a vibration code: the wrist vibrates where the device can, the speaker gives the same pattern as the low
     // buzz of a vibration motor, and the code's marks (opts.marks: an element containing codeSVG) light up in time
     opts = opts || {};

@@ -12,14 +12,28 @@
 //
 // rsos_core.* and rsos_modules.* are copies of firmware/rsos_core/ (tested on the host with host_sim and module_sim);
 // keep them identical (rsso/tests/test_firmware.py checks this).
-// STATUS: compile-checked on a PC against stubs for Arduino-ESP32 2.x and 3.x, with and without the modules;
-// not yet run on a board. Flash and check it with firmware/BOARD_KIT.md.
+// STATUS (spec/ESP32_TOOLS.md): compiles with the real toolchains, Arduino-ESP32 2.0.17 and 3.3.12 (ESP32) and
+// 2.0.17 and 3.2.1 (ESP32-C3, -S3), with and without the modules; the USB side passes the board check in Espressif's
+// QEMU with the emulator-only build flag of spec §4 (no Bluetooth there). Not yet run on a board: radio, pairing and motor
+// are untested. Flash and check it with firmware/BOARD_KIT.md and firmware/BOARD_TEST.md.
+//
+// Bluetooth is paired and encrypted (spec/BLE_PAIRING.md): LE Secure Connections with a six-digit passkey made on
+// first start and kept in flash; new hosts can pair only in a 120 s window after power-on or USB PAIR; PASSKEY,
+// PAIR, UNPAIR and NEWKEY act only over USB. The policy is rsos_link.* (a copy of firmware/rsos_core/, host-tested).
+// Uses the Bluedroid BLE stack. Arduino-ESP32 3.3 and later build the ESP32-C3 and -S3 with NimBLE: there the sketch
+// stops with an #error (spec/ESP32_TOOLS.md A1 F3); use 3.2.1 or 2.0.17 for those chips.
 
 #include <Arduino.h>
+#if defined(CONFIG_BT_NIMBLE_ENABLED)   // ESP32_TOOLS F3
+#error "RSOS: this core builds Bluetooth with NimBLE (Arduino-ESP32 3.3 and later on ESP32-C3/-S3). The pairing rules (spec/BLE_PAIRING.md) are implemented for Bluedroid only: build this chip with Arduino-ESP32 3.2.1 or 2.0.17."
+#endif
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLE2902.h>
+#include <Preferences.h>
+#include <esp_gap_ble_api.h>
 #include "rsos_core.h"
+#include "rsos_link.h"
 #include "rsos_modules.h"
 #ifdef RSOS_SITES
 #include <Wire.h>
@@ -49,9 +63,23 @@ const int PWM_FREQ = 20000, PWM_BITS = 8, PWM_CHANNEL = 0;
 #define NUS_TX      "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
 
 BLECharacteristic* txChar = nullptr;
-bool bleConnected = false, bleWasConnected = false;
-String bleLine;
-volatile bool bleLineReady = false;
+BLEServer* bleServer = nullptr;
+volatile bool bleConnected = false;
+bool bleWasConnected = false;
+// Link state (spec/BLE_PAIRING.md). Set in the Bluetooth task, read in loop().
+volatile bool linkAuthed = false;      // P1: lines are accepted only on an authenticated, encrypted link
+volatile bool newKeys = false;         // keys exchanged in this connection: a new host
+volatile bool dropLink = false;        // a refused pairing: disconnect from loop()
+volatile uint16_t bleConnId = 0;
+volatile int8_t keyScreen = -1;      // 1 show the passkey, 0 clear it; drawn in loop(), not in the Bluetooth task
+rsos::LinkPolicy linkPolicy;     // not `link`: POSIX link() from <unistd.h> (ESP32_TOOLS F1)
+uint32_t passkey = 0;                  // never sent over Bluetooth (P2)
+Preferences prefs;
+// Bytes written by the host, handed from the Bluetooth task to loop() (one producer, one consumer).
+const int RX_RING = 512;
+uint8_t rxRing[RX_RING];
+volatile int rxHead = 0, rxTail = 0;
+rsos::LineBuffer usbBuf, bleBuf;
 
 // PWM on both Arduino-ESP32 APIs: 3.x by pin, 2.x by channel.
 static void pwmAttach(int pin, int channel, int freq) {
@@ -223,7 +251,7 @@ class Hardware : public rsos::Output {
   void valve(char ch, bool open) override { digitalWrite(ch == 'O' ? SCENT_PIN : TASTE_PIN, open ? HIGH : LOW); }
   void send(const char* line) override {
     Serial.println(line);
-    if (bleConnected && txChar) { String s = String(line) + "\n"; txChar->setValue((uint8_t*)s.c_str(), s.length()); txChar->notify(); }
+    if (bleConnected && linkAuthed && txChar) { String s = String(line) + "\n"; txChar->setValue((uint8_t*)s.c_str(), s.length()); txChar->notify(); }
   }
 };
 
@@ -240,18 +268,125 @@ rsos::Core core(hw, "haptic,olfactory,gustatory"
 void sendLine(const char* line) { hw.send(line); }
 
 class ServerCB : public BLEServerCallbacks {
-  void onConnect(BLEServer*) override { bleConnected = true; }
-  void onDisconnect(BLEServer* s) override { bleConnected = false; s->getAdvertising()->start(); }
+  void onConnect(BLEServer*, esp_ble_gatts_cb_param_t* param) override {
+    bleConnId = param->connect.conn_id; linkAuthed = false; newKeys = false; bleConnected = true;
+    // FIXES_R6C S2: the band asks for encryption only while the window is open. Outside it a bonded host encrypts with
+    // its stored key when it reads or writes; an unknown host must start pairing itself, and SecurityCB refuses it.
+    if (linkPolicy.accept_request(millis())) esp_ble_set_encryption(param->connect.remote_bda, ESP_BLE_SEC_ENCRYPT_MITM);
+  }
+  void onDisconnect(BLEServer* s) override { linkAuthed = false; newKeys = false; bleConnected = false; s->getAdvertising()->start(); }
 };
 class RxCB : public BLECharacteristicCallbacks {
   void onWrite(BLECharacteristic* c) override {
-    String v = c->getValue().c_str();
+    if (!linkAuthed) return;                                   // P1: dropped, never reaches the core
+    String v = c->getValue().c_str();   // std::string on 2.x, Arduino String on 3.x (FIXES_R6 B8)
     for (size_t i = 0; i < v.length(); i++) {
-      if (v[i] == '\n') { bleLineReady = true; return; }
-      bleLine += v[i];
+      int next = (rxHead + 1) % RX_RING;
+      if (next == rxTail) return;                              // full: the rest is dropped; the line will be too long or malformed
+      rxRing[rxHead] = (uint8_t)v[i]; rxHead = next;
     }
   }
 };
+
+int bondCount() { return esp_ble_get_bond_device_num(); }
+bool bonded(const uint8_t* addr) {   // FIXES_R6 B7
+  int n = bondCount(); if (n <= 0) return false;
+  esp_ble_bond_dev_t list[16]; if (n > 16) n = 16;
+  esp_ble_get_bond_device_list(&n, list);
+  for (int i = 0; i < n; i++) if (memcmp(list[i].bd_addr, addr, 6) == 0) return true;
+  return false;
+}
+void removeAllBonds() {
+#ifdef RSOS_EMULATOR   // no Bluetooth stack started, so no bonds (spec/ESP32_TOOLS.md §4 Q1)
+  return;
+#endif
+  int n = bondCount(); if (n <= 0) return;
+  esp_ble_bond_dev_t list[16]; if (n > 16) n = 16;
+  esp_ble_get_bond_device_list(&n, list);
+  for (int i = 0; i < n; i++) esp_ble_remove_bond_device(list[i].bd_addr);
+}
+
+#ifdef RSOS_DISPLAY
+void showPasskey(bool on) {
+  if (!on) { backlight(0); tft->fillScreen(0); return; }
+  char buf[8]; snprintf(buf, sizeof buf, "%06lu", (unsigned long)passkey);
+  tft->fillScreen(0); tft->setTextColor(0xFFFF); tft->setTextSize(4); tft->setCursor(48, 104); tft->print(buf);
+  backlight(dispGate.brightness(1.0f));
+}
+#endif
+
+// GAP events from the Bluetooth task: decide new pairings with the policy (P3-P5).
+void gapEvent(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t* param) {
+  switch (event) {
+    case ESP_GAP_BLE_KEY_EVT: newKeys = true; break;
+    case ESP_GAP_BLE_PASSKEY_NOTIF_EVT: if (linkPolicy.show_passkey(millis())) keyScreen = 1; break;   // B6
+    case ESP_GAP_BLE_AUTH_CMPL_EVT: {
+      keyScreen = 0;
+      if (!param->ble_security.auth_cmpl.success) { linkPolicy.on_auth_fail(millis()); linkAuthed = false; dropLink = true; break; }
+      if (newKeys) {
+        rsos::LinkPolicy::Decision d = linkPolicy.on_new_bond(millis(), bondCount() - 1);   // the new bond is already stored
+        if (d != rsos::LinkPolicy::kAccept) { esp_ble_remove_bond_device(param->ble_security.auth_cmpl.bd_addr); linkAuthed = false; dropLink = true; break; }
+      } else if (!bonded(param->ble_security.auth_cmpl.bd_addr)) {   // B7: no keys exchanged and not a known host
+        linkAuthed = false; dropLink = true; break;
+      }
+      linkAuthed = true;
+      break;
+    }
+    default: break;
+  }
+}
+
+// FIXES_R6C S1: the library answers a pairing the host starts with onSecurityRequest(); without these callbacks it
+// answers true. Same interface in Arduino-ESP32 2.0.17 and 3.0.7.
+class SecurityCB : public BLESecurityCallbacks {
+  uint32_t onPassKeyRequest() override { return 0; }              // the band does not enter keys
+  void onPassKeyNotify(uint32_t) override {}                       // shown by gapEvent (B6)
+  bool onSecurityRequest() override { return linkPolicy.accept_request(millis()); }
+  void onAuthenticationComplete(esp_ble_auth_cmpl_t) override {}  // decided by gapEvent (P3-P5, B7)
+  bool onConfirmPIN(uint32_t) override { return false; }          // numeric comparison is not used
+};
+
+void setSecurity() {
+  uint32_t pk = passkey;
+  esp_ble_gap_set_security_param(ESP_BLE_SM_SET_STATIC_PASSKEY, &pk, sizeof pk);
+  esp_ble_auth_req_t auth = ESP_LE_AUTH_REQ_SC_MITM_BOND;
+  esp_ble_gap_set_security_param(ESP_BLE_SM_AUTHEN_REQ_MODE, &auth, sizeof auth);
+  esp_ble_io_cap_t io = ESP_IO_CAP_OUT;
+  esp_ble_gap_set_security_param(ESP_BLE_SM_IOCAP_MODE, &io, sizeof io);
+  uint8_t only = ESP_BLE_ONLY_ACCEPT_SPECIFIED_AUTH_ENABLE;
+  esp_ble_gap_set_security_param(ESP_BLE_SM_ONLY_ACCEPT_SPECIFIED_SEC_AUTH, &only, sizeof only);
+  uint8_t size = 16, keys = ESP_BLE_ENC_KEY_MASK | ESP_BLE_ID_KEY_MASK;
+  esp_ble_gap_set_security_param(ESP_BLE_SM_MAX_KEY_SIZE, &size, sizeof size);
+  esp_ble_gap_set_security_param(ESP_BLE_SM_SET_INIT_KEY, &keys, sizeof keys);
+  esp_ble_gap_set_security_param(ESP_BLE_SM_SET_RSP_KEY, &keys, sizeof keys);
+}
+
+uint32_t newPasskey() {
+  uint32_t pk = rsos::LinkPolicy::make_passkey(esp_random);
+  prefs.putUInt("passkey", pk);
+  return pk;
+}
+
+// USB-only commands (P6): physical access to the cable is the authorisation. Answers go to USB only.
+void usbCommand(const char* line, uint32_t now) {
+  char out[48];
+  while (*line == ' ' || *line == '\t') line++;
+  if (strncmp(line, "PASSKEY", 7) == 0) { snprintf(out, sizeof out, "PASSKEY %06lu", (unsigned long)passkey); Serial.println(out); }
+  else if (strncmp(line, "UNPAIR", 6) == 0) { removeAllBonds(); dropLink = true; Serial.println("UNPAIR all"); }
+  else if (strncmp(line, "NEWKEY", 6) == 0) { passkey = newPasskey(); setSecurity(); removeAllBonds(); dropLink = true; Serial.println("NEWKEY done; read it with PASSKEY"); }
+  else if (strncmp(line, "PAIR", 4) == 0) { linkPolicy.open_window(now); snprintf(out, sizeof out, "PAIR open %lu", (unsigned long)(rsos::LinkPolicy::kWindowMs / 1000)); Serial.println(out); }
+}
+
+void onLine(rsos::LinkSource src, rsos::LineBuffer::Result r, const char* line, uint32_t now) {
+  if (r == rsos::LineBuffer::kTooLong) { sendLine("ERR LINE too-long"); return; }   // P7
+  if (r != rsos::LineBuffer::kLine) return;
+  if (rsos::LinkPolicy::usb_only(line)) {
+    if (src == rsos::kUsb) usbCommand(line, now);
+    else sendLine("ERR LINK usb-only");
+    return;
+  }
+  core.line(line, now);
+}
 
 void setup() {
   Serial.begin(115200);
@@ -271,27 +406,52 @@ void setup() {
   LittleFS.begin(true);
   tft->begin(); tft->fillScreen(0);
 #endif
+  prefs.begin("rsos", false);
+  passkey = prefs.getUInt("passkey", 0);
+  if (!rsos::LinkPolicy::valid_passkey(passkey)) passkey = newPasskey();
+  if (!rsos::LinkPolicy::valid_passkey(passkey)) { Serial.println("NOTE no passkey; Bluetooth off"); return; }   // USB still works
+#ifdef RSOS_EMULATOR   // emulator-only build (spec/ESP32_TOOLS.md §4): QEMU has no Bluetooth controller. Never set for a board.
+  Serial.println("NOTE emulator build: Bluetooth off"); return;
+#endif
+  linkPolicy.begin(millis());
   BLEDevice::init("RSOS-band");
-  BLEServer* srv = BLEDevice::createServer(); srv->setCallbacks(new ServerCB());
+  // FIXES_P2 E1: no setEncryptionLevel on any core. On 2.0.17 and 3.2.1 it makes the library request encryption on every
+  // connection (BLEDevice.cpp, ESP_GATTS_CONNECT_EVT), which bypasses onSecurityRequest() and the pairing window. The only
+  // encryption request is onConnect's, inside the window; the characteristics still require *_ENC_MITM.
+  BLEDevice::setCustomGapHandler(gapEvent);
+  BLEDevice::setSecurityCallbacks(new SecurityCB());   // S1
+  setSecurity();
+  BLEServer* srv = BLEDevice::createServer(); srv->setCallbacks(new ServerCB()); bleServer = srv;
   BLEService* svc = srv->createService(NUS_SERVICE);
   txChar = svc->createCharacteristic(NUS_TX, BLECharacteristic::PROPERTY_NOTIFY);
-  txChar->addDescriptor(new BLE2902());
+  txChar->setAccessPermissions(ESP_GATT_PERM_READ_ENC_MITM);
+  BLE2902* cccd = new BLE2902();
+  cccd->setAccessPermissions(ESP_GATT_PERM_READ_ENC_MITM | ESP_GATT_PERM_WRITE_ENC_MITM);
+  txChar->addDescriptor(cccd);
   BLECharacteristic* rx = svc->createCharacteristic(NUS_RX, BLECharacteristic::PROPERTY_WRITE | BLECharacteristic::PROPERTY_WRITE_NR);
+  rx->setAccessPermissions(ESP_GATT_PERM_WRITE_ENC_MITM);
   rx->setCallbacks(new RxCB());
   svc->start(); srv->getAdvertising()->addServiceUUID(NUS_SERVICE); srv->getAdvertising()->start();
 }
-
-String serialLine;
 
 void loop() {
   uint32_t now = millis();
   while (Serial.available()) {
     char c = Serial.read();
-    if (c == '\n') { core.line(serialLine.c_str(), now); serialLine = ""; }
-    else if (c != '\r' && serialLine.length() < 95) serialLine += c;
+    rsos::LineBuffer::Result r = usbBuf.push(c);
+    onLine(rsos::kUsb, r, usbBuf.line(), now);
   }
-  if (bleLineReady) { core.line(bleLine.c_str(), now); bleLine = ""; bleLineReady = false; }
-  if (bleWasConnected && !bleConnected) core.link_lost(now);   // spec §4.6: stop on link loss
+  while (rxTail != rxHead) {
+    char c = (char)rxRing[rxTail]; rxTail = (rxTail + 1) % RX_RING;
+    if (!linkAuthed) continue;
+    rsos::LineBuffer::Result r = bleBuf.push(c);
+    onLine(rsos::kBle, r, bleBuf.line(), now);
+  }
+#ifdef RSOS_DISPLAY
+  if (keyScreen >= 0) { showPasskey(keyScreen == 1); keyScreen = -1; }
+#endif
+  if (dropLink) { dropLink = false; if (bleServer && bleConnected) bleServer->disconnect(bleConnId); }
+  if (bleWasConnected && !bleConnected) { core.link_lost(now); bleBuf = rsos::LineBuffer(); rxTail = rxHead; }   // B9: nothing carries over   // spec §4.6: stop on link loss
   bleWasConnected = bleConnected;
   core.update(now);
 #ifdef RSOS_THERMAL

@@ -1,0 +1,141 @@
+{
+ "test": "BASELINE_AUDIT",
+ "spec": "spec/BASELINE_AUDIT.md",
+ "quick": false,
+ "rows": [
+  {
+   "id": "A1 W1",
+   "baseline": "GREEDY (equal information)",
+   "recorded": {
+    "beats_equal_information": false
+   },
+   "outcome": "TIES"
+  },
+  {
+   "id": "A2 W4",
+   "baseline": "none applies (\u00a73)",
+   "outcome": "NOT APPLICABLE"
+  },
+  {
+   "id": "A3 H-SWITCH",
+   "baseline": "FIXED-BEST (BEAR)",
+   "pilot_means": {
+    "LION": 0.0392696772488093,
+    "EAGLE": -0.0002656751356105834,
+    "BEAR": 0.054565048345408186,
+    "LEOPARD": 0.000627788547017673,
+    "RAVEN": -0.004296494266698864,
+    "TIGER": -0.0002515147165894077
+   },
+   "chosen": "BEAR",
+   "method_mean": 0.042649191321466134,
+   "baseline_mean": 0.0537705225483768,
+   "contrast": {
+    "diff": -0.011121331226910669,
+    "lo": -0.0122841931513679,
+    "hi": -0.009998699040489835
+   },
+   "fixed_on_test_info_only": {
+    "LION": 0.038700149562719124,
+    "EAGLE": 0.003815614700171303,
+    "BEAR": 0.0537705225483768,
+    "LEOPARD": 0.005707023028981972,
+    "RAVEN": -0.004940304306864466,
+    "TIGER": 0.003486446996150972
+   },
+   "reproduced": true,
+   "outcome": "LOSES"
+  },
+  {
+   "id": "A4 H-CFIT-M",
+   "baseline": "FIXED-BEST (BEAR)",
+   "pilot_means": {
+    "LION": -0.055039210974663466,
+    "EAGLE": -0.08516791346015802,
+    "BEAR": 0.1268986993709486,
+    "LEOPARD": -0.07648931792288442,
+    "RAVEN": -0.07205475535329611,
+    "TIGER": -0.08242553314321746
+   },
+   "chosen": "BEAR",
+   "method_mean": 0.04473175661630185,
+   "baseline_mean": 0.12942261338179167,
+   "contrast": {
+    "diff": -0.08469085676548982,
+    "lo": -0.09537403910480306,
+    "hi": -0.07408879911730111
+   },
+   "fixed_on_test_info_only": {
+    "LION": -0.04966237028571565,
+    "EAGLE": -0.08218662680982179,
+    "BEAR": 0.12942261338179167,
+    "LEOPARD": -0.0752453593433663,
+    "RAVEN": -0.0687733939260839,
+    "TIGER": -0.07974649344795565
+   },
+   "reproduced": true,
+   "outcome": "LOSES"
+  },
+  {
+   "id": "A5 G1",
+   "baseline": "NONE (transfer nothing)",
+   "recorded": {
+    "g1_gated_tables_all_lion": true
+   },
+   "outcome": "TIES"
+  },
+  {
+   "id": "A6 J1",
+   "baseline": "NEVER-JAM",
+   "n": 260,
+   "accuracy": 0.7538461538461538,
+   "never_jam": 0.6846153846153846,
+   "mean_only_info_only": 0.7461538461538462,
+   "discordant": {
+    "j1_only": 65,
+    "never_jam_only": 47
+   },
+   "p_one_sided": 0.05389113982737706,
+   "reproduced": true,
+   "outcome": "TIES"
+  },
+  {
+   "id": "A7 T-AP",
+   "baseline": "STAB-ONLY",
+   "level": 0.99375,
+   "runs": {
+    "primary": {
+     "target": "person",
+     "tap_mean": 0.11133167826569813,
+     "stab_only_mean": 0.24386372215785115,
+     "contrast": {
+      "diff": -0.132532043892153,
+      "lo": -0.14491215840694052,
+      "hi": -0.11898317375241675
+     },
+     "stab_tables": [
+      "{\"calm\": \"BEAR\", \"crisis\": \"BEAR\", \"loaded\": \"BEAR\", \"rising\": \"BEAR\"}"
+     ],
+     "reproduced": true,
+     "outcome": "LOSES"
+    },
+    "confirmation": {
+     "target": "person_v2",
+     "tap_mean": 0.08715604930075939,
+     "stab_only_mean": 0.22706297751246615,
+     "contrast": {
+      "diff": -0.13990692821170678,
+      "lo": -0.14704973114667153,
+      "hi": -0.1334594630852988
+     },
+     "stab_tables": [
+      "{\"calm\": \"BEAR\", \"crisis\": \"BEAR\", \"loaded\": \"BEAR\", \"rising\": \"BEAR\"}"
+     ],
+     "reproduced": true,
+     "outcome": "LOSES"
+    }
+   },
+   "outcome": "LOSES"
+  }
+ ]
+}

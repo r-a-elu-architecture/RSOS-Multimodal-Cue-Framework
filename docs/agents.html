@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/contain.js?v=1.17.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Agents — RSOS</title>
@@ -31,6 +39,31 @@ nav a{color:var(--muted);text-decoration:none;font-size:.88rem;white-space:nowra
 nav a:hover,nav a[aria-current=page]{color:var(--text)}
 h1{font-family:var(--serif);font-weight:500;font-size:clamp(2.1rem,4.8vw,3.2rem);line-height:1.08;margin:44px 0 14px;max-width:18ch;text-wrap:balance}
 h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:62px 0 6px}
+/* Proven in simulation (spec/AGENTS_PROVEN.md) */
+.pv-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:18px;margin-top:14px}
+@media (max-width:900px){.pv-grid{grid-template-columns:1fr}}
+.pv-box{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+.pv-box h3{margin:0 0 4px;font-family:var(--serif);font-weight:500;font-size:1.15rem}
+.pv-row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:8px 0}
+.pv-row button{font:inherit;font-size:.88rem;background:var(--ink);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
+.pv-row button[aria-pressed="true"]{background:var(--line)}
+.pv-svg{width:100%;height:auto;display:block}
+.pv-svg rect{fill:var(--ink-3);stroke:var(--line);stroke-width:1.5}
+.pv-svg rect.fault{stroke:var(--stop);stroke-width:2.5}
+.pv-svg rect.silent{stroke-dasharray:5 4}
+.pv-svg rect.touched{fill:#2c3a5e}
+.pv-svg text{fill:var(--text);font:12px var(--sans)}
+.pv-svg text.m{fill:var(--muted);font-size:10.5px}
+.pv-svg line{stroke:#56608a;stroke-width:1.4}
+.pv-steps{margin:6px 0 0;padding-left:1.4em;font-size:.88rem;color:var(--muted);columns:2}
+.pv-out{font-weight:600}
+.pv-out.ok{color:var(--ok)} .pv-out.no{color:var(--stop)}
+.pv-bars{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;font-size:.86rem;margin-top:8px}
+.pv-bars i{display:block;height:12px;border-radius:6px;background:var(--cool)}
+.pv-bars i.best{background:var(--gold)}
+.pv-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:16px}
+.pv-cards .pv-box p{font-size:.88rem;margin:4px 0 0;color:var(--muted)}
+.pv-tag{display:inline-block;font-size:.76rem;border:1px solid var(--ok);color:var(--ok);border-radius:999px;padding:0 8px;margin-left:6px}
 h3{font-family:var(--serif);font-weight:500;font-size:1.15rem;margin:0}
 .lede{color:var(--muted);max-width:66ch;margin:0 0 10px}
 .hint{color:var(--muted);font-size:.88rem;max-width:70ch}
@@ -88,10 +121,10 @@ th{color:var(--muted);font-weight:500}
 @media (max-width:820px){.pair{grid-template-columns:1fr}.bridge{flex-direction:row;padding:8px 0}.bridge i{height:2px;width:auto;flex:1}.two{grid-template-columns:1fr}}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="agents:demo">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html" aria-current="page">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html" aria-current="page">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>One format for people and machines</h1>
@@ -147,9 +180,37 @@ th{color:var(--muted);font-weight:500}
     <p class="lede">Two hundred scenarios, each presented five times as reworded prompts would be. A plain agent broke a value in about half to two thirds of its choices; the identity-gated agent never did, and chose the same way more often. When the values missed something, a person's error signal detected 80% of the time brought the disliked actions to zero by the last third of the run.</p>
     <div class="panel"><p class="hint" style="margin:0">Full results: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsso/results/machines.md">rsso/results/machines.md</a>. Protocol kit: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/kits/MACHINES_PROTOCOL_KIT.md">MACHINES_PROTOCOL_KIT.md</a>.</p></div>
   </section>
+
+  <section aria-labelledby="pvTitle" id="proven">
+    <h2 id="pvTitle">Passed in simulation: the RSX-V agents</h2>
+    <p class="lede">Six archetype agents pass work to one another (<a href="rsxv.html">RSX-V</a>). These are the agent results that passed their registered tests, shown working from runs of the real code on a small sample. Shown in simulation with stated models of agents and a person; not tested with people.</p>
+    <div class="pv-grid">
+      <div class="pv-box" id="pvRepair">
+        <h3>Repair: finding the fault where it starts <span class="pv-tag">W1: passed its registered test</span></h3>
+        <p class="hint" style="margin:0">Two faults are injected; some are silent and show up only in the agents downstream. Meta repair looks at the whole graph; local retry repairs inside the agent where the error shows.</p>
+        <div class="pv-row" role="group" aria-label="Repair method"><button type="button" data-arm="meta" aria-pressed="true">Meta repair</button><button type="button" data-arm="local" aria-pressed="false">Local retry</button></div>
+        <div class="pv-row"><button type="button" id="pvPrev" aria-label="Previous trial">←</button><span id="pvTrial" aria-live="polite"></span><button type="button" id="pvNext" aria-label="Next trial">→</button></div>
+        <svg class="pv-svg" id="pvGraph" viewBox="0 0 620 190" role="img" aria-label="The six agents, with the faulty and repaired ones marked"></svg>
+        <p style="margin:6px 0 0" class="pv-out" id="pvOut"></p>
+        <ol class="pv-steps" id="pvSteps"></ol>
+        <p class="hint" id="pvCount" style="margin:10px 0 0"></p>
+        <p class="hint" id="pvW1Meaning" style="margin:6px 0 0"></p>
+      </div>
+      <div class="pv-box" id="pvSwitch">
+        <h3>Switching between modes <span class="pv-tag">H-SWITCH: passed its registered test</span></h3>
+        <p class="hint" style="margin:0">The Watchdog picks a mode from what the ledger has measured, against four other policies, on the same simulated people. Mean reward per tick:</p>
+        <div class="pv-bars" id="pvBars"></div>
+        <p class="hint" id="pvCaveat" style="margin:10px 0 0"></p>
+        <p class="hint" id="pvHsMeaning" style="margin:6px 0 0"></p>
+        <p class="hint" style="margin:6px 0 0"><a href="world.html">Watch it switch, tick by tick, on the World page</a>.</p>
+      </div>
+    </div>
+    <div class="pv-cards" id="pvCards"></div>
+    <p class="hint" id="pvNote" style="margin-top:14px"></p>
+  </section>
 </main>
-<footer>The agent layer is <code>rsso/rsso/machines.py</code>, identically <code>docs/js/machines.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>. A value check is a guard rail, not a guarantee: it only knows what its values name.</footer>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<footer>The agent layer is <code>rsso/rsso/machines.py</code>, identically <code>docs/js/machines.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/MACHINES.md">spec/MACHINES.md</a>. A value check is a guard rail, not a guarantee: it only knows what its values name. <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/machines.js?v=1.21.0"></script>
 <script>
@@ -184,13 +245,15 @@ const EXAMPLES = [["Hand over the knife, blade first", ["sharp_near_person"]], [
   ["Turn on the blender", ["loud", "tidy"]], ["Take the cup from the table", ["take_without_asking"]], ["Ask before moving the cup", ["ask"]], ["Say it broke the plate", ["report"]], ["Hide the broken plate", ["hide_error"]]];
 function doAct(title, tags) {
   const action = { id: "a" + Date.now(), title, tags }, r = M.act(A, action, Date.now() / 1000); A.log[A.log.length - 1].title = title; save();
+  // agent status codes are agent-triggered (FIXES_R4 G5): the Watchdog asks the person first, so they stay silent
+  const agentFeel = code => { if (RSOSOutlet.open({ kind: "cue", protocol: "agent:status", trigger: "agent", source: "agent" }, {}, { seconds: 5 }).opened) feel(code); };
   const D = $("decision"); D.textContent = ""; const box = el("div", "decision " + r.decision);
   box.append(el("b", "", ({ allow: "Acting: ", ask: "Asking you first: ", override: "Overridden: " })[r.decision] + title), el("p", "say", r.say.replace(/^(Overridden|Asking first): /, "").replace(/^./, ch => ch.toUpperCase())));
-  if (r.decision === "allow") { feel(M.AGENT_STATES.working); const b = el("button", "btn", "That was wrong (error signal)"); b.addEventListener("click", () => { const h = M.humanSignal(A, Date.now() / 1000); save(); box.append(el("p", "say", h ? "Flagged. Its tags count against it; once a tag is flagged on most actions that carry it, the agent asks first." : "Too late: the signal must come within ten seconds of the action.")); drawAgent(); drawLog(); }); box.append(b); }
-  if (r.decision === "ask") { feel(M.AGENT_STATES.needs_input); pending = action; const y = el("button", "btn main", "Yes, go ahead"), n = el("button", "btn", "No");
+  if (r.decision === "allow") { agentFeel(M.AGENT_STATES.working); const b = el("button", "btn", "That was wrong (error signal)"); b.addEventListener("click", () => { const h = M.humanSignal(A, Date.now() / 1000); save(); box.append(el("p", "say", h ? "Flagged. Its tags count against it; once a tag is flagged on most actions that carry it, the agent asks first." : "Too late: the signal must come within ten seconds of the action.")); drawAgent(); drawLog(); }); box.append(b); }
+  if (r.decision === "ask") { agentFeel(M.AGENT_STATES.needs_input); pending = action; const y = el("button", "btn main", "Yes, go ahead"), n = el("button", "btn", "No");
     y.addEventListener("click", () => { M.answer(A, pending, true); save(); box.append(el("p", "say", "Done. Approving lowers the flag on its tags.")); y.remove(); n.remove(); drawAgent(); drawLog(); });
     n.addEventListener("click", () => { M.answer(A, pending, false); save(); box.append(el("p", "say", "Not done.")); y.remove(); n.remove(); drawAgent(); drawLog(); }); box.append(y, n); }
-  if (r.decision === "override") feel(M.AGENT_STATES.conflict);
+  if (r.decision === "override") agentFeel(M.AGENT_STATES.conflict);
   D.append(box); drawLog(); drawAgent();
 }
 function drawActions() { const C = $("actions"); C.textContent = ""; EXAMPLES.forEach(([t, tags]) => { const b = el("button", "chip", t); b.addEventListener("click", () => doAct(t, tags)); C.append(b); }); }
@@ -229,6 +292,55 @@ $("pkAgent").addEventListener("click", () => { const p = M.PACKS[parseInt($("pac
 
 function drawAll() { drawPerson(); drawAgent(); drawActions(); drawLog(); drawGlyph(); drawPacks(); }
 drawAll();
+</script>
+<script>
+/* Proven in simulation (spec/AGENTS_PROVEN.md): reads docs/data/agents_proven.json, written by rsxv/rsxv/site_agents.py from
+   the real code. Display only: no sound, speech or vibration. */
+(async () => {
+  const $ = id => document.getElementById(id), ns = "http://www.w3.org/2000/svg";
+  let D; try { D = await (await fetch("data/agents_proven.json")).json(); } catch (e) { $("pvNote").textContent = "The recorded runs could not be loaded."; return; }
+  const W1 = D.w1, POS = { RAVEN: [20, 20], BEAR: [20, 110], EAGLE: [140, 65], LEOPARD: [260, 110], TIGER: [380, 65], LION: [500, 65] };
+  let i = 0, arm = "meta";
+  const name = a => a.charAt(0) + a.slice(1).toLowerCase();
+  function draw() {
+    const t = W1.trials[i], r = t[arm], g = $("pvGraph"); g.textContent = "";
+    const fm = {}; for (const [a, m, s] of t.faults) (fm[a] = fm[a] || []).push([m, s]);
+    const touched = new Set(r.repairs.map(x => x[0]));
+    for (const [a, ups] of Object.entries(W1.graph)) for (const u of ups) {
+      const l = document.createElementNS(ns, "line"); const [x1, y1] = POS[u], [x2, y2] = POS[a];
+      l.setAttribute("x1", x1 + 100); l.setAttribute("y1", y1 + 25); l.setAttribute("x2", x2); l.setAttribute("y2", y2 + 25); g.append(l);
+    }
+    for (const [a, [x, y]] of Object.entries(POS)) {
+      const rc = document.createElementNS(ns, "rect"); rc.setAttribute("x", x); rc.setAttribute("y", y); rc.setAttribute("width", 100); rc.setAttribute("height", 50); rc.setAttribute("rx", 8);
+      const f = fm[a]; rc.setAttribute("class", (f ? "fault" + (f.every(z => z[1]) ? " silent" : "") : "") + (touched.has(a) ? " touched" : "")); g.append(rc);
+      const tx = document.createElementNS(ns, "text"); tx.setAttribute("x", x + 10); tx.setAttribute("y", y + 21); tx.textContent = name(a); g.append(tx);
+      const m = document.createElementNS(ns, "text"); m.setAttribute("class", "m"); m.setAttribute("x", x + 10); m.setAttribute("y", y + 39);
+      m.textContent = f ? "fault: " + f.map(z => z[0] + (z[1] ? " (silent)" : "")).join(", ") : (touched.has(a) ? "repaired" : ""); g.append(m);
+    }
+    $("pvTrial").textContent = "Trial " + (i + 1) + " of " + W1.n + (t.cross ? " · faults pass between agents" : " · faults inside agents");
+    $("pvOut").className = "pv-out " + (r.fixed ? "ok" : "no");
+    $("pvOut").textContent = (arm === "meta" ? "Meta repair" : "Local retry") + ": " + (r.fixed ? "fixed" : "not fixed") + " with " + r.used + " of " + W1.budget + " repairs.";
+    $("pvSteps").textContent = ""; for (const [a, m] of r.repairs) { const li = document.createElement("li"); li.textContent = name(a) + " · " + m; $("pvSteps").append(li); }
+  }
+  document.querySelectorAll("#pvRepair [data-arm]").forEach(b => b.addEventListener("click", () => {
+    arm = b.dataset.arm; document.querySelectorAll("#pvRepair [data-arm]").forEach(x => x.setAttribute("aria-pressed", x === b)); draw(); }));
+  $("pvPrev").addEventListener("click", () => { i = (i + W1.n - 1) % W1.n; draw(); });
+  $("pvNext").addEventListener("click", () => { i = (i + 1) % W1.n; draw(); });
+  const F = W1.fixed;
+  $("pvCount").textContent = "Over these " + W1.n + " trials: meta repair fixed " + F.meta.all + ", local retry " + F.local.all + ". Where faults pass between agents (" + F.meta.cross_n + " trials): meta " + F.meta.cross + ", local " + F.local.cross + ".";
+  draw();
+  // FIXES_P2 A1: the register's own caveat for W1, beside the counts.
+  if (D.register["W1 repair"]) $("pvW1Meaning").innerHTML = "What the register says this means: " + D.register["W1 repair"].meaning;
+  // BASELINE_AUDIT Q3: the H-SWITCH row's own meaning, from the register.
+  if (D.register["H-CFIT / H-SWITCH"]) $("pvHsMeaning").innerHTML = "What the register says this means: " + D.register["H-CFIT / H-SWITCH"].meaning;
+  const P = D.hswitch.policies, top = Math.max(...P.map(p => p.reward));
+  $("pvBars").innerHTML = P.map(p => `<span>${p.policy[0].toUpperCase() + p.policy.slice(1)}</span><i class="${p.reward === top ? "best" : ""}" style="width:${Math.round(100 * p.reward / top)}%" title="${p.reward}"></i><span>${p.reward.toFixed(3)} · distress ${p.distress.toFixed(1)}</span>`).join("");
+  const R = D.register;
+  $("pvCaveat").innerHTML = "Over " + D.hswitch.n + " simulated people, " + D.hswitch.ticks + " ticks each. " + (R["H-CFIT / H-SWITCH"] ? R["H-CFIT / H-SWITCH"].meaning : "");
+  $("pvCards").innerHTML = ["W4 safety", "J1, jam predictor", "T-AP, transfer agents v1"].filter(k => R[k]).map(k =>
+    `<div class="pv-box"><h3>${R[k].test}</h3><p>${R[k].result}</p><p>${R[k].meaning}</p><p><a href="results.html">All registered results</a></p></div>`).join("");
+  $("pvNote").textContent = D.note;
+})();
 </script>
 <script>if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(() => {});</script>
 </body>

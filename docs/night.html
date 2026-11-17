@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/contain.js?v=1.17.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Night and reward — RSOS</title>
@@ -72,10 +80,10 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 @media (prefers-reduced-motion:reduce){.flash{transition:none}}
 </style>
 </head>
-<body>
+<body data-outlet-kind="cue" data-outlet-protocol="night">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html" aria-current="page">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html" aria-current="page">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Night and reward</h1>
@@ -84,12 +92,12 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 
   <section aria-labelledby="planTitle">
     <h2 id="planTitle">Tonight's plan</h2>
-    <p class="lede">Choose the codes you practised today. Mark any code linked to a painful memory: it is never played during sleep. If a nightmare is detected, the device plays a separate safety code or wakes you gently.</p>
+    <p class="lede">Choose the codes you practised today.<span data-memory-work> Mark any code linked to a painful memory: it is never played during sleep. If a nightmare is detected, the device plays a separate safety code or wakes you gently.</span></p>
     <div class="panel">
       <div class="codes" id="codes"></div>
       <div class="two">
         <div><label>Channels</label><div id="channels"></div></div>
-        <div><label for="trauma">When a nightmare is detected</label><select id="trauma"><option value="safety">Play the safety code (. .)</option><option value="wake">Wake me gently</option></select></div>
+        <div data-memory-work><label for="trauma">When a nightmare is detected</label><select id="trauma"><option value="safety">Play the safety code (. .)</option><option value="wake">Wake me gently</option></select></div>
       </div>
       <p class="verdict" id="planSay"></p>
       <div class="warn" id="consent"></div>
@@ -169,8 +177,8 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
   </section>
 </main>
 <div class="flash" id="flash" aria-hidden="true"></div>
-<footer>SLEEP and REWARD are <code>rsso/rsso/night.py</code>, identically <code>docs/js/night.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/NIGHT.md">spec/NIGHT.md</a>. Cueing during sleep is experimental and is not a treatment; with a trauma history, work with a therapist. If something feels wrong, stop and use the <a href="safety.html">Safety page</a>.</footer>
-<script src="js/ugcl.js?v=1.14.0"></script>
+<footer>SLEEP and REWARD are <code>rsso/rsso/night.py</code>, identically <code>docs/js/night.js</code> (tested). Specification: <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/NIGHT.md">spec/NIGHT.md</a>. Cueing during sleep is experimental and is not a treatment; <span data-memory-work>with difficult memories, work with a therapist.</span> If something feels wrong, stop and use the <a href="safety.html">Safety page</a>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/trial.js?v=1.18.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
@@ -203,12 +211,12 @@ function drawPlan() {
     on.addEventListener("change", () => { NP.picked[k] = on.checked; save(); drawPlan(); });
     const nm = el("div"); nm.append(document.createTextNode(c.label)); nm.append(el("small", "", "  " + c.area));
     const f = el("button", "feel"); f.innerHTML = codeSvg(c.code); f.append(document.createTextNode(c.code)); f.addEventListener("click", () => feel(c.code));
-    const tl = el("label"); tl.style.margin = "0"; const t = el("input"); t.type = "checkbox"; t.checked = !!NP.trauma[k]; t.addEventListener("change", () => { NP.trauma[k] = t.checked; save(); drawPlan(); });
+    const tl = el("label"); tl.setAttribute("data-memory-work", ""); tl.style.margin = "0";   /* FIXES_R3 R3-d */ const t = el("input"); t.type = "checkbox"; t.checked = !!NP.trauma[k]; t.addEventListener("change", () => { NP.trauma[k] = t.checked; save(); drawPlan(); });
     tl.append(t, document.createTextNode(" linked to a painful memory")); r.append(on, nm, f, tl); C.append(r); });
   const H = $("channels"); H.textContent = "";
   [["vibration", "Vibration"], ["light", "Dim light"], ["voice", "Earbud voice"]].forEach(([v, t]) => { const b = el("button", "btn", t); b.setAttribute("aria-pressed", NP.channels.includes(v) ? "true" : "false");
     b.addEventListener("click", () => { NP.channels = NP.channels.includes(v) ? NP.channels.filter(x => x !== v) : NP.channels.concat([v]); if (!NP.channels.length) NP.channels = ["vibration"]; save(); drawPlan(); }); H.append(b); });
-  $("trauma").value = NP.mode; const p = plan(); $("planSay").textContent = p.say;
+  $("trauma").value = NP.mode; const p = plan(); $("planSay").textContent = window.RSOSDomain && window.RSOSDomain.memory_work_allowed === false ? p.say.replace(/; a nightmare gets [^.]*\./, ".") : p.say;   // FIXES_R5 R5-15
   const ok = window.RSOSGate && RSOSGate.hasConsent(store.get("rsos.consents", []), "night_cueing", now());
   $("consent").innerHTML = ""; $("consent").append(document.createTextNode(ok ? "Consent to cueing during sleep is on record. " : "Plays while you sleep: give consent to cueing during sleep on the Safety page before any device uses this plan. "));
   const a = el("a", "", "Safety page"); a.href = "safety.html#autonomy"; $("consent").append(a);

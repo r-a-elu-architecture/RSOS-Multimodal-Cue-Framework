@@ -380,8 +380,8 @@
      "measure": [
       "screen"
      ],
-     "say": "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?",
-     "do": "If the answer is yes, stop the session work and follow your crisis procedure."
+     "say": "Did today's clinical screening (the practitioner's validated instrument) indicate elevated risk?",
+     "do": "If the answer is yes, stop the session work and continue under your clinical protocol."
     },
     {
      "id": "breath",
@@ -497,8 +497,8 @@
      "measure": [
       "screen"
      ],
-     "say": "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?",
-     "do": "If the answer is yes, stop the session work and follow your crisis procedure."
+     "say": "Did today's clinical screening (the practitioner's validated instrument) indicate elevated risk?",
+     "do": "If the answer is yes, stop the session work and continue under your clinical protocol."
     },
     {
      "id": "breath",

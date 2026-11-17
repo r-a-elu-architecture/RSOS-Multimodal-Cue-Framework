@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/contain.js?v=1.17.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Glyphs — RSOS</title>
@@ -71,10 +79,10 @@ header.top nav{justify-content:flex-start;gap:4px 11px}
 header.top nav a{font-size:.84rem}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="check:glyphs">
 <header>
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html" aria-current="page">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html" aria-current="page">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>The glyphs of RSOS</h1>
@@ -99,8 +107,8 @@ header.top nav a{font-size:.84rem}
     <div class="acts"><button class="btn" id="feel" type="button">Feel it</button><button class="btn" id="hear" type="button">Hear it again</button></div>
   </div>
 </section>
-<footer>Glyph data: the original glyphs, <a href="ugcl/originals.json">originals.json</a> (built from the tier ledger by <code>rsso/rsso/ugcl_originals.py</code>); the generated library, <a href="ugcl/library.json">library.json</a>, and its evolved population, <a href="ugcl/genealogy.json">genealogy.json</a>. Vibration works on phones that support it (most Android browsers).</footer>
-<script src="js/ugcl.js?v=1.10.0"></script>
+<footer>Glyph data: the original glyphs, <a href="ugcl/originals.json">originals.json</a> (built from the tier ledger by <code>rsso/rsso/ugcl_originals.py</code>); the generated library, <a href="ugcl/library.json">library.json</a>, and its evolved population, <a href="ugcl/genealogy.json">genealogy.json</a>. Vibration works on phones that support it (most Android browsers). <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<script src="js/ugcl.js?v=1.21.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
@@ -113,6 +121,7 @@ function describe(g) {
   return g.strokes.map(s => kinds[s.k]).join(", ") + (g.sym > 1 ? "; repeated " + g.sym + " times around the centre" : "") + (g.mirror ? "; mirrored" : "");
 }
 function play(g) {
+  if (!window.RSOSOutlet) return;   // no gate, no sound (FIXES_R5 O6)
   try {
     audio = audio || new (window.AudioContext || window.webkitAudioContext)();
     if (audio.state === "suspended") audio.resume();
@@ -162,7 +171,7 @@ function select(g, cell) {
 $("feel").addEventListener("click", () => {
   if (!current) return;
   if (current.tacton) UGCL.feel(current.tacton, { marks: $("dTacton") });
-  else if (navigator.vibrate) navigator.vibrate(UGCL.hapticSignature(current).flat());
+  else if (navigator.vibrate && window.RSOSOutlet) navigator.vibrate(UGCL.hapticSignature(current).flat());
   if (!navigator.vibrate) $("dCode").textContent = "This device cannot vibrate, so you hear the code as the sound of a vibration. On an Android phone you also feel it.";
 });
 $("hear").addEventListener("click", () => { if (current) play(current); });

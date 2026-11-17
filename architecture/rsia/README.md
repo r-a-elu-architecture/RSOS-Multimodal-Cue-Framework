@@ -8,7 +8,7 @@
 |---|---|---|
 | [Archetypes](archetypes/) | Six modes: Lion (leadership, courage), Eagle (vision, planning), Bear (resilience), Leopard (adaptability), Raven (insight, strategic perception), Tiger (intensity, drive) | [framework edition](../../framework/rsia/ARCHETYPES.md); the Override Protocol runs in the Lion mode |
 | [Spine](spine/) | Guiding values (Bushidō 7, Musashi 21) | [mnemonic sets](../../framework/mnemonic_sets); the hologram finger in the protocol points to it |
-| [Watchdog](watchdog/) | Notices which mode is active and when a state drifts | Cue engine `watchdog()` estimates a person's current response mode |
+| [Watchdog](watchdog/) | Notices which mode is active and when a state drifts; decides whether an action may act on a person | Built on the person side: [spec/WATCHDOG.md](../../spec/WATCHDOG.md) (allow, ask or hold with the Spine virtue that decided, hash-chained log); first form: the cue engine's `watchdog()` |
 | [Meta-Architect](meta-architect/) | Coordinates modes and switches between them | Specified |
 
 ## Sources in the archive

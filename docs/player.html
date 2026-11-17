@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
+<script src="js/voice.js?v=1.19.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Protocol player — RSOS</title>
@@ -103,13 +107,14 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 @media (prefers-reduced-motion:reduce){.orb{transition:none}}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="player:preview">
 <div class="app" id="app">
 <aside aria-label="Settings">
   <div class="top"><a class="home" href="./">RSOS</a>
-  <nav class="site" aria-label="Site"><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav></div>
+  <nav class="site" aria-label="Site"><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html" aria-current="page">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav></div>
   <h1>Protocol player</h1>
   <p class="lede">Runs an RSX program step by step: breath, words, imagery, tone and vibration. Everything stays in this browser.</p>
+  <p class="hint relstatus" style="margin-top:6px"><b>Status:</b> built and tested software that runs in this browser. No human outcome data exists yet. Research and development framework; not a medical device.</p>
 
   <fieldset>
     <legend>Program</legend>
@@ -122,6 +127,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
       <optgroup label="From the tier ledger">
         <option value="tier003_command_stack">Tier 003: Recursive Command Stack</option>
         <option value="tier012_breath_anchor">Tier 012: Breath Anchor</option>
+        <option value="tier013_lion_dragon">Tier 013: Lion and Dragon (🦁+🐉)</option>
         <option value="tier014_seal">Tier 014: Lion Seal</option>
         <option value="tier016_stillness">Tier 016: Stillness, then interrupt</option>
         <option value="tier406_release">Tier 406: Release what was never yours</option>
@@ -130,6 +136,11 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
       <optgroup label="Nodes">
         <option value="node_lion">Lion node (associated)</option>
         <option value="node_observer">Observer node (no ego)</option>
+      </optgroup>
+      <optgroup label="Imagery (SSIT trial, 5 min)">
+        <option value="ssit_higher">Higher-level imagery</option>
+        <option value="ssit_local">Imagery of the activity</option>
+        <option value="ssit_calm">General calming imagery</option>
       </optgroup>
       <optgroup label="Your node plan" id="planGroup" hidden></optgroup>
       <optgroup label="Your identity" id="identityGroup" hidden></optgroup>
@@ -181,8 +192,8 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <input type="date" id="cueUntil" style="width:100%;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:8px 10px">
     <div id="cueLed" hidden>
       <label class="check"><input type="checkbox" id="cueTherapist"> A therapist is present for this session</label>
-      <p class="note" id="cueScreenQ"></p>
-      <div class="row"><label class="check"><input type="radio" name="cueScreen" value="no"> No</label><label class="check"><input type="radio" name="cueScreen" value="yes"> Yes</label></div>
+      <div data-show="clinical"><p class="note" id="cueScreenQ"></p>
+      <div class="row"><label class="check"><input type="radio" name="cueScreen" value="no"> No</label><label class="check"><input type="radio" name="cueScreen" value="yes"> Yes</label></div></div>
     </div>
     <label class="check"><input type="checkbox" id="cueConsent"> I know exactly what this cue says, and I agree that it runs for me</label>
     <div class="actions" style="margin-top:6px"><button class="btn quiet" id="cueSave" type="button">Save cue</button></div>
@@ -242,7 +253,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
     <p class="note">"Save memory" stores all runs and weekly checks in one file you can load on another device; files are checked for damage when loaded.</p>
   </fieldset>
 
-  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.13.0. Not a treatment. If you are in crisis or at risk of harm, contact local emergency services or a crisis line now. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
+  <p class="note" style="margin-top:22px">Install it as an app: in Chrome or Edge use "Install app" or "Add to Home screen"; on iPhone, Share → Add to Home Screen. It then works offline. Player version 1.13.0. Not a treatment. Stop at any time with the Stop button or the Esc key. <a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/spec/OVERRIDE_PROTOCOL.md#9-safety-and-contraindications">Safety notes</a>.</p>
 </aside>
 
 <main id="main">
@@ -263,6 +274,11 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
   <div class="offer" id="offer" hidden role="alertdialog" aria-labelledby="offerText">
     <p id="offerText">Your heart rate suggests a stress response. Start the override?</p>
     <div class="actions"><button class="btn go" id="offerStart" type="button">Start the override</button><button class="btn quiet" id="offerDismiss" type="button">Not now</button></div>
+  </div>
+  <div id="clinRun" hidden data-show="clinical">
+    <label class="check"><input type="checkbox" id="clinRunHere"> The responsible clinician is present</label>
+    <p class="note" id="clinRunQ"></p>
+    <div class="row"><label class="check"><input type="radio" name="clinRunScreen" value="no"> No</label><label class="check"><input type="radio" name="clinRunScreen" value="yes"> Yes</label></div>
   </div>
   <div class="actions"><button class="btn go" id="start" type="button">Start</button></div>
 </main>
@@ -324,19 +340,24 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 <script src="js/rsx.js?v=1.13.0"></script>
 <script src="js/hrs.js?v=1.13.0"></script>
 <script src="js/memstack.js?v=1.13.0"></script>
-<script src="js/ugcl.js?v=1.13.0"></script>
-<script src="js/consent.js?v=1.13.0"></script>
-<script src="js/nodes.js?v=1.13.0"></script>
-<script src="js/linx.js?v=1.13.0"></script>
-<script src="js/contain.js?v=1.13.0"></script>
+<script src="js/ugcl.js?v=1.21.0"></script>
+<script src="js/consent.js?v=1.16.0"></script>
+<script src="js/nodes.js?v=1.16.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/linx.js?v=1.16.0"></script>
+<script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
+<script src="js/lineage.js?v=1.21.0"></script>
 <script src="js/peak.js?v=1.16.0"></script>
 <script src="js/gate.js?v=1.16.0"></script>
 <script>
 "use strict";
-const BUILD = "1.13.0";
+const BUILD = "1.15.0";
 const $ = id => document.getElementById(id);
 const PROTOCOLS = ["override", "interrupt_only", "swish", "legacy_vector", "tier003_command_stack", "tier012_breath_anchor",
-  "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer"];
+  "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "node_lion", "node_observer", "tier013_lion_dragon", "ssit_higher", "ssit_local", "ssit_calm"];
 const sources = {};
 let timeline = null, run = null, audio = null;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -383,6 +404,7 @@ function futuresOf(src) {
   return (m[1].match(/"(?:[^"\\]|\\.)*"/g) || []).map(s => s.slice(1, -1));
 }
 function selectProgram() {
+  loadOrigin = null;
   const p = $("program").value, src = sources[p];
   if (src == null) { $("source").value = ""; $("compileMsg").className = "err";
     $("compileMsg").textContent = "Could not load protocols/" + p + ".rsx. Open this page from the published site or a local web server."; return; }
@@ -395,7 +417,7 @@ function selectProgram() {
   $("futuresBox").hidden = !f;
   const own = p.startsWith("node_") || p.startsWith("plan:") || p.startsWith("identity:") || p.startsWith("thera:");   // a node's contexts belong to that node
   if (f) { const saved = store.get("rsos.settings", {}); if (own || !saved.futuresEdited) { ["f0", "f1", "f2"].forEach((id, i) => { $(id).value = f[i] || ""; }); } }
-  recompile();
+  recompile(); updateClinRun();
 }
 function q(s) { return '"' + String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"'; }
 function effectiveSource() {
@@ -427,11 +449,14 @@ function recompile() {
   }
   drawTrack(); drawRecordings();
 }
+let voiceChosen = false;   // set when the person picks a voice (FIXES_R2)
 function saveSettings() {
   const s = {}; for (const k of ["f0", "f1", "f2", "inhale", "exhale"]) s[k] = $(k).value;
   s.futuresEdited = futuresEdited;
   for (const k of ["optVoice", "optTone", "optVib"]) s[k] = $(k).checked;
-  if ($("voice").value) s.voice = $("voice").value;
+  const prev = store.get("rsos.settings", {});
+  if (voiceChosen && $("voice").value) { s.voice = $("voice").value; s.voice_v = 2; }        // FIXES_R2: only a voice the person chose
+  else if (prev.voice_v === 2 && prev.voice) { s.voice = prev.voice; s.voice_v = 2; }
   store.set("rsos.settings", s);
 }
 function drawTrack() {
@@ -457,7 +482,7 @@ const FEMALE = /\b(female|samantha|victoria|karen|moira|tessa|serena|kate|susan|
 let voices = [];
 function voiceScore(v) {
   let s = 0;
-  if (/^en[-_](GB|US)/i.test(v.lang)) s += 2; else if (/^en/i.test(v.lang)) s += 1;
+  if (/^en[-_]US/i.test(v.lang)) s += 4; else if (/^en[-_]GB/i.test(v.lang)) s += 2; else if (/^en/i.test(v.lang)) s += 1;   // default: American English
   if (/natural|neural|online|premium|enhanced/i.test(v.name)) s += 3;
   if (MALE.test(v.name)) s += 2;           // default: a calm, low male voice
   if (v.localService) s += 0.5;
@@ -474,7 +499,7 @@ function loadVoices() {
     o.textContent = v.name.replace(/^(Microsoft|Google)\s+/, "") + " (" + v.lang + (g ? ", " + g : "") + ")";
     sel.appendChild(o);
   }
-  const saved = store.get("rsos.settings", {}).voice;
+  const st = store.get("rsos.settings", {}), saved = st.voice_v === 2 ? st.voice : null;   // a voice saved before voice_v 2 was the old automatic pick
   sel.value = saved && voices.some(v => v.name === saved) ? saved : voices[0].name;
 }
 function currentVoice() { return voices.find(v => v.name === $("voice").value) || voices[0] || null; }
@@ -551,9 +576,19 @@ function fire(ev) {
     case "marker": if (ev.kind === "tier") showGlyph(ev); break;
   }
 }
-function phaseAt(t) { const ps = timeline.phases; for (let i = ps.length - 1; i >= 0; i--) if (t >= ps[i].t) return ps[i]; return ps[0]; }
+function phaseAt(t) { const ps = run.tl.phases; for (let i = ps.length - 1; i >= 0; i--) if (t >= ps[i].t) return ps[i]; return ps[0]; }
+const LOCKED = ["program", "source", "f0", "f1", "f2", "inhale", "exhale"];   // disabled while a run plays (FIXES_R6 F2)
+const lock = on => LOCKED.forEach(id => { const e = $(id); if (e) e.disabled = on; });
 function frame(now) {
   if (!run) return;
+  // The run plays the timeline decided at Start (F1). A different program reaching the editor stops it (F3).
+  if (timeline !== run.tl && timeline !== run.same) {
+    if (!timeline || JSON.stringify(timeline.events) !== JSON.stringify(run.tl.events)) {
+      $("compileMsg").className = "err"; $("compileMsg").textContent = "The program changed while running; start it again."; return finish(false);
+    }
+    run.same = timeline;
+  }
+  const tl = run.tl;
   const t = now - run.t0;
   const p = phaseAt(t);
   if (p !== run.phase) {
@@ -562,10 +597,10 @@ function frame(now) {
     $("phase").textContent = p.name.replace(/[-_]/g, " ") + ("future_index" in p ? " " + (p.future_index + 1) : "");
     $("breathLabel").textContent = p.breath === "inhale" ? "Breathe in" : p.breath === "exhale" ? "Breathe out" : p.breath === "hold" ? "Hold" : "";
   }
-  while (run.next < timeline.events.length && timeline.events[run.next].t <= t) fire(timeline.events[run.next++]);
+  while (run.next < tl.events.length && tl.events[run.next].t <= t) fire(tl.events[run.next++]);
   const segs = $("track").children;
-  timeline.phases.forEach((ph, i) => { const f = Math.max(0, Math.min(1, (t - ph.t) / ph.dur)); segs[i].firstChild.style.transform = "scaleX(" + f + ")"; });
-  const f = Math.max(0, Math.min(1, (t - p.t) / Math.max(1, (p.breath === "none" ? p.dur : timeline.breath[p.breath] || p.dur))));
+  tl.phases.forEach((ph, i) => { const f = Math.max(0, Math.min(1, (t - ph.t) / ph.dur)); segs[i].firstChild.style.transform = "scaleX(" + f + ")"; });
+  const f = Math.max(0, Math.min(1, (t - p.t) / Math.max(1, (p.breath === "none" ? p.dur : tl.breath[p.breath] || p.dur))));
   const ease = 0.5 - 0.5 * Math.cos(Math.PI * f);
   if (p !== run.scaleFor) { run.scaleFor = p; run.from = run.scale; }
   let s = run.scale;
@@ -574,7 +609,7 @@ function frame(now) {
   else if (!reduceMotion) s = run.from + 0.03 * Math.sin(t / 260);
   run.scale = s;
   const orb = $("orb"); orb.style.transform = "scale(" + (reduceMotion ? 0.8 : s).toFixed(3) + ")"; orb.style.opacity = (0.45 + 0.55 * (s - 0.55) / 0.45).toFixed(3);
-  if (t >= timeline.duration_ms) return finish(true);
+  if (t >= tl.duration_ms) return finish(true);
   run.raf = requestAnimationFrame(frame);
 }
 let pending = null;
@@ -589,40 +624,59 @@ function askCheckin(after) {
     d.returnValue = ""; d.showModal();
   });
 }
-let pendingTrigger = "self", offerShownAt = 0;
+let pendingTrigger = "self", offerShownAt = 0, runHandle = null, anchorHandle = null;
 $("trig").addEventListener("change", () => { $("latBox").hidden = !$("trig").value || pendingTrigger === "device"; });
 async function start(trigger) {
   if (!timeline || run) return;
   const [cueOk, cueWhy] = RSOSConsent.gate(timeline, store.get("rsos.cues", []), Date.now());
   if (!cueOk) { $("compileMsg").className = "err"; $("compileMsg").textContent = "This program contains a programmed cue that may not run: " + cueWhy + "."; return; }
   trigger = trigger === "device" ? "device" : "self";
+  if (clinLedRun() && CLINV && (document.querySelector('input[name="clinRunScreen"]:checked') || {}).value === "yes") {
+    { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "yes", q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+    const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]);
+    $("compileMsg").className = "err"; $("compileMsg").textContent = "Recorded: practice continues under the clinician-led protocol; the clinician resumes it."; drawSafety && drawSafety(); return;
+  }
   // CONTAIN: the device safety envelope, programs paused for drift, and paused practice (rsso/rsso/contain.py decide)
+  if (!RSOSLineage.loaded) await RSOSLineage.ready;
+  clearTimeout(debounce); recompile();   // FIXES_R6C P1: decide and play the text as it is now
+  if (!timeline) return;
+  const held = v => { $("compileMsg").className = "err"; $("compileMsg").textContent = "Held by the Watchdog: " + RSOSGuard.say(v.watchdog)
+    + (RSOSLineage.strict ? " Some built-in programs could not be loaded, so the content check is strict on this page." : ""); };
   const verdict = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
-  if (verdict.decision !== "allow") { $("compileMsg").className = "err"; $("compileMsg").textContent = "CONTAIN stopped this start: " + verdict.reasons.join("; ") + "."; return; }
+  if (verdict.decision !== "allow") return held(verdict);
   pendingTrigger = trigger;
   const deviceLatency = trigger === "device" && offerShownAt ? (performance.now() - offerShownAt) / 1000 : null;
   $("offer").hidden = true;
   ensureAudio();
   const before = await askCheckin(false);
+  // The run's output session opens after the check-in, with the Watchdog asked again then (FIXES_R5 O4).
+  const now = safetyDecide({ kind: "run", protocol: timeline.protocol, trigger });
+  if (now.decision !== "allow") return held(now);
+  if (runHandle !== null) RSOSOutlet.close(runHandle);
+  runHandle = RSOSOutlet.adopt(now.action, now.extra, { seconds: timeline.duration_ms / 1000 + 120 });
   const firstTier = timeline.events.find(e => e.kind === "tier");
   const says = sayTexts();
   const voice = !$("optVoice").checked || !says.length ? "none" : says.some(t => store.get(recKey(t), null)) ? "own" : "computer";
   const latency = deviceLatency !== null ? Math.round(deviceLatency * 10) / 10 : (before && before.trig && before.lat ? +before.lat : "");
   pending = { before, protocol: timeline.protocol, startedAt: Date.now(), tier: firstTier ? firstTier.tier : "", voice, trigger, latency, extra: runContext(firstTier) };
   $("main").classList.add("running"); $("start").disabled = true;
-  run = { t0: performance.now(), next: 0, phase: null, scale: 0.55, from: 0.55, scaleFor: null, nodes: [], seen: "", felt: "", spoken: {} };
+  run = { tl: timeline, same: null, t0: performance.now(), next: 0, phase: null, scale: 0.55, from: 0.55, scaleFor: null, nodes: [], seen: "", felt: "", spoken: {} };
+  lock(true);
   setCue("", ""); run.raf = requestAnimationFrame(frame);
   $("stop").focus();
 }
+window.addEventListener("rsos-outlet-hold", () => { if (anchorHandle !== null) { RSOSOutlet.close(anchorHandle); anchorHandle = null; } });   // FIXES_R6 H1
+window.addEventListener("rsos-outlet-hold", () => { if (run) { $("compileMsg").className = "err"; $("compileMsg").textContent = "Stopped by the Watchdog: the session state or domain no longer allows this program."; finish(false); } });
 async function finish(completed) {
   if (!run) return;
+  RSOSOutlet.close(runHandle); runHandle = null;
   cancelAnimationFrame(run.raf);
   const stoppedAt = completed ? "" : (run.phase ? run.phase.name : "");
   const ended = runEnd(pending);
   run.nodes.forEach(n => { try { n.stop(); } catch (e) {} });
   if ("speechSynthesis" in window) speechSynthesis.cancel();
   if (navigator.vibrate) navigator.vibrate(0);
-  run = null; $("main").classList.remove("running"); $("start").disabled = !timeline;
+  run = null; lock(false); $("main").classList.remove("running"); $("start").disabled = !timeline;
   $("phase").textContent = completed ? "Complete" : "Stopped";
   $("breathLabel").textContent = ""; $("say").textContent = ""; $("glyph").style.opacity = 0;
   setCue(completed ? "Notice how you feel now." : "You stopped. That is always fine.", "");
@@ -658,20 +712,66 @@ function safetyLog(action, d) {
   log.push({ at: Date.now(), action: action.kind + (action.protocol ? " " + action.protocol : ""), decision: d.decision, reasons: d.reasons });
   store.set("rsos.contain.log", log.slice(-200));
 }
-function safetyDecide(action) {
-  const d = RSOSContain.decide(action, store.get("rsos.contain", RSOSContain.newState()), action.kind === "run" ? timeline : null, Date.now() / 1000);
-  safetyLog(action, d); return d;
+const PIN_SET = () => { try { return !!(JSON.parse(localStorage.getItem("rsos.clinical") || "{}") || {}).pin_hash; } catch (e) { return false; } };   // FIXES_R2 R2-1
+const NOPIN = "The screening question appears once the responsible clinician has set a clinician PIN on the Safety page; until then clinician-led work stays held.";
+const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};   // FIXES_R1 W-2, P-2
+const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());
+// What the run carries (FIXES_R1 W-4, S-4b): a clinician-led plan's observer node is clinician-led memory work; a program
+// whose text differs from its built-in file is "edited" and never counts as a regulating program, whatever its name.
+// Level from where a program came from (FIXES_R4 §2) and from its compiled content wherever it goes (FIXES_R5 §2,
+// js/lineage.js): the slot's origin and a cue loaded into it keep their level however the text is edited, and a run that
+// carries an origin's distinctive content, or is mostly the same as it, inherits that origin's level.
+let loadOrigin = null;   // {cue: id} when a programmed cue was loaded into the editor
+const unite = (f, g) => RSOSLineage.unite(f, g);
+const planFlags = (plan, i) => RSOSLineage.planFlags(plan, i);
+function cueFlags(id) { const c = (store.get("rsos.cues", []) || []).find(x => String(x.id) === String(id)); return c ? RSOSWatchdog.levelOfProgram(RSOSConsent.cueProgram(c), { cues: [c] }) : {}; }
+function originFlags(p) {
+  const f = {}, plan = store.get("rsos.plan", null);
+  if (p.startsWith("plan:")) unite(f, planFlags(plan, +p.slice(5)));
+  if (p.startsWith("thera:")) { const it = (store.get("rsos.thera.programs", []) || []).find(x => "thera:" + x.key === p); if (it && it.level === "clinician_led") f.therapist_led = true; if (it && it.memory) f.memory_work = true; }
+  unite(f, RSOSWatchdog.levelOfProgram(sources[p] || "", { cues: store.get("rsos.cues", []) }));
+  if (loadOrigin && loadOrigin.cue) unite(f, cueFlags(loadOrigin.cue));
+  return f;
+}
+function runFlags() {
+  const p = $("program").value, f = unite({}, originFlags(p)), src = effectiveSource();   // the source the run compiles, futures included (R5-6)
+  if (timeline && (sources[p] !== $("source").value || (PROTOCOLS.includes(p) && timeline.protocol !== p))) f.edited = true;
+  unite(f, RSOSLineage.flags(src, { edited: !!f.edited }));
+  // Level and words from the program's own content (FIXES_R3 §2): clinician tiers, programmed cues, markers, edited observer text.
+  const lv = RSOSWatchdog.levelOfProgram(src, { cues: store.get("rsos.cues", []), edited: !!f.edited });
+  if (lv.therapist_led) f.therapist_led = true;
+  if (lv.memory_work) f.memory_work = true;
+  const said = RSOSLineage.texts(RSOSLineage.compile(src));   // the compiled words too: escapes resolved (FIXES_R5 §3)
+  if (lv.text || said) f.text = (lv.text + " " + said).trim();
+  return f;
+}
+const clinLedRun = () => !!timeline && RSOSWatchdog.level(Object.assign({ kind: "run", protocol: timeline.protocol }, runFlags())) === "clinician_led";
+function updateClinRun() { $("clinRun").hidden = !(clinLedRun() && DOMAIN().max_level === "clinician_led"); $("clinRunQ").textContent = PIN_SET() ? RSOSConsent.SCREENING_QUESTION : NOPIN;
+  document.querySelector('input[name="clinRunScreen"]').closest(".row").style.display = PIN_SET() ? "" : "none"; }
+const planProtocols = () => { const pl = store.get("rsos.plan", null); return pl && pl.nodes ? pl.nodes.map((n, i) => "plan:" + i).concat([$("program").value, timeline ? timeline.protocol : ""]) : null; };   // FIXES_R1 W-6
+// The Watchdog (spec/WATCHDOG.md) decides; CONTAIN is asked inside it. "ask" proceeds here because the person confirms
+// by pressing start or by accepting the offer; "hold" never proceeds.
+function safetyDecide(action, extra) {
+  const led = action.kind === "run" && clinLedRun(), scr = (document.querySelector('input[name="clinRunScreen"]:checked') || {}).value;
+  const a = Object.assign({ source: "person" }, action.kind === "run" ? runFlags() : {}, action);
+  const x = Object.assign({ timeline: action.kind === "run" ? timeline : null, clinician_present: led && $("clinRunHere").checked,
+    screening_recorded: led && CLINV && scr === "no" }, DOMAIN(), extra || {});
+  const r = RSOSGuard.ask(a, x);
+  return { decision: RSOSGuard.ok(r) ? "allow" : "block", reasons: r.reasons.map(t => t.text), watchdog: r, action: a, extra: x };
 }
 function safetyReview() {
   const [st, changes] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), records, store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
   store.set("rsos.contain", st);
+  RSOSGuard.link();   // while practice is paused, the session state is at least Stabilisation (spec/WATCHDOG.md §3)
   for (const c of changes) safetyLog({ kind: c.kind, protocol: c.protocol }, { decision: c.kind, reasons: [c.text] });
   drawSafety(changes);
 }
 function drawSafety(changes) {
   const st = store.get("rsos.contain", RSOSContain.newState()), paused = Object.keys(st.quarantine);
   let t = "All clear.";
-  if (st.escalation.active) t = "Device offers are paused: " + st.escalation.reasons.join("; ") + ". Please talk with your therapist. If you are at risk of harm, contact local emergency services or a crisis line now.";
+  const sm = store.get("rsos.safety", null);
+  if (sm && sm.mode !== "NORMAL") t = RSOSSafety.MODE_TEXT[sm.mode] + " Details on the safety page.";
+  else if (st.escalation.active) t = "Device offers are paused: " + st.escalation.reasons.join("; ") + ". Review it with your practitioner.";
   else if (paused.length) t = "Paused: " + paused.join(", ") + ". See the safety page for why and how to restore.";
   $("safetyStatus").textContent = t;
   if (changes && changes.some(c => c.kind === "quarantine")) $("logSummary").textContent += " CONTAIN paused " + changes.filter(c => c.kind === "quarantine").map(c => c.protocol).join(", ") + ": " + changes.filter(c => c.kind === "quarantine").map(c => c.text).join("; ") + ".";
@@ -681,7 +781,7 @@ $("reportSave").addEventListener("click", () => {
   const adv = store.get("rsos.adverse", []), last = records[records.length - 1];
   adv.push({ ts: Date.now(), severity: $("advSev").value, related: $("advRel").value, resolved: false, text: $("advText").value.trim(), protocol: last ? last.protocol : "" });
   store.set("rsos.adverse", adv); $("reportBox").hidden = true; $("advText").value = ""; safetyReview();
-  if ($("advSev").value === "serious") $("safetyStatus").textContent += " If you are at risk of harm, contact local emergency services or a crisis line now.";
+  if ($("advSev").value === "serious") $("safetyStatus").textContent += " Recorded; your practitioner can review it on the safety page.";
 });
 let srbaiLog = store.get("rsos.srbai", []);
 const SRBAI_ITEMS = ["I do it automatically.", "I do it without having to consciously remember.", "I do it without thinking.", "I start doing it before I realize I'm doing it."];
@@ -784,7 +884,7 @@ $("weeklyBtn").addEventListener("click", askWeekly);
 $("saveSnap").addEventListener("click", saveSnapshot);
 $("loadSnapBtn").addEventListener("click", () => $("loadSnap").click());
 $("loadSnap").addEventListener("change", e => { if (e.target.files[0]) loadSnapshot(e.target.files[0]); e.target.value = ""; });
-$("voice").addEventListener("change", saveSettings);
+$("voice").addEventListener("change", () => { voiceChosen = true; saveSettings(); });
 $("testVoice").addEventListener("click", () => { const t = sayTexts()[0] || "I move, I act"; const was = $("optVoice").checked; $("optVoice").checked = true; speak(t); $("optVoice").checked = was; });
 if ("speechSynthesis" in window) { loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; } else loadVoices();
 // ---------- heart-rate trigger (AUG) ----------
@@ -812,7 +912,7 @@ function onStress() {
   governor = governor || new RSOSHeart.Governor(timeline.safety, true);
   const [ok] = governor.check(Date.now());
   if (!ok) return;
-  if (safetyDecide({ kind: "offer", protocol: timeline.protocol, trigger: "device" }).decision !== "allow") return;
+  if (safetyDecide({ kind: "offer", protocol: timeline.protocol, trigger: "device" }, { plan_protocols: planProtocols() }).decision !== "allow") return;
   if (anchorOffer()) return;
   // LINX: with an approved node plan, offer the node that fits best (rsso/rsso/linx.py offer); the person starts it
   const myPlan = store.get("rsos.plan", null);
@@ -823,7 +923,8 @@ function onStress() {
     $("offerStart").textContent = "Start the " + pick.name.toLowerCase();
   } else { $("offerText").textContent = "Your heart rate suggests a stress response. Start the override?"; $("offerStart").textContent = "Start the override"; }
   $("offer").hidden = false; offerShownAt = performance.now();
-  if (navigator.vibrate && $("optVib").checked) navigator.vibrate([200, 100, 200]);
+  // The offer's vibration is device-triggered (FIXES_R4 G5): it plays only under the Watchdog's firing rules.
+  if (navigator.vibrate && $("optVib").checked && RSOSOutlet.open({ kind: "cue", protocol: "offer:vibration", trigger: "device", source: "person", auto: true, signals: ["heart_rate"] }, DOMAIN(), { seconds: 5 }).opened) navigator.vibrate([200, 100, 200]);
   $("offerStart").focus();
 }
 /* ---- The autonomy gate (rsso/rsso/gate.py, docs/js/gate.js): anchors offer or fire only at the stage they have earned ---- */
@@ -843,6 +944,16 @@ function anchorOffer() {
   });
   store.set("rsos.gate.history", hist);
   if (!best) return false;
+  // Every anchor offer asks the Watchdog (FIXES_R1 W-5, FIXES_R2 R2-3): hold means no offer at all; automatic firing
+  // needs consent and two or more distinct signals, otherwise it becomes an offer the person confirms.
+  {
+    const s = detector && detector.state, sig = [];
+    if (s && isFinite(s.hr) && isFinite(s.base_hr) && s.hr > s.base_hr) sig.push("heart_rate");
+    if (s && isFinite(s.rmssd) && isFinite(s.base_rmssd) && s.rmssd < s.base_rmssd) sig.push("hrv");
+    const wd = RSOSGuard.ask({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: best.mode === "auto", signals: sig }, DOMAIN());
+    if (wd.decision === "hold") return false;
+    if (best.mode === "auto" && wd.decision !== "allow") best.mode = "suggest";
+  }
   const au = store.get("rsos.gate.audit", []);
   RSOSGate.audit(au, t, "device", best.mode === "auto" ? "fired" : "offered", best.a.name, "allow", [], best.flag);
   store.set("rsos.gate.audit", au.slice(-300));
@@ -860,12 +971,17 @@ function anchorOffer() {
   };
   const play = () => UGCL.feel(best.a.code, {});
   if (best.mode === "auto") {
+    if (anchorHandle !== null) RSOSOutlet.close(anchorHandle);
+    anchorHandle = RSOSOutlet.adopt({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person", auto: true }, DOMAIN(), { seconds: 30 });
     play(); txt.textContent = "Your heart rate suggests a stress response, so the device played " + best.a.glyph + " " + best.a.name + " by itself. It may, because this anchor has earned automatic use and you consented; change that on the Safety page.";
     box.hidden = false; setTimeout(feedback, 4000);
   } else {
     txt.textContent = "Your heart rate suggests a stress response. Play " + best.a.glyph + " " + best.a.name + "?";
     const go = document.createElement("button"); go.className = "btn go"; go.type = "button"; go.textContent = "Play it";
-    go.addEventListener("click", () => { play(); setTimeout(feedback, 3000); });
+    go.addEventListener("click", () => {   // the person confirms; the gate asks again now (FIXES_R3 §1)
+      const r = RSOSOutlet.open({ kind: "cue", protocol: "anchor:" + best.a.id, trigger: "device", source: "person" }, DOMAIN(), { confirmed: true, seconds: 30 });
+      if (!r.opened) { txt.textContent = "Held by the Watchdog: " + RSOSGuard.say(r); acts.innerHTML = ""; return; }
+      play(); setTimeout(feedback, 3000); });
     const no = document.createElement("button"); no.className = "btn quiet"; no.type = "button"; no.textContent = "Not needed";
     no.addEventListener("click", () => { const offs = store.get("rsos.gate.offers", []); RSOSGate.recordOffer(offs, best.a.id, Date.now() / 1000, "not_needed", "suggest", false); store.set("rsos.gate.offers", offs.slice(-500)); box.hidden = true; });
     const later = document.createElement("button"); later.className = "btn quiet"; later.type = "button"; later.textContent = "Not now";
@@ -1033,7 +1149,7 @@ function drawCues() {
     const acts = document.createElement("div"); acts.className = "actions";
     if (cueStatus(c) === "active") {
       const load = document.createElement("button"); load.className = "btn quiet"; load.type = "button"; load.textContent = "Load into the player";
-      load.addEventListener("click", () => { $("source").value = RSOSConsent.cueProgram(c, +$("inhale").value || 4, +$("exhale").value || 6); $("futuresBox").hidden = true; $("tierNote").hidden = true; recompile(); $("start").focus(); });
+      load.addEventListener("click", () => { loadOrigin = { cue: c.id }; $("source").value = RSOSConsent.cueProgram(c, +$("inhale").value || 4, +$("exhale").value || 6); $("futuresBox").hidden = true; $("tierNote").hidden = true; recompile(); $("start").focus(); });
       const rv = document.createElement("button"); rv.className = "btn quiet"; rv.type = "button"; rv.textContent = "Revoke";
       rv.addEventListener("click", () => { const all = store.get("rsos.cues", []); const x = all.find(y => y.id === c.id); if (x) x.revoked_ms = Date.now(); store.set("rsos.cues", all); drawCues(); });
       acts.append(load, rv);
@@ -1049,7 +1165,8 @@ function cueTierChanged() {
   if (led) { $("cueAuthor").value = "therapist"; }
 }
 $("cueTier").addEventListener("change", cueTierChanged);
-$("cueScreenQ").textContent = RSOSConsent.SCREENING_QUESTION;
+$("cueScreenQ").textContent = PIN_SET() ? RSOSConsent.SCREENING_QUESTION : NOPIN;
+document.querySelector('input[name="cueScreen"]').closest(".row").style.display = PIN_SET() ? "" : "none";
 $("cueSave").addEventListener("click", () => {
   const msg = $("cueMsg"); msg.textContent = "";
   const content = $("cueText").value.trim();
@@ -1057,10 +1174,16 @@ $("cueSave").addEventListener("click", () => {
   if (!$("cueConsent").checked) { msg.textContent = "A cue is saved only with your consent: tick the box once you have read it."; return; }
   const tid = $("cueTier").value, t = consentedTiers[tid], tier = t ? t.number : "";
   const screen = (document.querySelector('input[name="cueScreen"]:checked') || {}).value;
+  // Programmed cues ask the Watchdog (FIXES_R1 W-6, S-2): clinician-led tiers need the clinician rule and a domain that allows them.
+  const led = !!t && t.mode === "therapist-led";
+  if (led && CLINV && !PIN_SET()) { msg.textContent = NOPIN; return; }
+  const wd = RSOSGuard.ask({ kind: "cue", protocol: "cue:" + (tier || "none"), programmed: true, therapist_led: led, source: $("cueAuthor").value === "therapist" ? "practitioner" : "person" },
+    Object.assign({ clinician_present: led && $("cueTherapist").checked, screening_recorded: led && CLINV && screen === "no" }, DOMAIN()));
+  if (led && CLINV && screen === "yes") { /* recorded below */ } else if (!RSOSGuard.ok(wd)) { msg.textContent = "Held by the Watchdog: " + RSOSGuard.say(wd); return; }
   if (t && t.mode === "therapist-led") {
     if (!$("cueTherapist").checked) { msg.textContent = "This tier is therapist-led: save it during a session with your therapist present."; return; }
-    if (screen === "yes") { msg.textContent = "Please do not run this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist."; return; }
-    if (screen !== "no") { msg.textContent = "Answer the screening question first."; return; }
+    if (screen === "yes") { { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: "yes", q: 2 }); store.set("rsos.screens", sc.slice(-50)); } const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); msg.textContent = "Recorded: this session continues under the clinician-led protocol; the clinician resumes practice."; return; }
+    if (screen !== "no") { msg.textContent = "Record the clinical screening result first."; return; }
   }
   const until = $("cueUntil").value ? new Date($("cueUntil").value + "T23:59:59").getTime() : null;
   const c = { id: "c" + Date.now().toString(36), content, person: "me", author: $("cueAuthor").value, tier, created_ms: Date.now(), expires_ms: until,
@@ -1081,5 +1204,6 @@ fetch("data/tier_map.json?v=" + BUILD).then(r => r.json()).then(m => {
 }).catch(() => {});
 drawCues();
 </script>
+<footer><span class="mdline">Research and development framework; not a medical device.</span></footer>
 </body>
 </html>

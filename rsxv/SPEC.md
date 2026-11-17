@@ -21,7 +21,7 @@ RSX-V extends the RSX vector command of 4 August 2025 (9–17 concurrent vectors
 ```
 program  := header line* 
 header   := "RSX-V TIER" n [":: {" ARCHETYPE "}"] [":: (" MODE ")"]
-line     := INTENT | GOAL | SENSE | LAWS | RESCUE | WINDOW | vector | block
+line     := INTENT | GOAL | SENSE | LAWS | RESCUE | WINDOW | LEVEL | MEMORY | vector | block
 INTENT   := 'INTENT "' text '"' ["<-" Vn+]
 GOAL     := "GOAL" cond
 SENSE    := "SENSE" (EEG | HRV | DISTRESS | POSTURE)+
@@ -29,6 +29,8 @@ LAWS     := "LAWS" (InteractionMatrix | ChronoGate | GhostPass | ConsentStack
                     | MultiSessionContinuity | TemporalSymmetry | Contingency | ResonanceAudit)+
 RESCUE   := "RESCUE" ("{SHIELD}" | "{ANCHOR_MAX}" | "{MIRROR_RESET}")+
 WINDOW   := "WINDOW" hh:mm-hh:mm
+LEVEL    := "LEVEL" (self_guided | structured | clinician_led)
+MEMORY   := "MEMORY" (yes | no)
 block    := "GATE" | "CLOSE" | "PHASE" name ["IF" cond] ["UNTIL" cond] ["MAX" n "s"]
 vector   := "@Vector" k ":" Operator ["(" args ")"] ["-> NEXT"]
 cond     := term (("AND" | "OR") term)*        AND binds tighter than OR
@@ -37,6 +39,12 @@ var      := arousal | distress | agency | drift | hrv | alpha
 ```
 
 A value written with a sign (`+5`, `-1`) is a change from the person's baseline. A plain value is an absolute level.
+
+`LEVEL` and `MEMORY` (spec/RSXV_LEVELS.md) declare the command's guidance level and whether it involves difficult-memory
+work. The effective level is the higher of the declaration and the content (clinician tiers of the ledger, including the
+command's own TIER number). The bridge writes it into the RSX program as the markers the person side reads, NEXT never
+lowers it, and `run()` asks the RSIA Watchdog first, with the domain's highest level, the session state and the shared
+Spine wording check.
 
 ## 3. Rules the compiler enforces
 

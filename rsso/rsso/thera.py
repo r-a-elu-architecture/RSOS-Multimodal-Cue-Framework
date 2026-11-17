@@ -27,8 +27,8 @@ OPEN = [
      "do": "Agree what today's session is for. Confirm consent for every node and cue you will use."},
 ]
 SCREEN = {"id": "screen", "title": "Screening", "op": "EthicsContain", "minutes": 1, "required": True, "measure": ["screen"],
-          "say": "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?",
-          "do": "If the answer is yes, stop the session work and follow your crisis procedure."}
+          "say": "Did today's clinical screening (the practitioner's validated instrument) indicate elevated risk?",
+          "do": "If the answer is yes, stop the session work and continue under your clinical protocol."}
 BREATH = {"id": "breath", "title": "Paced breathing", "op": "BreathOverride", "minutes": 3, "required": True, "measure": ["sud"],
           "run": "program:paced_breathing",
           "say": "Breathe with the light: in for four, out for six. Let the exhale be longer.",
@@ -182,7 +182,7 @@ def check(session: dict) -> list[dict]:
     """Stop rules, newest situation first: {level: stop | return | ok, text}."""
     out = []
     if any(e.get("screen") == "yes" for e in session["events"]):
-        out.append({"level": "stop", "text": "The screening answer was yes: stop the session work, follow your crisis procedure, and do not start device practice."})
+        out.append({"level": "stop", "text": "The screening answer was yes: stop the session work, continue under your clinical protocol, and do not start device practice."})
     series = _sud_series(session)
     if series and series[-1][1] >= session["stop_sud"]:
         out.append({"level": "return", "text": f"Distress is {_nt(series[-1][1])}, at or above this session's ceiling of {session['stop_sud']}: stop the current step, return to paced breathing and grounding, and continue only when it is below {session['stop_sud'] - 2}."})

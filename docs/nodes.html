@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Node studio — RSOS</title>
@@ -117,10 +120,10 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 </head>
-<body>
+<body data-outlet-kind="run" data-outlet-protocol="nodes:preview">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html" aria-current="page">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html" aria-current="page">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <section class="hero">
@@ -145,8 +148,9 @@ header.top nav a{font-size:.88rem}
         <h2><span class="n">1</span>What is happening</h2>
         <p class="ask">What do you, or the person you work with, want to change? Choose what applies and describe it in your own words.</p>
         <div class="chips" id="concerns"></div>
+        <div class="chips" data-show="clinical"><label><input type="checkbox" id="dxDep"> <span>Depression (diagnosed or under treatment): clinician-led</span></label></div>
         <label for="symptoms">Symptoms and what they feel like</label>
-        <textarea id="symptoms" placeholder="For example: tension in the chest, racing thoughts at night, flashbacks when voices are raised"></textarea>
+        <textarea id="symptoms" placeholder="For example: tension in the chest, racing thoughts at night, freezing when voices are raised"></textarea>
         <label for="triggers">Triggers, one per line</label>
         <textarea id="triggers" placeholder="Raised voices&#10;Opening social media instead of working"></textarea>
         <div class="two">
@@ -187,8 +191,8 @@ header.top nav a{font-size:.88rem}
         <p class="ask">Read every node on the right. A plan runs only with the consent of the person it is for.</p>
         <div id="ledBox" hidden>
           <label class="check"><input type="checkbox" id="therapistHere"> A therapist is present for this session</label>
-          <p class="hint" id="screenQ"></p>
-          <div class="chips"><label><input type="radio" name="screen" value="no"> No</label><label><input type="radio" name="screen" value="yes"> Yes</label></div>
+          <div data-show="clinical"><p class="hint" id="screenQ"></p>
+          <div class="chips"><label><input type="radio" name="screen" value="no"> No</label><label><input type="radio" name="screen" value="yes"> Yes</label></div></div>
         </div>
         <label class="check"><input type="checkbox" id="consent"> I have read every node, frame and cue in this plan, and I agree that it runs for me</label>
         <div>
@@ -215,17 +219,23 @@ header.top nav a{font-size:.88rem}
     </aside>
   </div>
 </main>
-<footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it does not diagnose.</footer>
-<script src="js/ugcl.js?v=1.13.0"></script>
-<script src="js/nodes.js?v=1.13.0"></script>
-<script src="js/linx.js?v=1.13.0"></script>
-<script src="js/contain.js?v=1.13.0"></script>
+<footer>The planner is <code>rsso/rsso/nodes.py</code>, mirrored in <code>docs/js/nodes.js</code> (identical results, tested). Each node becomes an RSX program with the node's frames, mode and vibration code (spec/NODES.md). Nothing you enter leaves this browser unless you copy or download it. The plan is a proposal for you and your therapist to approve; it is not an assessment. <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<script src="js/ugcl.js?v=1.21.0"></script>
+<script src="js/nodes.js?v=1.16.0"></script>
+<script src="js/foldtable.js?v=1.21.0"></script>
+<script src="js/safety.js?v=1.21.0"></script>
+<script src="js/linx.js?v=1.16.0"></script>
+<script src="js/contain.js?v=1.16.0"></script>
+<script src="js/watchdog.js?v=1.21.0"></script>
+<script src="js/guard.js?v=1.19.0"></script>
 <script src="js/cm1.js?v=1.14.0"></script>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);
 const N = RSOSNodes;
-const SCREEN = "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?";
+const PIN_SET = () => { try { return !!(JSON.parse(localStorage.getItem("rsos.clinical") || "{}") || {}).pin_hash; } catch (e) { return false; } };   // FIXES_R2 R2-1
+const NOPIN = "The screening question appears once the responsible clinician has set a clinician PIN on the Safety page; until then clinician-led work stays held.";
+const SCREEN = "Did today's clinical screening (the practitioner's validated instrument) indicate elevated risk?";
 const DEVICES = [["V", "Screen or VR"], ["A", "Earbuds"], ["K", "Vibrating wristband"], ["O", "Scent module"], ["G", "Taste cue"], ["hr", "Heart-rate strap or watch"], ["eeg", "EEG headset"]];
 const CH = [["V", "Visual", "What you see: the sphere, its colour, the image"], ["A", "Auditory", "The sound, melody or song"], ["K", "Kinesthetic", "The feeling and posture"],
   ["O", "Olfactory", "The scent"], ["G", "Gustatory", "The taste"]];
@@ -239,7 +249,8 @@ function svgEl(tag, attrs) { const e = document.createElementNS(ns, tag); for (c
    around it (filled when the node has a cue on that sense), its vibration code below. */
 function nodeSphere(svg, n, size) {
   svg.innerHTML = ""; const W = 260, cx = 130, cy = 116, obs = n.mode === "observer";
-  svg.setAttribute("viewBox", "0 0 " + W + " " + W);
+  // The top channel circle reaches y = -2 (cy 116, R 104, r 14): the view starts at -16 so nothing is cut off.
+  svg.setAttribute("viewBox", "0 -16 " + W + " " + (W + 16));
   const id = "g" + (counter++);
   const defs = svgEl("defs", {});
   defs.innerHTML = '<radialGradient id="' + id + '"><stop offset="0" stop-color="#fff6dc"/><stop offset=".32" stop-color="#f7d995"/><stop offset=".62" stop-color="#e8b04a" stop-opacity=".85"/><stop offset="1" stop-color="#e8b04a" stop-opacity="0"/></radialGradient>';
@@ -332,7 +343,7 @@ let current = null;
 function update() {
   const it = intake(), p = N.plan(it); current = { intake: it, plan: p };
   const box = $("pNodes"), rest = $("pRest"); box.innerHTML = ""; rest.innerHTML = "";
-  $("ledBox").hidden = !(p.therapist_led || it.concerns.includes("ptsd") || it.concerns.includes("depression"));
+  $("ledBox").hidden = !(p.therapist_led || it.concerns.includes("ptsd") || it.concerns.includes("depression") || ($("dxDep") && $("dxDep").checked));
   if (!p.nodes.length) { $("pSummary").textContent = "Add a node to begin: choose a symbol on the left."; return; }
   $("pSummary").textContent = p.nodes.length + (p.nodes.length === 1 ? " node" : " nodes") + (p.concerns.length ? " for " + p.concerns.join(", ").toLowerCase() : "") + ".";
   if (CM1DATA) {   // CM1: where people with practice like yours start best (docs/js/cm1.js)
@@ -394,22 +405,34 @@ $("download").addEventListener("click", () => {
   const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(current, null, 2)], { type: "application/json" }));
   a.download = "rsos-node-plan.json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 });
+const DOMAIN = () => window.RSOSProfiles ? { max_level: RSOSProfiles.maxLevel(RSOSProfiles.current(), RSOSProfiles.clinicalOn()), memory_work_allowed: RSOSProfiles.get(RSOSProfiles.current()).memory_work } : {};   // FIXES_R1 W-2, P-2
+const CLINV = !window.RSOSProfiles || RSOSProfiles.clinicalVocab(RSOSProfiles.current(), RSOSProfiles.clinicalOn());   // clinical vocabulary (FIXES_R1 S-2)
 $("save").addEventListener("click", () => {
   if (!current || !current.plan.nodes.length) return say("Add a node first.");
-  const p = current.plan;
-  if (!$("ledBox").hidden) {
+  // Diagnosed depression is clinician-led work (spec/LOW_MOOD.md); only with the clinical vocabulary.
+  const dx = CLINV && $("dxDep").checked;
+  const p = dx ? Object.assign({}, current.plan, { therapist_led: true, dx: ["depression"] }) : current.plan;
+  if (dx && !(current.intake.concerns || []).includes("depression")) current.intake.concerns = (current.intake.concerns || []).concat(["depression"]);
+  if (!$("ledBox").hidden && CLINV && !PIN_SET()) return say(NOPIN);
+  if (!$("ledBox").hidden && CLINV) {   // the screening question exists only with the clinical vocabulary (FIXES_R1 S-2)
     const screen = (document.querySelector('input[name="screen"]:checked') || {}).value;
-    if (screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: screen }); store.set("rsos.screens", sc.slice(-50)); }
-    if (screen === "yes") return say("Please do not start this now. If you are at risk of harm, contact local emergency services or a crisis line now, and talk with your therapist.");
-    if (screen !== "no") return say("Answer the screening question first.");
-    if (p.therapist_led && !$("therapistHere").checked) return say("Observer work with trauma memories is therapist-led: save this plan in a session with your therapist present.");
+    if (screen) { const sc = store.get("rsos.screens", []); sc.push({ ts: Date.now(), answer: screen, q: 2 }); store.set("rsos.screens", sc.slice(-50)); }
+    if (screen === "yes") { const _sf = store.get("rsos.safety", RSOSSafety.newState()); store.set("rsos.safety", RSOSSafety.observe(_sf, RSOSSafety.eventFromCheck({ clinical_result: "high" }), Date.now() / 1000)[0]); }
+    if (screen === "yes") return say("Recorded: this session continues under the clinician-led protocol; the clinician resumes practice.");
+    if (screen !== "no") return say("Record the clinical screening result first.");
+    if (p.therapist_led && !$("therapistHere").checked) return say(dx ? "Work with diagnosed depression is clinician-led: save this plan in a session with the clinician present." : "Observer work with trauma memories is therapist-led: save this plan in a session with your therapist present.");
   }
+  const sflags = RSOSSafety.spineFlags(JSON.stringify(p.nodes));
+  if (sflags.length) return say("Spine: " + sflags.map(x => x.text).join("; ") + ". Change the wording of the node and save again.");
   if (!$("consent").checked) return say("A plan is saved only with consent: tick the box once you have read every node.");
   // CONTAIN: while practice is paused, a new plan needs a therapist present (rsso/rsso/contain.py decide)
   const [cst] = RSOSContain.review(store.get("rsos.contain", RSOSContain.newState()), store.get("rsos.runs", []), store.get("rsos.adverse", []), store.get("rsos.screens", []), Date.now() / 1000);
-  const verdict = RSOSContain.decide({ kind: "plan", therapist_led: p.therapist_led, therapist_present: $("therapistHere").checked }, cst, null, Date.now() / 1000);
-  const clog = store.get("rsos.contain.log", []); clog.push({ at: Date.now(), action: "plan approval", decision: verdict.decision, reasons: verdict.reasons }); store.set("rsos.contain.log", clog.slice(-200));
-  if (verdict.decision !== "allow") return say("CONTAIN held this plan: " + verdict.reasons.join("; ") + ". See the safety page.");
+  // The Watchdog (spec/WATCHDOG.md): CONTAIN, the session state, the domain's highest guidance level and the clinician rule
+  const memory = (current.intake.concerns || []).includes("ptsd") || (!!p.therapist_led && !dx);   // difficult-memory work (FIXES_R1 P-2; FIXES_R4 LM1)
+  const verdict = RSOSGuard.ask({ kind: "plan", protocol: "plan", therapist_led: p.therapist_led, memory_work: memory, source: $("author").value === "therapist" ? "practitioner" : "person" },
+    Object.assign({ contain: cst, clinician_present: $("therapistHere").checked,
+      screening_recorded: CLINV && !$("ledBox").hidden && (document.querySelector('input[name="screen"]:checked') || {}).value === "no" }, DOMAIN()));
+  if (!RSOSGuard.ok(verdict)) return say("Held by the Watchdog: " + RSOSGuard.say(verdict) + " See the safety page.");
   const approvedPlan = Object.assign({}, p, { approved: true, approved_at: new Date().toISOString(), intake: current.intake });
   store.set("rsos.plan", approvedPlan);
   const hist = store.get("rsos.plan.history", []); hist.push(approvedPlan); store.set("rsos.plan.history", hist.slice(-6));
@@ -471,13 +494,14 @@ $("aiApply").addEventListener("click", () => {
 });
 
 // build the form
-for (const [k, v] of Object.entries(N.CONCERNS)) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = k; l.append(i, v); $("concerns").appendChild(l); }
+for (const [k, v] of Object.entries(N.CONCERNS)) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.value = k; l.append(i, v); if (k === "ptsd") l.setAttribute("data-memory-work", ""); $("concerns").appendChild(l); }
 for (const [k, v] of DEVICES) { const l = el("label"); const i = el("input"); i.type = "checkbox"; i.id = "dev-" + k; i.checked = ["V", "A", "K"].includes(k); l.append(i, v); $("devices").appendChild(l); }
 for (const k of [...Object.keys(N.ARCHETYPES), ""]) {
   const b = el("button", "pick", k ? (N.ARCHETYPES[k].glyph ? N.ARCHETYPES[k].glyph + " " : "") + k.charAt(0) + k.slice(1).toLowerCase() + (k === "OBSERVER" ? " (no ego)" : "") : "Your own node");
   b.type = "button"; b.addEventListener("click", () => { const c = nodeCard(k); c.scrollIntoView({ behavior: "smooth", block: "start" }); }); $("picks").appendChild(b);
 }
-$("screenQ").textContent = SCREEN;
+$("screenQ").textContent = PIN_SET() ? SCREEN : NOPIN;
+document.querySelector('input[name="screen"]').closest(".chips").style.display = PIN_SET() ? "" : "none";
 $("intake").addEventListener("input", update);
 fetch("ugcl/originals.json?v=1.13.0").then(r => r.json()).then(d => UGCL.prepare(d.glyphs).then(() => { ORIG = d.glyphs; })).catch(() => {}).finally(() => {
   const saved = store.get("rsos.plan", null);
@@ -490,6 +514,7 @@ fetch("ugcl/originals.json?v=1.13.0").then(r => r.json()).then(d => UGCL.prepare
   bubble("linx", "Tell me what is happening and the state you want, in your own words. I will ask about anything that is missing.");
   const hero = N.plan({ nodes: [{ archetype: "LION", O: "Cedar", G: "Mint" }] }).nodes[0]; nodeSphere($("heroNode"), hero);
   $("heroNode").style.cursor = "pointer"; $("heroNode").addEventListener("click", () => feel(hero.tacton, $("heroNode")));
+  $("dxDep").addEventListener("change", update);   // spec/LOW_MOOD.md
   update();
 });
 </script>

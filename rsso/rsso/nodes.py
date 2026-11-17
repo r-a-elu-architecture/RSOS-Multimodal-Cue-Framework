@@ -238,9 +238,9 @@ def plan(intake: dict) -> dict:
     safety = ["Every node runs with the person's consent; the person can stop any run at once."]
     therapist_led = "ptsd" in concerns and any(n["mode"] == "observer" for n in nodes)
     if therapist_led:
-        safety.append("Observer work with trauma memories is therapist-led: a therapist is present and the screening question is answered before the session.")
+        safety.append("Observer work with difficult memories is clinician-led: the clinician is present and the screening result is recorded before the session.")
     if set(concerns) & {"ptsd", "depression"}:
-        safety.append("Ask the screening question before the first session: " + "Right now, are you in crisis, or having thoughts of harming yourself or not wanting to live?")
+        safety.append("Record the clinical screening result before the first session (the practitioner's validated instrument).")
     if any(n["channels"]["O"] for n in nodes) or any(n["channels"]["G"] for n in nodes):
         safety.append("Confirm there is no allergy to the scent or taste before it is used.")
     if per_day > 20:

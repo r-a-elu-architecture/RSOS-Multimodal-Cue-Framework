@@ -21,6 +21,7 @@ import math
 import sys
 
 from . import metrics as _metrics
+from . import trial as _trial
 from .memstack import _canonical
 
 SCHEMA = "rsos-contribution/1"
@@ -39,10 +40,11 @@ SCOPES = {
     "health": "Health information: what the plan is for, self-reported conditions, diagnosis categories",
     "clinical": "Clinician sessions and ratings",
     "lab": "Lab, device and recording descriptions (EEG, BCI, heart rate)",
+    "trials": "Your personal trials: design, the arm of each session, ratings before and after, background factors, and the result",
 }
 REQUIRED = {"runs"}
 KNOWN_PROTOCOLS = ("override", "interrupt_only", "swish", "legacy_tier8", "paced_breathing", "tier003_command_stack",
-                   "tier012_breath_anchor", "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph",
+                   "tier012_breath_anchor", "tier013_lion_dragon", "tier014_seal", "tier016_stillness", "tier406_release", "tier579_glyph", "ssit_higher", "ssit_local", "ssit_calm",
                    "node_lion", "node_observer")
 RUN_CORE = ("program_kind", "program_hash", "trigger", "trigger_channel", "sud_before", "sud_after", "agency_before",
             "agency_after", "latency_s", "completed", "stopped_at_phase", "tier", "voice", "outputs", "inhale_s",
@@ -121,6 +123,31 @@ def _runs(raw: list[dict], scopes: set, t0):
         if "agency_before" in x and "agency_after" in x:
             x["agency_change"] = num(x["agency_after"] - x["agency_before"])
         out.append(x)
+    return out
+
+
+def _trials(items, t0):
+    """Personal trials (spec/TRIAL_LOOP.md §4): no anchor names, codes or text; ratings outside 0-10 dropped."""
+    out = []
+    for t in items or []:
+        d = _trial.DESIGNS.get((t or {}).get("design"))
+        if not d:
+            continue
+        ses = []
+        for x in t.get("sessions") or []:
+            b, a = num(x.get("before")), num(x.get("after"))
+            if b is None or a is None or not (0 <= b <= 10 and 0 <= a <= 10) or x.get("arm") not in d["arms"]:
+                continue
+            y = {"day": _day(x.get("ts"), t0), "arm": x["arm"], "before": b, "after": a, "change": num(math.floor((a - b) * 10 + 0.5) / 10)}
+            cov = x.get("cov") or {}
+            for k in ("hour", "sleep_h", "caffeine", "exercise"):
+                if num(cov.get(k)) is not None:
+                    y[k] = num(cov.get(k))
+            ses.append(y)
+        an = _trial.analyze(t)
+        out.append({"design": t["design"], "arms": list(d["arms"]), "reference": d["reference"], "blocks": num(t.get("blocks")),
+                    "planned": len(t.get("schedule") or []), "sessions": ses,
+                    "result": [{k: c.get(k) for k in ("arm", "against", "diff", "lo", "hi", "p", "verdict")} for c in an["contrasts"]]})
     return out
 
 
@@ -319,6 +346,8 @@ def build(inp: dict) -> dict:
                                for x in inp.get("recognition") or []]
     if "outcomes" in scopes:
         body["outcomes"] = _outcomes(inp.get("outcomes"), t0, texts)
+    if "trials" in scopes:
+        body["trials"] = _trials(inp.get("trials"), t0)
     if "safety" in scopes:
         body["safety"] = {"adverse": _adverse(inp.get("adverse"), t0, texts), "stopped_runs": sum(1 for r in runs if r.get("completed") == 0),
                           "runs": len(runs)}

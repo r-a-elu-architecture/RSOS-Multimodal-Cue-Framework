@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script src="js/devmode.js"></script>
+<script src="js/profiles.js?v=1.19.0"></script>
+<script src="js/outlet.js?v=1.21.0"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tier ledger — RSOS</title>
@@ -90,7 +93,7 @@ header.top nav a{font-size:.88rem}
 <body>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html" aria-current="page">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html" aria-current="page">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 <main>
   <h1>Every tier, as it was recorded</h1>
@@ -109,7 +112,7 @@ header.top nav a{font-size:.88rem}
     <section class="detail" id="detail" aria-live="polite"><p class="empty">Loading the ledger…</p></section>
   </div>
 </main>
-<footer>Source: the RSOS tier ledger in the archive, unchanged (<span id="src"></span>). Parsed by <code>rsso/rsso/ledger.py</code>; joining the parsed records gives back the file byte for byte. Placement in the architecture: <code>rsso/rsso/ledger_map.py</code>, written by hand for the tiers marked “hand”, by keyword rules for the rest. Data: <a href="data/ledger.json">ledger.json</a>, <a href="data/tier_map.json">tier_map.json</a>.</footer>
+<footer>Source: the RSOS tier ledger in the archive, unchanged (<span id="src"></span>). Parsed by <code>rsso/rsso/ledger.py</code>; joining the parsed records gives back the file byte for byte. Placement in the architecture: <code>rsso/rsso/ledger_map.py</code>, written by hand for the tiers marked “hand”, by keyword rules for the rest. Data: <a href="data/ledger.json">ledger.json</a>, <a href="data/tier_map.json">tier_map.json</a>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 <script>
 "use strict";
 const $ = id => document.getElementById(id);

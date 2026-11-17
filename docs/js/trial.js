@@ -83,13 +83,32 @@
   function newTrial(design, blocks, seed, id, created) {
     return { schema: "rsos-trial/1", id: id || "t1", design, blocks, seed, created: created || 0, schedule: schedule(design, blocks, seed), sessions: [] };
   }
-  function record(trial, before, after, cov, ts) {
+  function record(trial, before, after, cov, ts, detail) {
     const i = trial.sessions.length;
     if (i >= trial.schedule.length) return null;
     const s = { i, arm: trial.schedule[i], ts: ts || 0, before: r1(Number(before)), after: r1(Number(after)), cov: {} };
     COVARIATES.forEach(k => { const x = num((cov || {})[k]); if (x !== null) s.cov[k] = x; });
+    const d = {}; ["code_kind", "code"].forEach(k => { const v = (detail || {})[k]; if (typeof v === "string" && v) d[k] = v; });
+    if (Object.keys(d).length) s.detail = d;
     trial.sessions.push(s);
     return s;
+  }
+
+  /* ---- the bridge to PEAK and GATE (spec/TRIAL_LOOP.md) ---- */
+  const SHAM_POOL = ["-..-", ".-.-", "--..", "-.-.", "..--"];
+  function shamCode(trial, i, anchorCode) {
+    const pool = SHAM_POOL.filter(c => c !== anchorCode);
+    const M = 4294967296, v = (Math.trunc(Number(trial.seed) || 0) + 7919 * (Math.trunc(i) + 1)) % M;
+    const rng = new Rng((v + M) % M);   // FIXES_R2 R2-8: the same non-negative seed as Python
+    rng.u();
+    return pool[Math.floor(rng.u() * pool.length)];
+  }
+  function evidence(trial, session) {
+    const d = trial.design, arm = session.arm, ts = session.ts === undefined ? 0 : session.ts;
+    const played = !!((session.detail || {}).code);   // FIXES_R2 R2-6
+    if (d === "anchor_vs_sham" && played) return { probe: { ts, kind: arm === "anchor" ? "cue" : "sham", calm_before: session.before, calm_after: session.after }, use: null };
+    if ((d === "cue_vs_none" && arm === "cue" && played) || d === "auto_vs_manual") return { probe: null, use: { ts, during_stress: true } };
+    return { probe: null, use: null };
   }
 
   function solve(A, b) {
@@ -208,6 +227,6 @@
     });
     return trial;
   };
-  const api = { DESIGNS, COVARIATES, tcrit, schedule, newTrial, record, analyze, pool, consistency, SimPerson, shuffle };
+  const api = { DESIGNS, COVARIATES, SHAM_POOL, tcrit, schedule, newTrial, record, shamCode, evidence, analyze, pool, consistency, SimPerson, shuffle };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.RSOSTrial = api;
 })(typeof self !== "undefined" ? self : this);

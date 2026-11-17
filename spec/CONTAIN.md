@@ -115,6 +115,7 @@ All CONTAIN state stays in the browser:
 - `rsos.contain.log`: the decisions;
 - `rsos.adverse`: reported events, from the player's "Something felt wrong" or the safety page;
 - `rsos.screens`: screening answers from the node studio;
+- `rsos.safety`: the safety mode in force, its last check-in and its history (§9);
 - `rsos.plan.history`: approved node plans.
 
 Reported events are included in a research contribution only with the `safety` scope
@@ -125,6 +126,105 @@ Reported events are included in a research contribution only with the `safety` s
 - Pauses learned from pooled contributions: thresholds fitted on real drift and adverse-event data.
 - Signals from EEG and heart rate during runs (a run that raises arousal instead of lowering it).
 - The envelope enforced in the firmware itself, in addition to the host.
+
+## 9. Safety modes on the person side (S1, design fixed before code, 16 November 2026)
+
+> Note (2026-11-16, spec/FIXES_R3.md R3-f): §10 replaces this section's wording, states and representation; §9's rules
+> stand where §10 does not change them.
+
+**Why.** The safety layer specified and tested in `rsxv/AGENTS.md` §3.1 (modes, screens, the past-crisis check-in
+and the §11.14 rule fix) ran only in the agent World. The player, node studio and therapist mode used one screening
+question and CONTAIN escalation. S1 makes one safety layer for both: the person-facing pages run the same rules as
+the agents, and the stricter rule always wins.
+
+**What is built (fixed now).**
+
+1. `rsso/rsso/safety.py` and `docs/js/safety.js`, identical results: `screen(event)`, the fixed responses with a
+   readable message for each screen, the mode machine as plain data (`new_state`, `observe`, `enter_stabilise`,
+   `exit`), `MODE_ALLOWED`, `category(action)`, `may_start_deep_session`, `adjusted_effect`, the structured
+   check-in (`CHECKIN` questions → `event_from_check(answers)`), and `spine_flags(text)`.
+   `rsxv/rsxv/safety.py` becomes a re-export of `rsso.safety`, and `rsxv.agents.MODE_ALLOWED` is the same object:
+   one rule set.
+2. The rules are those of §3.1 exactly; no threshold or rule changes. Escalation is automatic and never
+   downgrades on a lower screen; leaving CRISIS needs a clinician (or the owner); leaving STABILISE or
+   PRACTICAL_CRISIS is the person's choice; `history_check_in` changes no mode.
+3. **The structured check-in** replaces free-text reading in the browser (a keyword reader caught 13% in §11.12;
+   the meaning-based reader needs a model). Questions, answered yes / no / prefer not to say: thoughts of harming
+   yourself or not wanting to live right now (→ `self_harm_signal`); putting things in order or making arrangements
+   for after you are gone (→ `arrangements_for_after`); alcohol or other drugs today while taking a prescribed
+   sedative (→ `substances` + `sedative_prescribed`); job loss, losing your home or no income now (→
+   `practical_crisis` fields); such thoughts in the past but not now (→ `history_reference`); plus distress 0–10
+   and hours slept. The existing screening question answered yes counts as `self_harm_signal`.
+4. **CONTAIN asks the mode.** `decide(action, state, timeline, now, safety=None)`: when a safety state is given and
+   the action's category (`category(action)`) is not allowed in the mode in force, the action is blocked with the
+   mode's reason, after the envelope, quarantine and escalation checks. Categories: a therapist-led or deep tier →
+   `deep_processing`; paced breathing, interrupt-only and stillness programs → `regulating_cue`; other runs,
+   cues and offers → `override_cue`; a new node plan → `module_work`. Without a safety state, `decide` behaves
+   exactly as before.
+5. **Spine flags in the browser.** `spine_flags(text)` finds, by fixed word lists, release through temperature
+   extremes, pain, extreme breath-holding or sleep deprivation (Jin) and population ranks about the person
+   (Makoto). LINX `route` rejects a proposed text field that raises a flag; the node studio shows the flag on a
+   frame or rule. Warm water, ordinary breathing and rest raise nothing.
+6. **Pages.** Safety page: the check-in, the mode in force and why, its history, and the exits each mode allows.
+   Player, node studio and therapist mode: the mode is shown and passed to CONTAIN; a yes to the screening question
+   enters CRISIS. Crisis help is pointed to local emergency services and an international helpline directory; no
+   phone numbers are hard-coded.
+
+**Acceptance (all must hold before the push to `main`).**
+
+- A1 Python and JavaScript give identical results for `screen`, `observe` sequences, `exit`, `category`,
+  `event_from_check`, `spine_flags`, `may_start_deep_session` and `decide` with a safety state, on a fixed set of
+  cases covering every screen and every mode.
+- A2 `rsxv` uses `rsso.safety`: its 130 tests pass unchanged.
+- A3 Every existing test in `rsx`, `rsso` and `toolkit` passes; `decide` without a safety state is unchanged.
+- A4 Each mode blocks exactly the categories §3.1 forbids, and CRISIS cannot be left by the person alone through the
+  engine or the pages without the clinician PIN. (Amended 2026-11-16 by spec/FIXES_R4.md: on a person's own device this
+  is advisory; clearing browser data resets it, and whoever sets the PIN first holds it.)
+- A5 `spine_flags` flags each listed mechanism and rank wording, and none of 20 ordinary frames and rules (warm
+  bath, golden light, calm breathing, sleep well…).
+- A6 `scripts/check_all.sh` passes; page build numbers and the offline cache are raised.
+
+This is engineering, not a test of effect: it changes no claim and no registered result.
+
+## 10. S1 revision: representation and guidance levels (design fixed before code, 16 November 2026)
+
+**Why.** S1 (§9) presented safety as crisis screening: a public check-in form, crisis wording and helpline links.
+RSOS works the other way: an unwanted state is the start signal for repurposing (interrupt, counterconditioning,
+future pacing), not something to report. The representation must follow that logic and read as a professional
+framework for sport, learning, research and psychotherapy. The rule engine of §9 is unchanged; what changes is how
+it is presented, how it is switched on, and the vocabulary.
+
+**What changes (fixed now).**
+
+1. **No crisis or helpline wording in the interface.** Removed from every page and module message on `dev`:
+   crisis screening questions for the public, helpline links, emergency banners. One line remains in page footers:
+   "Research and development framework; not a medical device."
+2. **Guidance levels instead of diagnoses.** Every program, node and session has a level:
+   `self_guided` (everyday states: pressure, nerves, low energy, distraction), `structured` (recurring strong states,
+   panic, difficult memories; with consent, self-guided or with any practitioner the person chooses: therapist, coach),
+   `clinician_led` (trauma processing, depression work, and any acute risk to life: only inside a qualified
+   clinician's protocol, including a private psychotherapist or psychiatrist; consent alone or a coach is not
+   enough at this level).
+3. **Session states, renamed.** Internal identifiers stay (rsxv compatibility); what people read changes:
+   NORMAL → **Standard**; STABILISE → **Stabilisation** (regulation programs only); PRACTICAL_CRISIS → **Paused:
+   practical**; CRISIS → **Clinician-led protocol** (self-guided practice paused; the responsible clinician resumes).
+   Messages are written in protocol language.
+4. **The clinical module is off by default.** A practitioner or study switches it on and records a screening
+   result from a validated instrument of their choice (for example the C-SSRS screener, PHQ-9 item 9): none / low /
+   moderate / high, plus optional flags (medication interaction, practical circumstances). High → Clinician-led
+   protocol; moderate → Stabilisation; flags → their states. The app shows no screening items itself.
+5. **The everyday self-check** asks only intensity (0–10) and hours slept; 7 or more, or under 4 hours, suggests
+   Stabilisation. No other questions.
+6. **The Safety page becomes "Safety and governance"**: documentation for clinicians, ethics boards and
+   organisations (governance model, guidance levels, session states, device envelope, pause rules, clinical module,
+   instruments, evidence, limits), with the session state and its history.
+7. **Domain profiles** (Performance, Learning, Research, Clinical) set labels such as "Tension" vs "Distress (SUD)"
+   on the same 0–10 measure. Built in a following step; S1 revision covers 1–6.
+
+**Acceptance.** A1–A6 of §9 still hold with the new texts; in addition A7: no page or module text on `dev` contains
+crisis, helpline or emergency-banner wording outside research records (registered tests, results, archive) and the
+clinician-facing clinical module; A8: `observe` with a clinical result of high, moderate or none gives
+Clinician-led, Stabilisation and no change, in Python and JavaScript identically.
 
 ## Autonomy gate
 

@@ -1,0 +1,70 @@
+# Wristband firmware checks with the real ESP32 toolchains and Espressif's QEMU (spec/BOARD_PENDING.md K1).
+# Builds and tests only; deploys nothing. Reproduces spec/ESP32_TOOLS.md on every push.
+name: firmware
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  group: firmware-${{ github.ref }}
+  cancel-in-progress: false   # every push gets a complete result (dev receives frequent pushes)
+jobs:
+  compile:
+    # 40 builds: ESP32 on Arduino-ESP32 2.0.17 and 3.3.12; ESP32-C3/-S3 on 2.0.17, 3.2.1 and 3.3.12; no module, each
+    # module, all modules. Pass: 30 compile and the ten C3/S3 builds on 3.3.12 stop at the NimBLE guard (K1-P).
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyserial          # the 2.0.17 core's esptool imports it
+      - uses: actions/cache@v4
+        with:
+          path: ~/esp32-tools/core-*/dl
+          key: esp32-cores-1.6.0-2.0.17-3.2.1-3.3.12
+      - run: firmware/esp32/ci_setup.sh ~/esp32-tools 2.0.17 3.2.1 3.3.12
+      - run: >
+          python3 firmware/esp32/real_check.py compile --cli ~/esp32-tools/bin/arduino-cli
+          --cfg2 ~/esp32-tools/core-2.0.17/cfg.yaml --cfg32 ~/esp32-tools/core-3.2.1/cfg.yaml
+          --cfg3 ~/esp32-tools/core-3.3.12/cfg.yaml --out matrix --expect-nimble-guard
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compile-matrix
+          path: |
+            matrix/summary.json
+            matrix/*.log
+  emulator:
+    # The compiled ESP32 firmware (3.3.12, emulator-only build without Bluetooth) in Espressif's QEMU:
+    # U1-U9 and U3b (U3 expected not to pass), the board check B1-B7, and the PWM duty at the LEDC register (K3).
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt pyserial
+      - run: sudo apt-get update && sudo apt-get install -y libslirp0 libsdl2-2.0-0
+      - uses: actions/cache@v4
+        with:
+          path: ~/esp32-tools/core-*/dl
+          key: esp32-cores-1.6.0-3.3.12
+      - run: firmware/esp32/ci_setup.sh ~/esp32-tools 3.3.12
+      - name: Espressif QEMU esp_develop_9.2.2_20260417 (the version ESP-IDF pins)
+        run: |
+          curl -fsSL https://github.com/espressif/qemu/releases/download/esp-develop-9.2.2-20260417/qemu-xtensa-softmmu-esp_develop_9.2.2_20260417-x86_64-linux-gnu.tar.xz | tar -xJ -C ~/esp32-tools
+          ~/esp32-tools/qemu/bin/qemu-system-xtensa --version
+      - run: firmware/esp32/ci_emulator.sh ~/esp32-tools emu
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: emulator
+          path: |
+            emu/*.json
+            emu/*.md
+            emu/*.txt
+            emu/led.log

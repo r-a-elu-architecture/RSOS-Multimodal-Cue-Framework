@@ -65,6 +65,7 @@ RSOS is built from four systems. This map explains what each one and each subsys
 | [RSOS](rsos/) — Recursive Symbolic Operating System | The cue bundles: tiers that bind glyph, word, feeling, scent and taste into one conditioned unit | Partly built |
 | [RSIA](rsia/) — Recursive Symbolic Identity Architecture | The identity layer: which inner mode colours a state, and the values it serves | Partly built |
 | [RSX](rsx/) — Recursive Symbolic eXpression | The language programs are written and executed in | Built |
+| ↳ [RSX-V](rsx/rsx-v/) — RSX vector commands | The command layer above RSX: typed, staged, audited vector commands that compile into RSX | Built |
 | [RSSO](rsso/) — Recursive Symbolic System Operating | The operating layer: runtime, safety, memory, devices, and eight subsystems | Partly built |
 
 **How they work together:** an RSX program (RSX) activates tiers (RSOS) in the mode of an archetype (RSIA); the RSSO runtime plays it on a device within safety limits, records the run, and the cue engine learns what works for that person. See [cross-system](cross-system/) for the full flow.
@@ -86,6 +87,11 @@ RSOS is built from four systems. This map explains what each one and each subsys
 | RSSO runtime: devices, sensors, conformance, virtual studies | {link('', 'rsso/', 'rsso/')} |
 | RSOS Device Protocol and firmware | {link('', 'spec/DEVICE_PROTOCOL.md', 'spec/DEVICE_PROTOCOL.md')}, {link('', 'firmware/', 'firmware/')} |
 | RSIA framework edition | {link('', 'framework/', 'framework/')} |
+| RSX-V command layer and archetype agents | {link('', 'rsxv/', 'rsxv/')} |
+| One safety engine for people and agents: session states, guidance levels, output gate | {link('', 'spec/CONTAIN.md', 'spec/CONTAIN.md')} §9–§10, `rsso/rsso/safety.py`, `docs/js/safety.js`, `docs/js/outlet.js` |
+| RSIA Watchdog on the person side | {link('', 'spec/WATCHDOG.md', 'spec/WATCHDOG.md')} |
+| Domain profiles (personal, coaching, performance, learning, research, workplace, clinical) | {link('', 'spec/PROFILES.md', 'spec/PROFILES.md')} |
+| Trial loop and evidence modules (PEAK, GATE, TRIAL) | {link('', 'spec/TRIAL_LOOP.md', 'spec/TRIAL_LOOP.md')}, {link('', 'docs/trials.html', 'docs/trials.html')} |
 
 Run `python architecture/build.py` to regenerate these pages from the manifest.
 """)
@@ -127,7 +133,7 @@ page("rsia", "RSIA — Recursive Symbolic Identity Architecture", f"""
 |---|---|---|
 | [Archetypes](archetypes/) | Six modes: Lion (leadership, courage), Eagle (vision, planning), Bear (resilience), Leopard (adaptability), Raven (insight, strategic perception), Tiger (intensity, drive) | {link('rsia', 'framework/rsia/ARCHETYPES.md', 'framework edition')}; the Override Protocol runs in the Lion mode |
 | [Spine](spine/) | Guiding values (Bushidō 7, Musashi 21) | {link('rsia', 'framework/mnemonic_sets/', 'mnemonic sets')}; the hologram finger in the protocol points to it |
-| [Watchdog](watchdog/) | Notices which mode is active and when a state drifts | Cue engine `watchdog()` estimates a person's current response mode |
+| [Watchdog](watchdog/) | Notices which mode is active and when a state drifts; decides whether an action may act on a person | Built on the person side: {link('rsia', 'spec/WATCHDOG.md', 'spec/WATCHDOG.md')} (allow, ask or hold with the Spine virtue that decided, hash-chained log); first form: the cue engine's `watchdog()` |
 | [Meta-Architect](meta-architect/) | Coordinates modes and switches between them | Specified |
 """, [
     (RSIA_E + "RSIA_Core_Definition.txt", "Core definition"),
@@ -141,7 +147,7 @@ page("rsia", "RSIA — Recursive Symbolic Identity Architecture", f"""
 for sub, title, body, f in [
     ("archetypes", "RSIA archetypes", "Six inner modes, each with an image, a set of principles and a primary use: **Lion** leads, **Eagle** plans, **Bear** sustains, **Leopard** adapts, **Raven** perceives, **Tiger** drives. An archetype colours a tier: the same breath and gesture feel different in the Lion mode than in the Eagle mode. The open edition is in `framework/rsia/ARCHETYPES.md`.", "RSIA_Archetype_Definitions.txt"),
     ("spine", "RSIA Spine", "The values every mode serves: the seven virtues of Bushidō and Musashi's 21 precepts. In the operating system the Spine is the reference for the higher-value anchor (the golden hologram finger in the Override Protocol) and is available as a mnemonic set.", "RSIA_Spine_Principles.txt"),
-    ("watchdog", "RSIA Watchdog", "The observer layer: it notices which mode is active, flags drift away from the Spine and calls for correction. Its first implementation is the cue engine's `watchdog()`, which estimates which response mode a person is in from their results.", "RSIA_Watchdog_Overview.txt"),
+    ("watchdog", "RSIA Watchdog", "The observer layer: it notices which mode is active, flags drift away from the Spine and calls for correction. **Built on the person side** (`spec/WATCHDOG.md`, `rsso/rsso/watchdog.py`, identically `docs/js/watchdog.js`): one decision, allow, ask or hold, for every action that acts on a person (a run, a cue, a device offer, an agent's output), with the Spine virtue that decided it, written to a hash-chained audit log the person can verify on the Safety page. It applies the session state, the guidance level each program carries (self-guided, structured, clinician-led), the domain profile's highest level, consent, and the Spine wording checks. A program's level comes from where it came from and from its compiled content wherever it is copied (`spec/FIXES_R4.md` to `spec/FIXES_R6.md`). Its first form is the cue engine's `watchdog()`, which estimates a person's current response mode; in RSX-V the same Watchdog and Spine govern the archetype agents (`rsxv/AGENTS.md`).", "RSIA_Watchdog_Overview.txt"),
     ("meta-architect", "RSIA Meta-Architect", "The executive layer that coordinates the archetypes, chooses which mode a situation calls for and switches between them. Specified; a natural next implementation is context-based mode selection in RSX.", "RSIA_Meta_Architect.txt"),
 ]:
     page(f"rsia/{sub}", title, body, [(RSIA_E + f, title)])
@@ -158,6 +164,8 @@ page("rsx", "RSX — Recursive Symbolic eXpression", f"""
 | [Archetype module](archetype-module/) | Archetype commands | `MemoryRecall(Archetype=X)` activates tier X |
 | [Device bridge](device-bridge/) | AR, EEG and haptic output | `HAPTIC`, `TONE`, `DeviceOutput(…)` events |
 | [Memory and compression](memory-compression/) | Memory and compression commands | Recorded; runtime effect specified (MEMSTACK, CM1) |
+
+**Layer above RSX:** [RSX-V](rsx-v/), typed, staged and audited vector commands that compile into RSX programs.
 """, [
     (RSX_E + "RSX-Core_Definition.txt", "Core definition"),
     (RSX_E + "RSX-Language_Class_Declaration.txt", "Language class declaration"),
@@ -167,6 +175,27 @@ page("rsx", "RSX — Recursive Symbolic eXpression", f"""
     (RSX_E + "RSX-Device_Output_Bridge.txt", "Device output bridge"),
     (RSX_E + "RSX-Memory_Compression_Extension.txt", "Memory and compression extension"),
 ])
+page("rsx/rsx-v", "RSX-V — RSX vector commands", f"""
+**Role:** the command layer above RSX. An RSX-V command is a typed, staged and audited set of vector operators; it compiles into an RSX cue program, which compiles into a timeline and device lines. One program therefore exists in three forms: a vector command, a cue program and device lines.
+
+**Status:** {STATUS['built']}. Every result comes from simulation, the firmware core in the host simulator or hand-coded validation sets; none comes from people ({link('rsx/rsx-v', 'rsxv/RESULTS.md', 'rsxv/RESULTS.md')}).
+
+| Part | What it does |
+|---|---|
+| Typed vectors | 34 operators (the canonical 17-vector set, extended operators, Vector 0 NullSafe and layer-filling operators), each typed by the cognitive layer it acts on (C1–C11) |
+| Staged, closed-loop execution | A gate first; phases with conditions on body state and layer activation; at most 17 vectors at once |
+| Laws | Ten laws, among them InteractionMatrix, ChronoGate, GhostPass (a simulation before every live run), ConsentStack, NullSafe and ResonanceAudit (a hash-chained log) |
+| Measurement and NEXT | Every vector audited; operational definitions for six RSOS metrics; NEXT writes the successor command from the measured result and upgrades v1 commands |
+| Translator and bridge | A message becomes vectors and a complete command, with lineage to the clause each operator came from; the bridge compiles to RSX, so the RSX compilers, the player, the device protocol and their safety limits apply unchanged |
+| Archetype agents | Agents governed by the same Spine (7 virtues, 21 precepts) and Watchdog as the person side, with a hash-chained audit log and a repair loop ({link('rsx/rsx-v', 'rsxv/AGENTS.md', 'rsxv/AGENTS.md')}) |
+
+- Specification: {link('rsx/rsx-v', 'rsxv/SPEC.md', 'rsxv/SPEC.md')}
+- Overview and quick start: {link('rsx/rsx-v', 'rsxv/README.md', 'rsxv/README.md')}
+- Results, with what they do and do not show: {link('rsx/rsx-v', 'rsxv/RESULTS.md', 'rsxv/RESULTS.md')}
+- Agents: {link('rsx/rsx-v', 'rsxv/AGENTS.md', 'rsxv/AGENTS.md')}
+
+Scope: no electrical stimulation; it is refused at compile time.
+""", [(RSX_E + "RSX-Command_Specification.txt", "Command specification: the v1 vector commands RSX-V extends")])
 for sub, title, body, f in [
     ("command-specification", "RSX command specification", "The v1 vector command: a tier, an archetype, a mode and up to 17 concurrent vectors (`@VectorK:Operator(args)`). RSX v2 compiles these commands; see `rsx/protocols/legacy_vector.rsx`.", "RSX-Command_Specification.txt"),
     ("archetype-module", "RSX archetype module", "Commands that call and merge RSIA archetypes. In RSX v2, `MemoryRecall(Archetype=X)` activates the tier named X.", "RSX-Symbolic_Archetype_Module.txt"),
@@ -185,10 +214,10 @@ SUBS = [
      "Built: one device interface with virtual vibration, audio, display and scent devices; the RSOS Device Protocol for wristbands and scent modules; a Bluetooth heart-rate driver (standard Heart Rate Service) with a stress detector in Python and in the player, identical in both; an EEG stream interface (replay, synthetic, Lab Streaming Layer) with an arousal detector (`rsso/`, `docs/player.html`, `spec/DEVICE_PROTOCOL.md`). Awaiting: a check with real straps, scent hardware and EEG headsets."),
     ("MICRO", "Edge runtime", "sim",
      "Runs symbolic reflexes on edge devices (watches, wearables, IoT): receives RSX commands and context, executes them locally.",
-     "Built: the runtime that plays RSX timelines on any set of devices; the portable C++ device core and an ESP32 wristband sketch (`firmware/`); the installable offline player app; the conformance suite, which the firmware core passes 15/15 in the host simulator; the board kit (`firmware/BOARD_KIT.md`: parts, wiring, Arduino IDE, arduino-cli and PlatformIO builds for ESP32, -C3 and -S3, the sketch compile-checked for Arduino-ESP32 2.x and 3.x and capped in hardware at the safety envelope) and the board check (`python -m rsso.board --port`, B1–B7 plus the whole conformance suite in real time; the same check in the browser on the Wristband page over USB or Bluetooth), passing 7/7 against the firmware core in real time. Awaiting: the first run on a real board."),
+     "Built: the runtime that plays RSX timelines on any set of devices; the portable C++ device core and an ESP32 wristband sketch (`firmware/`); the installable offline player app; the conformance suite, which the firmware core passes 15/15 in the host simulator; the board kit (`firmware/BOARD_KIT.md`: parts, wiring, Arduino IDE, arduino-cli and PlatformIO builds for ESP32, -C3 and -S3, the sketch compiled with the real toolchains, Arduino-ESP32 2.0.17 and 3.3.12 for the ESP32 and 2.0.17 and 3.2.1 for the -C3 and -S3, with and without the modules, and capped in hardware at the safety envelope) and the board check (`python -m rsso.board --port`, B1–B7 plus the whole conformance suite in real time; the same check in the browser on the Wristband page over USB or Bluetooth), passing 7/7 against the firmware core in real time. Bluetooth is paired and encrypted (`spec/BLE_PAIRING.md`, `spec/FIXES_R6.md` §5): LE Secure Connections with a six-digit passkey made on the band and never sent over the air, new pairings only in a two-minute window, USB-only pairing commands; compiled with the real toolchains, with the pairing policy tested on the host. In Espressif's QEMU emulator the compiled firmware, built without Bluetooth (QEMU has none), passes the USB commands and the board check (`spec/ESP32_TOOLS.md`). Awaiting: the first run on a real board, for the radio, pairing with a phone and the motor's feel and timing."),
     ("CONTAIN", "Safety and governance", "built",
      "Governs every module: allow, block, roll back or quarantine actions; drift control; human in the loop; device safety envelope.",
-     "Built (`spec/CONTAIN.md`, `rsso/rsso/contain.py`, identically `docs/js/contain.js`, safety page `docs/safety.html`): the policy engine the archive names but does not recover. A device safety envelope no program can exceed (vibration strength, pulse and pattern length, total vibration, tone pitch and length, scent and taste per run, run length, offer limits); drift detection that pauses (quarantines) a program or node when distress after it rises, agency falls, or it is stopped often together with another signal, and at once when an adverse event is linked to it; escalation that pauses device offers and therapist-led work and points to a therapist or crisis help after a serious adverse event, repeated moderate ones, a positive screening answer or repeated high distress; one decide() gate that the player, the heart-rate offers, the node studio and the Python runtime ask before acting, with every decision logged with its reason; restore by the person, or by the therapist when harm was involved; rollback to the previous approved node plan. Also: the RSX compile-time haptic limit, `SafetyGovernor` run limits, the runtime intensity clamp and Stop in every phase. Conformance C14 (envelope) and C15 (drift pause and restore), 15/15 on the virtual rig and the firmware core; the CONTAIN twins in the cue engine guard against misleading self-reports."),
+     "Built (`spec/CONTAIN.md`, `rsso/rsso/contain.py`, identically `docs/js/contain.js`, safety page `docs/safety.html`): the policy engine the archive names but does not recover. A device safety envelope no program can exceed (vibration strength, pulse and pattern length, total vibration, tone pitch and length, scent and taste per run, run length, offer limits); drift detection that pauses (quarantines) a program or node when distress after it rises, agency falls, or it is stopped often together with another signal, and at once when an adverse event is linked to it; escalation that pauses device offers and therapist-led work and points to a practitioner after a serious adverse event, repeated moderate ones, a positive screening answer or repeated high distress; one decide() gate that the player, the heart-rate offers, the node studio and the Python runtime ask before acting, with every decision logged with its reason; restore by the person, or by the therapist when harm was involved; rollback to the previous approved node plan. Also: the RSX compile-time haptic limit, `SafetyGovernor` run limits, the runtime intensity clamp and Stop in every phase. Conformance C14 (envelope) and C15 (drift pause and restore), 15/15 on the virtual rig and the firmware core; the CONTAIN twins in the cue engine guard against misleading self-reports. Since then (`spec/CONTAIN.md` §9–§10, one engine for people and agents in `rsso/rsso/safety.py` and identically `docs/js/safety.js`): four session states, shown as Standard, Stabilisation, Paused: practical and Clinician-led protocol, each with the kinds of program it allows; three guidance levels (self-guided, structured, clinician-led) and seven domain profiles that cap them (`spec/PROFILES.md`); an output gate on every page (`docs/js/outlet.js`) through which every sound, speech, media, vibration and wristband start must pass, re-checked every second; and level lineage (`docs/js/lineage.js`), so that a program keeps the level of the plan, saved program or cue it came from wherever its content goes."),
     ("MEMSTACK", "Memory layer", "built",
      "Archetype- and state-indexed memory: stores and recalls tier activations, snapshots and history.",
      "Built: tier memory from the run log and weekly automaticity checks (runs, effect over time, model estimate of bundle strength and trigger value, fitted habit curve, estimated triggers to a reflex, the spec's reflex criterion); checksummed snapshots to move or restore memory, with merging (`rsso/rsso/memstack.py`, and identically in the player's progress view)."),
@@ -245,22 +274,24 @@ page("rsso/tier-ledger", "RSSO tier ledger", "A near-identical copy of the [RSOS
 # ------------------------------------------------------------------ cross-system
 page("cross-system", "How the systems work together", f"""
 1. **Trigger.** A negative state appears (a sound, a smell, something seen, a memory), or a device detects it (AUG; EEG or HRV, specified).
-2. **Safety check.** CONTAIN and the runtime decide whether a run may start (opt-in, refractory period, hourly and daily limits).
-3. **Program.** An RSX program (RSX) is selected; the cue engine can choose the variant that works best for this person (CM1, Watchdog).
+2. **Safety check.** The domain profile sets the highest guidance level (personal, coaching, performance, learning, research, workplace or clinical). The Watchdog (RSIA) asks CONTAIN, the session state and consent, and allows, asks or holds with a Spine reason; the runtime keeps its limits (opt-in, refractory period, hourly and daily limits). The output gate on every page lets output through only while that decision stands.
+3. **Program.** An RSX program (RSX) is selected, or an RSX-V command is compiled into one; the cue engine can choose the variant that works best for this person (CM1, Watchdog). The program carries the level of where it came from.
 4. **Execution.** The runtime plays the timeline: breath, words, imagery, gestures and haptic anchors (THERA), activating tiers (RSOS) in the mode of an archetype (RSIA), on a phone, a watch or another device (AUG, MICRO).
 5. **Memory.** The run is logged (MEMSTACK): distress and agency before and after, trigger, completion.
-6. **Learning.** Over many runs the bundle becomes a reflex, and the logs show which programs and tiers work for whom.
+6. **Learning.** Over many runs the bundle becomes a reflex, and the logs show which programs and tiers work for whom. A trial (anchor against sham, automatic against manual) feeds its results into the evidence chain (PEAK, GATE).
 
 | Step | Built now |
 |---|---|
 | Trigger, self-initiated | Player |
 | Trigger, device-detected | Virtual heart-rate strap and stress detector (`rsso/rsso/sensors.py`) |
-| Safety check | `rsx/rsx/runtime.py` (`SafetyGovernor`); RSX compile-time limits; conformance suite (`rsso/rsso/conformance.py`) |
+| Domain profile | {link('cross-system', 'spec/PROFILES.md', 'spec/PROFILES.md')}; `docs/js/profiles.js` |
+| Safety check | Watchdog {link('cross-system', 'spec/WATCHDOG.md', 'spec/WATCHDOG.md')}; session states {link('cross-system', 'spec/CONTAIN.md', 'spec/CONTAIN.md')} §9–§10; output gate `docs/js/outlet.js`; `rsx/rsx/runtime.py` (`SafetyGovernor`); RSX compile-time limits; conformance suite (`rsso/rsso/conformance.py`) |
+| Command layer | {link('cross-system', 'rsxv/', 'rsxv/')} (RSX-V compiles into RSX) |
 | Program | {link('cross-system', 'rsx/protocols/', 'rsx/protocols/')} |
 | Execution | {link('cross-system', 'docs/player.html', 'docs/player.html')}; device runtime `rsso/rsso/runtime.py` |
 | Memory | Run log (`RunRecord`, player CSV export) |
 | Learning | {link('cross-system', 'toolkit/', 'toolkit/')} and {link('cross-system', 'rsx/model/PREDICTIONS.md', 'learning model')} |
-| Studies | Virtual participants, synthetic studies and analysis kit: {link('cross-system', 'rsso/', 'rsso/')} |
+| Studies | Virtual participants, synthetic studies and analysis kit: {link('cross-system', 'rsso/', 'rsso/')}; trial loop {link('cross-system', 'spec/TRIAL_LOOP.md', 'spec/TRIAL_LOOP.md')} |
 """)
 
 # ------------------------------------------------------------------ provenance

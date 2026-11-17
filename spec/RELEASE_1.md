@@ -1,6 +1,6 @@
 # RELEASE_1 — review the dev work and prepare one release to main (owner approves)
 
-Status: registered 2026-11-17, before any review fix, the merge preparation or a change to pages. Results in §6, in
+Status: registered 2026-11-17 (cfe9eff), before any review fix, the merge preparation or a change to pages. Results in §6, in
 separate "Record results" commits. No threshold, limit or pass criterion of any earlier spec changes in this step.
 
 ## 0. What and why
@@ -112,7 +112,21 @@ Fixes:
 
 ## 6. Results
 
-(recorded after the runs, in separate commits)
+Registered cfe9eff; amendment A1 ae091f8; code 475b9d2; review record 3e9eac2; release notes 6e848bb; M1 683c4a6.
+
+| ID | Result |
+|---|---|
+| A1 | `check_all.sh` pass; rsso 292 passed, 1 expected failure; RSX-V 156 passed (475b9d2) |
+| A2 | Before F1: 10 of 11 browser checks pass. `check_site_catchup.py` failed: `BASELINE_AUDIT Q3 H-SWITCH meaning shown: got False, expected True` (RF1). After F1: 11 of 11 |
+| A3 | `check_release.py`: 25 pages, 75 views (desktop, phone, `/dev/`). First run: every page error was `Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED` from Google Fonts (blocked in the workspace), with no same-origin failure, no missing link, and the banner right in every view. After F2: 75 of 75 pass; external loads that failed here: `https://fonts.googleapis.com/css2` |
+| A4 | On 683c4a6: `checks` run 44026359262 success; `firmware` run 44026359253 success (compile `K1-P pass: 40 builds`; emulator pass); Pages success |
+| R-REVIEW | Five areas, HANDOFF_DEV §5. One blocker (RF1, a check; fixed). One should-fix (no guided entry; fixed). Notes: FIXES_P2 E1 confirmed in the library sources; README crisis-line sentence (the owner's decision); third-party fonts (RF3, open). Verdict in every area: ready for the owner. A same-account review |
+| U1–U4 | "Start here" with five paths on the home page; status lines on the player, practitioner, devices and results pages; the dev banner only under `/dev/` (A3); `check_profiles.py` pass |
+| M1 | 683c4a6: `git merge -s ours origin/main`; tree identical to 6e848bb |
+| M2 | Trial merge of 683c4a6 into `main` (059a58f) in a scratch clone: no conflict, `git diff` against `dev` 0 lines, S1's `docs/js/safety.js` present. Without M1 (the same trial with 6e848bb): conflicts in 8 files, among them `docs/js/safety.js` and `rsso/rsso/safety.py` (deleted on `main`, modified on `dev`) |
+| M3 | `backup/pre-claude-2026-11-16` still at 32f49bb |
+| N1 | `releases/NEXT.md`: release section for this work, evidence status, open items, verify commands |
+| N2 | Pull request: see HANDOFF_DEV (link added when opened) |
 
 ## 7. Release notes and pull request
 

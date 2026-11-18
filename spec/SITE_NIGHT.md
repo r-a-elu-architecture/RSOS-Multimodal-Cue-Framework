@@ -58,3 +58,16 @@ Switching the World runs to person model v3; any new result.
 ## 4. Results
 
 (recorded after the code commit)
+
+### Results (code 083d18a)
+
+- N1–N6 applied. **Disclosed deviation:** N1's title wording ("…and 100 lab persons…") did not contain "Person Lab",
+  which C1 requires; C1 was kept and the title became "Software agents, a simulated person and a Person Lab of 100, run by
+  one architecture." Found by the check's first run (18/20), before the code commit.
+- `scripts/check_site_night.py docs`: **20/20** (desktop and phone): C1 title and #lab link; C2 every number shown equals
+  `world_findings.json`, which equals the result files; C3 the System box links to `world.html#lab`; C4 one current
+  navigation item; C5 effect values kept, 0 page errors.
+- `check_profiles`, `check_personlab` 31/31, `check_evidence` 168/168, `check_site_catchup`, `check_release` and
+  `check_all.sh` pass.
+- Typed, not generated (disclosed): the System box's evidence part repeats "6,352 ratings" from TURN_RATINGS by hand, like
+  the other parts of that box.

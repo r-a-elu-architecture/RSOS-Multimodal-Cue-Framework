@@ -82,6 +82,19 @@ RULES = [
     (r"\bdepression\b", "{low_mood}"),
     (r"\b(?:anxiety|panic)\b", "{surges}"),
     (r"\bsymptoms\b", "{changes}"),
+    (r"\btherapeutic\b", "supportive"),   # FIXES_WORDING §2
+    (r"\btherap\w+\b", "{therapy}"),   # FIXES_WORDING §2
+    (r"\bdiagnosed\b", "identified"),   # FIXES_WORDING §2
+    (r"\bdiagnostics\b", "checks"),   # FIXES_WORDING §2
+    (r"\bdiagnos\w*\b", "assessment"),   # FIXES_WORDING §2
+    (r"\btraumatic\b", "difficult"),   # FIXES_WORDING §2
+    (r"\btrauma\w+\b", "{memories}"),   # FIXES_WORDING §2
+    (r"\bdepress\w+\b", "{low_mood}"),   # FIXES_WORDING §2
+    (r"\bsymptom\w*\b", "{changes}"),   # FIXES_WORDING §2
+    (r"\bdistress\w+\b", "intense"),   # FIXES_WORDING §2
+    (r"\bpanic\w+\b", "{surges}"),   # FIXES_WORDING §2
+    (r"\bpatholog\w*\b", "problem pattern"),   # FIXES_WORDING §2
+    (r"\b(?:C-SSRS|PHQ-9|GAD-7|PCL-5)\b", "a standard questionnaire"),   # FIXES_WORDING §2
 ]
 _RX = re.compile("|".join("(" + p + ")" for p, _ in RULES), re.I)
 _SLOT = re.compile(r"\{(a:)?(\w+)\}")
@@ -89,9 +102,9 @@ _SLOT = re.compile(r"\{(a:)?(\w+)\}")
 CLINICAL_WORDS = (r"\b(?:SUDS?|PTSD|depress\w*|trauma\w*|symptom\w*|distress\w*|panic\w*|anxiety|patients?|therap\w*"
                   r"|clinical screening|clinical judgement|diagnos\w*|C-SSRS|PHQ-9|GAD-7|PCL-5)\b")   # FIXES_R1 P-3
 
-# Research records and architecture pages keep their original wording.
-EXEMPT_PAGES = ["results.html", "system.html", "tiers.html", "roadmap.html", "glyphs.html",
-                "architecture-benchmark.html", "invariance-v14.html", "cue-lab.html", "cue-lab-v13.html"]
+# FIXES_WORDING §2 (author, 18 Nov 2026): research records are translated too, wording only (was: results, system,
+# tiers, roadmap, glyphs and the archived benchmark pages kept their original wording).
+EXEMPT_PAGES = []
 
 
 def valid(profile):

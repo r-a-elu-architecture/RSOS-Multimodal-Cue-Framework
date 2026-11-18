@@ -70,14 +70,26 @@
     ["\\btrauma\\b", "{memories}"],
     ["\\bdepression\\b", "{low_mood}"],
     ["\\b(?:anxiety|panic)\\b", "{surges}"],
-    ["\\bsymptoms\\b", "{changes}"]
+    ["\\bsymptoms\\b", "{changes}"],
+    ["\\btherapeutic\\b", "supportive"],
+    ["\\btherap\\w+\\b", "{therapy}"],
+    ["\\bdiagnosed\\b", "identified"],
+    ["\\bdiagnostics\\b", "checks"],
+    ["\\bdiagnos\\w*\\b", "assessment"],
+    ["\\btraumatic\\b", "difficult"],
+    ["\\btrauma\\w+\\b", "{memories}"],
+    ["\\bdepress\\w+\\b", "{low_mood}"],
+    ["\\bsymptom\\w*\\b", "{changes}"],
+    ["\\bdistress\\w+\\b", "intense"],
+    ["\\bpanic\\w+\\b", "{surges}"],
+    ["\\bpatholog\\w*\\b", "problem pattern"],
+    ["\\b(?:C-SSRS|PHQ-9|GAD-7|PCL-5)\\b", "a standard questionnaire"]   // FIXES_WORDING §2
   ];
   const RX = new RegExp(RULES.map(r => "(" + r[0] + ")").join("|"), "gi");
   const SLOT = /\{(a:)?(\w+)\}/g;
   const CLINICAL_WORDS = "\\b(?:SUDS?|PTSD|depress\\w*|trauma\\w*|symptom\\w*|distress\\w*|panic\\w*|anxiety|patients?|therap\\w*" +
     "|clinical screening|clinical judgement|diagnos\\w*|C-SSRS|PHQ-9|GAD-7|PCL-5)\\b";   // FIXES_R1 P-3
-  const EXEMPT_PAGES = ["results.html", "system.html", "tiers.html", "roadmap.html", "glyphs.html",
-    "architecture-benchmark.html", "invariance-v14.html", "cue-lab.html", "cue-lab-v13.html"];
+  const EXEMPT_PAGES = [];   // FIXES_WORDING §2: research records translated too, wording only
 
   const valid = p => IDS.includes(p) ? p : DEFAULT;
   const get = p => PROFILES[IDS.indexOf(valid(p))];

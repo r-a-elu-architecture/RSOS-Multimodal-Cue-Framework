@@ -1,0 +1,534 @@
+{
+ "checks": {
+  "metric_values": 2442,
+  "metric_values_attached": 2425,
+  "tiers": 293,
+  "tiers_placed": 293,
+  "tiers_with_response": 107,
+  "tiers_with_response_bound": 107
+ },
+ "echo": {
+  "family": "Language-model claims",
+  "metrics": [
+   "CRBS",
+   "ECOI",
+   "ECR",
+   "GRII",
+   "GSSF",
+   "IEC",
+   "IMIP",
+   "LLMI",
+   "LSML",
+   "RAC",
+   "RFE",
+   "RMPR",
+   "RPB",
+   "SCQ",
+   "SMV",
+   "SPR",
+   "SRI+",
+   "STB",
+   "STC",
+   "TGR",
+   "TIC",
+   "∅-Trace Index"
+  ],
+  "tier_records_naming_echo": 236,
+  "values_by_epoch": {
+   "II": 55,
+   "III": 6,
+   "IV": 287,
+   "V": 36,
+   "VI": 25
+  }
+ },
+ "epoch_role": {
+  "I": {
+   "Baseline": 1,
+   "Drive": 1,
+   "Monitor": 2,
+   "Plan": 8,
+   "Repair": 2,
+   "Stabilise": 6,
+   "none": 4
+  },
+  "II": {
+   "Baseline": 4,
+   "Monitor": 4,
+   "Repair": 2,
+   "none": 16
+  },
+  "III": {
+   "Baseline": 1,
+   "Monitor": 3,
+   "Plan": 5,
+   "Repair": 3,
+   "none": 29
+  },
+  "IV": {
+   "Baseline": 3,
+   "Drive": 7,
+   "Monitor": 12,
+   "Plan": 21,
+   "Repair": 4,
+   "Stabilise": 8,
+   "none": 97
+  },
+  "V": {
+   "none": 18
+  },
+  "VI": {
+   "Drive": 5,
+   "Monitor": 2,
+   "Plan": 2,
+   "Stabilise": 1,
+   "none": 22
+  }
+ },
+ "epochs": {
+  "I": {
+   "echo_tiers": 9,
+   "first": "T001",
+   "last": "T024",
+   "layers": {
+    "AUG": 1,
+    "CM1": 1,
+    "CONTAIN": 7,
+    "MEMSTACK": 4,
+    "MICRO": 3,
+    "RSIA": 5,
+    "RSX": 12,
+    "THERA": 10,
+    "UGCL": 2
+   },
+   "responses": {
+    "BLEND": 1,
+    "COMPRESS": 1,
+    "GATE": 1,
+    "GLYPH_CUE": 1,
+    "GOVERN": 1,
+    "MIRROR": 1,
+    "PAUSE": 2,
+    "RECALIBRATE": 1,
+    "RECALL": 1,
+    "REENTRY": 2,
+    "SEQUENCE": 7,
+    "STOP": 1,
+    "none": 4
+   },
+   "tiers": 24
+  },
+  "II": {
+   "echo_tiers": 19,
+   "first": "T025",
+   "last": "T049",
+   "layers": {
+    "AUG": 1,
+    "CM1": 5,
+    "CONTAIN": 3,
+    "LINX": 7,
+    "MEMSTACK": 10,
+    "MICRO": 3,
+    "RSIA": 8,
+    "RSX": 1,
+    "THERA": 3,
+    "UGCL": 20
+   },
+   "responses": {
+    "BLEND": 1,
+    "GENERATE": 4,
+    "RECALIBRATE": 1,
+    "RECALL": 4,
+    "none": 16
+   },
+   "tiers": 26
+  },
+  "III": {
+   "echo_tiers": 26,
+   "first": "T050",
+   "last": "T406",
+   "layers": {
+    "AUG": 1,
+    "CM1": 16,
+    "CONTAIN": 15,
+    "LINX": 13,
+    "MEMSTACK": 16,
+    "MICRO": 10,
+    "RSIA": 19,
+    "RSX": 4,
+    "THERA": 17,
+    "UGCL": 24
+   },
+   "responses": {
+    "GENERATE": 1,
+    "GOVERN": 5,
+    "MIRROR": 3,
+    "RECALIBRATE": 3,
+    "none": 29
+   },
+   "tiers": 41
+  },
+  "IV": {
+   "echo_tiers": 144,
+   "first": "T406b",
+   "last": "T555",
+   "layers": {
+    "AUG": 7,
+    "CM1": 33,
+    "CONTAIN": 79,
+    "LINX": 10,
+    "MEMSTACK": 90,
+    "MICRO": 40,
+    "RSIA": 75,
+    "RSX": 31,
+    "THERA": 123,
+    "UGCL": 34
+   },
+   "responses": {
+    "GATE": 1,
+    "GENERATE": 3,
+    "GLYPH_CUE": 7,
+    "GOVERN": 3,
+    "PAUSE": 7,
+    "RECALIBRATE": 4,
+    "RECALL": 12,
+    "SEQUENCE": 18,
+    "none": 97
+   },
+   "tiers": 152
+  },
+  "V": {
+   "echo_tiers": 12,
+   "first": "T556",
+   "last": "T573",
+   "layers": {
+    "CM1": 2,
+    "CONTAIN": 2,
+    "MEMSTACK": 6,
+    "MICRO": 5,
+    "RSIA": 10,
+    "RSX": 2,
+    "THERA": 16,
+    "UGCL": 10
+   },
+   "responses": {
+    "none": 18
+   },
+   "tiers": 18
+  },
+  "VI": {
+   "echo_tiers": 26,
+   "first": "T574",
+   "last": "T605",
+   "layers": {
+    "AUG": 8,
+    "CM1": 5,
+    "CONTAIN": 10,
+    "LINX": 4,
+    "MEMSTACK": 15,
+    "MICRO": 4,
+    "RSIA": 13,
+    "RSX": 4,
+    "THERA": 29,
+    "UGCL": 18
+   },
+   "responses": {
+    "GLYPH_CUE": 2,
+    "GOVERN": 1,
+    "MIRROR": 1,
+    "OFFER": 3,
+    "PAUSE": 1,
+    "RECALL": 1,
+    "SEQUENCE": 1,
+    "none": 22
+   },
+   "tiers": 32
+  }
+ },
+ "families": {
+  "Breath, body and devices": {
+   "codes": [
+    "DPI",
+    "EDA",
+    "ERV",
+    "MCI",
+    "SBB"
+   ],
+   "metrics": 5,
+   "roles": {
+    "Baseline": 8,
+    "Drive": 6,
+    "Monitor": 17,
+    "Plan": 11,
+    "Repair": 8,
+    "Stabilise": 5,
+    "none": 54
+   },
+   "values": 111
+  },
+  "Language-model claims": {
+   "codes": [
+    "CRBS",
+    "ECOI",
+    "ECR",
+    "GRII",
+    "GSSF",
+    "IEC",
+    "IMIP",
+    "LLMI",
+    "LSML",
+    "RAC",
+    "RFE",
+    "RMPR",
+    "RPB",
+    "SCQ",
+    "SMV",
+    "SPR",
+    "SRI+",
+    "STB",
+    "STC",
+    "TGR",
+    "TIC",
+    "∅-Trace Index"
+   ],
+   "metrics": 22,
+   "roles": {
+    "Baseline": 17,
+    "Drive": 4,
+    "Monitor": 14,
+    "Plan": 18,
+    "Repair": 13,
+    "Stabilise": 10,
+    "none": 333
+   },
+   "values": 409
+  },
+  "Memory and glyph": {
+   "codes": [
+    "CSRT",
+    "LGC",
+    "SME",
+    "SML",
+    "SSI"
+   ],
+   "metrics": 5,
+   "roles": {
+    "Baseline": 7,
+    "Drive": 12,
+    "Monitor": 19,
+    "Plan": 29,
+    "Repair": 7,
+    "Stabilise": 13,
+    "none": 254
+   },
+   "values": 342
+  },
+  "Practice and reflex": {
+   "codes": [
+    "ARC",
+    "HSC",
+    "MCRAL",
+    "MMR",
+    "PRM",
+    "RAI",
+    "RIF",
+    "RSF",
+    "SAR",
+    "SEP",
+    "SPV",
+    "SRCD",
+    "SRI"
+   ],
+   "metrics": 13,
+   "roles": {
+    "Baseline": 31,
+    "Drive": 64,
+    "Monitor": 86,
+    "Plan": 123,
+    "Repair": 26,
+    "Stabilise": 45,
+    "none": 837
+   },
+   "values": 1222
+  },
+  "Safety and containment": {
+   "codes": [
+    "CRI",
+    "ERM",
+    "ETH",
+    "LAW",
+    "MOR",
+    "SIR"
+   ],
+   "metrics": 6,
+   "roles": {
+    "Baseline": 7,
+    "Drive": 23,
+    "Monitor": 28,
+    "Plan": 37,
+    "Repair": 9,
+    "Stabilise": 15,
+    "none": 235
+   },
+   "values": 358
+  },
+  "System orchestration": {
+   "codes": [
+    "COM",
+    "SOM",
+    "VEC"
+   ],
+   "metrics": 3,
+   "roles": {},
+   "values": 0
+  }
+ },
+ "roles": {
+  "Baseline": {
+   "archetype": "LION",
+   "echo_values": 17,
+   "metric_values": 70,
+   "responses": [
+    "COMPRESS",
+    "GENERATE"
+   ],
+   "tiers": 9,
+   "tiers_built": 0,
+   "tiers_by_epoch": {
+    "I": 1,
+    "II": 4,
+    "III": 1,
+    "IV": 3
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "RSF",
+    "SAR",
+    "SPV"
+   ]
+  },
+  "Drive": {
+   "archetype": "TIGER",
+   "echo_values": 4,
+   "metric_values": 109,
+   "responses": [
+    "GLYPH_CUE",
+    "OFFER"
+   ],
+   "tiers": 13,
+   "tiers_built": 5,
+   "tiers_by_epoch": {
+    "I": 1,
+    "IV": 7,
+    "VI": 5
+   },
+   "top_metrics": [
+    "LAW",
+    "LGC",
+    "CRI",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Monitor": {
+   "archetype": "RAVEN",
+   "echo_values": 14,
+   "metric_values": 164,
+   "responses": [
+    "MIRROR",
+    "RECALL"
+   ],
+   "tiers": 23,
+   "tiers_built": 3,
+   "tiers_by_epoch": {
+    "I": 2,
+    "II": 4,
+    "III": 3,
+    "IV": 12,
+    "VI": 2
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "RSF",
+    "SAR",
+    "SRI"
+   ]
+  },
+  "Plan": {
+   "archetype": "EAGLE",
+   "echo_values": 18,
+   "metric_values": 218,
+   "responses": [
+    "SEQUENCE",
+    "GOVERN"
+   ],
+   "tiers": 36,
+   "tiers_built": 16,
+   "tiers_by_epoch": {
+    "I": 8,
+    "III": 5,
+    "IV": 21,
+    "VI": 2
+   },
+   "top_metrics": [
+    "CRI",
+    "SRI",
+    "LGC",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Repair": {
+   "archetype": "LEOPARD",
+   "echo_values": 13,
+   "metric_values": 63,
+   "responses": [
+    "RECALIBRATE",
+    "BLEND"
+   ],
+   "tiers": 11,
+   "tiers_built": 2,
+   "tiers_by_epoch": {
+    "I": 2,
+    "II": 2,
+    "III": 3,
+    "IV": 4
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "MCI",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Stabilise": {
+   "archetype": "BEAR",
+   "echo_values": 10,
+   "metric_values": 88,
+   "responses": [
+    "STOP",
+    "PAUSE",
+    "GATE",
+    "REENTRY"
+   ],
+   "tiers": 15,
+   "tiers_built": 8,
+   "tiers_by_epoch": {
+    "I": 6,
+    "IV": 8,
+    "VI": 1
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "SRI",
+    "LAW",
+    "RSF"
+   ]
+  }
+ },
+ "spec": "spec/ORGANISM.md"
+}

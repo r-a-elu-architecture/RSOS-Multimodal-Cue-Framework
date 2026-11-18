@@ -31,7 +31,7 @@
    "other": 0
   },
   "person model": {
-   "pass": 0,
+   "pass": 1,
    "mixed": 3,
    "fail": 7,
    "analysis": 1,
@@ -463,6 +463,15 @@
    "result": "<b>Mixed</b> (A3, A4, A5 pass; A1, A2 fail)",
    "meaning": "On 200 fresh persons (model v3) the anchored policy beats the old Watchdog (+0.0117 per tick, 99% CI +0.0037 to +0.0193) and never switches (0 vs 1.65 handovers per person), but stays below always Bear (\u22120.0038, CI \u22120.0089 to +0.0003): the ledger never ruled Bear out, so what remains is the 5% exploration. On the agent environment the old Watchdog beats Bear (+0.0155) and the anchored rule gives that up (\u22120.0139 vs the Watchdog) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/anchor.json\">results/anchor.json</a>)",
    "status": "mixed",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8h, the fused agent system: anchored with replay on persons, the Watchdog on agents (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/ORGANISM.md\">spec/ORGANISM.md</a>)",
+   "result": "<b>Pass</b> (O1\u2013O5; the person side equals always Bear)",
+   "meaning": "On 200 fresh seeds the whole beats every single policy on the combined score (vs always Bear +0.0088, 99% CI +0.0020 to +0.0158; vs the Watchdog +0.0125; vs anchored +0.0120). On persons it ran as always Bear (replay of 50 other persons never ruled Bear out in any context; 0 live exploration); on agents it keeps the Watchdog's advantage (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/organism.json\">results/organism.json</a>)",
+   "status": "pass",
    "family": "person model",
    "series": null,
    "parent": null

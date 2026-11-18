@@ -579,6 +579,56 @@ Verdict:    ready for the owner
 Release blocker found outside the steps: `main` holds 059a58f (a revert of S1). A plain merge would keep the revert;
 RELEASE_1 §1 M1/M2 handles it before the pull request.
 
+### PUBLIC_EDITION, PUBLIC_EDITION_2 and amendment R2 review (2026-11-18)
+
+Reviewer: the building account's model family (Claude Opus 5.5), not an independent reviewer. Reviewed commit: e61581c
+(`dev`); steps 164d56d..e61581c (9 commits). Branch `review/public-edition`.
+
+```
+Step:            PUBLIC_EDITION (164d56d, 3a8a23b, 8961a30), PUBLIC_EDITION_2 (6c70941, 4a17218, 4b4188a), R2 (6d42bd2, 47df4ef, e61581c)
+Reviewed commit: e61581c
+Date:            2026-11-18
+Checklist:       1 pass: check_all.sh "All checks passed", generated files unchanged; RSX-V 234 passed; rsso
+                   test_public_edition + test_ledger 8 passed, 3 skipped (need the originals, by design);
+                   rsx/tests/test_repository 2 passed; test_release 1 passed. Browser: check_profiles fails [],
+                   check_evidence 168/168 and 0 page errors, check_site_catchup fails [], check_site_night 35/35,
+                   check_personlab 31/31 and 0 page errors.
+                 2 pass: each registration commit (164d56d, 6c70941, 6d42bd2) touches only its spec file and
+                   precedes its code commit.
+                 3 pass: no threshold or limit line changed in rsso/rsso, rsxv/rsxv, architecture or firmware; the
+                   only numeric diffs are roadmap claim text and docstrings.
+                 4 pass: no storage key or record format changed; published ledger, metrics and tier map change only
+                   by rule E1 (0 "GPT" in docs/data/ledger.json, metrics.json, tier_map.json).
+                 5 n/a
+                 6 pass, with the registered exception: the emergency sentence appears only in README.md,
+                   docs/safety.html and docs/therapist.html (plus the tests that require it);
+                   scripts/check_profiles.py removes exactly that sentence on exactly those two pages, requires it
+                   there, and still bars every other crisis word on every page.
+                 7 pass: 164d56d, 47df4ef and e61581c are not ancestors of origin/main.
+                 8 not checked here (no network to the development site from this workspace); local renders 0 page
+                   errors.
+                 9 pass: C3 phrases absent outside archive/ and the specs; 0 files tracked under
+                   archive/original-estates or archive/original-package; V1 verified independently:
+                   scripts/verify_edition.py on the private backup (RSOS-Multimodal-World
+                   corpus/backups/cue-framework-2026-11-18, MANIFEST.sha256 102/102 OK) prints 65/65 files match,
+                   ledger reassembles byte for byte, published ledger and metrics = originals + E1.
+Findings:        1 should fix: HANDOFF_DEV.md §1 "Representation" (line 19) and checklist item 6 (line 69) still say
+                   no crisis, helpline or emergency wording on pages; PUBLIC_EDITION_2 C now requires one emergency
+                   sentence on safety.html and therapist.html (and the README). The rule text should name this
+                   exception, or the prose is untrue (item 9).
+                 2 should fix: HANDOFF_DEV.md §4 has no section for PUBLIC_EDITION, PUBLIC_EDITION_2 or R2; the step
+                   log ends at WORLD_10X / TURN_RATINGS / CUE_RESOLVE.
+                 3 note: R2's registered phrase check ("a movement" nowhere outside the spec) literally fails; the
+                   remaining uses are unrelated (a body movement in IDENTITY; the ledger's recorded text). Disclosed
+                   in the spec; the claim itself is gone.
+                 4 note: the removed originals and the earlier private-record wording remain in the public git
+                   history (disclosed). If their privacy matters, only a history rewrite removes them: the author's
+                   decision.
+                 5 note: "ratified by the owner" kept in rsxv/AGENTS.md lines 49 and 254 as a system role, as §5 of
+                   PUBLIC_EDITION_2 specifies.
+Verdict:         ready for the owner after findings 1 and 2 (documentation only; no blocker)
+```
+
 ## 6. Open items
 
 - Step 4 on a board: flash, pair from Android Chrome and a computer, check the window, the failure limit and USB-only commands (BOARD_KIT §4 Pairing); first, whether a bonded phone reconnects after its private address changes (R6c-2), and that a phone outside the window cannot start pairing (FIXES_R6C S1/S2).

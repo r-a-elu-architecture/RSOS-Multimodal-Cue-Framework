@@ -126,6 +126,7 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
     <p class="sub">Each circle is an agent; its ring shows how wrong its output is. Arrows point from an agent to the agents it depends on, so one agent's fault spreads downstream.</p>
     <svg id="graph" viewBox="0 0 560 300" width="100%" role="img" aria-label="Agent dependency graph"></svg>
     <div class="now" id="aNow"></div>
+    <p class="sub" style="margin:12px 0 0"><a href="#lab" id="labJump">Person Lab: 100 lab persons — play</a></p>
   </div>
   <div class="pane">
     <h3>Simulated person</h3>
@@ -503,6 +504,27 @@ function population() {
       [pol === "agents" ? `more progress for ${v.more_progress}, same for ${v.same}, less for ${v.less_progress}` : ""]]) tr.appendChild(el("td", cls || "", val));
   }
 }
+})();
+</script>
+<script>
+// spec/LAB_LINK.md: the agent pane's link scrolls to the Person Lab and starts it with the lab's own Play button
+(() => {
+  const a = document.getElementById("labJump"); if (!a) return;
+  a.addEventListener("click", e => {
+    const lab = document.getElementById("lab"), b = document.getElementById("labRun");
+    if (!lab || !b) return;                       // without the lab, the plain link still jumps to #lab
+    e.preventDefault();
+    const still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    lab.scrollIntoView({behavior: still ? "auto" : "smooth", block: "start"});
+    history.replaceState(null, "", "#lab");
+    let n = 0;
+    const go = () => {                            // wait (up to 5 s) until the lab's data has loaded
+      if (!b.disabled && b.textContent.trim() === "Play") { b.click(); return; }
+      if (b.textContent.trim() === "Pause" || ++n > 50) return;
+      setTimeout(go, 100);
+    };
+    go();
+  });
 })();
 </script>
 </body>

@@ -58,6 +58,7 @@ python3 scripts/check_site_catchup.py docs # spec/SITE_CATCHUP.md: System page, 
 python3 scripts/check_evidence.py docs     # spec/EVIDENCE_LABELS.md: every live page shows its evidence label
 python3 scripts/check_personlab.py docs    # spec/PERSONLAB.md §7d: Person Lab on the World page, its box on the System page
 python3 scripts/check_site_night.py docs   # spec/SITE_NIGHT.md: Person Lab at the top of the World page, findings from data
+python3 scripts/check_lab_link.py docs     # spec/LAB_LINK.md: the agent pane link plays the Person Lab
 ```
 
 ## 3. Review checklist (every step)
@@ -524,6 +525,12 @@ first, then fix. Open items stay as listed in §6: the NimBLE port for C3/S3 on 
 - Review: PR #12 (`review/public-edition`, b40f48a), 2 should-fix, 3 notes, no blocker.
 - FIXES_PE (spec/FIXES_PE.md): registered 496b661; documentation fixes for the two should-fix findings (this section
   and §1 / checklist item 6).
+
+### LAB_LINK (18 November 2026; spec/LAB_LINK.md)
+
+- Registered efdc8ee; code and results in the next two commits. The agent system pane links to the Person Lab and starts
+  it ("Person Lab: 100 lab persons — play"); the lab is deliberately not a node of the agent graph. New check
+  `scripts/check_lab_link.py` (10/10, desktop and phone).
 
 ## 5. Review findings
 

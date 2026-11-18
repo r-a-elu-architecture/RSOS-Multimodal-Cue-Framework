@@ -141,8 +141,9 @@ Tests: `tests/test_person2.py`. A stated model, not data.
 - **Outcome measures:** return latency, chain length before interruption, unresolved triggers, coexistence share,
   calm-transfer, activation probability calm/activated, rumination seconds, vividness, agency, distress, crisis count.
 - **Person model v3** (spec/CUE_RESOLVE.md, 18 November 2026): v2 plus one rule, a cue ends on its own after 6 ticks
-  (`PersonEnvV2(seed, **person2.V3)`). It closes v2's loophole, where an uninterrupted cue blocked every later cue and
-  so made the cues a person met depend on the policy. Adopted for new person-side tests; recorded runs stay on v2.
+  (`PersonEnvV2(seed, **person2.V3)`). It closes v2's loophole, where an uninterrupted cue blocked every later cue.
+  Available, not adopted as a default (FIXES_NIGHT FB-1): cue arrivals still depend on the policy (the Watchdog meets
+  about 11% more), and that difference alone decides Bear against the Watchdog on v3. Recorded runs stay on v2.
 - **Mission score v2:** a tuple (safety, depth, agency), compared lexicographically with tolerances — a run that is safer
   beyond tolerance wins whatever its depth or agency.
 

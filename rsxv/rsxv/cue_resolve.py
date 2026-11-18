@@ -168,5 +168,44 @@ def main_adopt(argv):
     print(txt)
 
 
+# ---------------------------------------------------------------- FIXES_NIGHT CR-1: where Bear's lead on v3 comes from
+def decomposition(seeds=B_SEEDS, R=R_MAIN, ticks=B_TICKS):
+    """Information, not a test: each person's mean per tick split into ticks where a cue was triggered and all others."""
+    parts = {}
+    for arm in ("WATCHDOG", "BEAR"):
+        cue_part, other_part, cost, n_cues = [], [], [], []
+        for s in seeds:
+            pe = PersonEnvV2(s, trig_rate=0.15, self_resolve=R)
+            w = _world(pe, arm, s)
+            trig = []
+            for _ in range(ticks):
+                n0 = len(pe.events)
+                w.tick()
+                trig.append(len(pe.events) > n0)
+            r = np.array(w.rewards)
+            t = np.array(trig)
+            cue_part.append(r[t].sum() / ticks)
+            other_part.append(r[~t].sum() / ticks)
+            n_cues.append(int(t.sum()))
+            if t.any():
+                cost.extend(r[t].tolist())
+        parts[arm] = {"cue": cue_part, "other": other_part, "cues": n_cues, "cost_per_trigger_tick": float(np.mean(cost))}
+    W, Bp = parts["WATCHDOG"], parts["BEAR"]
+    return {"seeds": [seeds.start, seeds.stop - 1], "R": R,
+            "total_W_minus_B": paired(np.add(W["cue"], W["other"]), np.add(Bp["cue"], Bp["other"])),
+            "cue_ticks_W_minus_B": paired(W["cue"], Bp["cue"]),
+            "other_ticks_W_minus_B": paired(W["other"], Bp["other"]),
+            "cues_per_person": {"WATCHDOG": float(np.mean(W["cues"])), "BEAR": float(np.mean(Bp["cues"]))},
+            "score_per_trigger_tick": {"WATCHDOG": W["cost_per_trigger_tick"], "BEAR": Bp["cost_per_trigger_tick"]}}
+
+
 if __name__ == "__main__":
-    (main_adopt(sys.argv[2:]) if sys.argv[1:2] == ["adopt"] else main(sys.argv[1:]))
+    if sys.argv[1:2] == ["decompose"]:
+        res = {"spec": "spec/FIXES_NIGHT.md CR-1 (information)", **decomposition()}
+        txt = json.dumps(res, indent=1, sort_keys=True)
+        if sys.argv[2:]:
+            open(sys.argv[2], "w").write(txt + "\n")
+        print(txt)
+    else:
+        (main_adopt(sys.argv[2:]) if sys.argv[1:2] == ["adopt"] else main(sys.argv[1:]))
+

@@ -54,3 +54,8 @@ Row 16 is a data step. Order: B first (row 8 first), row 14 in parallel, then A 
 - The scene itself: fresh sessions given the same 16 misses, with this scene and with a plain instruction; count the
   concrete, testable levers per arm and the levers found only by the scene. This file is the sealed answer that test
   compares against.
+
+---
+Pointer, 18 November 2026 (FIXES_NIGHT W-2; the table above is unchanged): row 2's "10× honest? Yes" proved wrong for
+blocked ticks, because closing the loophole lets about 15× more cues arrive; see spec/CUE_RESOLVE.md §7 and §9. Row 8's
+TURN_RATINGS result and its limits: spec/TURN_RATINGS.md §9 and §10.

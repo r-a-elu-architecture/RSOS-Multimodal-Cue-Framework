@@ -144,3 +144,21 @@ than as an interval that merely contains zero. What does predict the next rating
 their starting state. Limits as §7: association only; crowdworkers playing seekers; strategy labels by supporters; a
 ceiling of 54.6% at 5. The EXPLORE coefficient points the same way as the asking-back findings (CTX_PREF_HH, CTX_PREF_WC) but
 its interval contains 0 and it is not a finding.
+
+## 10. Corrections, 18 November 2026 (FIXES_NIGHT, after the night review, pull request #11)
+
+- **TR-1, wording.** The outcome is the seeker's 1–5 rating of the support just given, not the seeker's own state; the
+  seekers were crowdworkers; the result is an association. Every sentence about this test now says "did not measurably
+  improve the prediction of the seeker's next rating of the support (within ±0.01 squared error)". The review's
+  sensitivity check (not registered) found that a per-action effect of about +0.1 rating points (STABILISE) would have
+  given SIGNAL, while +0.1 on SHARE and about +0.12 net on EXPLORE stay NULL: the NULL rules out per-action effects larger
+  than about 0.1–0.2 points, not every effect.
+- **TR-2.** The NULL is consistent with the Person Lab's equal effects but does not show them: equal ratings do not imply
+  equal effects on intensity, arousal, openness or progress. The effect option now reads "Equal (placeholder; consistent
+  with ESConv ratings)".
+- **TR-3.** §0's "roughly 10× more outcome events than conversations" is wrong: 7,681 ratings over 1,300 conversations is
+  5.9×. The ≈10× of WORLD_10X row 8 compares with the 756 conversation outcomes of step 5; against step 5's 100 test
+  conversations, 6,352 usable events is 63×.
+- **TR-4.** The registration was pushed 90 s before 309 lines of code and 7 tests, so the code was written before the
+  registration was pushed. The order rule holds; git cannot show the code was not run earlier (it was not). Future steps
+  register before writing code, or put the code's tree hash in the registration.

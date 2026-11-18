@@ -31,10 +31,10 @@
    "other": 0
   },
   "person model": {
-   "pass": 1,
+   "pass": 0,
    "mixed": 2,
    "fail": 7,
-   "analysis": 0,
+   "analysis": 1,
    "other": 1
   },
   "agents": {
@@ -432,9 +432,9 @@
    "parent": null
   },
   {
-   "test": "Round 8e, supporter action against the person's own next rating (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/TURN_RATINGS.md\">spec/TURN_RATINGS.md</a>)",
+   "test": "Round 8e, supporter action against the seeker's next rating of the support (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/TURN_RATINGS.md\">spec/TURN_RATINGS.md</a>)",
    "result": "<b>Fail</b> (null shown)",
-   "meaning": "6,352 rated events. What the supporter did adds nothing to the next rating beyond the previous rating, stage and starting intensity: \u22120.0008 [\u22120.0036, +0.0019] in mean squared error, inside the \u00b10.01 equivalence band; letting the effect depend on stage adds nothing either (+0.0032 [+0.0005, +0.0063]). The previous rating and start beat persistence by \u22120.185 [\u22120.232, \u22120.141]. Association data; no action effect to give the Person Lab (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/turn_ratings.json\">results/turn_ratings.json</a>)",
+   "meaning": "6,352 rated events in ESConv (crowdworkers playing seekers). The supporter's action did not measurably improve the prediction of the seeker's next rating of the support beyond the previous rating, stage and starting intensity: \u22120.0008 [\u22120.0036, +0.0019] in mean squared error, inside the \u00b10.01 equivalence band; letting it depend on stage did not either (+0.0032 [+0.0005, +0.0063]). An association. A per-action effect above about 0.1\u20130.2 rating points would have shown (the review's sensitivity check, not registered). The previous rating and start beat persistence by \u22120.185 [\u22120.232, \u22120.141] (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/turn_ratings.json\">results/turn_ratings.json</a>)",
    "status": "fail",
    "family": "person model",
    "series": null,
@@ -443,7 +443,7 @@
   {
    "test": "Round 8f, person model v3: a cue resolves on its own after 6 ticks (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CUE_RESOLVE.md\">spec/CUE_RESOLVE.md</a>)",
    "result": "<b>Fail</b> (Part A, by its 10\u00d7 rule)",
-   "meaning": "Stuck cues under always Bear fall from 15 of 15 runs to 0, but ticks with a cue open fall only 1.8\u00d7, because about 15\u00d7 more cues now arrive (registered measure, not a sensible 10\u00d7 target). With the loophole closed, always Bear still beats the Watchdog (\u22120.0193 [\u22120.0266, \u22120.0115] per tick on 200 fresh persons); about half of Bear's earlier margin was the loophole. Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve.json\">results/cue_resolve.json</a>)",
+   "meaning": "Stuck cues under always Bear fall from 15 of 15 runs to 0, but ticks with a cue open fall only 1.8\u00d7, because about 15\u00d7 more cues now arrive. With the loophole closed, always Bear still beats the Watchdog (\u22120.0193 [\u22120.0266, \u22120.0115] per tick on 200 fresh persons), but that lead comes entirely from the Watchdog meeting about 11% more cues: on all other ticks the Watchdog is ahead (+0.0143 [+0.0042, +0.0241]; the review's decomposition, reproduced). Not evidence that stabilising helps. Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve.json\">results/cue_resolve.json</a>, <a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve_decomp.json\">results/cue_resolve_decomp.json</a>)",
    "status": "fail",
    "family": "person model",
    "series": null,
@@ -451,9 +451,9 @@
   },
   {
    "test": "Round 8f-B, is person model v3 adopted: is cue exposure the same under every policy? (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CUE_RESOLVE.md\">spec/CUE_RESOLVE.md</a> \u00a78)",
-   "result": "<b>Pass</b> (a confirmation: the threshold was set after Part B)",
-   "meaning": "On 200 fresh persons, cues per person under always Bear, the Watchdog and Lion are 9.6, 10.6 and 9.6 on v3 (Bear \u00f7 Watchdog 0.90 [0.87, 0.94]); on v2 they were 1.0, 5.5 and 1.0. v3 becomes the default for new person-side tests; recorded runs stay on v2. Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve_adopt.json\">results/cue_resolve_adopt.json</a>)",
-   "status": "pass",
+   "result": "<b>Analysis</b> (criterion set after its answer; half of it holds by construction)",
+   "meaning": "On 200 fresh persons, cues per person under always Bear, the Watchdog and Lion are 9.6, 10.6 and 9.6 on v3, against 1.0, 5.5 and 1.0 on v2. Neither Bear nor Lion ever interrupts a cue, so their exposure is set by the trigger rate and R alone. v3 is available; adopting it is the owner's decision (FIXES_NIGHT FB-1). Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve_adopt.json\">results/cue_resolve_adopt.json</a>)",
+   "status": "analysis",
    "family": "person model",
    "series": null,
    "parent": null

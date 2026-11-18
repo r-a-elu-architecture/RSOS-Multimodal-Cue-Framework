@@ -38,12 +38,24 @@ def strip_tags(s: str) -> str:
 
 
 def row_source(test: str, sources: dict) -> str:
-    """The one source whose key starts the row's test name (L3: exactly one, or an error)."""
+    """The source of the longest key that starts the row's test name (L3: exactly one at that length, or an error).
+    Longest key wins so that "Round 8f" (simulation) is not caught by "Round 8" (public data) (FIXES_NIGHT E-1)."""
     name = strip_tags(test)
-    hits = [src for src, keys in sources.items() for k in keys if name.startswith(k)]
-    if len(hits) != 1:
-        raise ValueError(f"results-register row needs exactly one source, has {hits}: {name[:80]}")
-    return hits[0]
+    hits = [(len(k), src) for src, keys in sources.items() for k in keys if name.startswith(k)]
+    if not hits:
+        raise ValueError(f"results-register row needs exactly one source, has []: {name[:80]}")
+    top = max(n for n, _ in hits)
+    best = sorted({src for n, src in hits if n == top})
+    if len(best) != 1:
+        raise ValueError(f"results-register row needs exactly one source, has {best}: {name[:80]}")
+    return best[0]
+
+
+def check_stated(row: dict, src: str) -> None:
+    """L4 (FIXES_NIGHT E-1): a row that says it ran on stated models is never counted as recorded or public data."""
+    text = strip_tags(row.get("result", "") + " " + row.get("meaning", "")).lower()
+    if "stated model" in text and src in ("public", "record"):
+        raise ValueError(f"row says 'stated model' but is filed under '{src}': {strip_tags(row['test'])[:80]}")
 
 
 def counts(rows) -> dict:
@@ -61,6 +73,7 @@ def build():
     rows = reg["rows"]
     for r in rows:
         r["source"] = row_source(r["test"], m["row_sources"])
+        check_stated(r, r["source"])
     if not any(r["source"] == "people" for r in rows):
         for p, v in m["pages"].items():
             if v.get("level") == "E5":

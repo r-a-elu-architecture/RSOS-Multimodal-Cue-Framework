@@ -69,3 +69,12 @@ Evidence labels (step 13), the Agents page board (step 14), the home page (step 
   (with step 12), `check_trial_loop.py` and `check_watchdog.py` exit 0.
 - **Open:** person model v3, where a cue can resolve without the module (or where an open cue does not block later cues).
   Until then, any stabilise-first result on person model v2 carries this caveat.
+
+## 7. Note, 18 November 2026 (FIXES_NIGHT CR-1): the caveat stays, with a measured reason
+
+CUE_RESOLVE closed the §1a loophole in a person model v3. Always Bear still scores above the Watchdog there (−0.0193
+[−0.0266, −0.0115] per tick), but the review's decomposition, reproduced in `rsxv/results/cue_resolve_decomp.json`, shows
+that the whole lead comes from the Watchdog meeting about 11% more cues (10.69 against 9.60 per person; a cue costs the same
+under both, −3.66 per trigger tick). On all other ticks the Watchdog is ahead (+0.0143 [+0.0042, +0.0241]). So D2
+(stabilise-first as the default for anything new that runs on a person) rests on caution, not on evidence that stabilising
+helps, in these models or in people. The next fair comparison draws cue arrival times in advance, independent of the policy.

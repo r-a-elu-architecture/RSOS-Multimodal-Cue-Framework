@@ -126,3 +126,8 @@ Checks replacing A1's C6 (`check_site_night.py`):
   page worked (a scrolled click jumped to tick 17). The check now scrolls the chart into view before clicking.
 - The lede's "run a session" became "press Play to watch the session tick by tick".
 - `check_personlab` 31/31, `check_profiles`, `check_evidence`, `check_release` and `check_all.sh` pass.
+
+## 7. Note, 18 November 2026 (FIXES_NIGHT TR-1, TR-2, CR-1, SN-1)
+§0.5's "which is what the equal effects now agree with" and N3's option text "show no difference" overstated TURN_RATINGS;
+the page's cue sentence overstated CUE_RESOLVE. All three are corrected through `rsxv/rsxv/site_findings.py` (now also
+reading `cue_resolve_decomp.json`) and the option text; check C2 still ties every number to the data.

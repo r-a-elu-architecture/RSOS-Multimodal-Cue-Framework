@@ -106,7 +106,7 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
 <h1>Software agents, a simulated person and a Person Lab of 100, run by one architecture.</h1>
 <p class="lede">Three parts share one architecture. Six software agents depend on each other and fail. A simulated person meets cues that raise distress. In the Person Lab, agents work toward each of 100 lab persons' desired state, one RSX-V program per step. The same Watchdog chooses the working mode every tick, and the Spine and the safety layer can overrule it.</p>
 <p class="jump" style="margin:-6px 0 18px"><a href="#run">Agent system and simulated person</a> · <a href="#lab">Person Lab: 100 lab persons and agents</a> · <a href="#findings">What the latest results say</a></p>
-  <!-- evidence:start --><p class="evidence" data-level="E4" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 18 registered tests: 1 pass, 4 mixed, 9 fail, 4 other. Not yet tested with people using RSOS.</p><!-- evidence:end -->
+  <!-- evidence:start --><p class="evidence" data-level="E4" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: E4 Tested on recorded data. In simulation, 29 registered tests: 1 pass, 7 mixed, 19 fail, 2 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other. Not yet tested with people using RSOS.</p><!-- evidence:end -->
 <p class="note">These are replays of real runs of the tested code (<code>rsxv</code>: <code>World</code>, <code>AgentEnvV2</code>, <code>PersonEnvV2</code>), recorded tick by tick. Both sides are stated models, not people and not production systems. Choose an intervention and a run, press play, and click the timeline to see why any decision was made.</p>
 
 <section id="findings" style="margin:0 0 22px"><h2 style="font-size:1.15rem;margin:0 0 8px">What the latest results say</h2><ul class="note" style="margin:0;padding-left:20px"><li id="findTurn">Loading…</li><li id="findCue">Loading…</li></ul></section>
@@ -173,7 +173,7 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
   <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each is drawn at random from summary statistics of 100 profiles built from a public research dataset of support conversations (ESConv), and every statement is written for the lab. They are not real people, not anyone's words, and none corresponds to any profile. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). <span id="labFind"></span> This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
   <div class="controls" role="group" aria-label="Person Lab controls">
     <label>Lab person<select id="labP"></select></label>
-    <label>Effects of actions<select id="labE"><option value="placeholder">Equal (placeholder; ESConv ratings show no difference)</option><option value="illustrative">Different (invented, untested)</option></select></label>
+    <label>Effects of actions<select id="labE"><option value="placeholder">Equal (placeholder; consistent with ESConv ratings)</option><option value="illustrative">Different (invented, untested)</option></select></label>
     <label>Policy<select id="labPol"><option value="agents">Agents (Watchdog rule)</option><option value="always_bear">Always Bear</option><option value="no_support">No support</option></select></label>
     <label>Speed<select id="labSpeed"><option value="900">Slow</option><option value="450" selected>Normal</option><option value="160">Fast</option></select></label>
     <button class="play" id="labRun" type="button">Play</button>
@@ -354,7 +354,7 @@ const NM = {BEAR: "Bear", RAVEN: "Raven", TIGER: "Tiger", LION: "Lion"};
 const ACT = {STABILISE: "steady", EXPLORE: "clarify", SUGGEST: "take a step", SHARE: "share", NONE: "no action"};
 const POL = {agents: "Agents (Watchdog rule)", always_bear: "Always Bear", no_support: "No support"};
 const TYPE = {"job crisis": "work and job", "breakup with partner": "a breakup", "problems with friends": "friendships", "academic pressure": "study pressure"};   // display names (no crisis wording on pages)
-const EFF = {placeholder: "Equal effects (placeholder; ESConv ratings show no difference)", illustrative: "Different effects (invented, untested)"};
+const EFF = {placeholder: "Equal effects (placeholder; consistent with ESConv ratings)", illustrative: "Different effects (invented, untested)"};
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 let LAB = null, M = null, run = null, bear = null, cur = 0, timer = null;
 Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/personlab_persons.json").then(r => r.json())])

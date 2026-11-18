@@ -158,3 +158,30 @@ the same world. The adoption test is therefore whether v3 makes cue exposure pol
 - **Applied (§8):** `person2.V3 = {"self_resolve": 6}` is the default for new person-side tests (AGENTS.md §3.2);
   `PersonEnvV2` keeps v2 as its own default, and `world_runs.json` is unchanged. Moving the World page's recorded runs to v3
   is a separate site step for the owner to decide.
+
+## 9. Corrections, 18 November 2026 (FIXES_NIGHT, after the night review, pull request #11)
+
+**CR-1, the reading of Part B.** The verdict BEAR STILL WINS stands as registered. The reading in §7 ("the other half
+remains", "the stabilise-first default stands without the loophole caveat") was wrong. The review's decomposition,
+reproduced on Part B's own seeds (`rsxv/results/cue_resolve_decomp.json`, information, not a test):
+
+| v3, 200 persons | Watchdog − Bear per tick (99%) |
+|---|---|
+| all ticks | −0.0193 [−0.0266, −0.0115] |
+| ticks where a cue is triggered | −0.0336 [−0.0455, −0.0223] |
+| all other ticks | **+0.0143 [+0.0042, +0.0241]** |
+
+A cue costs the same under both policies (−3.664 Bear, −3.667 Watchdog per trigger tick); the Watchdog meets 10.69 cues per
+person, Bear 9.60. When the Watchdog interrupts a cue it can end sooner, so the next can arrive sooner. **On v3 the whole of
+Bear's lead is that exposure difference; on every other tick the Watchdog is ahead.** This is not evidence that stabilising
+helps. STAB_DEFAULT keeps its caveat (§7 there). The fair comparison draws cue arrival times in advance, independent of the
+policy; it is the next step, not run here.
+
+**FB-1, follow-up B.** Register status `analysis`, not `pass`: the criterion was chosen after its answer was known (the
+adoption rule of §4 had failed), and Bear ÷ Lion ≈ 1 holds by construction (neither interrupts a cue; arrivals are set by
+the trigger rate and R: about 120 / (6 + 1/0.15) ≈ 9.5 per person). The sealed P(pass) = 0.80 overstated the risk.
+**v3 is not adopted as a default**: `person2.V3` stays available; adopting a v3 (preferably with policy-independent arrival
+times) is the owner's decision. §8's "What follows" is superseded.
+
+**CR-3.** §4's "no setting of this model can be fitted from that data (TURN_RATINGS)" goes further than either result:
+TURN_RATINGS measured the seeker's rating of the support; this model's outcome is distress.

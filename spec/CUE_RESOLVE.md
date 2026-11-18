@@ -140,3 +140,21 @@ the same world. The adoption test is therefore whether v3 makes cue exposure pol
   `person2.V3`; `PersonEnvV2`'s own default stays v2 so recorded runs reproduce; the World page's recorded runs move to v3
   only by a separate registered site step (owner's decision). Fail: v3 is not adopted, and the next attempt changes the
   mechanism, not the threshold.
+
+### Follow-up B results (code 93a1cbf; run once, 24 s; `rsxv/results/cue_resolve_adopt.json`)
+
+| 200 fresh persons, 120 ticks | cues per person: Bear / Watchdog / Lion | Bear ÷ Watchdog (99%) | Bear ÷ Lion (99%) |
+|---|---|---|---|
+| v2 | 1.0 / 5.5 / 1.0 | 0.18 [0.16, 0.20] | 1.00 [1.00, 1.00] |
+| **v3** | **9.6 / 10.6 / 9.6** | **0.90 [0.87, 0.94]** | **0.99 [0.95, 1.04]** |
+
+- **PASS** (§8): both v3 ratios lie in [0.85, 1.15] with intervals inside [0.80, 1.25]. A confirmation, as disclosed: the
+  threshold was set after Part B's numbers on other seeds.
+- Found in the contrast: on v2 Lion, like Bear, met exactly one cue per person. The loophole affected every policy that
+  cannot interrupt a cue, not only Bear.
+- The Watchdog still meets about 11% more cues on v3. That is the model working as written: a cue the module interrupts
+  can end before R ticks, so the next one can arrive sooner.
+- **Sealed prediction** P(pass) = 0.80: met.
+- **Applied (§8):** `person2.V3 = {"self_resolve": 6}` is the default for new person-side tests (AGENTS.md §3.2);
+  `PersonEnvV2` keeps v2 as its own default, and `world_runs.json` is unchanged. Moving the World page's recorded runs to v3
+  is a separate site step for the owner to decide.

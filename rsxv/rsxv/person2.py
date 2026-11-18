@@ -19,6 +19,9 @@ from . import safety as sf
 from . import world as W
 
 CAPTURE_AROUSAL = 0.8
+# Person model v3 (spec/CUE_RESOLVE.md §8, adopted 18 November 2026): the default for new person-side tests.
+# PersonEnvV2 itself keeps v2 as its default so every recorded run reproduces: use PersonEnvV2(seed, **V3).
+V3 = {"self_resolve": 6}
 INTERRUPTERS = {"BEAR", "RAVEN", "TIGER"}          # modes that can fire the module to interrupt a chain
 HYPOTHESES = ("neutral", "arousal_deeper", "calm_better")
 

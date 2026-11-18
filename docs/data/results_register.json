@@ -31,7 +31,7 @@
    "other": 0
   },
   "person model": {
-   "pass": 0,
+   "pass": 1,
    "mixed": 2,
    "fail": 7,
    "analysis": 0,
@@ -445,6 +445,15 @@
    "result": "<b>Fail</b> (Part A, by its 10\u00d7 rule)",
    "meaning": "Stuck cues under always Bear fall from 15 of 15 runs to 0, but ticks with a cue open fall only 1.8\u00d7, because about 15\u00d7 more cues now arrive (registered measure, not a sensible 10\u00d7 target). With the loophole closed, always Bear still beats the Watchdog (\u22120.0193 [\u22120.0266, \u22120.0115] per tick on 200 fresh persons); about half of Bear's earlier margin was the loophole. Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve.json\">results/cue_resolve.json</a>)",
    "status": "fail",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8f-B, is person model v3 adopted: is cue exposure the same under every policy? (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CUE_RESOLVE.md\">spec/CUE_RESOLVE.md</a> \u00a78)",
+   "result": "<b>Pass</b> (a confirmation: the threshold was set after Part B)",
+   "meaning": "On 200 fresh persons, cues per person under always Bear, the Watchdog and Lion are 9.6, 10.6 and 9.6 on v3 (Bear \u00f7 Watchdog 0.90 [0.87, 0.94]); on v2 they were 1.0, 5.5 and 1.0. v3 becomes the default for new person-side tests; recorded runs stay on v2. Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve_adopt.json\">results/cue_resolve_adopt.json</a>)",
+   "status": "pass",
    "family": "person model",
    "series": null,
    "parent": null

@@ -121,3 +121,22 @@ registered run, and its direction was seen. Nothing was changed between it and t
 - BEAR STILL WINS on v3: the stabilise-first default (STAB_DEFAULT D2) stands, and the loophole caveat becomes a measured
   size: half of Bear's v2 margin was the loophole, half remains.
 - Stated models only. Nothing here is evidence about people (TURN_RATINGS found no action effect in people's own ratings).
+
+## 8. Follow-up B, registered 2026-11-18 (before its code): is v3 adopted?
+
+**Why not a stuck-cue measure.** Any measure of cues open longer than R is circular: in v3 no cue can stay open past R by
+construction, so it would pass automatically. The loophole was something else: **in v2 the cues a person meets depended on
+the policy** (Part B: 1.0 per person under always Bear, 5.1 under the Watchdog). A person model must expose every policy to
+the same world. The adoption test is therefore whether v3 makes cue exposure policy-independent.
+
+- **Disclosed:** Part B already printed cues per person on v3 (Bear 9.6, Watchdog 10.7, Lion 9.7, seeds 260000–260199). The
+  threshold below is set after seeing those numbers, so this is a confirmation on fresh seeds, not a discovery.
+- **Design.** 200 fresh simulated persons, seeds 270000–270199 (unused), `PersonEnvV2(seed, trig_rate=0.15)`, 120 ticks,
+  `World(score="mission")`, arms BEAR, WATCHDOG, LION, on v3 (R = 6) and on v2 for contrast. Measure: mean cues per person.
+- **Pass:** on v3, both ratios BEAR / WATCHDOG and BEAR / LION lie in [0.85, 1.15], each with a 99% bootstrap interval
+  (2000 resamples over persons, seed 12345) inside [0.80, 1.25]. Reported: the same ratios on v2.
+- **Sealed prediction:** P(pass) = 0.80.
+- **What follows.** Pass: person model v3 (`self_resolve=6`) becomes the default for **new** person-side tests, named
+  `person2.V3`; `PersonEnvV2`'s own default stays v2 so recorded runs reproduce; the World page's recorded runs move to v3
+  only by a separate registered site step (owner's decision). Fail: v3 is not adopted, and the next attempt changes the
+  mechanism, not the threshold.

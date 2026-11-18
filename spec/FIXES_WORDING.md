@@ -35,3 +35,11 @@ profile are untouched.
 | **F1** | Wording | Under the six non-clinical profiles, every page's rendered text has none of the site's clinical words (`CLINICAL_WORDS`) and no "pathology" |
 | **F2** | Function unchanged, shown | The Clinical profile renders every page's text byte-identical before and after (snapshot of all pages taken before the change) |
 | **F3** | Function unchanged, by construction | No file under `docs/data/`, no module outside the two profile files, and no test expectation other than the exemption list changes; `check_all.sh`, `check_profiles.py`, `check_site_catchup.py` pass |
+
+### Results (18 Nov 2026)
+
+| # | Result | Verdict |
+|---|---|---|
+| F1 | `check_profiles.py`, now checking every page under every non-clinical profile for the clinical word list and "pathology": 0 fails, 0 page errors | **pass** |
+| F2 | Clinical profile, all 25 pages, rendered text before vs after: identical except the contribute page's participant code, which is random per device and new in each fresh browser (masked, identical) | **pass** |
+| F3 | No file under `docs/data/` changed (hash check); changed files: the two profile files (exemption list emptied, 13 display rules added, identical in Python and JavaScript) and the check script; `check_all.sh`, `check_profiles.py`, `check_site_catchup.py`, `check_evidence.py` (168/168) pass | **pass** |

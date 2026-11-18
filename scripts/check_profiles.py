@@ -22,6 +22,7 @@ from rsso import profiles as P  # noqa: E402
 PAGES = ["index", "player", "nodes", "therapist", "contribute", "night", "safety", "world", "metrics", "anchors",
          "identity", "atlas", "trials", "device", "agents", "rsxv"]   # rsxv: spec/FIXES_WORDING.md
 RX = re.compile(P.CLINICAL_WORDS, re.I)
+PATHOLOGY = re.compile(r"\bpatholog\w*", re.I)   # spec/FIXES_WORDING.md §2
 EMERGENCY = "not for use in an emergency: if you are at risk of harm, contact your local emergency services."   # PUBLIC_EDITION_2 C
 EMERGENCY_PAGES = ("safety", "therapist")
 CRISIS = re.compile(r"\b(?:crisis|suicid\w*|self-harm|harming yourself|helpline|emergency services|not wanting to live|at risk of harm)\b", re.I)   # FIXES_R1 S-7
@@ -76,6 +77,10 @@ def main():
                 hits = sorted(set(m.group(0) for m in CRISIS.finditer(vis)))
                 if hits:
                     fails.append(f"S-7 {prof} {name}: {hits}")
+                if not P.clinical_vocab(prof):           # spec/FIXES_WORDING.md §2 F1: every page, wording only
+                    cw = sorted(set(m.group(0) for m in RX.finditer(vis)) | set(m.group(0) for m in PATHOLOGY.finditer(vis)))
+                    if cw:
+                        fails.append(f"F1 {prof} {name}: {cw}")
             # P7 safety page
             pg.goto(f"{base}/safety.html?profile={prof}")
             pg.wait_for_timeout(300)

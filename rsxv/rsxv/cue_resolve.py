@@ -127,5 +127,46 @@ def main(argv):
     print(txt)
 
 
+
+
+# ---------------------------------------------------------------- follow-up B (spec/CUE_RESOLVE.md §8): is v3 adopted?
+ADOPT_SEEDS = range(270000, 270200)
+
+
+def ratio_ci(a, b, seed=BOOT_SEED, B=BOOT, level=LEVEL):
+    """Ratio of mean cues per person (a / b), paired bootstrap over persons."""
+    a, b = np.array(a, float), np.array(b, float)
+    rng = np.random.default_rng(seed)
+    bs = []
+    for _ in range(B):
+        i = rng.integers(0, len(a), len(a))
+        bs.append(float(a[i].mean() / b[i].mean()))
+    return {"ratio": float(a.mean() / b.mean()),
+            "ci": [float(np.quantile(bs, (1 - level) / 2)), float(np.quantile(bs, 1 - (1 - level) / 2))]}
+
+
+def adopt_pass(r):
+    return 0.85 <= r["ratio"] <= 1.15 and r["ci"][0] >= 0.80 and r["ci"][1] <= 1.25
+
+
+def adoption(seeds=ADOPT_SEEDS):
+    out = {}
+    for version, R in (("v2", None), ("v3", R_MAIN)):
+        cues = {arm: [person_run(s, arm, R)["cues"] for s in seeds] for arm in ("BEAR", "WATCHDOG", "LION")}
+        bw, bl = ratio_ci(cues["BEAR"], cues["WATCHDOG"]), ratio_ci(cues["BEAR"], cues["LION"])
+        out[version] = {"cues_per_person": {k: float(np.mean(v)) for k, v in cues.items()},
+                        "bear_over_watchdog": bw, "bear_over_lion": bl}
+    out["passes"] = adopt_pass(out["v3"]["bear_over_watchdog"]) and adopt_pass(out["v3"]["bear_over_lion"])
+    return out
+
+
+def main_adopt(argv):
+    res = {"spec": "spec/CUE_RESOLVE.md §8", "R": R_MAIN, "seeds": [ADOPT_SEEDS.start, ADOPT_SEEDS.stop - 1], **adoption()}
+    txt = json.dumps(res, indent=1, sort_keys=True)
+    if argv:
+        open(argv[0], "w").write(txt + "\n")
+    print(txt)
+
+
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    (main_adopt(sys.argv[2:]) if sys.argv[1:2] == ["adopt"] else main(sys.argv[1:]))

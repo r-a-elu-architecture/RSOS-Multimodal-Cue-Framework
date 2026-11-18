@@ -50,3 +50,11 @@ def test_verdict_rule():
     assert C.verdict([-0.02, -0.001]) == "BEAR STILL WINS"
     assert C.verdict([0.001, 0.02]) == "WATCHDOG WINS"
     assert C.verdict([-0.01, 0.01]) == "TIE"
+
+
+def test_follow_up_B_rule():
+    assert C.adopt_pass({"ratio": 0.95, "ci": [0.85, 1.05]})
+    assert not C.adopt_pass({"ratio": 0.84, "ci": [0.82, 0.9]})
+    assert not C.adopt_pass({"ratio": 0.95, "ci": [0.78, 1.1]})
+    r = C.ratio_ci([2, 2, 2, 2], [1, 1, 1, 1], B=50)
+    assert r["ratio"] == 2.0 and r["ci"] == [2.0, 2.0]

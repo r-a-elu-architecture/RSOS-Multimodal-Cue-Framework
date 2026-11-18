@@ -78,24 +78,70 @@ def sanitise(intake: dict | None) -> dict:
     return out
 
 
-def session_check(answers: dict | None) -> dict:
-    """The structured self-check: {intensity 0-10, sleep_h, clinical_result none|low|moderate|high (entered by the
-    practitioner), flags [medication, practical], history bool} -> mode, screens, fixed messages, plan allowed."""
-    ev = safety.event_from_check(answers if isinstance(answers, dict) else {})
-    state, res = safety.observe(safety.new_state(), ev)
+MEDICATION = ("none", "non_sedative", "sedative", "unsure")
+SUBSTANCES = ("no", "yes", "unsure")
+
+
+def event(answers: dict | None) -> dict:
+    """The safety module's event from the check. v2 (§6): finer `medication` and `substances` answers fill the module's
+    own fields; an unknown value counts as unsure; the old `flags` keep their meaning (either source raises a field)."""
+    a = answers if isinstance(answers, dict) else {}
+    ev = safety.event_from_check(a)
+    if "medication" in a:
+        med = a["medication"] if a["medication"] in MEDICATION else "unsure"
+        ev["sedative_prescribed"] = bool(ev.get("sedative_prescribed")) or med in ("sedative", "unsure")
+    if "substances" in a:
+        sub = a["substances"] if a["substances"] in SUBSTANCES else "unsure"
+        ev["substances"] = bool(ev.get("substances")) or sub in ("yes", "unsure")
+    return ev
+
+
+def allowed_now(mode_key: str) -> dict:
+    cats = sorted(safety.MODE_ALLOWED[mode_key])
+    return {"categories": cats, "regulation_programs": list(safety.REGULATING) if "regulating_cue" in cats else []}
+
+
+def _gate(answers):
+    state, res = safety.observe(safety.new_state(), event(answers))
     ok = safety.allowed(state, {"kind": "plan"})
     return {"plan_allowed": ok["ok"], "mode": safety.MODE_NAME[state["mode"]], "mode_text": safety.MODE_TEXT[state["mode"]],
-            "screens": res["screens"], "actions": res["actions"], "messages": res["messages"]}
+            "screens": res["screens"], "actions": res["actions"], "messages": res["messages"],
+            "allowed_now": allowed_now(state["mode"])}
 
 
-def propose_plan(intake: dict | None, check: dict | None) -> dict:
-    """Gate first, then plan. The plan is never approved here."""
-    gate = session_check(check)
+def session_check(answers: dict | None) -> dict:
+    """The structured self-check: {intensity 0-10, sleep_h, clinical_result none|low|moderate|high (entered by the
+    practitioner), medication none|non_sedative|sedative|unsure, substances no|yes|unsure, flags [medication,
+    practical], history bool} -> mode, screens, fixed messages, whether a plan may be built, what is allowed now."""
+    return _gate(answers)
+
+
+def summary(p: dict) -> dict:
+    """The compact plan for the assistant (§6): every node's name, mode, code, frames and contexts; frame tips only where
+    flagged; tiers; one line per schedule phase; every safety line in full."""
+    def fr(text, fc):
+        d = {"text": text, "score": fc["score"]}
+        if fc["flags"]:
+            d.update(flags=fc["flags"], tips=fc["tips"])
+        return d
+    return {"planner": p["planner"], "detail": "summary",
+            "nodes": [{"name": n["name"], "mode": n["mode"], "tacton": n["tacton"],
+                       "frames": [fr(t, fc) for t, fc in zip(n["frames"], n["frame_checks"])],
+                       "contexts": n["contexts"]} for n in p["nodes"]],
+            "tiers": p["tiers"],
+            "schedule": [f"{x['phase']}: {x['per_day']} a day for {x['days']} days" if x["per_day"] else x["phase"]
+                         for x in p["schedule"]],
+            "safety": p["safety"], "therapist_led": p["therapist_led"], "approved": False}
+
+
+def propose_plan(intake: dict | None, check: dict | None, detail: str = "summary") -> dict:
+    """Gate first, then plan. The plan is never approved here. detail: summary (default) or full."""
+    gate = _gate(check)
     if not gate["plan_allowed"]:
         return {"plan": None, **gate, "note": "No plan is built in this session state."}
     p = nodes.plan(sanitise(intake))
     p["approved"] = False
-    return {"plan": p, **gate, "note": PROPOSAL}
+    return {"plan": p if detail == "full" else summary(p), **gate, "note": PROPOSAL}
 
 
 def check_frame(text: str, mode: str = "associated", believability=None) -> dict:
@@ -116,18 +162,22 @@ INTAKE_PROMPT = """You are filling an RSOS intake with a person (or with a pract
 research and development framework for practising desired states with cues on every sense; it is not a medical device.
 
 How to work:
-1. Ask first, in plain language, the short self-check: intensity right now (0-10), hours of sleep last night, whether
-   medication or practical circumstances (work, housing, income) are a concern right now, and whether there is earlier
-   experience the practitioner should know about. A screening result (none, low, moderate, high) is entered only by a
-   practitioner from their own validated instrument; never estimate it.
+1. Ask first, in plain language, the short self-check: intensity right now (0-10), hours of sleep last night, any
+   medication (none, non-sedative, sedative, unsure), alcohol or other substances now (no, yes, unsure), whether
+   practical circumstances (work, housing, income) are a concern right now, and whether there is earlier experience the
+   practitioner should know about. A screening result (none, low, moderate, high) is entered only by a practitioner
+   from their own validated instrument; never estimate it.
 2. Then help the person describe what they want to practise: the states they want (courage, calm, focus, the observer
    position), the situations where they will use them (up to 3 per state), and the cues on each sense: what they see,
    hear, feel in the body, smell and taste.
 3. Suggest frames (up to 5 per state): short, present tense, process words (I breathe, I see, I move), broad and
-   believable. Use check_frame on each and offer the rewrite it suggests.
+   believable.
 4. Propose only. Never write vibration codes, pulse patterns, programs, tiers, metrics, schedules or safety notes: the
-   planner computes them. Call propose_plan with the intake and the self-check answers.
-5. If propose_plan returns no plan, read its messages to the person as they are and do not build one another way.
+   planner computes them. Make one propose_plan call with the intake and the self-check answers; the reply carries
+   the frame checks, so offer their tips from it. Use detail "full" only when the person or practitioner asks for the
+   complete programs.
+5. If propose_plan returns no plan, read its messages to the person as they are, offer only what allowed_now lists
+   (for example a regulation program), and do not build a plan another way.
 6. The plan is a proposal. Say that the person, or the person and their practitioner, approves it before practice.
    Work with difficult memories, depression or trauma is led by a qualified practitioner.
 """

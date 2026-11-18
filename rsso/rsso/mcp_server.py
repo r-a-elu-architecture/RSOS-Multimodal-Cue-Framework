@@ -14,10 +14,12 @@ from . import linx_mcp as L
 
 TOOLS = {
     "propose_plan": "Build an RSOS practice plan from the assistant's proposal (states, cues, frames, contexts) after the "
-                    "session self-check. Codes, programs and schedule are computed by the planner. Returns a proposal "
-                    "for the person or their practitioner to approve, or no plan with the session's messages.",
-    "session_check": "Run the RSOS session self-check (intensity, sleep, medication or practical flags, earlier "
-                     "experience, a practitioner's screening result) and return the session state and its messages.",
+                    "session self-check, in one call. Codes, programs and schedule are computed by the planner. Returns a compact "
+                    "proposal (detail 'full' for the complete programs) for the person or their practitioner to approve, "
+                    "or no plan with the session's messages and what is allowed now.",
+    "session_check": "Run the RSOS session self-check (intensity, sleep, medication, substances, practical concerns, earlier "
+                     "experience, a practitioner's screening result) and return the session state, its messages and what is "
+                     "allowed now.",
     "check_frame": "Score a frame sentence: scope (broad or narrow), process or trait, wording flags and a suggested rewrite.",
     "tacton": "Return the pulse pattern (on and off times in ms) of an RSOS vibration code such as '..-'.",
 }
@@ -32,8 +34,8 @@ def build():
                                  "planner computes, the session check gates, the person approves.")
 
     @app.tool(name="propose_plan", description=TOOLS["propose_plan"])
-    def propose_plan(intake: dict[str, Any], check: dict[str, Any]) -> dict[str, Any]:
-        return L.propose_plan(intake, check)
+    def propose_plan(intake: dict[str, Any], check: dict[str, Any], detail: str = "summary") -> dict[str, Any]:
+        return L.propose_plan(intake, check, detail)
 
     @app.tool(name="session_check", description=TOOLS["session_check"])
     def session_check(answers: dict[str, Any]) -> dict[str, Any]:

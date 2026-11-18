@@ -104,3 +104,28 @@ Changes:
 | **L10** | 10× (REACH, reported, and a pass threshold) | Bytes returned to the assistant per completed intake, v2 flow (one summary call) ÷ v1 flow (session check + one check per frame + full plan): pass if ≤ 0.10; calls per intake reported (v1: 2 + frames) |
 | **L11** | CI | The checks job installs the SDK and L4 runs (not skipped) on dev |
 | **L12** | No regression | L1–L6 still pass (L1, L2, L4 on `detail: full`); `scripts/check_all.sh` passes |
+
+## 7. Results v2 (18 Nov 2026)
+
+`rsso/tests/test_linx_mcp.py`: 12 tests, OK, with L9 and L10 kept as visible registered failures
+(`expectedFailure`, as `test_trial_loop.py` T4) and their observed values pinned. `scripts/check_all.sh`: all
+checks passed.
+
+| # | Result | Verdict |
+|---|---|---|
+| L7 | 3,168 cells: plans exactly where `safety.allowed` permits; none where sedative-or-unsure meets yes-or-unsure substances; non_sedative + no equals none + no in every cell. Plan-allowed cells: 448 of 3,168 (each medication answer with substances "no": 56 of 264, the same as no medication); with the coarse flag every medication cell was withheld | **pass** |
+| L8 | Every cell without a plan (v1 and v2 grids) carries `allowed_now` equal to the mode's categories; regulation programs named exactly where allowed | **pass** |
+| L9 | Summary 0.288 × full (mean of ratios, 203 intakes); content condition met (every node name, code, frame and safety line) | **fail** (≤ 0.25) |
+| L10 | Bytes returned per intake: v2 1,963 vs v1 6,720 = **0.292×** (3.4× less); calls per intake 1 vs 5.14 (**5.1× fewer**) | **fail** (≤ 0.10) |
+| L11 | The checks job installs the SDK and sets `RSOS_REQUIRE_MCP`, so a missing SDK fails CI instead of skipping L4 | pass if the dev run is green (recorded below) |
+| L12 | L1–L6 pass (L1, L2, L4 on `detail: full`); check_all passes | **pass** |
+
+**Why 10× was not reached.** After the programs and full frame checks moved out, what remains is content the person
+needs to see: every node's frames, the safety lines in full (about 0.6 KB per plan) and the session fields. Reaching
+0.10 would mean sending safety lines by reference, which trades the person seeing them for bytes; not done. The larger
+lever in practice is calls: each tool call is a model turn over the whole conversation, and the flow went from 5.14
+calls to 1.
+
+**Observation (module rule, unchanged).** Substances now without sedative medication raise no screen (56 plan-allowed
+cells per substances answer with no medication). That is the safety module's rule (the screen needs both); whether
+substances alone should move the session to Stabilisation is a question for a separate, registered safety step.

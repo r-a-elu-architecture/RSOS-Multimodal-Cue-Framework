@@ -73,6 +73,7 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
 .lab-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}
 @media (max-width:860px){.lab-grid{grid-template-columns:1fr}}
 .lab-grid>.pane{min-width:0}
+#labTree .st.cur{outline:1px solid var(--gold);border-radius:6px;background:rgba(227,179,65,.08)}
 #lab .sub,#lab .tree{overflow-wrap:anywhere}
 .tree{list-style:none;margin:0;padding:0}
 .tree>li{border-left:3px solid var(--line);padding:6px 0 8px 12px;margin:0 0 6px}
@@ -168,15 +169,33 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
 
 <section id="lab">
   <h2>Person Lab: 100 lab persons, and agents working toward each one's desired state</h2>
-  <p class="lede">Each lab person has an identity profile on six levels, from environment up to purpose, with where they are now and where they want to be. Choose one and run a session: every tick the Watchdog picks an archetype (Bear steadies, Raven clarifies, Tiger takes a step, Lion shares), and each action is an RSX-V program whose <code>TARGET</code> line names the part of the profile it serves. Always Bear, the simple rule that beat switching in the baseline audit, runs beside it on the same person.</p>
+  <p class="lede">Each lab person has an identity profile on six levels, from environment up to purpose, with where they are now and where they want to be. Choose one and press Play to watch the session tick by tick: every tick the Watchdog picks an archetype (Bear steadies, Raven clarifies, Tiger takes a step, Lion shares), and each action is an RSX-V program whose <code>TARGET</code> line names the part of the profile it serves. Always Bear, the simple rule that beat switching in the baseline audit, runs beside it on the same person.</p>
   <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each is drawn at random from summary statistics of 100 profiles built from a public research dataset of support conversations (ESConv), and every statement is written for the lab. They are not real people, not anyone's words, and none corresponds to any profile. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). <span id="labFind"></span> This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
   <div class="controls" role="group" aria-label="Person Lab controls">
     <label>Lab person<select id="labP"></select></label>
     <label>Effects of actions<select id="labE"><option value="placeholder">Equal (placeholder; ESConv ratings show no difference)</option><option value="illustrative">Different (invented, untested)</option></select></label>
     <label>Policy<select id="labPol"><option value="agents">Agents (Watchdog rule)</option><option value="always_bear">Always Bear</option><option value="no_support">No support</option></select></label>
-    <button class="play" id="labRun" type="button">Run session</button>
+    <label>Speed<select id="labSpeed"><option value="900">Slow</option><option value="450" selected>Normal</option><option value="160">Fast</option></select></label>
+    <button class="play" id="labRun" type="button">Play</button>
+    <button id="labReset" type="button">Restart</button>
   </div>
   <p class="sub" id="labStatus" aria-live="polite" style="margin:-6px 0 14px"></p>
+  <div class="lab-grid" style="margin-bottom:18px">
+    <div class="pane" id="labLive">
+      <h3>Lab person, live</h3>
+      <p class="sub">Where the lab person is at this tick, and what the agents are running. Dashed figures: always Bear on the same person at the same tick.</p>
+      <div class="gauge"><div class="row"><span>Intensity (1–5)</span><span id="lvI"></span></div><div class="bar"><i id="lbI"></i></div></div>
+      <div class="gauge"><div class="row"><span>Arousal</span><span id="lvU"></span></div><div class="bar"><i id="lbU"></i></div></div>
+      <div class="gauge"><div class="row"><span>Openness</span><span id="lvK"></span></div><div class="bar"><i id="lbK"></i></div></div>
+      <div class="gauge"><div class="row"><span>Progress toward the desired state</span><span id="lvG"></span></div><div class="bar"><i id="lbG"></i></div></div>
+      <div class="now" id="labNow" style="margin-top:10px"></div>
+    </div>
+    <div class="pane">
+      <h3 id="labWhyH">Why, at tick 1</h3>
+      <p class="sub">The agents' decision for this tick, built from the session's own values.</p>
+      <ol class="chain" id="labWhy"></ol>
+    </div>
+  </div>
   <div class="lab-grid">
     <div class="pane">
       <h3>Identity profile <span class="tag">invented</span></h3>
@@ -186,8 +205,8 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
     <div class="pane" id="labSession">
       <h3>Session, 20 ticks</h3>
       <p class="sub" id="labSum"></p>
-      <svg id="labChart" viewBox="0 0 560 190" width="100%" role="img" aria-label="Intensity and progress by tick"></svg>
-      <p class="sub">Intensity 1–5 (red) and progress toward the desired state (green). Solid: the chosen policy; dashed: always Bear.</p>
+      <svg id="labChart" viewBox="0 0 560 190" width="100%" role="img" aria-label="Intensity and progress by tick" style="cursor:pointer"></svg>
+      <p class="sub">Intensity 1–5 (red) and progress toward the desired state (green). Solid: the chosen policy; dashed: always Bear. The gold line is the current tick; click to jump.</p>
       <div style="overflow:auto;max-height:300px"><table class="ticks" id="labTicks"></table></div>
       <p class="sub" style="margin-top:10px">RSX-V program of the selected tick</p>
       <pre class="prog" id="labProg"></pre>
@@ -337,7 +356,7 @@ const POL = {agents: "Agents (Watchdog rule)", always_bear: "Always Bear", no_su
 const TYPE = {"job crisis": "work and job", "breakup with partner": "a breakup", "problems with friends": "friendships", "academic pressure": "study pressure"};   // display names (no crisis wording on pages)
 const EFF = {placeholder: "Equal effects (placeholder; ESConv ratings show no difference)", illustrative: "Different effects (invented, untested)"};
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-let LAB = null, M = null, run = null, nRuns = 0;
+let LAB = null, M = null, run = null, bear = null, cur = 0, timer = null;
 Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/personlab_persons.json").then(r => r.json())])
   .then(([l, m]) => { LAB = l; M = m; init(); })
   .catch(() => { $("labMeta").textContent = "The lab data could not be loaded. Open this page from the website, not as a local file."; });
@@ -352,10 +371,12 @@ function init() {
   $("labP").addEventListener("change", () => { tree(); go(); });
   $("labE").addEventListener("change", go);
   $("labPol").addEventListener("change", go);
-  $("labRun").addEventListener("click", () => {   // SITE_NIGHT A1.2: on a phone, show the session that just ran
-    go();
-    if (window.innerWidth < 760) $("labSession").scrollIntoView({behavior: "smooth", block: "start"});
-  });
+  $("labRun").addEventListener("click", play);          // SITE_NIGHT A2.1: Play / Pause, as the World run
+  $("labReset").addEventListener("click", () => { stop(); show(0); });
+  $("labSpeed").addEventListener("change", () => { if (timer) { stop(); play(); } });
+  $("labChart").addEventListener("click", e => {          // A2.4: jump to the tick under the click
+    const b = $("labChart").getBoundingClientRect(), x = (e.clientX - b.left) / b.width * 560;
+    show(Math.max(0, Math.min(run.ticks.length - 1, Math.round((x - 34) / (560 - 68) * (run.ticks.length - 1))))); });
   tree(); go(); population();
 }
 
@@ -369,7 +390,7 @@ function tree() {
     const li = el("li", tl.has(lv.id) ? "tg" : ""), sts = ((p.levels[lv.id] || {}).statements) || [];
     li.appendChild(el("div", "lv", lv.name + " · " + lv.question + (tl.has(lv.id) ? " · target level" : "")));
     for (const st of sts) {
-      const d = el("div", "st"); d.appendChild(el("code", null, st.id + (tn.has(lv.id + ":" + st.id) ? " ◎" : ""))); d.appendChild(document.createTextNode(st.text));
+      const d = el("div", "st"); d.dataset.node = lv.id + ":" + st.id; d.appendChild(el("code", null, st.id + (tn.has(lv.id + ":" + st.id) ? " ◎" : ""))); d.appendChild(document.createTextNode(st.text));
       if (st.details && st.details.length) d.appendChild(el("span", "dt", " · " + st.details.map(x => x.kind + ": " + x.text).join(" · ")));
       li.appendChild(d);
     }
@@ -382,30 +403,81 @@ function tree() {
 
 function go() {
   const [p, n] = person(), eff = $("labE").value, pol = $("labPol").value;
+  stop();
   run = PersonLab.session(LAB, p, n, pol, eff);
-  const bear = PersonLab.session(LAB, p, n, "always_bear", eff);
+  bear = PersonLab.session(LAB, p, n, "always_bear", eff);
   const fb = run.ticks.reduce((s, r) => s + r.feedback, 0) / run.ticks.length;
   $("labSum").textContent = POL[pol] + ", " + EFF[eff].charAt(0).toLowerCase() + EFF[eff].slice(1) + ". Final intensity " + run.final_I.toFixed(2) + " (always Bear " + bear.final_I.toFixed(2) +
     "); progress toward the desired state " + Math.round(run.final_g * 100) + "% (always Bear " + Math.round(bear.final_g * 100) + "%); mean feedback " + fb.toFixed(2) + " of 5.";
   chart(run, bear);
-  nRuns += 1;                                     // SITE_NIGHT A1.1, A1.2: a visible sign of every run
-  $("labStatus").textContent = "Run " + nRuns + ": " + p.id + ", " + POL[pol] + ", " + EFF[eff].charAt(0).toLowerCase() + EFF[eff].slice(1)
-    + ". Sessions are deterministic: the same choices give the same session; changing a choice runs it at once.";
-  const pane = $("labSession"); pane.classList.remove("flash"); void pane.offsetWidth; pane.classList.add("flash");
   const t = $("labTicks"); t.textContent = "";
   const h = t.insertRow(); for (const c of ["Tick", "Archetype", "Action", "TARGET", "Intensity", "Progress", "Feedback", "Cue"]) h.appendChild(el("th", null, c));
   run.ticks.forEach((r, i) => {
     const tr = t.insertRow(); tr.dataset.i = i;
     for (const [v, cls] of [[r.t + 1, "n"], [r.archetype ? NM[r.archetype] : "—"], [ACT[r.action]], [r.target || "—"], [r.I.toFixed(2), "n"], [Math.round(r.g * 100) + "%", "n"], [r.feedback, "n"], [r.cue ? "•" : ""]]) tr.appendChild(el("td", cls || "", String(v)));
-    tr.addEventListener("click", () => pick(i));
+    tr.addEventListener("click", () => { stop(); show(i); });
   });
-  pick(0);
+  show(0);
 }
 
-function pick(i) {
+// SITE_NIGHT A2.5: what the agents sensed and which rule chose the archetype, derived from the session's own values.
+// The engine decides on arousal u and openness k before the step; they are the previous tick's values (start: u from the
+// starting intensity, k = 0). The derived archetype is checked against the engine's on every session (check C8).
+function derive(sess, p, i) {
+  const tau = LAB.defaults.tau, I0 = Math.min(5, Math.max(1, Number(p.initial_intensity)));
+  const before = j => j === 0 ? {I: I0, u: (I0 - 1) / 4, k: 0, g: 0} : sess.ticks[j - 1];
+  const b = before(i);
+  let calm = 0;
+  for (let j = 0; j <= i; j++) if (before(j).u < tau) calm += 1;
+  let action, rule;
+  if (sess.policy === "no_support") { action = "NONE"; rule = "No support: the policy takes no action."; }
+  else if (sess.policy === "always_bear") { action = "STABILISE"; rule = "Always Bear: the policy steadies on every tick."; }
+  else if (b.u >= tau) { action = "STABILISE"; rule = `Aroused (${b.u.toFixed(2)} ≥ ${tau}): Bear steadies before any change.`; }
+  else if (calm % 6 === 0) { action = "SHARE"; rule = `Calm, and the ${calm}th calm tick (every sixth): Lion shares.`; }
+  else if (b.k < 0.5) { action = "EXPLORE"; rule = `Calm (${b.u.toFixed(2)} < ${tau}) and openness ${b.k.toFixed(2)} < 0.5: Raven clarifies.`; }
+  else { action = "SUGGEST"; rule = `Calm (${b.u.toFixed(2)} < ${tau}) and openness ${b.k.toFixed(2)} ≥ 0.5: Tiger takes a step.`; }
+  return {before: b, action, rule};
+}
+window.PersonLabWhy = {derive: (sess, p, i) => derive(sess, p, i)};   // used by scripts/check_site_night.py (C8)
+
+function bar(id, v, w) { $("lb" + id).style.width = Math.round(100 * Math.max(0, Math.min(1, w))) + "%"; $("lv" + id).textContent = v; }
+
+function show(i) {
+  cur = i;
+  const [p] = person(), r = run.ticks[i], rb = bear.ticks[i], d = derive(run, p, i), tau = LAB.defaults.tau, n = run.ticks.length;
   for (const tr of $("labTicks").rows) tr.classList.toggle("sel", tr.dataset.i === String(i));
-  const r = run.ticks[i];
   $("labProg").textContent = r.action === "NONE" ? "No program: no action this tick." : PersonLab.program(LAB, r.action, r.target);
+  bar("I", r.I.toFixed(2) + " (Bear " + rb.I.toFixed(2) + ")", (r.I - 1) / 4);
+  bar("U", Math.round(r.u * 100) + "%", r.u);
+  bar("K", r.k.toFixed(2), r.k);
+  bar("G", Math.round(r.g * 100) + "% (Bear " + Math.round(rb.g * 100) + "%)", r.g);
+  $("labNow").innerHTML = "";
+  for (const [txt, cls] of [[r.archetype ? NM[r.archetype] + " · " + ACT[r.action] : "no action", "chip mode"],
+    [r.u >= tau ? "aroused" : "calm", "chip"], ["TARGET " + (r.target || "—"), "chip"], ["feedback " + r.feedback + " of 5", "chip"]].concat(r.cue ? [["a cue arrived", "chip safe-STABILISE"]] : []))
+    { const c = el("span", cls, txt); if (txt.startsWith("TARGET")) c.id = "labTgt"; $("labNow").append(c, " "); }
+  $("labWhyH").textContent = "Why, at tick " + (i + 1);
+  const w = $("labWhy"); w.textContent = "";
+  const li = (b, t) => { const x = el("li"); x.appendChild(el("b", null, b + " ")); x.appendChild(el("span", "dim", t)); w.appendChild(x); };
+  li("Sensed", `arousal ${d.before.u.toFixed(2)} against the threshold ${tau}, openness ${d.before.k.toFixed(2)}` + (r.cue ? "; a cue arrived during the tick (+" + LAB.defaults.delta + " intensity)." : "; no cue."));
+  li("Chose", d.rule);
+  li("Ran", r.action === "NONE" ? "no program." : `the RSX-V program ${NM[r.archetype]} · ${ACT[r.action]}, TARGET ${r.target} (below).`);
+  li("Result", `intensity ${d.before.I.toFixed(2)} → ${r.I.toFixed(2)}, progress ${Math.round(d.before.g * 100)}% → ${Math.round(r.g * 100)}%, feedback ${r.feedback} of 5. Always Bear at this tick: ${rb.I.toFixed(2)}.`);
+  for (const st of document.querySelectorAll("#labTree .st")) st.classList.toggle("cur", st.dataset.node === r.target);
+  const cx = 34 + (560 - 68) * i / (n - 1), cl = $("labChart");
+  let c = document.getElementById("labCursor");
+  if (!c) { c = document.createElementNS("http://www.w3.org/2000/svg", "line"); c.id = "labCursor"; c.setAttribute("stroke", "#e3b341"); c.setAttribute("stroke-width", "1.5"); c.setAttribute("y1", "12"); c.setAttribute("y2", "180"); cl.appendChild(c); }
+  c.setAttribute("x1", cx); c.setAttribute("x2", cx);
+  $("labStatus").textContent = "Tick " + (i + 1) + " of " + n + (timer ? " · playing" : "") + ". " + POL[$("labPol").value] + ", "
+    + EFF[$("labE").value].charAt(0).toLowerCase() + EFF[$("labE").value].slice(1) + ". The same choices always give the same session.";
+}
+
+function stop() { if (timer) { clearInterval(timer); timer = null; } $("labRun").textContent = "Play"; }
+function play() {
+  if (timer) { stop(); show(cur); return; }
+  if (cur >= run.ticks.length - 1) show(0);
+  $("labRun").textContent = "Pause";
+  timer = setInterval(() => { if (cur >= run.ticks.length - 1) { stop(); show(cur); return; } show(cur + 1); }, Number($("labSpeed").value));
+  show(cur);
 }
 
 function chart(a, b) {

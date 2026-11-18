@@ -67,13 +67,38 @@ def main():
             expect(f"C4 {label} one current navigation item", pg.locator('nav a[aria-current="page"]').count(), 1)
             expect(f"C5 {label} effect values kept",
                    pg.eval_on_selector_all("#labE option", "o => o.map(x => x.value)"), ["placeholder", "illustrative"])
-            # A1: C6 a click shows a new run number; C7 the summary keeps ESConv's capitals.
-            pg.select_option("#labE", "placeholder")
-            n0 = int(re.search(r"Run (\d+)", pg.text_content("#labStatus")).group(1))
-            pg.click("#labRun"); pg.wait_for_timeout(200)
-            n1 = int(re.search(r"Run (\d+)", pg.text_content("#labStatus")).group(1))
-            expect(f"C6 {label} Run session shows a new run", n1, n0 + 1)
+            # A2: C6' Play advances, Restart returns; C7 ESConv keeps its capitals.
+            pg.select_option("#labE", "placeholder"); pg.select_option("#labSpeed", "160")
+            tick = lambda: int(re.search(r"Tick (\d+) of", pg.text_content("#labStatus")).group(1))
+            expect(f"C6' {label} a new choice shows tick 1", tick(), 1)
+            pg.click("#labRun"); pg.wait_for_timeout(900)
+            expect(f"C6' {label} Play advances", tick() > 1, True)
+            pg.click("#labReset"); pg.wait_for_timeout(100)
+            expect(f"C6' {label} Restart returns to tick 1", tick(), 1)
             expect(f"C7 {label} summary keeps ESConv", "ESConv" in pg.text_content("#labSum"), True)
+            # C9: a click on the chart moves the tick; TARGET chip and marked tree node match that tick's row.
+            pg.select_option("#labPol", "agents")
+            pg.locator("#labChart").scroll_into_view_if_needed()
+            box = pg.locator("#labChart").bounding_box()
+            pg.mouse.click(box["x"] + box["width"] * 0.80, box["y"] + box["height"] / 2); pg.wait_for_timeout(100)
+            t9 = tick()
+            row_target = pg.evaluate(f"document.querySelectorAll('#labTicks tr')[{t9}].cells[3].textContent")
+            marked = pg.eval_on_selector_all("#labTree .st.cur", "e => e.map(x => x.dataset.node)")
+            expect(f"C9 {label} chart click moves the tick", t9 > 10, True)
+            expect(f"C9 {label} TARGET chip equals the row", pg.text_content("#labTgt"), "TARGET " + row_target)
+            expect(f"C9 {label} marked tree node equals the row", marked, [row_target] if row_target != "—" else [])
+            if label == "desktop":
+                bad = pg.evaluate("""async () => {
+                  const lab = await (await fetch('data/personlab_lab.json')).json();
+                  const M = await (await fetch('data/personlab_persons.json')).json();
+                  let n = 0, bad = 0;
+                  for (const eff of Object.keys(lab.effects)) for (const pol of PersonLab.POLICIES) M.persons.forEach((p, i) => {
+                    const s = PersonLab.session(lab, p, i + 1, pol, eff);
+                    s.ticks.forEach((r, j) => { n += 1; if (PersonLabWhy.derive(s, p, j).action !== r.action) bad += 1; });
+                  });
+                  return [n, bad];
+                }""")
+                expect("C8 the Why chain derives the engine's archetype on every tick (ticks, mismatches)", bad, [12000, 0])
             sp = b.new_page(viewport=vp)
             sp.on("pageerror", lambda e: errs.append(str(e)))
             sp.goto(base + "/system.html", wait_until="networkidle")

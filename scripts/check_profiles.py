@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT / "rsso"))
 from rsso import profiles as P  # noqa: E402
 
 PAGES = ["index", "player", "nodes", "therapist", "contribute", "night", "safety", "world", "metrics", "anchors",
-         "identity", "atlas", "trials", "device", "agents"]
+         "identity", "atlas", "trials", "device", "agents", "rsxv"]   # rsxv: spec/FIXES_WORDING.md
 RX = re.compile(P.CLINICAL_WORDS, re.I)
 EMERGENCY = "not for use in an emergency: if you are at risk of harm, contact your local emergency services."   # PUBLIC_EDITION_2 C
 EMERGENCY_PAGES = ("safety", "therapist")

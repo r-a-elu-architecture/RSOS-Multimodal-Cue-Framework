@@ -504,7 +504,7 @@
    "parent": null
   },
   {
-   "test": "Round 8l, Baseline as relapse prevention (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/GUARD_GAIN.md\">spec/GUARD_GAIN.md</a>)",
+   "test": "Round 8l, Baseline as keeping the gain (fault prevention) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/GUARD_GAIN.md\">spec/GUARD_GAIN.md</a>)",
    "result": "<b>Mixed</b> (H1, H2, H4 pass; H3, the 10\u00d7 stretch, fails)",
    "meaning": "With Lion hardening the system for 3 ticks, all six roles have their own signature, and the fused agent system's lead over always Bear grows from +0.0146 to +0.0531 per tick (99% CI +0.0414 to +0.0634), 3.6\u00d7 (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/guard_gain.json\">results/guard_gain.json</a>)",
    "status": "mixed",

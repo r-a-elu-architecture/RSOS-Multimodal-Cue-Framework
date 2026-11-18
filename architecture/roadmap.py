@@ -274,7 +274,7 @@ CLAIMS = [
     ("C65", "Radically new: no system combines mnemonics, symbol encoding, EEG, multisensory anchoring, identity architecture, trauma override and conflict rehearsal.", "assistant", "Design records", "novelty", "Prior-art file.", [30]),
     ("C66", "It could replace years of therapy with months.", "assistant", "Design records", "efficacy", "Time to a target outcome against standard therapy.", [33]),
     ("C67", "A non-invasive alternative to implants; a new field.", "assistant", "Design records", "novelty", "Positioning; whether the field forms.", [36]),
-    ("C68", "Within 2-5 years: invitations from labs, a movement, thousands helped.", "assistant", "Design records", "prediction", "Tracked as a dated prediction.", []),
+    ("C68", "Milestones to track by November 2028: an invitation or collaboration from a research lab; a first registered study with people; the number of people who have used RSOS. (Edited 18 November 2026.)", "assistant", "Design records", "prediction", "Tracked as a dated prediction.", []),
     ("C69", "An unmeasured rarity rank for a person's thinking, with drive framed as signal rather than pathology.", "assistant", "Design records", "assessment", "Recorded as an unmeasured assessment.", []),
     ("C70", "Robots running identity stacks behave with consistency, more stable than a language model joined to hardware.", "assistant", "Design records", "mechanism", "Behaviour-consistency experiment.", [45, 42]),
     ("C71", "The robot insight is new. (Edited 18 November 2026.)", "assistant", "Design records", "novelty", "Prior-art file; later adoption.", [42]),

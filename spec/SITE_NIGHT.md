@@ -116,3 +116,13 @@ Checks replacing A1's C6 (`check_site_night.py`):
   archetype the engine chose, on every tick (600 sessions, 12,000 ticks): the explanation is the engine's rule, not a story.
 - **C9** A click on the chart moves the current tick; the TARGET chip and the marked tree node match that tick's row.
 - C5, C7 and `check_personlab` 31/31 must still pass.
+
+### A2 results (code c61b885)
+- A2.1–A2.6 applied; `docs/js/personlab.js` and every data file unchanged.
+- `check_site_night` **35/35** on desktop and phone. **C8: the "Why" chain derives the engine's archetype on all 12,000
+  ticks (600 sessions), 0 mismatches.** C6′ Play advances and Restart returns to tick 1; C9 a chart click moves the tick and
+  the TARGET chip and marked tree node match that tick's row.
+- **Check fix, disclosed:** C9 first failed because the check clicked the chart while it was outside the viewport; the
+  page worked (a scrolled click jumped to tick 17). The check now scrolls the chart into view before clicking.
+- The lede's "run a session" became "press Play to watch the session tick by tick".
+- `check_personlab` 31/31, `check_profiles`, `check_evidence`, `check_release` and `check_all.sh` pass.

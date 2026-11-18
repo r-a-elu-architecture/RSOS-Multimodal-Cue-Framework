@@ -85,3 +85,34 @@ table with no visible sign. Also found: the summary lowercases the effect label 
 - **A1.3** The summary keeps the effect label's capitals ("ESConv").
 - Checks added to `check_site_night.py`: C6 a click on Run session increases the run number shown; C7 the summary contains
   "ESConv" when the equal effects are chosen. No computation changes; check_personlab must still pass.
+
+### A1 results (code a539772)
+`check_site_night` 24/24 (C6 run number, C7 "ESConv" added), `check_personlab` 31/31.
+
+## 6. Amendment A2, 18 November 2026 (owner's request, before its code): the Person Lab plays like the World run
+
+The owner: the Person Lab should be watched the way the World run is, so people see the same autonomous system working on a
+lab profile, decision by decision. A1's static status line does not do that.
+
+- **A2.1 Controls** as the World run: Lab person, Effects, Policy, Speed (slow, normal, fast), **Play** (pause while
+  playing) and **Restart**. Changing a choice computes the session and shows tick 1, as the World run does.
+- **A2.2 Live person panel:** bars for intensity (1–5), arousal, openness and progress toward the desired state at the
+  current tick; chips for the archetype now running, calm or aroused (arousal against the threshold τ), and the TARGET node.
+  Always Bear's intensity at the same tick is shown beside it.
+- **A2.3 Profile tree:** the node in the current TARGET is marked as the session plays.
+- **A2.4 Timeline:** the existing chart gains a cursor at the current tick; a click on the chart jumps to that tick.
+- **A2.5 "Why, at tick N"**, built from the session's own values, never typed per tick: (1) what the agents sensed (arousal
+  before the step against τ, openness, and whether a cue arrived), (2) which rule chose the archetype (aroused: Bear
+  steadies; calm: every sixth calm tick Lion shares, otherwise Raven clarifies while openness < 0.5, Tiger takes a step
+  from 0.5), or the fixed policy, (3) the RSX-V program run, with its TARGET, (4) the result: intensity before and after,
+  progress, the person's feedback.
+- **A2.6** The RSX-V program of the current tick is shown; the full tick log stays below, complete at once, and a click on a
+  row jumps there.
+- **No change to the engine** (`docs/js/personlab.js`) or any data; Python–browser parity untouched.
+
+Checks replacing A1's C6 (`check_site_night.py`):
+- **C6′** Play advances the tick shown; Restart returns to tick 1.
+- **C8** For every lab person, policy and effect set, the archetype the "Why" chain derives from the sensed values equals the
+  archetype the engine chose, on every tick (600 sessions, 12,000 ticks): the explanation is the engine's rule, not a story.
+- **C9** A click on the chart moves the current tick; the TARGET chip and the marked tree node match that tick's row.
+- C5, C7 and `check_personlab` 31/31 must still pass.

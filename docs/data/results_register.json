@@ -32,7 +32,7 @@
   },
   "person model": {
    "pass": 1,
-   "mixed": 3,
+   "mixed": 4,
    "fail": 9,
    "analysis": 1,
    "other": 1
@@ -490,6 +490,15 @@
    "result": "<b>Fail</b> (G2\u2013G4)",
    "meaning": "On the 107 tiers whose role is known, keywords recover it 35.5% of the time and glyph and reference chains 28.6%, against chance 21.1% (registered bar 2\u00d7). 674 edges link 225 of 293 tiers; Epoch IV is the hub and Epochs I\u2013III are almost cut off from IV\u2013VI. Role is not readable mechanically: the author decides each binding",
    "status": "fail",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8k, Baseline as the return to the origin, and one runnable program per ledger response (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/WHOLE_ORGANISM.md\">spec/WHOLE_ORGANISM.md</a>)",
+   "result": "<b>Mixed</b> (W2, W3, W5 pass; W1, W4 fail)",
+   "meaning": "All 293 tiers now run through one of 14 response programs. Giving Lion a restore-to-best function gives Baseline its own sensor but takes Repair's, and lowers the agent system's score against always Bear (\u22120.0201 per tick, where it had been +0.0146) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/whole_organism.json\">results/whole_organism.json</a>)",
+   "status": "mixed",
    "family": "person model",
    "series": null,
    "parent": null

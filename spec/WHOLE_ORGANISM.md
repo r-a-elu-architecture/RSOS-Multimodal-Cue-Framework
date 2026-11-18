@@ -36,3 +36,27 @@ that is the override program itself; on the agent side, re-entry to the last goo
 | **W5** | No regression | ledger files unchanged; recorded results unchanged; `check_all.sh` passes |
 
 Sealed expectations: W1 0.8, W2 0.8, W3 0.8, W4 0.2 (10× is a stretch; the margin is reported whatever it is), W5 0.9.
+
+## 4. Results (18 Nov 2026)
+
+Code `rsxv/rsxv/organism_env.py` (`rsxv/results/whole_organism.json`), `rsx/protocols/responses/*.rsx` (14),
+`architecture/glyph_proposals.py` (`docs/data/EXTENSION_glyph_proposals_2026-11-18.json`); tests
+`architecture/tests/test_whole_organism.py` (W1 and W4 kept as visible registered failures, observed values pinned).
+
+| # | Result | Verdict |
+|---|---|---|
+| W1 | Baseline now has its own sensor (Lion 0.061 health regained, every other mode 0). **Repair lost its own**: the return to the origin also fixes modules (0.67 per Lion tick against Leopard's 0.12). 5 of 6 | **fail** |
+| W2 | 14 of 14 programs compile, play to the end on the standard virtual rig, haptic ≤ 0.4. REENTRY, COMPRESS and GENERATE open with the override's interrupt and close with its seal | **pass** |
+| W3 | 293 of 293 tiers map to a program that runs (T022, bound by role only, uses Monitor's first response, MIRROR) | **pass** |
+| W4 | On AgentEnvV3 the organism (Watchdog on agents) is **below** always Bear: −0.0201 [−0.0306, −0.0098]; on V2, same seeds, +0.0146 [+0.0068, +0.0226] | **fail** |
+| W5 | Ledger files unchanged (hash test); recorded results unchanged; `check_all.sh` passes | **pass** |
+
+**What it shows.** Returning to the best state kept so far is too strong a move for one role: it does Repair's work
+and, chosen by the Watchdog's ledger (Lion ran 52 ticks of 120 on V3 against 44 on V2), it costs the whole system
+mission score (rolling back also rolls back progress that came after the best state). The idea that Baseline is the
+return to the origin holds on the person side, where it is the override program itself (the REENTRY, COMPRESS and
+GENERATE programs now carry it); on the agent side, as built here, it does not help. AgentEnvV3 stays a separate,
+recorded variant; no default changes.
+
+**Glyph proposals** (extension file, author chooses): Raven 🝳 (4 Monitor tiers; alternatives 🜸, 🪶, 🝿), Bear ⟁
+(3; 🜂, 🝾, 🜤), Eagle 🜵 (2; 🝬, 🜖, 🜸), Leopard 🜇 (1; 🝹, 🜛, 🝲), Tiger 🝢 (2; 🝘, ⥀, 👁‍🗨).

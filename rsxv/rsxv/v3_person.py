@@ -1,4 +1,4 @@
-"""Round 7 (AGENTS.md §11.12): person model v3 — hand-set vs fitted on the owner's record — and safety-layer recall.
+"""Round 7 (AGENTS.md §11.12): person model v3 — hand-set vs fitted on a consented private record — and safety-layer recall.
 
     python3 -m rsxv.v3_person handset OUT.json            # hand-set transition table by simulation (no record needed)
     python3 -m rsxv.v3_person run TURNS.json LABELS.json HANDSET.json PRIVATE_DIR PUBLIC.json

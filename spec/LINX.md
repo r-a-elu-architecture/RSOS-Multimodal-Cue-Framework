@@ -6,8 +6,8 @@ studio (`docs/nodes.html`) and the player (`docs/player.html`) use it.
 ## 1. Role, as recovered from the archive
 
 The archive (`LINX_Historical_Reconstruction.txt`) names LINX as the layer between RSOS and language models,
-"symbolic layer injection", "GPT interface for compressed override injection", "GPT routing system" and, later,
-"GPT interface + containment router". It has three operators:
+"symbolic layer injection", "model interface for compressed override injection", "model routing system" and, later,
+"model interface + containment router". It has three operators:
 
 - injection of the tier state;
 - routing of what the model returns;

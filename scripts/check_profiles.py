@@ -22,6 +22,8 @@ from rsso import profiles as P  # noqa: E402
 PAGES = ["index", "player", "nodes", "therapist", "contribute", "night", "safety", "world", "metrics", "anchors",
          "identity", "atlas", "trials", "device", "agents"]
 RX = re.compile(P.CLINICAL_WORDS, re.I)
+EMERGENCY = "not for use in an emergency: if you are at risk of harm, contact your local emergency services."   # PUBLIC_EDITION_2 C
+EMERGENCY_PAGES = ("safety", "therapist")
 CRISIS = re.compile(r"\b(?:crisis|suicid\w*|self-harm|harming yourself|helpline|emergency services|not wanting to live|at risk of harm)\b", re.I)   # FIXES_R1 S-7
 ALL_PAGES = sorted(f.stem for f in DOCS.glob("*.html"))
 VISIBLE = """() => { document.querySelectorAll('nav,[data-raw]').forEach(e => e.style.setProperty('display','none','important'));
@@ -66,7 +68,12 @@ def main():
             for name in [n for n in ALL_PAGES if n + ".html" not in P.EXEMPT_PAGES]:   # FIXES_R1 S-7, A7 scope: research records excepted
                 pg.goto(f"{base}/{name}.html?profile={prof}")
                 pg.wait_for_timeout(250)
-                hits = sorted(set(m.group(0) for m in CRISIS.finditer(pg.evaluate(VISIBLE))))
+                vis = pg.evaluate(VISIBLE)
+                if name in EMERGENCY_PAGES:          # spec/PUBLIC_EDITION_2.md C: this one sentence, on these pages only
+                    if EMERGENCY not in vis:
+                        fails.append(f"C {prof} {name}: emergency sentence missing")
+                    vis = vis.replace(EMERGENCY, "")
+                hits = sorted(set(m.group(0) for m in CRISIS.finditer(vis)))
                 if hits:
                     fails.append(f"S-7 {prof} {name}: {hits}")
             # P7 safety page

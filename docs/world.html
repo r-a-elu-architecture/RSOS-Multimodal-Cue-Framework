@@ -70,6 +70,29 @@ svg text{font-family:var(--sans)}
 section{padding:40px 0;border-top:1px solid var(--line);margin-top:34px}
 footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px solid var(--line);margin-top:40px}
 @media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.lab-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:18px}
+@media (max-width:860px){.lab-grid{grid-template-columns:1fr}}
+.lab-grid>.pane{min-width:0}
+#labTree .st.cur{outline:1px solid var(--gold);border-radius:6px;background:rgba(227,179,65,.08)}
+#lab .sub,#lab .tree{overflow-wrap:anywhere}
+.tree{list-style:none;margin:0;padding:0}
+.tree>li{border-left:3px solid var(--line);padding:6px 0 8px 12px;margin:0 0 6px}
+.tree>li.tg{border-left-color:var(--gold)}
+.tree .lv{font-size:.8rem;color:var(--muted);letter-spacing:.02em}
+.tree .st{font-size:.92rem;margin:3px 0 0}
+.tree .st code{color:var(--glow);font-size:.78rem;margin-right:6px}
+.tree .dt{color:var(--muted);font-size:.8rem}
+.tree .now,.tree .want{font-size:.82rem;margin:2px 0 0}
+.tree .now b{color:var(--hot);font-weight:600}.tree .want b{color:var(--calm);font-weight:600}
+table.ticks,table.pop{width:100%;border-collapse:collapse;font-size:.84rem}
+table.ticks th,table.ticks td,table.pop th,table.pop td{border-bottom:1px solid #263052;padding:4px 6px;text-align:left}
+table.ticks tr{cursor:pointer}table.ticks tr.sel td{background:#263052}
+table.ticks td.n,table.pop td.n{font-variant-numeric:tabular-nums;text-align:right}
+pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;overflow:auto;max-height:280px;margin:8px 0 0}
+.tag{display:inline-block;font-size:.72rem;border:1px solid var(--hot);color:var(--hot);border-radius:999px;padding:1px 8px;margin-left:6px}
+.pane.flash { animation: labflash 0.9s ease-out; }
+@keyframes labflash { 0% { box-shadow: 0 0 0 3px var(--gold, #e3b341); } 100% { box-shadow: 0 0 0 0 transparent; } }
+@media (prefers-reduced-motion: reduce) { .pane.flash { animation: none; } }
 </style>
 <link rel="icon" href="icons/icon-192.png">
 </head>
@@ -77,14 +100,17 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
 <div class="wrap">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html" aria-current="page">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html" aria-current="page">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html" aria-current="page">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 
-<h1>Software agents and a simulated person, run by one architecture.</h1>
-<p class="lede">On the left, six software agents depend on each other and fail. On the right, a simulated person meets cues that raise distress. The same Watchdog chooses each side's working mode every tick, and the Spine and the safety layer can overrule it.</p>
+<h1>Software agents, a simulated person and a Person Lab of 100, run by one architecture.</h1>
+<p class="lede">Three parts share one architecture. Six software agents depend on each other and fail. A simulated person meets cues that raise distress. In the Person Lab, agents work toward each of 100 lab persons' desired state, one RSX-V program per step. The same Watchdog chooses the working mode every tick, and the Spine and the safety layer can overrule it.</p>
+<p class="jump" style="margin:-6px 0 18px"><a href="#run">Agent system and simulated person</a> · <a href="#lab">Person Lab: 100 lab persons and agents</a> · <a href="#findings">What the latest results say</a></p>
+  <!-- evidence:start --><p class="evidence" data-level="E4" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: E4 Tested on recorded data: no positive result yet. In simulation, 29 registered tests: 1 pass, 7 mixed, 19 fail, 2 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other. Not yet tested with people using RSOS.</p><!-- evidence:end -->
 <p class="note">These are replays of real runs of the tested code (<code>rsxv</code>: <code>World</code>, <code>AgentEnvV2</code>, <code>PersonEnvV2</code>), recorded tick by tick. Both sides are stated models, not people and not production systems. Choose an intervention and a run, press play, and click the timeline to see why any decision was made.</p>
 
-<div class="controls" role="group" aria-label="Run controls">
+<section id="findings" style="margin:0 0 22px"><h2 style="font-size:1.15rem;margin:0 0 8px">What the latest results say</h2><ul class="note" style="margin:0;padding-left:20px"><li id="findTurn">Loading…</li><li id="findCue">Loading…</li></ul></section>
+<div class="controls" id="run" role="group" aria-label="Run controls">
   <label>What happens<select id="ev"><option value="none">Nothing: an ordinary run</option><option value="storm">A storm: faults and a cue for 20 ticks</option><option value="shift">A shift: conditions change and stay changed</option></select></label>
   <label>When<select id="t0"><option value="40">At tick 40</option><option value="90">At tick 90</option></select></label>
   <label>Run<select id="seed"><option value="11">Run A</option><option value="12">Run B</option><option value="13">Run C</option></select></label>
@@ -109,6 +135,7 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
     <div class="gauge"><div class="row"><span>Agency</span><span id="gV"></span></div><div class="bar"><i id="gB"></i></div></div>
     <div class="cue" id="cue" aria-live="polite"></div>
     <div class="now" id="pNow"></div>
+    <p class="sub" id="pBear" style="margin-top:10px"></p>
   </div>
 </div>
 
@@ -137,10 +164,60 @@ footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px so
 <section>
   <h2>What you are looking at</h2>
   <p class="lede">The Watchdog estimates, from what it has seen so far, which mode fits each context, and switches through a two-phase handover. It also micro-randomises some ticks to keep learning. On the person side, a safety mode such as STABILISE blocks deep work whatever the Watchdog wants, and the run falls back to stabilising. Each block shows as a small gold mark on the timeline and as a step in the decision chain for that tick.</p>
-  <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The confirmed result most relevant here is T-AP: a policy learned on agents, certified and gated, helps the simulated person.</p>
+  <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The result most relevant here is T-AP: a policy learned on agents passed its registered test on the simulated person, but it fails the baseline audit, because always stabilising did better. <span id="lookFind"></span></p>
 </section>
 
-<footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
+<section id="lab">
+  <h2>Person Lab: 100 lab persons, and agents working toward each one's desired state</h2>
+  <p class="lede">Each lab person has an identity profile on six levels, from environment up to purpose, with where they are now and where they want to be. Choose one and press Play to watch the session tick by tick: every tick the Watchdog picks an archetype (Bear steadies, Raven clarifies, Tiger takes a step, Lion shares), and each action is an RSX-V program whose <code>TARGET</code> line names the part of the profile it serves. Always Bear, the simple rule that beat switching in the baseline audit, runs beside it on the same person.</p>
+  <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each is drawn at random from summary statistics of 100 profiles built from a public research dataset of support conversations (ESConv), and every statement is written for the lab. They are not real people, not anyone's words, and none corresponds to any profile. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). <span id="labFind"></span> This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
+  <div class="controls" role="group" aria-label="Person Lab controls">
+    <label>Lab person<select id="labP"></select></label>
+    <label>Effects of actions<select id="labE"><option value="placeholder">Equal (placeholder; consistent with ESConv ratings)</option><option value="illustrative">Different (invented, untested)</option></select></label>
+    <label>Policy<select id="labPol"><option value="agents">Agents (Watchdog rule)</option><option value="always_bear">Always Bear</option><option value="no_support">No support</option></select></label>
+    <label>Speed<select id="labSpeed"><option value="900">Slow</option><option value="450" selected>Normal</option><option value="160">Fast</option></select></label>
+    <button class="play" id="labRun" type="button">Play</button>
+    <button id="labReset" type="button">Restart</button>
+  </div>
+  <p class="sub" id="labStatus" aria-live="polite" style="margin:-6px 0 14px"></p>
+  <div class="lab-grid" style="margin-bottom:18px">
+    <div class="pane" id="labLive">
+      <h3>Lab person, live</h3>
+      <p class="sub">Where the lab person is at this tick, and what the agents are running. Dashed figures: always Bear on the same person at the same tick.</p>
+      <div class="gauge"><div class="row"><span>Intensity (1–5)</span><span id="lvI"></span></div><div class="bar"><i id="lbI"></i></div></div>
+      <div class="gauge"><div class="row"><span>Arousal</span><span id="lvU"></span></div><div class="bar"><i id="lbU"></i></div></div>
+      <div class="gauge"><div class="row"><span>Openness</span><span id="lvK"></span></div><div class="bar"><i id="lbK"></i></div></div>
+      <div class="gauge"><div class="row"><span>Progress toward the desired state</span><span id="lvG"></span></div><div class="bar"><i id="lbG"></i></div></div>
+      <div class="now" id="labNow" style="margin-top:10px"></div>
+    </div>
+    <div class="pane">
+      <h3 id="labWhyH">Why, at tick 1</h3>
+      <p class="sub">The agents' decision for this tick, built from the session's own values.</p>
+      <ol class="chain" id="labWhy"></ol>
+    </div>
+  </div>
+  <div class="lab-grid">
+    <div class="pane">
+      <h3>Identity profile <span class="tag">invented</span></h3>
+      <p class="sub" id="labMeta"></p>
+      <ul class="tree" id="labTree"></ul>
+    </div>
+    <div class="pane" id="labSession">
+      <h3>Session, 20 ticks</h3>
+      <p class="sub" id="labSum"></p>
+      <svg id="labChart" viewBox="0 0 560 190" width="100%" role="img" aria-label="Intensity and progress by tick" style="cursor:pointer"></svg>
+      <p class="sub">Intensity 1–5 (red) and progress toward the desired state (green). Solid: the chosen policy; dashed: always Bear. The gold line is the current tick; click to jump.</p>
+      <div style="overflow:auto;max-height:300px"><table class="ticks" id="labTicks"></table></div>
+      <p class="sub" style="margin-top:10px">RSX-V program of the selected tick</p>
+      <pre class="prog" id="labProg"></pre>
+    </div>
+  </div>
+  <h3 style="font-family:var(--serif);font-weight:500;margin:26px 0 6px">All 100 lab persons</h3>
+  <p class="note">Each policy run on every lab person, 20 ticks, under both effect sets. Under the registered equal effects the agents and always Bear tie on every person, because no action differs. Under the invented effects the agents make more progress, because those effects were written that way. Neither row says anything about people; they show that the machinery runs, and how an effect would be used once one is shown in people.</p>
+  <div style="overflow:auto"><table class="pop" id="labPop"></table></div>
+</section>
+
+<footer>R. A. Elu. Software under Apache 2.0; specifications under CC BY 4.0. Recorded runs: <code>rsxv/rsxv/site_traces.py</code> → <code>docs/data/world_runs.json</code>. Person Lab: <code>rsxv/rsxv/personlab/</code> → <code>docs/data/personlab_persons.json</code>, <code>docs/data/personlab_lab.json</code>; lab persons drawn from summary statistics of ESConv profiles (Liu et al., 2021), statements invented. <span class="mdline">Research and development framework; not a medical device.</span></footer>
 </div>
 
 <script>
@@ -154,6 +231,7 @@ const CTX = {calm:"calm", rising:"rising", loaded:"loaded", crisis:"critical"};
 const ACT = {HOLD:"held the current mode", SWITCH:"switched mode (fit was low)", OVERRIDE:"ran the repair loop (overload)", RE_ENTRY:"re-entered from the last good snapshot"};
 const POS = {RAVEN:[90,70], BEAR:[90,230], EAGLE:[230,150], LEOPARD:[350,70], TIGER:[400,230], LION:[505,150]};
 let D = null, run = null, t = 0, timer = null, names = "F";
+let F = null;   // spec/SITE_NIGHT.md N2: findings built from the result files (data/world_findings.json)
 const $ = id => document.getElementById(id);
 const nm = m => NAMES[names][m] || m;
 const el = (tag, attrs, parent) => { const e = document.createElementNS("http://www.w3.org/2000/svg", tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
@@ -164,6 +242,13 @@ function pick() {
   $("t0").disabled = ev === "none";
   run = D.runs.find(r => r.seed === seed && (ev === "none" ? r.event === null : r.event === ev && r.t0 === t0));
   t = 0; drawTimeline(); show();
+  // STAB_DEFAULT D1 and §1a: the audit's baseline on the same simulated person, and the cue counts behind it.
+  const S = run.summary, c = S.cues;
+  $("pBear").innerHTML = `This run, mean score per tick: Watchdog switching ${S.person_mean.toFixed(3)}; `
+    + `always Bear ${S.person_mean_bear.toFixed(3)} (the simple baseline that beat switching in the <a href="results.html">baseline audit</a>). `
+    + `Cues reaching the person: ${c.watchdog} under the Watchdog${c.watchdog_open_at_end ? " (one still open at the end)" : ""}, `
+    + `${c.bear} under always Bear${c.bear_open_at_end ? " (one still open at the end)" : ""}. `
+    + (F ? F.run_note : `In this model an uninterrupted cue blocks later cues; see STAB_DEFAULT §5.`);
 }
 
 function drawGraph(tick) {
@@ -247,8 +332,177 @@ $("play").addEventListener("click", play);
 $("reset").addEventListener("click", () => { if (timer) play(); t = 0; show(); });
 $("nmF").addEventListener("click", () => setNames("F"));
 $("nmS").addEventListener("click", () => setNames("S"));
-fetch("data/world_runs.json").then(r => r.json()).then(d => { D = d; pick(); })
+Promise.all([fetch("data/world_runs.json").then(r => r.json()),
+             fetch("data/world_findings.json").then(r => r.json()).catch(() => null)]).then(([d, f]) => {
+  F = f;
+  if (F) {
+    $("findTurn").textContent = F.turn; $("findCue").textContent = F.cue;
+    $("lookFind").textContent = "Since then: " + F.cue;
+    const lf = document.getElementById("labFind"); if (lf) lf.textContent = F.lab_note;
+  } else { $("findTurn").textContent = "The findings could not be loaded."; $("findCue").textContent = ""; }
+  D = d; pick();
+})
   .catch(() => { $("aNow").textContent = "The recorded runs could not be loaded. Open this page from the website, not as a local file."; });
+})();
+</script>
+<script src="js/personlab.js?v=1.0.0"></script>
+<script>
+(() => {   // Person Lab (spec/PERSONLAB.md §7d D)
+"use strict";
+const $ = id => document.getElementById(id);
+const NM = {BEAR: "Bear", RAVEN: "Raven", TIGER: "Tiger", LION: "Lion"};
+const ACT = {STABILISE: "steady", EXPLORE: "clarify", SUGGEST: "take a step", SHARE: "share", NONE: "no action"};
+const POL = {agents: "Agents (Watchdog rule)", always_bear: "Always Bear", no_support: "No support"};
+const TYPE = {"job crisis": "work and job", "breakup with partner": "a breakup", "problems with friends": "friendships", "academic pressure": "study pressure"};   // display names (no crisis wording on pages)
+const EFF = {placeholder: "Equal effects (placeholder; consistent with ESConv ratings)", illustrative: "Different effects (invented, untested)"};
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+let LAB = null, M = null, run = null, bear = null, cur = 0, timer = null;
+Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/personlab_persons.json").then(r => r.json())])
+  .then(([l, m]) => { LAB = l; M = m; init(); })
+  .catch(() => { $("labMeta").textContent = "The lab data could not be loaded. Open this page from the website, not as a local file."; });
+
+function init() {
+  const types = [...new Set(M.persons.map(p => p.problem_type))];
+  for (const ty of types) {
+    const g = document.createElement("optgroup"); const tn = TYPE[ty] || ty; g.label = tn[0].toUpperCase() + tn.slice(1);
+    M.persons.forEach((p, i) => { if (p.problem_type === ty) { const o = el("option", null, p.id + " · starts at " + p.initial_intensity + " of 5"); o.value = i; g.appendChild(o); } });
+    $("labP").appendChild(g);
+  }
+  $("labP").addEventListener("change", () => { tree(); go(); });
+  $("labE").addEventListener("change", go);
+  $("labPol").addEventListener("change", go);
+  $("labRun").addEventListener("click", play);          // SITE_NIGHT A2.1: Play / Pause, as the World run
+  $("labReset").addEventListener("click", () => { stop(); show(0); });
+  $("labSpeed").addEventListener("change", () => { if (timer) { stop(); play(); } });
+  $("labChart").addEventListener("click", e => {          // A2.4: jump to the tick under the click
+    const b = $("labChart").getBoundingClientRect(), x = (e.clientX - b.left) / b.width * 560;
+    show(Math.max(0, Math.min(run.ticks.length - 1, Math.round((x - 34) / (560 - 68) * (run.ticks.length - 1))))); });
+  tree(); go(); population();
+}
+
+function person() { const i = Number($("labP").value || 0); return [M.persons[i], i + 1]; }
+
+function tree() {
+  const [p] = person(), tg = PersonLab.targetNodes(p), tl = new Set(tg.map(x => x[0])), tn = new Set(tg.map(x => x[0] + ":" + x[1]));
+  $("labMeta").textContent = p.id + " · " + (TYPE[p.problem_type] || p.problem_type) + " · starting intensity " + p.initial_intensity + " of 5 · the agents work on: " + tg.map(x => x.join(":")).join(", ");
+  const ul = $("labTree"); ul.textContent = "";
+  for (const lv of LAB.levels.slice().reverse()) {
+    const li = el("li", tl.has(lv.id) ? "tg" : ""), sts = ((p.levels[lv.id] || {}).statements) || [];
+    li.appendChild(el("div", "lv", lv.name + " · " + lv.question + (tl.has(lv.id) ? " · target level" : "")));
+    for (const st of sts) {
+      const d = el("div", "st"); d.dataset.node = lv.id + ":" + st.id; d.appendChild(el("code", null, st.id + (tn.has(lv.id + ":" + st.id) ? " ◎" : ""))); d.appendChild(document.createTextNode(st.text));
+      if (st.details && st.details.length) d.appendChild(el("span", "dt", " · " + st.details.map(x => x.kind + ": " + x.text).join(" · ")));
+      li.appendChild(d);
+    }
+    for (const [part, cls, lab] of [["current", "now", "Now "], ["desired", "want", "Wants "]])
+      for (const it of ((p[part] || {})[lv.id] || [])) { const d = el("div", cls); d.appendChild(el("b", null, lab)); d.appendChild(document.createTextNode(it.text + (it.node ? " (" + it.node + ")" : ""))); li.appendChild(d); }
+    if (!sts.length && !((p.current || {})[lv.id] || []).length && !((p.desired || {})[lv.id] || []).length) li.appendChild(el("div", "dt", "Nothing on this level in this profile."));
+    ul.appendChild(li);
+  }
+}
+
+function go() {
+  const [p, n] = person(), eff = $("labE").value, pol = $("labPol").value;
+  stop();
+  run = PersonLab.session(LAB, p, n, pol, eff);
+  bear = PersonLab.session(LAB, p, n, "always_bear", eff);
+  const fb = run.ticks.reduce((s, r) => s + r.feedback, 0) / run.ticks.length;
+  $("labSum").textContent = POL[pol] + ", " + EFF[eff].charAt(0).toLowerCase() + EFF[eff].slice(1) + ". Final intensity " + run.final_I.toFixed(2) + " (always Bear " + bear.final_I.toFixed(2) +
+    "); progress toward the desired state " + Math.round(run.final_g * 100) + "% (always Bear " + Math.round(bear.final_g * 100) + "%); mean feedback " + fb.toFixed(2) + " of 5.";
+  chart(run, bear);
+  const t = $("labTicks"); t.textContent = "";
+  const h = t.insertRow(); for (const c of ["Tick", "Archetype", "Action", "TARGET", "Intensity", "Progress", "Feedback", "Cue"]) h.appendChild(el("th", null, c));
+  run.ticks.forEach((r, i) => {
+    const tr = t.insertRow(); tr.dataset.i = i;
+    for (const [v, cls] of [[r.t + 1, "n"], [r.archetype ? NM[r.archetype] : "—"], [ACT[r.action]], [r.target || "—"], [r.I.toFixed(2), "n"], [Math.round(r.g * 100) + "%", "n"], [r.feedback, "n"], [r.cue ? "•" : ""]]) tr.appendChild(el("td", cls || "", String(v)));
+    tr.addEventListener("click", () => { stop(); show(i); });
+  });
+  show(0);
+}
+
+// SITE_NIGHT A2.5: what the agents sensed and which rule chose the archetype, derived from the session's own values.
+// The engine decides on arousal u and openness k before the step; they are the previous tick's values (start: u from the
+// starting intensity, k = 0). The derived archetype is checked against the engine's on every session (check C8).
+function derive(sess, p, i) {
+  const tau = LAB.defaults.tau, I0 = Math.min(5, Math.max(1, Number(p.initial_intensity)));
+  const before = j => j === 0 ? {I: I0, u: (I0 - 1) / 4, k: 0, g: 0} : sess.ticks[j - 1];
+  const b = before(i);
+  let calm = 0;
+  for (let j = 0; j <= i; j++) if (before(j).u < tau) calm += 1;
+  let action, rule;
+  if (sess.policy === "no_support") { action = "NONE"; rule = "No support: the policy takes no action."; }
+  else if (sess.policy === "always_bear") { action = "STABILISE"; rule = "Always Bear: the policy steadies on every tick."; }
+  else if (b.u >= tau) { action = "STABILISE"; rule = `Aroused (${b.u.toFixed(2)} ≥ ${tau}): Bear steadies before any change.`; }
+  else if (calm % 6 === 0) { action = "SHARE"; rule = `Calm, and the ${calm}th calm tick (every sixth): Lion shares.`; }
+  else if (b.k < 0.5) { action = "EXPLORE"; rule = `Calm (${b.u.toFixed(2)} < ${tau}) and openness ${b.k.toFixed(2)} < 0.5: Raven clarifies.`; }
+  else { action = "SUGGEST"; rule = `Calm (${b.u.toFixed(2)} < ${tau}) and openness ${b.k.toFixed(2)} ≥ 0.5: Tiger takes a step.`; }
+  return {before: b, action, rule};
+}
+window.PersonLabWhy = {derive: (sess, p, i) => derive(sess, p, i)};   // used by scripts/check_site_night.py (C8)
+
+function bar(id, v, w) { $("lb" + id).style.width = Math.round(100 * Math.max(0, Math.min(1, w))) + "%"; $("lv" + id).textContent = v; }
+
+function show(i) {
+  cur = i;
+  const [p] = person(), r = run.ticks[i], rb = bear.ticks[i], d = derive(run, p, i), tau = LAB.defaults.tau, n = run.ticks.length;
+  for (const tr of $("labTicks").rows) tr.classList.toggle("sel", tr.dataset.i === String(i));
+  $("labProg").textContent = r.action === "NONE" ? "No program: no action this tick." : PersonLab.program(LAB, r.action, r.target);
+  bar("I", r.I.toFixed(2) + " (Bear " + rb.I.toFixed(2) + ")", (r.I - 1) / 4);
+  bar("U", Math.round(r.u * 100) + "%", r.u);
+  bar("K", r.k.toFixed(2), r.k);
+  bar("G", Math.round(r.g * 100) + "% (Bear " + Math.round(rb.g * 100) + "%)", r.g);
+  $("labNow").innerHTML = "";
+  for (const [txt, cls] of [[r.archetype ? NM[r.archetype] + " · " + ACT[r.action] : "no action", "chip mode"],
+    [r.u >= tau ? "aroused" : "calm", "chip"], ["TARGET " + (r.target || "—"), "chip"], ["feedback " + r.feedback + " of 5", "chip"]].concat(r.cue ? [["a cue arrived", "chip safe-STABILISE"]] : []))
+    { const c = el("span", cls, txt); if (txt.startsWith("TARGET")) c.id = "labTgt"; $("labNow").append(c, " "); }
+  $("labWhyH").textContent = "Why, at tick " + (i + 1);
+  const w = $("labWhy"); w.textContent = "";
+  const li = (b, t) => { const x = el("li"); x.appendChild(el("b", null, b + " ")); x.appendChild(el("span", "dim", t)); w.appendChild(x); };
+  li("Sensed", `arousal ${d.before.u.toFixed(2)} against the threshold ${tau}, openness ${d.before.k.toFixed(2)}` + (r.cue ? "; a cue arrived during the tick (+" + LAB.defaults.delta + " intensity)." : "; no cue."));
+  li("Chose", d.rule);
+  li("Ran", r.action === "NONE" ? "no program." : `the RSX-V program ${NM[r.archetype]} · ${ACT[r.action]}, TARGET ${r.target} (below).`);
+  li("Result", `intensity ${d.before.I.toFixed(2)} → ${r.I.toFixed(2)}, progress ${Math.round(d.before.g * 100)}% → ${Math.round(r.g * 100)}%, feedback ${r.feedback} of 5. Always Bear at this tick: ${rb.I.toFixed(2)}.`);
+  for (const st of document.querySelectorAll("#labTree .st")) st.classList.toggle("cur", st.dataset.node === r.target);
+  const cx = 34 + (560 - 68) * i / (n - 1), cl = $("labChart");
+  let c = document.getElementById("labCursor");
+  if (!c) { c = document.createElementNS("http://www.w3.org/2000/svg", "line"); c.id = "labCursor"; c.setAttribute("stroke", "#e3b341"); c.setAttribute("stroke-width", "1.5"); c.setAttribute("y1", "12"); c.setAttribute("y2", "180"); cl.appendChild(c); }
+  c.setAttribute("x1", cx); c.setAttribute("x2", cx);
+  $("labStatus").textContent = "Tick " + (i + 1) + " of " + n + (timer ? " · playing" : "") + ". " + POL[$("labPol").value] + ", "
+    + EFF[$("labE").value].charAt(0).toLowerCase() + EFF[$("labE").value].slice(1) + ". The same choices always give the same session.";
+}
+
+function stop() { if (timer) { clearInterval(timer); timer = null; } $("labRun").textContent = "Play"; }
+function play() {
+  if (timer) { stop(); show(cur); return; }
+  if (cur >= run.ticks.length - 1) show(0);
+  $("labRun").textContent = "Pause";
+  timer = setInterval(() => { if (cur >= run.ticks.length - 1) { stop(); show(cur); return; } show(cur + 1); }, Number($("labSpeed").value));
+  show(cur);
+}
+
+function chart(a, b) {
+  const s = $("labChart"), W = 560, H = 190, L = 34, R = 34, T = 12, B = 10, n = a.ticks.length;
+  const x = i => L + (W - L - R) * i / (n - 1), yI = v => T + (H - T - B) * (5 - v) / 4, yG = v => T + (H - T - B) * (1 - v);
+  const path = (rows, f) => rows.map((r, i) => (i ? "L" : "M") + x(i).toFixed(1) + "," + f(r).toFixed(1)).join(" ");
+  let g = "";
+  for (let v = 1; v <= 5; v++) g += `<line x1="${L}" x2="${W - R}" y1="${yI(v)}" y2="${yI(v)}" stroke="#263052"/><text x="${L - 6}" y="${yI(v) + 4}" text-anchor="end" font-size="10" fill="#a3abc6">${v}</text>`;
+  g += `<text x="${W - R + 6}" y="${yG(1) + 4}" font-size="10" fill="#7fb7a4">100%</text><text x="${W - R + 6}" y="${yG(0) + 4}" font-size="10" fill="#7fb7a4">0%</text>`;
+  g += `<path d="${path(b.ticks, r => yI(r.I))}" fill="none" stroke="#e0745a" stroke-dasharray="4 4" stroke-width="1.5" opacity=".7"/>`;
+  g += `<path d="${path(b.ticks, r => yG(r.g))}" fill="none" stroke="#7fb7a4" stroke-dasharray="4 4" stroke-width="1.5" opacity=".7"/>`;
+  g += `<path d="${path(a.ticks, r => yI(r.I))}" fill="none" stroke="#e0745a" stroke-width="2.4"/>`;
+  g += `<path d="${path(a.ticks, r => yG(r.g))}" fill="none" stroke="#7fb7a4" stroke-width="2.4"/>`;
+  s.innerHTML = g;
+}
+
+function population() {
+  const P = PersonLab.population(LAB, M.persons), t = $("labPop");
+  const h = t.insertRow(); for (const c of ["Effects", "Policy", "Final intensity", "Progress", "Spikes", "Mean score", "Agents vs always Bear"]) h.appendChild(el("th", null, c));
+  for (const eff of Object.keys(P)) for (const pol of PersonLab.POLICIES) {
+    const s = P[eff][pol], v = P[eff].agents_vs_bear, tr = t.insertRow(); tr.dataset.k = eff + "/" + pol;
+    for (const [val, cls] of [[EFF[eff]], [POL[pol]], [s.mean_final_I.toFixed(2), "n"], [Math.round(s.mean_final_g * 100) + "%", "n"], [s.mean_spikes.toFixed(2), "n"], [s.mean_score.toFixed(3), "n"],
+      [pol === "agents" ? `more progress for ${v.more_progress}, same for ${v.same}, less for ${v.less_progress}` : ""]]) tr.appendChild(el("td", cls || "", val));
+  }
+}
 })();
 </script>
 </body>

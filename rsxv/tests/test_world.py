@@ -103,3 +103,23 @@ class TestExperimentHarness(unittest.TestCase):
         self.assertAlmostEqual(ci["diff"], 0.5)
         perm = X.permuted({"calm": "TIGER", "crisis": "BEAR"}, (3, 1, 2, 0))
         self.assertEqual(perm, {"calm": "BEAR", "crisis": "TIGER"})
+
+
+class StabDefault(unittest.TestCase):
+    """spec/STAB_DEFAULT.md T1, T2."""
+
+    def test_person_world_is_stabilise_first(self):
+        from rsxv.person2 import PersonEnvV2
+        from rsxv.world import person_world, World
+        w = person_world(PersonEnvV2(9001), seed=9001, score="mission")
+        self.assertEqual((w.policy, w.fixed_mode), ("fixed", "BEAR"))
+        modes = [w.tick()["mode"] for _ in range(30)]
+        self.assertTrue(all(m == "BEAR" for m in modes), modes)
+        self.assertEqual(World(PersonEnvV2(9001)).policy, "watchdog")       # recorded runs keep their default
+
+    def test_site_traces_adds_fields_only(self):
+        from rsxv import site_traces as T
+        r = T.run(11, None, 0)
+        self.assertIn("person_mean_bear", r["summary"])
+        self.assertEqual(set(r["summary"]["cues"]), {"watchdog", "watchdog_open_at_end", "bear", "bear_open_at_end"})
+        self.assertTrue(all("rb" in t["p"] for t in r["ticks"]))

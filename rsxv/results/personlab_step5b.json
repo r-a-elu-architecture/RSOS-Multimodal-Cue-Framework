@@ -1,0 +1,45 @@
+{
+ "kappa": 0.9252744142291635,
+ "rated_pairs": 1584,
+ "missing": 0,
+ "events": 560,
+ "targeted": 3,
+ "placebo_targeted": 1,
+ "verdict": "NOT TESTABLE (fewer than 30 targeted blocks)",
+ "info_feedback": {
+  "targeted": [
+   5.0,
+   1
+  ],
+  "not_targeted": [
+   4.511326860841424,
+   309
+  ]
+ },
+ "info_action_mean_d": {
+  "EXPLORE": [
+   -0.036,
+   70
+  ],
+  "NONE": [
+   -0.168,
+   110
+  ],
+  "SHARE": [
+   -0.193,
+   57
+  ],
+  "STABILISE": [
+   -0.222,
+   153
+  ],
+  "SUGGEST": [
+   -0.259,
+   170
+  ]
+ },
+ "info_raw_means": {
+  "targeted": -0.3333333333333333,
+  "not": -0.19569120287253142
+ }
+}

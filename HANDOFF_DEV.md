@@ -6,18 +6,21 @@ history.
 
 ## 1. Rules
 
-> **RELEASED v2.1.0 (2026-11-17).** Pull request #6 merged into `main` by the owner's decision (merge commit
+> **RELEASED v2.1.0 (2026-11-17).** Pull request #6 merged into `main` by the author's decision (merge commit
 > 9f60f4c); the live site shows this work. `dev` is open again; the rules below apply. Release notes: `releases/v2.1.0.md`.
 
 - **Nothing goes to `main` or the live site** from the building account. Everything is on `dev` and the
-  development site. Merging is the owner's decision after review.
+  development site. Merging is the author's decision after review.
 - **Lanes.** The builder pushes to `dev` only. The reviewer works on its own branch (`review/<step>`) and writes
   findings in §5 there, or in a pull request against `dev`. The two never push to the same branch.
 - **Registration discipline.** Each step is registered in a spec and pushed before its code. Thresholds are never
   changed after results are seen.
 - **Representation.** RSOS repurposes unwanted states (counterconditioning, future pacing). Pages use professional
   language; no crisis, helpline or emergency-banner wording outside research records and the clinician-facing
-  module (spec/CONTAIN.md §10). Acute risk always runs under a qualified clinician's protocol.
+  module (spec/CONTAIN.md §10), with one registered exception (spec/PUBLIC_EDITION_2.md C): the sentence "Research and
+  development framework; not a medical device, and not for use in an emergency: if you are at risk of harm, contact
+  your local emergency services." on the README, `docs/safety.html` and `docs/therapist.html` only. Acute risk always
+  runs under a qualified clinician's protocol.
 - **Public repository stays neutral:** no personal, spiritual, substance or security content; only aggregates
   from private material.
 
@@ -52,6 +55,9 @@ python3 scripts/check_fixes_r4.py docs    # spec/FIXES_R4.md (synthetic sessions
 python3 scripts/check_fixes_r5.py docs    # spec/FIXES_R5.md: real page paths
 python3 scripts/check_fixes_r6.py docs    # spec/FIXES_R6.md: changes after Begin, lineage, held pages
 python3 scripts/check_site_catchup.py docs # spec/SITE_CATCHUP.md: System page, RSX-V page, results families
+python3 scripts/check_evidence.py docs     # spec/EVIDENCE_LABELS.md: every live page shows its evidence label
+python3 scripts/check_personlab.py docs    # spec/PERSONLAB.md §7d: Person Lab on the World page, its box on the System page
+python3 scripts/check_site_night.py docs   # spec/SITE_NIGHT.md: Person Lab at the top of the World page, findings from data
 ```
 
 ## 3. Review checklist (every step)
@@ -63,8 +69,9 @@ For each item record **pass / fail** with evidence (command output, file and lin
 3. No threshold or limit changed (compare against the backup branch).
 4. Stored data unchanged: storage keys and record formats are the same unless the spec registers a change.
 5. Python and JavaScript give identical results where both exist.
-6. No crisis, helpline or emergency wording on pages; no clinical words on non-clinical profiles
-   (`scripts/check_profiles.py`).
+6. No crisis, helpline or emergency wording on pages, except the one registered emergency sentence on the README,
+   `safety.html` and `therapist.html` (spec/PUBLIC_EDITION_2.md C); no clinical words on non-clinical profiles
+   (`scripts/check_profiles.py`, which enforces both).
 7. Nothing reached `main` or the live site.
 8. The development site shows the change and has no page errors.
 9. Anything the step claims in prose is true in the code.
@@ -209,7 +216,7 @@ Review: branch `review/r3`, commit 15256fa (reviewed 14d096c). Registration: `sp
 Tests: `rsso/tests/test_fixes_r3.py`; `scripts/check_outlet.py` (14 failures on 14d096c, 0 now).
 Review status: **awaiting the fourth review**.
 
-### Low mood — owner's decision (spec/LOW_MOOD.md)
+### Low mood — author's decision (spec/LOW_MOOD.md)
 
 Registered 1ec57e4. The node studio's "low energy or mood" stays structured. With the clinical vocabulary only, a
 separate "Depression (diagnosed or under treatment)" choice makes the plan clinician-led, and every node of it is
@@ -236,7 +243,7 @@ Review status: reviewed in review 5 (`review/r5`, c21e634): 0 blockers, 10 shoul
 ### Fix pass R5 (spec/FIXES_R5.md)
 
 Review: branch `review/r5`, commit c21e634 (reviewed 2dacc02). Registration d633b5a (also restores the LOW_MOOD §2
-count, owner's decision); code 9ab5f78.
+count, author's decision); code 9ab5f78.
 - **Gate**: a list of sessions with handles; a refused open changes nothing; the stricter of the saved and the live
   domain; expired sessions removed, held ones kept until closed; copies from `session()`; the run's session opens after
   the check-in.
@@ -346,7 +353,7 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   STAB-ONLY as registered comparators.
 - Disclosed: the smoke run used subsets of the registered seeds; its labels matched the full run's.
 - Checks: RSX-V 156 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; all 11 browser checks exit 0.
-- Agents page (§7, code a775ffa): retitled "Tested in simulation: the RSX-V agents", owner's decision 17 November. A line
+- Agents page (§7, code a775ffa): retitled "Tested in simulation: the RSX-V agents", author's decision 17 November. A line
   under the lede gives the audit's outcome per row, built from the audit's result file.
 Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
@@ -361,6 +368,82 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   Information only: the stabilising reply was chosen in 9 of 11 personal pairs.
 - Two datasets, both inconclusive for the same reason: the fixed patterns find too few personal prompts. A third attempt
   needs a dataset made of personal conversations, or a meaning-based reader registered before it reads any data.
+- **CTX_PREF_WC** (registered 2cb5ea2, code 39941b0, run 44068403883): WildChat-1M, all 14 files, 536,786 reactions.
+  **Inconclusive** a third time: only 185 stabilising replies to personal messages. In everyday requests, asking back is
+  followed by worse reactions (−0.011 [−0.020, −0.002]), in the same direction as CTX_PREF_HH. Association, not cause.
+- Released to main on the owner's instruction: PR #9 (merge 0aa965c), 17 November, with **CTX_PREF and CTX_PREF_HH
+  only**. The live Agents page now reads "Tested in simulation". CTX_PREF_WC (below) came after that merge and is on
+  `dev` only.
+
+### Phase 3 (website and agents), step 12: STAB_DEFAULT (registered 2349a85, amendment dd54544, code c4f3bd0)
+- Found first: no person-facing page switches archetypes. Switching exists only in the simulation and the World page.
+  The asking-back finding is not applied, because it covers everyday requests only.
+- The World page shows always-Bear beside the Watchdog on the same simulated person, with the cue counts.
+- **Person model v2 loophole:** under Bear, 1 cue in all 15 runs, never interrupted, blocking later cues. Recorded in
+  BASELINE_AUDIT §8: it affects T-AP's confirmation run only.
+- `world.person_world` is the stabilise-first default for new person-facing uses.
+- Open: person model v3 (cues that can resolve without the module).
+- Next: step 13, evidence labels.
+
+### ADOPT_WC (registered 8b0c08e, code 84b660f, run 44084235343)
+- Do the AI's words become the person's own across conversations? WildChat-1M, 26,783 persons, future-placebo design.
+- **Fail:** -0.0046 [-0.0059, -0.0032]. The placebo is probably inflated by the AI echoing the
+  person's own words.
+- Information only: positive under 1 day; a dose effect (+0.013).
+- A corrected design would be a new test on new data.
+
+### PERSONLAB (the Person Lab; registered b6b2ff7, amended d9af1ac and 23d17c6)
+- Owner's design: simulated persons with six-level identity profiles from real stories, and autonomous agents working
+  toward each person's desired state, as a lab for researchers. A module, not a new language.
+- Step 1 (eb39498): the schema in `rsxv/rsxv/personlab/schema.py`.
+- Step 2: `SOURCES.md`. ESConv is primary, Hippocorpus and EmpatheticDialogues secondary.
+- Step 3 (c324fa1, frozen 2d1f9c5): 100 ESConv profiles from two readers (separate instances of the same model; see the record review note in spec/PERSONLAB.md). **Kappa 0.728, passes.** Environment
+  agreed worst (0.412); desired states are weak (46% matched). Stored privately (private repo `dev`, bbb3faa).
+- Step 4 (registered 17650e5, code 06fa583): `ProfilePerson`; all 100 build. Cues never block. The parameters are placeholders.
+- Step 5 (registered 49c8277, code b439c7c): **FAIL.** Final-intensity error: PERSON 0.814; persistence 2.030;
+  mean change 0.771; linear 0.681. The fit gives all actions the same effect, and the profile makes it
+  worse (+0.144). Whole-conversation final intensity in ESConv does not separate strategies.
+- Step 5b (registered dd1d360, code 72c303e): stress per turn, kappa **0.925** over 1,584 turns, reliable. Override
+  test **NOT TESTABLE**: 3 targeted blocks of 560, with 30 needed. Information only: questions are followed by the smallest
+  stress drop.
+- Step 5c (registered 8b8f069, code 948aaef): **NOT VALID.** Reader stress does not track the seekers' own intensity
+  ratings (change ρ +0.03). It appears to track tone rather than self-reported state (100 conversations; wide intervals). The confirmatory test on reader stress is cancelled.
+- RAPPORT_ESCONV (registered f4bbc63, code 3ce406c): on the seekers' own ratings, VAKOG matching **no effect**
+  (+0.094), echo **no effect** (-0.023), both together not testable (96 events). Neither enters the agents' defaults.
+Review status: **awaiting review**.
+
+### Phase 3, step 13: EVIDENCE_LABELS (registered d0a6967, code 88c0eae; spec/EVIDENCE_LABELS.md)
+- Before it, a record review of the PERSONLAB and RAPPORT records (1387719): PR #9's scope corrected (CTX_PREF_WC is on
+  `dev` only), same-model readers disclosed, the 5c and RAPPORT readings worded to their intervals. No number or verdict
+  changed.
+- One scale on every live page, under the lede: E0 Written, E1 Built, E2 Checked on simulated people, E3 Tested in
+  simulation, E4 Tested on recorded data, E5 Tested with people using RSOS. Each label ends "Not yet tested with people
+  using RSOS."
+- Generated by `architecture/evidence.py` from `architecture/evidence_map.json` and the results register. Every register
+  row must be placed by source, or the build fails. Counts on the labels come from the register at build time.
+- 21 pages: 6 at E1, 6 at E2, 3 at E4 (agents, World, RSX-V: 27 simulation tests with 1 pass; 7 recorded-data tests
+  with 0 pass), 3 summary, 3 record. README gains an "Evidence levels" section.
+- L5 caught "proven strength against sham" in the README; reworded.
+- Checks: test_evidence 7 passed; check_evidence 168/168 views, 0 page errors; `check_all.sh` passed (rsso 301); the
+  12 browser checks and check_release (75/75) exit 0.
+- Click: `/dev/` (summary label under the intro), `/dev/anchors.html` (E2), `/dev/agents.html` (E4 with counts),
+  `/dev/tiers.html` (record).
+- Open: World page E3 or E4 (§7). Next: step 14, the Agents page board.
+Review status: **awaiting review**.
+
+### PERSONLAB §7d: the Person Lab on the World page (registered 0882e83, code 094b5c3; author's decision)
+- Rebuilt in this session: the earlier session's work on this (TARGET, mirrors, World section) was never pushed and was lost.
+- RSX-V `TARGET <level>:<node>`; 100 public mirror lab persons (private structure, invented statements, 0 shared 4-word
+  runs); step 4's person in Python and the browser (identical on 600 sessions); agents (Bear / Raven / Tiger / Lion by the
+  Watchdog rule), always Bear and no support; equal (registered) and invented effects.
+- Result by construction: equal effects → agents tie always Bear on all 100; invented effects → agents ahead on all 100.
+  The page says plainly that this is architecture, the person model failed validation, and VAKOG and echo showed no effect.
+- Click: `/dev/world.html#lab` (pick a lab person, switch effects and policy, click a tick for its RSX-V program);
+  `/dev/system.html` → Person Lab box.
+- Checks: RSX-V 220, rsso 304, `check_all.sh`, `check_personlab` 31/31, all browser checks and `check_release` exit 0.
+- **Amendment §7d-B′** (registered df50bc2, code 5aefd70; owner: RSOS is open like Linux): lab persons are now drawn from
+  published summary statistics (`rsxv/results/personlab_aggregates.json`), CC BY 4.0 with ESConv cited; no per-profile
+  copy. Equal effects: tie on all 100; invented effects: agents ahead on 99, behind on 1.
 Review status: **awaiting review**.
 
 ### ESP32_TOOLS — the wristband firmware with the real ESP32 compilers and Espressif's QEMU (spec/ESP32_TOOLS.md)
@@ -414,6 +497,34 @@ compile, the emulator checks, the PWM-register check, CI on every push (`firmwar
 a tester (issue #5). Resumes when a board report arrives (issue #5 or the Board report form): register the result
 first, then fix. Open items stay as listed in §6: the NimBLE port for C3/S3 on 3.3+, and the first board run.
 
+### WORLD_10X, TURN_RATINGS and CUE_RESOLVE (18 November 2026, night)
+
+- WORLD_10X (spec/world10x/): sealed plan, not a test (ea1b5f7).
+- TURN_RATINGS (planet 8): registered 90298e7, code fca11ec, pilot e0da9ed, results 2e6c334. Q1 and Q2 NULL (equivalence):
+  the supporter's action did not measurably improve the prediction of the seeker's next rating of the support in ESConv
+  (crowdworker seekers; an association). Register row Round 8e.
+- CUE_RESOLVE (planet 2): registered e32e281, code 5749ddb, results in the next commit. Part A FAIL by its 10× rule (stuck
+  cues 15/15 → 0/15, open ticks only 1.8× fewer); Part B: always Bear still beats the Watchdog on person model v3, but only
+  because the Watchdog meets about 11% more cues (FIXES_NIGHT CR-1). Register row Round 8f.
+- CUE_RESOLVE follow-up B (adopt v3): registered 354b807, code 93a1cbf: recorded as ANALYSIS after the review (FB-1):
+  criterion set after its answer; v3 available, not adopted as a default. Register row Round 8f-B.
+- SITE_NIGHT (pages): registered e23a960, code 083d18a, results 330eb55; check_site_night 20/20.
+- Checks: listed in each spec's results. The reviewer should check that the registration commit precedes the code commit
+  in both, and the disclosed smoke run in CUE_RESOLVE.
+
+### PUBLIC_EDITION, PUBLIC_EDITION_2, R2 and FIXES_PE (18 November 2026)
+
+- PUBLIC_EDITION (spec/PUBLIC_EDITION.md): registered 164d56d, code 3a8a23b, results 8961a30. "GPT" → "model" in
+  published data by one rule (E1; originals unchanged), roadmap audience line, neutral description of the private record.
+- PUBLIC_EDITION_2 (spec/PUBLIC_EDITION_2.md): registered 6c70941, code 4a17218, results 4b4188a. The originals moved to
+  the private repository (verified backup), subtitle, the one emergency sentence, evidence label, "owner" → "author" in
+  prose, roadmap C27 and C71.
+- Amendment R2: registered 6d42bd2, code 47df4ef, results e61581c. Roadmap C68 becomes checkable milestones by November
+  2028.
+- Review: PR #12 (`review/public-edition`, b40f48a), 2 should-fix, 3 notes, no blocker.
+- FIXES_PE (spec/FIXES_PE.md): registered 496b661; documentation fixes for the two should-fix findings (this section
+  and §1 / checklist item 6).
+
 ## 5. Review findings
 
 Reviewer: add one block per review.
@@ -452,7 +563,7 @@ Checklist:  1 pass | 2 pass (spec before code in each step's record) | 3 pass (n
             new SSIT programs carry their own SAFETY lines) | 4 pass (keys only added: rsos.clinical, rsos.settings,
             rsos.watchdog.log; none removed) | 5 pass (suites) | 6 pass (check_profiles; no crisis, helpline or
             emergency wording in any page's text, only internal mode names) | 7 pass | 8 pass | 9 pass
-Findings:   1 note -> fixed (owner's decision, RELEASE_1 A2): README.md had "If you are in crisis, contact local
+Findings:   1 note -> fixed (author's decision, RELEASE_1 A2): README.md had "If you are in crisis, contact local
             emergency services or a crisis line"; README, SECURITY, release notes and the protocol's contraindication
             now say acute risk belongs under a qualified clinician's protocol (test_release.py).
 Verdict:    ready for the owner
@@ -484,6 +595,242 @@ Verdict:    ready for the owner
 ```
 Release blocker found outside the steps: `main` holds 059a58f (a revert of S1). A plain merge would keep the revert;
 RELEASE_1 §1 M1/M2 handles it before the pull request.
+
+### Night review, 18 November 2026 (branch `review/night-18nov`)
+
+Reviewer: the reviewing account, a separate session of the same model family as the builder (Claude Opus 5.5), so not
+independent in the sense of WORLD_10X row 15. Reviewed commit: 58f6f54 (`dev`). Scope: WORLD_10X, TURN_RATINGS,
+CUE_RESOLVE with follow-up B, SITE_NIGHT with A1 and A2. Review scripts are in the PR description; nothing they read is
+committed.
+
+Checks on 58f6f54 (all run by the reviewer):
+- `check_all.sh`: all checks passed, generated files unchanged. RSX-V: 234 passed. The rsso and rsxv files listed in §2: 123
+  passed, 1 expected failure.
+- Browser checks, all 14 in §2: exit 0, 0 page errors (check_site_night 35/35, check_personlab 31/31, check_evidence
+  168/168). They render `docs/` locally; the deployed `/dev/` could not be reached from the review workspace (proxy 403).
+  The `Pages (main + dev)`, `checks` and `firmware` workflows on 58f6f54 succeeded.
+- Reruns, every result file byte-identical to the recorded one: `turn_ratings_pilot.json` and `turn_ratings.json` (ESConv
+  f262d06, `ESConv.json` SHA-256 aa0556c5…f7efdd9af, as recorded), `cue_resolve.json`, `cue_resolve_adopt.json`.
+  `world_findings.json` is regenerated identically by `check_all.sh`.
+- Order, from GitHub's push log for `dev`, not only from commit times. Every registration was pushed on its own before
+  its code: TURN_RATINGS 23:41:51 then code 23:43:21; CUE_RESOLVE 23:57:41 then 00:01:53; SITE_NIGHT 00:21:15 then
+  00:33:05; A1 00:57:58 then 01:00:58; A2 01:01:46 then 01:17:49 (the code and its results in one push); follow-up B
+  01:31:37 then 01:32:21. WORLD_10X was sealed and pushed at 23:39:17, before any of them.
+- Thresholds: every spec of the night only gained lines after its registration (no line removed or edited).
+  `turn_ratings.py` has one commit. `cue_resolve.py` only gained lines after 5749ddb. Part A, Part B, Q1 and Q2 kept
+  their registered rules. Follow-up B's threshold was set after results, as disclosed (FB-1).
+- `main` is unchanged at 0aa965c. `docs/js/personlab.js`, `personlab_lab.json` and `world_runs.json` were not touched
+  by any of the night's commits.
+
+```
+Step:            EVIDENCE_LABELS, as regenerated by the night's record commits (371b159, 58f6f54)
+Reviewed commit: 58f6f54
+Date:            2026-11-18
+Checklist:       1 pass (check_evidence 168/168) | 9 fail (E-1)
+Findings:        E-1 blocker. Two stated-model simulations are counted as tests on recorded data.
+                 architecture/evidence_map.json:14 puts every row starting "Round 8" under source `public`. Round 8f and
+                 Round 8f-B (CUE_RESOLVE) are runs of the stated person model, with no recorded data; their own rows end
+                 "Stated models". Effect on 58f6f54:
+                 - The World page (E4) label and README read "on recorded data, 18 registered tests: 1 pass, 4 mixed,
+                   9 fail, 4 other".
+                 - The only recorded-data "pass" on the site is 8f-B, a simulation confirmation with a threshold set
+                   after its results (FB-1).
+                 - Correct counts: in simulation 29 tests (2 pass, 7 mixed, 19 fail, 1 analysis); on recorded data 16
+                   (0 pass, 4 mixed, 8 fail, 4 other).
+                 check_evidence passes because it compares each label with the generated value, not each row with its
+                 source. Fix: key rows by exact name, not prefix ("Round 8", "Round 8b" … "Round 8e" → public;
+                 "Round 8f", "Round 8f-B" → sim). Add a test: a row whose meaning says "Stated models" must not be
+                 `public` or `record`.
+Verdict:         changes needed
+```
+```
+Step:            TURN_RATINGS (planet 8)
+Reviewed commit: 58f6f54 (spec 90298e7, code fca11ec, pilot e0da9ed, results 2e6c334)
+Date:            2026-11-18
+Checklist:       1 pass (fixture tests in RSX-V 234) | 2 pass (push order above) | 3 pass (δ 0.01, level 0.995, seeds 2101
+                 and 12345 as registered) | 9 fail (TR-1, TR-2)
+Rerun:           Pilot and stage M byte-identical; stage M took 9.5 s. Usable events 6,352 (dev 3,119 / test 3,233).
+                 Q1 −0.0008 [−0.0036, +0.0019] NULL; Q2 +0.0032 [+0.0005, +0.0063] NULL; B1 − B0 −0.185.
+Sensitivity:     Done by the reviewer, not registered. An effect of a set size was added to one action on all events, the
+                 models were refitted on the development half, and the registered rule was applied. A +0.1-point effect on
+                 STABILISE gives SIGNAL. +0.1 on SHARE and +0.2 on EXPLORE (net about +0.12 over its fitted −0.08) stay
+                 NULL. The NULL rules out per-action effects larger than about 0.1–0.2 rating points, not every effect.
+Findings:        TR-1 should fix. The page and register sentences drop the spec's own limits (§0, §7):
+                 - Pages: world_findings.json "turn" and "lab_note" ("In people's own ratings … made no measurable
+                   difference").
+                 - Register 8e and HANDOFF §4 ("adds nothing to the next rating").
+                 The outcome is the seeker's 1–5 rating of the support just given, not their own state. The raters were
+                 crowdworkers playing seekers, and the result is an association. Suggested wording: "In 6,352 rated
+                 moments of ESConv, the supporter's action did not measurably improve the prediction of the seeker's next
+                 rating of the support (within ±0.01 squared error; crowdworker seekers; association)".
+                 TR-2 should fix. "Equal (placeholder; ESConv ratings show no difference)" and "which is what the equal
+                 effects assume" (SITE_NIGHT N3, lab_note; §0.5 "agree with") present the NULL as support for the
+                 placeholder:
+                 - In the lab model, feedback is 3 + relief + progress + noise (rsxv/rsxv/personlab/person.py:83). Equal
+                   effects therefore imply equal feedback.
+                 - The reverse does not follow: equal ratings do not imply equal effects on intensity, arousal, openness
+                   and progress.
+                 - The NULL is also an equivalence band, not "no difference".
+                 Suggested option text: "Equal (placeholder; consistent with ESConv ratings)".
+                 TR-3 note. §0 says ESConv's 7,681 ratings are "roughly 10× more outcome events than conversations". The
+                 file has 1,300 conversations, so the ratio is 5.9×. The ≈10× in WORLD_10X row 8 is against step 5's 100
+                 conversations; 6,352 usable events is 63×.
+                 TR-4 note. The registration push came 90 s before the code push, and the code is 309 lines with 7 tests,
+                 so the code was written before the registration was pushed. The order rule is met. Git cannot show that
+                 the code was not run before registration; the spec states that no action → rating number was seen. For
+                 the future: put the hash of the code commit's tree in the registration, or register before writing code.
+Verdict:         changes needed (wording only; the numbers and the verdict stand)
+```
+```
+Step:            CUE_RESOLVE (planet 2), Parts A and B
+Reviewed commit: 58f6f54 (spec e32e281, code 5749ddb, results 371b159)
+Date:            2026-11-18
+Checklist:       1 pass (test_cue_resolve T1–T3 in RSX-V 234) | 2 pass | 3 pass (R = 6, STUCK 20, 10× rule, 99% level
+                 unchanged) | 9 fail (CR-1)
+Rerun:           cue_resolve.json byte-identical (35 s). Smoke run as disclosed: `--quick` skips Part A and uses seeds
+                 990000–990009 (cue_resolve.py main), so it never touched the registered configurations or seeds.
+Findings:        CR-1 should fix (changes the reading, not the verdict). On v3 the rest of Bear's lead is still cue
+                 exposure.
+                 Reviewer's decomposition, on Part B's own seeds and runs (reproduces −0.0193 exactly):
+                 - Watchdog − Bear = −0.0336 on ticks where a cue is triggered, + 0.0143 on all other ticks
+                   (99% [+0.0042, +0.0241]).
+                 - One cue costs the same under both policies: −3.664 (Bear) and −3.667 (Watchdog) per trigger tick.
+                 - The Watchdog meets 10.69 cues per person, Bear 9.60.
+                 So on v3 the whole of Bear's lead comes from the Watchdog meeting more cues. When the Watchdog
+                 interrupts a cue, the cue ends sooner and the next one can arrive sooner. Each arrival is scored as a
+                 rise in distress. On all other ticks the Watchdog is ahead of Bear. This is the policy-dependent
+                 exposure that follow-up B accepts as "the model working as written", and it decides Part B.
+                 Overstated as a result:
+                 - §7 "the stabilise-first default (STAB_DEFAULT D2) stands without the loophole caveat".
+                 - Register 8f, World page "cue" sentence: "about half of its earlier lead was the loophole"; HANDOFF §4.
+                 These read the remaining half as a real advantage for Bear.
+                 Suggested:
+                 - Record the decomposition as information. The registered verdict BEAR STILL WINS stands.
+                 - Say that on v3 Bear's lead comes entirely from the Watchdog meeting about 11% more cues.
+                 - Keep a caveat on STAB_DEFAULT D2.
+                 - Separate the two with a registered test in which cue arrival times are drawn in advance,
+                   independent of the policy.
+                 CR-2 note. Part A's 10× blocked-ticks rule could not pass for a reason that was visible before the run:
+                 closing the loophole lets more normal episodes in. The spec says so and keeps the FAIL. Correct handling.
+                 CR-3 note. §4: "no setting of this model can be fitted from that data (TURN_RATINGS)". TURN_RATINGS
+                 measured ratings of the support; this model's outcome is distress. The sentence goes further than either
+                 result shows.
+Verdict:         changes needed (wording and one caveat)
+```
+```
+Step:            CUE_RESOLVE follow-up B (adopt v3)
+Reviewed commit: 58f6f54 (spec 354b807, code 93a1cbf, results 58f6f54)
+Date:            2026-11-18
+Checklist:       1 pass | 2 pass (push order; the registration came 44 s before 43 lines of code and a test) | 3 not
+                 applicable: a new criterion, set after results, as disclosed | 9 fail (FB-1)
+Rerun:           cue_resolve_adopt.json byte-identical (20 s). Bear ÷ Watchdog 0.90 [0.87, 0.94]; Bear ÷ Lion 0.99 [0.95,
+                 1.04].
+Findings:        FB-1 should fix. The adoption rests on a criterion chosen after its answer was known, and half of the
+                 criterion holds by construction.
+                 (a) The registered adoption rule failed. §4 adopts v3 if Part A passes, and Part A failed. §7 then asked
+                     for a stuck-cue measure. §8 replaced that with a new measure, set after Part B printed 9.6 / 10.7
+                     (ratio 0.897), with a band from 0.85.
+                 (b) Bear ÷ Lion ≈ 1 holds by construction on v3:
+                     - Neither policy ever interrupts a cue. Under Bear the module is never trained, so p_work = 0
+                       (person2.py:53–58). In Part A, 215 of v3 Bear's 224 cues self-resolved; the other 9 were open at
+                       the end.
+                     - Cue arrivals are therefore set by trig_rate and R alone: 120 / (R + 1/0.15) ≈ 9.5 cues per
+                       person; observed 9.6.
+                 (c) A rerun on 200 new simulated persons, with a 99% interval about ±0.035 wide, was all but certain to
+                     reproduce 0.90. The sealed P(pass) = 0.80 overstates the risk.
+                 (d) The band admits an 11% exposure difference, and CR-1 shows that this difference decides Part B.
+                 The record discloses (a). The register still gives 8f-B status `pass`, which feeds the label counts
+                 (E-1).
+                 Suggested:
+                 - Register status `analysis` (FIXES_P2 C1–C3 precedent), with the meaning kept.
+                 - Adopting v3 stays the owner's decision. With CR-1 in view, a v3 with policy-independent arrival
+                   times may suit new tests better.
+Verdict:         changes needed
+```
+```
+Step:            SITE_NIGHT with A1 and A2
+Reviewed commit: 58f6f54 (spec e23a960, code 083d18a, results 330eb55; A1 0f19645 → a539772; A2 8addcec → c61b885,
+                 a56b223)
+Date:            2026-11-18
+Checklist:       1 pass (35/35) | 2 pass | 4 pass (no storage key or data file changed) | 5 pass (personlab.js unchanged;
+                 check_personlab 31/31) | 6 pass (check_profiles) | 7 pass | 8 pass locally (0 page errors; deployed /dev/
+                 not reachable from the review workspace) | 9 fail (TR-1, TR-2 and CR-1 reach the page through
+                 world_findings.json)
+Findings:        SN-1 should fix: the page text needs the TR-1, TR-2 and CR-1 corrections. They are generated by
+                 rsxv/rsxv/site_findings.py, so fix them there and C2 keeps the numbers right.
+                 SN-2 note, pass: C8 is not circular. derive() reads only the previous tick's u and k, τ and the policy,
+                 never the engine's action. 12,000 ticks with 0 mismatches is real evidence that the "Why" chain is the
+                 engine's rule.
+                 SN-3 note: two disclosed deviations, both acceptable.
+                 - The title was changed to satisfy C1, rather than C1 being changed to fit the title.
+                 - C9 now scrolls the chart into view before clicking. That repairs the check and does not loosen it.
+                 SN-4 note: SITE_NIGHT's checks and check_evidence cannot catch E-1 (see E-1's added test).
+Verdict:         changes needed (generated wording only)
+```
+```
+Step:            WORLD_10X (sealed plan, not a test)
+Reviewed commit: 58f6f54 (sealed ea1b5f7)
+Date:            2026-11-18
+Checklist:       2 pass (sealed and pushed before every registration that follows from it) | 9 pass with notes
+Findings:        W-1 note: "compiled with RSOS-Language 7a9bcd3: 0 errors, 0 warnings, 55 operations" was not rerun; the
+                 compiler lives in another repository.
+                 W-2 note: row 2's "10× honest? Yes" turned out wrong for blocked ticks (CUE_RESOLVE CR-2). A pointer
+                 from the row to CUE_RESOLVE §7 would keep the sealed file and its outcome together.
+                 W-3 note: row 3's "0.133 below the oracle" checks out. STAB-ONLY's +0.2439 equals T-AP's recorded ORACLE
+                 bound (BASELINE_AUDIT table A7).
+Verdict:         ready for the owner
+```
+Overall: one blocker (E-1) and five should-fix items (TR-1, TR-2, CR-1, FB-1, SN-1). None of them changes a recorded number
+or a registered verdict. E-1 and FB-1 change what the site counts as passes. CR-1 changes what Part B is read to mean.
+### PUBLIC_EDITION, PUBLIC_EDITION_2 and amendment R2 review (2026-11-18)
+
+Reviewer: the building account's model family (Claude Opus 5.5), not an independent reviewer. Reviewed commit: e61581c
+(`dev`); steps 164d56d..e61581c (9 commits). Branch `review/public-edition`.
+
+```
+Step:            PUBLIC_EDITION (164d56d, 3a8a23b, 8961a30), PUBLIC_EDITION_2 (6c70941, 4a17218, 4b4188a), R2 (6d42bd2, 47df4ef, e61581c)
+Reviewed commit: e61581c
+Date:            2026-11-18
+Checklist:       1 pass: check_all.sh "All checks passed", generated files unchanged; RSX-V 234 passed; rsso
+                   test_public_edition + test_ledger 8 passed, 3 skipped (need the originals, by design);
+                   rsx/tests/test_repository 2 passed; test_release 1 passed. Browser: check_profiles fails [],
+                   check_evidence 168/168 and 0 page errors, check_site_catchup fails [], check_site_night 35/35,
+                   check_personlab 31/31 and 0 page errors.
+                 2 pass: each registration commit (164d56d, 6c70941, 6d42bd2) touches only its spec file and
+                   precedes its code commit.
+                 3 pass: no threshold or limit line changed in rsso/rsso, rsxv/rsxv, architecture or firmware; the
+                   only numeric diffs are roadmap claim text and docstrings.
+                 4 pass: no storage key or record format changed; published ledger, metrics and tier map change only
+                   by rule E1 (0 "GPT" in docs/data/ledger.json, metrics.json, tier_map.json).
+                 5 n/a
+                 6 pass, with the registered exception: the emergency sentence appears only in README.md,
+                   docs/safety.html and docs/therapist.html (plus the tests that require it);
+                   scripts/check_profiles.py removes exactly that sentence on exactly those two pages, requires it
+                   there, and still bars every other crisis word on every page.
+                 7 pass: 164d56d, 47df4ef and e61581c are not ancestors of origin/main.
+                 8 not checked here (no network to the development site from this workspace); local renders 0 page
+                   errors.
+                 9 pass: C3 phrases absent outside archive/ and the specs; 0 files tracked under
+                   archive/original-estates or archive/original-package; V1 verified independently:
+                   scripts/verify_edition.py on the private backup (RSOS-Multimodal-World
+                   corpus/backups/cue-framework-2026-11-18, MANIFEST.sha256 102/102 OK) prints 65/65 files match,
+                   ledger reassembles byte for byte, published ledger and metrics = originals + E1.
+Findings:        1 should fix: HANDOFF_DEV.md §1 "Representation" (line 19) and checklist item 6 (line 69) still say
+                   no crisis, helpline or emergency wording on pages; PUBLIC_EDITION_2 C now requires one emergency
+                   sentence on safety.html and therapist.html (and the README). The rule text should name this
+                   exception, or the prose is untrue (item 9).
+                 2 should fix: HANDOFF_DEV.md §4 has no section for PUBLIC_EDITION, PUBLIC_EDITION_2 or R2; the step
+                   log ends at WORLD_10X / TURN_RATINGS / CUE_RESOLVE.
+                 3 note: R2's registered phrase check ("a movement" nowhere outside the spec) literally fails; the
+                   remaining uses are unrelated (a body movement in IDENTITY; the ledger's recorded text). Disclosed
+                   in the spec; the claim itself is gone.
+                 4 note: the removed originals and the earlier private-record wording remain in the public git
+                   history (disclosed). If their privacy matters, only a history rewrite removes them: the author's
+                   decision.
+                 5 note: "ratified by the owner" kept in rsxv/AGENTS.md lines 49 and 254 as a system role, as §5 of
+                   PUBLIC_EDITION_2 specifies.
+Verdict:         ready for the owner after findings 1 and 2 (documentation only; no blocker)
+```
 
 ## 6. Open items
 

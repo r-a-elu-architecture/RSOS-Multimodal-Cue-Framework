@@ -95,7 +95,7 @@ H1, H2 and H5).
 ## 8. What the project needs to decide before collecting
 
 This specification covers the format and the tools. Collecting real data also needs the following, which are the
-project owner's decisions:
+project author's decisions:
 
 - who holds the data (the data controller) and where contributions are sent;
 - ethics approval for studies that recruit;

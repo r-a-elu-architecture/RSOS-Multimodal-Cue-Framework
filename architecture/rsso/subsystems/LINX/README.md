@@ -10,5 +10,5 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [LINX_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/LINX_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `72c8380b88cc5eeb` |
-| [LINX_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/LINX_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `7b1c9832363b21dc` |
+| LINX_Historical_Reconstruction.txt (kept privately) | Reconstruction: role, inputs, outputs, operators | `72c8380b88cc5eeb` |
+| LINX_Evidence_Excerpts.txt (kept privately) | Evidence excerpts (public edition) | `7b1c9832363b21dc` |

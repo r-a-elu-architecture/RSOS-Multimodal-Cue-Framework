@@ -1,0 +1,184 @@
+{
+ "R": 6,
+ "part_a": {
+  "blocked_ratio_v2_over_v3_bear": 1.7810831426392066,
+  "by_version_arm": {
+   "v2_BEAR": {
+    "blocked_ticks": 2335,
+    "cues_max": 1,
+    "cues_min": 1,
+    "cues_total": 15,
+    "mean_per_tick": 0.09178282873855986,
+    "open_at_end": 15,
+    "runs": 15,
+    "self_resolved": 0,
+    "stuck_at_end": 15
+   },
+   "v2_WATCHDOG": {
+    "blocked_ticks": 1660,
+    "cues_max": 23,
+    "cues_min": 3,
+    "cues_total": 134,
+    "mean_per_tick": 0.041014683523248344,
+    "open_at_end": 9,
+    "runs": 15,
+    "self_resolved": 0,
+    "stuck_at_end": 0
+   },
+   "v3_BEAR": {
+    "blocked_ticks": 1311,
+    "cues_max": 16,
+    "cues_min": 14,
+    "cues_total": 224,
+    "mean_per_tick": 0.013054907830939688,
+    "open_at_end": 9,
+    "runs": 15,
+    "self_resolved": 215,
+    "stuck_at_end": 0
+   },
+   "v3_WATCHDOG": {
+    "blocked_ticks": 987,
+    "cues_max": 20,
+    "cues_min": 14,
+    "cues_total": 242,
+    "mean_per_tick": 0.012842483170583783,
+    "open_at_end": 6,
+    "runs": 15,
+    "self_resolved": 122,
+    "stuck_at_end": 0
+   }
+  },
+  "passes": false
+ },
+ "part_b": {
+  "loophole_share": {
+   "bear_minus_watchdog_v2": 0.04062237200322993,
+   "bear_minus_watchdog_v3": 0.01926938118064654,
+   "difference": 0.021352990822583386
+  },
+  "v2": {
+   "BEAR_minus_LION": {
+    "ci": [
+     0.08610437424181071,
+     0.09233102776603465
+    ],
+    "estimate": 0.08929036288947735
+   },
+   "WATCHDOG_minus_BEAR": {
+    "ci": [
+     -0.04643690846873158,
+     -0.0353157005736975
+    ],
+    "estimate": -0.04062237200322993
+   },
+   "WATCHDOG_minus_LION": {
+    "ci": [
+     0.04219859989235627,
+     0.05485986270096691
+    ],
+    "estimate": 0.048667990886247424
+   },
+   "cues_per_person": {
+    "BEAR": 1.0,
+    "LION": 1.0,
+    "WATCHDOG": 5.085
+   },
+   "final_distress": {
+    "BEAR": 0.04319029716458671,
+    "LION": 5.364249975411641,
+    "WATCHDOG": 0.9565809336508171
+   },
+   "mean": {
+    "BEAR": 0.12675763675383045,
+    "LION": 0.03746727386435307,
+    "WATCHDOG": 0.0861352647506005
+   },
+   "verdict": "BEAR STILL WINS"
+  },
+  "v3": {
+   "BEAR_minus_LION": {
+    "ci": [
+     0.07799308418354843,
+     0.09363317096599964
+    ],
+    "estimate": 0.08583228698957815
+   },
+   "WATCHDOG_minus_BEAR": {
+    "ci": [
+     -0.026597892891196774,
+     -0.011490902370689591
+    ],
+    "estimate": -0.01926938118064654
+   },
+   "WATCHDOG_minus_LION": {
+    "ci": [
+     0.05810920912552851,
+     0.07534739700969785
+    ],
+    "estimate": 0.06656290580893161
+   },
+   "cues_per_person": {
+    "BEAR": 9.6,
+    "LION": 9.7,
+    "WATCHDOG": 10.69
+   },
+   "final_distress": {
+    "BEAR": 0.8140150752042328,
+    "LION": 5.720423122051477,
+    "WATCHDOG": 1.7313684039789246
+   },
+   "mean": {
+    "BEAR": 0.054035557119836326,
+    "LION": -0.03179672986974182,
+    "WATCHDOG": 0.03476617593918978
+   },
+   "verdict": "BEAR STILL WINS"
+  },
+  "v3_R12": {
+   "WATCHDOG_minus_BEAR": {
+    "ci": [
+     -0.028115222809485522,
+     -0.016699900254518597
+    ],
+    "estimate": -0.022125047138554094
+   },
+   "cues_per_person": {
+    "BEAR": 6.665,
+    "WATCHDOG": 8.45
+   },
+   "final_distress": {
+    "BEAR": 0.5151844416188405,
+    "WATCHDOG": 1.2702505789718919
+   },
+   "mean": {
+    "BEAR": 0.07930773434625954,
+    "WATCHDOG": 0.05718268720770544
+   },
+   "verdict": "BEAR STILL WINS"
+  },
+  "v3_R3": {
+   "WATCHDOG_minus_BEAR": {
+    "ci": [
+     -0.025091901531474135,
+     -0.004800158132603766
+    ],
+    "estimate": -0.01468638053353497
+   },
+   "cues_per_person": {
+    "BEAR": 12.6,
+    "WATCHDOG": 13.045
+   },
+   "final_distress": {
+    "BEAR": 1.0074101882685205,
+    "WATCHDOG": 1.947070853420512
+   },
+   "mean": {
+    "BEAR": 0.030020638568764867,
+    "WATCHDOG": 0.015334258035229897
+   },
+   "verdict": "BEAR STILL WINS"
+  }
+ },
+ "quick": false,
+ "spec": "spec/CUE_RESOLVE.md"
+}

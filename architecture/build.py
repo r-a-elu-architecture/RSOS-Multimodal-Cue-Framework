@@ -39,7 +39,7 @@ def sources(page_dir, items):
     lines = ["| Source file | What it is | SHA-256 (first 16) |", "|---|---|---|"]
     for path, what in items:
         m = MANIFEST[path]
-        lines.append(f"| [{pathlib.Path(path).name}]({rel(page_dir, EST + path)}) | {what} | `{m['sha256'][:16]}` |")
+        lines.append(f"| {pathlib.Path(path).name} (kept privately) | {what} | `{m['sha256'][:16]}` |")   # PUBLIC_EDITION_2 M
     return "\n".join(lines)
 
 
@@ -327,13 +327,13 @@ page("provenance", "Provenance & rights", """
 These records document **who created RSOS, when, and how**. They are preserved unchanged at their original paths and kept apart from the functional map of the operating system.
 
 - [Authorship & legal chain](authorship/) — origin declarations, public anchors, legal chains, copyright statements, author metadata and the RSX licensing framework: the dated record of authorship.
-- [IP strategy](ip-strategy/) — the disclosure map and trade-secret-labelled records. The "private" and "trade secret" labels are historical strategic labels from the development period; the archive is now public.
+- [IP strategy](ip-strategy/) — the disclosure map and trade-secret-labelled records. The "private" and "trade secret" labels are historical strategic labels from the development period; the original records are now kept privately, with their hashes public (archive/provenance/).
 - [AI interaction records](ai-interaction/) — the Echo proof chains and metrics logs: records of the development dialogue with AI models, including the models' statements about their own weights, telemetry and behaviour, and the metrics recorded at the time. They are kept as evidence of how the system was built.
 
 Copies of several RSSO records also exist in [PASS31B](../rsso/pass31b/).
 """)
 page("provenance/authorship", "Authorship & legal chain", "The dated record of authorship of RSOS, RSIA, RSX and RSSO.", AUTH)
-page("provenance/ip-strategy", "IP strategy (historical labels)", "Records of the disclosure strategy during development. Their \"private\" and \"trade secret\" labels describe that period; the archive is now public.", IP)
+page("provenance/ip-strategy", "IP strategy (historical labels)", "Records of the disclosure strategy during development. Their \"private\" and \"trade secret\" labels describe that period; the original records are now kept privately, with their hashes public.", IP)
 page("provenance/ai-interaction", "AI interaction records", "Records of the development dialogue with AI models (\"Echo\"): proof chains, the metrics recorded during development, and the models' statements about their own weights, telemetry and behaviour, preserved as recorded.", AI)
 
 # ------------------------------------------------------------------ source -> page map

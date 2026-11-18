@@ -15,9 +15,12 @@ class Ledger(unittest.TestCase):
         cls.led = ledger.build()
         cls.tiers = [r for r in cls.led["records"] if r["kind"] == "tier"]
 
+    @unittest.skipUnless(ledger.have_original(), "original kept in the private repository (scripts/verify_edition.py)")
     def test_lossless(self):
         """Joining the parsed blocks gives back the ledger byte for byte: nothing edited, merged or dropped."""
         self.assertEqual(ledger.reassemble(self.led).encode("utf-8"), ledger.SOURCE.read_bytes())
+
+    def test_source_hash(self):
         self.assertEqual(self.led["sha256"], "bc21eaf8a119be7d7a4ca114a68d9e4c914f109809d91e58dd39ba097be085c8")
 
     def test_tiers_and_anomalies_preserved(self):

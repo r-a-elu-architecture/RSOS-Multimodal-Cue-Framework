@@ -1,10 +1,12 @@
 # RSOS — Recursive Symbolic Operating System
 
+*An open framework for practising state change with breath, words and cues.*
+
 **An open operating system for changing state on purpose.** RSOS turns a negative state (a sound, a smell, something seen, a body sensation, a memory) into the signal that starts a scripted override: movement, words, a fist, breath and golden-light imagery that redirect it into agency, rehearse it in three future situations and seal it with "I own". Practised often enough, the override is meant to become a reflex.
 
 **[Run the Override Protocol in your browser →](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/player.html)**
 
-> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers, clinics and individuals can test it and share results. It is not a medical device or a treatment. Acute risk is outside self-guided use and belongs under a qualified clinician's protocol.
+> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers, clinics and individuals can test it and share results. It is not a medical device or a treatment, and not for use in an emergency: if you are at risk of harm, contact your local emergency services.
 
 ## What is here
 
@@ -21,7 +23,7 @@
 | **Nodes and LINX** | Describe it in your own words and LINX, the AI layer, builds the plan with you, one question at a time; any AI model can propose improvements through its containment router. Design the states you want to live in: from symptoms, triggers and desired states, a plan of nodes — each a state held as one unit, with cues on every sense, an original glyph, a vibration code on the wrist, a mode (associated, or observer: nothing binds) and the mental frame said in that state — with programs, ledger tiers, metrics, dose and safety, run in the player after consent. [Node studio](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/nodes.html). | [`spec/NODES.md`](spec/NODES.md), [`spec/LINX.md`](spec/LINX.md), [`docs/nodes.html`](docs/nodes.html) |
 | **Anchors you can measure (PEAK)** | A cue paired with a state becomes a measured object: pair it at a peak (marked by you, or measured as a rise in heart rate variability or EEG), test it with blind probes (the cue alone or a sham cue, the heart measured before and after), and see its strength with a 95% interval. The page warns when an anchor is taking on stress and gives the restoration plan; anchors play as chains in role order. Heart rate from a fingertip over the phone camera. Checked on simulated people with known answers; a protocol kit for real studies. [Anchors](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/anchors.html). | [`spec/PEAK.md`](spec/PEAK.md) |
 | **Personal trials and short tasks (TRIAL, CHECKS)** | Find out what works for you: compare two or more ways of practising (your anchor or a sham code, a cue or none, automatic or by hand, the order of Core Transformation and identity, higher-level imagery), with the order of sessions chosen at random in permuted blocks. Your own effect with an interval, a permutation p-value, an estimate adjusted for drift and sleep, and a plain verdict; results from many people pool into one estimate. Short tasks with dated scores: working memory (2-back), digit span, reaction time (calm and under pressure), word recall, reading, and attention to threat. [Trials](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/trials.html). | [`spec/TRIAL.md`](spec/TRIAL.md), [`spec/CHECKS.md`](spec/CHECKS.md) |
-| **Autonomy gate** | A device may act on its own only when an anchor has earned it: manual first, then suggesting when it detects stress, then firing by itself, then during pressure practice by opt-in. Each step needs training at a peak, proven strength against sham, confirmed offers with few false alarms, and no wear-out or stress contamination; the gate closes again by itself when the evidence weakens. Consent records, a visible flag on anything that works below awareness, and a log of every automatic decision. [Safety](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/safety.html#autonomy). | [`spec/GATE.md`](spec/GATE.md) |
+| **Autonomy gate** | A device may act on its own only when an anchor has earned it: manual first, then suggesting when it detects stress, then firing by itself, then during pressure practice by opt-in. Each step needs training at a peak, strength measured against sham and above it, confirmed offers with few false alarms, and no wear-out or stress contamination; the gate closes again by itself when the evidence weakens. Consent records, a visible flag on anything that works below awareness, and a log of every automatic decision. [Safety](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/safety.html#autonomy). | [`spec/GATE.md`](spec/GATE.md) |
 | **Identity profiles (IDENTITY)** | A symbol heads a tree of seven levels (mission, identity, values, beliefs, skills, behaviour, environment), each with a statement, an image and its own vibration code; the symbol by day, the whole chain at night, four steps when an old state starts, a prepared week and a month's dose, all playable in the player. Rate how true each level feels and see coherence over months, drift after time with other people, whether the behaviour starts in untrained places, anchor-tree recall walks, value conflicts measured in the heart, switching between profiles and versions. Six ready profiles. [Identity](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/identity.html). | [`spec/IDENTITY.md`](spec/IDENTITY.md) |
 | **Trigger atlas (ATLAS)** | Map which sights, sounds, smells, tastes, places, thoughts, symbols and people shift your state: a few moments a day for two weeks, and every path gets a weight with an interval, combinations that only work together are found, and the map is tested on moments it has not seen. A strong trigger can be rerouted to your best anchor through the autonomy gate. A live 3D guided descent through your own network; then a repeat mapping shows whether the change spread to triggers you never worked on. Higher nodes by abstraction and by scope, and the original glyphs as a memory route. [Atlas](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/atlas.html). | [`spec/ATLAS.md`](spec/ATLAS.md) |
 | **Night and reward (SLEEP, REWARD)** | The day's codes replayed only in deep sleep, below waking level, stopping at the first sign of waking, with a nightly limit; codes linked to painful memories are never played, and a nightmare gets a safety code or a gentle waking. A simulated night shows closed-loop cueing against random cueing. Next-day recall of cued against uncued items, a night diary, reward codes per learning area that answer a success within a fraction of a second, a motion sensor that recognises a good move, and a test of whether light makes a cue noticed sooner. [Night](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/night.html). | [`spec/NIGHT.md`](spec/NIGHT.md) |
@@ -39,6 +41,34 @@
 | **Personalised cue engine** | `rsos_cue`: reads the run log and learns which program, tier and voice work best for each person and trigger type, borrowing strength from earlier participants. | [`toolkit/`](toolkit/) |
 | **RSIA framework** | The identity layer: six archetypes (Lion, Eagle, Bear, Leopard, Raven, Tiger), the Spine, Watchdog and Meta-Architect; mnemonic sets. | [`framework/`](framework/) |
 | **Archive** | The dated source records of RSOS, RSIA, RSX and RSSO (public edition), with hashes. | [`archive/`](archive/), [`architecture/`](architecture/) |
+
+## Evidence levels
+
+<!-- evidence:start -->
+
+Every page on the site carries one of these labels (scale and rules: [`spec/EVIDENCE_LABELS.md`](spec/EVIDENCE_LABELS.md)). Not yet tested with people using RSOS.
+
+| Part | Level | What that means |
+|---|---|---|
+| Data contribution | E1 Built | the software runs and its own tests pass; whether the method helps is not tested |
+| Device protocol and firmware | E1 Built | the software runs and its own tests pass; whether the method helps is not tested |
+| Glyph layer (UGCL) | E1 Built | the software runs and its own tests pass; whether the method helps is not tested |
+| Nodes and LINX | E1 Built | the software runs and its own tests pass; whether the method helps is not tested |
+| Override Protocol and the player | E1 Built | the software runs and its own tests pass; whether the method helps is not tested |
+| Safety engine and Watchdog | E1 Built | the software runs and its own tests pass; whether the method helps is not tested |
+| Anchors you can measure (PEAK) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
+| Trigger atlas (ATLAS) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
+| Identity profiles (IDENTITY) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
+| Night and reward (SLEEP, REWARD) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
+| Therapist mode (THERA) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
+| Personal trials (TRIAL) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
+| RSX-V agents | E4 Tested on recorded data: no positive result yet | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
+| RSX-V command layer | E4 Tested on recorded data: no positive result yet | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
+| The World simulation and the Person Lab | E4 Tested on recorded data: no positive result yet | registered tests on real recorded data, not on people using RSOS: in simulation, 29 registered tests: 1 pass, 7 mixed, 19 fail, 2 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other |
+
+Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other ([`rsxv/RESULTS.md`](rsxv/RESULTS.md)).
+
+<!-- evidence:end -->
 
 ## The four systems
 

@@ -10,5 +10,5 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [CONTAIN_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/CONTAIN_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `feb39e13bb8612ff` |
-| [CONTAIN_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/CONTAIN_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `e0f84521711dbec7` |
+| CONTAIN_Historical_Reconstruction.txt (kept privately) | Reconstruction: role, inputs, outputs, operators | `feb39e13bb8612ff` |
+| CONTAIN_Evidence_Excerpts.txt (kept privately) | Evidence excerpts (public edition) | `e0f84521711dbec7` |

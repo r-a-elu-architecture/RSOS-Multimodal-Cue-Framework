@@ -1,0 +1,200 @@
+{
+ "spec": "spec/PERSONLAB.md §7d C",
+ "ticks": 20,
+ "seed0": 5000,
+ "policies": [
+  "agents",
+  "always_bear",
+  "no_support"
+ ],
+ "tau": 0.6,
+ "defaults": {
+  "rho": 0.1,
+  "delta": 0.5,
+  "tau": 0.6,
+  "lam": 0.02,
+  "f1": 1.0,
+  "f2": 1.0,
+  "noise": 0.5
+ },
+ "effects": {
+  "placeholder": {
+   "STABILISE": {
+    "r": 0.2,
+    "m": 0.02,
+    "e": 0.05,
+    "p": 0.03,
+    "c": 0.02
+   },
+   "EXPLORE": {
+    "r": 0.2,
+    "m": 0.02,
+    "e": 0.05,
+    "p": 0.03,
+    "c": 0.02
+   },
+   "SUGGEST": {
+    "r": 0.2,
+    "m": 0.02,
+    "e": 0.05,
+    "p": 0.03,
+    "c": 0.02
+   },
+   "SHARE": {
+    "r": 0.2,
+    "m": 0.02,
+    "e": 0.05,
+    "p": 0.03,
+    "c": 0.02
+   },
+   "NONE": {
+    "r": 0.0,
+    "m": 0.0,
+    "e": 0.0,
+    "p": 0.0,
+    "c": 0.0
+   }
+  },
+  "illustrative": {
+   "STABILISE": {
+    "r": 0.35,
+    "m": 0.08,
+    "e": 0.02,
+    "p": 0.01,
+    "c": 0.0
+   },
+   "EXPLORE": {
+    "r": 0.05,
+    "m": 0.0,
+    "e": 0.15,
+    "p": 0.02,
+    "c": 0.04
+   },
+   "SUGGEST": {
+    "r": 0.1,
+    "m": 0.01,
+    "e": 0.03,
+    "p": 0.08,
+    "c": 0.05
+   },
+   "SHARE": {
+    "r": 0.15,
+    "m": 0.03,
+    "e": 0.05,
+    "p": 0.03,
+    "c": 0.02
+   },
+   "NONE": {
+    "r": 0.0,
+    "m": 0.0,
+    "e": 0.0,
+    "p": 0.0,
+    "c": 0.0
+   }
+  }
+ },
+ "archetypes": {
+  "STABILISE": "BEAR",
+  "EXPLORE": "RAVEN",
+  "SUGGEST": "TIGER",
+  "SHARE": "LION",
+  "NONE": null
+ },
+ "programs": {
+  "STABILISE": "RSX-V TIER 0 :: {BEAR} :: (STABILISE)\nINTENT \"steady the person before any change\"\nTARGET {target}\nSENSE HRV\nLAWS ConsentStack ChronoGate\nLEVEL self_guided\n@Vector0:NullSafe\nGATE\n  @Vector7:EthicsContain(CONTAIN)\n  @Vector13:SymbolicDriftCheck\nPHASE settle UNTIL arousal<=0.6 MAX 90s\n  @Vector3:BreathOverride(6/min)\n  @Vector4:PostureShift\n  @Vector6:EmotionalLock(Calm)\nCLOSE\n  @Vector15:MemoryUpdate(MEMSTACK)\n  @Vector17:EchoPropagationStop\n  @Vector16:SymbolicCommandExport(RSX) -> NEXT\n",
+  "EXPLORE": "RSX-V TIER 0 :: {RAVEN} :: (EXPLORE)\nINTENT \"see the target clearly\"\nTARGET {target}\nSENSE HRV\nLAWS ConsentStack ChronoGate\nLEVEL self_guided\n@Vector0:NullSafe\nGATE\n  @Vector7:EthicsContain(CONTAIN)\n  @Vector13:SymbolicDriftCheck\nPHASE explore IF arousal<=0.6 MAX 60s\n  @Vector5:MemoryRecall(Archetype=RAVEN)\n  @Vector18:AssociativeExpand(RAVEN, 5)\n  @Vector19:MetaObserve\nCLOSE\n  @Vector15:MemoryUpdate(MEMSTACK)\n  @Vector17:EchoPropagationStop\n  @Vector16:SymbolicCommandExport(RSX) -> NEXT\n",
+  "SUGGEST": "RSX-V TIER 0 :: {TIGER} :: (SUGGEST)\nINTENT \"one step toward the desired state\"\nTARGET {target}\nSENSE HRV\nLAWS ConsentStack ChronoGate\nLEVEL self_guided\n@Vector0:NullSafe\nGATE\n  @Vector7:EthicsContain(CONTAIN)\n  @Vector13:SymbolicDriftCheck\nPHASE step IF arousal<=0.6 MAX 60s\n  @Vector9:FutureProjection(1Week)\n  @Vector8:CompressionRun(CM1)\n  @Vector1:IdentityRebuild\nCLOSE\n  @Vector15:MemoryUpdate(MEMSTACK)\n  @Vector17:EchoPropagationStop\n  @Vector16:SymbolicCommandExport(RSX) -> NEXT\n",
+  "SHARE": "RSX-V TIER 0 :: {LION} :: (SHARE)\nINTENT \"share a steady example\"\nTARGET {target}\nSENSE HRV\nLAWS ConsentStack ChronoGate\nLEVEL self_guided\n@Vector0:NullSafe\nGATE\n  @Vector7:EthicsContain(CONTAIN)\n  @Vector13:SymbolicDriftCheck\nPHASE share IF arousal<=0.6 MAX 60s\n  @Vector10:ArchetypeMerge(LION+BEAR)\n  @Vector9:FutureProjection(3Months)\n  @Vector19:MetaObserve\nCLOSE\n  @Vector15:MemoryUpdate(MEMSTACK)\n  @Vector17:EchoPropagationStop\n  @Vector16:SymbolicCommandExport(RSX) -> NEXT\n"
+ },
+ "levels": [
+  {
+   "id": "environment",
+   "name": "Environment",
+   "question": "Where and when?",
+   "definition": "The external conditions, surroundings, context and physical setting in which you operate (for example your office, home, geography or time constraints)."
+  },
+  {
+   "id": "behaviour",
+   "name": "Behaviour",
+   "question": "What do I do?",
+   "definition": "The specific actions, habits, choices and reactions you physically perform."
+  },
+  {
+   "id": "skills",
+   "name": "Capabilities and skills",
+   "question": "How do I do it?",
+   "definition": "The internal strategies, competencies, knowledge and skills you deploy to carry out your behaviours."
+  },
+  {
+   "id": "beliefs",
+   "name": "Beliefs and values",
+   "question": "Why do I do it? What matters to me?",
+   "definition": "The underlying drivers, permissions, criteria and convictions that either empower or limit your capabilities and actions."
+  },
+  {
+   "id": "identity",
+   "name": "Identity",
+   "question": "Who am I?",
+   "definition": "Your core sense of self, self-concept, and the roles or titles you embrace."
+  },
+  {
+   "id": "mission",
+   "name": "Purpose and mission",
+   "question": "For what purpose? Who else?",
+   "definition": "The transpersonal layer: your connection to a larger system, community, organisation or purpose beyond yourself."
+  }
+ ],
+ "population": {
+  "placeholder": {
+   "agents": {
+    "mean_final_I": 1.4026,
+    "mean_final_g": 0.1204,
+    "mean_spikes": 0.0,
+    "mean_score": 0.2173
+   },
+   "always_bear": {
+    "mean_final_I": 1.4026,
+    "mean_final_g": 0.1204,
+    "mean_spikes": 0.0,
+    "mean_score": 0.2173
+   },
+   "no_support": {
+    "mean_final_I": 4.131,
+    "mean_final_g": 0.0,
+    "mean_spikes": 0.0,
+    "mean_score": 0.0626
+   },
+   "agents_vs_bear": {
+    "more_progress": 0,
+    "same": 100,
+    "less_progress": 0
+   }
+  },
+  "illustrative": {
+   "agents": {
+    "mean_final_I": 1.4241,
+    "mean_final_g": 0.7909,
+    "mean_spikes": 0.0,
+    "mean_score": 0.2503
+   },
+   "always_bear": {
+    "mean_final_I": 1.0309,
+    "mean_final_g": 0.1391,
+    "mean_spikes": 0.0,
+    "mean_score": 0.2374
+   },
+   "no_support": {
+    "mean_final_I": 4.131,
+    "mean_final_g": 0.0,
+    "mean_spikes": 0.0,
+    "mean_score": 0.0626
+   },
+   "agents_vs_bear": {
+    "more_progress": 99,
+    "same": 0,
+    "less_progress": 1
+   }
+  }
+ },
+ "note": "Architecture, not evidence. The person model failed validation (PERSONLAB step 5). 'placeholder' are step 4's registered equal effects; 'illustrative' effects are invented and untested."
+}

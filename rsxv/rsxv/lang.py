@@ -30,6 +30,7 @@ LAWS = {"InteractionMatrix", "ChronoGate", "GhostPass", "ConsentStack",
         "MultiSessionContinuity", "TemporalSymmetry", "Contingency", "ResonanceAudit"}
 RESCUES = {"SHIELD", "ANCHOR_MAX", "MIRROR_RESET"}
 LEVELS = ("self_guided", "structured", "clinician_led")   # spec/RSXV_LEVELS.md V1
+TARGET_LEVELS = ("environment", "behaviour", "skills", "beliefs", "identity", "mission")   # spec/PERSONLAB.md §7d A
 VEC = re.compile(r"@Vector(\d+):(\w+)(?:\((.*?)\))?\s*(->\s*NEXT)?$")
 TERM = re.compile(r"(\w+)\s*(<=|>=|<|>)\s*([+-]?)(\d+(?:\.\d+)?)$")
 
@@ -96,7 +97,7 @@ def _legacy(src):
 def new_program(tier=0):
     return {"version": "RSX-V", "tier": tier, "archetype": "", "mode": "", "intent": {"text": "", "vectors": []},
             "goal": None, "sense": [], "laws": [], "rescue": [], "window": None, "nullsafe": False, "blocks": [], "legacy": False,
-            "level": None, "memory": None}
+            "level": None, "memory": None, "target": None}
 
 
 def parse(src: str) -> dict:
@@ -147,6 +148,11 @@ def parse(src: str) -> dict:
             if not mm:
                 raise RSXVError("MEMORY yes | no")
             prog["memory"] = mm.group(1) == "yes"
+        elif word == "TARGET":   # spec/PERSONLAB.md §7d A
+            mm = re.match(r"TARGET\s+(\w+):([A-Za-z0-9_-]+)$", s)
+            if not mm or mm.group(1) not in TARGET_LEVELS:
+                raise RSXVError("TARGET <level>:<node>, level one of " + " ".join(TARGET_LEVELS))
+            prog["target"] = {"level": mm.group(1), "node": mm.group(2)}
         elif word == "WINDOW":
             mm = re.match(r"WINDOW\s+(\d\d):(\d\d)-(\d\d):(\d\d)$", s)
             if not mm:
@@ -246,6 +252,8 @@ def to_text(prog: dict) -> str:
         L.append("LEVEL " + prog["level"])
     if prog.get("memory") is not None:
         L.append("MEMORY " + ("yes" if prog["memory"] else "no"))
+    if prog.get("target"):
+        L.append(f"TARGET {prog['target']['level']}:{prog['target']['node']}")
     if prog["window"]:
         a, b = prog["window"]; L.append(f"WINDOW {a//60:02d}:{a%60:02d}-{b//60:02d}:{b%60:02d}")
     L.append("@Vector0:NullSafe")

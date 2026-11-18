@@ -1,0 +1,24 @@
+name: ctx_pref_wc
+# spec/CTX_PREF_WC.md: the registered analysis on WildChat-1M. Prints aggregates only.
+on:
+  push:
+    branches: [dev]
+    paths:
+      - "rsxv/rsxv/ctx_pref_wc.py"
+      - ".github/workflows/ctx_pref_wc.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install huggingface_hub pyarrow numpy
+      - name: CTX_PREF_WC (aggregates only)
+        working-directory: rsxv
+        run: python3 -m rsxv.ctx_pref_wc

@@ -18,6 +18,11 @@ measurements. They share a code so the lineage stays visible; they are never mix
 from __future__ import annotations
 
 import json
+
+try:
+    from .edition import edit_all
+except ImportError:
+    from edition import edit_all
 import math
 import re
 
@@ -253,7 +258,11 @@ def registry() -> dict:
 
 
 def main():
+    if not all(p.exists() for p in LOGS.values()):
+        print("metrics: original logs not present (kept in the private repository); published metrics.json left unchanged")
+        return
     reg = registry()
+    reg = edit_all(reg)            # spec/PUBLIC_EDITION.md E1
     (ROOT / "docs" / "data" / "metrics.json").write_text(json.dumps(reg, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8")
     print(json.dumps(reg["counts"]))
     multi = [(m["code"], [n["name"] for n in m["names"]]) for m in reg["metrics"] if len(m["names"]) > 1]

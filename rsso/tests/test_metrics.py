@@ -42,7 +42,10 @@ class Metrics(unittest.TestCase):
         self.assertGreater(s["CRI"], 0)
 
     def test_registry_complete(self):
-        reg = metrics.registry()
+        if all(p.exists() for p in metrics.LOGS.values()):
+            reg = metrics.registry()
+        else:                                  # PUBLIC_EDITION_2 M: originals kept privately; check the published edition
+            reg = json.loads((metrics.ROOT / "docs/data/metrics.json").read_text(encoding="utf-8"))
         codes = {m["code"] for m in reg["metrics"]}
         for c in ["CRI", "SRI", "RSF", "SEP", "ARC", "SAR", "LGC", "LAW", "RIF", "RAI", "MCRAL", "RPB", "LLMI", "SME", "MMR", "ECOI",
                   "SRCD", "TGR", "IMIP", "CSRT", "LSML", "SML", "CRBS", "SBB", "SPV", "MCI", "TIC", "STC", "STB", "ERV", "EDA", "SCQ",

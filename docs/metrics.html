@@ -101,6 +101,7 @@ header.top nav a{font-size:.88rem}
 <main>
   <h1>What each metric measured, and what it measures now</h1>
   <p class="lede" id="lede">The metric logs list 43 RSOS metrics and five RSSO orchestration metrics; the tier ledger uses a few more. Each code below keeps every name it has carried and every value the ledger recorded. Alongside, it says what the code measures in RSOS today: your own practice, the system's tests, or nothing, when it was a claim about the language model.</p>
+  <!-- evidence:start --><p class="evidence" data-level="record" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: this page shows records as written and makes no claim of effect. Not yet tested with people using RSOS.</p><!-- evidence:end -->
 
   <section class="you" aria-labelledby="youTitle">
     <h2 id="youTitle">Your numbers</h2>
@@ -173,7 +174,7 @@ function detail(m) {
   const ul = el("ul", "names");
   if (!m.names.length) ul.appendChild(el("li", "", "No name recorded; the code appears in the ledger only."));
   for (const n of m.names) { const li = el("li"); li.append(n.name + " — "); const k = el("a", "", n.source + ", line " + n.line);
-    k.href = REPO + (SRC[n.source] || SRC.ledger) + "#L" + n.line; li.appendChild(k); ul.appendChild(li); }
+    k.href = REPO + "archive/README.md"; /* PUBLIC_EDITION_2 M: originals kept privately; README explains, provenance lists hashes */ li.appendChild(k); ul.appendChild(li); }
   a.appendChild(ul);
   if (m.definition || m.threshold || m.method || m.example) {
     a.appendChild(el("h3", "", "As defined in the logs"));

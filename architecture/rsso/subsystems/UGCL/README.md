@@ -10,6 +10,6 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [UGCL_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `45b766b12385599d` |
-| [UGCL_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `fd9429f873f31e92` |
-| [UGCL_Trade_Secret_Architecture_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/UGCL_Trade_Secret_Architecture_Reconstruction.txt) | Architecture reconstruction (historical trade-secret label) | `41a0fe22e7b00529` |
+| UGCL_Historical_Reconstruction.txt (kept privately) | Reconstruction: role, inputs, outputs, operators | `45b766b12385599d` |
+| UGCL_Evidence_Excerpts.txt (kept privately) | Evidence excerpts (public edition) | `fd9429f873f31e92` |
+| UGCL_Trade_Secret_Architecture_Reconstruction.txt (kept privately) | Architecture reconstruction (historical trade-secret label) | `41a0fe22e7b00529` |

@@ -6,4 +6,4 @@ Commands that call and merge RSIA archetypes. In RSX v2, `MemoryRecall(Archetype
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSX-Symbolic_Archetype_Module.txt](../../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Symbolic_Archetype_Module.txt) | RSX archetype module | `0620a3bf5add88af` |
+| RSX-Symbolic_Archetype_Module.txt (kept privately) | RSX archetype module | `0620a3bf5add88af` |

@@ -9,12 +9,12 @@ For each tier record this gives:
                 runtime   : a system behaviour the runtime, a device or the AI layer performs
                 record    : kept as a recorded claim or development event; nothing to execute
                 structure : ledger structure (placeholders, the sealed range)
-  response    — the response primitive its recorded system behaviour ("GPT Behavior") maps to
+  response    — the response primitive its recorded system behaviour maps to
   operator    — the RSX statement, runtime function or file that performs it
   status      — built | partial | specified | record
   method      — "hand" (written per tier, below) or "rule" (keyword rules, with the matched terms)
 
-"GPT Behavior" in the ledger is read as system behaviour: how the AI, BCI or device layer responds.
+The ledger's recorded behaviour field is read as system behaviour: how the AI, BCI or device layer responds.
 Every tier stays word for word. The deployment rule follows the ledger's own ETH/MOR/ERM gates
 (RSSO_Tier_Metrics_Log: "law-aligned routing… 100% alignment; 0 critical violations"): everything acts only
 on a person who has agreed. Tiers whose directives work below awareness are consented programming: they
@@ -23,6 +23,11 @@ change the person's own mental map, chosen by the person or agreed with their th
 from __future__ import annotations
 
 import json
+
+try:
+    from .edition import edit_all
+except ImportError:
+    from edition import edit_all
 import re
 
 from .ledger import ROOT, build
@@ -284,6 +289,7 @@ def build_map(ledger: dict | None = None) -> dict:
 
 def main():
     m = build_map()
+    m = edit_all(m)                # spec/PUBLIC_EDITION.md E1
     (ROOT / "docs" / "data" / "tier_map.json").write_text(json.dumps(m, ensure_ascii=False, indent=0), encoding="utf-8")
     roles = {}
     for v in m["tiers"].values():

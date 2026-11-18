@@ -8,5 +8,5 @@ The tier ledger (about 9,200 lines, six epochs) is the development record of the
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSOS_Tiers.txt](../../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tiers.txt) | RSOS tier ledger | `bc21eaf8a119be7d` |
-| [RSSO_Tiers.txt](../../../archive/original-estates/RSSO_COPYRIGHT_ESTATE/RSSO_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSSO_Tiers.txt) | RSSO copy of the tier ledger | `9e2109fab53e9fa6` |
+| RSOS_Tiers.txt (kept privately) | RSOS tier ledger | `bc21eaf8a119be7d` |
+| RSSO_Tiers.txt (kept privately) | RSSO copy of the tier ledger | `9e2109fab53e9fa6` |

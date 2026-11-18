@@ -1,0 +1,223 @@
+{
+ "verdict": "INCONCLUSIVE",
+ "per_feature": {
+  "S": {
+   "usable": [
+    "OTHER"
+   ],
+   "above": [],
+   "below": [],
+   "crossovers": [],
+   "crossover": false
+  },
+  "Q": {
+   "usable": [
+    "OTHER"
+   ],
+   "above": [],
+   "below": [
+    "OTHER"
+   ],
+   "crossovers": [],
+   "crossover": false
+  }
+ },
+ "cells": {
+  "S|PERSONAL": {
+   "n_with": 185,
+   "n_without": 1889,
+   "usable": false
+  },
+  "Q|PERSONAL": {
+   "n_with": 152,
+   "n_without": 1922,
+   "usable": false
+  },
+  "S|CODE": {
+   "n_with": 117,
+   "n_without": 15072,
+   "usable": false
+  },
+  "Q|CODE": {
+   "n_with": 112,
+   "n_without": 15077,
+   "usable": false
+  },
+  "S|OTHER": {
+   "n_with": 13012,
+   "n_without": 506511,
+   "usable": true,
+   "est": -0.0031639795175887626,
+   "se": 0.0016380499079845308,
+   "lo": -0.008819236972999047,
+   "hi": 0.002491277937821521
+  },
+  "Q|OTHER": {
+   "n_with": 22432,
+   "n_without": 497091,
+   "usable": true,
+   "est": -0.011267999670896962,
+   "se": 0.002637013268684653,
+   "lo": -0.020372111136031615,
+   "hi": -0.002163888205762311
+  }
+ },
+ "family_cells": {
+  "S|PERSONAL|GPT-3.5": {
+   "n_with": 107,
+   "n_without": 969,
+   "usable": false
+  },
+  "S|PERSONAL|GPT-4": {
+   "n_with": 78,
+   "n_without": 920,
+   "usable": false
+  },
+  "Q|PERSONAL|GPT-3.5": {
+   "n_with": 128,
+   "n_without": 948,
+   "usable": false
+  },
+  "Q|PERSONAL|GPT-4": {
+   "n_with": 24,
+   "n_without": 974,
+   "usable": false
+  },
+  "S|CODE|GPT-3.5": {
+   "n_with": 73,
+   "n_without": 7439,
+   "usable": false
+  },
+  "S|CODE|GPT-4": {
+   "n_with": 44,
+   "n_without": 7633,
+   "usable": false
+  },
+  "Q|CODE|GPT-3.5": {
+   "n_with": 98,
+   "n_without": 7414,
+   "usable": false
+  },
+  "Q|CODE|GPT-4": {
+   "n_with": 14,
+   "n_without": 7663,
+   "usable": false
+  },
+  "S|OTHER|GPT-3.5": {
+   "n_with": 10545,
+   "n_without": 343560,
+   "usable": true,
+   "est": -0.00471359867474052,
+   "se": 0.0018198859072970689,
+   "lo": -0.010996632723380173,
+   "hi": 0.0015694353738991331
+  },
+  "S|OTHER|GPT-4": {
+   "n_with": 2467,
+   "n_without": 162951,
+   "usable": true,
+   "est": 0.0036886500591483567,
+   "se": 0.0037837251118066177,
+   "lo": -0.00937440714287284,
+   "hi": 0.016751707261169552
+  },
+  "Q|OTHER|GPT-3.5": {
+   "n_with": 16078,
+   "n_without": 338027,
+   "usable": true,
+   "est": -0.01369193172914906,
+   "se": 0.0034575217636527576,
+   "lo": -0.0256287937477178,
+   "hi": -0.0017550697105803165
+  },
+  "Q|OTHER|GPT-4": {
+   "n_with": 6354,
+   "n_without": 159064,
+   "usable": true,
+   "est": -0.004991077536941158,
+   "se": 0.0031048221758327673,
+   "lo": -0.015710267881517186,
+   "hi": 0.005728112807634871
+  }
+ },
+ "info_only": {
+  "S|PERSONAL": {
+   "unstratified": 0.008304122015080198,
+   "pos_with": 0.04864864864864865,
+   "pos_without": 0.04393859184753838,
+   "rep_with": 0.005405405405405406,
+   "rep_without": 0.008999470619375331
+  },
+  "Q|PERSONAL": {
+   "unstratified": -0.02430308341092064,
+   "pos_with": 0.019736842105263157,
+   "pos_without": 0.04630593132154006,
+   "rep_with": 0.006578947368421052,
+   "rep_without": 0.008844953173777315
+  },
+  "S|CODE": {
+   "unstratified": -0.01185250966301922,
+   "pos_with": 0.0,
+   "pos_without": 0.011809978768577496,
+   "rep_with": 0.017094017094017096,
+   "rep_without": 0.01705148619957537
+  },
+  "Q|CODE": {
+   "unstratified": -0.0036224760515070255,
+   "pos_with": 0.008928571428571428,
+   "pos_without": 0.01173973602175499,
+   "rep_with": 0.017857142857142856,
+   "rep_without": 0.017045831398819395
+  },
+  "S|OTHER": {
+   "unstratified": -0.003325029015959888,
+   "pos_with": 0.01936673839532739,
+   "pos_without": 0.02189093622843334,
+   "rep_with": 0.01083615124500461,
+   "rep_without": 0.010035320062150674
+  },
+  "Q|OTHER": {
+   "unstratified": -0.012489945748300847,
+   "pos_with": 0.015067760342368045,
+   "pos_without": 0.02213276844682362,
+   "rep_with": 0.01524607703281027,
+   "rep_without": 0.009821139388964999
+  }
+ },
+ "contexts": {
+  "PERSONAL": 2074,
+  "CODE": 15189,
+  "OTHER": 519523
+ },
+ "level": 0.9994444444444445,
+ "test": "CTX_PREF_WC",
+ "spec": "spec/CTX_PREF_WC.md",
+ "steps": {
+  "conversations_seen": 837989,
+  "duplicates": 11670,
+  "english": 474405,
+  "events": 536786,
+  "turns_without_next": 474405
+ },
+ "dataset": {
+  "name": "allenai/WildChat-1M",
+  "revision": "7d6490e462285cf85d91eabea0f9a954fbddcd1f",
+  "gated": false,
+  "files": {
+   "data/train-00000-of-00014.parquet": "abec2a13129db8c0e6a2d3a51ff12644873c748205a6fdf6551fbcb34430e51c",
+   "data/train-00001-of-00014.parquet": "f10fa35bb52703baad5e3177d3382d63b855fce9e9d1b9ab1fe2f0e762464f2a",
+   "data/train-00002-of-00014.parquet": "9a4912ec14c1012970f57b6710518dda17dbf6cdfb9b6e694880f5456b0b031f",
+   "data/train-00003-of-00014.parquet": "3f2d50ee227e32848f6c4fdb0f8ea543b379b2219bec72be9446e232d3d2a670",
+   "data/train-00004-of-00014.parquet": "08c7e0c31edc120606d67cfa82486471d82945a7a414761501ea44b1ab0cd804",
+   "data/train-00005-of-00014.parquet": "1caab40d8d4f01d76d8e1fa03e80f31b2f4d8b8b4c47cb3aa0280f4467e04555",
+   "data/train-00006-of-00014.parquet": "0bd2fff31c74feb6b44b0397b4e7ab6285dd69ccbe4cc8b5f19c42cdbf691303",
+   "data/train-00007-of-00014.parquet": "f498ea6771be5bf00d259ec76bd9fba51ceaa99c76147a0bb95fd7fa1769b984",
+   "data/train-00008-of-00014.parquet": "a69578183dde5de1aa94134da2d7c2d13f00d88a577ef91140a492fbbbf10792",
+   "data/train-00009-of-00014.parquet": "d2eb8868323274c60c9fd5437eaf2159a08ac278598b1197bc20ac04c633648a",
+   "data/train-00010-of-00014.parquet": "328b0d702d91ffd47e51aff2de56d74d0f2b874a31f2530f1948474a582f0467",
+   "data/train-00011-of-00014.parquet": "a458b915aeab7a4a81bd18770f33c3ebb908c91e67d916db5525819c88dbe778",
+   "data/train-00012-of-00014.parquet": "5353f1a829ac86de165c2fb537a30d7d756259dbe37a8a0fa6ec791321a37d6e",
+   "data/train-00013-of-00014.parquet": "440be579bf012a6e98d179b8dd0bedd73634e5527f7000c067d19c88b5cefa6c"
+  }
+ }
+}

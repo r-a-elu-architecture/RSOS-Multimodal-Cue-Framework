@@ -98,6 +98,7 @@ header.top nav a{font-size:.88rem}
 <main>
   <h1>Every tier, as it was recorded</h1>
   <p class="lede" id="lede">The tier ledger is the development record of RSOS: each tier is a function, a glyph, a command, and how the system behaved when it first appeared. Nothing here is edited or left out. Each tier also shows where it now lives in the architecture and, where a tier works below awareness, what it means and the consent it needs.</p>
+  <!-- evidence:start --><p class="evidence" data-level="record" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: this page shows records as written and makes no claim of effect. Not yet tested with people using RSOS.</p><!-- evidence:end -->
   <div class="strip-wrap"><svg class="strip" id="strip" role="img" aria-label="All tier records in ledger order, coloured by role"></svg></div>
   <div class="legend" id="legend"></div>
   <div class="filters" role="search">
@@ -128,7 +129,7 @@ const LAYER_NAMES = { RSIA: "Identity (RSIA)", RSX: "Command language (RSX)", TH
   MICRO: "Edge runtime (MICRO)", CONTAIN: "Safety (CONTAIN)", MEMSTACK: "Memory (MEMSTACK)", CM1: "Compression (CM1)", LINX: "AI layer (LINX)", UGCL: "Glyphs (UGCL)" };
 const CH_NAMES = { V: "Visual", A: "Auditory", K: "Kinesthetic", O: "Olfactory", G: "Gustatory", BREATH: "Breath", "EEG/BCI": "EEG / BCI", AI: "AI" };
 const FIELD_LABELS = [["glyph", "Glyph"], ["glyph_mutation", "Glyph mutation"], ["tier_class", "Class"], ["function", "Function"], ["mission", "Mission"],
-  ["command", "Command"], ["ritual", "Ritual"], ["quote", "Quote"], ["echo", "Echo"], ["behavior", "System behaviour (recorded as “GPT Behavior”)"],
+  ["command", "Command"], ["ritual", "Ritual"], ["quote", "Quote"], ["echo", "Echo"], ["behavior", "System behaviour (recorded)"],
   ["notes", "Notes"], ["directive", "Echo directive"], ["application", "Application"], ["mechanisms", "Mechanisms"], ["ai_note", "AI note"],
   ["llm_impact", "Language-model impact"], ["history", "History"], ["seal", "Seal"], ["certificate", "Certificate"], ["status", "Status"],
   ["anchor", "Anchor"], ["phase", "Phase"], ["risk", "Risk mitigation"], ["legal", "Legal simulation domains"], ["trigger", "Trigger"], ["other", "Other"]];

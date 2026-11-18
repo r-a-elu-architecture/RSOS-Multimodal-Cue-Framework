@@ -17,4 +17,4 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSOS_Tiers.txt](../../archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tiers.txt) | Tier ledger: the development record of the tiers | `bc21eaf8a119be7d` |
+| RSOS_Tiers.txt (kept privately) | Tier ledger: the development record of the tiers | `bc21eaf8a119be7d` |

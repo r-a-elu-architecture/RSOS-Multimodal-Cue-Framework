@@ -11,6 +11,8 @@ step "RSX-V: command layer, laws, translator and bridge into RSX"
 (cd rsxv && python3 -m unittest discover -s tests)
 step "RSSO: runtime, devices, firmware, safety, nodes, LINX, CONTAIN, THERA, CM1, PEAK, camera heart rate, TRIAL, CHECKS, contribution, board"
 (cd rsso && python3 -m unittest discover -s tests)
+step "Evidence labels: row sources and the stated-model guard (spec/FIXES_NIGHT.md E-1)"
+python3 -m unittest discover -s architecture/tests -p "test_*.py"
 step "Toolkit: cue engine and study kit"
 (cd toolkit && python3 -m unittest discover -s tests)
 step "Conformance suite: virtual rig and the firmware core"
@@ -20,11 +22,12 @@ step "Board check against the firmware core in real time (no board)"
 step "Generated files are reproducible"
 python3 architecture/build.py >/dev/null
 python3 architecture/roadmap.py >/dev/null
-(cd rsxv && python3 -m rsxv.site_example >/dev/null && python3 -m rsxv.site_agents >/dev/null && python3 -m rsxv.site_results RESULTS.md ../docs/data/results_register.json >/dev/null)
+(cd rsxv && python3 -m rsxv.site_example >/dev/null && python3 -m rsxv.site_agents >/dev/null && python3 -m rsxv.site_results RESULTS.md ../docs/data/results_register.json >/dev/null && python3 -m rsxv.site_findings ../docs/data/world_findings.json >/dev/null)
+python3 architecture/evidence.py >/dev/null   # spec/EVIDENCE_LABELS.md: labels on every live page and the README section
 (cd rsso && python3 -m rsso.thera >/dev/null && python3 -m rsso.cm1 >/dev/null && python3 -m rsso.peak --evaluate >/dev/null && python3 -m rsso.trial --evaluate >/dev/null && python3 -m rsso.gate --evaluate >/dev/null && python3 -m rsso.identity --evaluate >/dev/null && python3 -m rsso.atlas --evaluate >/dev/null && python3 -m rsso.night --evaluate >/dev/null && python3 -m rsso.copilot --evaluate >/dev/null && python3 -m rsso.machines --evaluate >/dev/null && python3 -m rsso.machines --channels >/dev/null && python3 -m rsso.pron --evaluate >/dev/null && python3 -m rsso.ssep --evaluate >/dev/null && python3 -m rsso.modules --evaluate >/dev/null)
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   # The fold table is pinned to one Unicode version (spec/FIXES_R6.md §3); it is regenerated only by a Python with that version.
   if python3 -c "import sys, unicodedata; sys.path.insert(0, 'rsso'); from rsso import foldtable as F; sys.exit(F.UNICODE != unicodedata.unidata_version)"; then python3 scripts/gen_fold_table.py >/dev/null; else echo "fold table: Unicode version differs from this Python; not regenerated"; fi
-  git diff --exit-code --stat -- architecture docs/data rsso/results spec/ROADMAP.md spec/CLAIMS.md rsso/rsso/foldtable.py docs/js/foldtable.js && echo "unchanged"
+  git diff --exit-code --stat -- architecture docs/data docs/*.html README.md rsso/results spec/ROADMAP.md spec/CLAIMS.md rsso/rsso/foldtable.py docs/js/foldtable.js && echo "unchanged"
 fi
 printf '\nAll checks passed.\n'

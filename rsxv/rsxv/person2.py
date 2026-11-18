@@ -19,6 +19,9 @@ from . import safety as sf
 from . import world as W
 
 CAPTURE_AROUSAL = 0.8
+# Person model v3 (spec/CUE_RESOLVE.md): available, not adopted as a default (FIXES_NIGHT FB-1; adopting it is the
+# owner's decision). PersonEnvV2 keeps v2 as its default so every recorded run reproduces: PersonEnvV2(seed, **V3).
+V3 = {"self_resolve": 6}
 INTERRUPTERS = {"BEAR", "RAVEN", "TIGER"}          # modes that can fire the module to interrupt a chain
 HYPOTHESES = ("neutral", "arousal_deeper", "calm_better")
 
@@ -61,8 +64,9 @@ class Module:
 
 class PersonEnvV2(W.PersonEnv):
     def __init__(self, seed: int, pid: int = 1, model=None, hypothesis="neutral", med_on=False, trig_rate=0.15,
-                 safety_on=True, gain=None):
+                 safety_on=True, gain=None, self_resolve=None):
         super().__init__(seed, pid, model)
+        self.self_resolve = self_resolve                     # spec/CUE_RESOLVE.md: None = person model v2 exactly
         self.gain = float(gain if gain is not None else self.body.p["resp"])
         self.med_on = med_on
         if med_on:
@@ -118,6 +122,10 @@ class PersonEnvV2(W.PersonEnv):
         if self.open is not None and self.open["interrupted"] is not None and s["distress"] <= self.base_d + 0.5:
             self.open["resolved"] = self.ticks
             self.open = None
+        if self.open is not None and self.self_resolve is not None and self.ticks - self.open["t"] >= self.self_resolve:
+            self.open["resolved"] = self.ticks                   # person model v3: the episode ends on its own
+            self.open["self_resolved" if self.open["interrupted"] is None else "resolved_late"] = True
+            self.open = None
         if self.safety is not None:
             self.safety.observe({"distress": s["distress"]})
             self.calm_ticks_below4 = self.calm_ticks_below4 + 1 if s["distress"] < 4 else 0
@@ -149,6 +157,8 @@ class PersonEnvV2(W.PersonEnv):
             "agency": self.body.s["agency"],
             "distress": self.body.s["distress"],
             "crisis_ticks": sum(1 for e in ev if e["captured"]),
+            "self_resolved": sum(1 for e in ev if e.get("self_resolved")),
+            "resolved_late": sum(1 for e in ev if e.get("resolved_late")),
         }
 
 

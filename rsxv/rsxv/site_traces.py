@@ -13,7 +13,7 @@ import sys
 
 from . import archetypes as A
 from .person2 import PersonEnvV2
-from .world import AgentEnvV2, World
+from .world import AgentEnvV2, World, person_world
 
 TICKS = 160
 SEEDS = (11, 12, 13)
@@ -26,20 +26,25 @@ def run(seed, event, t0):
     pe = PersonEnvV2(seed + 500, med_on=(event == "shift"), trig_rate=0.15)
     wa = World(ae, policy="watchdog", seed=seed, score="mission")
     wp = World(pe, policy="watchdog", seed=seed + 500, score="mission")
+    # STAB_DEFAULT D1: the same simulated person, same events, under the audit's baseline (always Bear).
+    pb = PersonEnvV2(seed + 500, med_on=(event == "shift"), trig_rate=0.15)
+    wb = person_world(pb, seed=seed + 500, score="mission")
     ticks = []
     seen_a = seen_p = 0
     for t in range(1, TICKS + 1):
         if event == "storm":
             on = t0 <= t < t0 + 20
             ae.fault_rate = 0.35 if on else 0.15
-            pe.trig_rate = 0.40 if on else 0.15
+            pe.trig_rate = pb.trig_rate = 0.40 if on else 0.15
             if t == t0 and pe.open is None:
                 pe._trigger()                                   # a cue arrives at the storm's start
+            if t == t0 and pb.open is None:
+                pb._trigger()
         elif event == "shift" and t == t0:
             ae.silent_share = 0.9
-            pe.med_on = False
+            pe.med_on = pb.med_on = False
         b0 = getattr(wp, "safety_blocks", 0)
-        ra = wa.tick(); rp = wp.tick()
+        ra = wa.tick(); rp = wp.tick(); rb = wb.tick()
         errs = ae.sys.errors()
         la = wa.lineage.edges[seen_a:]
         lp = wp.lineage.edges[seen_p:]
@@ -55,10 +60,13 @@ def run(seed, event, t0):
                   "safe": pe.safety.mode if pe.safety else "NORMAL",
                   "trig": bool(pe.events and pe.events[-1]["t"] == pe.ticks),
                   "lin": [[e["kind"], e["from"], e["to"], e["rationale"]] for e in lp],
-                  "blk": getattr(wp, "safety_blocks", 0) - b0}})
+                  "blk": getattr(wp, "safety_blocks", 0) - b0, "rb": round(rb["reward"], 3)}})
     blocks = getattr(wp, "safety_blocks", 0)
     return {"seed": seed, "event": event, "t0": t0, "ticks": ticks,
             "summary": {"agent_mean": sum(wa.rewards) / TICKS, "person_mean": sum(wp.rewards) / TICKS,
+                        "person_mean_bear": sum(wb.rewards) / TICKS,
+                        "cues": {"watchdog": len(pe.events), "watchdog_open_at_end": pe.open is not None,
+                                 "bear": len(pb.events), "bear_open_at_end": pb.open is not None},
                         "agent_switches": wa.switches, "person_switches": wp.switches, "safety_blocks": blocks}}
 
 

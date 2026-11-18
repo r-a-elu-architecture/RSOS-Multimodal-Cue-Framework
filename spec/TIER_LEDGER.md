@@ -2,7 +2,7 @@
 
 The tier ledger (`archive/.../RSOS_Tiers.txt`, 9,207 lines, SHA-256 `bc21eaf8…`) is the development record of
 RSOS: 293 tier records across Epochs I–VI, each with some of a glyph, a function, a command, a quote, the
-system behaviour recorded at the time ("GPT Behavior"), notes, an echo directive, an application and metric
+system behaviour recorded at the time, notes, an echo directive, an application and metric
 values. This document says how the ledger is read, where every tier lives in the architecture, and what its
 metrics measure today. Pages: [tier ledger](../docs/tiers.html), [metrics](../docs/metrics.html),
 [system map](../docs/system.html), [glyphs](../docs/glyphs.html).
@@ -42,7 +42,7 @@ Nothing is edited, merged or dropped:
 
 Result: 62 practice, 43 runtime, 39 consented programming, 143 record, 6 structure. No tier is left out.
 
-**System behaviour.** The ledger's "GPT Behavior" is read as system behaviour: how the AI, BCI or device
+**System behaviour.** The ledger's recorded behaviour field is read as system behaviour: how the AI, BCI or device
 layer responds. Several Epoch I tiers define the runtime's core responses directly: Tier 004 (self-halted
 propagation) is Stop; 007 (signal gated until stable) is the refractory gate and the detectors' sustain rule;
 011 and 016 (stillness inserted) are pauses; 015 (ritual becomes reflex) is the reflex criterion; 018 (the
@@ -145,3 +145,8 @@ Each code also has an operational definition, with a status:
 
 Recorded values and today's values share a code so the lineage stays visible; they are never put on one
 scale. The ledger itself changes scale for several codes (percent, then 0–1, then thousands).
+
+
+**Public edition (18 November 2026, spec/PUBLIC_EDITION.md).** The published ledger, metrics and tier map apply one rule to
+the original records: the word "GPT" becomes "model" (the field "GPT Behavior" becomes "Model Behavior"). Nothing else
+changes; the original files are unchanged and still reassemble byte for byte.

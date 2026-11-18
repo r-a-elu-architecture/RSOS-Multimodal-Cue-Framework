@@ -23,5 +23,5 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSSO_Meta_OS_Historical_Architecture.txt](../../archive/original-estates/RSSO_PASS31B/RSSO_Meta_OS_Historical_Architecture.txt) | Meta-OS architecture | `83378d55c48990d7` |
-| [RSSO_Meta_OS_Evidence_Excerpts.txt](../../archive/original-estates/RSSO_PASS31B/RSSO_Meta_OS_Evidence_Excerpts.txt) | Meta-OS evidence excerpts (public edition) | `88845ddfd2c4c087` |
+| RSSO_Meta_OS_Historical_Architecture.txt (kept privately) | Meta-OS architecture | `83378d55c48990d7` |
+| RSSO_Meta_OS_Evidence_Excerpts.txt (kept privately) | Meta-OS evidence excerpts (public edition) | `88845ddfd2c4c087` |

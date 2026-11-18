@@ -10,5 +10,5 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [MICRO_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/MICRO_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `99291f25925d31b4` |
-| [MICRO_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/MICRO_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `c22c20d2341b9abc` |
+| MICRO_Historical_Reconstruction.txt (kept privately) | Reconstruction: role, inputs, outputs, operators | `99291f25925d31b4` |
+| MICRO_Evidence_Excerpts.txt (kept privately) | Evidence excerpts (public edition) | `c22c20d2341b9abc` |

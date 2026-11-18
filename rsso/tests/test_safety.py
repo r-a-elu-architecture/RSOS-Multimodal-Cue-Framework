@@ -196,5 +196,9 @@ class TestSiteWording(unittest.TestCase):
             t = f.read_text(encoding="utf-8")
             t = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", " ", t)
             t = html.unescape(re.sub(r"<[^>]+>", " ", t))
+            emergency = "not for use in an emergency: if you are at risk of harm, contact your local emergency services."   # PUBLIC_EDITION_2 C
+            if f.name in ("safety.html", "therapist.html"):
+                self.assertIn(emergency, " ".join(t.split()), f.name)
+                t = " ".join(t.split()).replace(emergency, "")
             hits += [f"{f.name}: {m.group(0)}" for m in bad.finditer(t)]
         self.assertEqual(hits, [])

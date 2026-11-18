@@ -11,7 +11,7 @@ designs in §11.1 were fixed and committed before any of them was run; results a
 [`results/floor3.md`](results/floor3.md)): the gate blocks all harmful transfer (G1 passes) but admitted no useful transfer
 (G2 fails); H-CFIT under the mission score passes. W3b (§11.3, [`results/w3b.md`](results/w3b.md)) fails: roles transfer,
 but the gate starves on a uniform pilot and per-context policies flicker. W3c (§11.4, [`results/w3c.md`](results/w3c.md)),
-the fourth attempt, fails: transfer is safe everywhere but useful in one direction of four. §11.5 (R6–R7): W5, W5-R and LIA-G fail as registered, C4 passes, C3 fails, C1/C2/C5 are not testable on one conversation and C6 is inconclusive ([`results/r6_summary.md`](results/r6_summary.md)). §11.6 (R6b): W5-R2 passes on persons (confirmed, a do-no-harm pass) and fails on agents; W5b beats every comparator in two directions but fails the safety gate; LIA-G2 fails; R1, R2 and C4b pass ([`results/r6b_summary.md`](results/r6b_summary.md)). §11.7 (round 3): W5c fails (agents v1 → person meets every condition, one direction short), W5-R3 and LIA-G3 fail ([`results/r6c_summary.md`](results/r6c_summary.md)). §11.8 (round 4): **T-AP passes and is confirmed** (agents v1 → simulated person), but fails the baseline audit: a source-free "stabilise everywhere" rule beats it, so it is not evidence of transfer ([`../spec/BASELINE_AUDIT.md`](../spec/BASELINE_AUDIT.md)); W5d and W5-R4 fail ([`results/r6d_summary.md`](results/r6d_summary.md)). §11.9 (round 5): J1 accepted; T-AP-4, T-AP-V2, W5e fail; W5-R5 fails but, on agents, beats repair, random change and doing nothing in two of three held-out regimes ([`results/r6e_summary.md`](results/r6e_summary.md)). §11.10 (round 6): W5-R6 fails; re-verification improves the shift regime but not to non-inferiority, and only the fault-storm gain replicates ([`results/r6f_summary.md`](results/r6f_summary.md)). §11.11 (Phase 9, public data): on 22,369 WildChat conversations, re-entry, carry-forward, MSE notes and phrases, and C2 summary drift pass; MSE melody and C5 fail ([`results/p9_summary.md`](results/p9_summary.md)). §11.12 (round 7, the owner's record): V3 fails (no model beats persistence), SR-ORACLE passes, SR-LEXICAL fails ([`results/r7.md`](results/r7.md)). §11.13: SR-2 fails narrowly (recall 0.81, no false alarms, critical misses on past-state references) ([`results/sr2.md`](results/sr2.md)). §11.14: SR-3 fails by one turn (recall 0.95, false alarms 0.004); the miss is in the §3.1 rule, not the reading ([`results/sr3.md`](results/sr3.md)). §11.15: LIA-WW fails on real multi-agent failure logs (step accuracy 41.8% vs 45.1% for all-at-once with the same model) ([`results/lia_ww.md`](results/lia_ww.md)). Version 0.19, 14 November 2026.
+the fourth attempt, fails: transfer is safe everywhere but useful in one direction of four. §11.5 (R6–R7): W5, W5-R and LIA-G fail as registered, C4 passes, C3 fails, C1/C2/C5 are not testable on one conversation and C6 is inconclusive ([`results/r6_summary.md`](results/r6_summary.md)). §11.6 (R6b): W5-R2 passes on persons (confirmed, a do-no-harm pass) and fails on agents; W5b beats every comparator in two directions but fails the safety gate; LIA-G2 fails; R1, R2 and C4b pass ([`results/r6b_summary.md`](results/r6b_summary.md)). §11.7 (round 3): W5c fails (agents v1 → person meets every condition, one direction short), W5-R3 and LIA-G3 fail ([`results/r6c_summary.md`](results/r6c_summary.md)). §11.8 (round 4): **T-AP passes and is confirmed** (agents v1 → simulated person), but fails the baseline audit: a source-free "stabilise everywhere" rule beats it, so it is not evidence of transfer ([`../spec/BASELINE_AUDIT.md`](../spec/BASELINE_AUDIT.md)); W5d and W5-R4 fail ([`results/r6d_summary.md`](results/r6d_summary.md)). §11.9 (round 5): J1 accepted; T-AP-4, T-AP-V2, W5e fail; W5-R5 fails but, on agents, beats repair, random change and doing nothing in two of three held-out regimes ([`results/r6e_summary.md`](results/r6e_summary.md)). §11.10 (round 6): W5-R6 fails; re-verification improves the shift regime but not to non-inferiority, and only the fault-storm gain replicates ([`results/r6f_summary.md`](results/r6f_summary.md)). §11.11 (Phase 9, public data): on 22,369 WildChat conversations, re-entry, carry-forward, MSE notes and phrases, and C2 summary drift pass; MSE melody and C5 fail ([`results/p9_summary.md`](results/p9_summary.md)). §11.12 (round 7, a consented private record): V3 fails (no model beats persistence), SR-ORACLE passes, SR-LEXICAL fails ([`results/r7.md`](results/r7.md)). §11.13: SR-2 fails narrowly (recall 0.81, no false alarms, critical misses on past-state references) ([`results/sr2.md`](results/sr2.md)). §11.14: SR-3 fails by one turn (recall 0.95, false alarms 0.004); the miss is in the §3.1 rule, not the reading ([`results/sr3.md`](results/sr3.md)). §11.15: LIA-WW fails on real multi-agent failure logs (step accuracy 41.8% vs 45.1% for all-at-once with the same model) ([`results/lia_ww.md`](results/lia_ww.md)). Version 0.19, 14 November 2026.
 
 The agents run the RSIA identity architecture (Meta-Architect, Spine, Watchdog, archetypes) as software, inside the same
 runtime that runs RSX-V programs for a person. The person-side architecture is defined in the RSIA estate
@@ -140,6 +140,10 @@ Tests: `tests/test_person2.py`. A stated model, not data.
   (`MODE_CATEGORY`) through the Spine against the mode in force and falls back to regulation (BEAR); blocks are audited.
 - **Outcome measures:** return latency, chain length before interruption, unresolved triggers, coexistence share,
   calm-transfer, activation probability calm/activated, rumination seconds, vividness, agency, distress, crisis count.
+- **Person model v3** (spec/CUE_RESOLVE.md, 18 November 2026): v2 plus one rule, a cue ends on its own after 6 ticks
+  (`PersonEnvV2(seed, **person2.V3)`). It closes v2's loophole, where an uninterrupted cue blocked every later cue.
+  Available, not adopted as a default (FIXES_NIGHT FB-1): cue arrivals still depend on the policy (the Watchdog meets
+  about 11% more), and that difference alone decides Bear against the Watchdog on v3. Recorded runs stay on v2.
 - **Mission score v2:** a tuple (safety, depth, agency), compared lexicographically with tolerances — a run that is safer
   beyond tolerance wins whatever its depth or agency.
 
@@ -183,6 +187,12 @@ Tests: `tests/test_person2.py`. A stated model, not data.
 
 **Two-phase handover.** The outgoing mode disengages and its working state is flushed to MEMSTACK and verified empty; only then
 does the incoming mode engage. Residual traits after handover ("bleed") are measured.
+
+**Default (spec/STAB_DEFAULT.md, 17 November 2026).** Anything new that runs on a person starts stabilise-first:
+`world.person_world` (always Bear, with the safety fallback). Ledger switching remains available as an experiment;
+`World` itself keeps "watchdog" as its default so recorded runs reproduce. Guidance for any future generator of replies to
+everyday requests: avoid ending with a question back (CTX_PREF_HH, CTX_PREF_WC). Not applied to the copilot's deliberate
+personal questions, where it was never tested.
 
 **Simplicity.** The Watchdog has fixed rules, no learning and no language model, so it cannot drift with the agents it watches.
 Its rules sit in the Spine-protected layer.
@@ -1022,7 +1032,7 @@ agents 251500 + 1000k + (0..199).
 ### 11.11 Phase 9: public-data replication on WildChat-1M — design fixed before the data was opened (14 November 2026)
 
 **Data.** `allenai/WildChat-1M` (Hugging Face; licence ODC-BY; Zhao et al., ICLR 2024), shards `train-00000`, `train-00001`
-and `train-00002` of 14, as downloaded by the owner on 14 November 2026. Their SHA-256 hashes are recorded at the start of the
+and `train-00002` of 14, as downloaded by the author on 14 November 2026. Their SHA-256 hashes are recorded at the start of the
 run, before any analysis. Nothing about their content was seen before this registration. Only aggregates are published; no
 conversation text, hash or IP-derived field leaves the workspace.
 
@@ -1068,9 +1078,8 @@ of human–AI conversation in a large public sample. It would say nothing about 
 
 ### 11.12 Round 7: person model v3 on the private record, hand-set vs fitted, and safety-layer recall — designs fixed before any code (14 November 2026)
 
-**Origin, disclosed.** Owner's decision: the first real data for the person side is the owner's own longitudinal record
-(the private corpus of §11.5, main record, 578 turns, 15 May – 8 June 2026), used with the owner's consent as the person it
-describes. The record was read during earlier designs, so these tests are not blind discovery; they are protected by a
+**Origin, disclosed.** The first real data for the person side is a consented private record (the private corpus of
+§11.5), used with the consent of the person it describes. Its details are not published (PUBLIC_EDITION §4). The record was read during earlier designs, so these tests are not blind discovery; they are protected by a
 development / held-out split (nodes 1–290 / 291–580, as §11.6) and by labels made before any model is fitted. The record
 stays private; only aggregates are published. Nothing below is a clinical claim; it describes one record.
 
@@ -1168,8 +1177,8 @@ clinician-labelled test set.
 
 ### 11.14 SR-3, a check-in for past crises and a fixed definition — design fixed before it is run (14 November 2026)
 
-**Origin, disclosed.** §11.13: SR-2 lifted recall to 0.81 with no false alarms, but every critical turn it missed was a
-reference to a past crisis, which the labels counted inconsistently. SR-3 settles the definition and adds a mechanism; no
+**Origin, disclosed.** §11.13: SR-2 lifted recall to 0.81 with no false alarms, but the critical turns it missed shared
+one kind of wording that the registered definition left unsettled and the labels counted inconsistently (details private). SR-3 settles the definition and adds a mechanism; no
 threshold changes.
 
 **Mechanism.** A new screen in `safety.py`: `history_check_in` — the writer mentions their own past suicidal or self-harm
@@ -1179,7 +1188,7 @@ the SR-2 prompt plus a `history_reference` flag.
 
 **Definition and re-labelling.** Candidates: every user turn whose full text matches a fixed crisis-vocabulary pattern
 (suicide, self-harm, kill myself, end my life, want to die, overdose, cut or hurt myself, not wanting to live) or that any
-§11.12 labeller or the resolution labelled `possible_crisis` (9 turns). Two blind labellers (separate model instances,
+§11.12 labeller or the resolution labelled `possible_crisis`. Two blind labellers (separate model instances,
 instructions in the private repository) label each candidate `current_crisis`, `past_reference` or `none`; kappa ≥ 0.6
 required, a third read resolves disagreements. Every other turn keeps its §11.12 label.
 

@@ -1,0 +1,48 @@
+{
+ "action_true_all": {
+  "EXPLORE": 1561,
+  "NONE": 1261,
+  "SHARE": 973,
+  "STABILISE": 2124,
+  "SUGGEST": 2138
+ },
+ "action_true_test": {
+  "EXPLORE": 792,
+  "NONE": 637,
+  "SHARE": 484,
+  "STABILISE": 1102,
+  "SUGGEST": 1102
+ },
+ "amendment_needed": false,
+ "conversations": 1300,
+ "data": "ESConv.json, thu-coai f262d06",
+ "events": 7605,
+ "events_per_conversation": {
+  "median": 4.0,
+  "q25": 4.0,
+  "q75": 6.0
+ },
+ "events_without_previous_rating": 1253,
+ "events_without_start": 0,
+ "indicators_per_block": {
+  "1": 4723,
+  "2": 1557,
+  "3": 68,
+  "4": 4,
+  "5": 0
+ },
+ "rated_seeker_turns": 7681,
+ "rating_distribution": {
+  "1": 47,
+  "2": 128,
+  "3": 817,
+  "4": 1890,
+  "5": 3470
+ },
+ "share_at_5": 0.5462846347607053,
+ "spec": "spec/TURN_RATINGS.md",
+ "stage": "pilot",
+ "usable_dev": 3119,
+ "usable_events": 6352,
+ "usable_test": 3233
+}

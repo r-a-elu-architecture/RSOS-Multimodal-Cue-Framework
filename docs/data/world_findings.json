@@ -1,0 +1,40 @@
+{
+ "source": [
+  "rsxv/results/turn_ratings.json",
+  "rsxv/results/cue_resolve.json",
+  "rsxv/results/cue_resolve_decomp.json"
+ ],
+ "numbers": {
+  "turn_events": 6352,
+  "turn_q1": -0.0008442607215116553,
+  "turn_q1_ci": [
+   -0.0036106878239787277,
+   0.0019416249661838064
+  ],
+  "turn_q1_verdict": "NULL",
+  "turn_q2_verdict": "NULL",
+  "turn_delta": 0.01,
+  "cue_stuck_v2": 15,
+  "cue_stuck_v3": 0,
+  "cue_runs": 15,
+  "cue_ratio": 1.7810831426392066,
+  "cue_gap_v2": 0.04062237200322993,
+  "cue_w_minus_b_v3": -0.01926938118064654,
+  "cue_w_minus_b_v3_ci": [
+   -0.026597892891196774,
+   -0.011490902370689591
+  ],
+  "cue_verdict": "BEAR STILL WINS",
+  "cue_part_a": false,
+  "cue_more_pct": 11,
+  "cue_other_ticks": 0.014332337144611518,
+  "cue_other_ticks_ci": [
+   0.00421753084205848,
+   0.02412115795852794
+  ]
+ },
+ "turn": "In 6,352 rated moments of recorded support conversations (ESConv; crowdworkers playing seekers), the supporter's action did not measurably improve the prediction of the seeker's next rating of the support: −0.0008 [−0.0036, +0.0019] in squared error, inside the ±0.01 band; letting it change over the conversation did not either. An association, not a measured effect (TURN_RATINGS).",
+ "cue": "Closing the model's cue loophole (person model v3: a cue ends on its own after 6 ticks) removed stuck cues (15 of 15 runs → 0), but cut open-cue ticks only 1.8×, short of the 10× target. Always Bear still scores above the Watchdog (0.019 per tick, down from 0.041), but only because the Watchdog then meets about 11% more cues; on all other ticks the Watchdog is ahead (+0.0143 [+0.0042, +0.0241]). Not evidence that stabilising helps (CUE_RESOLVE, review).",
+ "run_note": "These recorded runs use person model v2, where an uninterrupted cue blocks later cues. With that loophole closed (v3), stuck cues fall from 15 of 15 runs to 0, and always Bear's remaining lead comes only from the Watchdog meeting about 11% more cues (CUE_RESOLVE).",
+ "lab_note": "In ESConv, the supporter's action did not measurably improve the prediction of the seeker's next rating of the support (TURN_RATINGS). That is consistent with the equal effects, but does not show them: equal ratings do not imply equal effects on intensity or progress. The different effects remain invented."
+}

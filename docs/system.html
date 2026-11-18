@@ -79,6 +79,7 @@ header.top nav a{font-size:.88rem}
 <main>
   <h1>How a negative state becomes an override, and the override a reflex</h1>
   <p class="lede">One loop runs through every part of RSOS. A trigger arrives through the senses, the body or a sensor; the Watchdog decides whether anything may start, and the output gate keeps to that decision; the RSX program, written directly or compiled from an RSX-V command, plays the tier's bundle through every channel; memory records what happened and learns. Select any part to see what it does, how far it is built, and which tiers of the ledger live there.</p>
+  <!-- evidence:start --><p class="evidence" data-level="summary" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data: no positive result yet. Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other. Not yet tested with people using RSOS.</p><!-- evidence:end -->
 
   <div class="mapwrap">
     <div>
@@ -97,7 +98,7 @@ header.top nav a{font-size:.88rem}
   <div style="overflow:auto"><table class="matrix" id="matrix"></table></div>
 
   <h2>What the system does when it responds</h2>
-  <p class="note">The ledger recorded how the system behaved at each tier (as “GPT Behavior”). Those behaviours reduce to a small set of responses, which the AI, BCI and device layers perform.</p>
+  <p class="note">The ledger recorded how the system behaved at each tier. Those behaviours reduce to a small set of responses, which the AI, BCI and device layers perform.</p>
   <div style="overflow:auto"><table id="responses"></table></div>
 </main>
 <footer>Statuses come from the architecture map (<code>architecture/build.py</code>): built, complete in simulation (tested with virtual devices and participants, waiting for real hardware and people), partly built, specified. Data: <a href="data/tier_map.json">tier_map.json</a>. <span class="mdline">Research and development framework; not a medical device.</span></footer>
@@ -138,11 +139,14 @@ const NODES = {
   memory: { x: 740, y: 140, w: 140, h: 84, t: "Memory", s: "MEMSTACK", status: "built", layer: "MEMSTACK",
     does: "Records every run and weekly automaticity check, models how strong each tier's bundle has become, fits the habit curve, estimates the triggers left to a reflex, and checks the reflex criterion. Checksummed snapshots move memory between devices. With consent, a person, clinician or lab can share a sealed, de-identified record of practice, outcomes and adverse events, which pools with others for research.", files: ["rsso/rsso/memstack.py", "docs/js/memstack.js", "rsso/rsso/contribution.py", "docs/js/contribution.js", "docs/contribute.html", "spec/DATA_CONTRIBUTION.md", "rsso/rsso/peak.py", "rsso/rsso/trial.py"],
     parts: ["Reflex: automaticity ≥ 4 for two weeks and a start within 3 s", "Your metrics on the metrics page", "Data contribution: three roles, 12 consent scopes, sealed with SHA-256", "Pooling across contributors and BIDS events export for EEG labs", "Adverse events from the player travel with the record", "PEAK: anchors as measured objects, blind probes against sham, contamination and restoration (anchors page)", "TRIAL: personal randomised trials, pooled across people (trials page)"] },
+  personlab: { x: 270, y: 440, w: 180, h: 70, t: "Person Lab", s: "100 lab persons, agents", status: "sim", layer: null,
+    does: "A lab of simulated persons with identity profiles on six levels, and agents working toward each one's desired state. Profiles are built from real stories by two readers (LINX's text operator); each action is an RSX-V program whose TARGET line names the profile node it serves; sessions and profiles are kept in memory. The public page uses 100 lab persons drawn at random from summary statistics of the private profiles, with invented statements. Architecture, not evidence: see the evidence below.", files: ["rsxv/rsxv/personlab/", "docs/js/personlab.js", "docs/world.html#lab", "spec/PERSONLAB.md", "spec/TURN_RATINGS.md"], open: ["world.html#lab", "Open the Person Lab"],
+    parts: ["Profile schema: six levels, statements with where and when, current and desired states", "100 profiles from ESConv, kept private; agreement kappa 0.73 (two instances of the same model)", "100 public lab persons drawn from summary statistics, every statement invented", "Agents: Bear steadies, Raven clarifies, Tiger takes a step, Lion shares; always Bear beside them", "RSX-V TARGET: every action names the profile node it serves, kept through NEXT", "Python and browser identical (tested)", "Evidence: the simulated persons failed validation (step 5); text-read stress tracked tone, not people's own ratings (5c); sensory-word matching and echo: no effect shown on people's own ratings; the supporter's action did not measurably improve prediction of the seeker's next rating of the support (TURN_RATINGS; crowdworker seekers; an association)"] },
   compress: { x: 740, y: 300, w: 140, h: 84, t: "Compression", s: "CM1", status: "built", layer: "CM1",
     does: "Compresses each person's practice into a short signature and many people into a few response profiles, finds the patterns that repeat across everyone, and tells a new person where to start: which kind of node, which sense should carry the strongest cue. Also packs a person's nodes, codes, glyphs, dose and safety state into a few dozen bytes for a device.", files: ["rsso/rsso/cm1.py", "docs/js/cm1.js", "docs/data/cm1.json", "spec/CM1.md", "toolkit/rsos_cue/"],
     parts: ["Right profile from 10 runs: 100% (clear), 96% (hard), synthetic with known answers", "Patterns with 95% intervals (metrics page)", "Device bundle: about 40 bytes with a checksum", "Python and browser identical (tested)", "Cue engine on run logs: 60–78% lower regret than the best fixed setting (synthetic)"] },
 };
-const EDGES = [["ai", "rsxv"], ["rsxv", "program"], ["senses", "gate"], ["body", "gate"], ["eeg", "gate"], ["ai", "gate"], ["gate", "program"], ["gate", "devices"], ["program", "devices"], ["glyph", "devices"],
+const EDGES = [["ai", "personlab"], ["personlab", "rsxv"], ["personlab", "memory"], ["ai", "rsxv"], ["rsxv", "program"], ["senses", "gate"], ["body", "gate"], ["eeg", "gate"], ["ai", "gate"], ["gate", "program"], ["gate", "devices"], ["program", "devices"], ["glyph", "devices"],
   ["devices", "memory"], ["program", "memory"], ["memory", "compress"], ["compress", "ai", true], ["memory", "glyph", true], ["memory", "program", true]];
 const CH = [["V", "Visual", "Something seen", "Screen, AR: light imagery, the glyph", "SEE, glyph"],
   ["A", "Auditory", "Something heard", "Voice (your own recording or a computer voice), tone motif", "SAY, TONE"],
@@ -167,6 +171,8 @@ function draw() {
     if (loop && a === "compress" && b === "ai") { const [x1, y1] = mid(a, "b"), [x2, y2] = mid(b, "b"); p = `M${x1},${y1} C${x1},${600} ${x2},${600} ${x2},${y2}`; }
     else if (loop && a === "memory" && b === "glyph") { const [x1, y1] = [A.x + 30, A.y + A.h], [x2, y2] = mid(b, "r"); p = `M${x1},${y1} C${x1},${y2} ${x1 - 10},${y2} ${x2},${y2}`; }
     else if (loop && a === "memory" && b === "program") { const [x1, y1] = mid(a, "t"), [x2, y2] = mid(b, "r"); p = `M${x1},${y1} C${x1},${y2} ${x1},${y2} ${x2},${y2}`; }
+    else if (a === "personlab" && b === "rsxv") { p = `M${A.x + A.w},${A.y + 20} C${A.x + A.w + 30},${A.y + 20} ${B.x + B.w + 30},${B.y + B.h / 2} ${B.x + B.w},${B.y + B.h / 2}`; }
+    else if (a === "personlab" && b === "memory") { p = `M${A.x + A.w},${A.y + A.h - 15} L715,${A.y + A.h - 15} L715,${B.y + B.h / 2} L${B.x},${B.y + B.h / 2}`; }
     else if (A.x === B.x) { const [x1, y1] = A.y < B.y ? mid(a, "b") : mid(a, "t"), [x2, y2] = A.y < B.y ? mid(b, "t") : mid(b, "b"); p = `M${x1},${y1} L${x2},${y2}`; }
     else { const [x1, y1] = mid(a, "r"), [x2, y2] = mid(b, "l"); const cx = (x1 + x2) / 2; p = `M${x1},${y1} C${cx},${y1} ${cx},${y2} ${x2},${y2}`; }
     const path = document.createElementNS(ns, "path"); path.setAttribute("d", p); path.setAttribute("class", "edge" + (loop ? " loop" : "")); path.setAttribute("marker-end", "url(#arr)"); svg.appendChild(path);
@@ -191,6 +197,7 @@ function show(id) {
   p.appendChild(el("h3", "", N.t));
   const st = el("p"); const b = el("span", "st", STATUS[N.status][0]); b.style.background = STATUS[N.status][1]; if (N.status === "specified") b.style.color = "#e7e9f2"; st.append(b, N.s); p.appendChild(st);
   p.appendChild(el("p", "", N.does));
+  if (N.open) { const o = el("p"); const l = el("a", "", N.open[1] + " →"); l.href = N.open[0]; l.className = "open"; o.appendChild(l); p.appendChild(o); }   // SITE_NIGHT N4
   p.appendChild(el("h4", "", "Now")); const ul = el("ul"); for (const x of N.parts) ul.appendChild(el("li", "", x)); p.appendChild(ul);
   if (N.layer && tiersIn(N.layer).length) {
     const ts = tiersIn(N.layer), by = {}; for (const [, v] of ts) by[v.role] = (by[v.role] || 0) + 1;

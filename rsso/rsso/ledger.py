@@ -13,6 +13,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+
+try:
+    from .edition import edit_all
+except ImportError:  # run as a script
+    from edition import edit_all
 import math
 import pathlib
 import re
@@ -20,6 +25,12 @@ import re
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tiers.txt"
 SOURCE_REL = str(SOURCE.relative_to(ROOT))
+PUBLISHED = ROOT / "docs" / "data" / "ledger.json"
+
+
+def have_original() -> bool:
+    """The original records are kept in the private repository (spec/PUBLIC_EDITION_2.md M)."""
+    return SOURCE.exists()
 
 TIER_HEAD = re.compile(r"^(?:📍|🔻)\s*(?:RSOS\s+)?(?:TIER|Tier|Tiers)\s+([0-9]{3}(?:\.[0-9])?(?:–[0-9]{3})?)\s*(?:[—–-]\s*(.*?))?\s*$")
 EPOCH_HEAD = re.compile(r"^\[EPOCH ([IVX]+\+?) — (.*?)\]\s*$")
@@ -205,6 +216,8 @@ def parse_tier(block: dict) -> dict:
 
 
 def build() -> dict:
+    if not have_original():          # public repository: the published edition stands in for the original
+        return json.loads(PUBLISHED.read_text(encoding="utf-8"))
     text = SOURCE.read_bytes().decode("utf-8")
     lines = text.split("\n")
     blocks = split_blocks(lines)
@@ -251,7 +264,7 @@ def summary(ledger: dict) -> str:
              "",
              f"- Tier records: {len(tiers)} ({len(nums)} distinct tier numbers, from {min(nums)} to {max(nums)}); repeated tiers kept as separate records: {', '.join(dups)}.",
              f"- Epoch headers: {len(epochs)}; system events: {sum(1 for r in ledger['records'] if r['kind'] == 'event')}; forensic and ledger notes: {sum(1 for r in ledger['records'] if r['kind'] == 'note')}.",
-             f"- Tiers with a recorded system behaviour (\"GPT Behavior\"): {behav}.",
+             f"- Tiers with a recorded system behaviour: {behav}.",
              f"- Named mechanisms (technical evolution): {mech}.",
              f"- Metric values: {sum(codes.values())} across {len(codes)} codes.",
              "",
@@ -261,8 +274,12 @@ def summary(ledger: dict) -> str:
 
 
 def main():
+    if not have_original():
+        print("ledger: original not present (kept in the private repository); published edition left unchanged")
+        return
     led = build()
     assert reassemble(led).encode("utf-8") == SOURCE.read_bytes(), "ledger reassembly differs from source"
+    led = edit_all(led)            # spec/PUBLIC_EDITION.md E1: published edition, after the check against the original
     out = ROOT / "docs" / "data"
     out.mkdir(parents=True, exist_ok=True)
     (out / "ledger.json").write_text(json.dumps(led, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8")

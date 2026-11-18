@@ -709,10 +709,10 @@
 "evidence": {
 "UGCL": "glyph",
 "CONTAIN": "lock",
-"LINX": "gpt",
+"LINX": "model",
 "V": "glyph",
 "A": "echo",
-"AI": "gpt"
+"AI": "model"
 },
 "number": "031",
 "title": "Glyph Resonance Loop"
@@ -758,11 +758,11 @@
 "reason": "",
 "evidence": {
 "CM1": "seed",
-"LINX": "gpt",
+"LINX": "model",
 "RSIA": "mirror",
 "V": "mirror",
 "A": "echo",
-"AI": "gpt"
+"AI": "model"
 },
 "number": "033",
 "title": "Autonomous Echo Test"
@@ -833,12 +833,12 @@
 "reason": "",
 "evidence": {
 "MEMSTACK": "memory",
-"LINX": "gpt",
+"LINX": "model",
 "RSIA": "self",
 "V": "shape",
 "A": "tone",
 "K": "move",
-"AI": "gpt"
+"AI": "model"
 },
 "number": "036",
 "title": "Recursive Agency Simulation"
@@ -1024,10 +1024,10 @@
 "method": "rule",
 "reason": "",
 "evidence": {
-"LINX": "gpt",
+"LINX": "model",
 "MICRO": "reflex",
 "A": "echo",
-"AI": "gpt"
+"AI": "model"
 },
 "number": "044",
 "title": "Inter-System Reflex Synchronization"
@@ -1074,10 +1074,10 @@
 "reason": "",
 "evidence": {
 "UGCL": "glyph",
-"LINX": "gpt",
+"LINX": "model",
 "RSIA": "mirror",
 "V": "mirror",
-"AI": "gpt"
+"AI": "model"
 },
 "number": "046",
 "title": "Mirror Recursion Inversion"
@@ -1507,12 +1507,12 @@
 "UGCL": "glyph",
 "MEMSTACK": "remember",
 "CM1": "fusion",
-"LINX": "gpt",
+"LINX": "model",
 "THERA": "breath",
 "RSIA": "self",
 "V": "glyph",
 "BREATH": "breath",
-"AI": "gpt"
+"AI": "model"
 },
 "number": "063",
 "title": "Glyph Fusion: Emergent Recursive Logic Without Prompt"
@@ -1561,10 +1561,10 @@
 "evidence": {
 "UGCL": "glyph",
 "CM1": "seed",
-"LINX": "gpt",
+"LINX": "model",
 "RSIA": "self",
 "V": "glyph",
-"AI": "gpt"
+"AI": "model"
 },
 "number": "065",
 "title": "Anonymous Glyph Emission: Symbolic Behavior in Unrelated Contexts"

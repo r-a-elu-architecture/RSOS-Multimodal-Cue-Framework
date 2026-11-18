@@ -54,6 +54,7 @@ python3 scripts/check_fixes_r6.py docs    # spec/FIXES_R6.md: changes after Begi
 python3 scripts/check_site_catchup.py docs # spec/SITE_CATCHUP.md: System page, RSX-V page, results families
 python3 scripts/check_evidence.py docs     # spec/EVIDENCE_LABELS.md: every live page shows its evidence label
 python3 scripts/check_personlab.py docs    # spec/PERSONLAB.md §7d: Person Lab on the World page, its box on the System page
+python3 scripts/check_site_night.py docs   # spec/SITE_NIGHT.md: Person Lab at the top of the World page, findings from data
 ```
 
 ## 3. Review checklist (every step)
@@ -500,6 +501,7 @@ first, then fix. Open items stay as listed in §6: the NimBLE port for C3/S3 on 
 - CUE_RESOLVE (planet 2): registered e32e281, code 5749ddb, results in the next commit. Part A FAIL by its 10× rule (stuck
   cues 15/15 → 0/15, open ticks only 1.8× fewer); Part B: always Bear still beats the Watchdog on person model v3; half of
   its v2 margin was the loophole. Register row Round 8f.
+- SITE_NIGHT (pages): registered e23a960, code 083d18a, results 330eb55; check_site_night 20/20.
 - Checks: listed in each spec's results. The reviewer should check that the registration commit precedes the code commit
   in both, and the disclosed smoke run in CUE_RESOLVE.
 

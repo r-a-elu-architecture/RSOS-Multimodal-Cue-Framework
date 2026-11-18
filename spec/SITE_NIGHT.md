@@ -71,3 +71,17 @@ Switching the World runs to person model v3; any new result.
   `check_all.sh` pass.
 - Typed, not generated (disclosed): the System box's evidence part repeats "6,352 ratings" from TURN_RATINGS by hand, like
   the other parts of that box.
+
+## 5. Amendment A1, 18 November 2026 (owner's report, before its code): "Run session" seems to do nothing
+
+Reproduced in Chrome on 47544cc: the button runs, with no page error. But a change to any choice already reruns the session,
+sessions are deterministic, and under equal effects the agents and always Bear are identical, so a click redraws the same
+table with no visible sign. Also found: the summary lowercases the effect label ("esconv ratings").
+
+- **A1.1** A status line under the controls (`#labStatus`, `aria-live="polite"`), updated on every run: run number, person,
+  policy and effects, and one sentence: "Sessions are deterministic: the same choices give the same session; changing a
+  choice runs it at once."
+- **A1.2** The session pane is highlighted briefly on every run; on a phone a click on Run session scrolls it into view.
+- **A1.3** The summary keeps the effect label's capitals ("ESConv").
+- Checks added to `check_site_night.py`: C6 a click on Run session increases the run number shown; C7 the summary contains
+  "ESConv" when the equal effects are chosen. No computation changes; check_personlab must still pass.

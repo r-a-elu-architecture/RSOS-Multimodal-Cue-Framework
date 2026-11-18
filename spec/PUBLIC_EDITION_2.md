@@ -99,3 +99,9 @@ RSOS. (Edited 18 November 2026.)" Kind (prediction), test ("Tracked as a dated p
 Files: `architecture/roadmap.py`, `spec/CLAIMS.md`, regenerated `docs/data/roadmap.json`. Checks: `check_all.sh`; the roadmap
 page renders with no page error and shows the new text; no public file outside `archive/` and this spec keeps "thousands
 helped" or "a movement".
+
+### R2 results (code 47df4ef)
+C68 edited in `architecture/roadmap.py`, `spec/CLAIMS.md` and `docs/data/roadmap.json`; the roadmap page shows the new
+text with 0 page errors; `check_all.sh` passes. "thousands helped" appears nowhere outside this spec. **Disclosed:** the
+registered phrase check also listed "a movement", which still appears in unrelated senses (a body movement in the Identity
+exercise; the ledger's recorded text, kept as recorded); the claim itself is gone.

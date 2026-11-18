@@ -1032,7 +1032,7 @@ agents 251500 + 1000k + (0..199).
 ### 11.11 Phase 9: public-data replication on WildChat-1M — design fixed before the data was opened (14 November 2026)
 
 **Data.** `allenai/WildChat-1M` (Hugging Face; licence ODC-BY; Zhao et al., ICLR 2024), shards `train-00000`, `train-00001`
-and `train-00002` of 14, as downloaded by the owner on 14 November 2026. Their SHA-256 hashes are recorded at the start of the
+and `train-00002` of 14, as downloaded by the author on 14 November 2026. Their SHA-256 hashes are recorded at the start of the
 run, before any analysis. Nothing about their content was seen before this registration. Only aggregates are published; no
 conversation text, hash or IP-derived field leaves the workspace.
 

@@ -9,7 +9,7 @@ commit.
 - This test asks whether it persists *across* a person's conversations. When the AI first uses a word with a person, does
   the person later write that word unprompted, at the start of a new conversation, more than topic persistence alone
   would explain?
-- Disclosed: the idea comes from the owner's private record (LSGPA). Nothing about cross-conversation word adoption has
+- Disclosed: the idea comes from a private record (LSGPA). Nothing about cross-conversation word adoption has
   been computed on WildChat before this registration.
 
 ## 1. Data and access

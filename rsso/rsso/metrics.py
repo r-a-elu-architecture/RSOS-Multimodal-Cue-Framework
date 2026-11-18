@@ -258,6 +258,9 @@ def registry() -> dict:
 
 
 def main():
+    if not all(p.exists() for p in LOGS.values()):
+        print("metrics: original logs not present (kept in the private repository); published metrics.json left unchanged")
+        return
     reg = registry()
     reg = edit_all(reg)            # spec/PUBLIC_EDITION.md E1
     (ROOT / "docs" / "data" / "metrics.json").write_text(json.dumps(reg, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8")

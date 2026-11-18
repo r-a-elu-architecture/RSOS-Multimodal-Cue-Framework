@@ -1,6 +1,6 @@
 # PERSONLAB — a lab of simulated persons with identity profiles grounded in real stories
 
-Status: registered 2026-11-17 (owner's decision). This file registers the lab's design and steps 1–2 in full. Later steps
+Status: registered 2026-11-17 (author's decision). This file registers the lab's design and steps 1–2 in full. Later steps
 are registered here, each before its code. Results are recorded in §9 in separate commits.
 
 ## 0. What the lab is
@@ -11,7 +11,7 @@ are registered here, each before its code. Results are recorded in §9 in separa
 - **No real person is treated.** The simulated persons' identity profiles are built from licensed, public, de-identified
   stories, instead of hand-written models. That replaces the weakness found in BASELINE_AUDIT and STAB_DEFAULT: hand-written
   person models that reward one answer and contain a loophole.
-- **Module, not a new language** (owner's decision, 17 November): the lab is the package `rsxv/rsxv/personlab/`. Agents'
+- **Module, not a new language** (author's decision, 17 November): the lab is the package `rsxv/rsxv/personlab/`. Agents'
   actions stay RSX-V programs. A small RSX-V extension (a `TARGET` line naming the profile node an action serves) is
   registered separately, at step 6.
 
@@ -40,7 +40,7 @@ are registered here, each before its code. Results are recorded in §9 in separa
   | `identity` | Identity | Who am I? |
   | `mission` | Purpose and mission | For what purpose? Who else? |
 
-  Each level carries its fixed definition (from the owner's brief) and its key question.
+  Each level carries its fixed definition (from the author's brief) and its key question.
 - **Tree.** A profile holds one node per level. A level node holds statement sub-nodes ("I am a family member"), and each
   statement holds sub-sub-nodes for where, when and any detail. Every statement and sub-sub-node carries `source`: a
   pointer (document id, character span) to the text it came from. Nothing without a source is valid.
@@ -207,7 +207,7 @@ enters only through the signal count.
 
 ## 7b. Step 5b: one state (stress) and the override on the profile (registered 17 November 2026, before code or labels)
 
-Owner's direction after step 5: narrow to one state change, stress, and test the override targeted at the person's own
+Author's direction after step 5: narrow to one state change, stress, and test the override targeted at the person's own
 profile.
 
 **Stress per turn.** Every seeker turn of the 100 conversations (both halves) gets a stress rating from 1 (calm) to 5
@@ -280,10 +280,10 @@ redesigned before it runs.
 
 **Sealed prediction:** P(VALID) = 0.35; P(at least PARTIAL) = 0.65.
 
-## 7d. Steps 6–7 as architecture: the Person Lab on the World page (registered 17 November 2026, owner's decision, before its code)
+## 7d. Steps 6–7 as architecture: the Person Lab on the World page (registered 17 November 2026, author's decision, before its code)
 
 Step 5 failed, so step 6 cannot be a test of whether the agents help: there is no validated person to test them on. By the
-owner's decision, steps 6 and 7 are built **as working architecture**, clearly labelled, so that the lab can be extended
+author's decision, steps 6 and 7 are built **as working architecture**, clearly labelled, so that the lab can be extended
 and later validated. Nothing in this section is a hypothesis test, and no result here enters the results register.
 
 **A. RSX-V `TARGET` (step 6's language part).** One header line, `TARGET <level>:<node>`, naming the profile level and the
@@ -345,7 +345,7 @@ match the shape rules and validate; templates parse for every node; the placehol
 no page errors, labels present. Private: the 4-word overlap check and the structure match against the private profiles.
 All suites, `check_all.sh` and the browser checks pass.
 
-### 7d-B′. Amendment, 17 November 2026 (evening, owner's decision, before its code): lab persons from summary statistics only
+### 7d-B′. Amendment, 17 November 2026 (evening, author's decision, before its code): lab persons from summary statistics only
 
 RSOS is an open project under Apache 2.0 and CC BY 4.0, usable by anyone, commercially included. The §7d B mirrors copied
 each private ESConv profile's structure one to one; ESConv is CC BY-NC 4.0, so the mirrors carried a non-commercial label.

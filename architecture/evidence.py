@@ -78,7 +78,10 @@ def build():
         for p, v in m["pages"].items():
             if v.get("level") == "E5":
                 raise ValueError(f"L4: {p} is labelled E5 but no register row has source 'people'")
-    L = m["levels"]
+    L = {k: dict(v) for k, v in m["levels"].items()}
+    # spec/PUBLIC_EDITION_2.md L: E4 says so while no registered test on recorded or public data has passed
+    if not any(r["source"] in ("public", "record") and r["status"] == "pass" for r in rows):
+        L["E4"]["name"] += ": no positive result yet"
     pages = {}
     for p, v in m["pages"].items():
         kind = v["kind"]

@@ -18,7 +18,7 @@
    "means": "registered tests of whether the method helps, on simulated people or agents"
   },
   "E4": {
-   "name": "Tested on recorded data",
+   "name": "Tested on recorded data: no positive result yet",
    "means": "registered tests on real recorded data, not on people using RSOS"
   },
   "E5": {
@@ -168,7 +168,7 @@
    "kind": "part",
    "level": "E4",
    "part": "RSX-V agents",
-   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
+   "text": "Evidence: E4 Tested on recorded data: no positive result yet. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
    "basis": [],
    "families": [
     "agents",
@@ -195,7 +195,7 @@
    "kind": "part",
    "level": "E4",
    "part": "The World simulation and the Person Lab",
-   "text": "Evidence: E4 Tested on recorded data. In simulation, 29 registered tests: 1 pass, 7 mixed, 19 fail, 2 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other. Not yet tested with people using RSOS.",
+   "text": "Evidence: E4 Tested on recorded data: no positive result yet. In simulation, 29 registered tests: 1 pass, 7 mixed, 19 fail, 2 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other. Not yet tested with people using RSOS.",
    "basis": [],
    "families": [
     "agents",
@@ -223,7 +223,7 @@
    "kind": "part",
    "level": "E4",
    "part": "RSX-V command layer",
-   "text": "Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
+   "text": "Evidence: E4 Tested on recorded data: no positive result yet. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other. Not yet tested with people using RSOS.",
    "basis": [],
    "families": [
     "agents",
@@ -264,17 +264,17 @@
   "index": {
    "kind": "summary",
    "level": null,
-   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other. Not yet tested with people using RSOS."
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data: no positive result yet. Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other. Not yet tested with people using RSOS."
   },
   "system": {
    "kind": "summary",
    "level": null,
-   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other. Not yet tested with people using RSOS."
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data: no positive result yet. Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other. Not yet tested with people using RSOS."
   },
   "results": {
    "kind": "summary",
    "level": null,
-   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data. Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other. Not yet tested with people using RSOS."
+   "text": "Evidence across RSOS: of 15 parts, 6 at E1 Built, 6 at E2 Checked on simulated people, 3 at E4 Tested on recorded data: no positive result yet. Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other. Not yet tested with people using RSOS."
   }
  },
  "register": {

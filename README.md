@@ -1,10 +1,12 @@
 # RSOS — Recursive Symbolic Operating System
 
+*An open framework for practising state change with breath, words and cues.*
+
 **An open operating system for changing state on purpose.** RSOS turns a negative state (a sound, a smell, something seen, a body sensation, a memory) into the signal that starts a scripted override: movement, words, a fist, breath and golden-light imagery that redirect it into agency, rehearse it in three future situations and seal it with "I own". Practised often enough, the override is meant to become a reflex.
 
 **[Run the Override Protocol in your browser →](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/player.html)**
 
-> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers, clinics and individuals can test it and share results. It is not a medical device or a treatment. Acute risk is outside self-guided use and belongs under a qualified clinician's protocol.
+> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers, clinics and individuals can test it and share results. It is not a medical device or a treatment, and not for use in an emergency: if you are at risk of harm, contact your local emergency services.
 
 ## What is here
 
@@ -60,9 +62,9 @@ Every page on the site carries one of these labels (scale and rules: [`spec/EVID
 | Night and reward (SLEEP, REWARD) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
 | Therapist mode (THERA) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
 | Personal trials (TRIAL) | E2 Checked on simulated people | the measuring recovers known answers planted in simulated people; whether the method helps is not tested |
-| RSX-V agents | E4 Tested on recorded data | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
-| RSX-V command layer | E4 Tested on recorded data | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
-| The World simulation and the Person Lab | E4 Tested on recorded data | registered tests on real recorded data, not on people using RSOS: in simulation, 29 registered tests: 1 pass, 7 mixed, 19 fail, 2 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other |
+| RSX-V agents | E4 Tested on recorded data: no positive result yet | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
+| RSX-V command layer | E4 Tested on recorded data: no positive result yet | registered tests on real recorded data, not on people using RSOS: in simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 7 registered tests: 0 pass, 2 mixed, 2 fail, 3 other |
+| The World simulation and the Person Lab | E4 Tested on recorded data: no positive result yet | registered tests on real recorded data, not on people using RSOS: in simulation, 29 registered tests: 1 pass, 7 mixed, 19 fail, 2 analysis; on recorded data, 16 registered tests: 0 pass, 4 mixed, 8 fail, 4 other |
 
 Results register: 45 registered tests: 1 pass, 11 mixed, 27 fail, 2 analysis, 4 other ([`rsxv/RESULTS.md`](rsxv/RESULTS.md)).
 

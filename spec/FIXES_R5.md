@@ -1,7 +1,7 @@
 # FIXES_R5 — fixes from the fifth independent review
 
 Status: registered 2026-11-16 (d633b5a), before code; code 9ab5f78; results in §6. Review: branch `review/r5`, commit c21e634 (reviewed dev at 2dacc02;
-0 blockers, 10 should fix, 8 notes). Owner's decision on R5-8: restore the registered escalation count.
+0 blockers, 10 should fix, 8 notes). Author's decision on R5-8: restore the registered escalation count.
 
 Two design choices of FIXES_R4 are replaced:
 - The level of a run was matched to known origins by exact text, so any no-op edit lowered it. It is now matched on
@@ -67,7 +67,7 @@ Two design choices of FIXES_R4 are replaced:
 
 | ID | Rule |
 |---|---|
-| R5-8 | **Owner's decision:** restore the registered count: 3 or more self-checks of intensity 7 or more within the last 7 days, on any days. The message says "several times this week". FIXES_R4 §5's "No threshold changed" is corrected in the record, and LOW_MOOD §2, L4 and HANDOFF are brought back in line. |
+| R5-8 | **Author's decision:** restore the registered count: 3 or more self-checks of intensity 7 or more within the last 7 days, on any days. The message says "several times this week". FIXES_R4 §5's "No threshold changed" is corrected in the record, and LOW_MOOD §2, L4 and HANDOFF are brought back in line. |
 | R5-15 | The night summary's nightmare clause and the therapist page's "re-living" link are memory-work text (hidden where memory work is not allowed). |
 | R5-18 | Code commit messages carry no results. |
 

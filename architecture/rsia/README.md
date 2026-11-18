@@ -15,10 +15,10 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSIA_Core_Definition.txt](../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Core_Definition.txt) | Core definition | `c0a41dadfa18b574` |
-| [RSIA_Archetype_Definitions.txt](../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Archetype_Definitions.txt) | Archetype definitions (public edition) | `086d5049db84b168` |
-| [RSIA_Spine_Principles.txt](../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Spine_Principles.txt) | Spine principles | `31b712a577dd9ccf` |
-| [RSIA_Watchdog_Overview.txt](../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Watchdog_Overview.txt) | Watchdog | `4ac1c98606b8ccec` |
-| [RSIA_Meta_Architect.txt](../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Meta_Architect.txt) | Meta-Architect | `76ac98beb7f90a0e` |
-| [RSIA_Applied_Use_Cases_Public.txt](../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Applied_Use_Cases_Public.txt) | Applied use cases | `ab6ac35ca1275cba` |
-| [RSIA_System_Interaction_Public.txt](../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_System_Interaction_Public.txt) | Interaction with the other systems | `cb9664535f9eb66a` |
+| RSIA_Core_Definition.txt (kept privately) | Core definition | `c0a41dadfa18b574` |
+| RSIA_Archetype_Definitions.txt (kept privately) | Archetype definitions (public edition) | `086d5049db84b168` |
+| RSIA_Spine_Principles.txt (kept privately) | Spine principles | `31b712a577dd9ccf` |
+| RSIA_Watchdog_Overview.txt (kept privately) | Watchdog | `4ac1c98606b8ccec` |
+| RSIA_Meta_Architect.txt (kept privately) | Meta-Architect | `76ac98beb7f90a0e` |
+| RSIA_Applied_Use_Cases_Public.txt (kept privately) | Applied use cases | `ab6ac35ca1275cba` |
+| RSIA_System_Interaction_Public.txt (kept privately) | Interaction with the other systems | `cb9664535f9eb66a` |

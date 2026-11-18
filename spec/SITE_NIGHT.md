@@ -89,7 +89,7 @@ table with no visible sign. Also found: the summary lowercases the effect label 
 ### A1 results (code a539772)
 `check_site_night` 24/24 (C6 run number, C7 "ESConv" added), `check_personlab` 31/31.
 
-## 6. Amendment A2, 18 November 2026 (owner's request, before its code): the Person Lab plays like the World run
+## 6. Amendment A2, 18 November 2026 (author's request, before its code): the Person Lab plays like the World run
 
 The owner: the Person Lab should be watched the way the World run is, so people see the same autonomous system working on a
 lab profile, decision by decision. A1's static status line does not do that.

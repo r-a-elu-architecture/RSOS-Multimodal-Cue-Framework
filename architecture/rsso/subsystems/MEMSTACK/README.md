@@ -10,5 +10,5 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [MEMSTACK_Historical_Reconstruction.txt](../../../../archive/original-estates/RSSO_PASS31B/MEMSTACK_Historical_Reconstruction.txt) | Reconstruction: role, inputs, outputs, operators | `168863b4c2616c88` |
-| [MEMSTACK_Evidence_Excerpts.txt](../../../../archive/original-estates/RSSO_PASS31B/MEMSTACK_Evidence_Excerpts.txt) | Evidence excerpts (public edition) | `a276b982b8f4bd9b` |
+| MEMSTACK_Historical_Reconstruction.txt (kept privately) | Reconstruction: role, inputs, outputs, operators | `168863b4c2616c88` |
+| MEMSTACK_Evidence_Excerpts.txt (kept privately) | Evidence excerpts (public edition) | `a276b982b8f4bd9b` |

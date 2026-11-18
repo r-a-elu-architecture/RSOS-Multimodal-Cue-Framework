@@ -1,6 +1,6 @@
 # LOW_MOOD — everyday low energy and clinical depression, kept apart
 
-Status: registered 2026-11-16, before code (1ec57e4); code 5878bc5; results in §4. Owner's decision: keep the node studio's "low energy or mood" structured,
+Status: registered 2026-11-16, before code (1ec57e4); code 5878bc5; results in §4. Author's decision: keep the node studio's "low energy or mood" structured,
 with two safeguards.
 
 ## 1. Rule

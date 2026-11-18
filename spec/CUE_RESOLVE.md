@@ -138,7 +138,7 @@ the same world. The adoption test is therefore whether v3 makes cue exposure pol
 - **Sealed prediction:** P(pass) = 0.80.
 - **What follows.** Pass: person model v3 (`self_resolve=6`) becomes the default for **new** person-side tests, named
   `person2.V3`; `PersonEnvV2`'s own default stays v2 so recorded runs reproduce; the World page's recorded runs move to v3
-  only by a separate registered site step (owner's decision). Fail: v3 is not adopted, and the next attempt changes the
+  only by a separate registered site step (author's decision). Fail: v3 is not adopted, and the next attempt changes the
   mechanism, not the threshold.
 
 ### Follow-up B results (code 93a1cbf; run once, 24 s; `rsxv/results/cue_resolve_adopt.json`)
@@ -181,7 +181,7 @@ policy; it is the next step, not run here.
 adoption rule of §4 had failed), and Bear ÷ Lion ≈ 1 holds by construction (neither interrupts a cue; arrivals are set by
 the trigger rate and R: about 120 / (6 + 1/0.15) ≈ 9.5 per person). The sealed P(pass) = 0.80 overstated the risk.
 **v3 is not adopted as a default**: `person2.V3` stays available; adopting a v3 (preferably with policy-independent arrival
-times) is the owner's decision. §8's "What follows" is superseded.
+times) is the author's decision. §8's "What follows" is superseded.
 
 **CR-3.** §4's "no setting of this model can be fitted from that data (TURN_RATINGS)" goes further than either result:
 TURN_RATINGS measured the seeker's rating of the support; this model's outcome is distress.

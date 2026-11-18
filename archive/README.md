@@ -4,16 +4,25 @@ This directory preserves the **original dated source records** supplied for publ
 
 ## Navigating the archive
 
-- [`original-package/`](original-package/) — the source ZIP, public edition: the same 65 files as `original-estates/`, byte for byte, inside a top-level `RSOS_RSIA_RSX_RSSO/` folder.
-- [`original-estates/`](original-estates/) — all 65 original UTF-8 files at their original paths, including the nine duplicated contents occurring at distinct historical paths. 15 of them are a public edition with targeted wording edits (see below).
-- [`provenance/SOURCE-MANIFEST.csv`](provenance/SOURCE-MANIFEST.csv) — hashes, original paths, byte counts, source categories.
-- [`provenance/DUPLICATE-MAP.csv`](provenance/DUPLICATE-MAP.csv) — nine exact duplicate file-content groups, **not** deletion instructions.
-- [`provenance/SHA256SUMS.txt`](provenance/SHA256SUMS.txt) — independently checkable SHA-256s for ZIP and all files.
-- [`../architecture/`](../architecture/) — modern, source-linked navigation and interpretations, separate from immutable originals.
+**The original records are kept privately** (since 18 November 2026, spec/PUBLIC_EDITION_2.md). What stays public is
+everything needed to identify and check them:
+
+- [`provenance/SOURCE-MANIFEST.csv`](provenance/SOURCE-MANIFEST.csv) — every original file's SHA-256, original path, byte
+  count and source category (65 files).
+- [`provenance/SHA256SUMS.txt`](provenance/SHA256SUMS.txt) — independently checkable SHA-256s for the source ZIP and all files.
+- [`provenance/DUPLICATE-MAP.csv`](provenance/DUPLICATE-MAP.csv) — nine exact duplicate file-content groups.
+- [`provenance/PUBLIC-EDITION-EDITS.csv`](provenance/PUBLIC-EDITION-EDITS.csv) — the earlier targeted wording edits, with
+  original and edited hashes.
+- The **published edition** of the tier ledger and metric logs that the site uses: `docs/data/ledger.json` and
+  `docs/data/metrics.json`. It equals the originals with one rule applied, "GPT" → "model" (spec/PUBLIC_EDITION.md).
+  Anyone holding the originals can check this with `python3 scripts/verify_edition.py PATH/TO/archive`.
+- [`../architecture/`](../architecture/) — modern, source-linked navigation and interpretations.
+
+Researchers who need the originals can ask the author; they are checked against the hashes above.
 
 ## Archive integrity and interpretation
 
-Files have not been sanitized, rewritten or deduplicated. Fifteen files carry targeted public-edition edits only: the fifth archetype is now Raven (insight and strategic perception), its mnemonic references now point to Stephen Covey's *7 Habits of Highly Effective People*, and comparison passages with an external system were removed. Line counts are unchanged and all other text is untouched. The original hashes of these files, and of the superseded source ZIP (`a2bcf263…c735e`), are listed beside the edited hashes in [`provenance/PUBLIC-EDITION-EDITS.csv`](provenance/PUBLIC-EDITION-EDITS.csv). All 65 original internal paths are preserved within `original-estates/`; the source ZIP keeps the same estate folders under a top-level `RSOS_RSIA_RSX_RSSO/` folder. Texts labeled `PASS31B` include later historical reconstructions and evidence excerpts; do not assign their assertions the same provenance as original specifications. Some original texts contain proprietary declarations, author contact details, psychological terminology and historical assistant claims. These reflect their authorship and source context, not verified extraordinary model capabilities.
+The original files were not sanitized, rewritten or deduplicated. Fifteen files carry targeted public-edition edits only: the fifth archetype is now Raven (insight and strategic perception), its mnemonic references now point to Stephen Covey's *7 Habits of Highly Effective People*, and comparison passages with an external system were removed. Line counts are unchanged and all other text is untouched. The original hashes of these files, and of the superseded source ZIP (`a2bcf263…c735e`), are listed beside the edited hashes in [`provenance/PUBLIC-EDITION-EDITS.csv`](provenance/PUBLIC-EDITION-EDITS.csv). All 65 original internal paths are preserved within `original-estates/`; the source ZIP keeps the same estate folders under a top-level `RSOS_RSIA_RSX_RSSO/` folder. Texts labeled `PASS31B` include later historical reconstructions and evidence excerpts; do not assign their assertions the same provenance as original specifications. Some original texts contain proprietary declarations, author contact details, psychological terminology and historical assistant claims. These reflect their authorship and source context, not verified extraordinary model capabilities.
 
 ## License boundary
 

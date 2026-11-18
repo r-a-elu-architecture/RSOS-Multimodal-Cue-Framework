@@ -452,7 +452,7 @@
   {
    "test": "Round 8f-B, is person model v3 adopted: is cue exposure the same under every policy? (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/CUE_RESOLVE.md\">spec/CUE_RESOLVE.md</a> \u00a78)",
    "result": "<b>Analysis</b> (criterion set after its answer; half of it holds by construction)",
-   "meaning": "On 200 fresh persons, cues per person under always Bear, the Watchdog and Lion are 9.6, 10.6 and 9.6 on v3, against 1.0, 5.5 and 1.0 on v2. Neither Bear nor Lion ever interrupts a cue, so their exposure is set by the trigger rate and R alone. v3 is available; adopting it is the owner's decision (FIXES_NIGHT FB-1). Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve_adopt.json\">results/cue_resolve_adopt.json</a>)",
+   "meaning": "On 200 fresh persons, cues per person under always Bear, the Watchdog and Lion are 9.6, 10.6 and 9.6 on v3, against 1.0, 5.5 and 1.0 on v2. Neither Bear nor Lion ever interrupts a cue, so their exposure is set by the trigger rate and R alone. v3 is available; adopting it is the author's decision (FIXES_NIGHT FB-1). Stated models (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/cue_resolve_adopt.json\">results/cue_resolve_adopt.json</a>)",
    "status": "analysis",
    "family": "person model",
    "series": null,

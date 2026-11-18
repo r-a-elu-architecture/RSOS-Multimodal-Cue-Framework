@@ -6,7 +6,7 @@ separate "Record results" commits. No threshold, limit or pass criterion of any 
 ## 0. What and why
 
 `dev` holds 92 commits since `main` (Steps 1–5, fix passes R1–R6 and P2, Phase 2, BASELINE_AUDIT, ESP32_TOOLS,
-BOARD_PENDING), all "awaiting review". The owner's decision (2026-11-17): one consolidated step. This account reviews
+BOARD_PENDING), all "awaiting review". The author's decision (2026-11-17): one consolidated step. This account reviews
 everything itself, fixes what blocks a professional release, makes the site usable without us, and ends with **one
 pull request from `dev` to `main` that the owner approves**. This account does not merge to `main`.
 
@@ -110,7 +110,7 @@ Fixes:
   - Text that names no outcome claim: no human outcome data yet; the wristband compiled and emulated, not run on a
     board; clinical use under the practitioner's own protocol.
 
-### A2 (owner's decision, 2026-11-17; before the change)
+### A2 (author's decision, 2026-11-17; before the change)
 
 The owner: RSOS is not presented as a hospital, a crisis centre or a helpline; no emergency numbers. Public documents
 follow the representation rule of HANDOFF_DEV §1, as the pages already do. Acute risk stays where that rule puts it:
@@ -140,7 +140,7 @@ Registered cfe9eff; amendment A1 ae091f8; code 475b9d2; review record 3e9eac2; r
 | A2 | Before F1: 10 of 11 browser checks pass. `check_site_catchup.py` failed: `BASELINE_AUDIT Q3 H-SWITCH meaning shown: got False, expected True` (RF1). After F1: 11 of 11 |
 | A3 | `check_release.py`: 25 pages, 75 views (desktop, phone, `/dev/`). First run: every page error was `Failed to load resource: net::ERR_TUNNEL_CONNECTION_FAILED` from Google Fonts (blocked in the workspace), with no same-origin failure, no missing link, and the banner right in every view. After F2: 75 of 75 pass; external loads that failed here: `https://fonts.googleapis.com/css2` |
 | A4 | On 683c4a6: `checks` run 44026359262 success; `firmware` run 44026359253 success (compile `K1-P pass: 40 builds`; emulator pass); Pages success |
-| R-REVIEW | Five areas, HANDOFF_DEV §5. One blocker (RF1, a check; fixed). One should-fix (no guided entry; fixed). Notes: FIXES_P2 E1 confirmed in the library sources; README crisis-line sentence (the owner's decision); third-party fonts (RF3, open). Verdict in every area: ready for the owner. A same-account review |
+| R-REVIEW | Five areas, HANDOFF_DEV §5. One blocker (RF1, a check; fixed). One should-fix (no guided entry; fixed). Notes: FIXES_P2 E1 confirmed in the library sources; README crisis-line sentence (the author's decision); third-party fonts (RF3, open). Verdict in every area: ready for the owner. A same-account review |
 | U1–U4 | "Start here" with five paths on the home page; status lines on the player, practitioner, devices and results pages; the dev banner only under `/dev/` (A3); `check_profiles.py` pass |
 | M1 | 683c4a6: `git merge -s ours origin/main`; tree identical to 6e848bb |
 | M2 | Trial merge of 683c4a6 into `main` (059a58f) in a scratch clone: no conflict, `git diff` against `dev` 0 lines, S1's `docs/js/safety.js` present. Without M1 (the same trial with 6e848bb): conflicts in 8 files, among them `docs/js/safety.js` and `rsso/rsso/safety.py` (deleted on `main`, modified on `dev`) |
@@ -156,5 +156,5 @@ Registered cfe9eff; amendment A1 ae091f8; code 475b9d2; review record 3e9eac2; r
 - **N2** One pull request `dev` → `main`, titled "Release: dev work of 16–17 November 2026 (RELEASE_1)". The body holds
   the release notes summary, the review verdicts and the checks with their run links, and states that merging
   publishes the live site. The owner merges; this account does not.
-- **N3** Version number and CITATION.cff `version` / `date-released` are set by the owner at merge (the pull request
+- **N3** Version number and CITATION.cff `version` / `date-released` are set by the author at merge (the pull request
   proposes `v2.1.0`). This step does not tag.

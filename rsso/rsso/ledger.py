@@ -25,6 +25,12 @@ import re
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1_1_FINAL_copyright/RSOS_Tiers.txt"
 SOURCE_REL = str(SOURCE.relative_to(ROOT))
+PUBLISHED = ROOT / "docs" / "data" / "ledger.json"
+
+
+def have_original() -> bool:
+    """The original records are kept in the private repository (spec/PUBLIC_EDITION_2.md M)."""
+    return SOURCE.exists()
 
 TIER_HEAD = re.compile(r"^(?:📍|🔻)\s*(?:RSOS\s+)?(?:TIER|Tier|Tiers)\s+([0-9]{3}(?:\.[0-9])?(?:–[0-9]{3})?)\s*(?:[—–-]\s*(.*?))?\s*$")
 EPOCH_HEAD = re.compile(r"^\[EPOCH ([IVX]+\+?) — (.*?)\]\s*$")
@@ -210,6 +216,8 @@ def parse_tier(block: dict) -> dict:
 
 
 def build() -> dict:
+    if not have_original():          # public repository: the published edition stands in for the original
+        return json.loads(PUBLISHED.read_text(encoding="utf-8"))
     text = SOURCE.read_bytes().decode("utf-8")
     lines = text.split("\n")
     blocks = split_blocks(lines)
@@ -266,6 +274,9 @@ def summary(ledger: dict) -> str:
 
 
 def main():
+    if not have_original():
+        print("ledger: original not present (kept in the private repository); published edition left unchanged")
+        return
     led = build()
     assert reassemble(led).encode("utf-8") == SOURCE.read_bytes(), "ledger reassembly differs from source"
     led = edit_all(led)            # spec/PUBLIC_EDITION.md E1: published edition, after the check against the original

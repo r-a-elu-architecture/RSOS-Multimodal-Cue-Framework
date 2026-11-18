@@ -174,7 +174,7 @@ function detail(m) {
   const ul = el("ul", "names");
   if (!m.names.length) ul.appendChild(el("li", "", "No name recorded; the code appears in the ledger only."));
   for (const n of m.names) { const li = el("li"); li.append(n.name + " — "); const k = el("a", "", n.source + ", line " + n.line);
-    k.href = REPO + (SRC[n.source] || SRC.ledger) + "#L" + n.line; li.appendChild(k); ul.appendChild(li); }
+    k.href = REPO + "archive/README.md"; /* PUBLIC_EDITION_2 M: originals kept privately; README explains, provenance lists hashes */ li.appendChild(k); ul.appendChild(li); }
   a.appendChild(ul);
   if (m.definition || m.threshold || m.method || m.example) {
     a.appendChild(el("h3", "", "As defined in the logs"));

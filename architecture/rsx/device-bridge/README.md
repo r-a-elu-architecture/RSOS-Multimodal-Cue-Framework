@@ -6,4 +6,4 @@ How RSX commands reach AR, EEG and haptic devices. RSX v2 emits `haptic`, `audit
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSX-Device_Output_Bridge.txt](../../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Device_Output_Bridge.txt) | RSX device output bridge | `b7233ec81e036f82` |
+| RSX-Device_Output_Bridge.txt (kept privately) | RSX device output bridge | `b7233ec81e036f82` |

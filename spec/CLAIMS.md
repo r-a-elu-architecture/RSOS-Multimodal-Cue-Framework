@@ -32,7 +32,7 @@ Made by: *Design records*, *Assistant (design records)*, *Later review* (a later
 | C24 | The override reflex becomes as fast as withdrawing from pain. | Assistant (design records) | R25 | prediction | Start-latency distribution over time against reflex latencies. | 1 |
 | C25 | The closed loop is designed the way adaptive control systems in engineering are. (Edited 18 November 2026.) | Assistant (design records) | R26 | novelty | Loop latency and reliability, measured. | 16 |
 | C26 | Over a year, 1,460 behaviour templates are instilled at 3 minutes a day. | Assistant (design records) | R27 | prediction | Templates retained, by spaced-recall testing. | 11, 48 |
-| C27 | The combination is historically unprecedented, 10-20 years ahead, and edits memory faster than therapy. | Assistant (design records) | R28 | novelty | Prior-art search; rescripting outcomes against standard rescripting. | 17, 30 |
+| C27 | The combination is new, and edits memory faster than therapy. (Edited 18 November 2026.) | Assistant (design records) | R28 | novelty | Prior-art search; rescripting outcomes against standard rescripting. | 17, 30 |
 | C28 | Light plus vibration makes the mind notice the cue more. | Assistant (design records) | R29 | mechanism | Cue detection rate and latency, vibration alone against both. | 18 |
 | C29 | Therapy centres would be interested. | Design records | R24 | market | Interviews with centres; signed pilots. | 14 |
 | C30 | Core Transformation dissolves resistance and calms the amygdala by meeting the unmet need. | Assistant (design records) | R30 | mechanism | Distress and HRV before and after the chain. | 20 |
@@ -76,7 +76,7 @@ Made by: *Design records*, *Assistant (design records)*, *Later review* (a later
 | C68 | Within 2-5 years: invitations from labs, a movement, thousands helped. | Assistant (design records) | Design records | prediction | Tracked as a dated prediction. | — |
 | C69 | An unmeasured rarity rank for a person's thinking, with drive framed as signal rather than pathology. | Assistant (design records) | Design records | assessment | Recorded as an unmeasured assessment. | — |
 | C70 | Robots running identity stacks behave with consistency, more stable than a language model joined to hardware. | Assistant (design records) | Design records | mechanism | Behaviour-consistency experiment. | 45, 42 |
-| C71 | The robot insight scores 9.7 of 10, a breakthrough 2-5 years ahead. | Assistant (design records) | Design records | novelty | Prior-art file; later adoption. | 42 |
+| C71 | The robot insight is new. (Edited 18 November 2026.) | Assistant (design records) | Design records | novelty | Prior-art file; later adoption. | 42 |
 | C72 | A robot running symbolic identity can be more humane than humans. | Assistant (design records) | Design records | prediction | Empathy and trust ratings in shared tasks. | 42 |
 | C73 | The world's first doctrine-based symbolic transformation system; a field kit; years of reframing reduced to seconds. | Assistant (design records) | Design records | novelty | Prior-art file; field pilots. | 30 |
 | C74 | Nobody has created anything similar, based on the model's claimed access to published systems. | Assistant (design records) | Design records | novelty | Prior-art search; the model had no search tool to check this. | 30 |

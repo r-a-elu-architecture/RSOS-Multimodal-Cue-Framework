@@ -6,11 +6,11 @@ history.
 
 ## 1. Rules
 
-> **RELEASED v2.1.0 (2026-11-17).** Pull request #6 merged into `main` by the owner's decision (merge commit
+> **RELEASED v2.1.0 (2026-11-17).** Pull request #6 merged into `main` by the author's decision (merge commit
 > 9f60f4c); the live site shows this work. `dev` is open again; the rules below apply. Release notes: `releases/v2.1.0.md`.
 
 - **Nothing goes to `main` or the live site** from the building account. Everything is on `dev` and the
-  development site. Merging is the owner's decision after review.
+  development site. Merging is the author's decision after review.
 - **Lanes.** The builder pushes to `dev` only. The reviewer works on its own branch (`review/<step>`) and writes
   findings in §5 there, or in a pull request against `dev`. The two never push to the same branch.
 - **Registration discipline.** Each step is registered in a spec and pushed before its code. Thresholds are never
@@ -212,7 +212,7 @@ Review: branch `review/r3`, commit 15256fa (reviewed 14d096c). Registration: `sp
 Tests: `rsso/tests/test_fixes_r3.py`; `scripts/check_outlet.py` (14 failures on 14d096c, 0 now).
 Review status: **awaiting the fourth review**.
 
-### Low mood — owner's decision (spec/LOW_MOOD.md)
+### Low mood — author's decision (spec/LOW_MOOD.md)
 
 Registered 1ec57e4. The node studio's "low energy or mood" stays structured. With the clinical vocabulary only, a
 separate "Depression (diagnosed or under treatment)" choice makes the plan clinician-led, and every node of it is
@@ -239,7 +239,7 @@ Review status: reviewed in review 5 (`review/r5`, c21e634): 0 blockers, 10 shoul
 ### Fix pass R5 (spec/FIXES_R5.md)
 
 Review: branch `review/r5`, commit c21e634 (reviewed 2dacc02). Registration d633b5a (also restores the LOW_MOOD §2
-count, owner's decision); code 9ab5f78.
+count, author's decision); code 9ab5f78.
 - **Gate**: a list of sessions with handles; a refused open changes nothing; the stricter of the saved and the live
   domain; expired sessions removed, held ones kept until closed; copies from `session()`; the run's session opens after
   the check-in.
@@ -349,7 +349,7 @@ Review status: **reviewed in RELEASE_1** (same-account review; §5).
   STAB-ONLY as registered comparators.
 - Disclosed: the smoke run used subsets of the registered seeds; its labels matched the full run's.
 - Checks: RSX-V 156 passed; `rsso` 290 passed, 2 skipped, 1 xfailed; `check_all.sh` passed; all 11 browser checks exit 0.
-- Agents page (§7, code a775ffa): retitled "Tested in simulation: the RSX-V agents", owner's decision 17 November. A line
+- Agents page (§7, code a775ffa): retitled "Tested in simulation: the RSX-V agents", author's decision 17 November. A line
   under the lede gives the audit's outcome per row, built from the audit's result file.
 Review status: **reviewed in RELEASE_1** (same-account review; §5).
 
@@ -427,7 +427,7 @@ Review status: **awaiting review**.
 - Open: World page E3 or E4 (§7). Next: step 14, the Agents page board.
 Review status: **awaiting review**.
 
-### PERSONLAB §7d: the Person Lab on the World page (registered 0882e83, code 094b5c3; owner's decision)
+### PERSONLAB §7d: the Person Lab on the World page (registered 0882e83, code 094b5c3; author's decision)
 - Rebuilt in this session: the earlier session's work on this (TARGET, mirrors, World section) was never pushed and was lost.
 - RSX-V `TARGET <level>:<node>`; 100 public mirror lab persons (private structure, invented statements, 0 shared 4-word
   runs); step 4's person in Python and the browser (identical on 600 sessions); agents (Bear / Raven / Tiger / Lion by the
@@ -546,7 +546,7 @@ Checklist:  1 pass | 2 pass (spec before code in each step's record) | 3 pass (n
             new SSIT programs carry their own SAFETY lines) | 4 pass (keys only added: rsos.clinical, rsos.settings,
             rsos.watchdog.log; none removed) | 5 pass (suites) | 6 pass (check_profiles; no crisis, helpline or
             emergency wording in any page's text, only internal mode names) | 7 pass | 8 pass | 9 pass
-Findings:   1 note -> fixed (owner's decision, RELEASE_1 A2): README.md had "If you are in crisis, contact local
+Findings:   1 note -> fixed (author's decision, RELEASE_1 A2): README.md had "If you are in crisis, contact local
             emergency services or a crisis line"; README, SECURITY, release notes and the protocol's contraindication
             now say acute risk belongs under a qualified clinician's protocol (test_release.py).
 Verdict:    ready for the owner

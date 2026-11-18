@@ -6,4 +6,4 @@ The values every mode serves: the seven virtues of Bushidō and Musashi's 21 pre
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSIA_Spine_Principles.txt](../../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Spine_Principles.txt) | RSIA Spine | `31b712a577dd9ccf` |
+| RSIA_Spine_Principles.txt (kept privately) | RSIA Spine | `31b712a577dd9ccf` |

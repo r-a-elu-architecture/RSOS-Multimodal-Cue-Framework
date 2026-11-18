@@ -24,4 +24,4 @@ Scope: no electrical stimulation; it is refused at compile time.
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSX-Command_Specification.txt](../../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Command_Specification.txt) | Command specification: the v1 vector commands RSX-V extends | `22422bb3e85e8b79` |
+| RSX-Command_Specification.txt (kept privately) | Command specification: the v1 vector commands RSX-V extends | `22422bb3e85e8b79` |

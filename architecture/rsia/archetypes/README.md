@@ -6,4 +6,4 @@ Six inner modes, each with an image, a set of principles and a primary use: **Li
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSIA_Archetype_Definitions.txt](../../../archive/original-estates/RSIA_COPYRIGHT_ESTATE/RSIA_Archetype_Definitions.txt) | RSIA archetypes | `086d5049db84b168` |
+| RSIA_Archetype_Definitions.txt (kept privately) | RSIA archetypes | `086d5049db84b168` |

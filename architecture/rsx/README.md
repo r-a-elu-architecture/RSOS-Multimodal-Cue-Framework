@@ -17,10 +17,10 @@
 
 | Source file | What it is | SHA-256 (first 16) |
 |---|---|---|
-| [RSX-Core_Definition.txt](../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Core_Definition.txt) | Core definition | `340dbaa653a27c53` |
-| [RSX-Language_Class_Declaration.txt](../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Language_Class_Declaration.txt) | Language class declaration | `f0b0eed56ab62d86` |
-| [RSX-Architecture_and_Interface.txt](../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Architecture_and_Interface.txt) | Architecture and interface | `5e4f42e133e80bbc` |
-| [RSX-Command_Specification.txt](../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Command_Specification.txt) | Command specification | `22422bb3e85e8b79` |
-| [RSX-Symbolic_Archetype_Module.txt](../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Symbolic_Archetype_Module.txt) | Archetype module | `0620a3bf5add88af` |
-| [RSX-Device_Output_Bridge.txt](../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Device_Output_Bridge.txt) | Device output bridge | `b7233ec81e036f82` |
-| [RSX-Memory_Compression_Extension.txt](../../archive/original-estates/RSX_COPYRIGHT_ESTATE/BRANCH_B_CLAIMED_COPYRIGHT/RSX-Memory_Compression_Extension.txt) | Memory and compression extension | `b6f28a7112a582ba` |
+| RSX-Core_Definition.txt (kept privately) | Core definition | `340dbaa653a27c53` |
+| RSX-Language_Class_Declaration.txt (kept privately) | Language class declaration | `f0b0eed56ab62d86` |
+| RSX-Architecture_and_Interface.txt (kept privately) | Architecture and interface | `5e4f42e133e80bbc` |
+| RSX-Command_Specification.txt (kept privately) | Command specification | `22422bb3e85e8b79` |
+| RSX-Symbolic_Archetype_Module.txt (kept privately) | Archetype module | `0620a3bf5add88af` |
+| RSX-Device_Output_Bridge.txt (kept privately) | Device output bridge | `b7233ec81e036f82` |
+| RSX-Memory_Compression_Extension.txt (kept privately) | Memory and compression extension | `b6f28a7112a582ba` |

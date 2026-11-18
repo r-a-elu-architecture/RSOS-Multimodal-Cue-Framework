@@ -89,3 +89,13 @@ As C50 in PUBLIC_EDITION, marked as edited 18 November 2026:
   (3) A: "owner's brief" and "owner's design images" were also changed (named in the audit, F5, though not in §5's list);
   ADOPT_WC's "the owner's private record" became "a private record". "Ratified by the owner" (a system role) is kept.
   (4) Roadmap C68 ("Within 2-5 years: invitations from labs, a movement…") still carries a forecast; not in scope.
+
+## 9. Amendment R2, 18 November 2026 (owner's decision, before its code): roadmap C68
+
+C68 is a tracked prediction, so it is made checkable rather than removed, and marked as edited:
+"Within 2-5 years: invitations from labs, a movement, thousands helped." → "Milestones to track by November 2028: an
+invitation or collaboration from a research lab; a first registered study with people; the number of people who have used
+RSOS. (Edited 18 November 2026.)" Kind (prediction), test ("Tracked as a dated prediction."), author label and status stay.
+Files: `architecture/roadmap.py`, `spec/CLAIMS.md`, regenerated `docs/data/roadmap.json`. Checks: `check_all.sh`; the roadmap
+page renders with no page error and shows the new text; no public file outside `archive/` and this spec keeps "thousands
+helped" or "a movement".

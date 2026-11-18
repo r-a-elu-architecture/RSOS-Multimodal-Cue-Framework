@@ -67,6 +67,13 @@ def main():
             expect(f"C4 {label} one current navigation item", pg.locator('nav a[aria-current="page"]').count(), 1)
             expect(f"C5 {label} effect values kept",
                    pg.eval_on_selector_all("#labE option", "o => o.map(x => x.value)"), ["placeholder", "illustrative"])
+            # A1: C6 a click shows a new run number; C7 the summary keeps ESConv's capitals.
+            pg.select_option("#labE", "placeholder")
+            n0 = int(re.search(r"Run (\d+)", pg.text_content("#labStatus")).group(1))
+            pg.click("#labRun"); pg.wait_for_timeout(200)
+            n1 = int(re.search(r"Run (\d+)", pg.text_content("#labStatus")).group(1))
+            expect(f"C6 {label} Run session shows a new run", n1, n0 + 1)
+            expect(f"C7 {label} summary keeps ESConv", "ESConv" in pg.text_content("#labSum"), True)
             sp = b.new_page(viewport=vp)
             sp.on("pageerror", lambda e: errs.append(str(e)))
             sp.goto(base + "/system.html", wait_until="networkidle")

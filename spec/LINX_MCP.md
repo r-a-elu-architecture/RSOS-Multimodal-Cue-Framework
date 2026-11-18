@@ -75,3 +75,32 @@ changed. `scripts/check_all.sh`: all checks passed.
 **Not covered here.** The L4 test is skipped where the MCP SDK is not installed (CI installs `requirements.txt`
 only); the pure functions (L1-L3, L5, L6) run everywhere. No AI assistant was run against the server; how well an
 assistant fills an intake is not measured.
+
+## 6. Amendment v2 (registered 18 Nov 2026, before its code): fixes and efficiency
+
+Analysis of v1 (§5): (a) one coarse medication flag withholds every plan (528 of 1,056 cells); (b) when no plan is
+built the assistant gets a dead end, not what the session state still allows; (c) one intake costs the assistant about
+5 calls (session check, about 3 frame checks, the plan) and about 6 KB returned, 83% of it programs and frame checks the
+person approves in full later; (d) CI never runs L4 (SDK not installed).
+
+Changes:
+- **Finer medication questions** in the LINX check (the site's coarse flag is unchanged): `medication`:
+  none | non_sedative | sedative | unsure, and `substances` (alcohol or other substances now): no | yes | unsure. They
+  fill the safety module's own event fields: `sedative_prescribed` = sedative or unsure; `substances` = yes or unsure.
+  The module's rule (both together raise the screen) is unchanged. The old `flags` input keeps its meaning.
+- **`allowed_now`** in every reply: what the session state permits (from `safety.MODE_ALLOWED`), with the regulation
+  programs named (`safety.REGULATING`) where they are allowed.
+- **`detail`**: `summary` (default) returns, per node, the name, mode, vibration code, frames with the frame check's
+  score and tips only where flagged, and contexts; the tiers, the schedule in one line per phase, and every safety line
+  in full. `full` returns v1's plan. The intake prompt asks for **one** `propose_plan` call (frame checks come back in
+  it); `check_frame` and `session_check` stay available.
+- CI installs the MCP SDK so L4 runs there.
+
+| # | Prediction | Pass if |
+|---|---|---|
+| **L7** | Finer medication | Over the v2 grid (v1 grid without `flags` × medication 4 × substances 3 = 3,168 cells): a plan is returned exactly where `safety.allowed` permits it for the event built from the answers; never where sedative-or-unsure meets yes-or-unsure substances; and plan-allowed cells with medication non_sedative and substances no equal those with medication none |
+| **L8** | No dead end | In every v1 and v2 grid cell without a plan, `allowed_now` equals the categories `safety.MODE_ALLOWED` gives for that mode, and names the regulation programs exactly when `regulating_cue` is allowed |
+| **L9** | Compact | Over the 203 L1 intakes, summary bytes ≤ 0.25 × full bytes (mean of ratios), with every node name, code and frame, and every safety line, present |
+| **L10** | 10× (REACH, reported, and a pass threshold) | Bytes returned to the assistant per completed intake, v2 flow (one summary call) ÷ v1 flow (session check + one check per frame + full plan): pass if ≤ 0.10; calls per intake reported (v1: 2 + frames) |
+| **L11** | CI | The checks job installs the SDK and L4 runs (not skipped) on dev |
+| **L12** | No regression | L1–L6 still pass (L1, L2, L4 on `detail: full`); `scripts/check_all.sh` passes |

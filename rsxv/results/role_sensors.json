@@ -1,0 +1,99 @@
+{
+ "ticks_per_mode": {
+  "LION": 4050,
+  "EAGLE": 4024,
+  "BEAR": 3989,
+  "LEOPARD": 4029,
+  "RAVEN": 3942,
+  "TIGER": 3966
+ },
+ "means": {
+  "LION": {
+   "Monitor": 0.0,
+   "Stabilise": 0.0,
+   "Plan": 0.4854320987654321,
+   "Repair": 0.061481481481481484,
+   "Drive": 0.5,
+   "Baseline": 0.5
+  },
+  "EAGLE": {
+   "Monitor": 0.0,
+   "Stabilise": 0.0,
+   "Plan": 1.0,
+   "Repair": 0.053429423459244535,
+   "Drive": 0.29999999999997723,
+   "Baseline": 0.29999999999997723
+  },
+  "BEAR": {
+   "Monitor": 0.0,
+   "Stabilise": 0.2898220105289344,
+   "Plan": 0.5033843068438205,
+   "Repair": 0.05540235648032088,
+   "Drive": 0.20000000000001114,
+   "Baseline": 0.20000000000001114
+  },
+  "LEOPARD": {
+   "Monitor": 0.0,
+   "Stabilise": 0.0,
+   "Plan": 0.0,
+   "Repair": 0.22213948870687517,
+   "Drive": 0.0,
+   "Baseline": 0.0
+  },
+  "RAVEN": {
+   "Monitor": 0.4140030441400304,
+   "Stabilise": 0.0,
+   "Plan": 0.49036022323693557,
+   "Repair": 0.0532724505327245,
+   "Drive": 0.29999999999997773,
+   "Baseline": 0.29999999999997773
+  },
+  "TIGER": {
+   "Monitor": 0.0,
+   "Stabilise": 0.0,
+   "Plan": 0.5012607160867373,
+   "Repair": 0.0600100857286939,
+   "Drive": 1.0,
+   "Baseline": 0.6540468986384508
+  }
+ },
+ "diagonal": {
+  "Monitor": {
+   "own_mode": "RAVEN",
+   "own_mean": 0.4140030441400304,
+   "best_other_mean": 0.0,
+   "ok": true
+  },
+  "Stabilise": {
+   "own_mode": "BEAR",
+   "own_mean": 0.2898220105289344,
+   "best_other_mean": 0.0,
+   "ok": true
+  },
+  "Plan": {
+   "own_mode": "EAGLE",
+   "own_mean": 1.0,
+   "best_other_mean": 0.5033843068438205,
+   "ok": true
+  },
+  "Repair": {
+   "own_mode": "LEOPARD",
+   "own_mean": 0.22213948870687517,
+   "best_other_mean": 0.061481481481481484,
+   "ok": true
+  },
+  "Drive": {
+   "own_mode": "TIGER",
+   "own_mean": 1.0,
+   "best_other_mean": 0.5,
+   "ok": true
+  },
+  "Baseline": {
+   "own_mode": "LION",
+   "own_mean": 0.5,
+   "best_other_mean": 0.6540468986384508,
+   "ok": false
+  }
+ },
+ "R1": false
+}

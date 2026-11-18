@@ -33,7 +33,7 @@
   "person model": {
    "pass": 1,
    "mixed": 3,
-   "fail": 7,
+   "fail": 8,
    "analysis": 1,
    "other": 1
   },
@@ -472,6 +472,15 @@
    "result": "<b>Pass</b> (O1\u2013O5; the person side equals always Bear)",
    "meaning": "On 200 fresh seeds the whole beats every single policy on the combined score (vs always Bear +0.0088, 99% CI +0.0020 to +0.0158; vs the Watchdog +0.0125; vs anchored +0.0120). On persons it ran as always Bear (replay of 50 other persons never ruled Bear out in any context; 0 live exploration); on agents it keeps the Watchdog's advantage (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/organism.json\">results/organism.json</a>)",
    "status": "pass",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8i, role sensors: one signature measure per World role (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/ROLE_ORGANISM.md\">spec/ROLE_ORGANISM.md</a>)",
+   "result": "<b>Fail</b> (5 of 6)",
+   "meaning": "On the agent environment with a random mode each tick (200 seeds), Monitor, Stabilise, Plan, Repair and Drive each have a sensor that is highest under their own mode; Baseline (Lion) has none (Drive scores 0.65 against Lion's 0.50 on it): Baseline has no function of its own in the environment (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/role_sensors.json\">results/role_sensors.json</a>)",
+   "status": "fail",
    "family": "person model",
    "series": null,
    "parent": null

@@ -22,7 +22,8 @@ step "Board check against the firmware core in real time (no board)"
 step "Generated files are reproducible"
 python3 architecture/build.py >/dev/null
 python3 architecture/roadmap.py >/dev/null
-python3 architecture/organism.py >/dev/null   # spec/ORGANISM.md: the atlas
+python3 architecture/bindings.py >/dev/null   # spec/ROLE_ORGANISM.md: proposed tier bindings
+python3 architecture/organism.py >/dev/null   # spec/ORGANISM.md: the atlas and role profiles
 (cd rsxv && python3 -m rsxv.site_example >/dev/null && python3 -m rsxv.site_agents >/dev/null && python3 -m rsxv.site_results RESULTS.md ../docs/data/results_register.json >/dev/null && python3 -m rsxv.site_findings ../docs/data/world_findings.json >/dev/null)
 python3 architecture/evidence.py >/dev/null   # spec/EVIDENCE_LABELS.md: labels on every live page and the README section
 (cd rsso && python3 -m rsso.thera >/dev/null && python3 -m rsso.cm1 >/dev/null && python3 -m rsso.peak --evaluate >/dev/null && python3 -m rsso.trial --evaluate >/dev/null && python3 -m rsso.gate --evaluate >/dev/null && python3 -m rsso.identity --evaluate >/dev/null && python3 -m rsso.atlas --evaluate >/dev/null && python3 -m rsso.night --evaluate >/dev/null && python3 -m rsso.copilot --evaluate >/dev/null && python3 -m rsso.machines --evaluate >/dev/null && python3 -m rsso.machines --channels >/dev/null && python3 -m rsso.pron --evaluate >/dev/null && python3 -m rsso.ssep --evaluate >/dev/null && python3 -m rsso.modules --evaluate >/dev/null)

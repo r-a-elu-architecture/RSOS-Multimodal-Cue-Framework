@@ -104,6 +104,26 @@ def build() -> dict:
                    "tiers_with_response": sum(1 for v in tiers.values() if v.get("response")),
                    "tiers_with_response_bound": sum(1 for v in tiers.values() if v.get("response") in ROLE_OF)},
     }
+    # --- role profiles (spec/ROLE_ORGANISM.md §2.3)
+    sys_path = str(REPO / "rsso")
+    import sys as _s
+    if sys_path not in _s.path:
+        _s.path.insert(0, sys_path)
+    from rsso import nodes as N
+    bpath = REPO / "docs/data/bindings_proposed.json"
+    proposed = json.loads(bpath.read_text(encoding="utf-8"))["tiers"] if bpath.exists() else {}
+    sensors = {"Monitor": "silent faults made visible", "Stabilise": "pressure removed beyond its drift",
+               "Plan": "next repair armed with noise-free readings", "Repair": "faulty modules fixed",
+               "Drive": "progress", "Baseline": "progress net of added load"}
+    out["role_profiles"] = {}
+    for role, spec in ROLES.items():
+        a = N.ARCHETYPES[spec["archetype"]]
+        built = sorted(t for t, v in tiers.items() if v.get("response") in spec["responses"] and v.get("status") == "built")
+        out["role_profiles"][role] = {
+            "archetype": spec["archetype"], "glyph": a["glyph"] or None, "tacton": a["tacton"], "meaning": a["meaning"],
+            "frame": a["frame"], "sensor": sensors[role], "responses": spec["responses"], "built_tiers": built,
+            "proposed_tiers": sorted(t for t, v in proposed.items() if v.get("proposed_role") == role),
+            "top_metrics": roles[role]["top_metrics"]}
     return out
 
 

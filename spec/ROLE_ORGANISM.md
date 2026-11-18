@@ -51,3 +51,30 @@ intake question per missing level) and states which steps wait for the answer.
 
 Sealed note: R1 is largely true by construction (each sensor reads its role's defined effect); it checks the
 instrument, not a discovery. R2 is the real uncertainty.
+
+## 4. Results (18 Nov 2026)
+
+Code: `rsxv/rsxv/roles.py` (`rsxv/results/role_sensors.json`), `architecture/bindings.py`
+(`docs/data/bindings_proposed.json`), role profiles in `architecture/organism.py` (`docs/data/organism.json`),
+`rsxv/rsxv/personlab/organism_plan.py` (`rsxv/results/organism_plans.json`); tests `rsxv/tests/test_role_organism.py`.
+
+| # | Result | Verdict |
+|---|---|---|
+| R1 | 5 of 6 roles have their own sensor (Monitor 0.41 vs 0; Stabilise 0.29 vs 0; Plan 1.0 vs 0.50; Repair 0.22 vs 0.06; Drive 1.0 vs 0.50). **Baseline fails**: Lion 0.50, Drive 0.65 on Baseline's own sensor, because pressure saturates at its ceiling and Drive then adds no measured load | **fail** (kept as a visible registered failure) |
+| R2 | 186 of 186 tiers have a proposal; **185 by rule (99.5%)** with the matched words, 1 flagged by hand; `tier_map.json` unchanged. Proposed: Monitor 50, Stabilise 42, Drive 40, Plan 32, Baseline 19, Repair 2 | **pass** |
+| R3 | Six complete role profiles; Baseline 19 proposed tiers | **pass** |
+| R4 | 100 of 100 plans valid (every tier built, every step measured with a target, every missing level and desired state asked); deterministic; 5.6 steps per plan | **pass** |
+| R5 | 5.4 candidate tiers per step on average, against 293 (**54× smaller**; largely by construction of role scoping) | **pass** |
+| R6 | `check_all.sh` passes; no recorded result changed; new texts pass the wording rule | **pass** |
+
+**What the organism now lacks, measured.**
+1. **Baseline is undefined as a function.** In the agent environment Lion is "progress 0.5, no other effect"; no
+   sensor can tell it apart, and it has 0 built tiers. It needs its own function (for example keeping the gain: a
+   relapse-prevention check) before it can be measured.
+2. **Five archetypes have no ledger glyph** in the nodes module (Raven, Eagle, Leopard, Tiger, Bear; only Lion 🦁).
+   The plans carry the vibration codes; the glyphs should come from the tier ledger, chosen by the author.
+3. **Repair is thin**: 2 built and 2 proposed tiers.
+4. **Profiles:** 45 of 100 have no desired state, 86 no mission, 62 no identity. The plans ask for them; until answered,
+   progress toward the desired state cannot be measured for those persons.
+5. **The 185 proposals wait for the author.** Confirmed bindings move tiers from record to specified; a test per tier
+   then moves them to built.

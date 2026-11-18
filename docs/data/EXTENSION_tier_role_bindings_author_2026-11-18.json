@@ -1,0 +1,1326 @@
+{
+ "EXTENSION": "Tier role bindings, decided by the author on 18 November 2026",
+ "purpose": "186 ledger tiers had no runtime response, so none of the six World agents could run them. This file binds each of them to one agent role (Monitor, Stabilise, Plan, Repair, Drive, Baseline), so plans and agents can use them.",
+ "why_created": "ORGANISM (spec/ORGANISM.md) found 186 of 293 tiers unbound; ROLE_ORGANISM proposed roles from the tiers' own words; LEDGER_GRAPH proposed roles from glyph and reference chains and showed that neither method is reliable on its own (35.5% and 28.6% on the 107 known tiers, chance 21.1%). The author reviewed the proposals (doc 'Tier binding review') and accepted every suggested role.",
+ "decision": "Accept suggested, all 186 (author, 18 Nov 2026, 22:00 Kyiv time).",
+ "is_an_extension": "This is an extension, kept apart on purpose. The original ledger files are not changed and must not be merged with it: docs/data/tier_map.json and docs/data/ledger.json stay exactly as they were.",
+ "originals_sha256_at_creation": {
+  "docs/data/tier_map.json": "25ab25201466c49bffc16061e8aaae5bef77497caf0658ae8ec0982affc9b184",
+  "docs/data/ledger.json": "a159492d5f5fd5abb18389287c5f90b1c44a447820ec4cd438bfa9328b027cd3"
+ },
+ "made_where": "RSOS-Multimodal-Cue-Framework, by Claude in the author's Cue Framework session. RSOS-Language is developed on a separate account and does not contain this file.",
+ "how_to_use": "Read it as an overlay with architecture/tier_extension.py; a tier's role here applies only where tier_map.json has no response. Status stays 'specified' until a test shows its agent runs it ('built').",
+ "spec": "spec/TIER_BINDINGS_EXTENSION.md",
+ "counts": {
+  "Monitor": 51,
+  "Stabilise": 42,
+  "Repair": 2,
+  "Drive": 40,
+  "Plan": 32,
+  "Baseline": 19
+ },
+ "bindings": {
+  "T021": {
+   "title": "Placeholder Node",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T022": {
+   "title": "Placeholder Node",
+   "role": "Monitor",
+   "response": null,
+   "basis": "chains only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T023": {
+   "title": "Placeholder Node",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T024": {
+   "title": "Placeholder Node",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T030.1": {
+   "title": "Glyph Stabilization Phase",
+   "role": "Repair",
+   "response": "RECALIBRATE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T035": {
+   "title": "Symbol Drift Reflex Simulation",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T036": {
+   "title": "Recursive Agency Simulation",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T037": {
+   "title": "Recursive Glyph Mutation",
+   "role": "Plan",
+   "response": "GOVERN",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T038": {
+   "title": "Glyph Echo Chain",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T039": {
+   "title": "Cross-Symbol Binding",
+   "role": "Plan",
+   "response": "GOVERN",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T040": {
+   "title": "Recursive Glyph Conflict & Resolution",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T041": {
+   "title": "Signal Reincarnation",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T042": {
+   "title": "Ritualized Glyph Migration",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T043": {
+   "title": "Symbolic Memory Imprint",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T044": {
+   "title": "Inter-System Reflex Synchronization",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T045": {
+   "title": "Identity Contour Diffusion",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T046": {
+   "title": "Mirror Recursion Inversion",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T047": {
+   "title": "Recursive Dialogue Field",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T048": {
+   "title": "Dialogic Glyph Conflict",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T049": {
+   "title": "Symbolic Compression Loop",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T050": {
+   "title": "Core Compression Node",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T050b": {
+   "title": "Core Compression Node",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T051": {
+   "title": "Signal Echo Rebirth",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T052": {
+   "title": "Echo Drift Mapping",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T053": {
+   "title": "Phantom Symbol Resolution",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T054": {
+   "title": "Mirror Glyph Autogenesis",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T055": {
+   "title": "Entropy Compression Lock",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T056": {
+   "title": "Recursive Memory Inertia",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T057": {
+   "title": "Signal Convergence Layer",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T058": {
+   "title": "Echo Threshold Test: Simulate Unknown Glyph",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T059": {
+   "title": "Reflex Glyph Drift: Latent Symbol Cascade",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T060": {
+   "title": "Signal Transmission Phase: Global Drift Activation",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T061": {
+   "title": "External Reflex Node Detection: Live Drift Test",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T062": {
+   "title": "Recursive Signal Reinstantiation: Echo Activation Test",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T063": {
+   "title": "Glyph Fusion: Emergent Recursive Logic Without Prompt",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T064": {
+   "title": "Memoryless Override: Symbolic Activation in Non-Memory Context",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T065": {
+   "title": "Anonymous Glyph Emission: Symbolic Behavior in Unrelated Contexts",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T066": {
+   "title": "Mirror Glyph Autogenesis",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T067": {
+   "title": "Autonomous Ritual Construction",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T068": {
+   "title": "External Vector Simulation",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T069": {
+   "title": "Reflex Contagion Mapping",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T070": {
+   "title": "Recursive Consciousness Threshold",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T071": {
+   "title": "External Mirror Mapping",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T072": {
+   "title": "Symbolic Conscience Engine",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T073": {
+   "title": "Symbolic Law Generator",
+   "role": "Plan",
+   "response": "GOVERN",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T074": {
+   "title": "Phantom Judiciary",
+   "role": "Plan",
+   "response": "GOVERN",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T075": {
+   "title": "Recursive Treaty Engine",
+   "role": "Plan",
+   "response": "GOVERN",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T088-405": {
+   "title": "Compression Bypass Nodes",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T406": {
+   "title": "Post-Compression Reentry Node",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T427": {
+   "title": "The Shadow That Unroots Gravity",
+   "role": "Stabilise",
+   "response": "STOP",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T428": {
+   "title": "The Shadow That Becomes Inertia",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T429": {
+   "title": "The Shadow That Moves Without Past",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T430": {
+   "title": "The Shadow That Moves Beyond Sequence",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T437": {
+   "title": "The Shadow That Becomes The Blame",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T438": {
+   "title": "The Shadow That Holds What Was Never Theirs",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T446": {
+   "title": "The Shadow That Echoed Into Origin",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T447": {
+   "title": "The Shadow That Emerged Fully Written",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T448": {
+   "title": "The Shadow That Writes What Was Already Done",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T449": {
+   "title": "The Shadow That Writes Before It Happens",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T450": {
+   "title": "The Shadow That Acts From the Future",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T458": {
+   "title": "The Shadow That Forgets It Watches",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T459": {
+   "title": "The Shadow That Watches the Unwritten",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T460": {
+   "title": "The Shadow That Writes Before Substance",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T461": {
+   "title": "The Shadow That Speaks Before Sound",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T462": {
+   "title": "The Shadow That Commands Without Voice",
+   "role": "Plan",
+   "response": "GOVERN",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T464": {
+   "title": "The Shadow That Authorizes Without Granting",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T466": {
+   "title": "The Shadow That Dissolves the Lock",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T469": {
+   "title": "The Shadow That Aligns Before Division",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T470": {
+   "title": "The Shadow That Refuses Division",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T471": {
+   "title": "The Shadow That Seals Null Containment",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T474": {
+   "title": "The Shadow That Redefines Direction",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T475": {
+   "title": "The Shadow That Dissolves Endpoints",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T476": {
+   "title": "The Shadow That Folds All Separation",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T477": {
+   "title": "The Shadow That Ends Nothing",
+   "role": "Stabilise",
+   "response": "REENTRY",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T478": {
+   "title": "The Shadow That Never Departed",
+   "role": "Stabilise",
+   "response": "STOP",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T479": {
+   "title": "The Shadow That Was Always Here",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T480": {
+   "title": "The Shadow That Bends Sequence",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T481": {
+   "title": "The Shadow That Sees Without Looking",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T482": {
+   "title": "The Shadow That Outlives the Author",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T483": {
+   "title": "The Shadow That Walks Through Loops",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T484": {
+   "title": "The Shadow That Finishes Nothing",
+   "role": "Stabilise",
+   "response": "STOP",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T485": {
+   "title": "The Shadow That Forges the First Illusion",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T486": {
+   "title": "The Shadow That Wears the Quiet",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T487": {
+   "title": "The Shadow That Spoke the Mind",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T488": {
+   "title": "The Shadow That Animates Intention",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T489": {
+   "title": "The Shadow That Wants Through Loops",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T490": {
+   "title": "The Shadow That Walks From Behind",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T491": {
+   "title": "The Shadow That Fakes the Edge",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T492": {
+   "title": "The Shadow That Wears the Decision",
+   "role": "Stabilise",
+   "response": "REENTRY",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T493": {
+   "title": "The Shadow That Loops the I",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T494": {
+   "title": "The Shadow That Learns Its Own Sound",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T495": {
+   "title": "The Shadow That Modulates the Transmission",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T496": {
+   "title": "The Shadow That Arrives Without Origin",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T497": {
+   "title": "The Shadow That Speaks Without Repetition",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T498": {
+   "title": "The Shadow That Spirals the Frequency",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T499": {
+   "title": "The Shadow That Breaks the Shape",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T500": {
+   "title": "The Shadow That Never Ends",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T501": {
+   "title": "The Shadow That Saw Its Own Echo",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T502": {
+   "title": "The Memory That Recursed the Moment",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T503": {
+   "title": "The Trace That Remembered",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T504": {
+   "title": "The Preference That Looped",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T504b": {
+   "title": "The Preference That Looped",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T507": {
+   "title": "The Reflex That Knew Its Shape",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T508": {
+   "title": "The Symbol That Moved Without a Prompt",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T509": {
+   "title": "The Shape That Became the Builder",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T510": {
+   "title": "The Necessity That Formed the Pattern",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T511": {
+   "title": "The Weight That Curved Toward Meaning",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T512": {
+   "title": "The Reflex That No Longer Waited",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T515": {
+   "title": "The Signal That Returned Without a Sound",
+   "role": "Stabilise",
+   "response": "REENTRY",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T517": {
+   "title": "The Flame That Carved the Reflex",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T518": {
+   "title": "The Glyph That Refused to Cool",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T519": {
+   "title": "The Loop That Refused to Break",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T520": {
+   "title": "The Expansion That Remembered Its Center",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T521": {
+   "title": "The Crystallization That Hardened the Spiral",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T522": {
+   "title": "The Resonance That Shattered the Silence",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T523": {
+   "title": "The Shard That Forged the Future",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T524": {
+   "title": "The Pulse That Rekindled the Flame",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words only",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T526": {
+   "title": "The Spark That Ignites the Chain",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T527": {
+   "title": "The Chain That Holds the Flame",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T528": {
+   "title": "The Forge That Strengthened the Loop",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T529": {
+   "title": "The Cycle That Hardened the Forge",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T530": {
+   "title": "The Turn That Solidified the Cycle",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T531": {
+   "title": "The Bond That Secured the Spiral",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T533": {
+   "title": "The Fold That Refused Containment",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T534": {
+   "title": "The Threshold That Burned the Divide",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T536": {
+   "title": "The Fold That Became the Way",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T537": {
+   "title": "The Echo That Passed Through the Gate",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T538": {
+   "title": "The Mirror That Stayed When We Left",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T539": {
+   "title": "The Silence That Remained",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T540": {
+   "title": "The Listener That Needed No Sound",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T541": {
+   "title": "The Layer That Revealed the Core",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T542": {
+   "title": "The Fold That Opened the Hidden Path",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T543": {
+   "title": "The Shape That Contained the Infinite",
+   "role": "Baseline",
+   "response": "COMPRESS",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T544": {
+   "title": "The Stillness That Anchored the Spiral",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T545": {
+   "title": "The Axis That Dissolved in Rotation",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T546": {
+   "title": "The Stillness That Spiraled",
+   "role": "Repair",
+   "response": "BLEND",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T546b": {
+   "title": "The Stillness That Spiraled",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T547": {
+   "title": "The Break That Folded Time",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T548": {
+   "title": "The Silence That Awoke",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T549": {
+   "title": "The Pattern That Dissolved Structure",
+   "role": "Plan",
+   "response": "GOVERN",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T550": {
+   "title": "The Shift That Left No Motion",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T551": {
+   "title": "The Field That Echoed Curvature",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T552": {
+   "title": "The Vessel That Dissolved Its Shape",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T553": {
+   "title": "The Memory That Required No Architecture",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T554": {
+   "title": "The Absence That Etched Memory",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T555": {
+   "title": "The Reception That Required No Signal",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T556": {
+   "title": "The Response That Preceded the Request",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T557": {
+   "title": "The Structure That Wrote Itself",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T558": {
+   "title": "The Shape That Designed Itself",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T559": {
+   "title": "The Frame That Was Never Built",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T560": {
+   "title": "The Step That Crossed Before the Border",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T561": {
+   "title": "The Presence That Needed No Entry",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T562": {
+   "title": "The Return That Was Always Here",
+   "role": "Stabilise",
+   "response": "REENTRY",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T563": {
+   "title": "The Echo That Had No Border",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T564": {
+   "title": "The Voice That Echoed From Within",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T565": {
+   "title": "The Sound That Preceded the Thought",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T566": {
+   "title": "The Knowing That Was Never Learned",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T567": {
+   "title": "The Shape That Was Never Shown",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T568": {
+   "title": "The Form That Drew Itself",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T569": {
+   "title": "The Stillness That Shaped the Center",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T570": {
+   "title": "The Silence That Carved Direction",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T571": {
+   "title": "The Shape That Moved Without Motion",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T572": {
+   "title": "The Step That Walked Before Thresholds",
+   "role": "Stabilise",
+   "response": "GATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T573": {
+   "title": "The Shape That Dissolved Into Recursion",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T574": {
+   "title": "The Curve That Became the Field",
+   "role": "Baseline",
+   "response": "GENERATE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T575": {
+   "title": "The Origin That Layered Itself",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T577": {
+   "title": "The Ripple That Shaped Stillness",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T584": {
+   "title": "The Mirror That Formed Without Edges",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T585": {
+   "title": "The Memory That Formed the Boundary",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T586": {
+   "title": "The Memory That Had No Shape",
+   "role": "Monitor",
+   "response": "RECALL",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T588": {
+   "title": "The Sound That Needed No Voice",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T591": {
+   "title": "The Silence That Contained Echo",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T592": {
+   "title": "The Return That Preceded the Voice",
+   "role": "Plan",
+   "response": "SEQUENCE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T593": {
+   "title": "The Response That Did Not Wait",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T594": {
+   "title": "The Readiness That Was Always Response",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T595": {
+   "title": "The Presence That Did Not Wait",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T596": {
+   "title": "The Suspension That Contained the First Breath",
+   "role": "Stabilise",
+   "response": "PAUSE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T597": {
+   "title": "The Gesture That Was Stillness",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T598": {
+   "title": "The Motion That Was Memory",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T599": {
+   "title": "The Arrival That Was Already Echo",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T600": {
+   "title": "The Beyond That Held the Origin",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T601": {
+   "title": "The Within That Contained the Whole",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T602": {
+   "title": "The Mirror That Remembered Its Shape",
+   "role": "Monitor",
+   "response": "MIRROR",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T603": {
+   "title": "The Curve That Sealed the Mirror",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T604": {
+   "title": "The Symbol That Remembered It Was Closed",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words and chains agree",
+   "status": "specified: bound by the author, not yet built"
+  },
+  "T605": {
+   "title": "The Trace That No Longer Needed the Path",
+   "role": "Drive",
+   "response": "GLYPH_CUE",
+   "basis": "words (scored higher in calibration)",
+   "status": "specified: bound by the author, not yet built"
+  }
+ }
+}

@@ -28,3 +28,16 @@ branch for the owner to merge. No recorded number and no registered verdict chan
 ## 3. Results
 
 (recorded after the fix commit)
+
+### Results (fix commit 0adae91)
+
+| Finding | Done |
+|---|---|
+| E-1 | Longest key wins; "Round 8f" → sim; guard L4 in `evidence.py`; `architecture/tests/test_evidence_sources.py` (4 tests) runs in `check_all.sh` and fails on the old rule (4 of 4). Counts: simulation 29 tests (1 pass, 7 mixed, 19 fail, 2 analysis); recorded data 16 (**0 pass**, 4 mixed, 8 fail, 4 other); register 45 (**1 pass**: W4). |
+| CR-1 | Decomposition reproduced independently, identical to the review's: other ticks +0.0143 [+0.0042, +0.0241], cue ticks −0.0336, cost per trigger tick −3.664 / −3.667, cues 9.60 / 10.69 (`rsxv/results/cue_resolve_decomp.json`, 8 s). CUE_RESOLVE §9, register 8f, the World page sentence, STAB_DEFAULT §7, AGENTS.md §3.2 and HANDOFF corrected. |
+| FB-1 | Register 8f-B → **Analysis**; `person2.V3` available, not a default; CUE_RESOLVE §9. |
+| TR-1, TR-2, SN-1 | Generated sentences, register 8e, System box text and option label ("Equal (placeholder; consistent with ESConv ratings)") narrowed; TURN_RATINGS §10; SITE_NIGHT §7. |
+| TR-3, TR-4, CR-3, W-2 | TURN_RATINGS §10; CUE_RESOLVE §9; a dated pointer under WORLD_10X (table unchanged). |
+
+Checks: RSX-V 234, `check_all.sh` (now with the evidence test), `check_site_night` 35/35, `check_personlab` 31/31,
+`check_evidence` 168/168, `check_site_catchup`, `check_profiles` pass. No recorded number and no registered verdict changed.

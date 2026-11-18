@@ -96,15 +96,17 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
 <div class="wrap">
 <header class="top">
   <a class="mark" href="./">RSOS</a>
-  <nav><a href="world.html" aria-current="page">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html" aria-current="page">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
+  <nav><a href="world.html" aria-current="page">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>
 </header>
 
-<h1>Software agents and a simulated person, run by one architecture.</h1>
-<p class="lede">On the left, six software agents depend on each other and fail. On the right, a simulated person meets cues that raise distress. The same Watchdog chooses each side's working mode every tick, and the Spine and the safety layer can overrule it.</p>
+<h1>Software agents, a simulated person and a Person Lab of 100, run by one architecture.</h1>
+<p class="lede">Three parts share one architecture. Six software agents depend on each other and fail. A simulated person meets cues that raise distress. In the Person Lab, agents work toward each of 100 lab persons' desired state, one RSX-V program per step. The same Watchdog chooses the working mode every tick, and the Spine and the safety layer can overrule it.</p>
+<p class="jump" style="margin:-6px 0 18px"><a href="#run">Agent system and simulated person</a> · <a href="#lab">Person Lab: 100 lab persons and agents</a> · <a href="#findings">What the latest results say</a></p>
   <!-- evidence:start --><p class="evidence" data-level="E4" style="font-size:.88em;color:var(--muted);border-left:3px solid var(--muted);padding-left:10px;margin:0 0 22px">Evidence: E4 Tested on recorded data. In simulation, 27 registered tests: 1 pass, 7 mixed, 18 fail, 1 analysis; on recorded data, 17 registered tests: 0 pass, 4 mixed, 9 fail, 4 other. Not yet tested with people using RSOS.</p><!-- evidence:end -->
 <p class="note">These are replays of real runs of the tested code (<code>rsxv</code>: <code>World</code>, <code>AgentEnvV2</code>, <code>PersonEnvV2</code>), recorded tick by tick. Both sides are stated models, not people and not production systems. Choose an intervention and a run, press play, and click the timeline to see why any decision was made.</p>
 
-<div class="controls" role="group" aria-label="Run controls">
+<section id="findings" style="margin:0 0 22px"><h2 style="font-size:1.15rem;margin:0 0 8px">What the latest results say</h2><ul class="note" style="margin:0;padding-left:20px"><li id="findTurn">Loading…</li><li id="findCue">Loading…</li></ul></section>
+<div class="controls" id="run" role="group" aria-label="Run controls">
   <label>What happens<select id="ev"><option value="none">Nothing: an ordinary run</option><option value="storm">A storm: faults and a cue for 20 ticks</option><option value="shift">A shift: conditions change and stay changed</option></select></label>
   <label>When<select id="t0"><option value="40">At tick 40</option><option value="90">At tick 90</option></select></label>
   <label>Run<select id="seed"><option value="11">Run A</option><option value="12">Run B</option><option value="13">Run C</option></select></label>
@@ -158,16 +160,16 @@ pre.prog{font:12px/1.45 var(--mono);background:var(--ink);border:1px solid var(-
 <section>
   <h2>What you are looking at</h2>
   <p class="lede">The Watchdog estimates, from what it has seen so far, which mode fits each context, and switches through a two-phase handover. It also micro-randomises some ticks to keep learning. On the person side, a safety mode such as STABILISE blocks deep work whatever the Watchdog wants, and the run falls back to stabilising. Each block shows as a small gold mark on the timeline and as a step in the decision chain for that tick.</p>
-  <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The result most relevant here is T-AP: a policy learned on agents passed its registered test on the simulated person, but it fails the baseline audit, because always stabilising did better.</p>
+  <p class="note">Results of every registered test, passes and failures, are on the <a href="results.html">results page</a>. The result most relevant here is T-AP: a policy learned on agents passed its registered test on the simulated person, but it fails the baseline audit, because always stabilising did better. <span id="lookFind"></span></p>
 </section>
 
 <section id="lab">
   <h2>Person Lab: 100 lab persons, and agents working toward each one's desired state</h2>
   <p class="lede">Each lab person has an identity profile on six levels, from environment up to purpose, with where they are now and where they want to be. Choose one and run a session: every tick the Watchdog picks an archetype (Bear steadies, Raven clarifies, Tiger takes a step, Lion shares), and each action is an RSX-V program whose <code>TARGET</code> line names the part of the profile it serves. Always Bear, the simple rule that beat switching in the baseline audit, runs beside it on the same person.</p>
-  <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each is drawn at random from summary statistics of 100 profiles built from a public research dataset of support conversations (ESConv), and every statement is written for the lab. They are not real people, not anyone's words, and none corresponds to any profile. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
+  <p class="note" id="labNote"><b>Read this first.</b> The lab persons are invented: each is drawn at random from summary statistics of 100 profiles built from a public research dataset of support conversations (ESConv), and every statement is written for the lab. They are not real people, not anyone's words, and none corresponds to any profile. The simulated person failed its validation (<a href="results.html">Person Lab step 5</a>), and matching the person's sensory words or echoing them showed no effect on people's own ratings (RAPPORT_ESCONV). <span id="labFind"></span> This is a working demonstration of the architecture, built to be extended and tested, not evidence that it helps anyone.</p>
   <div class="controls" role="group" aria-label="Person Lab controls">
     <label>Lab person<select id="labP"></select></label>
-    <label>Effects of actions<select id="labE"><option value="placeholder">Equal (registered placeholder)</option><option value="illustrative">Different (invented, untested)</option></select></label>
+    <label>Effects of actions<select id="labE"><option value="placeholder">Equal (placeholder; ESConv ratings show no difference)</option><option value="illustrative">Different (invented, untested)</option></select></label>
     <label>Policy<select id="labPol"><option value="agents">Agents (Watchdog rule)</option><option value="always_bear">Always Bear</option><option value="no_support">No support</option></select></label>
     <button class="play" id="labRun" type="button">Run session</button>
   </div>
@@ -206,6 +208,7 @@ const CTX = {calm:"calm", rising:"rising", loaded:"loaded", crisis:"critical"};
 const ACT = {HOLD:"held the current mode", SWITCH:"switched mode (fit was low)", OVERRIDE:"ran the repair loop (overload)", RE_ENTRY:"re-entered from the last good snapshot"};
 const POS = {RAVEN:[90,70], BEAR:[90,230], EAGLE:[230,150], LEOPARD:[350,70], TIGER:[400,230], LION:[505,150]};
 let D = null, run = null, t = 0, timer = null, names = "F";
+let F = null;   // spec/SITE_NIGHT.md N2: findings built from the result files (data/world_findings.json)
 const $ = id => document.getElementById(id);
 const nm = m => NAMES[names][m] || m;
 const el = (tag, attrs, parent) => { const e = document.createElementNS("http://www.w3.org/2000/svg", tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
@@ -222,7 +225,7 @@ function pick() {
     + `always Bear ${S.person_mean_bear.toFixed(3)} (the simple baseline that beat switching in the <a href="results.html">baseline audit</a>). `
     + `Cues reaching the person: ${c.watchdog} under the Watchdog${c.watchdog_open_at_end ? " (one still open at the end)" : ""}, `
     + `${c.bear} under always Bear${c.bear_open_at_end ? " (one still open at the end)" : ""}. `
-    + `In this model an uninterrupted cue blocks later cues; see STAB_DEFAULT §5.`;
+    + (F ? F.run_note : `In this model an uninterrupted cue blocks later cues; see STAB_DEFAULT §5.`);
 }
 
 function drawGraph(tick) {
@@ -306,7 +309,16 @@ $("play").addEventListener("click", play);
 $("reset").addEventListener("click", () => { if (timer) play(); t = 0; show(); });
 $("nmF").addEventListener("click", () => setNames("F"));
 $("nmS").addEventListener("click", () => setNames("S"));
-fetch("data/world_runs.json").then(r => r.json()).then(d => { D = d; pick(); })
+Promise.all([fetch("data/world_runs.json").then(r => r.json()),
+             fetch("data/world_findings.json").then(r => r.json()).catch(() => null)]).then(([d, f]) => {
+  F = f;
+  if (F) {
+    $("findTurn").textContent = F.turn; $("findCue").textContent = F.cue;
+    $("lookFind").textContent = "Since then: " + F.cue;
+    const lf = document.getElementById("labFind"); if (lf) lf.textContent = F.lab_note;
+  } else { $("findTurn").textContent = "The findings could not be loaded."; $("findCue").textContent = ""; }
+  D = d; pick();
+})
   .catch(() => { $("aNow").textContent = "The recorded runs could not be loaded. Open this page from the website, not as a local file."; });
 })();
 </script>
@@ -319,7 +331,7 @@ const NM = {BEAR: "Bear", RAVEN: "Raven", TIGER: "Tiger", LION: "Lion"};
 const ACT = {STABILISE: "steady", EXPLORE: "clarify", SUGGEST: "take a step", SHARE: "share", NONE: "no action"};
 const POL = {agents: "Agents (Watchdog rule)", always_bear: "Always Bear", no_support: "No support"};
 const TYPE = {"job crisis": "work and job", "breakup with partner": "a breakup", "problems with friends": "friendships", "academic pressure": "study pressure"};   // display names (no crisis wording on pages)
-const EFF = {placeholder: "Equal effects (registered placeholder)", illustrative: "Different effects (invented, untested)"};
+const EFF = {placeholder: "Equal effects (placeholder; ESConv ratings show no difference)", illustrative: "Different effects (invented, untested)"};
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 let LAB = null, M = null, run = null;
 Promise.all([fetch("data/personlab_lab.json").then(r => r.json()), fetch("data/personlab_persons.json").then(r => r.json())])

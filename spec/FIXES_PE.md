@@ -21,3 +21,8 @@ changes. Made by the same account that wrote the review (disclosed; the reviewer
 ## 3. Results
 
 (recorded after the change)
+
+### Results (code in the commit before this one)
+- **K1:** `check_all.sh` "All checks passed"; only HANDOFF_DEV.md changed in the code commit.
+- **K2:** HANDOFF_DEV.md §1 and checklist item 6 now name the one registered sentence and its three places, and still
+  bar every other crisis, helpline or emergency wording; §4 has the PUBLIC_EDITION section with all commits.

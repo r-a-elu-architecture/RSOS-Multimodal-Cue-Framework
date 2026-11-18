@@ -1,0 +1,72 @@
+{
+ "h1": {
+  "diagonal": {
+   "Monitor": {
+    "own_mode": "RAVEN",
+    "own_mean": 0.32775240994419075,
+    "best_other_mean": 0.0,
+    "ok": true
+   },
+   "Stabilise": {
+    "own_mode": "BEAR",
+    "own_mean": 0.2898220105289344,
+    "best_other_mean": 0.0,
+    "ok": true
+   },
+   "Plan": {
+    "own_mode": "EAGLE",
+    "own_mean": 1.0,
+    "best_other_mean": 0.5033843068438205,
+    "ok": true
+   },
+   "Repair": {
+    "own_mode": "LEOPARD",
+    "own_mean": 0.20352444775378506,
+    "best_other_mean": 0.041603247082699135,
+    "ok": true
+   },
+   "Drive": {
+    "own_mode": "TIGER",
+    "own_mean": 1.0,
+    "best_other_mean": 0.5,
+    "ok": true
+   },
+   "Baseline": {
+    "own_mode": "LION",
+    "own_mean": 2.537037037037037,
+    "best_other_mean": 0.0,
+    "ok": true
+   }
+  },
+  "all": true
+ },
+ "margins": {
+  "v2": {
+   "ORGANISM": -0.09246436666666664,
+   "BEAR": -0.10705858148148145,
+   "ORGANISM_minus_BEAR": {
+    "estimate": 0.014594214814814807,
+    "ci": [
+     0.006808847092592582,
+     0.022602887777777733
+    ]
+   },
+   "lion_ticks_per_run": 43.515
+  },
+  "v4": {
+   "ORGANISM": -0.04370913703703702,
+   "BEAR": -0.09677594814814813,
+   "ORGANISM_minus_BEAR": {
+    "estimate": 0.0530668111111111,
+    "ci": [
+     0.04143558649999999,
+     0.06335535211111107
+    ]
+   },
+   "lion_ticks_per_run": 48.6
+  }
+ },
+ "H1": true,
+ "H2": true,
+ "H3": false
+}

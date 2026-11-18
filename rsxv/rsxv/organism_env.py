@@ -44,6 +44,68 @@ class AgentEnvV3(AgentEnvV2):
         return r
 
 
+class AgentEnvV4(AgentEnvV2):
+    """spec/GUARD_GAIN.md: LION hardens the system for the next 3 ticks (new faults at half the rate)."""
+    side = "agent_v4"
+    HARDEN = 3
+
+    def __init__(self, seed: int, **kw):
+        super().__init__(seed, **kw)
+        self.shield = 0
+        self.granted = 0
+
+    def _maybe_fault(self, p):
+        super()._maybe_fault(p / 2 if self.shield > 0 else p)
+
+    def step(self, mode: str) -> float:
+        r = super().step(mode)
+        self.shield = max(0, self.shield - 1)
+        self.granted = 0
+        if mode == "LION":
+            self.granted = self.HARDEN - self.shield
+            self.shield = self.HARDEN
+        return r
+
+
+def sensors_on(env_cls, baseline_attr):
+    sums = {m: {r: 0.0 for r in roles.ROLE_OF_MODE.values()} for m in MODES}
+    n = {m: 0 for m in MODES}
+    for seed in W1_SEEDS:
+        env, rng = roles.attach(env_cls(seed)), random.Random(seed * 13 + 5)
+        for _ in range(TICKS):
+            mode = rng.choice(MODES)
+            _, sens = roles.step_with_sensors(env, mode)
+            sens["Baseline"] = getattr(env, baseline_attr)
+            n[mode] += 1
+            for role, v in sens.items():
+                sums[mode][role] += v
+    means = {m: {r: sums[m][r] / n[m] for r in sums[m]} for m in MODES}
+    diag = {role: {"own_mode": mode, "own_mean": means[mode][role],
+                   "best_other_mean": max(means[m][role] for m in MODES if m != mode)} for mode, role in roles.ROLE_OF_MODE.items()}
+    for d in diag.values():
+        d["ok"] = d["own_mean"] > d["best_other_mean"]
+    return {"diagonal": diag, "all": all(d["ok"] for d in diag.values())}
+
+
+def margins(classes):
+    out = {}
+    for name, cls in classes:
+        org = [run(cls, "WATCHDOG", s) for s in W4_SEEDS]
+        bear = [run(cls, "BEAR", s) for s in W4_SEEDS]
+        out[name] = {"ORGANISM": float(np.mean([x[0] for x in org])), "BEAR": float(np.mean([x[0] for x in bear])),
+                     "ORGANISM_minus_BEAR": paired([x[0] for x in org], [x[0] for x in bear]),
+                     "lion_ticks_per_run": float(np.mean([x[1] for x in org]))}
+    return out
+
+
+def guard_gain():
+    h1 = sensors_on(AgentEnvV4, "granted")
+    m = margins((("v2", AgentEnvV2), ("v4", AgentEnvV4)))
+    v2, v4 = m["v2"]["ORGANISM_minus_BEAR"], m["v4"]["ORGANISM_minus_BEAR"]
+    return {"h1": h1, "margins": m, "H1": h1["all"], "H2": v4["ci"][0] > 0 and v4["estimate"] >= v2["estimate"],
+            "H3": v4["estimate"] >= 0.146}
+
+
 def w1():
     sums = {m: {r: 0.0 for r in roles.ROLE_OF_MODE.values()} for m in MODES}
     n = {m: 0 for m in MODES}
@@ -86,6 +148,11 @@ def w4():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 2 and sys.argv[2] == "guard":
+        res = guard_gain()
+        json.dump(res, open(sys.argv[1], "w"), indent=1)
+        print(json.dumps({k: res[k] for k in ("H1", "H2", "H3")} | {"diag": {r: (round(d["own_mean"], 3), round(d["best_other_mean"], 3)) for r, d in res["h1"]["diagonal"].items()}, "margins": res["margins"]}, indent=1))
+        sys.exit(0)
     res = {"w1": w1(), "w4": w4()}
     json.dump(res, open(sys.argv[1], "w"), indent=1)
     print(json.dumps(res, indent=1))

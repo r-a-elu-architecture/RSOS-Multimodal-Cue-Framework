@@ -17,6 +17,8 @@ import organism as O  # noqa: E402
 import tier_extension as X  # noqa: E402
 
 OUT = "docs/data/EXTENSION_glyph_proposals_2026-11-18.json"
+CHOSEN = {"RAVEN": "🝳", "BEAR": "⟁", "EAGLE": "🜵", "LEOPARD": "🜇", "TIGER": "🝢"}   # author, 18 Nov 2026 (GUARD_GAIN)
+CHOSEN_NOTE = "Author accepted all five proposals, 18 Nov 2026, 22:27 Kyiv time."
 GLYPHLIKE = re.compile(r"^[^\w\[\](){}\"'.,:;]+$")      # a symbol, not a word or a bracketed name
 
 
@@ -42,14 +44,14 @@ def build() -> dict:
         out[spec["archetype"]] = {"role": role, "proposed": ranked[0] if ranked else None,
                                   "from_tiers": sorted(t for g, t in by_role[role] if ranked and g == ranked[0]),
                                   "alternatives": [{"glyph": g, "tiers": cnt[g]} for g in ranked[1:4]],
-                                  "chosen_by_author": None}
+                                  "chosen_by_author": CHOSEN.get(spec["archetype"])}
         if ranked:
             taken.add(ranked[0])
     return {"EXTENSION": "Glyph proposals for Raven, Eagle, Leopard, Tiger and Bear (18 Nov 2026)",
             "purpose": "Five archetypes have no ledger glyph in the nodes module (only Lion 🦁). Each proposal is the glyph that "
                        "appears most often on the tiers of the archetype's role (ledger and the author's binding extension).",
             "is_an_extension": "Kept apart: the nodes module and the ledger are unchanged. The author chooses; nothing is applied "
-                               "until then.", "spec": "spec/WHOLE_ORGANISM.md", "proposals": out}
+                               "until then.", "spec": "spec/WHOLE_ORGANISM.md, spec/GUARD_GAIN.md", "decision": CHOSEN_NOTE, "proposals": out}
 
 
 if __name__ == "__main__":

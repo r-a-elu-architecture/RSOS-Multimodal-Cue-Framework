@@ -115,12 +115,15 @@ def build() -> dict:
     sensors = {"Monitor": "silent faults made visible", "Stabilise": "pressure removed beyond its drift",
                "Plan": "next repair armed with noise-free readings", "Repair": "faulty modules fixed",
                "Drive": "progress", "Baseline": "progress net of added load"}
+    gpath = REPO / "docs/data/EXTENSION_glyph_proposals_2026-11-18.json"     # author's glyph choice, an overlay
+    chosen = {a: v.get("chosen_by_author") for a, v in json.loads(gpath.read_text(encoding="utf-8"))["proposals"].items()} \
+        if gpath.exists() else {}
     out["role_profiles"] = {}
     for role, spec in ROLES.items():
         a = N.ARCHETYPES[spec["archetype"]]
         built = sorted(t for t, v in tiers.items() if v.get("response") in spec["responses"] and v.get("status") == "built")
         out["role_profiles"][role] = {
-            "archetype": spec["archetype"], "glyph": a["glyph"] or None, "tacton": a["tacton"], "meaning": a["meaning"],
+            "archetype": spec["archetype"], "glyph": a["glyph"] or chosen.get(spec["archetype"]), "tacton": a["tacton"], "meaning": a["meaning"],
             "frame": a["frame"], "sensor": sensors[role], "responses": spec["responses"], "built_tiers": built,
             "proposed_tiers": sorted(t for t, v in proposed.items() if v.get("proposed_role") == role),
             "top_metrics": roles[role]["top_metrics"]}

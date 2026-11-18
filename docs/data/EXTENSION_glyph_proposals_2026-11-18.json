@@ -1,5 +1,6 @@
 {
  "EXTENSION": "Glyph proposals for Raven, Eagle, Leopard, Tiger and Bear (18 Nov 2026)",
+ "decision": "Author accepted all five proposals, 18 Nov 2026, 22:27 Kyiv time.",
  "is_an_extension": "Kept apart: the nodes module and the ledger are unchanged. The author chooses; nothing is applied until then.",
  "proposals": {
   "BEAR": {
@@ -17,7 +18,7 @@
      "tiers": 2
     }
    ],
-   "chosen_by_author": null,
+   "chosen_by_author": "⟁",
    "from_tiers": [
     "T011",
     "T515",
@@ -41,7 +42,7 @@
      "tiers": 2
     }
    ],
-   "chosen_by_author": null,
+   "chosen_by_author": "🜵",
    "from_tiers": [
     "T417",
     "T475"
@@ -64,7 +65,7 @@
      "tiers": 1
     }
    ],
-   "chosen_by_author": null,
+   "chosen_by_author": "🜇",
    "from_tiers": [
     "T009"
    ],
@@ -86,7 +87,7 @@
      "tiers": 2
     }
    ],
-   "chosen_by_author": null,
+   "chosen_by_author": "🝳",
    "from_tiers": [
     "T432",
     "T489",
@@ -111,7 +112,7 @@
      "tiers": 1
     }
    ],
-   "chosen_by_author": null,
+   "chosen_by_author": "🝢",
    "from_tiers": [
     "T573",
     "T597"
@@ -121,5 +122,5 @@
   }
  },
  "purpose": "Five archetypes have no ledger glyph in the nodes module (only Lion 🦁). Each proposal is the glyph that appears most often on the tiers of the archetype's role (ledger and the author's binding extension).",
- "spec": "spec/WHOLE_ORGANISM.md"
+ "spec": "spec/WHOLE_ORGANISM.md, spec/GUARD_GAIN.md"
 }

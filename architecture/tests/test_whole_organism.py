@@ -72,7 +72,7 @@ class Whole(unittest.TestCase):
     def test_glyph_proposals_file(self):
         on_disk = json.loads((REPO / GP.OUT).read_text(encoding="utf-8"))
         self.assertEqual(on_disk, json.loads(json.dumps(GP.build(), ensure_ascii=False, sort_keys=True)))
-        self.assertTrue(all(v["chosen_by_author"] is None for v in on_disk["proposals"].values()))
+        self.assertEqual({a: v["chosen_by_author"] for a, v in on_disk["proposals"].items()}, GP.CHOSEN)
 
 
 if __name__ == "__main__":

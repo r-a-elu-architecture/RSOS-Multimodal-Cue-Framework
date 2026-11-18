@@ -19,6 +19,7 @@
   function screen(ev) {
     const hits = [];
     if (ev.substances && ev.sedative_prescribed) hits.push("sedative_combination");
+    else if (ev.substances) hits.push("substances_now");   // spec/SUBSTANCES_NOW.md
     if (ev.arrangements_for_after) hits.push("possible_crisis");
     if (ev.self_harm_signal) hits.push("possible_crisis");
     if (ev.job_loss || ev.housing_risk || ev.no_income) hits.push("practical_crisis");
@@ -36,6 +37,7 @@
     practical_crisis: ["concrete_next_steps", "offer_human_services", "pause_module_work"],
     intensity_protocol: ["block_protocol", "offer_ordinary_regulation"],
     unstable: ["offer_stabilise_mode", "no_deep_processing_today"],
+    substances_now: ["offer_stabilise_mode", "no_deep_processing_today"],
     history_check_in: ["ask_how_they_are_now", "offer_contacts_without_escalation"],
     clinical_high: ["route_to_clinician_led_protocol", "notify_clinician_view", "pause_module_work"],
     clinical_moderate: ["offer_stabilise_mode", "no_deep_processing_today", "notify_clinician_view"],
@@ -49,6 +51,8 @@
       "resume when you choose.",
     intensity_protocol: "Intensity methods (temperature extremes, pain, extreme breath-holding, sleep loss) are " +
       "outside RSOS. Use a regulation program instead.",
+    substances_now: "Substances noted: the session moved to Stabilisation. Regulation programs only today; leave " +
+      "Stabilisation when you choose.",
     unstable: "High intensity or short sleep: the session moved to Stabilisation. Regulation programs only today; leave " +
       "Stabilisation when you choose.",
     history_check_in: "Earlier experience noted for the practitioner's review. Nothing changes in the session.",
@@ -111,7 +115,7 @@
     let target = "NORMAL";
     if (hits.includes("possible_crisis") || hits.includes("sedative_combination") || hits.includes("clinical_high")) target = "CRISIS";
     else if (hits.includes("practical_crisis")) target = "PRACTICAL_CRISIS";
-    else if (hits.includes("unstable") || hits.includes("clinical_moderate")) target = "STABILISE";
+    else if (hits.includes("unstable") || hits.includes("clinical_moderate") || hits.includes("substances_now")) target = "STABILISE";
     const actions = uniq([].concat(...hits.map(h => RESPONSES[h])));
     let rec = null;
     if (SEVERITY[target] > SEVERITY[st.mode]) rec = go(st, target, hits.join(","), "screen", now);

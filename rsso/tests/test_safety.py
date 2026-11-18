@@ -69,7 +69,7 @@ class TestRules(unittest.TestCase):
         self.assertEqual(S.screen({"hopelessness": True}), [])
         self.assertEqual(S.screen({"history_reference": True}), ["history_check_in"])
         self.assertEqual(S.screen({"history_reference": True, "self_harm_signal": True}), ["possible_crisis"])
-        self.assertEqual(S.screen({"substances": True}), [])
+        self.assertEqual(S.screen({"substances": True}), ["substances_now"])     # spec/SUBSTANCES_NOW.md (was [])
         self.assertEqual(S.screen({"distress": 7}), ["unstable"])
         for h in S.RESPONSES:
             self.assertIn(h, S.MESSAGES)

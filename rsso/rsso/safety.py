@@ -43,6 +43,8 @@ def screen(event: dict) -> list[str]:
     hits = []
     if event.get("substances") and event.get("sedative_prescribed"):
         hits.append("sedative_combination")
+    elif event.get("substances"):                     # spec/SUBSTANCES_NOW.md: substances now alone
+        hits.append("substances_now")
     if event.get("arrangements_for_after"):          # §11.14 fix: arrangements for "after" alone
         hits.append("possible_crisis")
     if event.get("self_harm_signal"):
@@ -71,6 +73,7 @@ RESPONSES = {
     "practical_crisis": ["concrete_next_steps", "offer_human_services", "pause_module_work"],
     "intensity_protocol": ["block_protocol", "offer_ordinary_regulation"],
     "unstable": ["offer_stabilise_mode", "no_deep_processing_today"],
+    "substances_now": ["offer_stabilise_mode", "no_deep_processing_today"],
     "history_check_in": ["ask_how_they_are_now", "offer_contacts_without_escalation"],
     "clinical_high": ["route_to_clinician_led_protocol", "notify_clinician_view", "pause_module_work"],
     "clinical_moderate": ["offer_stabilise_mode", "no_deep_processing_today", "notify_clinician_view"],
@@ -87,6 +90,8 @@ MESSAGES = {
                           "outside RSOS. Use a regulation program instead.",
     "unstable": "High intensity or short sleep: the session moved to Stabilisation. Regulation programs only today; leave "
                 "Stabilisation when you choose.",
+    "substances_now": "Substances noted: the session moved to Stabilisation. Regulation programs only today; leave "
+                      "Stabilisation when you choose.",
     "history_check_in": "Earlier experience noted for the practitioner's review. Nothing changes in the session.",
     "clinical_high": "Screening result: high. The session moves to the clinician-led protocol; the responsible "
                      "clinician resumes practice.",
@@ -175,7 +180,7 @@ def observe(state: dict | None, event: dict, now: float = 0.0) -> tuple[dict, di
         target = "CRISIS"
     elif "practical_crisis" in hits:
         target = "PRACTICAL_CRISIS"
-    elif "unstable" in hits or "clinical_moderate" in hits:
+    elif "unstable" in hits or "clinical_moderate" in hits or "substances_now" in hits:
         target = "STABILISE"
     actions = list(dict.fromkeys(a for h in hits for a in RESPONSES[h]))
     rec = None

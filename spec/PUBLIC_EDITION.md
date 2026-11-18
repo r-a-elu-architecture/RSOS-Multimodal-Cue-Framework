@@ -69,3 +69,20 @@ in the public git history; whether to rewrite it is a separate decision of the o
 ## 6. Results
 
 (recorded after the code commit)
+
+### Results (code 3a8a23b)
+
+- **C1:** the original ledger reassembles byte for byte; applying E1 to the records built from the original gives exactly
+  the published `ledger.json`, `metrics.json` and `tier_map.json` (`rsso/tests/test_public_edition.py`).
+- **C2:** 0 "GPT" in the published data; 173 ledger lines changed by E1 (60 field labels, 113 others); all 293 tiers keep the
+  same layers, channels, role, response, operator, status and reason. T027 now reads "Model demonstrated internal retention
+  independent of prompt". Kept: WildChat's GPT-3.5/4, Who&When's GPT-4o, SafeguardGPT, "Touched by ChatGPT", the
+  corpus_lineage stop-word list. The release note v2.1.0 line naming the field was also changed.
+- **C3:** no public file outside `archive/` contains "578 turns", "15 May", "owner's health history", "owner's own" or
+  "owner's record"; the SR-3 candidate count and the descriptions of what missed turns contained were removed from
+  `sr2.md`, `sr3.md`, AGENTS §11.14 and register rows SR-2 and SR-3.
+- **C4:** `check_all.sh` (304 tests), RSX-V 234, `check_evidence` 168/168, `check_site_catchup`, `check_profiles`,
+  `check_site_night` 35/35 pass; tiers, metrics, system, roadmap and results pages render with 0 page errors, 0 "GPT", 0
+  "military" or "special forces".
+- **Still in the repository:** `archive/` keeps the originals (with "GPT"), as registered; the earlier wording stays in the
+  public git history. Both are open decisions of the owner.

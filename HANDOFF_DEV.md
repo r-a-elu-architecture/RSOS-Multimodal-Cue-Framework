@@ -492,6 +492,17 @@ compile, the emulator checks, the PWM-register check, CI on every push (`firmwar
 a tester (issue #5). Resumes when a board report arrives (issue #5 or the Board report form): register the result
 first, then fix. Open items stay as listed in §6: the NimBLE port for C3/S3 on 3.3+, and the first board run.
 
+### WORLD_10X, TURN_RATINGS and CUE_RESOLVE (18 November 2026, night)
+
+- WORLD_10X (spec/world10x/): sealed plan, not a test (ea1b5f7).
+- TURN_RATINGS (planet 8): registered 90298e7, code fca11ec, pilot e0da9ed, results 2e6c334. Q1 and Q2 NULL (equivalence):
+  the supporter's action adds nothing to the person's own next rating in ESConv. Register row Round 8e.
+- CUE_RESOLVE (planet 2): registered e32e281, code 5749ddb, results in the next commit. Part A FAIL by its 10× rule (stuck
+  cues 15/15 → 0/15, open ticks only 1.8× fewer); Part B: always Bear still beats the Watchdog on person model v3; half of
+  its v2 margin was the loophole. Register row Round 8f.
+- Checks: listed in each spec's results. The reviewer should check that the registration commit precedes the code commit
+  in both, and the disclosed smoke run in CUE_RESOLVE.
+
 ## 5. Review findings
 
 Reviewer: add one block per review.

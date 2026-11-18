@@ -76,3 +76,48 @@ The World page and site_traces stay on v2 until Part A is recorded (then a separ
 ## 7. Results
 
 (recorded in separate commits)
+
+### Results (code 5749ddb; run once, 30 s; `rsxv/results/cue_resolve.json`)
+
+**Disclosed:** a smoke run (`--quick`) on 10 unregistered persons (seeds 990000–990009, Part B only) ran before the
+registered run, and its direction was seen. Nothing was changed between it and the registered run.
+
+**Part A: FAIL by the registered rule.**
+
+| 15 recorded configurations | stuck at end | blocked ticks | cues (per run) | mean per tick |
+|---|---|---|---|---|
+| v2, always Bear | 15 / 15 | 2,335 | 15 (1 each) | +0.0918 |
+| v2, Watchdog | 0 / 15 | 1,660 | 134 (3–23) | +0.0410 |
+| **v3, always Bear** | **0 / 15** | **1,311** | 224 (14–16) | +0.0131 |
+| v3, Watchdog | 0 / 15 | 987 | 242 (14–20) | +0.0128 |
+
+- The stuck-cue condition is met: 15 / 15 → 0 / 15.
+- The blocked-ticks condition is not: 2,335 → 1,311 is 1.8× fewer, not 10×. An independent recount from each cue's start
+  and end gives the same totals.
+- **Why, stated after the run:** closing the loophole lets about 15× more cues arrive (15 → 224), and each new cue is
+  legitimately open for up to 6 ticks. "Blocked ticks" counted those normal episodes as well as the stuck one, so a 10×
+  reduction was not a sensible target for this measure. This is a fault of the registration (and of WORLD_10X row 2's
+  wording), not of the mechanism; the verdict stands as registered.
+
+**Part B: BEAR STILL WINS on v3.**
+
+| 200 fresh persons, 120 ticks | Watchdog − Bear (99%) | Bear | Watchdog | Lion | cues per person (B / W) |
+|---|---|---|---|---|---|
+| v2 (reference) | −0.0406 [−0.0464, −0.0353] | +0.127 | +0.086 | +0.038 | 1.0 / 5.1 |
+| **v3, R = 6** | **−0.0193 [−0.0266, −0.0115]** | +0.054 | +0.035 | −0.032 | 9.6 / 10.7 |
+| v3, R = 3 (sensitivity) | −0.0147 [−0.0251, −0.0048] | +0.030 | +0.015 | — | 12.6 / 13.0 |
+| v3, R = 12 (sensitivity) | −0.0221 [−0.0281, −0.0167] | +0.079 | +0.057 | — | 6.7 / 8.4 |
+
+- **Loophole share:** Bear's margin over the Watchdog falls from 0.0406 to 0.0193 per tick. **About half (0.0214) of
+  Bear's advantage on v2 was the loophole.** The other half remains with the loophole closed, at every R tested.
+- Both still beat Lion on v3 (Watchdog − Lion +0.067 [+0.058, +0.075]; Bear − Lion +0.086 [+0.078, +0.094]). Final distress
+  on v3: Bear 0.81, Watchdog 1.73, Lion 5.72.
+
+**Sealed predictions:** P(Part A passes) = 0.90, not met. P(BEAR STILL WINS) = 0.55, the outcome that occurred.
+
+**What follows (§4, as fixed).**
+- Part A did not pass, so person model v3 does **not** replace v2 by this step. A follow-up must register a measure that
+  separates a stuck cue from normal episodes (for example ticks with a cue open longer than R) before v3 is adopted.
+- BEAR STILL WINS on v3: the stabilise-first default (STAB_DEFAULT D2) stands, and the loophole caveat becomes a measured
+  size: half of Bear's v2 margin was the loophole, half remains.
+- Stated models only. Nothing here is evidence about people (TURN_RATINGS found no action effect in people's own ratings).

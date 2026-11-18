@@ -22,3 +22,9 @@ that plays the lab.
 ## 3. Results
 
 (recorded after the code commit)
+
+### Results (code in the commit before this one)
+- **K1:** `check_all.sh` "All checks passed"; `check_site_night` 35/35; `check_personlab` 31/31, 0 page errors;
+  `check_profiles` fails []; `check_evidence` 168/168.
+- **K2:** `scripts/check_lab_link.py docs` 10/10 at 1280 px and 390 px: the link is in the agent pane; one click brings
+  `#lab` into view and the lab button reads "Pause"; a second click leaves it playing; 0 page errors.

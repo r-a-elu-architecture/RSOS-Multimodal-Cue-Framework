@@ -70,3 +70,22 @@ As C50 in PUBLIC_EDITION, marked as edited 18 November 2026:
 ## 8. Results
 
 (recorded after the code commit)
+
+### Results (code 4a17218)
+
+- **V1:** `scripts/verify_edition.py` on the private backup's originals: 65/65 files match the manifest; the ledger
+  reassembles byte for byte; the published ledger and metrics equal the originals plus E1.
+- **V2:** no file under `archive/original-estates/` or `archive/original-package/` is tracked in the public repository (0);
+  with the originals absent, `ledger.build()` falls back to the published edition and the tier map and glyph originals
+  rebuild **byte-identical**; `ledger.py` and `metrics.py` leave the published files unchanged.
+- **V3:** `check_all.sh`, RSX-V 234, `check_profiles`, `check_evidence` 168/168, `check_site_catchup`,
+  `check_site_night` 35/35, `check_personlab` 31/31 pass; `rsx/tests/test_repository.py` resolves every local link.
+- **V4:** the emergency sentence is in the README, `safety.html` and `therapist.html` only (required there by
+  `check_profiles`, `test_release` and `test_safety`, barred elsewhere); the subtitle is on the README and home page; E4
+  reads "Tested on recorded data: no positive result yet" on every page and in the README.
+- **Disclosed:** (1) `docs/metrics.html` first broke (a `//` comment cut off the rest of a line); `check_profiles` and
+  `check_evidence` caught it (8 page errors) before the commit; fixed with an inline comment. (2) The README's "Acute risk
+  is outside self-guided use and belongs under a qualified clinician's protocol." was replaced by the emergency sentence.
+  (3) A: "owner's brief" and "owner's design images" were also changed (named in the audit, F5, though not in §5's list);
+  ADOPT_WC's "the owner's private record" became "a private record". "Ratified by the owner" (a system role) is kept.
+  (4) Roadmap C68 ("Within 2-5 years: invitations from labs, a movement…") still carries a forecast; not in scope.

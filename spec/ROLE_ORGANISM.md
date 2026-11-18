@@ -70,7 +70,7 @@ Code: `rsxv/rsxv/roles.py` (`rsxv/results/role_sensors.json`), `architecture/bin
 **What the organism now lacks, measured.**
 1. **Baseline is undefined as a function.** In the agent environment Lion is "progress 0.5, no other effect"; no
    sensor can tell it apart, and it has 0 built tiers. It needs its own function (for example keeping the gain: a
-   relapse-prevention check) before it can be measured.
+   setback-prevention check) before it can be measured.
 2. **Five archetypes have no ledger glyph** in the nodes module (Raven, Eagle, Leopard, Tiger, Bear; only Lion 🦁).
    The plans carry the vibration codes; the glyphs should come from the tier ledger, chosen by the author.
 3. **Repair is thin**: 2 built and 2 proposed tiers.

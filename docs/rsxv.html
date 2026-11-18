@@ -64,9 +64,9 @@ footer .mdline{display:block;margin-top:6px}
   <h2>One program in three forms</h2>
   <p class="note" id="formsNote">Loading the example…</p>
   <div class="forms">
-    <section class="form"><h3>1. RSX-V command</h3><p class="sub">Vectors, a gate, staged phases with conditions, laws</p><pre id="fCommand" aria-label="RSX-V command"></pre></section>
-    <section class="form"><h3>2. RSX cue program</h3><p class="sub">Written by the bridge; tiers, breath, phases, cues</p><pre id="fCue" aria-label="RSX cue program"></pre></section>
-    <section class="form"><h3>3. Device lines</h3><p class="sub">What the wristband receives (RSOS Device Protocol)</p><pre id="fDevice" aria-label="Device lines"></pre></section>
+    <section class="form"><h3>1. RSX-V command</h3><p class="sub">Vectors, a gate, staged phases with conditions, laws</p><pre id="fCommand" data-raw aria-label="RSX-V command"></pre></section>
+    <section class="form"><h3>2. RSX cue program</h3><p class="sub">Written by the bridge; tiers, breath, phases, cues</p><pre id="fCue" data-raw aria-label="RSX cue program"></pre></section>
+    <section class="form"><h3>3. Device lines</h3><p class="sub">What the wristband receives (RSOS Device Protocol)</p><pre id="fDevice" data-raw aria-label="Device lines"></pre></section>
   </div>
 
   <h2>What RSX-V adds</h2>
@@ -74,7 +74,7 @@ footer .mdline{display:block;margin-top:6px}
     <div><h3>Typed vectors</h3><p>34 operators, each typed by the cognitive layer it acts on (C1–C11): the canonical 17-vector set, extended operators, Vector 0 NullSafe and operators that reach layers no earlier operator reached.</p></div>
     <div><h3>A gate and staged phases</h3><p>A gate runs first. Each phase has conditions on body state and layer activation (IF, ELSE, UNTIL, MIN, MAX), and at most 17 vectors run at once.</p></div>
     <div><h3>Ten laws</h3><p>Among them a simulation before every live run (GhostPass), consent (ConsentStack), separation of conflicting operators (InteractionMatrix), time windows (ChronoGate) and a hash-chained log (ResonanceAudit).</p></div>
-    <div><h3>Measurement and NEXT</h3><p>Every vector is audited for agency, distress, drift and layer activation. NEXT writes the successor command from the measured result and upgrades older vector commands.</p></div>
+    <div><h3>Measurement and NEXT</h3><p>Every vector is audited for agency, intensity, drift and layer activation. NEXT writes the successor command from the measured result and upgrades older vector commands.</p></div>
     <div><h3>Translator</h3><p>A message becomes vectors and then a complete command. Each operator keeps a link to the clause of the message it came from.</p></div>
     <div><h3>The same safety</h3><p>The bridge compiles to RSX, so the RSX limits, the Watchdog and the output gate apply unchanged. A command carries a guidance level (self-guided, structured or clinician-led) that the program it compiles to keeps, that NEXT never lowers and that the Watchdog checks against the domain before a run. The archetype agents are governed by the same Spine and Watchdog as the person side.</p></div>
   </div>

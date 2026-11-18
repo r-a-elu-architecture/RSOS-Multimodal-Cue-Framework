@@ -1,4 +1,4 @@
-# GUARD_GAIN: the author's glyph choice, and Baseline as relapse prevention
+# GUARD_GAIN: the author's glyph choice, and Baseline as keeping the gain (fault prevention)
 
 Registered 18 Nov 2026, before its code. Author's decisions of the same day: accept the five glyph proposals; proceed
 with the next Baseline test, then merge.
@@ -9,7 +9,7 @@ Raven 🝳, Bear ⟁, Eagle 🜵, Leopard 🜇, Tiger 🝢 (`docs/data/EXTENSION
 `chosen_by_author`). The nodes module and the ledger stay unchanged; the role profiles and the plans read the choice as
 an overlay.
 
-## 2. Baseline as relapse prevention (`AgentEnvV4`, a new subclass; every recorded environment unchanged)
+## 2. Baseline as keeping the gain (fault prevention) (`AgentEnvV4`, a new subclass; every recorded environment unchanged)
 
 WHOLE_ORGANISM showed that rolling back to the best state does Repair's work and costs the whole. Blocking a bad change
 within a tick is already Bear's snapshot. Baseline therefore gets the one function no role has: **prevention**. LION

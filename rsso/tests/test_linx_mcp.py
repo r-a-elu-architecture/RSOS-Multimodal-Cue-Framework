@@ -159,7 +159,14 @@ class L5DeterminismNoNetwork(unittest.TestCase):
 
 CRISIS = re.compile(r"\b(?:crisis|suicid\w*|self-harm|harming yourself|helpline|emergency services|not wanting to live|"
                     r"at risk of harm|emergency)\b", re.I)          # scripts/check_profiles.py, plus "emergency"
-EXCLUDED = re.compile(r"\b(?:fox|48 laws|cunning|tribit)\b", re.I)
+def _excluded():
+    """The repository's own excluded-term patterns (rsx/tests/test_roadmap.py), not repeated here."""
+    src = (HERE.parents[1] / "rsx" / "tests" / "test_roadmap.py").read_text(encoding="utf-8")
+    line = next(x for x in src.splitlines() if x.startswith("EXCLUDED = "))
+    return [(re.compile(p, 0 if any(c.isupper() for c in p) else re.I)) for p in ast.literal_eval(line.split("=", 1)[1].strip())]
+
+
+EXCLUDED = _excluded()
 
 
 class L6Wording(unittest.TestCase):
@@ -169,7 +176,7 @@ class L6Wording(unittest.TestCase):
         for i, sl, cl, fl, hi in GRID[::7]:
             texts.append(json.dumps(L.propose_plan(INTAKES[0], {"intensity": i, "sleep_h": sl, "clinical_result": cl,
                                                                  "flags": fl, "history": hi}), ensure_ascii=False))
-        hits = [(t[:60], m.group()) for t in texts for m in [CRISIS.search(t) or EXCLUDED.search(t)] if m]
+        hits = [(t[:60], m.group()) for t in texts for m in [CRISIS.search(t) or next((x.search(t) for x in EXCLUDED if x.search(t)), None)] if m]
         self.assertEqual(hits, [])
 
 

@@ -68,6 +68,10 @@ read as a sedative combination and moves the session to the clinician-led protoc
 cells with that flag). This is the safety module's fixed rule, unchanged here; for practitioners and coaches it is the
 main limit on when the tool returns a plan. A finer medication question is a separate, registered step if wanted.
 
+**CI fix (same day).** The first push failed the repository's excluded-terms scan: the L6 test spelled the terms
+out to search for them. The test now reads the patterns from `rsx/tests/test_roadmap.py`; no threshold or result
+changed. `scripts/check_all.sh`: all checks passed.
+
 **Not covered here.** The L4 test is skipped where the MCP SDK is not installed (CI installs `requirements.txt`
 only); the pure functions (L1-L3, L5, L6) run everywhere. No AI assistant was run against the server; how well an
 assistant fills an intake is not measured.

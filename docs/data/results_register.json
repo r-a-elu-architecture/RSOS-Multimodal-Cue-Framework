@@ -33,7 +33,7 @@
   "person model": {
    "pass": 1,
    "mixed": 3,
-   "fail": 8,
+   "fail": 9,
    "analysis": 1,
    "other": 1
   },
@@ -480,6 +480,15 @@
    "test": "Round 8i, role sensors: one signature measure per World role (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/ROLE_ORGANISM.md\">spec/ROLE_ORGANISM.md</a>)",
    "result": "<b>Fail</b> (5 of 6)",
    "meaning": "On the agent environment with a random mode each tick (200 seeds), Monitor, Stabilise, Plan, Repair and Drive each have a sensor that is highest under their own mode; Baseline (Lion) has none (Drive scores 0.65 against Lion's 0.50 on it): Baseline has no function of its own in the environment (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/role_sensors.json\">results/role_sensors.json</a>)",
+   "status": "fail",
+   "family": "person model",
+   "series": null,
+   "parent": null
+  },
+  {
+   "test": "Round 8j, can a tier's role be read from its words or its glyph chains? (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/../spec/LEDGER_GRAPH.md\">spec/LEDGER_GRAPH.md</a>)",
+   "result": "<b>Fail</b> (G2\u2013G4)",
+   "meaning": "On the 107 tiers whose role is known, keywords recover it 35.5% of the time and glyph and reference chains 28.6%, against chance 21.1% (registered bar 2\u00d7). 674 edges link 225 of 293 tiers; Epoch IV is the hub and Epochs I\u2013III are almost cut off from IV\u2013VI. Role is not readable mechanically: the author decides each binding",
    "status": "fail",
    "family": "person model",
    "series": null,

@@ -320,7 +320,7 @@ class World:
         self.keys = ag.OwnerKeys()
         self.lineage = Lineage(self.log)
         self.ledger = ledger or FitLedger()
-        self.active = "LION"
+        self.active = "BEAR" if policy == "anchored" else "LION"     # spec/AGENTS_ANCHOR.md: anchored starts in Bear
         self.t = 0
         self.cool: dict[str, int] = {}
         self.clean: dict[str, int] = {m: 0 for m in MODES}
@@ -344,6 +344,18 @@ class World:
             if v > bv:
                 best, bv = m, v
         return best
+
+    def _anchored(self, ctx):
+        """spec/AGENTS_ANCHOR.md: Bear unless the ledger's interval rules Bear out in this context."""
+        bear = self.ledger.ci(ctx, "BEAR")
+        if bear is None or "BEAR" not in self._allowed():
+            return "BEAR"
+        best, lo_best = "BEAR", None
+        for m in self._allowed():
+            ci = self.ledger.ci(ctx, m) if m != "BEAR" else None
+            if ci is not None and (lo_best is None or ci[0] > lo_best):
+                best, lo_best = m, ci[0]
+        return best if lo_best is not None and lo_best > bear[1] else "BEAR"
 
     def _allowed(self):
         return [m for m in MODES if m not in self.banned and self.cool.get(m, -1) < self.t]
@@ -406,12 +418,13 @@ class World:
                 want = self.policy.get(ctx, self.active)
             else:
                 want = {"rule": lambda: self._rule(ctx), "rotation": lambda: MODES[self.t // 4 % len(MODES)],
-                        "fixed": lambda: self.fixed_mode, "bandit": lambda: self._bandit(ctx)}[self.policy]()
+                        "fixed": lambda: self.fixed_mode, "bandit": lambda: self._bandit(ctx),
+                        "anchored": lambda: self._anchored(ctx)}[self.policy]()
             if want != self.active:
                 self._switch(want, "policy")
         # micro-randomisation for the ledger (watchdog policy only): run a random allowed mode this tick, disclosed
         mode = self.active
-        randomised = (self.policy == "watchdog" and self.rng.random() < self.explore) or self.policy == "random"
+        randomised = (self.policy in ("watchdog", "anchored") and self.rng.random() < self.explore) or self.policy == "random"
         if randomised:
             mode = self.rng.choice(self._allowed())
         if getattr(self.env, "safety", None) is not None:      # R3: safety modes gate the action category
@@ -513,6 +526,7 @@ class RolePolicy:
 # spec/STAB_DEFAULT.md D2: anything new that runs on a person starts stabilise-first (spec/BASELINE_AUDIT.md: always
 # Bear beat ledger switching in every stated model). World's own default stays "watchdog" so recorded runs reproduce.
 STABILISE_FIRST = {"policy": "fixed", "fixed_mode": "BEAR"}
+ANCHORED = {"policy": "anchored", "explore": 0.05}        # spec/AGENTS_ANCHOR.md
 
 
 def person_world(env, seed=0, **kw):

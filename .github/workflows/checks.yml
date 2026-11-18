@@ -19,4 +19,7 @@ jobs:
       - name: Fonts used to render the original glyphs
         run: sudo apt-get update && sudo apt-get install -y fonts-noto-color-emoji fonts-unifont fonts-dejavu-core
       - run: pip install -r requirements.txt
+      - run: pip install "mcp>=2"   # spec/LINX_MCP.md L11: the MCP protocol test runs in CI
       - run: ./scripts/check_all.sh
+        env:
+          RSOS_REQUIRE_MCP: "1"

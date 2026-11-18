@@ -9,7 +9,7 @@ step "RSX: language, compilers (Python and JavaScript), repository and link chec
 (cd rsx && python3 -m unittest discover -s tests)
 step "RSX-V: command layer, laws, translator and bridge into RSX"
 (cd rsxv && python3 -m unittest discover -s tests)
-step "RSSO: runtime, devices, firmware, safety, nodes, LINX, CONTAIN, THERA, CM1, PEAK, camera heart rate, TRIAL, CHECKS, contribution, board"
+step "RSSO: runtime, devices, firmware, safety, nodes, LINX, LINX_MCP (spec/LINX_MCP.md), CONTAIN, THERA, CM1, PEAK, camera heart rate, TRIAL, CHECKS, contribution, board"
 (cd rsso && python3 -m unittest discover -s tests)
 step "Evidence labels: row sources and the stated-model guard (spec/FIXES_NIGHT.md E-1)"
 python3 -m unittest discover -s architecture/tests -p "test_*.py"
@@ -22,6 +22,10 @@ step "Board check against the firmware core in real time (no board)"
 step "Generated files are reproducible"
 python3 architecture/build.py >/dev/null
 python3 architecture/roadmap.py >/dev/null
+python3 architecture/bindings.py >/dev/null   # spec/ROLE_ORGANISM.md: proposed tier bindings
+python3 architecture/organism.py >/dev/null   # spec/ORGANISM.md: the atlas and role profiles
+python3 architecture/ledger_graph.py >/dev/null   # spec/LEDGER_GRAPH.md: tier parts and bindings
+python3 architecture/glyph_proposals.py >/dev/null   # spec/WHOLE_ORGANISM.md: glyph proposals (extension)
 (cd rsxv && python3 -m rsxv.site_example >/dev/null && python3 -m rsxv.site_agents >/dev/null && python3 -m rsxv.site_results RESULTS.md ../docs/data/results_register.json >/dev/null && python3 -m rsxv.site_findings ../docs/data/world_findings.json >/dev/null)
 python3 architecture/evidence.py >/dev/null   # spec/EVIDENCE_LABELS.md: labels on every live page and the README section
 (cd rsso && python3 -m rsso.thera >/dev/null && python3 -m rsso.cm1 >/dev/null && python3 -m rsso.peak --evaluate >/dev/null && python3 -m rsso.trial --evaluate >/dev/null && python3 -m rsso.gate --evaluate >/dev/null && python3 -m rsso.identity --evaluate >/dev/null && python3 -m rsso.atlas --evaluate >/dev/null && python3 -m rsso.night --evaluate >/dev/null && python3 -m rsso.copilot --evaluate >/dev/null && python3 -m rsso.machines --evaluate >/dev/null && python3 -m rsso.machines --channels >/dev/null && python3 -m rsso.pron --evaluate >/dev/null && python3 -m rsso.ssep --evaluate >/dev/null && python3 -m rsso.modules --evaluate >/dev/null)

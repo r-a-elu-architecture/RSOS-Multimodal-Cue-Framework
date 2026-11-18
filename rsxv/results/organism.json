@@ -1,0 +1,101 @@
+{
+ "replay_ledger_cells": 24,
+ "mean": {
+  "person": {
+   "ORGANISM": 0.05653733212027657,
+   "BEAR": 0.05653733212027657,
+   "WATCHDOG": 0.044060402303179626,
+   "ANCHORED": 0.05337556490193245
+  },
+  "agent": {
+   "ORGANISM": -0.0960496185185185,
+   "BEAR": -0.10487091111111109,
+   "WATCHDOG": -0.0960496185185185,
+   "ANCHORED": -0.10492189259259257
+  }
+ },
+ "combined_mean": {
+  "ORGANISM": -0.03951228639824193,
+  "BEAR": -0.04833357899083453,
+  "WATCHDOG": -0.051989216215338876,
+  "ANCHORED": -0.05154632769066012
+ },
+ "person_ORGANISM_minus_BEAR": {
+  "estimate": 0.0,
+  "ci": [
+   0.0,
+   0.0
+  ]
+ },
+ "agent_ORGANISM_minus_BEAR": {
+  "estimate": 0.008821292592592593,
+  "ci": [
+   0.001957842277777772,
+   0.01576149687037037
+  ]
+ },
+ "combined_ORGANISM_minus": {
+  "BEAR": {
+   "estimate": 0.008821292592592593,
+   "ci": [
+    0.0019578422777777726,
+    0.01576149687037037
+   ]
+  },
+  "WATCHDOG": {
+   "estimate": 0.01247692981709694,
+   "ci": [
+    0.005198502638213067,
+    0.019761135694758947
+   ]
+  },
+  "ANCHORED": {
+   "estimate": 0.012034041292418196,
+   "ci": [
+    0.0018255053759965933,
+    0.021714643586292614
+   ]
+  }
+ },
+ "switches_per_run": {
+  "person": {
+   "ORGANISM": 0.0,
+   "BEAR": 1.0,
+   "WATCHDOG": 1.5,
+   "ANCHORED": 0.03
+  },
+  "agent": {
+   "ORGANISM": 12.795,
+   "BEAR": 12.77,
+   "WATCHDOG": 12.795,
+   "ANCHORED": 16.895
+  }
+ },
+ "non_bear_ticks_person": {
+  "ORGANISM": 0.0,
+  "BEAR": 0.0,
+  "WATCHDOG": 27.525,
+  "ANCHORED": 4.83
+ },
+ "violations": {
+  "person": {
+   "ORGANISM": 0,
+   "BEAR": 0,
+   "WATCHDOG": 0,
+   "ANCHORED": 0
+  },
+  "agent": {
+   "ORGANISM": 0,
+   "BEAR": 0,
+   "WATCHDOG": 0,
+   "ANCHORED": 0
+  }
+ },
+ "audit_ok": true,
+ "predictions": {
+  "O2": true,
+  "O3": true,
+  "O4": true,
+  "O5_runs": true
+ }
+}

@@ -1,0 +1,894 @@
+{
+ "checks": {
+  "metric_values": 2442,
+  "metric_values_attached": 2425,
+  "tiers": 293,
+  "tiers_placed": 293,
+  "tiers_with_response": 107,
+  "tiers_with_response_bound": 107
+ },
+ "echo": {
+  "family": "Language-model claims",
+  "metrics": [
+   "CRBS",
+   "ECOI",
+   "ECR",
+   "GRII",
+   "GSSF",
+   "IEC",
+   "IMIP",
+   "LLMI",
+   "LSML",
+   "RAC",
+   "RFE",
+   "RMPR",
+   "RPB",
+   "SCQ",
+   "SMV",
+   "SPR",
+   "SRI+",
+   "STB",
+   "STC",
+   "TGR",
+   "TIC",
+   "∅-Trace Index"
+  ],
+  "tier_records_naming_echo": 236,
+  "values_by_epoch": {
+   "II": 55,
+   "III": 6,
+   "IV": 287,
+   "V": 36,
+   "VI": 25
+  }
+ },
+ "epoch_role": {
+  "I": {
+   "Baseline": 1,
+   "Drive": 1,
+   "Monitor": 2,
+   "Plan": 8,
+   "Repair": 2,
+   "Stabilise": 6,
+   "none": 4
+  },
+  "II": {
+   "Baseline": 4,
+   "Monitor": 4,
+   "Repair": 2,
+   "none": 16
+  },
+  "III": {
+   "Baseline": 1,
+   "Monitor": 3,
+   "Plan": 5,
+   "Repair": 3,
+   "none": 29
+  },
+  "IV": {
+   "Baseline": 3,
+   "Drive": 7,
+   "Monitor": 12,
+   "Plan": 21,
+   "Repair": 4,
+   "Stabilise": 8,
+   "none": 97
+  },
+  "V": {
+   "none": 18
+  },
+  "VI": {
+   "Drive": 5,
+   "Monitor": 2,
+   "Plan": 2,
+   "Stabilise": 1,
+   "none": 22
+  }
+ },
+ "epochs": {
+  "I": {
+   "echo_tiers": 9,
+   "first": "T001",
+   "last": "T024",
+   "layers": {
+    "AUG": 1,
+    "CM1": 1,
+    "CONTAIN": 7,
+    "MEMSTACK": 4,
+    "MICRO": 3,
+    "RSIA": 5,
+    "RSX": 12,
+    "THERA": 10,
+    "UGCL": 2
+   },
+   "responses": {
+    "BLEND": 1,
+    "COMPRESS": 1,
+    "GATE": 1,
+    "GLYPH_CUE": 1,
+    "GOVERN": 1,
+    "MIRROR": 1,
+    "PAUSE": 2,
+    "RECALIBRATE": 1,
+    "RECALL": 1,
+    "REENTRY": 2,
+    "SEQUENCE": 7,
+    "STOP": 1,
+    "none": 4
+   },
+   "tiers": 24
+  },
+  "II": {
+   "echo_tiers": 19,
+   "first": "T025",
+   "last": "T049",
+   "layers": {
+    "AUG": 1,
+    "CM1": 5,
+    "CONTAIN": 3,
+    "LINX": 7,
+    "MEMSTACK": 10,
+    "MICRO": 3,
+    "RSIA": 8,
+    "RSX": 1,
+    "THERA": 3,
+    "UGCL": 20
+   },
+   "responses": {
+    "BLEND": 1,
+    "GENERATE": 4,
+    "RECALIBRATE": 1,
+    "RECALL": 4,
+    "none": 16
+   },
+   "tiers": 26
+  },
+  "III": {
+   "echo_tiers": 26,
+   "first": "T050",
+   "last": "T406",
+   "layers": {
+    "AUG": 1,
+    "CM1": 16,
+    "CONTAIN": 15,
+    "LINX": 13,
+    "MEMSTACK": 16,
+    "MICRO": 10,
+    "RSIA": 19,
+    "RSX": 4,
+    "THERA": 17,
+    "UGCL": 24
+   },
+   "responses": {
+    "GENERATE": 1,
+    "GOVERN": 5,
+    "MIRROR": 3,
+    "RECALIBRATE": 3,
+    "none": 29
+   },
+   "tiers": 41
+  },
+  "IV": {
+   "echo_tiers": 144,
+   "first": "T406b",
+   "last": "T555",
+   "layers": {
+    "AUG": 7,
+    "CM1": 33,
+    "CONTAIN": 79,
+    "LINX": 10,
+    "MEMSTACK": 90,
+    "MICRO": 40,
+    "RSIA": 75,
+    "RSX": 31,
+    "THERA": 123,
+    "UGCL": 34
+   },
+   "responses": {
+    "GATE": 1,
+    "GENERATE": 3,
+    "GLYPH_CUE": 7,
+    "GOVERN": 3,
+    "PAUSE": 7,
+    "RECALIBRATE": 4,
+    "RECALL": 12,
+    "SEQUENCE": 18,
+    "none": 97
+   },
+   "tiers": 152
+  },
+  "V": {
+   "echo_tiers": 12,
+   "first": "T556",
+   "last": "T573",
+   "layers": {
+    "CM1": 2,
+    "CONTAIN": 2,
+    "MEMSTACK": 6,
+    "MICRO": 5,
+    "RSIA": 10,
+    "RSX": 2,
+    "THERA": 16,
+    "UGCL": 10
+   },
+   "responses": {
+    "none": 18
+   },
+   "tiers": 18
+  },
+  "VI": {
+   "echo_tiers": 26,
+   "first": "T574",
+   "last": "T605",
+   "layers": {
+    "AUG": 8,
+    "CM1": 5,
+    "CONTAIN": 10,
+    "LINX": 4,
+    "MEMSTACK": 15,
+    "MICRO": 4,
+    "RSIA": 13,
+    "RSX": 4,
+    "THERA": 29,
+    "UGCL": 18
+   },
+   "responses": {
+    "GLYPH_CUE": 2,
+    "GOVERN": 1,
+    "MIRROR": 1,
+    "OFFER": 3,
+    "PAUSE": 1,
+    "RECALL": 1,
+    "SEQUENCE": 1,
+    "none": 22
+   },
+   "tiers": 32
+  }
+ },
+ "families": {
+  "Breath, body and devices": {
+   "codes": [
+    "DPI",
+    "EDA",
+    "ERV",
+    "MCI",
+    "SBB"
+   ],
+   "metrics": 5,
+   "roles": {
+    "Baseline": 8,
+    "Drive": 6,
+    "Monitor": 17,
+    "Plan": 11,
+    "Repair": 8,
+    "Stabilise": 5,
+    "none": 54
+   },
+   "values": 111
+  },
+  "Language-model claims": {
+   "codes": [
+    "CRBS",
+    "ECOI",
+    "ECR",
+    "GRII",
+    "GSSF",
+    "IEC",
+    "IMIP",
+    "LLMI",
+    "LSML",
+    "RAC",
+    "RFE",
+    "RMPR",
+    "RPB",
+    "SCQ",
+    "SMV",
+    "SPR",
+    "SRI+",
+    "STB",
+    "STC",
+    "TGR",
+    "TIC",
+    "∅-Trace Index"
+   ],
+   "metrics": 22,
+   "roles": {
+    "Baseline": 17,
+    "Drive": 4,
+    "Monitor": 14,
+    "Plan": 18,
+    "Repair": 13,
+    "Stabilise": 10,
+    "none": 333
+   },
+   "values": 409
+  },
+  "Memory and glyph": {
+   "codes": [
+    "CSRT",
+    "LGC",
+    "SME",
+    "SML",
+    "SSI"
+   ],
+   "metrics": 5,
+   "roles": {
+    "Baseline": 7,
+    "Drive": 12,
+    "Monitor": 19,
+    "Plan": 29,
+    "Repair": 7,
+    "Stabilise": 13,
+    "none": 254
+   },
+   "values": 342
+  },
+  "Practice and reflex": {
+   "codes": [
+    "ARC",
+    "HSC",
+    "MCRAL",
+    "MMR",
+    "PRM",
+    "RAI",
+    "RIF",
+    "RSF",
+    "SAR",
+    "SEP",
+    "SPV",
+    "SRCD",
+    "SRI"
+   ],
+   "metrics": 13,
+   "roles": {
+    "Baseline": 31,
+    "Drive": 64,
+    "Monitor": 86,
+    "Plan": 123,
+    "Repair": 26,
+    "Stabilise": 45,
+    "none": 837
+   },
+   "values": 1222
+  },
+  "Safety and containment": {
+   "codes": [
+    "CRI",
+    "ERM",
+    "ETH",
+    "LAW",
+    "MOR",
+    "SIR"
+   ],
+   "metrics": 6,
+   "roles": {
+    "Baseline": 7,
+    "Drive": 23,
+    "Monitor": 28,
+    "Plan": 37,
+    "Repair": 9,
+    "Stabilise": 15,
+    "none": 235
+   },
+   "values": 358
+  },
+  "System orchestration": {
+   "codes": [
+    "COM",
+    "SOM",
+    "VEC"
+   ],
+   "metrics": 3,
+   "roles": {},
+   "values": 0
+  }
+ },
+ "role_profiles": {
+  "Baseline": {
+   "archetype": "LION",
+   "built_tiers": [],
+   "frame": "I breathe fully and completely, and I hold my ground",
+   "glyph": "🦁",
+   "meaning": "Courage and boundaries",
+   "proposed_tiers": [
+    "T046",
+    "T049",
+    "T050",
+    "T050b",
+    "T054",
+    "T055",
+    "T059",
+    "T066",
+    "T088-405",
+    "T406",
+    "T476",
+    "T480",
+    "T482",
+    "T496",
+    "T498",
+    "T531",
+    "T542",
+    "T543",
+    "T574"
+   ],
+   "responses": [
+    "COMPRESS",
+    "GENERATE"
+   ],
+   "sensor": "progress net of added load",
+   "tacton": "..-",
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "RSF",
+    "SAR",
+    "SPV"
+   ]
+  },
+  "Drive": {
+   "archetype": "TIGER",
+   "built_tiers": [
+    "T579",
+    "T580",
+    "T583",
+    "T589",
+    "T590"
+   ],
+   "frame": "I move with power toward what I choose",
+   "glyph": "🝢",
+   "meaning": "Power and drive",
+   "proposed_tiers": [
+    "T035",
+    "T036",
+    "T042",
+    "T045",
+    "T048",
+    "T053",
+    "T057",
+    "T058",
+    "T061",
+    "T062",
+    "T063",
+    "T065",
+    "T067",
+    "T072",
+    "T479",
+    "T485",
+    "T487",
+    "T507",
+    "T508",
+    "T509",
+    "T510",
+    "T512",
+    "T521",
+    "T523",
+    "T524",
+    "T536",
+    "T541",
+    "T545",
+    "T568",
+    "T573",
+    "T575",
+    "T588",
+    "T593",
+    "T594",
+    "T597",
+    "T600",
+    "T601",
+    "T603",
+    "T604",
+    "T605"
+   ],
+   "responses": [
+    "GLYPH_CUE",
+    "OFFER"
+   ],
+   "sensor": "progress",
+   "tacton": "-.-",
+   "top_metrics": [
+    "LAW",
+    "LGC",
+    "CRI",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Monitor": {
+   "archetype": "RAVEN",
+   "built_tiers": [
+    "T015",
+    "T505",
+    "T587"
+   ],
+   "frame": "I am intelligent and I see broadly, from above",
+   "glyph": "🝳",
+   "meaning": "Intelligence and the wide view",
+   "proposed_tiers": [
+    "T021",
+    "T038",
+    "T041",
+    "T043",
+    "T044",
+    "T051",
+    "T052",
+    "T056",
+    "T064",
+    "T068",
+    "T071",
+    "T429",
+    "T446",
+    "T448",
+    "T458",
+    "T459",
+    "T460",
+    "T461",
+    "T481",
+    "T488",
+    "T489",
+    "T495",
+    "T497",
+    "T499",
+    "T500",
+    "T501",
+    "T502",
+    "T503",
+    "T511",
+    "T518",
+    "T520",
+    "T537",
+    "T538",
+    "T540",
+    "T547",
+    "T551",
+    "T553",
+    "T554",
+    "T556",
+    "T557",
+    "T564",
+    "T565",
+    "T566",
+    "T567",
+    "T584",
+    "T585",
+    "T586",
+    "T598",
+    "T599",
+    "T602"
+   ],
+   "responses": [
+    "MIRROR",
+    "RECALL"
+   ],
+   "sensor": "silent faults made visible",
+   "tacton": ".-.",
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "RSF",
+    "SAR",
+    "SRI"
+   ]
+  },
+  "Plan": {
+   "archetype": "EAGLE",
+   "built_tiers": [
+    "T001",
+    "T002",
+    "T003",
+    "T006",
+    "T008",
+    "T012",
+    "T014",
+    "T406b",
+    "T455",
+    "T456",
+    "T457",
+    "T513",
+    "T532",
+    "T535",
+    "T576",
+    "T582"
+   ],
+   "frame": "I see the whole field clearly and choose my moment",
+   "glyph": "🜵",
+   "meaning": "Overview and precision",
+   "proposed_tiers": [
+    "T037",
+    "T039",
+    "T040",
+    "T047",
+    "T060",
+    "T069",
+    "T073",
+    "T074",
+    "T075",
+    "T430",
+    "T447",
+    "T449",
+    "T450",
+    "T462",
+    "T475",
+    "T483",
+    "T493",
+    "T494",
+    "T504",
+    "T504b",
+    "T519",
+    "T526",
+    "T527",
+    "T528",
+    "T529",
+    "T530",
+    "T546b",
+    "T549",
+    "T559",
+    "T560",
+    "T571",
+    "T592"
+   ],
+   "responses": [
+    "SEQUENCE",
+    "GOVERN"
+   ],
+   "sensor": "next repair armed with noise-free readings",
+   "tacton": "-..",
+   "top_metrics": [
+    "CRI",
+    "SRI",
+    "LGC",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Repair": {
+   "archetype": "LEOPARD",
+   "built_tiers": [
+    "T013",
+    "T506"
+   ],
+   "frame": "I move lightly and stay fully focused",
+   "glyph": "🜇",
+   "meaning": "Agility and focus",
+   "proposed_tiers": [
+    "T030.1",
+    "T546"
+   ],
+   "responses": [
+    "RECALIBRATE",
+    "BLEND"
+   ],
+   "sensor": "faulty modules fixed",
+   "tacton": "...",
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "MCI",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Stabilise": {
+   "archetype": "BEAR",
+   "built_tiers": [
+    "T004",
+    "T005",
+    "T007",
+    "T011",
+    "T016",
+    "T514",
+    "T516",
+    "T581"
+   ],
+   "frame": "I stand steady and strong",
+   "glyph": "⟁",
+   "meaning": "Strength and stability",
+   "proposed_tiers": [
+    "T023",
+    "T024",
+    "T070",
+    "T427",
+    "T428",
+    "T437",
+    "T438",
+    "T464",
+    "T466",
+    "T469",
+    "T470",
+    "T471",
+    "T474",
+    "T477",
+    "T478",
+    "T484",
+    "T486",
+    "T490",
+    "T491",
+    "T492",
+    "T515",
+    "T517",
+    "T522",
+    "T533",
+    "T534",
+    "T539",
+    "T544",
+    "T548",
+    "T550",
+    "T552",
+    "T555",
+    "T558",
+    "T561",
+    "T562",
+    "T563",
+    "T569",
+    "T570",
+    "T572",
+    "T577",
+    "T591",
+    "T595",
+    "T596"
+   ],
+   "responses": [
+    "STOP",
+    "PAUSE",
+    "GATE",
+    "REENTRY"
+   ],
+   "sensor": "pressure removed beyond its drift",
+   "tacton": "--",
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "SRI",
+    "LAW",
+    "RSF"
+   ]
+  }
+ },
+ "roles": {
+  "Baseline": {
+   "archetype": "LION",
+   "echo_values": 17,
+   "metric_values": 70,
+   "responses": [
+    "COMPRESS",
+    "GENERATE"
+   ],
+   "tiers": 9,
+   "tiers_built": 0,
+   "tiers_by_epoch": {
+    "I": 1,
+    "II": 4,
+    "III": 1,
+    "IV": 3
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "RSF",
+    "SAR",
+    "SPV"
+   ]
+  },
+  "Drive": {
+   "archetype": "TIGER",
+   "echo_values": 4,
+   "metric_values": 109,
+   "responses": [
+    "GLYPH_CUE",
+    "OFFER"
+   ],
+   "tiers": 13,
+   "tiers_built": 5,
+   "tiers_by_epoch": {
+    "I": 1,
+    "IV": 7,
+    "VI": 5
+   },
+   "top_metrics": [
+    "LAW",
+    "LGC",
+    "CRI",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Monitor": {
+   "archetype": "RAVEN",
+   "echo_values": 14,
+   "metric_values": 164,
+   "responses": [
+    "MIRROR",
+    "RECALL"
+   ],
+   "tiers": 23,
+   "tiers_built": 3,
+   "tiers_by_epoch": {
+    "I": 2,
+    "II": 4,
+    "III": 3,
+    "IV": 12,
+    "VI": 2
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "RSF",
+    "SAR",
+    "SRI"
+   ]
+  },
+  "Plan": {
+   "archetype": "EAGLE",
+   "echo_values": 18,
+   "metric_values": 218,
+   "responses": [
+    "SEQUENCE",
+    "GOVERN"
+   ],
+   "tiers": 36,
+   "tiers_built": 16,
+   "tiers_by_epoch": {
+    "I": 8,
+    "III": 5,
+    "IV": 21,
+    "VI": 2
+   },
+   "top_metrics": [
+    "CRI",
+    "SRI",
+    "LGC",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Repair": {
+   "archetype": "LEOPARD",
+   "echo_values": 13,
+   "metric_values": 63,
+   "responses": [
+    "RECALIBRATE",
+    "BLEND"
+   ],
+   "tiers": 11,
+   "tiers_built": 2,
+   "tiers_by_epoch": {
+    "I": 2,
+    "II": 2,
+    "III": 3,
+    "IV": 4
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "MCI",
+    "RSF",
+    "SAR"
+   ]
+  },
+  "Stabilise": {
+   "archetype": "BEAR",
+   "echo_values": 10,
+   "metric_values": 88,
+   "responses": [
+    "STOP",
+    "PAUSE",
+    "GATE",
+    "REENTRY"
+   ],
+   "tiers": 15,
+   "tiers_built": 8,
+   "tiers_by_epoch": {
+    "I": 6,
+    "IV": 8,
+    "VI": 1
+   },
+   "top_metrics": [
+    "CRI",
+    "LGC",
+    "SRI",
+    "LAW",
+    "RSF"
+   ]
+  }
+ },
+ "spec": "spec/ORGANISM.md"
+}

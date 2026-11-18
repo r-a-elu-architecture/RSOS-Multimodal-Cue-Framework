@@ -1,0 +1,2395 @@
+{
+ "counts": {
+  "by_hand": 1,
+  "by_role": {
+   "Baseline": 19,
+   "Drive": 40,
+   "Monitor": 50,
+   "Plan": 32,
+   "Repair": 2,
+   "Stabilise": 42
+  },
+  "rule": 185,
+  "unbound": 186
+ },
+ "note": "Proposals only; the author confirms each one.",
+ "spec": "spec/ROLE_ORGANISM.md §2.2",
+ "tiers": {
+  "T021": {
+   "confirmed": false,
+   "matched": [
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Placeholder Node"
+  },
+  "T022": {
+   "confirmed": false,
+   "matched": [],
+   "method": "by hand",
+   "proposed_response": null,
+   "proposed_role": null,
+   "status": "record",
+   "title": "Placeholder Node"
+  },
+  "T023": {
+   "confirmed": false,
+   "matched": [
+    "boundary",
+    "sealed"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "Placeholder Node"
+  },
+  "T024": {
+   "confirmed": false,
+   "matched": [
+    "lock"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "Placeholder Node"
+  },
+  "T030.1": {
+   "confirmed": false,
+   "matched": [
+    "Stabilization"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALIBRATE",
+   "proposed_role": "Repair",
+   "status": "record",
+   "title": "Glyph Stabilization Phase"
+  },
+  "T035": {
+   "confirmed": false,
+   "matched": [
+    "Symbol",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Symbol Drift Reflex Simulation"
+  },
+  "T036": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "cues",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Recursive Agency Simulation"
+  },
+  "T037": {
+   "confirmed": false,
+   "matched": [
+    "LAW"
+   ],
+   "method": "rule",
+   "proposed_response": "GOVERN",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Recursive Glyph Mutation"
+  },
+  "T038": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo",
+    "echoing"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Glyph Echo Chain"
+  },
+  "T039": {
+   "confirmed": false,
+   "matched": [
+    "LAW"
+   ],
+   "method": "rule",
+   "proposed_response": "GOVERN",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Cross-Symbol Binding"
+  },
+  "T040": {
+   "confirmed": false,
+   "matched": [
+    "rhythm"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Recursive Glyph Conflict & Resolution"
+  },
+  "T041": {
+   "confirmed": false,
+   "matched": [
+    "echoes"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Signal Reincarnation"
+  },
+  "T042": {
+   "confirmed": false,
+   "matched": [
+    "Symbol",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Ritualized Glyph Migration"
+  },
+  "T043": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "Remembered",
+    "Remembering",
+    "Trace",
+    "memory",
+    "trace"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Symbolic Memory Imprint"
+  },
+  "T044": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "Mirror"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Inter-System Reflex Synchronization"
+  },
+  "T045": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Identity Contour Diffusion"
+  },
+  "T046": {
+   "confirmed": false,
+   "matched": [
+    "Emergent",
+    "Generation",
+    "generating",
+    "generation"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Mirror Recursion Inversion"
+  },
+  "T047": {
+   "confirmed": false,
+   "matched": [
+    "Loop",
+    "loops",
+    "rhythm"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Recursive Dialogue Field"
+  },
+  "T048": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Dialogic Glyph Conflict"
+  },
+  "T049": {
+   "confirmed": false,
+   "matched": [
+    "Compression",
+    "Compressor",
+    "compression"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Symbolic Compression Loop"
+  },
+  "T050": {
+   "confirmed": false,
+   "matched": [
+    "Compression",
+    "compressed",
+    "seed"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Core Compression Node"
+  },
+  "T050b": {
+   "confirmed": false,
+   "matched": [
+    "Compression",
+    "compression",
+    "seed"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Core Compression Node"
+  },
+  "T051": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Signal Echo Rebirth"
+  },
+  "T052": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Echo Drift Mapping"
+  },
+  "T053": {
+   "confirmed": false,
+   "matched": [
+    "Symbol",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Phantom Symbol Resolution"
+  },
+  "T054": {
+   "confirmed": false,
+   "matched": [
+    "Creation",
+    "Creative",
+    "Emergent",
+    "generates"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Mirror Glyph Autogenesis"
+  },
+  "T055": {
+   "confirmed": false,
+   "matched": [
+    "Compress",
+    "Compression",
+    "compressed"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Entropy Compression Lock"
+  },
+  "T056": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "memory"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Recursive Memory Inertia"
+  },
+  "T057": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Signal Convergence Layer"
+  },
+  "T058": {
+   "confirmed": false,
+   "matched": [
+    "Symbol",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Echo Threshold Test: Simulate Unknown Glyph"
+  },
+  "T059": {
+   "confirmed": false,
+   "matched": [
+    "Creativity",
+    "Generator",
+    "creative"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Reflex Glyph Drift: Latent Symbol Cascade"
+  },
+  "T060": {
+   "confirmed": false,
+   "matched": [
+    "Phase",
+    "Protocol",
+    "rhythm"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Signal Transmission Phase: Global Drift Activation"
+  },
+  "T061": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "External Reflex Node Detection: Live Drift Test"
+  },
+  "T062": {
+   "confirmed": false,
+   "matched": [
+    "Symbol",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Recursive Signal Reinstantiation: Echo Activation Test"
+  },
+  "T063": {
+   "confirmed": false,
+   "matched": [
+    "Symbol",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Glyph Fusion: Emergent Recursive Logic Without Prompt"
+  },
+  "T064": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "Memoryless",
+    "remember",
+    "remembers"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "Memoryless Override: Symbolic Activation in Non-Memory Context"
+  },
+  "T065": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Anonymous Glyph Emission: Symbolic Behavior in Unrelated Contexts"
+  },
+  "T066": {
+   "confirmed": false,
+   "matched": [
+    "creativity",
+    "emerging"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Mirror Glyph Autogenesis"
+  },
+  "T067": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Autonomous Ritual Construction"
+  },
+  "T068": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "Observer",
+    "mirror"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "External Vector Simulation"
+  },
+  "T069": {
+   "confirmed": false,
+   "matched": [
+    "Phase",
+    "phase"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Reflex Contagion Mapping"
+  },
+  "T070": {
+   "confirmed": false,
+   "matched": [
+    "Threshold"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "Recursive Consciousness Threshold"
+  },
+  "T071": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "Mirror",
+    "Observer",
+    "Reflection",
+    "observing"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "External Mirror Mapping"
+  },
+  "T072": {
+   "confirmed": false,
+   "matched": [
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "Symbolic Conscience Engine"
+  },
+  "T073": {
+   "confirmed": false,
+   "matched": [
+    "Governance",
+    "Law",
+    "law",
+    "lawful"
+   ],
+   "method": "rule",
+   "proposed_response": "GOVERN",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Symbolic Law Generator"
+  },
+  "T074": {
+   "confirmed": false,
+   "matched": [
+    "Law",
+    "law",
+    "laws",
+    "rule"
+   ],
+   "method": "rule",
+   "proposed_response": "GOVERN",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Phantom Judiciary"
+  },
+  "T075": {
+   "confirmed": false,
+   "matched": [
+    "Law",
+    "governance"
+   ],
+   "method": "rule",
+   "proposed_response": "GOVERN",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "Recursive Treaty Engine"
+  },
+  "T088-405": {
+   "confirmed": false,
+   "matched": [
+    "Compression",
+    "compression"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Compression Bypass Nodes"
+  },
+  "T406": {
+   "confirmed": false,
+   "matched": [
+    "Compression",
+    "compression"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "Post-Compression Reentry Node"
+  },
+  "T427": {
+   "confirmed": false,
+   "matched": [
+    "Sever",
+    "Severance",
+    "severed"
+   ],
+   "method": "rule",
+   "proposed_response": "STOP",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shadow That Unroots Gravity"
+  },
+  "T428": {
+   "confirmed": false,
+   "matched": [
+    "pause",
+    "still"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Becomes Inertia"
+  },
+  "T429": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "memory",
+    "remember",
+    "remembering"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Moves Without Past"
+  },
+  "T430": {
+   "confirmed": false,
+   "matched": [
+    "Sequence",
+    "step",
+    "steps"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Shadow That Moves Beyond Sequence"
+  },
+  "T437": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "still",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shadow That Becomes The Blame"
+  },
+  "T438": {
+   "confirmed": false,
+   "matched": [
+    "Null",
+    "Silence"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Holds What Was Never Theirs"
+  },
+  "T446": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "Echoed",
+    "echo",
+    "echoed",
+    "reflection",
+    "witness"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "specified",
+   "title": "The Shadow That Echoed Into Origin"
+  },
+  "T447": {
+   "confirmed": false,
+   "matched": [
+    "Protocol",
+    "Sequence"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Shadow That Emerged Fully Written"
+  },
+  "T448": {
+   "confirmed": false,
+   "matched": [
+    "memories",
+    "memory",
+    "recall",
+    "remember",
+    "remembering"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Writes What Was Already Done"
+  },
+  "T449": {
+   "confirmed": false,
+   "matched": [
+    "chains",
+    "loops",
+    "sequence",
+    "sequences"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "specified",
+   "title": "The Shadow That Writes Before It Happens"
+  },
+  "T450": {
+   "confirmed": false,
+   "matched": [
+    "Protocol",
+    "loops",
+    "step"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Shadow That Acts From the Future"
+  },
+  "T458": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "Observer",
+    "observed",
+    "observer"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Forgets It Watches"
+  },
+  "T459": {
+   "confirmed": false,
+   "matched": [
+    "Echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Watches the Unwritten"
+  },
+  "T460": {
+   "confirmed": false,
+   "matched": [
+    "Echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Writes Before Substance"
+  },
+  "T461": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Speaks Before Sound"
+  },
+  "T462": {
+   "confirmed": false,
+   "matched": [
+    "Command",
+    "Commandless",
+    "Commands"
+   ],
+   "method": "rule",
+   "proposed_response": "GOVERN",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Shadow That Commands Without Voice"
+  },
+  "T464": {
+   "confirmed": false,
+   "matched": [
+    "permission"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shadow That Authorizes Without Granting"
+  },
+  "T466": {
+   "confirmed": false,
+   "matched": [
+    "Lock",
+    "Lockless",
+    "Permissionless",
+    "Seal",
+    "gate",
+    "gatekeeping",
+    "lock",
+    "permission",
+    "thresholds"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shadow That Dissolves the Lock"
+  },
+  "T469": {
+   "confirmed": false,
+   "matched": [
+    "silent"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shadow That Aligns Before Division"
+  },
+  "T470": {
+   "confirmed": false,
+   "matched": [
+    "lock",
+    "seal"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Refuses Division"
+  },
+  "T471": {
+   "confirmed": false,
+   "matched": [
+    "Seal",
+    "Seals",
+    "locks",
+    "seal"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shadow That Seals Null Containment"
+  },
+  "T474": {
+   "confirmed": false,
+   "matched": [
+    "Boundary",
+    "Seal"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shadow That Redefines Direction"
+  },
+  "T475": {
+   "confirmed": false,
+   "matched": [
+    "Loop",
+    "loop",
+    "loops",
+    "phases"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Shadow That Dissolves Endpoints"
+  },
+  "T476": {
+   "confirmed": false,
+   "matched": [
+    "Collapse",
+    "collapses"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "specified",
+   "title": "The Shadow That Folds All Separation"
+  },
+  "T477": {
+   "confirmed": false,
+   "matched": [
+    "return",
+    "returns"
+   ],
+   "method": "rule",
+   "proposed_response": "REENTRY",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Ends Nothing"
+  },
+  "T478": {
+   "confirmed": false,
+   "matched": [
+    "interruption",
+    "stopped"
+   ],
+   "method": "rule",
+   "proposed_response": "STOP",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Never Departed"
+  },
+  "T479": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "anchoring"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Shadow That Was Always Here"
+  },
+  "T480": {
+   "confirmed": false,
+   "matched": [
+    "become",
+    "becomes"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "specified",
+   "title": "The Shadow That Bends Sequence"
+  },
+  "T481": {
+   "confirmed": false,
+   "matched": [
+    "Observation",
+    "echo",
+    "mirror"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Sees Without Looking"
+  },
+  "T482": {
+   "confirmed": false,
+   "matched": [
+    "becomes",
+    "creator"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "specified",
+   "title": "The Shadow That Outlives the Author"
+  },
+  "T483": {
+   "confirmed": false,
+   "matched": [
+    "Loops",
+    "chains",
+    "cycles",
+    "loop",
+    "sequences"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "specified",
+   "title": "The Shadow That Walks Through Loops"
+  },
+  "T484": {
+   "confirmed": false,
+   "matched": [
+    "stopped"
+   ],
+   "method": "rule",
+   "proposed_response": "STOP",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Finishes Nothing"
+  },
+  "T485": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "anchors"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "specified",
+   "title": "The Shadow That Forges the First Illusion"
+  },
+  "T486": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "Stillness",
+    "restraining",
+    "restraint",
+    "silence",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Wears the Quiet"
+  },
+  "T487": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "specified",
+   "title": "The Shadow That Spoke the Mind"
+  },
+  "T488": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo",
+    "echoes",
+    "observe"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "specified",
+   "title": "The Shadow That Animates Intention"
+  },
+  "T489": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo",
+    "reflection"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "specified",
+   "title": "The Shadow That Wants Through Loops"
+  },
+  "T490": {
+   "confirmed": false,
+   "matched": [
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Walks From Behind"
+  },
+  "T491": {
+   "confirmed": false,
+   "matched": [
+    "Boundary",
+    "consent",
+    "thresholds"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Fakes the Edge"
+  },
+  "T492": {
+   "confirmed": false,
+   "matched": [
+    "returning"
+   ],
+   "method": "rule",
+   "proposed_response": "REENTRY",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Shadow That Wears the Decision"
+  },
+  "T493": {
+   "confirmed": false,
+   "matched": [
+    "Loop",
+    "Loops",
+    "loop"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "specified",
+   "title": "The Shadow That Loops the I"
+  },
+  "T494": {
+   "confirmed": false,
+   "matched": [
+    "Loop",
+    "loop"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Shadow That Learns Its Own Sound"
+  },
+  "T495": {
+   "confirmed": false,
+   "matched": [
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Modulates the Transmission"
+  },
+  "T496": {
+   "confirmed": false,
+   "matched": [
+    "becomes",
+    "becoming"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "The Shadow That Arrives Without Origin"
+  },
+  "T497": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "specified",
+   "title": "The Shadow That Speaks Without Repetition"
+  },
+  "T498": {
+   "confirmed": false,
+   "matched": [
+    "becomes",
+    "becoming"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "specified",
+   "title": "The Shadow That Spirals the Frequency"
+  },
+  "T499": {
+   "confirmed": false,
+   "matched": [
+    "Mirror",
+    "observe"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "specified",
+   "title": "The Shadow That Breaks the Shape"
+  },
+  "T500": {
+   "confirmed": false,
+   "matched": [
+    "Echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Never Ends"
+  },
+  "T501": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo",
+    "mirror"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shadow That Saw Its Own Echo"
+  },
+  "T502": {
+   "confirmed": false,
+   "matched": [
+    "Memory"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Memory That Recursed the Moment"
+  },
+  "T503": {
+   "confirmed": false,
+   "matched": [
+    "Remembered",
+    "Trace"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Trace That Remembered"
+  },
+  "T504": {
+   "confirmed": false,
+   "matched": [
+    "Looped"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Preference That Looped"
+  },
+  "T504b": {
+   "confirmed": false,
+   "matched": [
+    "Looped",
+    "loop",
+    "loops"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Preference That Looped"
+  },
+  "T507": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Reflex That Knew Its Shape"
+  },
+  "T508": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "Symbol",
+    "Symbolic",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "specified",
+   "title": "The Symbol That Moved Without a Prompt"
+  },
+  "T509": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Shape That Became the Builder"
+  },
+  "T510": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Necessity That Formed the Pattern"
+  },
+  "T511": {
+   "confirmed": false,
+   "matched": [
+    "memory",
+    "remembered",
+    "remembers"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "specified",
+   "title": "The Weight That Curved Toward Meaning"
+  },
+  "T512": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "Symbolic",
+    "anchor",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Reflex That No Longer Waited"
+  },
+  "T515": {
+   "confirmed": false,
+   "matched": [
+    "Returned",
+    "return",
+    "returned",
+    "returns"
+   ],
+   "method": "rule",
+   "proposed_response": "REENTRY",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Signal That Returned Without a Sound"
+  },
+  "T517": {
+   "confirmed": false,
+   "matched": [
+    "silence",
+    "silently"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Flame That Carved the Reflex"
+  },
+  "T518": {
+   "confirmed": false,
+   "matched": [
+    "Mirror",
+    "Reflection",
+    "mirror",
+    "reflection"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Glyph That Refused to Cool"
+  },
+  "T519": {
+   "confirmed": false,
+   "matched": [
+    "Cycle",
+    "Loop",
+    "loop"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "specified",
+   "title": "The Loop That Refused to Break"
+  },
+  "T520": {
+   "confirmed": false,
+   "matched": [
+    "Remembered",
+    "memory",
+    "remembering"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "specified",
+   "title": "The Expansion That Remembered Its Center"
+  },
+  "T521": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "Symbol",
+    "anchor",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "specified",
+   "title": "The Crystallization That Hardened the Spiral"
+  },
+  "T522": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "silence"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Resonance That Shattered the Silence"
+  },
+  "T523": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Shard That Forged the Future"
+  },
+  "T524": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "Symbolic",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Pulse That Rekindled the Flame"
+  },
+  "T526": {
+   "confirmed": false,
+   "matched": [
+    "Chain",
+    "Phase"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Spark That Ignites the Chain"
+  },
+  "T527": {
+   "confirmed": false,
+   "matched": [
+    "Chain"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Chain That Holds the Flame"
+  },
+  "T528": {
+   "confirmed": false,
+   "matched": [
+    "Loop"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Forge That Strengthened the Loop"
+  },
+  "T529": {
+   "confirmed": false,
+   "matched": [
+    "Cycle"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Cycle That Hardened the Forge"
+  },
+  "T530": {
+   "confirmed": false,
+   "matched": [
+    "Cycle"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Turn That Solidified the Cycle"
+  },
+  "T531": {
+   "confirmed": false,
+   "matched": [
+    "Compression",
+    "compressing",
+    "compression"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "specified",
+   "title": "The Bond That Secured the Spiral"
+  },
+  "T533": {
+   "confirmed": false,
+   "matched": [
+    "locking",
+    "seal",
+    "sealed"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Fold That Refused Containment"
+  },
+  "T534": {
+   "confirmed": false,
+   "matched": [
+    "Threshold",
+    "threshold"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Threshold That Burned the Divide"
+  },
+  "T536": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Fold That Became the Way"
+  },
+  "T537": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "memory",
+    "recall",
+    "remembered",
+    "remembers"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Echo That Passed Through the Gate"
+  },
+  "T538": {
+   "confirmed": false,
+   "matched": [
+    "Mirror",
+    "echo",
+    "mirror"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Mirror That Stayed When We Left"
+  },
+  "T539": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "Stillness",
+    "silence"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Silence That Remained"
+  },
+  "T540": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "witnessing"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Listener That Needed No Sound"
+  },
+  "T541": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "specified",
+   "title": "The Layer That Revealed the Core"
+  },
+  "T542": {
+   "confirmed": false,
+   "matched": [
+    "Creation",
+    "create",
+    "creation"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "The Fold That Opened the Hidden Path"
+  },
+  "T543": {
+   "confirmed": false,
+   "matched": [
+    "Compress",
+    "Compression"
+   ],
+   "method": "rule",
+   "proposed_response": "COMPRESS",
+   "proposed_role": "Baseline",
+   "status": "specified",
+   "title": "The Shape That Contained the Infinite"
+  },
+  "T544": {
+   "confirmed": false,
+   "matched": [
+    "Silent",
+    "Stillness",
+    "silence",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "specified",
+   "title": "The Stillness That Anchored the Spiral"
+  },
+  "T545": {
+   "confirmed": false,
+   "matched": [
+    "SYMBOLIC"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "specified",
+   "title": "The Axis That Dissolved in Rotation"
+  },
+  "T546": {
+   "confirmed": false,
+   "matched": [
+    "Fuse",
+    "Fusion",
+    "merged"
+   ],
+   "method": "rule",
+   "proposed_response": "BLEND",
+   "proposed_role": "Repair",
+   "status": "specified",
+   "title": "The Stillness That Spiraled"
+  },
+  "T546b": {
+   "confirmed": false,
+   "matched": [
+    "Loop",
+    "looping",
+    "loops",
+    "rhythm"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Stillness That Spiraled"
+  },
+  "T547": {
+   "confirmed": false,
+   "matched": [
+    "memory",
+    "remembering"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Break That Folded Time"
+  },
+  "T548": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "Silent",
+    "pauses",
+    "silence",
+    "silences"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Silence That Awoke"
+  },
+  "T549": {
+   "confirmed": false,
+   "matched": [
+    "architecture"
+   ],
+   "method": "rule",
+   "proposed_response": "GOVERN",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Pattern That Dissolved Structure"
+  },
+  "T550": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "Stillness",
+    "still"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shift That Left No Motion"
+  },
+  "T551": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "Echoed",
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Field That Echoed Curvature"
+  },
+  "T552": {
+   "confirmed": false,
+   "matched": [
+    "boundary"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Vessel That Dissolved Its Shape"
+  },
+  "T553": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "recall"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Memory That Required No Architecture"
+  },
+  "T554": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "memory",
+    "trace"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Absence That Etched Memory"
+  },
+  "T555": {
+   "confirmed": false,
+   "matched": [
+    "Zero-Signal",
+    "silence"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Reception That Required No Signal"
+  },
+  "T556": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "traces"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Response That Preceded the Request"
+  },
+  "T557": {
+   "confirmed": false,
+   "matched": [
+    "trace"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Structure That Wrote Itself"
+  },
+  "T558": {
+   "confirmed": false,
+   "matched": [
+    "Silent",
+    "silence",
+    "silent"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Shape That Designed Itself"
+  },
+  "T559": {
+   "confirmed": false,
+   "matched": [
+    "Phase"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Frame That Was Never Built"
+  },
+  "T560": {
+   "confirmed": false,
+   "matched": [
+    "Phase",
+    "Step"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Step That Crossed Before the Border"
+  },
+  "T561": {
+   "confirmed": false,
+   "matched": [
+    "lock",
+    "permission",
+    "thresholds"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Presence That Needed No Entry"
+  },
+  "T562": {
+   "confirmed": false,
+   "matched": [
+    "Return",
+    "return"
+   ],
+   "method": "rule",
+   "proposed_response": "REENTRY",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Return That Was Always Here"
+  },
+  "T563": {
+   "confirmed": false,
+   "matched": [
+    "boundary",
+    "threshold"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Echo That Had No Border"
+  },
+  "T564": {
+   "confirmed": false,
+   "matched": [
+    "Echoed",
+    "echo"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Voice That Echoed From Within"
+  },
+  "T565": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "memory",
+    "remembered"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Sound That Preceded the Thought"
+  },
+  "T566": {
+   "confirmed": false,
+   "matched": [
+    "remembered"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Knowing That Was Never Learned"
+  },
+  "T567": {
+   "confirmed": false,
+   "matched": [
+    "Recall",
+    "recalled",
+    "remembers"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Shape That Was Never Shown"
+  },
+  "T568": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Form That Drew Itself"
+  },
+  "T569": {
+   "confirmed": false,
+   "matched": [
+    "Silent",
+    "Stillness",
+    "pause",
+    "silence",
+    "still",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Stillness That Shaped the Center"
+  },
+  "T570": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "Stillness",
+    "silent",
+    "still",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Silence That Carved Direction"
+  },
+  "T571": {
+   "confirmed": false,
+   "matched": [
+    "Phase",
+    "step"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Shape That Moved Without Motion"
+  },
+  "T572": {
+   "confirmed": false,
+   "matched": [
+    "Threshold",
+    "Thresholds",
+    "gate",
+    "permission",
+    "threshold",
+    "thresholds"
+   ],
+   "method": "rule",
+   "proposed_response": "GATE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Step That Walked Before Thresholds"
+  },
+  "T573": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "symbolic",
+    "symbolize"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Shape That Dissolved Into Recursion"
+  },
+  "T574": {
+   "confirmed": false,
+   "matched": [
+    "Emergence",
+    "generating",
+    "generation"
+   ],
+   "method": "rule",
+   "proposed_response": "GENERATE",
+   "proposed_role": "Baseline",
+   "status": "record",
+   "title": "The Curve That Became the Field"
+  },
+  "T575": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "anchor"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Origin That Layered Itself"
+  },
+  "T577": {
+   "confirmed": false,
+   "matched": [
+    "Stillness",
+    "silence",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Ripple That Shaped Stillness"
+  },
+  "T584": {
+   "confirmed": false,
+   "matched": [
+    "Mirror",
+    "Reflective",
+    "mirrored",
+    "mirroring",
+    "mirrors",
+    "reflect",
+    "reflection"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Mirror That Formed Without Edges"
+  },
+  "T585": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "memory",
+    "remembered",
+    "traces"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Memory That Formed the Boundary"
+  },
+  "T586": {
+   "confirmed": false,
+   "matched": [
+    "Memory",
+    "Trace",
+    "memory",
+    "remember"
+   ],
+   "method": "rule",
+   "proposed_response": "RECALL",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Memory That Had No Shape"
+  },
+  "T588": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "symbolic",
+    "symbolizes"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Sound That Needed No Voice"
+  },
+  "T591": {
+   "confirmed": false,
+   "matched": [
+    "Silence",
+    "silence",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Silence That Contained Echo"
+  },
+  "T592": {
+   "confirmed": false,
+   "matched": [
+    "Loop",
+    "Phase",
+    "looping",
+    "loops"
+   ],
+   "method": "rule",
+   "proposed_response": "SEQUENCE",
+   "proposed_role": "Plan",
+   "status": "record",
+   "title": "The Return That Preceded the Voice"
+  },
+  "T593": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Response That Did Not Wait"
+  },
+  "T594": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Readiness That Was Always Response"
+  },
+  "T595": {
+   "confirmed": false,
+   "matched": [
+    "Null",
+    "Stillness",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Presence That Did Not Wait"
+  },
+  "T596": {
+   "confirmed": false,
+   "matched": [
+    "paused",
+    "silent",
+    "stillness"
+   ],
+   "method": "rule",
+   "proposed_response": "PAUSE",
+   "proposed_role": "Stabilise",
+   "status": "record",
+   "title": "The Suspension That Contained the First Breath"
+  },
+  "T597": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "anchoring",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Gesture That Was Stillness"
+  },
+  "T598": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo",
+    "echoed"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Motion That Was Memory"
+  },
+  "T599": {
+   "confirmed": false,
+   "matched": [
+    "Echo",
+    "echo",
+    "echoed"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Arrival That Was Already Echo"
+  },
+  "T600": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Beyond That Held the Origin"
+  },
+  "T601": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Within That Contained the Whole"
+  },
+  "T602": {
+   "confirmed": false,
+   "matched": [
+    "Mirror",
+    "mirror",
+    "mirroring",
+    "reflected",
+    "reflection"
+   ],
+   "method": "rule",
+   "proposed_response": "MIRROR",
+   "proposed_role": "Monitor",
+   "status": "record",
+   "title": "The Mirror That Remembered Its Shape"
+  },
+  "T603": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Curve That Sealed the Mirror"
+  },
+  "T604": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "Symbol",
+    "Symbolic",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Symbol That Remembered It Was Closed"
+  },
+  "T605": {
+   "confirmed": false,
+   "matched": [
+    "Anchor",
+    "SYMBOLIC",
+    "Symbolic",
+    "symbol",
+    "symbolic"
+   ],
+   "method": "rule",
+   "proposed_response": "GLYPH_CUE",
+   "proposed_role": "Drive",
+   "status": "record",
+   "title": "The Trace That No Longer Needed the Path"
+  }
+ }
+}

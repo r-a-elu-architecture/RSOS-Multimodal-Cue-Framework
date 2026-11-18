@@ -9,8 +9,8 @@
     "E5": {"name": "Tested with people using RSOS", "means": "a registered study with people using RSOS"}
   },
   "row_sources": {
-    "sim": ["W1", "W3", "W4", "W5", "G1", "G2", "H-CFIT", "LIA-G", "T-AP", "J1", "Round 8f"],
-    "record": ["C1–C6", "Corpus v2", "Round 7", "SR-2", "SR-3"],
+    "sim": ["W1", "W3", "W4", "W5", "G1", "G2", "H-CFIT", "LIA-G", "T-AP", "J1", "Round 8f", "Round 8g", "Round 8h", "Round 8i", "Round 8k", "Round 8l"],
+    "record": ["C1–C6", "Corpus v2", "Round 7", "SR-2", "SR-3", "Round 8j"],
     "public": ["Phase 9", "LIA-WW", "H-CTX", "Corpus lineage across conversations", "Round 8"],
     "people": []
   },

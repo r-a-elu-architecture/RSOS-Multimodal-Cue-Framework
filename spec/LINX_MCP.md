@@ -117,7 +117,7 @@ checks passed.
 | L8 | Every cell without a plan (v1 and v2 grids) carries `allowed_now` equal to the mode's categories; regulation programs named exactly where allowed | **pass** |
 | L9 | Summary 0.288 × full (mean of ratios, 203 intakes); content condition met (every node name, code, frame and safety line) | **fail** (≤ 0.25) |
 | L10 | Bytes returned per intake: v2 1,963 vs v1 6,720 = **0.292×** (3.4× less); calls per intake 1 vs 5.14 (**5.1× fewer**) | **fail** (≤ 0.10) |
-| L11 | The checks job installs the SDK and sets `RSOS_REQUIRE_MCP`, so a missing SDK fails CI instead of skipping L4 | pass if the dev run is green (recorded below) |
+| L11 | The checks job installs the SDK (mcp 2.3.0 in the dev run of 565d88c) and sets `RSOS_REQUIRE_MCP`, so a missing SDK fails CI instead of skipping L4; that run is green | **pass** |
 | L12 | L1–L6 pass (L1, L2, L4 on `detail: full`); check_all passes | **pass** |
 
 **Why 10× was not reached.** After the programs and full frame checks moved out, what remains is content the person

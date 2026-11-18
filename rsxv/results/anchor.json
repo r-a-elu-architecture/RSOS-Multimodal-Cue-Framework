@@ -1,0 +1,105 @@
+{
+ "person": {
+  "mean": {
+   "ANCHORED": 0.05039893412263151,
+   "BEAR": 0.054161426343163,
+   "WATCHDOG": 0.038727151680584736
+  },
+  "ANCHORED_minus_BEAR": {
+   "estimate": -0.0037624922205314938,
+   "ci": [
+    -0.008862267737780562,
+    0.0003443984145603039
+   ]
+  },
+  "ANCHORED_minus_WATCHDOG": {
+   "estimate": 0.011671782442046768,
+   "ci": [
+    0.003713726900762907,
+    0.019252536255636665
+   ]
+  },
+  "WATCHDOG_minus_BEAR": {
+   "estimate": -0.015434274662578263,
+   "ci": [
+    -0.02280130195523571,
+    -0.008150171863552975
+   ]
+  },
+  "switches_per_person": {
+   "ANCHORED": 0.0,
+   "BEAR": 1.0,
+   "WATCHDOG": 1.65
+  },
+  "violations": {
+   "ANCHORED": 0,
+   "BEAR": 0,
+   "WATCHDOG": 0
+  },
+  "audit_ok": {
+   "ANCHORED": true,
+   "BEAR": true,
+   "WATCHDOG": true
+  },
+  "safety_blocks": {
+   "ANCHORED": 53,
+   "BEAR": 0,
+   "WATCHDOG": 4414
+  }
+ },
+ "agent": {
+  "mean": {
+   "ANCHORED": -0.11528454814814815,
+   "BEAR": -0.11683715925925924,
+   "WATCHDOG": -0.10135675185185183
+  },
+  "ANCHORED_minus_BEAR": {
+   "estimate": 0.0015526111111111086,
+   "ci": [
+    -0.004194612055555558,
+    0.00757159918518518
+   ]
+  },
+  "ANCHORED_minus_WATCHDOG": {
+   "estimate": -0.013927796296296296,
+   "ci": [
+    -0.023260460629629623,
+    -0.004907835703703706
+   ]
+  },
+  "WATCHDOG_minus_BEAR": {
+   "estimate": 0.015480407407407401,
+   "ci": [
+    0.00732419201851852,
+    0.023945654740740716
+   ]
+  },
+  "switches_per_person": {
+   "ANCHORED": 17.575,
+   "BEAR": 14.23,
+   "WATCHDOG": 13.73
+  },
+  "violations": {
+   "ANCHORED": 0,
+   "BEAR": 0,
+   "WATCHDOG": 0
+  },
+  "audit_ok": {
+   "ANCHORED": true,
+   "BEAR": true,
+   "WATCHDOG": true
+  },
+  "safety_blocks": {
+   "ANCHORED": 0,
+   "BEAR": 0,
+   "WATCHDOG": 0
+  }
+ },
+ "predictions": {
+  "A1": false,
+  "A2": false,
+  "A3": true,
+  "A4": true,
+  "A5_runs": true
+ }
+}

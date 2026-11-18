@@ -46,3 +46,33 @@ tick).
 
 The World page keeps showing the recorded runs; showing ANCHORED there is a separate step once these results are in.
 Stated models only: nothing here is evidence about people.
+
+## 6. Results (18 Nov 2026; run once, 21 s; `rsxv/results/anchor.json`)
+
+| 200 fresh persons, model v3, 120 ticks | ANCHORED | BEAR | WATCHDOG |
+|---|---|---|---|
+| Mean mission score per tick | +0.0504 | +0.0542 | +0.0387 |
+| Switches (handovers) per person | **0.0** | 1.0 | 1.65 |
+| Spine violations / audit chain | 0 / intact | 0 / intact | 0 / intact |
+
+| # | Result | Verdict |
+|---|---|---|
+| A1 | ANCHORED − BEAR −0.0038, 99% CI [−0.0089, +0.0003]: lower bound below −0.00193 | **fail** |
+| A2 | \|−0.0038\| > 0.00193. The gap to Bear narrowed from the Watchdog's −0.0154 (same seeds) to −0.0038, **4.1×**, not 10× | **fail** |
+| A3 | ANCHORED − WATCHDOG +0.0117, CI [+0.0037, +0.0193] | **pass** |
+| A4 | 0 vs 1.65 switches per person (≤ 0.165) | **pass** |
+| A5 | 0 Spine violations and intact audit chains in all 1,200 runs; `check_all.sh` passes; no generated file or recorded result changed | **pass** |
+
+**What it shows.** On the person side the ledger's interval never ruled Bear out in 120 ticks, so ANCHORED ran as
+Bear plus 5% exploration; the remaining −0.0038 is the price of that exploration (53 of its ticks were also fallen
+back to Bear by the safety modes, against 4,414 for the Watchdog). The sealed expectation (A2 uncertain) held.
+
+**Agent environment (secondary, no threshold).** There the old Watchdog beats always Bear (+0.0155, CI [+0.0073,
++0.0239]) and ANCHORED gives that up (−0.0139 vs the Watchdog; +0.0016 vs Bear, CI includes 0), with more handovers
+(17.6 per run against 13.7, mostly override-driven). **Switching has value for agents and costs for persons:** one
+anchor rule does not fit both sides.
+
+**What follows (proposed, not run).** (1) For persons: exploration only where it is free, e.g. replaying recorded
+traces into the ledger instead of live exploration, which would remove the 5% cost. (2) For agents: keep the Watchdog
+(it is the measured best there), so the World uses ANCHORED on the person side and the Watchdog on the agent side.
+Stated models only.

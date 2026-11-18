@@ -13,6 +13,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+
+try:
+    from .edition import edit_all
+except ImportError:  # run as a script
+    from edition import edit_all
 import math
 import pathlib
 import re
@@ -251,7 +256,7 @@ def summary(ledger: dict) -> str:
              "",
              f"- Tier records: {len(tiers)} ({len(nums)} distinct tier numbers, from {min(nums)} to {max(nums)}); repeated tiers kept as separate records: {', '.join(dups)}.",
              f"- Epoch headers: {len(epochs)}; system events: {sum(1 for r in ledger['records'] if r['kind'] == 'event')}; forensic and ledger notes: {sum(1 for r in ledger['records'] if r['kind'] == 'note')}.",
-             f"- Tiers with a recorded system behaviour (\"GPT Behavior\"): {behav}.",
+             f"- Tiers with a recorded system behaviour: {behav}.",
              f"- Named mechanisms (technical evolution): {mech}.",
              f"- Metric values: {sum(codes.values())} across {len(codes)} codes.",
              "",
@@ -263,6 +268,7 @@ def summary(ledger: dict) -> str:
 def main():
     led = build()
     assert reassemble(led).encode("utf-8") == SOURCE.read_bytes(), "ledger reassembly differs from source"
+    led = edit_all(led)            # spec/PUBLIC_EDITION.md E1: published edition, after the check against the original
     out = ROOT / "docs" / "data"
     out.mkdir(parents=True, exist_ok=True)
     (out / "ledger.json").write_text(json.dumps(led, ensure_ascii=False, separators=(",", ":"), allow_nan=False), encoding="utf-8")

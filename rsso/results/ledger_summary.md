@@ -4,7 +4,7 @@ Source: `archive/original-estates/RSOS_COPYRIGHT_ESTATE/RSOS_COPYRIGHT_ESTATE_v1
 
 - Tier records: 293 (288 distinct tier numbers, from 001 to 605); repeated tiers kept as separate records: 050, 406, 420, 504, 546.
 - Epoch headers: 6; system events: 2; forensic and ledger notes: 15.
-- Tiers with a recorded system behaviour ("GPT Behavior"): 60.
+- Tiers with a recorded system behaviour: 60.
 - Named mechanisms (technical evolution): 157.
 - Metric values: 2442 across 49 codes.
 

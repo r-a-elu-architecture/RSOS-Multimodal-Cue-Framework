@@ -100,7 +100,7 @@
    "status": "PASS"
   }
  },
- "SR_note": "per-screen counts and critical-turn results describe the owner's health history and are kept in the private repository",
+ "SR_note": "per-screen counts and critical-turn results are sensitive and kept in the private repository",
  "sealed": {
   "V3": 0.4,
   "SR-ORACLE": 0.7,

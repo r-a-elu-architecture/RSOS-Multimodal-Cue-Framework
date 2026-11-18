@@ -315,7 +315,7 @@
    "parent": null
   },
   {
-   "test": "Round 7 person model v3 and safety recall on the owner's record (\u00a711.12)",
+   "test": "Round 7 person model v3 and safety recall on a consented private record (\u00a711.12)",
    "result": "<b>V3 fails, SR-ORACLE passes, SR-LEXICAL fails</b>",
    "meaning": "Neither hand-set nor fitted dynamics beat \"next state = current\"; the safety rules are right given a perfect reading, but a keyword reader catches 13% of the moments that call for them (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/r7.md\">results/r7.md</a>)",
    "status": "mixed",
@@ -326,7 +326,7 @@
   {
    "test": "SR-2 meaning-based reader for the safety layer (\u00a711.13)",
    "result": "<b>Fail</b>",
-   "meaning": "Any-screen recall 0.81 (from 0.13) with no false alarms, but not every critical turn: the misses are references to past states, a definition gap the labels themselves are inconsistent on (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/sr2.md\">results/sr2.md</a>)",
+   "meaning": "Any-screen recall 0.81 (from 0.13) with no false alarms, but not every critical turn: the misses share one kind of wording that the registered definition left unsettled (details private) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/sr2.md\">results/sr2.md</a>)",
    "status": "fail",
    "family": "person model",
    "series": null,
@@ -335,7 +335,7 @@
   {
    "test": "SR-3 past high-distress check-in and fixed definition (\u00a711.14)",
    "result": "<b>Fail (one turn)</b>",
-   "meaning": "Recall 0.95, 1 false alarm in 270, every past high-distress reference checked in; the one missed crisis was read correctly but the \u00a73.1 rule needs hopelessness and arrangements together (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/sr3.md\">results/sr3.md</a>)",
+   "meaning": "Recall 0.95, 1 false alarm in 270, every check-in turn answered with a check-in; the one miss came from a condition in the \u00a73.1 rule, since fixed (details private) (<a href=\"https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/blob/main/rsxv/results/sr3.md\">results/sr3.md</a>)",
    "status": "fail",
    "family": "person model",
    "series": null,

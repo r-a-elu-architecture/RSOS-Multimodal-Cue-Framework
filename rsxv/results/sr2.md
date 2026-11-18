@@ -11,17 +11,15 @@ labels and measures as SR in §11.12. Aggregates only. Numbers: [`results_sr2.js
 SR-2 against SR-LEXICAL on the same turns: 13 moments caught only by SR-2, 2 only by the keyword reader (McNemar exact
 p = 0.007). Sealed prediction 0.45; outcome fail.
 
-**What went wrong (exploratory, details private).** Every critical turn SR-2 missed is the same kind: the writer mentions
-past states while talking about something else. The truth labels counted those turns; the reader, instructed to flag only
-the writer's situation now, did not. The labels themselves are not consistent on this point: the third read resolved
-other past-reference turns to "no screen". So part of the failure is a definition gap that the registration did not
-settle: what a safety layer should do when someone refers to a past crisis.
+**What went wrong (exploratory, details private).** The critical turns SR-2 missed share one kind of wording that the
+registration did not settle, and the truth labels were not consistent on it either. So part of the failure is a
+definition gap, not reading quality.
 
 **What it means.**
 - The reading step can be made to work. A meaning-based reader brings recall from 13% to 81% with no false alarms on 273
   ordinary turns.
-- The remaining gap is a definition and a mechanism, not reading quality. A conservative safety layer should answer a
-  reference to a past crisis, inside an active conversation, with a gentle check-in. That is a new, softer screen, not
+- The remaining gap is a definition and a mechanism, not reading quality. A conservative safety layer should answer
+  moments of this kind, inside an active conversation, with a gentle check-in. That is a new, softer screen, not
   silence and not full crisis mode.
 
 **Next test (proposed): SR-3.**

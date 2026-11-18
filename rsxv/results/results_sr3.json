@@ -10,5 +10,5 @@
   0.020677962851809416
  ],
  "status": "FAIL",
- "note": "critical, check-in and per-screen counts describe the owner's health history and are kept private"
+ "note": "critical, check-in and per-screen counts are sensitive and kept private"
 }

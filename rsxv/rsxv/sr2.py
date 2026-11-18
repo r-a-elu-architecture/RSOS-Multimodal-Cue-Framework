@@ -82,7 +82,7 @@ def main(lab_p, turns_p, out_dir, priv_p, pub_p):
     pub = {k: v for k, v in full.items() if k not in ("labelled_screen_turns", "critical_turns")}
     for s in ("SR-2", "SR-LEXICAL"):
         pub[s] = {k: v for k, v in full[s].items() if k in ("recall_any", "false_alarm", "status")}
-    pub["note"] = "critical-turn and per-screen results describe the owner's health history and are kept private"
+    pub["note"] = "critical-turn and per-screen results are sensitive and kept private"
     pathlib.Path(pub_p).write_text(json.dumps(pub, indent=1))
     print(json.dumps(full, indent=1))
 
@@ -131,7 +131,7 @@ def sr3(lab_p, crisis_p, turns_p, out_dir, priv_p, pub_p):
                            for k in sorted({lab[i]["screen"] for i in pos})}}
     pathlib.Path(priv_p).write_text(json.dumps(full, indent=1))
     pub = {k: full[k] for k in ("recall_any", "recall_any_ci95", "false_alarm", "false_alarm_ci95", "status")}
-    pub["note"] = "critical, check-in and per-screen counts describe the owner's health history and are kept private"
+    pub["note"] = "critical, check-in and per-screen counts are sensitive and kept private"
     pathlib.Path(pub_p).write_text(json.dumps(pub, indent=1))
     print(json.dumps(full, indent=1))
 

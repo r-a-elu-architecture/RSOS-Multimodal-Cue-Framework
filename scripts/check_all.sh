@@ -9,7 +9,7 @@ step "RSX: language, compilers (Python and JavaScript), repository and link chec
 (cd rsx && python3 -m unittest discover -s tests)
 step "RSX-V: command layer, laws, translator and bridge into RSX"
 (cd rsxv && python3 -m unittest discover -s tests)
-step "RSSO: runtime, devices, firmware, safety, nodes, LINX, CONTAIN, THERA, CM1, PEAK, camera heart rate, TRIAL, CHECKS, contribution, board"
+step "RSSO: runtime, devices, firmware, safety, nodes, LINX, LINX_MCP (spec/LINX_MCP.md), CONTAIN, THERA, CM1, PEAK, camera heart rate, TRIAL, CHECKS, contribution, board"
 (cd rsso && python3 -m unittest discover -s tests)
 step "Evidence labels: row sources and the stated-model guard (spec/FIXES_NIGHT.md E-1)"
 python3 -m unittest discover -s architecture/tests -p "test_*.py"

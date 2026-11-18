@@ -48,3 +48,26 @@ No threshold changes after results. Failures are recorded here with the rest.
   in research code (SR-3) and is not part of this step: its confirmation on data not seen in design (SR-4) is pending.
 - Built and tested in software; effect unproven in people. The plan is a proposal; the person, or the person and
   their practitioner, approves it.
+
+## 5. Results (18 Nov 2026)
+
+Code: `rsso/rsso/linx_mcp.py`, `rsso/rsso/mcp_server.py`; tests `rsso/tests/test_linx_mcp.py` (7 tests); the whole
+RSSO suite 317 tests, OK. MCP Python SDK 2.3.0.
+
+| # | Result | Verdict |
+|---|---|---|
+| L1 | 203 intakes (3 NODES test intakes + 200 seeded), 411 nodes: every plan equals `nodes.plan` of the proposal with computed fields removed | **pass** |
+| L2 | 200 intakes with computed fields injected (node and top level, `approved: true`): outputs identical to the clean ones; `approved` false in all | **pass** |
+| L3 | 1,056 check cells: a plan exactly where `safety.allowed` permits one (56 cells, Standard); none in Stabilisation (142), Paused: practical (198) or Clinician-led protocol (660); none where a screen pauses module work | **pass** |
+| L4 | In-memory MCP client: the four tools (each with an input schema) and the one prompt listed; each call returns the pure function's JSON. Also run as a real stdio server: tools listed, a proposed vibration code `------` replaced by the planner's `..-`, `approved` false; intensity 9 returns no plan and the Stabilisation message | **pass** |
+| L5 | Identical bytes on repeated calls (50 intakes); no network or model client imported by either module | **pass** |
+| L6 | Tool and prompt descriptions, the prompt, the proposal note, every module message and mode text, and outputs over the check grid: 0 hits for crisis, helpline or emergency wording or the excluded terms | **pass** |
+
+**Observation (no threshold involved).** Through the existing self-check, the flag "medication is a concern" alone is
+read as a sedative combination and moves the session to the clinician-led protocol, so no plan is built (all 528
+cells with that flag). This is the safety module's fixed rule, unchanged here; for practitioners and coaches it is the
+main limit on when the tool returns a plan. A finer medication question is a separate, registered step if wanted.
+
+**Not covered here.** The L4 test is skipped where the MCP SDK is not installed (CI installs `requirements.txt`
+only); the pure functions (L1-L3, L5, L6) run everywhere. No AI assistant was run against the server; how well an
+assistant fills an intake is not measured.

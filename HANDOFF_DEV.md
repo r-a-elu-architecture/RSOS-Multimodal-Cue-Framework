@@ -17,7 +17,10 @@ history.
   changed after results are seen.
 - **Representation.** RSOS repurposes unwanted states (counterconditioning, future pacing). Pages use professional
   language; no crisis, helpline or emergency-banner wording outside research records and the clinician-facing
-  module (spec/CONTAIN.md §10). Acute risk always runs under a qualified clinician's protocol.
+  module (spec/CONTAIN.md §10), with one registered exception (spec/PUBLIC_EDITION_2.md C): the sentence "Research and
+  development framework; not a medical device, and not for use in an emergency: if you are at risk of harm, contact
+  your local emergency services." on the README, `docs/safety.html` and `docs/therapist.html` only. Acute risk always
+  runs under a qualified clinician's protocol.
 - **Public repository stays neutral:** no personal, spiritual, substance or security content; only aggregates
   from private material.
 
@@ -66,8 +69,9 @@ For each item record **pass / fail** with evidence (command output, file and lin
 3. No threshold or limit changed (compare against the backup branch).
 4. Stored data unchanged: storage keys and record formats are the same unless the spec registers a change.
 5. Python and JavaScript give identical results where both exist.
-6. No crisis, helpline or emergency wording on pages; no clinical words on non-clinical profiles
-   (`scripts/check_profiles.py`).
+6. No crisis, helpline or emergency wording on pages, except the one registered emergency sentence on the README,
+   `safety.html` and `therapist.html` (spec/PUBLIC_EDITION_2.md C); no clinical words on non-clinical profiles
+   (`scripts/check_profiles.py`, which enforces both).
 7. Nothing reached `main` or the live site.
 8. The development site shows the change and has no page errors.
 9. Anything the step claims in prose is true in the code.
@@ -507,6 +511,19 @@ first, then fix. Open items stay as listed in §6: the NimBLE port for C3/S3 on 
 - SITE_NIGHT (pages): registered e23a960, code 083d18a, results 330eb55; check_site_night 20/20.
 - Checks: listed in each spec's results. The reviewer should check that the registration commit precedes the code commit
   in both, and the disclosed smoke run in CUE_RESOLVE.
+
+### PUBLIC_EDITION, PUBLIC_EDITION_2, R2 and FIXES_PE (18 November 2026)
+
+- PUBLIC_EDITION (spec/PUBLIC_EDITION.md): registered 164d56d, code 3a8a23b, results 8961a30. "GPT" → "model" in
+  published data by one rule (E1; originals unchanged), roadmap audience line, neutral description of the private record.
+- PUBLIC_EDITION_2 (spec/PUBLIC_EDITION_2.md): registered 6c70941, code 4a17218, results 4b4188a. The originals moved to
+  the private repository (verified backup), subtitle, the one emergency sentence, evidence label, "owner" → "author" in
+  prose, roadmap C27 and C71.
+- Amendment R2: registered 6d42bd2, code 47df4ef, results e61581c. Roadmap C68 becomes checkable milestones by November
+  2028.
+- Review: PR #12 (`review/public-edition`, b40f48a), 2 should-fix, 3 notes, no blocker.
+- FIXES_PE (spec/FIXES_PE.md): registered 496b661; documentation fixes for the two should-fix findings (this section
+  and §1 / checklist item 6).
 
 ## 5. Review findings
 

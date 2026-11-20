@@ -6,7 +6,9 @@
 
 **[Run the Override Protocol in your browser →](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/player.html)**
 
-> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers, clinics and individuals can test it and share results. It is not a medical device or a treatment, and not for use in an emergency: if you are at risk of harm, contact your local emergency services.
+> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers and qualified practitioners can test it and share results. Research and development framework; not a medical device, and not for use in an emergency: if you are at risk of harm, contact your local emergency services.
+>
+> **Intended use: a research platform, and a tool for qualified practitioners working under their own professional protocol.** Not a consumer wellness app. RSOS makes no therapeutic claim; claims about effects in people wait for registered human outcome data. ([positioning](spec/POSITIONING.md))
 
 ## What is here
 

@@ -43,3 +43,15 @@ The README and the index stop inviting "individuals" as users; they name researc
 - P3: the registered emergency sentence is unchanged on the README, `safety.html` and `therapist.html`, and A7 still finds no other crisis
   wording on any page (existing test, unchanged).
 - P4: `scripts/check_all.sh` passes with no other change: no data file or generated JSON differs.
+
+## Results (20 November 2026), added after the change; nothing above was changed
+- P1 PASS: the sentence is shown on the README, `index.html`, `safety.html`, `therapist.html` and `player.html`.
+- P2 PASS: the README and `index.html` name "researchers and qualified practitioners"; the invitation to individuals is gone.
+- P3 PASS: the registered emergency sentence is unchanged on `safety.html` and `therapist.html`, and the README now carries it word for word
+  (before, the README had a near-variant: "It is not a medical device or a treatment, and not for use in an emergency …"). A7 finds no other crisis wording.
+- P4 PASS: `scripts/check_all.sh` passes (RSX 43, RSX-V 229, RSSO 328, evidence 23, toolkit 10 tests; conformance 15/15 twice; board 7/7; generated files
+  reproducible). Only `README.md`, `LICENSING.md`, `REVIEW.md`, `HANDOFF_DEV.md` and the four pages changed; no data file differs.
+- Browser checks PASS: `check_profiles.py`, `check_site_catchup.py` (0 page errors, 0 fails); `check_evidence.py` 168/168.
+- **Found during the change, fixed and disclosed:** profile translation turns "therapeutic" into "supportive" on non-clinical profiles, which would
+  have made the sentence read "RSOS makes no supportive claim". The sentence is now marked `data-raw` (the site's existing no-translation mark), and
+  test P1b checks it. Verified in Chrome: the sentence is identical on all four pages in the performance, workplace and clinical profiles.

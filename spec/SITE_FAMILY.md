@@ -62,3 +62,19 @@ Both sites stay white (the shared family design). The Cue Framework's own header
 navy #151b2f with a 3 px gold #e8b04a edge, a gold dot, light menu text (10.3:1 contrast) and a gold underline on primary
 buttons. The family bar above it stays the shared light grey. Checks re-run after the change: unit tests, `check_profiles`,
 `check_site_catchup`, `check_fixes_r1`, `check_evidence` pass; overflow 0 px at 1280 and 375 px. F2 carries the ribbon to every page.
+
+## F2 (registered 20 November 2026, before any tool page changes): every page on the family design, with the ribbon
+**Method.** One shared stylesheet, `docs/light.css`, loaded after each page's own styles: it remaps the pages' common
+colour variables (`--ink`, `--ink-2`, `--ink-3`, `--line`, `--text`, `--muted`, `--gold`, `--glow`, `--ok`, `--warn`, `--stop`) to the
+family design, sets the shared type, and turns each page's `header.top` into the navy and gold ribbon. Colours a page hard-codes
+are fixed in that page's own styles, from screenshots. No script, element id, text or link changes; wording only where a colour
+name is part of a label.
+**Checks, fixed now:**
+- T1: every page has a white ground (`body` background luminance ≥ 0.85) and the ribbon (navy header band with the gold edge),
+  except where a page has no `header.top`; those are listed with the reason.
+- T2: on every page, at 1280 px, every visible text element has computed contrast ≥ 4.5:1 against its effective background
+  (≥ 3:1 for text ≥ 24 px or ≥ 18.66 px bold), measured in Chrome; exceptions are listed.
+- T3: overflow 0 px at 1280 and 375 px on every page.
+- T4: `scripts/check_all.sh` and every browser check in `scripts/` that ran before pass, with 0 page errors.
+- T5: a screenshot of each page's first screen at 1280 px is reviewed, and the set is kept with the results.
+Out of scope: the symbol and emoji fonts nine pages load from Google (they render the glyphs); flagged for a separate decision.

@@ -50,7 +50,7 @@ input[type=text],select{width:100%;background:var(--ink);border:1px solid var(--
 .check input{margin-top:4px;accent-color:var(--gold)}
 .btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;margin:12px 8px 0 0;text-decoration:none}
 .btn:hover{border-color:var(--gold)}
-.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.btn.go{background:var(--gold);color:var(--on-gold,#22170a);border-color:var(--gold);font-weight:650}
 .msg{font-size:.92rem;margin:12px 0 0;min-height:1.2em}
 .msg.err{color:var(--warn)} .msg.ok{color:var(--ok)}
 .session[hidden]{display:none}
@@ -85,13 +85,13 @@ footer{margin:60px auto;color:var(--muted);font-size:.88rem}
 /* copilot and tools */
 h2.cp{font-size:1.6rem;margin:70px 0 6px}
 .cp-wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;margin-top:18px;align-items:start}
-.cp-tree{width:100%;display:block;background:radial-gradient(circle at 50% 46%,#1f2848 0,#151b2f 72%);border:1px solid var(--line);border-radius:16px}
+.cp-tree{width:100%;display:block;background:radial-gradient(circle at 50% 46%,var(--ink-3,#1f2848) 0,#151b2f 72%);border:1px solid var(--line);border-radius:16px}
 .cp-tree .br{transition:opacity .3s}
 .cp-tree .br.hit .bn{stroke:#f7d995;stroke-width:3}
 .cp-tree .br.hit .bg{opacity:.55}
 .cp-tree .bg{opacity:0;transition:opacity .4s}
-.cp-tree text{fill:#e7e9f2}
-.cp-tree .small{fill:#a3abc6;font-size:12px}
+.cp-tree text{fill:var(--text,#e7e9f2)}
+.cp-tree .small{fill:var(--muted,#a3abc6);font-size:12px}
 .cp-lines{max-height:330px;overflow:auto;display:flex;flex-direction:column;gap:8px;margin-top:10px}
 .cp-line{border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.92rem}
 .cp-line.hit{border-color:var(--gold)}
@@ -126,6 +126,7 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 <link rel="stylesheet" href="family.css">
+<link rel="stylesheet" href="light.css">
 </head>
 <body data-outlet-kind="run" data-outlet-protocol="therapist:copilot">
 <div class="family" role="navigation" aria-label="RSOS family"><div class="fwrap"><b>RSOS</b><a href="https://r-a-elu-architecture.github.io/RSOS-Language/">Core and Language</a><a class="here" href="./">Multimodal Cue Framework</a></div></div>
@@ -504,7 +505,7 @@ function drawTree() {
   const S = $("cpTree"); let g = '<defs><radialGradient id="cpg"><stop offset="0" stop-color="#f7d995" stop-opacity=".6"/><stop offset="1" stop-color="#f7d995" stop-opacity="0"/></radialGradient></defs>';
   M.branches.forEach((b, i) => { const [x, y] = POS[i]; g += '<line x1="280" y1="235" x2="' + x + '" y2="' + y + '" stroke="' + (lastHit === b.id ? "#e8b04a" : "#2e3858") + '" stroke-width="' + (lastHit === b.id ? 3 : 2) + '"/>'; });
   g += '<circle cx="280" cy="235" r="78" fill="url(#cpg)"/><circle cx="280" cy="235" r="56" fill="#e8b04a"/>';
-  wrap(M.center, 14).slice(0, 3).forEach((l, k, a) => { g += '<text x="280" y="' + (240 + (k - (a.length - 1) / 2) * 17) + '" text-anchor="middle" style="fill:#151b2f;font-family:var(--serif);font-size:15px">' + esc(l) + "</text>"; });
+  wrap(M.center, 14).slice(0, 3).forEach((l, k, a) => { g += '<text x="280" y="' + (240 + (k - (a.length - 1) / 2) * 17) + '" text-anchor="middle" style="fill:var(--ink-2,#151b2f);font-family:var(--serif);font-size:15px">' + esc(l) + "</text>"; });
   M.branches.forEach((b, i) => { const [x, y] = POS[i], hit = lastHit === b.id;
     g += '<g class="br' + (hit ? " hit" : "") + '"><circle class="bg" cx="' + x + '" cy="' + y + '" r="70" fill="url(#cpg)"/><circle class="bn" cx="' + x + '" cy="' + y + '" r="40" fill="#242d4c" stroke="#2e3858" stroke-width="2"/>';
     g += '<text x="' + x + '" y="' + (y - 2) + '" text-anchor="middle" style="font-family:var(--serif);font-size:15px">' + esc(b.cue) + '</text><text x="' + x + '" y="' + (y + 16) + '" text-anchor="middle" class="small">' + esc(b.code) + "</text>";
@@ -621,7 +622,7 @@ function drawLt() {
   let g = '<line x1="20" x2="' + (W - 20) + '" y1="80" y2="80" stroke="#2e3858" stroke-width="2"/>';
   r.nodes.forEach((n, k) => { const e = ev.find(z => z.year === n.year && z.title === n.title) || {}, up = k % 2 === 0;
     g += '<line x1="' + x(n.year) + '" x2="' + x(n.year) + '" y1="80" y2="' + (up ? 50 : 110) + '" stroke="' + (e.specific ? "#e8b04a" : "#a3abc6") + '"/>';
-    g += '<text x="' + x(n.year) + '" y="' + (up ? 40 : 128) + '" text-anchor="middle" style="font-size:18px;fill:#f7d995">' + esc(n.glyph) + '</text><text x="' + x(n.year) + '" y="' + (up ? 18 : 146) + '" text-anchor="middle" style="font-size:11px;fill:#a3abc6">' + n.year + " " + esc(String(n.title).slice(0, 22)) + "</text>"; });
+    g += '<text x="' + x(n.year) + '" y="' + (up ? 40 : 128) + '" text-anchor="middle" style="font-size:18px;fill:#f7d995">' + esc(n.glyph) + '</text><text x="' + x(n.year) + '" y="' + (up ? 18 : 146) + '" text-anchor="middle" style="font-size:11px;fill:var(--muted,#a3abc6)">' + n.year + " " + esc(String(n.title).slice(0, 22)) + "</text>"; });
   S.innerHTML = g;
 }
 $("ltAdd").addEventListener("click", () => { const t = $("ltTitle").value.trim(), y = parseInt($("ltYear").value, 10); if (!t || !isFinite(y)) return;

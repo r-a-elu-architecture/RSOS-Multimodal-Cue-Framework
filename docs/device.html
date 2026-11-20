@@ -39,8 +39,8 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin:0 0 6px}
 .dot.on{background:var(--ok);box-shadow:0 0 0 4px rgba(143,209,158,.2)}
 .btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:9px 16px;color:var(--text);font:inherit;font-size:.92rem;cursor:pointer;text-decoration:none}
 .btn:hover{border-color:var(--gold)}
-.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
-.btn.stop{background:var(--stop);color:#2a0b0b;border-color:var(--stop);font-weight:700}
+.btn.go{background:var(--gold);color:var(--on-gold,#22170a);border-color:var(--gold);font-weight:650}
+.btn.stop{background:var(--stop);color:var(--on-stop,#2a0b0b);border-color:var(--stop);font-weight:700}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px}
 .panel{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
@@ -116,6 +116,7 @@ header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
 <link rel="stylesheet" href="family.css">
+<link rel="stylesheet" href="light.css">
 </head>
 <body data-outlet-kind="cue" data-outlet-protocol="device:manual">
 <div class="family" role="navigation" aria-label="RSOS family"><div class="fwrap"><b>RSOS</b><a href="https://r-a-elu-architecture.github.io/RSOS-Language/">Core and Language</a><a class="here" href="./">Multimodal Cue Framework</a></div></div>
@@ -425,11 +426,11 @@ function drawPost() {
   const [ang, truth] = X.simPosture(3), r = X.posture(ang), S = $("postChart"), W = 600, H = 220, n = ang.length, y = a => H - 14 - Math.max(0, Math.min(45, a)) / 45 * (H - 28);
   let g = "";
   truth.forEach(([a, b]) => { g += '<rect x="' + (a / n * W) + '" y="8" width="' + ((b - a) / n * W) + '" height="' + (H - 22) + '" fill="rgba(240,163,90,.16)"/>'; });
-  [15, 25].forEach(v => { g += '<line x1="0" x2="' + W + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#2e3858" stroke-dasharray="3 4"/><text x="4" y="' + (y(v) - 3) + '" style="fill:#a3abc6;font-size:14px">' + v + "°</text>"; });
+  [15, 25].forEach(v => { g += '<line x1="0" x2="' + W + '" y1="' + y(v) + '" y2="' + y(v) + '" stroke="#2e3858" stroke-dasharray="3 4"/><text x="4" y="' + (y(v) - 3) + '" style="fill:var(--muted,#a3abc6);font-size:14px">' + v + "°</text>"; });
   let d = ""; for (let i = 0; i < n; i += 5) d += (i ? "L" : "M") + (i / n * W).toFixed(1) + " " + y(ang[i]).toFixed(1);
   g += '<path d="' + d + '" fill="none" stroke="#e8b04a" stroke-width="1.5"/>';
   r.episodes.forEach(e => { const x = e.cue_s * 10 / n * W; g += '<circle cx="' + x + '" cy="' + y(32) + '" r="8" fill="#8fd19e" stroke="#151b2f" stroke-width="3"/>'; });
-  g += '<text x="' + (W - 4) + '" y="' + (H - 2) + '" text-anchor="end" style="fill:#a3abc6;font-size:14px">10 simulated minutes</text>';
+  g += '<text x="' + (W - 4) + '" y="' + (H - 2) + '" text-anchor="end" style="fill:var(--muted,#a3abc6);font-size:14px">10 simulated minutes</text>';
   S.innerHTML = g;
   $("postSay").textContent = "Simulated: " + truth.length + " slouches (shaded), " + r.episodes.length + " cued (green), each about five seconds after it began; slouched " + r.share + "% of the time.";
 }

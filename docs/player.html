@@ -50,7 +50,7 @@ textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;min-
 .ok{color:var(--muted);font-size:.88rem;margin:6px 0 0}
 .btn{border:0;border-radius:999px;padding:12px 22px;font-weight:650;cursor:pointer}
 a.btn{text-decoration:none;display:inline-block;font-size:.95rem}
-.btn.go{background:var(--gold);color:#22170a}
+.btn.go{background:var(--gold);color:var(--on-gold,#22170a)}
 .btn.quiet{background:transparent;border:1px solid var(--line);color:var(--text)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .note{color:var(--muted);font-size:.85rem}
@@ -79,7 +79,7 @@ main{position:relative;display:flex;flex-direction:column;align-items:center;jus
 .seg i{position:absolute;inset:0;background:var(--gold);transform-origin:left;transform:scaleX(0)}
 .breath{color:var(--muted);font-size:.95rem;min-height:1.4em;margin-top:10px}
 .stopbar{position:absolute;top:22px;right:24px;display:none}
-.stopbar .btn{background:var(--stop);color:#2a0b0b}
+.stopbar .btn{background:var(--stop);color:var(--on-stop,#2a0b0b)}
 .running .stopbar{display:block}
 .running #start{display:none}
 .idle-msg{max-width:42ch;text-align:center;color:var(--muted)}
@@ -98,7 +98,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 .rec{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
 .rec span{flex:1 1 100%;font-family:var(--serif);font-size:1.05rem}
 .rec .btn{padding:7px 14px;font-size:.9rem}
-.rec .btn.live{background:var(--stop);color:#2a0b0b;border-color:var(--stop)}
+.rec .btn.live{background:var(--stop);color:var(--on-stop,#2a0b0b);border-color:var(--stop)}
 @media (max-width:820px){
   .app{grid-template-columns:1fr}
   aside{max-height:none;border-right:0;border-bottom:1px solid var(--line);order:2}
@@ -107,6 +107,7 @@ dialog h2{font-family:var(--serif);font-weight:500;margin:0 0 6px}
 @media (prefers-reduced-motion:reduce){.orb{transition:none}}
 </style>
 <link rel="stylesheet" href="family.css">
+<link rel="stylesheet" href="light.css">
 </head>
 <body data-outlet-kind="run" data-outlet-protocol="player:preview">
 <div class="family" role="navigation" aria-label="RSOS family"><div class="fwrap"><b>RSOS</b><a href="https://r-a-elu-architecture.github.io/RSOS-Language/">Core and Language</a><a class="here" href="./">Multimodal Cue Framework</a></div></div>

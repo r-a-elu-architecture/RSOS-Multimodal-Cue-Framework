@@ -1,0 +1,60 @@
+/* RSOS family design for the tool pages (spec/SITE_FAMILY.md F2). Loaded after each page's own styles.
+   It remaps the pages' shared colour variables to the white family design, sets the family type, and turns the page
+   header into the Cue Framework's navy and gold ribbon. No page script, id, text or link changes. */
+:root{
+  --ink:#f3f6f8;            /* page ground (was the dark navy) */
+  --ink-2:#ffffff;          /* panels */
+  --ink-3:#e8eef3;          /* selected and raised surfaces */
+  --line:#d3dce4;
+  --text:#0e2233;
+  --muted:#56677a;
+  --glow:#0f7553;           /* links and focus (was pale gold, unreadable on white) */
+  --ok:#0f7553; --warn:#9a5b00; --stop:#b03a2e;
+  --cool:#1f5f8b; --text-2:#2b3f52; --on-gold:#ffffff; --on-stop:#ffffff;
+  --gold:#8a5a00;           /* text-safe bronze gold (5.9:1 on white); the ribbon keeps the bright #e8b04a */
+  --pass:#0f7553; --fail:#b03a2e; --mixed:#8a5a00; --analysis:#56677a; --calm:#0f7553; --hot:#b03a2e;
+  --dark-tile:#151b2f;      /* glyphs keep their navy ground: they are drawn in cream with a gold glow */
+  --serif:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --sans:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --cue-navy:#151b2f; --cue-gold:#e8b04a; --cue-text:#e7e9f2; --cue-muted:#c3c9dc;
+  color-scheme:light;
+}
+body{background:var(--ink);color:var(--text)}
+h1,h2,h3,legend{font-weight:700;letter-spacing:-.015em}
+:focus-visible{outline-color:var(--glow)}
+
+/* the ribbon: the page header as a full-width navy band with a gold edge */
+header.top{position:relative;padding-top:18px;padding-bottom:16px;margin-bottom:8px;color:var(--cue-text);
+  background:var(--cue-navy);box-shadow:0 0 0 100vmax var(--cue-navy);clip-path:inset(0 -100vmax)}
+header.top::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--cue-gold);
+  box-shadow:0 0 0 100vmax var(--cue-gold);clip-path:inset(0 -100vmax)}
+header.top .mark,header.top a.mark,header.top .home{color:#fff;font-weight:700;font-family:var(--sans)}
+header.top nav a,header.top nav.site a{color:var(--cue-muted)}
+header.top nav a:hover{color:#fff}
+header.top nav a[aria-current],header.top nav a[aria-current=page]{color:#fff;box-shadow:inset 0 -2px 0 var(--cue-gold)}
+header.top :focus-visible{outline-color:var(--cue-gold)}
+header.top .profilebar,header.top .profilebar label,header.top label{color:var(--cue-muted)}
+header.top select{background:#1d2540;color:var(--cue-text);border:1px solid #2e3858}
+
+/* the player: its sidebar header is the ribbon; the breathing orb keeps its gold */
+aside .top{background:var(--cue-navy);border-bottom:3px solid var(--cue-gold);margin:-24px -22px 16px;padding:20px 22px 16px;color:var(--cue-text)}
+aside .top .home{color:#fff;font-weight:700;font-family:var(--sans)}
+aside .top nav.site a{color:var(--cue-muted)}
+aside .top nav.site a:hover{color:#fff}
+aside .top nav.site a[aria-current],aside .top nav.site a[aria-current=page]{color:#fff;box-shadow:inset 0 -2px 0 var(--cue-gold)}
+aside .top .profilebar,aside .top .profilebar label,aside .top label{color:var(--cue-muted)}
+aside .top select{background:#1d2540;color:var(--cue-text);border:1px solid #2e3858}
+.orb{background:radial-gradient(circle at 50% 50%,#f7d995 0%,#e8b04a 28%,rgba(232,176,74,.35) 52%,rgba(232,176,74,0) 70%)}
+
+/* gold stays an accent and a button fill (dark text on gold is 8.9:1), never thin text on white */
+.btn.go,a.btn.go,button.go{color:var(--on-gold)}
+
+/* glyph art is drawn by the pages' scripts in cream and pale gold, made to glow on navy: it keeps a navy tile */
+svg:has([stroke="#f7d995"],[fill="#f7d995"],[stop-color="#fff6dc"],[fill="#fff6dc"]),.tcode svg{background:var(--dark-tile);border-radius:6px}
+
+/* small screens: wide tables scroll inside their own box; form fields never exceed the screen */
+@media (max-width:640px){
+  table{display:block;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  select,input,textarea{max-width:100%}
+  label,.row>*{min-width:0}
+}

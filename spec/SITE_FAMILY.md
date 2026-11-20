@@ -78,3 +78,24 @@ name is part of a label.
 - T4: `scripts/check_all.sh` and every browser check in `scripts/` that ran before pass, with 0 page errors.
 - T5: a screenshot of each page's first screen at 1280 px is reviewed, and the set is kept with the results.
 Out of scope: the symbol and emoji fonts nine pages load from Google (they render the glyphs); flagged for a separate decision.
+
+## F2 results (20 November 2026), added after the change; nothing above was changed
+Implementation: `docs/light.css` on all 24 tool pages (after their own styles); in each page's own styles, hard-coded colours became
+variables with the old colour as fallback (`#cfd3e4` → `var(--text-2,#cfd3e4)`), on 16 pages; `glyphs.html` gained `class="top"` on
+its header. No script, id, text or link changed. Measurement: `scripts/check_family.py` (Chrome).
+- T1 PASS: every page has the white ground (body luminance 0.92) and the ribbon, except the four "page retired" notices, which have
+  no header (`architecture-benchmark`, `cue-lab`, `cue-lab-v13`, `invariance-v14`).
+- T2 PASS: 0 text elements below 4.5:1 (3:1 for large text) on any page, from 600+ at the first measurement. Root causes fixed:
+  gold used as text (now bronze #8a5a00 for text and buttons, 5.9:1; the ribbon keeps the bright #e8b04a); light text hard-coded for
+  the dark design; pastel tags; pale gold links; a dark table row; dark text on the red Stop button (now white, 5.6:1).
+  Glyph art drawn by scripts in cream and pale gold keeps a navy tile so it still glows. Not measured: text inside SVG charts
+  drawn by scripts on `world.html` (scripts are not changed); listed as an exception.
+- T3 PASS: overflow 0 px at 1280 and 375 px on every page. A first ribbon technique overflowed by 1,200 px on 20 pages and was
+  replaced (box shadow with clip path). `results` (321 px) and `trials` (44 px) already overflowed on phones before F1; wide
+  tables now scroll inside their own box and form fields never exceed the screen.
+- T4 PASS: `scripts/check_all.sh` (RSX 43, RSX-V 229, RSSO 332, evidence 23, toolkit 10; conformance 15/15 ×2; board 7/7; generated
+  files reproducible) and all 16 browser checks in `scripts/` (evidence 168/168, fixes r1 r2 r4 r5 r6, lab link 10/10, low mood,
+  outlet, person lab 31/31, profiles, release, site catch-up, site night 35/35, trial loop, watchdog), 0 page errors.
+- T5 PASS: every page's first screen at 1280 px reviewed; contact sheets in `spec/site_family_f2/`.
+Open, not changed here: the tool pages' ribbons are tall because each keeps the full 24-link menu (SITE_CATCHUP S7.4 requires it on
+every page); a compact menu would be its own registered change. Nine pages load symbol and emoji fonts from Google (flagged above).

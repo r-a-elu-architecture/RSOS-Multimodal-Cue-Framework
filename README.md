@@ -171,6 +171,12 @@ The specification lists six hypotheses with minimal study designs (§10) and a s
 
 RSOS combines parts that exist separately (scent conditioning, wearable cue delivery, closed-loop multisensory systems, adaptive-intervention frameworks, BCI operating systems). [`RELATED_WORK.md`](RELATED_WORK.md) lists the closest systems and what each lacks.
 
+## Support
+
+RSOS is funded by its sponsors. Sponsorship funds research and development, first of all the first registered study of
+RSOS in people; it buys no product, treatment or access. Every registered result is published, including null results.
+[Sponsor on GitHub](https://github.com/sponsors/r-a-elu-architecture) · [What support pays for](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/support.html)
+
 ## Licence and citation
 
 - Software: Apache 2.0. Specifications and framework texts: CC BY 4.0. Archive records keep their original notices. Details in [LICENSING.md](LICENSING.md).

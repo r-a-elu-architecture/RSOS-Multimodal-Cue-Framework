@@ -34,6 +34,7 @@
     "world":      {"kind": "part", "level": "E4", "part": "The World simulation and the Person Lab", "families": ["agents", "transfer", "repurposing", "lineage", "person model"]},
     "rsxv":       {"kind": "part", "level": "E4", "part": "RSX-V command layer", "families": ["agents", "transfer", "repurposing", "lineage"]},
     "roadmap":    {"kind": "record"},
+    "support":    {"kind": "record"},
     "tiers":      {"kind": "record"},
     "metrics":    {"kind": "record"}
   }

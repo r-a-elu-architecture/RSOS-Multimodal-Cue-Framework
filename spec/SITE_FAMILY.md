@@ -36,3 +36,23 @@ and every link destination it had (moved, not removed).
 - S5: the text colour tokens meet WCAG AA contrast (≥ 4.5:1) on their backgrounds, computed.
 - S6: every number on the new home page and README traces to a generated file or a command shown beside it
   (results register, test counts from `check_all.sh`, the compiled protocol).
+
+## F1 results (20 November 2026), added after the change; nothing above was changed
+- S1 PASS: all 25 pages carry the family bar once, linking the Language site and this site, this site marked.
+- S2 PASS: the home page keeps the evidence markers, the positioning sentence, `profiles.js`, `outlet.js`, `devmode.js`,
+  the domain cards and the service worker, and all 31 links it had before (two in-page anchors, #rsx and #model, were
+  first dropped with the old menu; the test caught it and they are now in "Every part").
+- S3 PASS: `scripts/check_all.sh` (RSX 43, RSX-V 229, RSSO 332, evidence 23, toolkit 10 tests; conformance 15/15 ×2; board
+  7/7; generated files reproducible) and the browser checks `check_profiles`, `check_site_catchup`, `check_evidence`,
+  `check_outlet`, `check_fixes_r1`, with 0 page errors. `check_site_catchup` first failed: SITE_CATCHUP S7.1 and S7.4
+  require RSX-V in every page's menu and the words "RSX-V, above RSX" on the home page; both were restored.
+- S4 PASS: home page at 1280 px and 375 px reviewed by screenshot; overflow 0 px at both (a first 133 px overflow at
+  375 px came from long link rows in "Every part"; they now wrap).
+- S5 PASS after one change: green text on the pale green tag was 4.25:1 with the Language palette's #12805c. This site uses
+  #0f7553 (4.92:1 there, 5.24:1 on the page). The Language site has the same 4.25:1 pair; that repository is not changed
+  from this account.
+- S6 PASS: home and README figures trace to `rsx compile` (43 events, 52.0 s, the refused 0.6 vibration),
+  `check_all.sh` (637 tests) and `rsxv/RESULTS.md` (51 registered tests).
+- Deliberate difference from the Language site: no external fonts are loaded here (privacy: a font request to Google would
+  disclose every visitor's address on a site that promises nothing leaves the device).
+- F2 remains: the tool pages keep their own dark styles under the family bar until each is moved onto the shared design.

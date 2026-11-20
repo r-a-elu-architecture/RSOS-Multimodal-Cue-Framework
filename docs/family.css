@@ -1,0 +1,8 @@
+/* The RSOS family bar, for pages that keep their own styles (spec/SITE_FAMILY.md F1). Self-contained: it doesn't change the page. */
+.family{background:#f3f6f8;border-bottom:1px solid #d3dce4;font:400 .875rem/1.4 "Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#56677a;position:relative;z-index:5}
+.family .fwrap{max-width:1120px;margin:0 auto;padding:0 28px;display:flex;gap:20px;align-items:center;min-height:36px;flex-wrap:wrap}
+.family b{color:#0e2233;font-weight:700}
+.family a{color:#56677a;text-decoration:none}
+.family a:hover,.family a:focus-visible{color:#0e2233;text-decoration:underline}
+.family .here{color:#0e2233}
+@media (max-width:640px){.family .fwrap{padding:0 18px;gap:14px}}

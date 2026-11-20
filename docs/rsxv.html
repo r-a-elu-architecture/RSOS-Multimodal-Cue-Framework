@@ -27,7 +27,7 @@ nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 14px}
 nav a{color:var(--muted);text-decoration:none;font-size:.86rem}
 nav a:hover,nav a[aria-current]{color:var(--text)}
 h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3.2rem);line-height:1.06;margin:26px 0 14px;max-width:18em}
-.lede{color:#cfd3e4;max-width:44em;margin:0 0 10px;font-size:1.08rem}
+.lede{color:var(--text-2,#cfd3e4);max-width:44em;margin:0 0 10px;font-size:1.08rem}
 .note{color:var(--muted);font-size:.9rem;max-width:56em}
 h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:40px 0 10px}
 .flow{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;color:var(--muted);font-size:.92rem;margin:18px 0 0}
@@ -37,7 +37,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:40px 0 10px}
 .form{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
 .form h3{margin:0 0 2px;font-family:var(--serif);font-weight:500;font-size:1.15rem}
 .form .sub{color:var(--muted);font-size:.84rem;margin:0 0 10px}
-pre{margin:0;max-height:440px;overflow:auto;background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:12.5px/1.5 var(--mono);color:#d8dcec;white-space:pre}
+pre{margin:0;max-height:440px;overflow:auto;background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font:12.5px/1.5 var(--mono);color:var(--text-2,#d8dcec);white-space:pre}
 .adds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 36px;margin-top:10px}
 @media (max-width:760px){.adds{grid-template-columns:1fr}}
 .adds h3{margin:0 0 2px;font-size:1rem}
@@ -48,8 +48,11 @@ footer{color:var(--muted);font-size:.84rem;padding:40px 0 30px;border-top:1px so
 footer .mdline{display:block;margin-top:6px}
 </style>
 <link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="family.css">
+<link rel="stylesheet" href="light.css">
 </head>
 <body>
+<div class="family" role="navigation" aria-label="RSOS family"><div class="fwrap"><b>RSOS</b><a href="https://r-a-elu-architecture.github.io/RSOS-Language/">Core and Language</a><a class="here" href="./">Multimodal Cue Framework</a></div></div>
 <div class="wrap">
 <header class="top">
   <a class="mark" href="./">RSOS</a>

@@ -46,7 +46,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:46px 0 6px}
 .yv span{color:var(--muted);font-size:.88rem}
 .yv output{font-family:var(--serif);font-size:1.25rem;text-align:right;font-variant-numeric:tabular-nums}
 .btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;text-decoration:none;margin:10px 8px 0 0}
-.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.btn.go{background:var(--gold);color:var(--on-gold,#22170a);border-color:var(--gold);font-weight:650}
 .note{color:var(--muted);font-size:.88rem}
 .cm{margin-top:10px}
 .cmgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
@@ -74,7 +74,7 @@ h2{font-family:var(--serif);font-weight:500;font-size:1.6rem;margin:46px 0 6px}
 .op small{display:block;color:var(--muted);font-size:.8rem}
 .badge{display:inline-block;font-size:.76rem;border:1px solid var(--line);border-radius:4px;padding:0 6px;margin-right:6px;color:var(--muted)}
 .badge.you{border-color:var(--gold);color:var(--glow)}
-.badge.system{border-color:var(--inf);color:#a9c9f3}
+.badge.system{border-color:var(--inf);color:var(--cool,#a9c9f3)}
 svg.lane{width:210px;height:26px;display:block}
 .detail{padding:4px 6px 20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px}
 .detail h3{font-size:.9rem;color:var(--muted);font-weight:600;margin:14px 0 6px}
@@ -92,8 +92,11 @@ header.top{flex-direction:column;align-items:flex-start;gap:10px}
 header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
+<link rel="stylesheet" href="family.css">
+<link rel="stylesheet" href="light.css">
 </head>
 <body>
+<div class="family" role="navigation" aria-label="RSOS family"><div class="fwrap"><b>RSOS</b><a href="https://r-a-elu-architecture.github.io/RSOS-Language/">Core and Language</a><a class="here" href="./">Multimodal Cue Framework</a></div></div>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
   <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html">Tier ledger</a><a href="metrics.html" aria-current="page">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>

@@ -1,12 +1,49 @@
-# RSOS — Recursive Symbolic Operating System
+# RSOS Multimodal Cue Framework
 
-*An open framework for practising state change with breath, words and cues.*
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24143731.svg)](https://doi.org/10.5281/zenodo.24143731) [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE) [![checks](https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/actions/workflows/checks.yml/badge.svg)](https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework/actions/workflows/checks.yml)
 
-**An open operating system for changing state on purpose.** RSOS turns a negative state (a sound, a smell, something seen, a body sensation, a memory) into the signal that starts a scripted override: movement, words, a fist, breath and golden-light imagery that redirect it into agency, rehearse it in three future situations and seal it with "I own". Practised often enough, the override is meant to become a reflex.
+**State change on purpose, written as a program and measured.** The Override Protocol is a 52-second routine of breath,
+words, gestures and cues. Here it is a program: compiled with its safety limits, played the same way on a browser, a
+phone or a wristband, and logged in one format, so researchers and supervised practitioners can test it. This is the
+body layer of RSOS; the [RSOS Language](https://github.com/r-a-elu-architecture/RSOS-Language) compiles to it.
+Website: [r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/).
+Archived: [doi:10.5281/zenodo.24143731](https://doi.org/10.5281/zenodo.24143731). Code: Apache 2.0; specifications: CC BY 4.0.
 
-**[Run the Override Protocol in your browser →](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/player.html)**
+> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers and qualified practitioners can test it and share results. Research and development framework; not a medical device, and not for use in an emergency: if you are at risk of harm, contact your local emergency services.
+>
+> **Intended use:** a research platform, and a tool for qualified practitioners working under their own professional protocol. Not a consumer wellness app. RSOS makes no therapeutic claim; claims about effects in people wait for registered human outcome data. ([positioning](spec/POSITIONING.md))
 
-> **Status.** Open specification and tested software. No human outcome data exists yet; RSOS is published so that researchers, clinics and individuals can test it and share results. It is not a medical device or a treatment, and not for use in an emergency: if you are at risk of harm, contact your local emergency services.
+## The protocol, as a program
+
+```
+SAFETY max_per_hour=6 max_per_day=20 refractory=90s haptic_max=0.4
+BREATH inhale=4s exhale=6s
+TIER 1 LION { V "Golden lion light"  A "I move, I act" }
+PHASE interrupt { SAY "I move, I act"  HAPTIC on=300ms off=300ms x=3 amp=0.4 }
+PHASE ignite breath=inhale { ACTIVATE LION }
+```
+
+| What | Result | How to check it |
+|---|---|---|
+| The Override Protocol, compiled | **43 timed events, 52.0 s**; a vibration above the program's limit does not compile (`haptic amp 0.6 exceeds SAFETY haptic_max 0.4`) | `cd rsx && python -m rsx compile protocols/override.rsx` |
+| Automated checks | **637 tests** (RSX 43, RSX-V 229, RSSO 332, evidence labels 23, toolkit 10); device conformance 15/15 on the virtual rig and on the firmware core; board check 7/7 | `bash scripts/check_all.sh` |
+| Registered tests | **51**, each fixed before it ran: 2 pass, 14 mixed, 29 fail, 2 analysis, 4 other; every failure published | [`rsxv/RESULTS.md`](rsxv/RESULTS.md) |
+| People using RSOS | **No outcome data yet** | [the six hypotheses and their study designs](spec/OVERRIDE_PROTOCOL.md#10-testable-hypotheses) |
+
+**Limits.** Every result above is about software, simulated people or recorded data, not about people using RSOS. Parts
+are labelled E1 (built: the software runs and its tests pass), E2 (checked on simulated people) or E4 (tested on
+recorded data, with no positive result yet); nothing is at a level that says the method helps. Most registered tests of
+the agent layer failed, and the failures are on the record. The protocol is a research method, not a treatment.
+
+## Where to start
+
+| You are | Start with |
+|---|---|
+| A researcher | [the results register](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/results.html), [personal trials](spec/TRIAL.md), [the reviewer's guide](REVIEW.md) |
+| A practitioner | [practitioner mode](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/therapist.html) and [safety and governance](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/safety.html) |
+| An engineer or device maker | [the RSX language](rsx/), [the device protocol](spec/DEVICE_PROTOCOL.md), [firmware](firmware/) |
+| Building AI or agent systems | [RSX-V](rsxv/) and [the agent world](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/world.html) |
+| Anyone else | [the research demo in your browser](https://r-a-elu-architecture.github.io/RSOS-Multimodal-Cue-Framework/player.html): nothing leaves your device |
 
 ## What is here
 
@@ -82,12 +119,12 @@ Results register: 51 registered tests: 2 pass, 14 mixed, 29 fail, 2 analysis, 4 
 ```bash
 git clone https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework
 cd RSOS-Multimodal-Cue-Framework/rsx
-python -m unittest discover -s tests           # 35 tests (Python/JS conformance needs Node)
+python -m unittest discover -s tests           # 43 tests (Python/JS conformance needs Node)
 python -m rsx compile protocols/override.rsx   # the protocol as a JSON timeline
 python model/predictions.py                    # regenerate the model predictions
 
 cd ../rsso
-python -m unittest discover -s tests           # 30 tests (firmware tests need a C++ compiler)
+python -m unittest discover -s tests           # 332 tests (firmware tests need a C++ compiler)
 python -m rsso.conformance --firmware          # device conformance on the C++ firmware core
 
 cd ../toolkit

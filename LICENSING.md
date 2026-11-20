@@ -10,4 +10,4 @@
 
 **Third-party data and libraries:** remain subject to their own terms and licenses. This repository does not grant rights to raw personal conversations, clinical records or external datasets.
 
-The source implementation is not a medical product and has not demonstrated clinical efficacy.
+The source implementation is not a medical product and has not demonstrated clinical efficacy. Intended use: a research platform, and a tool for qualified practitioners working under their own professional protocol. Not a consumer wellness app. RSOS makes no therapeutic claim; claims about effects in people wait for registered human outcome data. See [spec/POSITIONING.md](spec/POSITIONING.md).

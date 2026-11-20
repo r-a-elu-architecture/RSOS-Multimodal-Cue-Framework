@@ -28,7 +28,7 @@ nav a:hover,nav a[aria-current]{color:var(--text)}
 h1{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,4.4vw,3.1rem);line-height:1.08;margin:26px 0 14px;max-width:17em}
 h2{font-family:var(--serif);font-weight:500;font-size:1.7rem;line-height:1.2;margin:0 0 12px}
 h3{font-family:var(--serif);font-weight:500;font-size:1.2rem;margin:0 0 6px}
-.lede{color:#cfd3e4;max-width:42em;font-size:1.08rem;margin:0 0 10px}
+.lede{color:var(--text-2,#cfd3e4);max-width:42em;font-size:1.08rem;margin:0 0 10px}
 .muted{color:var(--muted)}
 section{padding:46px 0;border-top:1px solid var(--line);margin-top:30px}
 .count{display:flex;gap:30px;flex-wrap:wrap;margin:26px 0 6px}
@@ -38,14 +38,14 @@ section{padding:46px 0;border-top:1px solid var(--line);margin-top:30px}
 .held{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
 @media (max-width:860px){.held{grid-template-columns:1fr}}
 .held article{border-top:2px solid var(--pass);padding-top:12px}
-.held p{color:#cfd3e4;margin:0;font-size:.95rem}
+.held p{color:var(--text-2,#cfd3e4);margin:0;font-size:.95rem}
 .filters{display:flex;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;width:max-content;margin:18px 0}
 .filters button{font:inherit;font-size:.9rem;background:transparent;color:var(--muted);border:0;padding:7px 14px;cursor:pointer}
 .filters button[aria-pressed="true"]{background:var(--line);color:var(--text)}
 table{border-collapse:collapse;width:100%;font-size:.93rem}
 th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-weight:600;color:var(--muted);font-size:.82rem}
-td{color:#cfd3e4}
+td{color:var(--text-2,#cfd3e4)}
 td:first-child{color:var(--text);width:28%}
 td .tag{display:inline-block;font-size:.75rem;font-weight:650;border-radius:999px;padding:1px 9px;margin-bottom:4px;border:1px solid}
 .fams{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:12px}
@@ -58,7 +58,7 @@ td .tag{display:inline-block;font-size:.75rem;font-weight:650;border-radius:999p
 .chain .lk.pass{border-color:var(--pass);color:var(--pass)} .chain .lk.fail{border-color:var(--fail);color:var(--fail)} .chain .lk.mixed{border-color:var(--mixed);color:var(--mixed)} .chain .lk.analysis{border-color:var(--analysis);color:var(--analysis);border-style:dashed}
 .chain .ar{color:var(--muted)}
 .tag.pass{color:var(--pass);border-color:var(--pass)} .tag.fail{color:var(--fail);border-color:var(--fail)} .tag.mixed{color:var(--mixed);border-color:var(--mixed)} .tag.analysis{color:var(--analysis);border-color:var(--analysis)}
-code{font-size:.85em;color:#dfe3f1}
+code{font-size:.85em;color:var(--text-2,#dfe3f1)}
 .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:20px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 @media (max-width:860px){.ladder{grid-template-columns:1fr 1fr}}
 .ladder div{padding:16px 18px;background:var(--ink-2);border-right:1px solid var(--line)}
@@ -67,14 +67,17 @@ code{font-size:.85em;color:#dfe3f1}
 .ladder span{display:block;font-size:.85rem;color:var(--muted)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 @media (max-width:860px){.two{grid-template-columns:1fr}}
-.two ul{margin:0;padding-left:1.1em;color:#cfd3e4}
+.two ul{margin:0;padding-left:1.1em;color:var(--text-2,#cfd3e4)}
 .two li{margin:5px 0}
-.status{background:var(--ink-2);border-left:3px solid var(--gold);padding:16px 20px;border-radius:0 10px 10px 0;color:#cfd3e4;max-width:48em}
+.status{background:var(--ink-2);border-left:3px solid var(--gold);padding:16px 20px;border-radius:0 10px 10px 0;color:var(--text-2,#cfd3e4);max-width:48em}
 footer{color:var(--muted);font-size:.85rem;padding:30px 0 50px;border-top:1px solid var(--line);margin-top:30px}
 </style>
 <link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="family.css">
+<link rel="stylesheet" href="light.css">
 </head>
 <body>
+<div class="family" role="navigation" aria-label="RSOS family"><div class="fwrap"><b>RSOS</b><a href="https://r-a-elu-architecture.github.io/RSOS-Language/">Core and Language</a><a class="here" href="./">Multimodal Cue Framework</a></div></div>
 <div class="wrap">
 <header class="top">
   <a class="mark" href="./">RSOS</a>

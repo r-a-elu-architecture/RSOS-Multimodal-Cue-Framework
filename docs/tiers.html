@@ -79,7 +79,7 @@ table.m td{border-bottom:1px solid var(--line);padding:4px 6px;vertical-align:to
 table.m td:first-child{font-weight:600;white-space:nowrap}
 pre.raw{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--ink);border:1px solid var(--line);border-radius:6px;padding:12px;max-height:420px;overflow:auto;font-family:ui-monospace,Menlo,Consolas,var(--sym)}
 .btn{display:inline-block;border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 16px;color:var(--text);font:inherit;font-size:.9rem;cursor:pointer;text-decoration:none;margin:4px 8px 0 0}
-.btn.go{background:var(--gold);color:#22170a;border-color:var(--gold);font-weight:650}
+.btn.go{background:var(--gold);color:var(--on-gold,#22170a);border-color:var(--gold);font-weight:650}
 .note{color:var(--muted);font-size:.86rem}
 .empty{color:var(--muted);padding:30px 8px}
 footer{max-width:1280px;margin:50px auto 60px;padding:0 24px;color:var(--muted);font-size:.88rem}
@@ -89,8 +89,11 @@ header.top{flex-direction:column;align-items:flex-start;gap:10px}
 header.top nav{justify-content:flex-start;gap:4px 12px}
 header.top nav a{font-size:.88rem}
 </style>
+<link rel="stylesheet" href="family.css">
+<link rel="stylesheet" href="light.css">
 </head>
 <body>
+<div class="family" role="navigation" aria-label="RSOS family"><div class="fwrap"><b>RSOS</b><a href="https://r-a-elu-architecture.github.io/RSOS-Language/">Core and Language</a><a class="here" href="./">Multimodal Cue Framework</a></div></div>
 <header class="top">
   <a class="mark" href="./">RSOS</a>
   <nav><a href="world.html">World</a><a href="results.html">Results</a><a href="./#protocol">Protocol</a><a href="./#rsx">RSX</a><a href="rsxv.html">RSX-V</a><a href="./#model">Model</a><a href="player.html">Player</a><a href="nodes.html">Nodes</a><a href="anchors.html">Anchors</a><a href="identity.html">Identity</a><a href="atlas.html">Atlas</a><a href="night.html">Night</a><a href="trials.html">Trials</a><a href="therapist.html">Therapist</a><a href="device.html">Devices</a><a href="agents.html">Agents</a><a href="contribute.html">Contribute</a><a href="safety.html">Safety</a><a href="tiers.html" aria-current="page">Tier ledger</a><a href="metrics.html">Metrics</a><a href="system.html">System</a><a href="glyphs.html">Glyphs</a><a href="roadmap.html">Roadmap</a><a href="https://github.com/r-a-elu-architecture/RSOS-Multimodal-Cue-Framework">GitHub</a></nav>

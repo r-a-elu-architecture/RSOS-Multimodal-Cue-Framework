@@ -1,0 +1,223 @@
+/* RSOS family design system, shared with the RSOS Language site (same author, Apache 2.0; spec/SITE_FAMILY.md).
+   No external fonts are loaded on this site (privacy): the type stack falls back to the system face.
+   --green is #0f7553 here, darker than the Language's #12805c, so green text on --green-2 meets WCAG AA (4.92:1; was 4.25:1).
+   RSOS site. Concept: the ledger and the digest. Cool slate paper, deep ink, the green dot reserved for verified
+   state, amber reserved for predictions, red reserved for failures. One type family; monospace only for code. */
+:root{
+  --ground:#f3f6f8; --surface:#ffffff; --ink:#0e2233; --ink-2:#2b3f52; --slate:#56677a; --rule:#d3dce4;
+  --green:#0f7553; --green-2:#e2f2ec; --amber:#9a5b00; --amber-2:#fbf0dd; --red:#b03a2e; --red-2:#f8e5e2;
+  --sans:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --muted:#56677a; --cue-navy:#151b2f; --cue-gold:#e8b04a; --cue-text:#e7e9f2; --cue-muted:#c3c9dc; --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --step--1:.875rem; --step-0:1.0625rem; --step-1:1.3rem; --step-2:1.65rem; --step-3:2.1rem; --step-4:clamp(2.3rem,4.6vw,3.3rem);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 var(--step-0)/1.6 var(--sans);font-feature-settings:"tnum" 0}
+a{color:var(--green);text-underline-offset:.18em}
+a:hover{color:var(--ink)}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;background:var(--surface);padding:6px 10px;z-index:9}
+
+/* family row: the two public RSOS sites */
+.family{border-bottom:1px solid var(--rule);font-size:var(--step--1);color:var(--slate)}
+.family .wrap{display:flex;gap:20px;align-items:center;min-height:36px;flex-wrap:wrap}
+.family b{color:var(--ink);font-weight:700}
+.family a{color:var(--slate);text-decoration:none}
+.family a:hover{color:var(--ink)}
+.family .here{color:var(--ink)}
+
+header.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:16px;flex-wrap:wrap}
+.mark{font-weight:700;font-size:1.15rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px var(--green-2);display:inline-block;flex:none}
+nav.main{display:flex;flex-wrap:wrap;align-items:center;gap:4px 20px}
+nav.main a{color:var(--ink-2);text-decoration:none;font-size:.95rem;padding:4px 0}
+nav.main a:hover{color:var(--ink)}
+nav.main a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--green)}
+nav.main a.gh{border:1px solid var(--rule);border-radius:6px;padding:5px 12px;background:var(--surface)}
+
+h1{font-weight:700;font-size:var(--step-4);line-height:1.08;letter-spacing:-.025em;margin:0 0 20px;max-width:16em}
+h2{font-weight:700;font-size:var(--step-3);line-height:1.15;letter-spacing:-.015em;margin:0 0 14px}
+h3{font-weight:700;font-size:var(--step-1);line-height:1.25;margin:0 0 6px}
+p{max-width:40em}
+.lead{font-size:var(--step-1);line-height:1.5;color:var(--ink-2);max-width:32em;margin:0 0 28px}
+.intro{color:var(--ink-2);max-width:42em;margin:0 0 28px}
+.muted{color:var(--slate)}
+.small{font-size:var(--step--1)}
+section{padding:64px 0;border-top:1px solid var(--rule)}
+.hero{padding:44px 0 64px}
+
+.cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;border-radius:6px;padding:11px 18px;margin:6px 8px 6px 0}
+.cta:hover{background:var(--green);color:#fff}
+.cta.quiet{background:var(--surface);color:var(--ink);border:1px solid var(--rule)}
+.cta.quiet:hover{border-color:var(--ink)}
+
+/* hero: the claim, shown */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+.proof{background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.proof [role=tablist]{display:flex;border-bottom:1px solid var(--rule)}
+.proof [role=tab]{flex:1;font:700 var(--step--1) var(--sans);color:var(--slate);background:var(--ground);border:0;border-right:1px solid var(--rule);padding:11px 12px;cursor:pointer;text-align:left}
+.proof [role=tab]:last-child{border-right:0}
+.proof [role=tab][aria-selected=true]{background:var(--surface);color:var(--ink);box-shadow:inset 0 -2px 0 var(--ink)}
+.proof pre{border-radius:0;margin:0;min-height:9.6em;overflow-x:auto;font-size:.82rem}
+.proof .digest{display:flex;align-items:center;gap:12px;padding:14px 16px;border-top:1px solid var(--rule);flex-wrap:wrap}
+.proof .digest code{font-size:1rem;background:var(--green-2);color:var(--green);padding:3px 9px;border-radius:5px;font-weight:600}
+.proof .digest span{color:var(--slate);font-size:var(--step--1)}
+.proof table{background:none;font-size:.86rem}
+.proof .state{padding:4px 16px 14px}
+.proof .state td:last-child{font-weight:700}
+.proof .state tr.chg td:last-child{color:var(--green)}
+.proof figcaption{padding:0 16px 14px;color:var(--slate);font-size:var(--step--1)}
+
+/* measured: a small ledger, not a stat wall */
+.measured{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:2px solid var(--ink);margin-top:34px}
+.measured div{padding:14px 18px 4px 0}
+.measured b{display:block;font-size:var(--step-2);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.measured span{color:var(--ink-2);font-size:.95rem}
+
+/* the prediction timeline: a true sequence */
+ol.timeline{list-style:none;margin:8px 0 0;padding:0;border-left:2px solid var(--rule)}
+ol.timeline li{position:relative;padding:0 0 26px 26px;max-width:46em}
+ol.timeline li::before{content:"";position:absolute;left:-7px;top:.45em;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--amber)}
+ol.timeline li.hit::before{background:var(--green);border-color:var(--green)}
+ol.timeline time{display:block;font-variant-numeric:tabular-nums;color:var(--slate);font-size:var(--step--1)}
+ol.timeline .k{font-weight:700}
+ol.timeline li.pred .k{color:var(--amber)}
+ol.timeline li.hit .k{color:var(--green)}
+
+/* audience doors */
+dl.doors{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr) auto;margin:0;border-top:1px solid var(--rule)}
+dl.doors dt,dl.doors dd{margin:0;padding:18px 16px 18px 0;border-bottom:1px solid var(--rule)}
+dl.doors dt{font-weight:700}
+dl.doors dd{color:var(--ink-2)}
+dl.doors dd.go{white-space:nowrap;padding-right:0}
+
+/* the three layers */
+.layers{display:grid;gap:0;max-width:760px}
+.layer{border:1px solid var(--rule);background:var(--surface);padding:16px 20px;display:grid;grid-template-columns:9em 1fr;gap:16px;align-items:baseline}
+.layer + .layer{border-top:0}
+.layer b{font-size:var(--step-1)}
+.layer.core{border-left:4px solid var(--green)}
+.layer .arrow{grid-column:2;color:var(--slate);font-size:var(--step--1)}
+
+ol.steps{margin:0;padding-left:1.4em;max-width:44em;color:var(--ink-2)}
+ol.steps li{margin:0 0 12px;padding-left:4px}
+ol.steps li::marker{font-weight:700;color:var(--ink)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:20px}
+.card p{margin:0;color:var(--ink-2)}
+.card a.more{display:inline-block;margin-top:10px;font-size:.92rem}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+
+pre{background:var(--ink);color:#e4ebf2;border-radius:8px;padding:16px 18px;overflow:auto;font:13.5px/1.65 var(--mono);margin:0}
+pre .k{color:#8fdcb8} pre .c{color:#93a4b6}
+code{font:.88em var(--mono);background:#e6edf2;padding:1px 5px;border-radius:4px}
+pre code{background:none;padding:0;color:inherit}
+
+.tw{overflow-x:auto;margin:8px 0 6px;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--surface)}
+th,td{border-bottom:1px solid var(--rule);padding:9px 10px;text-align:left;vertical-align:top}
+thead th{font-weight:700;border-bottom:2px solid var(--ink);white-space:nowrap}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.us td{background:var(--green-2)}
+.pass{color:var(--green);font-weight:700}
+.fail{color:var(--red);font-weight:700}
+.tag{display:inline-block;font-size:.75rem;border-radius:4px;padding:1px 8px;border:1px solid var(--rule);color:var(--slate);white-space:nowrap}
+.tag.pass{border-color:var(--green);background:var(--green-2)}
+.tag.fail{border-color:var(--red);background:var(--red-2)}
+.tag.pred{border-color:var(--amber);background:var(--amber-2);color:var(--amber)}
+.note{border-left:3px solid var(--amber);padding:4px 0 4px 16px;color:var(--ink-2);max-width:46em;margin:18px 0}
+ul.plain{margin:0;padding-left:1.1em;color:var(--ink-2)}
+ul.plain li{margin:6px 0}
+dl.doi{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0}
+dl.doi dt{color:var(--slate)} dl.doi dd{margin:0;font-family:var(--mono);font-size:.9rem;word-break:break-all}
+.props{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 44px}
+.props h3{font-size:1.1rem}
+.props p{margin:0;color:var(--ink-2)}
+
+footer{border-top:1px solid var(--rule);padding:30px 0 50px;color:var(--slate);font-size:var(--step--1)}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer p{margin:0 0 4px}
+
+@media (max-width:860px){
+  .hero-grid,.split,.props{grid-template-columns:1fr}
+  .measured{grid-template-columns:1fr}
+  dl.doors{grid-template-columns:1fr}
+  dl.doors dt{border-bottom:0;padding-bottom:2px}
+  dl.doors dd{border-bottom:0;padding:2px 0}
+  dl.doors dd.go{border-bottom:1px solid var(--rule);padding-bottom:16px}
+  .layer{grid-template-columns:1fr;gap:4px}
+  .layer .arrow{grid-column:1}
+}
+@media (max-width:640px){
+  .wrap{padding:0 18px}
+  section{padding:44px 0}
+  body{font-size:16px}
+  table{font-size:.82rem}
+  th,td{padding:6px 7px}
+  thead th{white-space:normal}
+  .tw::before{content:"Scroll the table sideways to see every column";display:block;font-size:.75rem;color:var(--slate);margin-bottom:4px}
+}
+@media print{.family,nav.main,.cta,.proof [role=tablist]{display:none}body{background:#fff}}
+
+/* generated operations table and code comments */
+pre .c{color:var(--slate)}
+table.ops caption{caption-side:bottom;text-align:left;padding-top:8px;font-size:.85rem;color:var(--slate)}
+table.ops tr.outside td{color:var(--slate)}
+table.ops td:first-child{min-width:15em}
+table.ops code.op{font-weight:600;background:none;padding:0}
+table.ops .sig{display:block;font-family:var(--mono,monospace);font-size:.78rem;color:var(--slate);margin-top:4px}
+footer p{margin:0 0 4px}
+nav.main a.gh{margin-left:auto}
+dl.doors dd.go a + a{margin-left:16px}
+
+/* ---- Cue Framework additions (spec/SITE_FAMILY.md F1) ---- */
+/* the protocol: a true sequence of eleven phases */
+ol.phases{list-style:none;counter-reset:ph;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0;border-top:1px solid var(--rule)}
+ol.phases li{counter-increment:ph;padding:14px 16px 14px 0;border-bottom:1px solid var(--rule)}
+ol.phases li::before{content:counter(ph);display:inline-block;min-width:1.6em;font-weight:700;color:var(--slate);font-variant-numeric:tabular-nums}
+ol.phases b{font-weight:700}
+ol.phases span{display:block;color:var(--ink-2);font-size:.95rem;margin-top:2px}
+/* domain cards (filled by js/profiles.js) */
+.pcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:14px}
+.pcard{text-align:left;padding:14px 16px;border:1px solid var(--rule);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;font:inherit}
+.pcard:hover{border-color:var(--ink)}
+.pcard b{display:block;margin-bottom:4px}
+.pcard span{font-size:var(--step--1);color:var(--ink-2)}
+.pcard.on{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
+/* generated evidence summary */
+p.evidence{max-width:42em}
+/* positioning block */
+.status{background:var(--surface);border:1px solid var(--rule);border-left:4px solid var(--ink);border-radius:8px;padding:18px 20px;max-width:46em}
+.status p{margin:0 0 10px}.status p:last-child{margin:0}
+.proof .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule)}
+.proof .meta div{padding:12px 16px;border-right:1px solid var(--rule)}
+.proof .meta div:last-child{border-right:0}
+.proof .meta b{display:block;font-size:var(--step-1);font-variant-numeric:tabular-nums}
+.proof .meta span{color:var(--slate);font-size:var(--step--1)}
+.proof .err{padding:12px 16px;border-top:1px solid var(--rule);font-size:var(--step--1);color:var(--ink-2)}
+.proof .err code{background:var(--red-2);color:var(--red)}
+@media (max-width:640px){.proof .meta{grid-template-columns:1fr}.proof .meta div{border-right:0;border-bottom:1px solid var(--rule)}}
+/* doors with several links (Every part): links wrap instead of widening the page */
+dl.doors{grid-template-columns:minmax(0,13em) minmax(0,1fr) minmax(0,20em)}
+dl.doors dd.go{white-space:normal}
+dl.doors dd.go a{display:inline-block;margin:0 16px 4px 0}
+dl.doors dd.go a + a{margin-left:0}
+@media (max-width:860px){dl.doors{grid-template-columns:1fr}}
+.proof pre{white-space:pre-wrap;word-break:break-word}
+/* the Cue Framework's ribbon: the site's original navy and gold, on the shared white family design */
+.ribbon{background:var(--cue-navy);border-bottom:3px solid var(--cue-gold);color:var(--cue-text)}
+.ribbon .mark{color:#fff}
+.ribbon .dot{background:var(--cue-gold);box-shadow:0 0 0 4px rgba(232,176,74,.25)}
+.ribbon nav.main a{color:var(--cue-muted)}
+.ribbon nav.main a:hover{color:#fff}
+.ribbon nav.main a[aria-current]{color:#fff;box-shadow:inset 0 -2px 0 var(--cue-gold)}
+.ribbon nav.main a.gh{background:transparent;border-color:rgba(231,233,242,.35);color:#fff}
+.ribbon nav.main a.gh:hover{border-color:var(--cue-gold)}
+.ribbon :focus-visible{outline-color:var(--cue-gold)}
+.ribbon .profilebar,.ribbon .profilebar label{color:var(--cue-muted)}
+.ribbon select{background:#1d2540;color:var(--cue-text);border:1px solid #2e3858;border-radius:4px}
+.cta:hover{background:var(--cue-navy)}
+.cta{border-bottom:2px solid var(--cue-gold)}
+.cta.quiet{border-bottom:1px solid var(--rule)}

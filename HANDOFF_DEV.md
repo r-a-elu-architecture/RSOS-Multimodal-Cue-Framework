@@ -21,6 +21,9 @@ history.
   development framework; not a medical device, and not for use in an emergency: if you are at risk of harm, contact
   your local emergency services." on the README, `docs/safety.html` and `docs/therapist.html` only. Acute risk always
   runs under a qualified clinician's protocol.
+- **Positioning** (spec/POSITIONING.md, 20 Nov 2026): research operating system and supervised practitioner tool, not a
+  consumer wellness app. No therapeutic, diagnostic or health-benefit claim without registered human outcome data. The
+  intended-use sentence is shown on the README, index, safety, therapist and player pages (rsso/tests/test_positioning.py).
 - **Public repository stays neutral:** no personal, spiritual, substance or security content; only aggregates
   from private material.
 

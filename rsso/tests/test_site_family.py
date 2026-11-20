@@ -53,6 +53,7 @@ class TestSiteFamily(unittest.TestCase):
         pairs = [("ink", "ground"), ("ink", "surface"), ("ink-2", "ground"), ("ink-2", "surface"), ("slate", "ground"),
                  ("slate", "surface"), ("green", "ground"), ("green", "surface"), ("amber", "amber-2"), ("red", "red-2"),
                  ("green", "green-2")]
+        pairs += [("cue-text", "cue-navy"), ("cue-muted", "cue-navy")]          # text on the ribbon
         low = {f"{a} on {b}": round(ratio(tok[a], tok[b]), 2) for a, b in pairs if ratio(tok[a], tok[b]) < 4.5}
         self.assertEqual(low, {})
 

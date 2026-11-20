@@ -7,7 +7,7 @@
   --ground:#f3f6f8; --surface:#ffffff; --ink:#0e2233; --ink-2:#2b3f52; --slate:#56677a; --rule:#d3dce4;
   --green:#0f7553; --green-2:#e2f2ec; --amber:#9a5b00; --amber-2:#fbf0dd; --red:#b03a2e; --red-2:#f8e5e2;
   --sans:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --muted:#56677a; --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --muted:#56677a; --cue-navy:#151b2f; --cue-gold:#e8b04a; --cue-text:#e7e9f2; --cue-muted:#c3c9dc; --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
   --step--1:.875rem; --step-0:1.0625rem; --step-1:1.3rem; --step-2:1.65rem; --step-3:2.1rem; --step-4:clamp(2.3rem,4.6vw,3.3rem);
 }
 *{box-sizing:border-box}
@@ -206,3 +206,18 @@ dl.doors dd.go a{display:inline-block;margin:0 16px 4px 0}
 dl.doors dd.go a + a{margin-left:0}
 @media (max-width:860px){dl.doors{grid-template-columns:1fr}}
 .proof pre{white-space:pre-wrap;word-break:break-word}
+/* the Cue Framework's ribbon: the site's original navy and gold, on the shared white family design */
+.ribbon{background:var(--cue-navy);border-bottom:3px solid var(--cue-gold);color:var(--cue-text)}
+.ribbon .mark{color:#fff}
+.ribbon .dot{background:var(--cue-gold);box-shadow:0 0 0 4px rgba(232,176,74,.25)}
+.ribbon nav.main a{color:var(--cue-muted)}
+.ribbon nav.main a:hover{color:#fff}
+.ribbon nav.main a[aria-current]{color:#fff;box-shadow:inset 0 -2px 0 var(--cue-gold)}
+.ribbon nav.main a.gh{background:transparent;border-color:rgba(231,233,242,.35);color:#fff}
+.ribbon nav.main a.gh:hover{border-color:var(--cue-gold)}
+.ribbon :focus-visible{outline-color:var(--cue-gold)}
+.ribbon .profilebar,.ribbon .profilebar label{color:var(--cue-muted)}
+.ribbon select{background:#1d2540;color:var(--cue-text);border:1px solid #2e3858;border-radius:4px}
+.cta:hover{background:var(--cue-navy)}
+.cta{border-bottom:2px solid var(--cue-gold)}
+.cta.quiet{border-bottom:1px solid var(--rule)}

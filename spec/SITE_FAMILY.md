@@ -56,3 +56,9 @@ and every link destination it had (moved, not removed).
 - Deliberate difference from the Language site: no external fonts are loaded here (privacy: a font request to Google would
   disclose every visitor's address on a site that promises nothing leaves the device).
 - F2 remains: the tool pages keep their own dark styles under the family bar until each is moved onto the shared design.
+
+## F1 amendment (20 November 2026, author's decision): the Cue Framework's ribbon
+Both sites stay white (the shared family design). The Cue Framework's own header becomes a ribbon in its original colours:
+navy #151b2f with a 3 px gold #e8b04a edge, a gold dot, light menu text (10.3:1 contrast) and a gold underline on primary
+buttons. The family bar above it stays the shared light grey. Checks re-run after the change: unit tests, `check_profiles`,
+`check_site_catchup`, `check_fixes_r1`, `check_evidence` pass; overflow 0 px at 1280 and 375 px. F2 carries the ribbon to every page.

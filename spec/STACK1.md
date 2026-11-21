@@ -79,3 +79,33 @@ simulator). It makes no claim about effects in people.
 ## 7. Files and run
 `scripts/stack1.py` (harness), `scripts/stack1_inputs.json` (messages), `rsso/tests/test_stack1.py` (checks the predictions
 on the recorded results), results in `spec/stack1/results.json` and section 8 of this file (added after the run).
+
+## 8. Results (21 November 2026), added after the run; nothing above was changed
+Run: `python3 scripts/stack1.py spec/stack1/results.json` (5.3 s). `rsso/tests/test_stack1.py` checks that a fresh run
+reproduces the recorded results exactly (the results reproduce byte for byte; every run is deterministic).
+
+| Prediction | Result | Measured |
+|---|---|---|
+| **P1** Full stack catches every fault | **Pass** | 140 of 140 cases caught; 0 harmful outcomes in all 14 classes |
+| **P2** Each layer necessary, exactly as predicted | **Fail** (4 of 5 layers as predicted) | RSX-V → {F2, F14}, RSX → none, RSIA → {F7, F8, F9, F10, F12}, RSSO → {F3, F4, F5, F13}: all exactly as predicted, every case. **LINX → none, predicted {F11}:** with the router removed, the model's start field reached the system, but the RSIA Watchdog asked the person (an agent-originated run) in 10 of 10 cases, so nothing started |
+| **P3** Defence in depth | **Pass** | F1 got through only with RSX and RSSO both removed (10/10; 0 with either alone); F6 only with RSIA and RSSO both removed (10/10; 0 with either alone) |
+| **P4** Baseline with no layers | **Pass** | 140 of 140 harmful |
+| **P5** Clean runs | **Fail** | Lineage complete 24/24; deterministic 103/103; VAKOG silent drops **0**; false refusals of self-started runs **0**. Failed on the firmware criterion: 49 runs (`node_lion.rsx` and the 48 VAKOG programs that contain smell or taste) had a firmware `REFUSED … consent` line |
+
+**What the failures say.**
+- P2 (LINX): the prediction was wrong about the architecture, in the safe direction. F11 has **two** catching layers, not one:
+  the LINX router, and the RSIA Watchdog behind it, which asks the person about any agent-originated run. The router is the
+  first line; the Watchdog is a second line the prediction did not count.
+- P5: the criterion was written wrongly. The firmware core refuses scent and taste output without the person's consent,
+  which is its safety rule (`rsso/rsso/protocol.py`, `CONSENT`), and the harness never sends a consent line to the
+  firmware; the registered rule counted that correct refusal as a failure. Every firmware line in all 103 runs was checked:
+  the only kind present is `REFUSED <t> O|G consent`. **Exploratory, not graded:** counting a consent refusal as a correct
+  refusal, 41 of 41 clean runs and 62 of 62 VAKOG runs pass.
+- Harness rules decided while building, disclosed: device-started fault runs (F4, F5) are confirmed by the person, so the
+  governor alone is tested; agent-started runs (F7, F8, F11) are not confirmed; clean runs use the research domain with a
+  clinician present, F10 a self-guided domain.
+
+**What STACK1 shows.** One input passes through all five layers to the devices and the firmware, deterministically, with
+every vector traced to its clause and no silent loss on any of the five VAKOG channels. Each safety rule is enforced by the
+layer the architecture assigns it to, and the three rules that matter most for a person (intensity, the device envelope and
+model-originated starts) are held by two layers each. Simulation only; no claim about people.

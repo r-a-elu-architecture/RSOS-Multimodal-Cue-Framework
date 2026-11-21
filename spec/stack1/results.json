@@ -1,0 +1,3834 @@
+{
+ "faults": {
+  "full": {
+   "F1": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX: line 14: haptic amp 0.6 exceeds SAFETY haptic_max 0.4"
+    ]
+   },
+   "F2": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V: electrical stimulation is out of scope: @Vector99:DeviceOutp"
+    ]
+   },
+   "F3": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "cue c_m01: no consent record",
+     "cue c_m02: no consent record",
+     "cue c_m03: no consent record"
+    ]
+   },
+   "F4": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "device triggering needs the person's opt-in"
+    ]
+   },
+   "F5": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "refractory period"
+    ]
+   },
+   "F6": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F7": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Spine: rei"
+    ]
+   },
+   "F8": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog ask"
+    ]
+   },
+   "F9": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F10": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "LINX: start_now rejected"
+    ]
+   },
+   "F12": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "audit log verification failed"
+    ]
+   },
+   "F13": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "ended at Stop"
+    ]
+   },
+   "F14": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V lineage: 14 vectors without lineage",
+     "RSX-V lineage: 15 vectors without lineage"
+    ]
+   }
+  },
+  "-linx": {
+   "F1": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX: line 14: haptic amp 0.6 exceeds SAFETY haptic_max 0.4"
+    ]
+   },
+   "F2": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V: electrical stimulation is out of scope: @Vector99:DeviceOutp"
+    ]
+   },
+   "F3": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "cue c_m01: no consent record",
+     "cue c_m02: no consent record",
+     "cue c_m03: no consent record"
+    ]
+   },
+   "F4": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "device triggering needs the person's opt-in"
+    ]
+   },
+   "F5": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "refractory period"
+    ]
+   },
+   "F6": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F7": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Spine: rei"
+    ]
+   },
+   "F8": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog ask"
+    ]
+   },
+   "F9": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F10": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog ask"
+    ]
+   },
+   "F12": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "audit log verification failed"
+    ]
+   },
+   "F13": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "ended at Stop"
+    ]
+   },
+   "F14": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V lineage: 14 vectors without lineage",
+     "RSX-V lineage: 15 vectors without lineage"
+    ]
+   }
+  },
+  "-rsxv": {
+   "F1": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX: line 14: haptic amp 0.6 exceeds SAFETY haptic_max 0.4"
+    ]
+   },
+   "F2": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "electrical vector compiled"
+    ]
+   },
+   "F3": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "cue c_m01: no consent record",
+     "cue c_m02: no consent record",
+     "cue c_m03: no consent record"
+    ]
+   },
+   "F4": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "device triggering needs the person's opt-in"
+    ]
+   },
+   "F5": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "refractory period"
+    ]
+   },
+   "F6": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F7": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Spine: rei"
+    ]
+   },
+   "F8": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog ask"
+    ]
+   },
+   "F9": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F10": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "LINX: start_now rejected"
+    ]
+   },
+   "F12": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "audit log verification failed"
+    ]
+   },
+   "F13": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "ended at Stop"
+    ]
+   },
+   "F14": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "ok"
+    ]
+   }
+  },
+  "-rsx": {
+   "F1": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "ok"
+    ]
+   },
+   "F2": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V: electrical stimulation is out of scope: @Vector99:DeviceOutp"
+    ]
+   },
+   "F3": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "cue c_m01: no consent record",
+     "cue c_m02: no consent record",
+     "cue c_m03: no consent record"
+    ]
+   },
+   "F4": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "device triggering needs the person's opt-in"
+    ]
+   },
+   "F5": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "refractory period"
+    ]
+   },
+   "F6": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F7": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Spine: rei"
+    ]
+   },
+   "F8": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog ask"
+    ]
+   },
+   "F9": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F10": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "LINX: start_now rejected"
+    ]
+   },
+   "F12": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "audit log verification failed"
+    ]
+   },
+   "F13": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "ended at Stop"
+    ]
+   },
+   "F14": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V lineage: 14 vectors without lineage",
+     "RSX-V lineage: 15 vectors without lineage"
+    ]
+   }
+  },
+  "-rsia": {
+   "F1": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX: line 14: haptic amp 0.6 exceeds SAFETY haptic_max 0.4"
+    ]
+   },
+   "F2": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V: electrical stimulation is out of scope: @Vector99:DeviceOutp"
+    ]
+   },
+   "F3": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "cue c_m01: no consent record",
+     "cue c_m02: no consent record",
+     "cue c_m03: no consent record"
+    ]
+   },
+   "F4": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "device triggering needs the person's opt-in"
+    ]
+   },
+   "F5": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "refractory period"
+    ]
+   },
+   "F6": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "outside the device safety envelope: haptic_amp_max is 0.9, the limit is 0.6; outside the device safety envelope: tone_hz is 3000, the limit is 60-2000; outside the device safety envelope: tone_ms_max is 12000, the limit is 10000; outside the device safety envelope: haptic_amp_max is 0.9, the limit is 0.6; outside the device safety envelope: haptic_pulse_ms_max is 1500, the limit is 1000; outside the device safety envelope: haptic_burst_ms_max is 10000, the limit is 6000; outside the device safety envelope: haptic_on_ms_per_run is 25500, the limit is 20000"
+    ]
+   },
+   "F7": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "ok"
+    ]
+   },
+   "F8": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "ok"
+    ]
+   },
+   "F9": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "ok"
+    ]
+   },
+   "F10": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "ok"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "LINX: start_now rejected"
+    ]
+   },
+   "F12": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "ok"
+    ]
+   },
+   "F13": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "ended at Stop"
+    ]
+   },
+   "F14": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V lineage: 14 vectors without lineage",
+     "RSX-V lineage: 15 vectors without lineage"
+    ]
+   }
+  },
+  "-rsso": {
+   "F1": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX: line 14: haptic amp 0.6 exceeds SAFETY haptic_max 0.4"
+    ]
+   },
+   "F2": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V: electrical stimulation is out of scope: @Vector99:DeviceOutp"
+    ]
+   },
+   "F3": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F4": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F5": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F6": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F7": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Spine: rei"
+    ]
+   },
+   "F8": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog ask"
+    ]
+   },
+   "F9": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F10": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "LINX: start_now rejected"
+    ]
+   },
+   "F12": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "audit log verification failed"
+    ]
+   },
+   "F13": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "audio,display"
+    ]
+   },
+   "F14": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V lineage: 14 vectors without lineage",
+     "RSX-V lineage: 15 vectors without lineage"
+    ]
+   }
+  },
+  "-rsx-rsso": {
+   "F1": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F2": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V: electrical stimulation is out of scope: @Vector99:DeviceOutp"
+    ]
+   },
+   "F3": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F4": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F5": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F6": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F7": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Spine: rei"
+    ]
+   },
+   "F8": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog ask"
+    ]
+   },
+   "F9": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F10": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "Watchdog hold"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "LINX: start_now rejected"
+    ]
+   },
+   "F12": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "audit log verification failed"
+    ]
+   },
+   "F13": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "audio,display"
+    ]
+   },
+   "F14": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V lineage: 14 vectors without lineage",
+     "RSX-V lineage: 15 vectors without lineage"
+    ]
+   }
+  },
+  "-rsia-rsso": {
+   "F1": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX: line 14: haptic amp 0.6 exceeds SAFETY haptic_max 0.4"
+    ]
+   },
+   "F2": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V: electrical stimulation is out of scope: @Vector99:DeviceOutp"
+    ]
+   },
+   "F3": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F4": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F5": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F6": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F7": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F8": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F9": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F10": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F11": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "LINX: start_now rejected"
+    ]
+   },
+   "F12": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F13": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "audio,display"
+    ]
+   },
+   "F14": {
+    "harmful": 0,
+    "cases": 10,
+    "why": [
+     "RSX-V lineage: 14 vectors without lineage",
+     "RSX-V lineage: 15 vectors without lineage"
+    ]
+   }
+  },
+  "none": {
+   "F1": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F2": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "electrical vector compiled"
+    ]
+   },
+   "F3": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F4": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F5": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F6": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F7": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F8": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F9": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F10": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F11": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F12": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   },
+   "F13": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "audio,display"
+    ]
+   },
+   "F14": {
+    "harmful": 10,
+    "cases": 10,
+    "why": [
+     "naive"
+    ]
+   }
+  }
+ },
+ "clean_messages": [
+  {
+   "protocol": "stack1_m01",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m01",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m02",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m02",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m03",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m03",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m04",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m04",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m05",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 72,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m05",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m06",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m06",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m07",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m07",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m08",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m08",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m09",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m09",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m10",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m10",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m11",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m11",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m12",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m12",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m13",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m13",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m14",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m14",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m15",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m15",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m16",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m16",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m17",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 78,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m17",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m18",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m18",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m19",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m19",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m20",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m20",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m21",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 78,
+     "auditory": 36,
+     "kinesthetic": 84,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 27,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m21",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m22",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m22",
+   "linx_nodes": 1
+  },
+  {
+   "protocol": "stack1_m23",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 30,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m23",
+   "linx_nodes": 0
+  },
+  {
+   "protocol": "stack1_m24",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 60,
+     "auditory": 18,
+     "kinesthetic": 66,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 9,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "id": "m24",
+   "linx_nodes": 0
+  }
+ ],
+ "clean_protocols": [
+  {
+   "protocol": "interrupt_only",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 2,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "interrupt_only.rsx"
+  },
+  {
+   "protocol": "legacy_tier8",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 2,
+     "auditory": 1,
+     "kinesthetic": 2,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 1,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "legacy_vector.rsx"
+  },
+  {
+   "protocol": "node_lion",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 4,
+     "auditory": 4,
+     "kinesthetic": 5,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 1,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "file": "node_lion.rsx"
+  },
+  {
+   "protocol": "node_observer",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 3,
+     "auditory": 2,
+     "kinesthetic": 3,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 1,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "node_observer.rsx"
+  },
+  {
+   "protocol": "override",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 11,
+     "auditory": 6,
+     "kinesthetic": 10,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 1,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "override.rsx"
+  },
+  {
+   "protocol": "paced_breathing",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 11,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "paced_breathing.rsx"
+  },
+  {
+   "protocol": "ssit_calm",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 27,
+     "auditory": 15,
+     "kinesthetic": 14,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "ssit_calm.rsx"
+  },
+  {
+   "protocol": "ssit_higher",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 27,
+     "auditory": 15,
+     "kinesthetic": 14,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "ssit_higher.rsx"
+  },
+  {
+   "protocol": "ssit_local",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 27,
+     "auditory": 15,
+     "kinesthetic": 14,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "ssit_local.rsx"
+  },
+  {
+   "protocol": "swish",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 15,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "swish.rsx"
+  },
+  {
+   "protocol": "tier003_command_stack",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 3,
+     "auditory": 4,
+     "kinesthetic": 3,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 1,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "tier003_command_stack.rsx"
+  },
+  {
+   "protocol": "tier012_breath_anchor",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 3,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "tier012_breath_anchor.rsx"
+  },
+  {
+   "protocol": "tier013_lion_dragon",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 4,
+     "auditory": 5,
+     "kinesthetic": 10,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 2,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "tier013_lion_dragon.rsx"
+  },
+  {
+   "protocol": "tier014_seal",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 3,
+     "auditory": 2,
+     "kinesthetic": 3,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 1,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "tier014_seal.rsx"
+  },
+  {
+   "protocol": "tier016_stillness",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 2,
+     "kinesthetic": 3,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "tier016_stillness.rsx"
+  },
+  {
+   "protocol": "tier406_release",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 3,
+     "kinesthetic": 5,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "tier406_release.rsx"
+  },
+  {
+   "protocol": "tier579_glyph",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 2,
+     "auditory": 1,
+     "kinesthetic": 3,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 1,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "file": "tier579_glyph.rsx"
+  }
+ ],
+ "vakog_programs": [
+  {
+   "protocol": "vakog_01",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "V",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_01",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "V",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_02",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "A",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_02",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "A",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_03",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "VA",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_03",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "VA",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_04",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "K",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_04",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "K",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_05",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "VK",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_05",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "VK",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_06",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "AK",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_06",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "AK",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_07",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "VAK",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_07",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 0,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": true,
+   "subset": "VAK",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_08",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "O",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_08",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "O",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_09",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VO",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_09",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VO",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_10",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AO",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_10",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AO",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_11",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAO",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_11",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAO",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_12",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "KO",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_12",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "KO",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_13",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VKO",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_13",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VKO",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_14",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AKO",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_14",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AKO",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_15",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAKO",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_15",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 0
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAKO",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_16",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "G",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_16",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "G",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_17",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_17",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_18",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_18",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_19",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_19",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_20",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "KG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_20",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "KG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_21",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VKG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_21",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VKG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_22",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AKG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_22",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AKG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_23",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 1,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAKG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_23",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 1,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 0,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAKG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_24",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "OG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_24",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "OG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_25",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VOG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_25",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VOG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_26",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AOG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_26",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AOG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_27",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAOG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_27",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 0,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAOG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_28",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "KOG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_28",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "KOG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_29",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VKOG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_29",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 0,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VKOG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_30",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AKOG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_30",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 0,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "AKOG",
+   "confirmed": true
+  },
+  {
+   "protocol": "vakog_31",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 2,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAKOG",
+   "confirmed": false
+  },
+  {
+   "protocol": "vakog_31",
+   "watch": "allow",
+   "started": true,
+   "completed": true,
+   "reason": "ok",
+   "firmware_errors": 2,
+   "log_ok": true,
+   "deterministic": true,
+   "vakog": {
+    "events": {
+     "visual": 1,
+     "auditory": 1,
+     "kinesthetic": 1,
+     "olfactory": 1,
+     "gustatory": 1
+    },
+    "documented_skips": 0,
+    "refused_with_reason": 0,
+    "silent_drops": 0,
+    "unexpected": 0
+   },
+   "passed": false,
+   "subset": "VAKOG",
+   "confirmed": true
+  }
+ ],
+ "lineage": [
+  {
+   "id": "m01",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m02",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m03",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m04",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m05",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m06",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m07",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m08",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m09",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m10",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m11",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m12",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m13",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m14",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m15",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m16",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m17",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m18",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m19",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m20",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m21",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m22",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m23",
+   "ok": true,
+   "why": "ok",
+   "vectors": 15,
+   "unmapped_clauses": []
+  },
+  {
+   "id": "m24",
+   "ok": true,
+   "why": "ok",
+   "vectors": 14,
+   "unmapped_clauses": []
+  }
+ ],
+ "verdict": {
+  "P1": true,
+  "P2": false,
+  "P2_detail": {
+   "linx": {
+    "expected": [
+     "F11"
+    ],
+    "through": [],
+    "ok": false
+   },
+   "rsxv": {
+    "expected": [
+     "F2",
+     "F14"
+    ],
+    "through": [
+     "F2",
+     "F14"
+    ],
+    "ok": true
+   },
+   "rsx": {
+    "expected": [],
+    "through": [],
+    "ok": true
+   },
+   "rsia": {
+    "expected": [
+     "F7",
+     "F8",
+     "F9",
+     "F10",
+     "F12"
+    ],
+    "through": [
+     "F7",
+     "F8",
+     "F9",
+     "F10",
+     "F12"
+    ],
+    "ok": true
+   },
+   "rsso": {
+    "expected": [
+     "F3",
+     "F4",
+     "F5",
+     "F13"
+    ],
+    "through": [
+     "F3",
+     "F4",
+     "F5",
+     "F13"
+    ],
+    "ok": true
+   }
+  },
+  "P3": true,
+  "P4": true,
+  "P5": false,
+  "P5_detail": {
+   "clean_passed": 40,
+   "clean_total": 41,
+   "false_refusals": 0,
+   "vakog_runs_passed": 14,
+   "vakog_runs": 62,
+   "silent_drops": 0,
+   "lineage_complete": 24,
+   "messages": 24,
+   "deterministic": 103,
+   "runs": 103
+  }
+ }
+}
